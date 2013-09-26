@@ -36,8 +36,9 @@ public class CreaterDBContentResolverBean {
 		for (XmlDBTableBean table : tables) {
 			m += "public class " + table.tableName + "Bean{\n";
 			for (XmlDBColumnBean column : table.columnsName) {
-				m += "String " + firstCharLowercase(column.columnName )+ ";//"
-						+ column.columnChineseName+"\n";
+				m+="/** "+ column.columnChineseName+"*/\n";
+				m += "String " + firstCharLowercase(column.columnName )+ ";\n";
+				m += "public String " + firstCharLowercase(column.columnName )+ "_ChineseName=\""+column.columnChineseName+"\";\n";
 			}
 
 			for (XmlDBColumnBean column : table.columnsName) {

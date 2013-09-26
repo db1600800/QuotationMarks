@@ -45,15 +45,17 @@ public class CreaterDBTableDescribe {
 		}
 		className += "DBTableDescribe";
 
+		m += "/**";
+		for (XmlDBTableBean table : tables) {
+			m += table.tableChineseName + "_";
+		}
+		m += "*/\n";
+
 		m += "public final class " + className;
 
 		m += " {";
 
-		m += "//";
-		for (XmlDBTableBean table : tables) {
-			m += table.tableChineseName + "_";
-		}
-		m += "\n";
+
 
 		// public static final String AUTHORITY =
 		// "OrderForm_Deliver_Account_ProductShoppingcarStoreUp_DBTableDescribe_DBContentProvider";
@@ -116,10 +118,11 @@ public class CreaterDBTableDescribe {
 
 			for (XmlDBColumnBean column : table.columnsName) {
 
+				m+="/** "+column.columnChineseName +" */\n";
 				m += "		public static final String "
 						+ column.getSqliteColumnName().toUpperCase() + " = \""
-						+ column.getSqliteColumnName() + "\"; // "
-						+ column.columnChineseName + "\n";
+						+ column.getSqliteColumnName() + "\"; \n";
+
 			}
 
 			m += "}\n";
