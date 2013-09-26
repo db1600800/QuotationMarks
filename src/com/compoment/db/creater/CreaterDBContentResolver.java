@@ -70,6 +70,7 @@ public class CreaterDBContentResolver {
 			// "		values.put(UploadComplete_UploadPart_FileDetail_SendDetail_DBTableDescribe.MessageRecordTable.FILE_LENGTH,\n";
 			// m += "				messageRecord.getFileLength());\n";
 			for (XmlDBColumnBean column : table.columnsName) {
+				m+="//"+column.columnChineseName+"\n";
 				m += "		values.put(" + className + "DBTableDescribe."
 						+ table.tableName + "Table."
 						+ column.getSqliteColumnName().toUpperCase() + ", "
@@ -97,7 +98,7 @@ public class CreaterDBContentResolver {
 			String sqliteid = "";
 			String id = "";
 			for (XmlDBColumnBean column : table.columnsName) {
-
+				m+="//"+column.columnChineseName+"\n";
 				m += "		values.put(" + className + "DBTableDescribe."
 						+ table.tableName + "Table."
 						+ column.getSqliteColumnName().toUpperCase() + ", "
@@ -338,6 +339,7 @@ public class CreaterDBContentResolver {
 
 			//	m += "					String path = cursor.getString(indexOfPath);\n";
 			for (XmlDBColumnBean column : table.columnsName) {
+			m+="//"+column.columnChineseName+"\n";
 			m += "					String "+table.firstCharLowercase(column.columnName)+" = cursor.getString(indexOf"+column.columnName+");\n";
 
 			}
@@ -349,6 +351,7 @@ public class CreaterDBContentResolver {
 
 			//productShoppingcarStoreUpBean.setBuyNumber(buyNumber);
 			for (XmlDBColumnBean column : table.columnsName) {
+				m+="//"+column.columnChineseName+"\n";
 			m+=table.firstCharLowercase(table.tableName)+"Bean.set"+column.columnName+"("+table.firstCharLowercase(column.columnName)+");\n";
 			}
 
