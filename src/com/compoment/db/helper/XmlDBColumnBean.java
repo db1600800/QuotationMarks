@@ -1,4 +1,4 @@
-package com.compoment.db;
+package com.compoment.db.helper;
 // 内部类
 	public class XmlDBColumnBean {
 		public String columnName;

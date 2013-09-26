@@ -1,6 +1,10 @@
-package com.compoment.db;
+package com.compoment.db.creater;
 
 import java.util.List;
+
+import com.compoment.db.helper.XmlDBColumnBean;
+import com.compoment.db.helper.XmlDBParser;
+import com.compoment.db.helper.XmlDBTableBean;
 
 public class CreaterDBContentProvider {
 
@@ -46,7 +50,7 @@ public class CreaterDBContentProvider {
 		}
 
 		m += "/**<provider\n";
-		m += "android:name=\"" + className + "DBContentProvider\"\n";
+		m += "android:name=\"com." + className + "DBContentProvider\"\n";
 		m += "android:authorities=\"" + className + "DBContentProvider\" />\n";
 		m += "*/\n";
 
@@ -398,6 +402,11 @@ public class CreaterDBContentProvider {
 							+ "DBTableDescribe."
 							+ table.tableName
 							+ "Table._ID+\" INTEGER PRIMARY KEY AUTOINCREMENT,\"\n";
+
+					m += "				+" + className + "DBTableDescribe."
+							+ table.tableName + "Table."
+							+ column.getSqliteColumnName().toUpperCase()
+							+ "+\" TEXT,\"\n";
 				} else if (j < table.columnsName.size()) {
 					m += "				+" + className + "DBTableDescribe."
 							+ table.tableName + "Table."

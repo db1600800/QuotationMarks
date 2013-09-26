@@ -1,4 +1,4 @@
-package com.compoment.db;
+package com.compoment.db.helper;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +24,7 @@ import org.dom4j.tree.DefaultText;
 
 public class XmlDBParser {
 
-	List<XmlDBTableBean> tables = new ArrayList();
+	public List<XmlDBTableBean> tables = new ArrayList();
 
 	public  Comparator<XmlDBTableBean> comparator = new Comparator<XmlDBTableBean>(){
 		   public int compare(XmlDBTableBean s1, XmlDBTableBean s2) {

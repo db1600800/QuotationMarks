@@ -1,14 +1,18 @@
-package com.compoment.db;
+package com.compoment.db.creater;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import com.compoment.db.helper.XmlDBColumnBean;
+import com.compoment.db.helper.XmlDBParser;
+import com.compoment.db.helper.XmlDBTableBean;
+
 public class CreaterDBTableDescribe {
 
 	List<XmlDBTableBean> tables = null;
- 
+
 	public static void main(String[] args) {
 		new CreaterDBTableDescribe();
 	}
@@ -56,7 +60,8 @@ public class CreaterDBTableDescribe {
 		// public static final Uri AUTHORITY_URI = Uri.parse("content://" +
 		// AUTHORITY);
 
-		m += "	public static final String AUTHORITY = \"" + className
+		int pos=className.lastIndexOf("_");
+		m += "	public static final String AUTHORITY = \"" + className.substring(0, pos)
 				+ "_DBContentProvider\";\n";
 		m += "	public static final Uri AUTHORITY_URI = Uri.parse(\"content://\" + AUTHORITY);\n";
 

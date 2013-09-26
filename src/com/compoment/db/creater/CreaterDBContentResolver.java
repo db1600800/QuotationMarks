@@ -1,7 +1,11 @@
-package com.compoment.db;
+package com.compoment.db.creater;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.compoment.db.helper.XmlDBColumnBean;
+import com.compoment.db.helper.XmlDBParser;
+import com.compoment.db.helper.XmlDBTableBean;
 
 
 
