@@ -31,7 +31,7 @@ public class CreaterDBTableDescribe {
 			e.printStackTrace();
 		}
 
-		String m = "";
+		String m = "\n";
 
 		m += "import android.net.Uri;\n";
 		m += "import android.provider.BaseColumns;\n";

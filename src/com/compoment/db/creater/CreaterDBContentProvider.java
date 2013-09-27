@@ -28,7 +28,7 @@ public class CreaterDBContentProvider {
 			e.printStackTrace();
 		}
 
-		String m = "";
+		String m = "\n";
 
 		m += "import android.content.ContentProvider;\n";
 		m += "import android.content.ContentUris;\n";

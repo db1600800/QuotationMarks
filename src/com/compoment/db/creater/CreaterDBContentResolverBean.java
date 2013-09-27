@@ -31,7 +31,7 @@ public class CreaterDBContentResolverBean {
 			className += table.tableName + "_";
 		}
 
-		String m = "";
+		String m = "\n";
 
 		for (XmlDBTableBean table : tables) {
 			m += "public class " + table.tableName + "Bean{\n";
@@ -50,7 +50,7 @@ public class CreaterDBContentResolverBean {
 				m+="/**"+column.columnChineseName+"*/\n";
 				 m+="public void set"+column.columnName+"(String "+firstCharLowercase(column.columnName)+"){ this."+firstCharLowercase(column.columnName)+"="+firstCharLowercase(column.columnName)+";};\n";
 			}
-			m += "}\n";
+			m += "}\n\n\n";
 
 
 		}

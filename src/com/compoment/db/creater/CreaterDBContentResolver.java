@@ -36,7 +36,7 @@ public class CreaterDBContentResolver {
 			className += table.tableName + "_";
 		}
 
-		String m = "";
+		String m = "\n";
 		m += "import java.util.ArrayList;\n";
 		m += "import java.util.List;\n";
 		m += "import android.content.ContentResolver;\n";
