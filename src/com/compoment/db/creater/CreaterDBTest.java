@@ -9,18 +9,18 @@ import com.compoment.db.helper.XmlDBTableBean;
 public class CreaterDBTest {
 
 	List<XmlDBTableBean> tables = null;
-	String className = "";
+	static String className = "";
 
 	public static void main(String[] args) {
 		CreaterDBTest createrDBTest = new CreaterDBTest();
 
-		String n = "";
-	    n=createrDBTest.insertTest();//插入
+		String n = "public class "+className+"DBTest{\n";
+	    n+=createrDBTest.insertTest();//插入
 		n+= createrDBTest.queryTest();// 查询
 	    n+=createrDBTest.deleteAllTest();//删除全部
  		n+=createrDBTest.deleteByIdTest();//删除ById
 		n+=createrDBTest.updateTest();//更新
-
+        n+="}\n";
 		System.out.println(n);
 	}
 
