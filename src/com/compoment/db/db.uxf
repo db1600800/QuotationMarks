@@ -3,54 +3,45 @@
   <help_text/>
   <zoom_level>10</zoom_level>
   <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>510</x>
+      <y>290</y>
+      <w>210</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>DBTableDescribe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>60</x>
-      <y>500</y>
+      <y>560</y>
       <w>430</w>
-      <h>360</h>
+      <h>160</h>
     </coordinates>
-    <panel_attributes>产品	 购物车 	收藏_表: ProductShoppingcarStoreUp
+    <panel_attributes>送货_表:Deliver
 --
-产品编号:ProductId 
+送货ID:DeliverId
 --
-产品所属系列:ProductClass
+送货方式（自己提货，快递送货）:DeliverWay
 --
-产品名字:ProductName
+地址:DeliverAddress
 --
-产品图片:ProductPic
+收件人:Receiver
 --
-产品缩略图:ProductSmalPic
+收件人移动电话:ReceiverMobilePhone
 --
-产品简介:ProductInfo
---
-产品规格:ProductStype
---
-产品原价:ProductPrice
---
-产品折扣率:ProductDiscount
---
-产品优惠价:ProductPreferentialPrice
---
-产品点数:ProductIntegrate
---
-是否加入购物车:isInShoppingCar
---
-是否收藏:isStoreUp 
---
-购买数量:BuyNumber 
---
-库存数量:InventoryNumber
---
-是否为礼品:isGift
-</panel_attributes>
+收件人固定电话:ReceiverPhone
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>120</x>
-      <y>140</y>
+      <y>370</y>
       <w>370</w>
       <h>180</h>
     </coordinates>
@@ -70,10 +61,43 @@
     <additional_attributes/>
   </element>
   <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>510</x>
+      <y>110</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>DBContentResolver</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>690</x>
+      <y>210</y>
+      <w>130</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>DatabaseHelper</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>510</x>
+      <y>200</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>DBContentProvider</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>520</x>
-      <y>140</y>
+      <y>370</y>
       <w>410</w>
       <h>470</h>
     </coordinates>
@@ -125,10 +149,89 @@
     <additional_attributes/>
   </element>
   <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>590</x>
+      <y>230</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>360</x>
+      <y>0</y>
+      <w>510</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>真正的数据表建立 插入 删除 查询 都是在extends ContentProvider 类内实现
+利用ContentProvider规避数据库开关管理生命周期，避免一系列问题．
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>590</x>
+      <y>130</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>730</y>
+      <w>430</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>产品	 购物车 	收藏_表: ProductShoppingcarStoreUp
+--
+产品编号:ProductId 
+--
+产品所属系列:ProductClass
+--
+产品名字:ProductName
+--
+产品图片:ProductPic
+--
+产品缩略图:ProductSmalPic
+--
+产品简介:ProductInfo
+--
+产品规格:ProductStype
+--
+产品原价:ProductPrice
+--
+产品折扣率:ProductDiscount
+--
+产品优惠价:ProductPreferentialPrice
+--
+产品点数:ProductIntegrate
+--
+是否加入购物车:isInShoppingCar
+--
+是否收藏:isStoreUp 
+--
+购买数量:BuyNumber 
+--
+库存数量:InventoryNumber
+--
+是否为礼品:isGift
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>20</x>
-      <y>20</y>
+      <x>180</x>
+      <y>240</y>
       <w>190</w>
       <h>100</h>
     </coordinates>
@@ -137,30 +240,6 @@
 2.首字母大写
 3.第一行为表名，且中文中要带“_表”字
 bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>60</x>
-      <y>330</y>
-      <w>430</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>送货_表:Deliver
---
-送货ID:DeliverId
---
-送货方式（自己提货，快递送货）:DeliverWay
---
-地址:DeliverAddress
---
-收件人:Receiver
---
-收件人移动电话:ReceiverMobilePhone
---
-收件人固定电话:ReceiverPhone
---</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
