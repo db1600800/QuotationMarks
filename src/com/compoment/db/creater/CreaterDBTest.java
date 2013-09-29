@@ -14,18 +14,22 @@ public class CreaterDBTest {
 	public static void main(String[] args) {
 		CreaterDBTest createrDBTest = new CreaterDBTest();
 
-		String m = "";
-		// m+=createrDBTest.insertTest(m);//插入
-		m += createrDBTest.queryTest(m);// 查询
-		// m+=createrDBTest.deleteAllTest(m);//删除
-		System.out.println(m);
+		String n = "";
+	    n=createrDBTest.insertTest();//插入
+		n+= createrDBTest.queryTest();// 查询
+	    n+=createrDBTest.deleteAllTest();//删除全部
+ 		n+=createrDBTest.deleteByIdTest();//删除ById
+		n+=createrDBTest.updateTest();//更新
+
+		System.out.println(n);
 	}
 
 	/** 插入--查出 */
-	public String insertTest(String m) {
+	public String insertTest() {
+		String m = "";
 		m += "\n";
 		for (XmlDBTableBean table : tables) {
-			m += "/**" + table.tableChineseName + "*/\n";
+			m += "/**插入记录 ( " + table.tableChineseName + ")*/\n";
 			m += "public void insert" + table.tableName
 					+ "Test(Context context){\n";
 			// AccountBean accountBean =new AccountBean ();
@@ -56,11 +60,12 @@ public class CreaterDBTest {
 
 	}
 
-	public String queryTest(String m) {
+	public String queryTest() {
+		String m = "";
 		m += "\n";
 		m += is20Length(m);
 		for (XmlDBTableBean table : tables) {
-			m += "/**" + table.tableChineseName + "*/\n";
+			m += "/**查询全部或部分  (" + table.tableChineseName + ")*/\n";
 			m += "public void query" + table.tableName
 					+ "Test(Context context){\n";
 			m += "	Log.i(\"bbq\", \"**********************************"
@@ -74,11 +79,11 @@ public class CreaterDBTest {
 					+ "DBContentResolver(context);\n";
 
 			// m +=
-			// "		List<AccountBean> accountBeans = dao.queryAllAccount();\n";
+			// "		List<AccountBean> accountBeans = dBContentResolver.queryAllAccount();//dBContentResolver.queryDeliverById("DeliverId");\n";
 			m += "		List<" + table.tableName + "Bean> "
 					+ table.firstCharLowercase(table.tableName)
 					+ "Beans = dBContentResolver.queryAll" + table.tableName
-					+ "();\n";
+					+ "();//dBContentResolver.queryDeliverById(\"DeliverId\")\n";
 			m += "     	int i = 0;\n";
 			// m+="	for (AccountBean bean : accountBeans) {\n";
 			m += "for (" + table.tableName + "Bean bean : "
@@ -119,12 +124,54 @@ public class CreaterDBTest {
 	}
 
 	/** 更新--查出 */
-	public void updateTest() {
+	public String updateTest() {
+		String m = "";
+		m += "\n";
+		for (XmlDBTableBean table : tables) {
+			m += "/**更新记录  (" + table.tableChineseName + ")*/\n";
+			m += "public void update" + table.tableName
+					+ "Test(Context context){\n";
+			// AccountBean accountBean =new AccountBean ();
+			m += "        " + table.tableName + "Bean "
+					+ table.firstCharLowercase(table.tableName) + "Bean =new "
+					+ table.tableName + "Bean ();\n";
+			// m+="        accountBean.setAccountId(\"1\");\n";
+			int i=0;
+			for (XmlDBColumnBean column : table.columnsName) {
+				if(i==0)
+				{
+				m += "        " + table.firstCharLowercase(table.tableName)
+						+ "Bean.set" + column.columnName + "(\""
+						+ column.columnName + "\");//"
+						+ column.columnChineseName + "\n";
+				}else
+				{
+					m += "        " + table.firstCharLowercase(table.tableName)
+							+ "Bean.set" + column.columnName + "(\""
+							+ column.columnName + "2\");//"
+							+ column.columnChineseName + "\n";
+				}
+				i++;
+			}
 
+			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
+			// dBContentResolver = new
+			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
+			m += "        " + className
+					+ "DBContentResolver dBContentResolver  = new " + className
+					+ "DBContentResolver(context);\n";
+			// dBContentResolver.insert(accountBean);
+			m += "		dBContentResolver.update("
+					+ table.firstCharLowercase(table.tableName) + "Bean);\n";
+
+			m += "}\n";
+		}
+		return m;
 	}
 
 	/** 删除--查出 */
-	public String deleteAllTest(String m) {
+	public String deleteAllTest() {
+		String m = "";
 		m += "\n";
 		for (XmlDBTableBean table : tables) {
 			m += "public void deleteAll" + table.tableName
@@ -132,6 +179,30 @@ public class CreaterDBTest {
 			m += className + "DBContentResolver dBContentResolver = new "
 					+ className + "DBContentResolver(context);\n";
 			m += "dBContentResolver.clear" + table.tableName + "();\n";
+			m += "}\n";
+		}
+		return m;
+	}
+
+	/** 删除--查出 */
+	public String deleteByIdTest() {
+		String m = "";
+		m += "\n";
+		for (XmlDBTableBean table : tables) {
+			m += "public void delete" + table.tableName
+					+ "ById(Context context){\n";
+			m += className + "DBContentResolver dBContentResolver = new "
+					+ className + "DBContentResolver(context);\n";
+			int i=0;
+			for(XmlDBColumnBean column:table.columnsName)
+			{
+				if(i==0)
+				{
+					m += "dBContentResolver.delete" + table.tableName + "(\""+column.columnName+"\");\n";
+				}
+				i++;
+			}
+
 			m += "}\n";
 		}
 		return m;

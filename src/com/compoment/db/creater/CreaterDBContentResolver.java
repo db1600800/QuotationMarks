@@ -225,11 +225,11 @@ public class CreaterDBContentResolver {
 			m += "},\n";
 
 			// "						UploadComplete_UploadPart_FileDetail_SendDetail_DBTableDescribe.MessageSentTable.MESSAGE_RECORD_ID + \"=?\",\n";
-			// m += "						new String[] { rcd_id }, null);\n";
+			// m += "						new String[] { rcd_id }, null);// String ordersort= MESSAGE_RECORD_ID DESC  ...ASC\n";
 			m += "						" + className + "DBTableDescribe." + table.tableName
 					+ "Table." + sqliteid + "+ \"=?\",\n";
 			m += "						new String[] { i_" + table.firstCharLowercase(id)
-					+ "}, null);\n";
+					+ "}, null);// String ordersort= MESSAGE_RECORD_ID DESC  ...ASC\n";
 
 			m += "		if (cursor != null) {\n";
 			m += "			if (cursor.moveToFirst()) {\n";

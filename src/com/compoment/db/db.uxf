@@ -5,67 +5,12 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>800</x>
-      <y>20</y>
-      <w>410</w>
-      <h>440</h>
-    </coordinates>
-    <panel_attributes>订单:OrderForm
---
-订单号:OrderId
---
-购货日期:OrderDate
---
-订货人ID :OrderManID
---
-订货人姓名:OrderManName
---
-订货人电话:OrderManPhone
---
-送货方式:DeliverWay
---
-送货（提货）地址：DeliverAddress
---
-提货人姓名：PickupManName
---
-提货人电话：PickupManPhone
---
-提货地址：PickupAddress
---
-提货人证件号：PickupManCertificateNo
---
-产品ID(多个产品用逗号分割',')：ProductId
---
-产品名：ProductName
---
-产品价格：ProductPrice
---
-产品数量：ProductNum
---
-产品总金额：ProductTotalPrice
---
-运费：DeliverPrice
---
-礼品ID(多个产品用逗号分割',')：GiftId
---
-礼品名：GiftName
---
-礼品数量：GiftNum
---
-订单状态(已付款，未付款,已经发货,付款失败):OrderState
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
       <x>1210</x>
       <y>20</y>
       <w>430</w>
       <h>360</h>
     </coordinates>
-    <panel_attributes>产品  购物车　收藏: ProductShoppingcarStoreUp
+    <panel_attributes>产品	 购物车 	收藏: ProductShoppingcarStoreUp
 --
 产品编号:ProductId 
 --
@@ -144,6 +89,61 @@
 帐户名字:UserName
 --
 帐户密码:PassWord
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>800</x>
+      <y>20</y>
+      <w>410</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>订单:OrderForm
+--
+订单号:OrderId
+--
+购货日期:OrderDate
+--
+订货人ID :OrderManID
+--
+订货人姓名:OrderManName
+--
+订货人电话:OrderManPhone
+--
+送货方式:DeliverWay
+--
+送货（提货）地址：DeliverAddress
+--
+提货人姓名：PickupManName
+--
+提货人电话：PickupManPhone
+--
+提货地址：PickupAddress
+--
+提货人证件号：PickupManCertificateNo
+--
+产品ID(多个产品用逗号分割',')：ProductId
+--
+产品名：ProductName
+--
+产品价格：ProductPrice
+--
+产品数量：ProductNum
+--
+产品总金额：ProductTotalPrice
+--
+运费：DeliverPrice
+--
+礼品ID(多个产品用逗号分割',')：GiftId
+--
+礼品名：GiftName
+--
+礼品数量：GiftNum
+--
+订单状态(已付款，未付款,已经发货,付款失败):OrderState
 
 </panel_attributes>
     <additional_attributes/>
