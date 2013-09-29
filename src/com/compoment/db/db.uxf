@@ -5,12 +5,12 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1210</x>
-      <y>20</y>
+      <x>60</x>
+      <y>500</y>
       <w>430</w>
       <h>360</h>
     </coordinates>
-    <panel_attributes>产品	 购物车 	收藏: ProductShoppingcarStoreUp
+    <panel_attributes>产品	 购物车 	收藏_表: ProductShoppingcarStoreUp
 --
 产品编号:ProductId 
 --
@@ -49,36 +49,12 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>370</x>
-      <y>20</y>
-      <w>430</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>送货:Deliver
---
-送货ID:DeliverId
---
-送货方式（自己提货，快递送货）:DeliverWay
---
-地址:DeliverAddress
---
-收件人:Receiver
---
-收件人移动电话:ReceiverMobilePhone
---
-收件人固定电话:ReceiverPhone
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>0</x>
-      <y>20</y>
+      <x>120</x>
+      <y>140</y>
       <w>370</w>
       <h>180</h>
     </coordinates>
-    <panel_attributes>帐户信息:Account
+    <panel_attributes>帐户信息_表:Account
 --
 帐户ID:AccountId
 --
@@ -96,12 +72,12 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>800</x>
-      <y>20</y>
+      <x>520</x>
+      <y>140</y>
       <w>410</w>
-      <h>440</h>
+      <h>470</h>
     </coordinates>
-    <panel_attributes>订单:OrderForm
+    <panel_attributes>订单_表:OrderForm
 --
 订单号:OrderId
 --
@@ -146,6 +122,45 @@
 订单状态(已付款，未付款,已经发货,付款失败):OrderState
 
 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>190</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>规则：
+1.左中文右英文
+2.首字母大写
+3.第一行为表名，且中文中要带“_表”字
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>330</y>
+      <w>430</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>送货_表:Deliver
+--
+送货ID:DeliverId
+--
+送货方式（自己提货，快递送货）:DeliverWay
+--
+地址:DeliverAddress
+--
+收件人:Receiver
+--
+收件人移动电话:ReceiverMobilePhone
+--
+收件人固定电话:ReceiverPhone
+--</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

@@ -99,7 +99,10 @@ public class XmlDBParser {
 						temp = temp.replaceAll(" ", "");
 						temp = temp.replaceAll("：", ":");
 						temp=temp.trim();
-
+                          if(temp.indexOf("_表")==-1)
+                          {tableBean=null;
+                        	  break;
+                          }
 						System.out.println();
 						System.out.println();
 
@@ -136,7 +139,7 @@ public class XmlDBParser {
 					}
 
 				}
-
+                if(tableBean!=null)
 				tables.add(tableBean);
 
 			}

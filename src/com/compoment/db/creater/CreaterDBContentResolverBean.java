@@ -34,6 +34,7 @@ public class CreaterDBContentResolverBean {
 		String m = "\n";
 
 		for (XmlDBTableBean table : tables) {
+			m += "		/** " + table.tableChineseName + "*/\n";
 			m += "public class " + table.tableName + "Bean{\n";
 			for (XmlDBColumnBean column : table.columnsName) {
 				m+="/** "+ column.columnChineseName+"*/\n";

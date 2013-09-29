@@ -85,7 +85,7 @@ public class CreaterDBContentResolver {
 		}
 
 		for (XmlDBTableBean table : tables) {
-			m += "/**更新数据" + table.tableChineseName + "*/\n";
+			m += "/**更新数据(" + table.tableChineseName + ")*/\n";
 			// m += "	public int update(FileDetailBean messageRecord) {\n";
 			m += "	public int update(" + table.tableName + "Bean "
 					+ table.firstCharLowercase(table.tableName) + "Bean"
@@ -130,7 +130,7 @@ public class CreaterDBContentResolver {
 		}
 
 		for (XmlDBTableBean table : tables) {
-			m += "/**删除某条数据" + table.tableChineseName + "*/\n";
+			m += "/**删除某条数据(" + table.tableChineseName + ")*/\n";
 			int i = 0;
 			String sqliteid = "";
 			String id = "";
@@ -157,7 +157,7 @@ public class CreaterDBContentResolver {
 		}
 
 		for (XmlDBTableBean table : tables) {
-			m += "/**删除整表数据" + table.tableChineseName + "*/\n";
+			m += "/**删除整表数据(" + table.tableChineseName + ")*/\n";
 			m += "	public int clear" + table.tableName + "() {\n";
 			m += "		int count = resolver.delete(" + className
 					+ "DBTableDescribe." + table.tableName
@@ -169,7 +169,7 @@ public class CreaterDBContentResolver {
 		}
 
 		for (XmlDBTableBean table : tables) {
-			m += "/**查询表数据根据id" + table.tableChineseName + "*/\n";
+			m += "/**查询表数据根据id(" + table.tableChineseName + ")*/\n";
 			int i = 0;
 			String sqliteid = "";
 			String id = "";
@@ -271,7 +271,7 @@ public class CreaterDBContentResolver {
 		}
 
 		for (XmlDBTableBean table : tables) {
-			m += "/**查询整表数据" + table.tableChineseName + "*/\n";
+			m += "/**查询整表数据(" + table.tableChineseName + ")*/\n";
 
 			//public List<ProductShoppingcarStoreUpBean> queryAllProductShoppingcarStoreUp() {
 			m += "	public List<" + table.tableName + "Bean> queryAll"
