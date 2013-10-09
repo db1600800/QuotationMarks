@@ -3,243 +3,90 @@
   <help_text/>
   <zoom_level>10</zoom_level>
   <element>
-    <type>com.umlet.element.custom.State</type>
+    <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>510</x>
+      <x>20</x>
       <y>290</y>
-      <w>210</w>
-      <h>40</h>
+      <w>400</w>
+      <h>170</h>
     </coordinates>
-    <panel_attributes>DBTableDescribe</panel_attributes>
+    <panel_attributes>MessageSentTable
+--
+ MESSAGE_SENT_ID = "snt_id"; // 留言发送记录id
+--
+ MESSAGE_RECORD_ID = "rcd_id"; // 留言文件id
+--
+TIME = "snt_time"; // 发送时间字符串
+--
+RECEIVER_NUMBER = "rcver_num"; // 接收者号码
+--
+SENDER_NUMBER = "snder_num"; // 发送者号码
+--
+CODE = "code"; // 发送状态：0发送成功，1发送失败
+--
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>60</x>
-      <y>560</y>
-      <w>430</w>
-      <h>160</h>
+      <x>450</x>
+      <y>280</y>
+      <w>610</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>送货_表:Deliver
+    <panel_attributes>MessageUploadedTable
 --
-送货ID:DeliverId
+MESSAGE_RECORD_ID = "msg_rcd_id"; // 留言录制ID
 --
-送货方式（自己提货，快递送货）:DeliverWay
---
-地址:DeliverAddress
---
-收件人:Receiver
---
-收件人移动电话:ReceiverMobilePhone
---
-收件人固定电话:ReceiverPhone
+ MESSAGE_SENT_ID = "msg_snt_id"; // 留言发送ID
 --</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>120</x>
-      <y>370</y>
-      <w>370</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>帐户信息_表:Account
---
-帐户ID:AccountId
---
-帐户余额:AccountBalance 
---
-积分余额:IntegralBalance
---
-帐户名字:UserName
---
-帐户密码:PassWord
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.State</type>
-    <coordinates>
-      <x>510</x>
-      <y>110</y>
-      <w>210</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>DBContentResolver</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.State</type>
-    <coordinates>
-      <x>690</x>
-      <y>210</y>
-      <w>130</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>DatabaseHelper</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.custom.State</type>
-    <coordinates>
-      <x>510</x>
-      <y>200</y>
-      <w>210</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>DBContentProvider</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>520</x>
-      <y>370</y>
-      <w>410</w>
-      <h>470</h>
-    </coordinates>
-    <panel_attributes>订单_表:OrderForm
---
-订单号:OrderId
---
-购货日期:OrderDate
---
-订货人ID :OrderManID
---
-订货人姓名:OrderManName
---
-订货人电话:OrderManPhone
---
-送货方式:DeliverWay
---
-送货（提货）地址：DeliverAddress
---
-提货人姓名：PickupManName
---
-提货人电话：PickupManPhone
---
-提货地址：PickupAddress
---
-提货人证件号：PickupManCertificateNo
---
-产品ID(多个产品用逗号分割',')：ProductId
---
-产品名：ProductName
---
-产品价格：ProductPrice
---
-产品数量：ProductNum
---
-产品总金额：ProductTotalPrice
---
-运费：DeliverPrice
---
-礼品ID(多个产品用逗号分割',')：GiftId
---
-礼品名：GiftName
---
-礼品数量：GiftNum
---
-订单状态(已付款，未付款,已经发货,付款失败):OrderState
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>590</x>
-      <y>230</y>
-      <w>50</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;60</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>360</x>
-      <y>0</y>
-      <w>510</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>真正的数据表建立 插入 删除 查询 都是在extends ContentProvider 类内实现
-利用ContentProvider规避数据库开关管理生命周期，避免一系列问题．
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>590</x>
-      <y>130</y>
-      <w>50</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;70</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>60</x>
-      <y>730</y>
-      <w>430</w>
-      <h>360</h>
-    </coordinates>
-    <panel_attributes>产品	 购物车 	收藏_表: ProductShoppingcarStoreUp
---
-产品编号:ProductId 
---
-产品所属系列:ProductClass
---
-产品名字:ProductName
---
-产品图片:ProductPic
---
-产品缩略图:ProductSmalPic
---
-产品简介:ProductInfo
---
-产品规格:ProductStype
---
-产品原价:ProductPrice
---
-产品折扣率:ProductDiscount
---
-产品优惠价:ProductPreferentialPrice
---
-产品点数:ProductIntegrate
---
-是否加入购物车:isInShoppingCar
---
-是否收藏:isStoreUp 
---
-购买数量:BuyNumber 
---
-库存数量:InventoryNumber
---
-是否为礼品:isGift
-</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>180</x>
-      <y>240</y>
-      <w>190</w>
-      <h>100</h>
+      <x>50</x>
+      <y>70</y>
+      <w>290</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>规则：
 1.左中文右英文
 2.首字母大写
 3.第一行为表名，且中文中要带“_表”字
+4.第二行为ID行
 bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>460</x>
+      <y>20</y>
+      <w>430</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>文件上传部分_表:FileUploadPart
+--
+文件ID:FileId
+--
+已发送块数:BlockCount
+--
+发送者号码:SenderNumber
+--
+收件人号码:ReceiverNumber
+--
+DURATION: "duration"; 音频 视频文件播放时间长度
+--
+TYPE = "type";文件的类型（音频or视频）
+--
+ PATH = "path";//文件在手机的存储路径
+--
+ 发送ID:SendId
+--
+备注：新上传通过file_id查不到结果，上传部分通过file_id查得到结果</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
