@@ -1,4 +1,4 @@
-package com.compoment.gbkToUtf8;
+package com.compoment.gbkToUtf8.creater;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -105,7 +105,7 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 
 	public static  void main(String[] args) throws IOException {
 		GbkToUtf_FileOrDir gbkToUtf_FileOrDir = new GbkToUtf_FileOrDir();
-		long t1 = System.currentTimeMillis();
+
 		// D:\\Workspace\\Android_Demonstrate_AbstractCode\\src\\com\\compoment\\file_manage
 		 File src = new
 		 File("D:\\work_dir\\svn_12\\autocreater\\src");
@@ -113,7 +113,6 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 
 
 
-		long t2 = System.currentTimeMillis();
 
 	}
 
