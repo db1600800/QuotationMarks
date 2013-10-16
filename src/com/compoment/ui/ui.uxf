@@ -4,7 +4,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>250</x>
+      <x>40</x>
       <y>110</y>
       <w>210</w>
       <h>190</h>
@@ -27,7 +27,7 @@ Responsibilities
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>80</x>
+      <x>280</x>
       <y>110</y>
       <w>210</w>
       <h>190</h>

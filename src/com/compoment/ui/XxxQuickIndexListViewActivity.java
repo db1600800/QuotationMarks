@@ -30,41 +30,12 @@ public class XxxQuickIndexListViewActivity extends Activity implements
 
 	private XxxAdapter adapter;
 	private Handler handler;
-	private DisapearThread disapearThread;
-
 	private ListView list;
-
-	private final static int SHOW_LOCKER = 0;
-	private Timer lockTimer;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.quickindex_listview);
 
-		handler = new Handler() {
-			public void handleMessage(Message msg) {
-
-				switch (msg.what) {
-
-				case SHOW_LOCKER:
-
-					if (txtOverlay.isShown()) {
-
-						txtOverlay.setVisibility(View.INVISIBLE);
-
-					}
-
-					break;
-
-				default:
-
-					super.handleMessage(msg);
-
-				}
-
-			}
-		};
-		disapearThread = new DisapearThread();
 		list = (ListView) this.findViewById(R.id.listview); // 联系人ListView
 
 		adapter = new XxxAdapter(this);
@@ -73,6 +44,23 @@ public class XxxQuickIndexListViewActivity extends Activity implements
 		list.setOnScrollListener(this);
 
 	}
+
+
+	handler = new Handler() {
+		public void handleMessage(Message msg) {
+
+			switch (msg.what) {
+
+			case SHOW_LOCKER:
+
+				break;
+			default:
+				super.handleMessage(msg);
+
+			}
+
+		}
+	};
 
 	private class DisapearThread implements Runnable {
 		public void run() {
@@ -83,38 +71,16 @@ public class XxxQuickIndexListViewActivity extends Activity implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		txtOverlay.setText(String
-				.valueOf(
-						adapter.dataSource.get(
-								firstVisibleItem + (visibleItemCount >> 1))
-								.get("hint")).toUpperCase());
-		a_zQuickIndexBar.setFocusItem(txtOverlay.getText().toString());
+
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		this.scrollState = scrollState;
-		if (scrollState == ListView.OnScrollListener.SCROLL_STATE_IDLE) {
-			handler.removeCallbacks(disapearThread);
-			// 提示延迟1.5s再消失
-			handler.postDelayed(disapearThread, 1500);
-		}
 
 	}
 
 	public void onDestroy() {
 		super.onDestroy();
-
-	}
-
-	private class LockTimerTask extends TimerTask {
-
-		@Override
-		public void run() {
-
-			handler.sendMessage(handler.obtainMessage(SHOW_LOCKER));
-
-		}
 
 	}
 

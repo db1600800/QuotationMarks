@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/widget140"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+	android:id="@+id/widget141"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="0.35">
+<ImageView
+	android:id="@+id/buy_typelist_item_productclass_imgview"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="60dp"
+	android:layout_marginLeft="140dp"
+	android:src="@drawable/bg_account_user_address"
+	android:layout_alignParentTop="true"
+	android:layout_alignParentLeft="true" />
+
+<TextView
+    android:id="@+id/buy_typelist_item_productclass_txtview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/buy_typelist_item_productclass_imgview"
+    android:layout_centerHorizontal="true"
+    android:text="产品类别名" />
+
+</RelativeLayout>
+</LinearLayout>

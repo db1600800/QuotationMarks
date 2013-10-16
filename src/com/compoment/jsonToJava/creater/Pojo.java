@@ -37,7 +37,6 @@ public class Pojo {
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		System.out.println("public class Bean{");
 		pojo.getPojo(jsonObject);
-
 		pojo.addJsonValueToBean(jsonObject,jsonString);
 	}
 
@@ -48,6 +47,9 @@ public class Pojo {
 			URL url = new URL(urlPath);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
+			connection.setConnectTimeout(30000);
+			connection.setReadTimeout(30000);
+			connection.setInstanceFollowRedirects(true);
 			connection.connect();
 			InputStream inputStream = connection.getInputStream();
 			// ��Ӧ���ַ����ת��
