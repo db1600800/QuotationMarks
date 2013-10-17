@@ -28,13 +28,7 @@ public class CreaterAdapter {
 	String m = "";
 
 	public static void main(String[] args) throws SAXException, IOException {
-
-
-
 		CreaterAdapter createrAdapter = new CreaterAdapter();
-
-
-
 		createrAdapter.create();
 
 	}
@@ -245,7 +239,7 @@ public class CreaterAdapter {
 
 		m += "	}\n";
 
-		m += "	static class " + className + "AdapterBean {\n";
+		m += "public	static class " + className + "AdapterBean {\n";
 
 		for (String control : controls) {
 			// control为Button TextView....

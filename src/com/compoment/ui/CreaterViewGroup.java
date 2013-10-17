@@ -35,7 +35,7 @@ public class CreaterViewGroup {
 	public static void main(String[] args) throws SAXException, IOException {
 		// TODO Auto-generated method stub
 
-		 String xmlfile="buy_typelist.xml";//修改就行
+		 String xmlfile="order_typelist.xml";//修改就行
 
 
 		CreaterViewGroup parser = new CreaterViewGroup();

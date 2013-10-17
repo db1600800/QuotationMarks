@@ -1,91 +1,152 @@
-import java.util.List;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.AbsListView.OnScrollListener;
 
-public class ImgAdapter extends BaseAdapter {
+public class OrderTypelist implements OnScrollListener {
 
-	private static final String TAG = "ImgAdapter";
-	/** 列表是否滑动中，如果是滑动状态则仅从内存中获取图片，否则开启线程去外存或网络获取图片。 */
-	private boolean isScrolling = false;
-	private List<ImgAdapterBean> list;
-	private ImageLoader mImageLoader;
-	private Context mContext;
+	Context context;
+	public View containView;
+	private OrderTypelistAdapter adapter;
+	private ListView list;
 
-	public void setFlagIsScrolling(boolean isScrolling) {
-		this.isScrolling = isScrolling;
-	}
-
-	public ImgAdapter(Context context) {
-		this.mContext = context;
-		mImageLoader = new ImageLoader(context);
-	}
-
-	public ImageLoader getImageLoader() {
-		return mImageLoader;
-	}
-
-	public void setList(List<ImgAdapterBean> list) {
-		this.list = list;
+	public void clean() {
+		containView = null;
 
 	}
 
-	@Override
-	public int getCount() {
-		return list.size();
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			// case SHOW_LOCKER:
+			// break;
+			default:
+				super.handleMessage(msg);
+
+			}
+
+		}
+	};
+
+	public OrderTypelist(final Context context) {
+
+		this.context = context;
+		init();
 	}
 
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
+	public void init() {
+
+		if (containView == null) {
+			containView = inflateView(R.layout.order_typelist);
+
+			list = (ListView) this.findViewById(R.id.listview); // 联系人ListView
+
+			// 收藏夹 Btn
+			Button buy_typelist_pickup_btn = (Button) containView
+					.findViewById(R.id.buy_typelist_pickup_btn);
+			buy_typelist_pickup_btn
+					.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+						}
+					});
+
+			// 返回 Btn
+			Button buy_typelist_back_btn = (Button) containView
+					.findViewById(R.id.buy_typelist_back_btn);
+			buy_typelist_back_btn
+					.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+						}
+					});
+
+			// 搜索 Btn
+			Button buy_typelist_search_btn = (Button) containView
+					.findViewById(R.id.buy_typelist_search_btn);
+			buy_typelist_search_btn
+					.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+						}
+					});
+
+			// 产品目录 TextView
+			TextView buy_typelist_title_txtview = (TextView) containView
+					.findViewById(R.id.buy_typelist_title_txtview);
+
+			EditText buy_typelist_search_edittxt = (EditText) containView
+					.findViewById(R.id.buy_typelist_search_edittxt);
+
+			GridView buy_typelist_gridview = (GridView) containView
+					.findViewById(R.id.buy_typelist_gridview);
+		}
 	}
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-
-		ViewHolder viewHolder = null;
-		if (convertView == null) {
-			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.list_item, null);
-			viewHolder = new ViewHolder();
-			viewHolder.mTextView = (TextView) convertView
-					.findViewById(R.id.tv_tips);
-			viewHolder.mImageView = (ImageView) convertView
-					.findViewById(R.id.iv_image);
-			convertView.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
+	private class GetNetInfoTask extends
+			AsyncTask<String, Integer, OrderTypelistAdapterBean> {
+		@Override
+		protected void onPreExecute() {
 		}
 
-		int defaultImg = R.drawable.ic_launcher;
-		ImgAdapterBean imgAdapterBean = list.get(position);
-		if (imgAdapterBean != null) {
+		@Override
+		protected OrderTypelistAdapterBean doInBackground(String... params) {
 
-			mImageLoader.setImgToImageView(imgAdapterBean.url,
-					viewHolder.mImageView, defaultImg, isScrolling);
-
-			viewHolder.mTextView.setText(imgAdapterBean.temp);
+			return null;
 		}
-		return convertView;
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// 更新进度
+		}
+
+		@Override
+	      protected void onPostExecute(OrderTypelistAdapterBean entity) {
+
+				adapter = new OrderTypelistAdapter(context);
+				adapter.setList(list)
+				list.setAdapter(adapter);// 将数据适配器与Activity进行绑定
+				list.setOnScrollListener(this);
+	      }
+
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+		}
 	}
 
-	static class ViewHolder {
-		TextView mTextView;
-		ImageView mImageView;
+	private View inflateView(int resource) {
+		LayoutInflater vi = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		return vi.inflate(resource, null);
 	}
 
-	static class ImgAdapterBean {
-		public String temp;
-		public String url;
+	@Override
+	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
+		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView arg0, int arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void tread() {
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+
+			}
+		});
+		thread.start();
 	}
 }
