@@ -43,6 +43,8 @@ public class Pojo {
 	/**从url得到json数据*/
 	public String jsonFromUrl() {
 		try {
+			//String baseurl="https://ip:port/front/macula-gbss-mobile/";
+			//String urlPath = baseurl+"gbss-mobile/product/series/getSeries?lastUpdateTime=\"\"";
 			String urlPath = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=210af0ac7c5dad997a19f7667e5779d3&tags=Singapore&per_page=200&format=json&nojsoncallback=1";
 			URL url = new URL(urlPath);
 			HttpURLConnection connection = (HttpURLConnection) url

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:id="@+id/widget42"
+	android:layout_width="fill_parent"
+	android:layout_height="match_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+	android:id="@+id/buy_pickup_productlist_title_layout"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:layout_alignParentLeft="true">
+
+<TextView
+    android:id="@+id/buy_pickup_productlist_title_txtview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:text="我的收藏夹" />
+
+<Button
+	android:id="@+id/buy_pickup_productlist_pickup_btn"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="&#25910;&#34255;&#22841;"
+	android:layout_alignParentTop="true"
+	android:layout_alignParentRight="true" />
+<Button
+	android:id="@+id/buy_pickup_productlist_back_btn"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="&#36820;&#22238;"
+	android:layout_alignParentTop="true"
+	android:layout_alignParentLeft="true" />
+</RelativeLayout>
+
+
+
+<LinearLayout
+    android:id="@+id/buy_pickup_productlist_list_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/buy_pickup_productlist_title_layout"
+    android:orientation="vertical"
+    android:visibility="visible" >
+
+    <ListView
+        android:id="@+id/buy_pickup_productlist_gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+    </ListView>
+</LinearLayout>
+
+</RelativeLayout>

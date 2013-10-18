@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/buy_payway_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+
+        <TextView
+            android:id="@+id/buy_payway_title_txtview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="支付方式" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_id_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单编号：" />
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_id_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dfdfdfds" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_producttotalprice_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单金额：" />
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_producttotalprice_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_deliverprice_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="运费：" />
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_deliverprice_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_totalintegrate_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应付金额：" />
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_totalprice_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_totalintegrate_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点数：" />
+
+            <TextView
+                android:id="@+id/buy_payway_orderform_totalintegrate_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择支付方式" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/buy_payway_isuseintegrate_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/buy_payway_haveintegrate_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="3434" />
+
+            <TextView
+                android:id="@+id/TextView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_isuseintegrate_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_isuseintegrate_checkbox"
+                android:layout_toLeftOf="@+id/buy_payway_haveintegrate_txtview"
+                android:text="可用积分：" />
+
+            <TextView
+                android:id="@+id/TextView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_isuseintegrate_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_isuseintegrate_checkbox"
+                android:layout_toRightOf="@+id/buy_payway_isuseintegrate_checkbox"
+                android:text="使用消费积分" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/TextView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本次使用的：" />
+
+            <TextView
+                android:id="@+id/TextView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/buy_payway_mayuseintegrate_txtview"
+                android:text="剩余：" />
+
+            <TextView
+                android:id="@+id/buy_payway_remainintegrate_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/TextView23"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/buy_payway_mayuseintegrate_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/TextView17"
+                android:text="23      " />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/buy_payway_remainmoney_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/TextView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:layout_toLeftOf="@+id/buy_payway_remainmoney_txtview"
+                android:text="可用余额：" />
+
+            <TextView
+                android:id="@+id/buy_payway_remainmoney_title_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:layout_toRightOf="@+id/buy_payway_isuseremainmoney_checkbox"
+                android:text="使用账户余额" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/TextView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本次使用：" />
+
+            <TextView
+                android:id="@+id/buy_payway_remainmoney_use_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="54dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/TextView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/buy_payway_remainmoney_use_txtview"
+                android:text="剩余：" />
+
+            <TextView
+                android:id="@+id/buy_payway_remainmoney_remain_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/TextView16"
+                android:text="0" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/buy_payway_isusediscount_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/order_notemough_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_isusediscount_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_isusediscount_checkbox"
+                android:layout_toRightOf="@+id/buy_payway_isusediscount_checkbox"
+                android:text="使用优惠券" />
+
+            <Spinner
+                android:id="@+id/buy_payway_discount_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="37dp"
+                android:layout_toRightOf="@+id/order_notemough_txtview" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/buy_payway_ishelppay_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/buy_payway_ishelppay_checkbox"
+                android:layout_alignBottom="@+id/buy_payway_ishelppay_checkbox"
+                android:layout_toRightOf="@+id/buy_payway_ishelppay_checkbox"
+                android:text="委托代扣" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="69dp"
+                android:layout_toRightOf="@+id/TextView01"
+                android:text="实付金额：" />
+
+            <TextView
+                android:id="@+id/buy_payway_mustpay_txtview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/TextView01"
+                android:layout_alignBottom="@+id/TextView01"
+                android:layout_toRightOf="@+id/textView1"
+                android:text="TextView" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buy_payway_pay_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定" />
+
+</LinearLayout>

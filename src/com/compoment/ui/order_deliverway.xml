@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/buy_deliver_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="配送方式" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/buy_deliver_way_store_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="专卖店提货" />
+
+        <Button
+            android:id="@+id/buy_deliver_way_servicecenter_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务中心提货" />
+
+        <Button
+            android:id="@+id/buy_deliver_way_home_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="家居配送" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/buy_deliver_way_address_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buy_deliver_way_add_address_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:text="更多地址" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/order_notemough_txtview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="促销赠品" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="42dp"
+            android:layout_toRightOf="@+id/textView6"
+            android:text="数量" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_alignBottom="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_toRightOf="@+id/buy_deliverway_isselect_address_checkbox"
+            android:text="产品编码" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:text="产品名称" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="随货配送" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_alignBottom="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@+id/TextView03"
+            android:text="数量" />
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView04"
+            android:layout_alignBottom="@+id/TextView04"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@+id/TextView01"
+            android:text="产品名称" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_alignBottom="@+id/buy_deliverway_isselect_address_checkbox"
+            android:layout_toRightOf="@+id/buy_deliverway_isselect_address_checkbox"
+            android:text="产品编码" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订金金额" />
+
+        <TextView
+            android:id="@+id/buy_deliverway_totalprice_txtview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="71dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/buy_deliverway_totalinteger_txtview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/buy_deliverway_totalinteger_txtview"
+            android:text="点数" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buy_deliverwway_paynow_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="马上支付" />
+
+</LinearLayout>

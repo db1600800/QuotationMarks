@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterAdapter {
 
-	String xmlfile = "order_productlist_item.xml";// 修改就行
+	String xmlfile = "order_pickup_productlist_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -231,7 +231,7 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-				m+="//"+text+"\n";
+				m+="/**"+text+"*/\n";
 				m += control + " " + firstCharToLowerAndJavaName(idToName[1])
 						+ ";\n";
 			}
@@ -249,7 +249,7 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-                m+="//"+text+"\n";
+                m+="/**"+text+"*/\n";
 				if (control.equals("ImageView")) {
 					m += "		public String "
 							+ firstCharToLowerAndJavaName(idToName[1])
