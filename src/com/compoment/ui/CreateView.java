@@ -11,9 +11,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+
 public class CreateView {
 
-	String xmlfile = "order_deliverway.xml";// 修改就行
+	String xmlfile = "order_productlist.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -212,6 +214,13 @@ public class CreateView {
 					m += "adapter.setList(list);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])+".setAdapter(adapter);// 将数据适配器与Activity进行绑定\n";
 					m += firstCharToLowerAndJavaName(idToName[1])+".setOnScrollListener("+className+".this);\n";
+
+				m+=firstCharToLowerAndJavaName(idToName[1])+".setOnItemClickListener(new OnItemClickListener(){\n";
+				m+="		@Override\n";
+				m+="		public void onItemClick(AdapterView<?> arg0, View view,int position, long id) {\n";
+				m+="	}});\n";
+
+
 				} else if (control.equals("TextView")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setText(\"\");\n";
