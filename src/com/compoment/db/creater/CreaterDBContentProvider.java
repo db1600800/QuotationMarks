@@ -1,5 +1,7 @@
 package com.compoment.db.creater;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import com.compoment.db.helper.XmlDBColumnBean;
@@ -447,5 +449,22 @@ public class CreaterDBContentProvider {
 		m += "		}\n";
 
 		System.out.println(m);
+
+		stringToFile("d:\\"+ className
+				+ "DBContentProvider.java",m);
+	}
+	
+	public void stringToFile(String fileName,String str)
+	{
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str); 
+			fw.flush();//加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

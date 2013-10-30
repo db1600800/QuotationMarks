@@ -1,5 +1,7 @@
 package com.compoment.db.creater;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class CreaterDBContentResolver {
 			className += table.tableName + "_";
 		}
 
+		
+		for (XmlDBTableBean table : tables) {
 		String m = "\n";
 		m += "import java.util.ArrayList;\n";
 		m += "import java.util.List;\n";
@@ -47,17 +51,17 @@ public class CreaterDBContentResolver {
 
 		m += "//http://www.2cto.com/kf/201207/144022.html\n";
 
-		m += "public class " + className + "DBContentResolver {\n";
+		m += "public class " + table.tableName  + "DBContentResolver {\n";
 		m += "	private ContentResolver resolver;\n";
 
 		m += "	public static final String FALSE = \"0\";\n";
 		m += "	public static final String TRUE = \"1\";\n";
 
-		m += "	public " + className + "DBContentResolver(Context context) {\n";
+		m += "	public " + table.tableName + "DBContentResolver(Context context) {\n";
 		m += "		this.resolver = context.getContentResolver();\n";
 		m += "	}\n";
 
-		for (XmlDBTableBean table : tables) {
+	
 			// m+="	public void insert(FileDetailBean messageRecord) {\n";
 			m += "/**插入数据(" + table.tableChineseName + ")*/\n";
 			m += "	public void insert(" + table.tableName + "Bean "
@@ -82,9 +86,9 @@ public class CreaterDBContentResolver {
 					+ table.tableName + "Table.CONTENT_URI, values);\n";
 			m += "	}\n";
 
-		}
+		
 
-		for (XmlDBTableBean table : tables) {
+	
 			m += "/**更新数据(" + table.tableChineseName + ")*/\n";
 			// m += "	public int update(FileDetailBean messageRecord) {\n";
 			m += "	public int update(" + table.tableName + "Bean "
@@ -127,36 +131,36 @@ public class CreaterDBContentResolver {
 			m += "		return count;\n";
 			m += "	}\n";
 
-		}
+		
 
-		for (XmlDBTableBean table : tables) {
+		
 			m += "/**删除某条数据(" + table.tableChineseName + ")*/\n";
-			int i = 0;
-			String sqliteid = "";
-			String id = "";
+			int i1 = 0;
+			String sqliteid1 = "";
+			String id1 = "";
 			for (XmlDBColumnBean column : table.columnsName) {
-				if (i == 0) {
-					sqliteid = column.getSqliteColumnName().toUpperCase();
-					id = column.columnName;
+				if (i1 == 0) {
+					sqliteid1 = column.getSqliteColumnName().toUpperCase();
+					id1 = column.columnName;
 				}
-				i++;
+				i1++;
 			}
 
 			m += "	public int delete" + table.tableName + "(String "
-					+ table.firstCharLowercase(id) + ") {\n";
+					+ table.firstCharLowercase(id1) + ") {\n";
 
 			m += "		int count = resolver.delete(" + className
 					+ "DBTableDescribe." + table.tableName
 					+ "Table.CONTENT_URI,\n";
 			m += "				" + className + "DBTableDescribe." + table.tableName
-					+ "Table." + sqliteid + " + \"=?\", new String[] { "
-					+ table.firstCharLowercase(id) + " });\n";
+					+ "Table." + sqliteid1 + " + \"=?\", new String[] { "
+					+ table.firstCharLowercase(id1) + " });\n";
 
 			m += "		return count;\n";
 			m += "	}\n";
-		}
+		
 
-		for (XmlDBTableBean table : tables) {
+	
 			m += "/**删除整表数据(" + table.tableChineseName + ")*/\n";
 			m += "	public int clear" + table.tableName + "() {\n";
 			m += "		int count = resolver.delete(" + className
@@ -166,28 +170,25 @@ public class CreaterDBContentResolver {
 
 			m += "		return count;\n";
 			m += "	}\n";
-		}
+		
 
-		for (XmlDBTableBean table : tables) {
-			m += "/**查询表数据根据id(" + table.tableChineseName + ")*/\n";
-			int i = 0;
-			String sqliteid = "";
-			String id = "";
-			for (XmlDBColumnBean column : table.columnsName) {
-				if (i == 0) {
-					sqliteid = column.getSqliteColumnName().toUpperCase();
-					id = column.columnName;
-				}
-				i++;
-			}
-
+	
+			for (XmlDBColumnBean column2 : table.columnsName) {
+			m += "/**查询某条表数，据根据"+column2.columnName+column2.columnChineseName+"(" + table.tableChineseName + ")*/\n";
+			
 			// m +=
 			// "	public List<SentDetailBean> querySentByRecordId(String rcd_id) {\n";
-			m += "	public " + table.tableName + "Bean query" + table.tableName
-					+ "ById(String i_" + table.firstCharLowercase(id) + ") {\n";
-			m += "		" + table.tableName + "Bean "
+			
+			m += "	public List<" + table.tableName + "Bean> query" + table.tableName
+					+ "By"+column2.columnName+"(String i_" + column2.columnName + ") {\n";
+
+			
+
+			//List<ProductShoppingcarStoreUpBean> productShoppingcarStoreUps = new ArrayList<ProductShoppingcarStoreUpBean>();
+			m += "		List<" + table.tableName + "Bean> "
 					+ table.firstCharLowercase(table.tableName)
-					+ "Bean = null;\n";
+					+ "s= new ArrayList<" + table.tableName + "Bean>();\n";
+
 
 			// "				.query(UploadComplete_UploadPart_FileDetail_SendDetail_DBTableDescribe.MessageSentTable.CONTENT_URI,\n";
 			// m +=
@@ -227,8 +228,8 @@ public class CreaterDBContentResolver {
 			// "						UploadComplete_UploadPart_FileDetail_SendDetail_DBTableDescribe.MessageSentTable.MESSAGE_RECORD_ID + \"=?\",\n";
 			// m += "						new String[] { rcd_id }, null);// String ordersort= MESSAGE_RECORD_ID DESC  ...ASC\n";
 			m += "						" + className + "DBTableDescribe." + table.tableName
-					+ "Table." + sqliteid + "+ \"=?\",\n";
-			m += "						new String[] { i_" + table.firstCharLowercase(id)
+					+ "Table." + column2.getSqliteColumnName().toUpperCase() + "+ \"=?\",\n";
+			m += "						new String[] { i_" + column2.columnName
 					+ "}, null);// String ordersort= MESSAGE_RECORD_ID DESC  ...ASC\n";
 
 			m += "		if (cursor != null) {\n";
@@ -244,33 +245,42 @@ public class CreaterDBContentResolver {
 						+ column.getSqliteColumnName().toUpperCase() + ");\n";
 			}
 
-			// m += "					String sentId = cursor.getString(indexOfSentId);\n";
+		
+			m += "				do {\n";
+
+			//	m += "					String path = cursor.getString(indexOfPath);\n";
 			for (XmlDBColumnBean column : table.columnsName) {
-				m += "				String "
-						+ table.firstCharLowercase(column.columnName)
-						+ " = cursor.getString(indexOf" + column.columnName
-						+ ");\n";
+			m+="//"+column.columnChineseName+"\n";
+			m += "					String "+table.firstCharLowercase(column.columnName)+" = cursor.getString(indexOf"+column.columnName+");\n";
+
 			}
 
-			// "					SentDetailBean messageSent = new SentDetailBean(sentId, null,\n";
-			// m += "							receiverNumber, senderNumber, code,\n";
-			m += "				" + table.firstCharLowercase(table.tableName)+"Bean = new " + table.tableName + "Bean();\n";
+
+			//	ProductShoppingcarStoreUpBean productShoppingcarStoreUpBean = new ProductShoppingcarStoreUpBean();
+			m += "					"+table.tableName+"Bean "+table.firstCharLowercase(table.tableName)+"Bean = new "+table.tableName+"Bean();\n" ;
+
+
+			//productShoppingcarStoreUpBean.setBuyNumber(buyNumber);
 			for (XmlDBColumnBean column : table.columnsName) {
-				m+=table.firstCharLowercase(table.tableName)+"Bean.set"+column.columnName+"("+table.firstCharLowercase(column.columnName)+");\n";
-				}
+				m+="//"+column.columnChineseName+"\n";
+			m+=table.firstCharLowercase(table.tableName)+"Bean.set"+column.columnName+"("+table.firstCharLowercase(column.columnName)+");\n";
+			}
 
 
+			//productShoppingcarStoreUps.add(productShoppingcarStoreUpBean);
+			m += "					"+table.firstCharLowercase(table.tableName)+"s.add("+table.firstCharLowercase(table.tableName)+"Bean);\n";
+			m += "				} while (cursor.moveToNext());\n";
 			m += "			}\n";
 
 			m += "			cursor.close();\n";
 			m += "		}\n";
 
-			m += "		return " + table.firstCharLowercase(table.tableName)
-					+ "Bean;\n";
+			m += "		return " +table.firstCharLowercase(table.tableName)
+					+ "s;\n";
 			m += "	}\n";
 		}
 
-		for (XmlDBTableBean table : tables) {
+	
 			m += "/**查询整表数据(" + table.tableChineseName + ")*/\n";
 
 			//public List<ProductShoppingcarStoreUpBean> queryAllProductShoppingcarStoreUp() {
@@ -307,10 +317,10 @@ public class CreaterDBContentResolver {
 //					Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBTableDescribe.ProductShoppingcarStoreUpTable.INVENTORY_NUMBER,
 //					Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBTableDescribe.ProductShoppingcarStoreUpTable.IS_GIFT },
 //			null, null, null);
-			int i = 0;
+			int j = 0;
 			for (XmlDBColumnBean column : table.columnsName) {
-				i++;
-				if (i < table.columnsName.size()) {
+				j++;
+				if (j < table.columnsName.size()) {
 					m += "" + className + "DBTableDescribe." + table.tableName
 							+ "Table."
 							+ column.getSqliteColumnName().toUpperCase()
@@ -366,11 +376,28 @@ public class CreaterDBContentResolver {
 
 			m += "		return "+table.firstCharLowercase(table.tableName)+"s;\n";
 			m += "	}\n";
-		}
+		
 
 		m += "	}\n";
 
 		System.out.println(m);
+		
+		stringToFile("d:\\"+table.tableName+"DBContentResolver.java",m);
+		}
 	}
 
+	
+	public void stringToFile(String fileName,String str)
+	{
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str); 
+			fw.flush();//加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

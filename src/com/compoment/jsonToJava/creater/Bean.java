@@ -1,23 +1,19 @@
 package com.compoment.jsonToJava.creater;
 
 import java.util.List;
-public class Bean{
-public List<ProgrammersBean> programmers;
-public class ProgrammersBean{
-public String firstName;
-public String lastName;
-public String email;
-}
-public List<AuthorsBean> authors;
-public class AuthorsBean{
-public String firstName;
-public String lastName;
-public String genre;
-}
-public List<MusiciansBean> musicians;
-public class MusiciansBean{
-public String firstName;
-public String lastName;
-public String instrument;
-}
+
+public class Bean {
+	public String result;
+	public String msg;
+	public List<DataBean> data;
+
+	public class DataBean {
+		public String id;
+		public String imageUrl;
+		public String operType;
+		public String beginDate;
+		public String endDate;
+		public String status;
+		public String createDate;
+	}
 }

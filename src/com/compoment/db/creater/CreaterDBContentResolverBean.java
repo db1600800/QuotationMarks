@@ -1,5 +1,7 @@
 package com.compoment.db.creater;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import com.compoment.db.helper.XmlDBColumnBean;
@@ -31,9 +33,10 @@ public class CreaterDBContentResolverBean {
 			className += table.tableName + "_";
 		}
 
-		String m = "\n";
+		
 
 		for (XmlDBTableBean table : tables) {
+			String m = "\n";
 			m += "		/** " + table.tableChineseName + "*/\n";
 			m += "public class " + table.tableName + "Bean{\n";
 			for (XmlDBColumnBean column : table.columnsName) {
@@ -53,11 +56,11 @@ public class CreaterDBContentResolverBean {
 			}
 			m += "}\n\n\n";
 
-
+			System.out.println(m);
+			stringToFile("d:\\"+table.tableName + "Bean.java",m);
 		}
 
-		System.out.println(m);
-
+		
 	}
 
 	public String firstCharLowercase(String s)
@@ -73,6 +76,20 @@ public class CreaterDBContentResolverBean {
 			return null;
 		}
 
+	}
+	
+	public void stringToFile(String fileName,String str)
+	{
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str); 
+			fw.flush();//加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

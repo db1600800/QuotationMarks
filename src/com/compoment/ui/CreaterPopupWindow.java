@@ -13,7 +13,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterPopupWindow {
 
-	String xmlfile = "order_prompt_notenough_repertory.xml";// 修改就行
+	String xmlfile = "order_prompt_add_shoppingcar.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -94,7 +94,7 @@ public class CreaterPopupWindow {
 		m += "	public void onClick(View arg0) {\n";
 		m+="menuPopupWindow.dismiss();\n";
 		m += "}});\n";
-		m+="menuPopupWindow.show();\n*/";
+		m+="menuPopupWindow.show();*/\n\n";
 
 
 

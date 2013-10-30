@@ -47,7 +47,7 @@
 	android:text="&#25628;&#32034;"
 	android:layout_alignParentTop="true"
 	android:layout_alignParentRight="true" />
-<EditText
+<AutoCompleteTextView
 	android:id="@+id/buy_typelist_search_edittxt"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -64,13 +64,13 @@
     android:layout_alignParentLeft="true"
     android:layout_below="@+id/buy_typelist_search_layout"
     android:orientation="vertical"
-    android:visibility="visible" >
+     >
 
     <GridView
         android:id="@+id/buy_typelist_gridview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:numColumns="3" >
+        android:numColumns="2" >
     </GridView>
 </LinearLayout>
 

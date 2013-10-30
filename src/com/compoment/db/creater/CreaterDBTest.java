@@ -1,5 +1,7 @@
 package com.compoment.db.creater;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import com.compoment.db.helper.XmlDBColumnBean;
@@ -22,6 +24,7 @@ public class CreaterDBTest {
 		n+=createrDBTest.updateTest();//更新
         n+="}\n";
 		System.out.println(n);
+		stringToFile("d:\\"+className+"DBTest.java",n);
 	}
 
 	/** 插入--查出 */
@@ -47,8 +50,8 @@ public class CreaterDBTest {
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
 			// dBContentResolver = new
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
-			m += "        " + className
-					+ "DBContentResolver dBContentResolver  = new " + className
+			m += "        " + table.tableName
+					+ "DBContentResolver dBContentResolver  = new " + table.tableName
 					+ "DBContentResolver(context);\n";
 			// dBContentResolver.insert(accountBean);
 			m += "		dBContentResolver.insert("
@@ -74,8 +77,8 @@ public class CreaterDBTest {
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
 			// dBContentResolver = new
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
-			m += "        " + className
-					+ "DBContentResolver dBContentResolver  = new " + className
+			m += "        " + table.tableName
+					+ "DBContentResolver dBContentResolver  = new " + table.tableName
 					+ "DBContentResolver(context);\n";
 
 			// m +=
@@ -109,7 +112,7 @@ public class CreaterDBTest {
 			m += "              {\n";
 			for (XmlDBColumnBean column : table.columnsName) {
 				m += "				logString += is20Length(bean.get" + column.columnName
-						+ "());\n";
+						+ "());//"+column.columnChineseName +"\n";
 			}
 			m += "				Log.i(\"bbq\", logString);\n";
 			m += "              }\n";
@@ -122,6 +125,10 @@ public class CreaterDBTest {
 		return m;
 
 	}
+	
+	
+	
+	
 
 	/** 更新--查出 */
 	public String updateTest() {
@@ -157,8 +164,8 @@ public class CreaterDBTest {
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
 			// dBContentResolver = new
 			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
-			m += "        " + className
-					+ "DBContentResolver dBContentResolver  = new " + className
+			m += "        " + table.tableName
+					+ "DBContentResolver dBContentResolver  = new " + table.tableName
 					+ "DBContentResolver(context);\n";
 			// dBContentResolver.insert(accountBean);
 			m += "		dBContentResolver.update("
@@ -174,10 +181,11 @@ public class CreaterDBTest {
 		String m = "";
 		m += "\n";
 		for (XmlDBTableBean table : tables) {
+			m += "/**"+table.tableChineseName+"*/\n";
 			m += "public void deleteAll" + table.tableName
 					+ "(Context context){\n";
-			m += className + "DBContentResolver dBContentResolver = new "
-					+ className + "DBContentResolver(context);\n";
+			m += table.tableName + "DBContentResolver dBContentResolver = new "
+					+ table.tableName + "DBContentResolver(context);\n";
 			m += "dBContentResolver.clear" + table.tableName + "();\n";
 			m += "}\n";
 		}
@@ -189,10 +197,11 @@ public class CreaterDBTest {
 		String m = "";
 		m += "\n";
 		for (XmlDBTableBean table : tables) {
+			m += "/**"+table.tableChineseName+"*/\n";
 			m += "public void delete" + table.tableName
 					+ "ById(Context context){\n";
-			m += className + "DBContentResolver dBContentResolver = new "
-					+ className + "DBContentResolver(context);\n";
+			m += table.tableName + "DBContentResolver dBContentResolver = new "
+					+ table.tableName + "DBContentResolver(context);\n";
 			int i=0;
 			for(XmlDBColumnBean column:table.columnsName)
 			{
@@ -297,4 +306,19 @@ public class CreaterDBTest {
 		}
 
 	}
+	
+	public static void stringToFile(String fileName,String str)
+	{
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str); 
+			fw.flush();//加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

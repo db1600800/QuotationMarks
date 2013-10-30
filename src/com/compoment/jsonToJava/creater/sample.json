@@ -1,23 +1,36 @@
 {
 	"result":0,
-"msg":"success",
+	"msg":"success",
+“isAD”:1,
 	"data":
 	[
 		{
-			"id":"10002",
-			"name":"系列名称",
-			"code":"系列编号",
-			"imgUrl":"http://ip:port/imgUrl"
-		},{
-			"id":"10002",
-			"name":"系列名称",
-			"code":"系列编号",
-			"imgUrl":"http://ip:port/imgUrl"
-		},{
-			"id":"10002",
-			"name":"系列名称",
-			"code":"系列编号",
-			"imgUrl":"http://ip:port/imgUrl"
+			"id":"1000",
+			"imageUrl":"http://ip:port/image",
+" operType ":0,
+			" beginDate ": "2013-09-03 23:12:14",
+" endDate ": "2013-09-03 23:12:14",
+			" status ":0,
+" createDate ": "2013-09-03 23:12:14"
+		},
+		{
+			"id":"1000",
+			"imageUrl":"http://ip:port/image",
+" operType ":0,
+			" beginDate ": "2013-09-03 23:12:14",
+" endDate ": "2013-09-03 23:12:14",
+			" status ":0,
+" createDate ": "2013-09-03 23:12:14"
+		},
+		{
+			"id":"1000",
+			"imageUrl":"http://ip:port/image",
+" operType ":0,
+			" beginDate ": "2013-09-03 23:12:14",
+" endDate ": "2013-09-03 23:12:14",
+			" status ":0,
+" createDate ": "2013-09-03 23:12:14"
 		}
 	]
 }
+

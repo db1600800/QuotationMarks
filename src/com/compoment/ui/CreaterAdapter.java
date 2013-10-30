@@ -13,6 +13,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+
 //http://www.189works.com/article-37835-1.html
 
 public class CreaterAdapter {
@@ -80,8 +82,8 @@ public class CreaterAdapter {
 		m += "	private static final String TAG = \""+className+"Adapter\";\n";
 		m += "	/** 列表是否滑动中，如果是滑动状态则仅从内存中获取图片，否则开启线程去外存或网络获取图片。 */\n";
 		m += "	private boolean isScrolling = false;\n";
-		m += "	private List<" + className + "AdapterBean> list;\n";
-		m += "	private ImageLoader mImageLoader;\n";
+		m += "	public List<" + className + "AdapterBean> list;\n";
+		m += "	public ImageLoader mImageLoader;\n";
 		m += "	private Context mContext;\n";
 		m += "	int defaultImg = R.drawable.ic_launcher;\n";
 
@@ -91,7 +93,7 @@ public class CreaterAdapter {
 
 		m += "	public " + className + "Adapter(Context context) {\n";
 		m += "		this.mContext = context;\n";
-		m += "		mImageLoader = new ImageLoader(context);\n";
+		m += "		mImageLoader= ((..Activity)context).mImageLoader;//建议在Acitivty中new 公用  new ImageLoader(context);\n";
 		m += "	}\n";
 
 		m += "	public ImageLoader getImageLoader() {\n";
@@ -250,6 +252,7 @@ public class CreaterAdapter {
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
                 m+="/**"+text+"*/\n";
+                m+="public String id;\n";
 				if (control.equals("ImageView")) {
 					m += "		public String "
 							+ firstCharToLowerAndJavaName(idToName[1])
