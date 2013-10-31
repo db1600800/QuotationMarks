@@ -577,12 +577,17 @@ public class CreateView {
 					
 					temp += ss[j].substring(0, 1).toUpperCase() +ss[j].substring(1);
 				}
-				temp = "//((...FragmentActivity)context).pushFragment(new "
+				
+				temp = "//"
+						+ "...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n"
+						+ "fragmentActivity.pushFragment(new "
 						+ temp + "());\n";
 				result.add(temp);
 
 			} else if (s.equals("back")) {
-				temp = "//((...FragmentActivity)context).popFragment();\n";
+				temp = "//"
+						+ "...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n"
+						+ "fragmentActivity.popFragment();\n";
 				result.add(temp);
 			}
 
