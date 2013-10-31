@@ -6,34 +6,12 @@
     android:background="@drawable/order_bg" >
 
     <RelativeLayout
-        android:id="@+id/buy_shoppingcar_productlist_item_img_layout"
-        android:layout_width="100dp"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-        <CheckBox
-            android:id="@+id/buy_shoppingcar_productlist_item_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
-
-        <ImageView
-            android:id="@+id/ProductShoppingcarStoreUp_ProductPic_select_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/bg_account_user_address" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/buy_shoppingcar_productlist_item_productmsg_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@+id/buy_shoppingcar_productlist_item_btn_layout"
-        android:layout_toRightOf="@+id/buy_shoppingcar_productlist_item_img_layout" >
+        android:layout_toRightOf="@+id/buy_shoppingcar_productlist_item_img_layout"  android:gravity="center" >
 
         <RelativeLayout
             android:id="@+id/buy_shoppingcar_productlist_item_productname_layout"
@@ -61,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="数量减一" />
+                android:text="减一" />
 
             <EditText
                 android:id="@+id/ProductShoppingcarStoreUp_BuyNumber_select_edittext"
@@ -77,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                
-                android:text="数量加一" />
+                android:text="加一" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -110,23 +88,47 @@
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="false" >
+        android:layout_centerInParent="false"  android:gravity="center" >
 
         <Button
-            android:id="@+id/ProductShoppingcarStoreUp_ProductId_isInShoppingCar_true_update_btn"
+            android:id="@+id/ProductShoppingcarStoreUp_ProductId_isStoreUp_true_update_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="购物车" />
+            android:text="收藏" />
 
         <Button
             android:id="@+id/ProductShoppingcarStoreUp_ProductId_isInShoppingCar_false_update_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ProductShoppingcarStoreUp_ProductId_isInShoppingCar_true_update_btn"
+            android:layout_below="@+id/ProductShoppingcarStoreUp_ProductId_isStoreUp_true_update_btn"
             android:layout_centerHorizontal="true"
-            android:text="取消" />
+            android:text="删除" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/buy_shoppingcar_productlist_item_img_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" 
+        android:gravity="center"
+        >
+
+        <CheckBox
+            android:id="@+id/buy_shoppingcar_productlist_item_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+
+        <ImageView
+            android:id="@+id/ProductShoppingcarStoreUp_ProductPic_select_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toRightOf="@+id/buy_shoppingcar_productlist_item_checkBox"
+            android:src="@drawable/bg_account_user_address" />
     </RelativeLayout>
 
 </RelativeLayout>

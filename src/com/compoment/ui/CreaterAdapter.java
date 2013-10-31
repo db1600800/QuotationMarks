@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
+
 //http://www.189works.com/article-37835-1.html
 
 public class CreaterAdapter {
@@ -26,7 +27,7 @@ public class CreaterAdapter {
 	static String xmlfilename = null;
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
-			"ExpandableListView", "ListView", "GridView", "Spinner" };
+			"ExpandableListView", "ListView", "GridView", "Spinner" ,"CheckBox"};
 	Element root = null;
 	String m = "";
 
@@ -124,7 +125,7 @@ public class CreaterAdapter {
 
 		m += "	@Override\n";
 		m += "	public View getView(int position, View convertView, ViewGroup parent) {\n";
-
+		m += "		" + className + "AdapterBean adapterbean = list.get(position);\n";
 		m += "		ViewHolder viewHolder = null;\n";
 		m += "		if (convertView == null) {\n";
 		m += "			convertView = LayoutInflater.from(mContext).inflate(\n";
@@ -156,7 +157,7 @@ public class CreaterAdapter {
 					m += "	                      public void onClick(View v) {\n";
 					m += "	                          CheckBox cb = (CheckBox)v;\n";
 
-					m += "bean." + firstCharToLowerAndJavaName(idToName[1])
+					m += "adapterbean." + firstCharToLowerAndJavaName(idToName[1])
 							+ "CheckBoxState=cb.isChecked()" + ";\n";
 					m += "}\n";
 					m += "});\n";
@@ -175,8 +176,8 @@ public class CreaterAdapter {
 		m += "			viewHolder = (ViewHolder) convertView.getTag();\n";
 		m += "		}\n";
 
-		m += "		" + className + "AdapterBean bean = list.get(position);\n";
-		m += "		if (bean != null) {\n";
+		
+		m += "		if (adapterbean != null) {\n";
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -188,7 +189,7 @@ public class CreaterAdapter {
 				String[] idToName = id.split("/");
 				 m+="//"+text+"\n";
 				if (control.equals("ImageView")) {
-					m += "			mImageLoader.setImgToImageView(bean."
+					m += "			mImageLoader.setImgToImageView(adapterbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Url,\n";
 					m += "					viewHolder."
@@ -198,14 +199,14 @@ public class CreaterAdapter {
 
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setChecked(bean."
+							+ ".setChecked(adapterbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "CheckBoxState);\n";
 
 				} else if (control.equals("EditText")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(bean."
+							+ ".setText(adapterbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				} else if (control.equals("Button")) {
@@ -213,7 +214,7 @@ public class CreaterAdapter {
 				} else if (control.equals("TextView")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(bean."
+							+ ".setText(adapterbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				}
@@ -280,6 +281,7 @@ public class CreaterAdapter {
 
 		
 		m+=beanChange();
+		m+=checkBoxSelectAll();
 		m += "	}\n";
 
 		System.out.println(m);
@@ -443,6 +445,57 @@ public class CreaterAdapter {
 			i++;
 		}
 		return temp;
+	}
+	
+	public String checkBoxSelectAll()
+	{
+		String temp="";
+		String adapterbeanCheckBoxName="";
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+           
+               if (control.equals("CheckBox")) {
+            	   adapterbeanCheckBoxName+= ""
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "CheckBoxState";
+				}
+			}
+		}
+		
+		
+		temp+= "public void selectAllCheckBox() { // 全选checkBox\n";
+		temp+="    for (int i = 0; i < list.size(); i++) {\n";
+		temp+=className+"AdapterBean adapterbean = list.get(i);\n";
+		temp+="     	adapterbean."+adapterbeanCheckBoxName+"=true;\n";
+		temp+="   }\n";
+		temp+="     notifyDataSetChanged();\n";
+		temp+=" }\n";
+
+		temp+=" public void disSelectAllCheckBox() { // 全不选checkBox\n";
+		temp+="     for (int i = 0; i < list.size(); i++) {\n";
+		temp+=className+"AdapterBean adapterbean = list.get(i);\n";
+		temp+="     	adapterbean."+adapterbeanCheckBoxName+"=false;\n";
+		temp+="    }\n";
+		temp+="   notifyDataSetChanged();\n";
+		temp+="}\n";
+
+		temp+=" public void switchSelectCheckBox() { // 反选checkBox\n";
+	    temp+="  for (int i = 0; i < list.size(); i++) {\n";
+	    temp+=className+"AdapterBean adapterbean = list.get(i);\n";
+	    temp+="   boolean select =adapterbean."+adapterbeanCheckBoxName+";\n";
+	    temp+="  adapterbean."+adapterbeanCheckBoxName+"=(!select);\n";
+	   
+	     temp+="   }\n";
+	      temp+="  notifyDataSetChanged();\n";
+	   temp+=" }\n";
+	   
+	   return temp;
 	}
 	
 }

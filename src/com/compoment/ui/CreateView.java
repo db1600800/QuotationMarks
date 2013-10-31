@@ -27,7 +27,7 @@ public class CreateView {
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
 			"ExpandableListView", "ListView", "GridView", "Spinner",
-			"AutoCompleteTextView" };
+			"AutoCompleteTextView","CheckBox" };
 	Element root = null;
 	String m = "";
 
@@ -370,6 +370,23 @@ public class CreateView {
 							+ ".clearFocus();\n";
 					m += "	}\n";
 					m += "	});\n";
+				}else if(control.equals("CheckBox"))
+				{
+					
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ "= (CheckBox) containView.findViewById(R.id."
+							+ idToName[1] + ");\n";
+					
+				     m+=firstCharToLowerAndJavaName(idToName[1])+".setOnClickListener(new OnClickListener() {\n";
+				     m+="       @Override\n";
+				     m+="       public void onClick(View v) {\n";
+				     m+="if ("+firstCharToLowerAndJavaName(idToName[1])+".isChecked()) {\n";
+				    m+=" adapter.selectAllCheckBox();\n";
+			        m+=" }else{\n";
+			        m+=" adapter.disSelectAllCheckBox();\n";
+				     m+="}";
+				      m+="      }\n";
+				    m+="    });\n";
 				}
 
 				else {
@@ -697,4 +714,8 @@ public class CreateView {
 		}
 		return temp;
 	}
+	
+	
+	
+	
 }
