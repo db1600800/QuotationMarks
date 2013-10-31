@@ -3,6 +3,8 @@ package com.compoment.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,12 +16,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
-
 //http://www.189works.com/article-37835-1.html
 
 public class CreaterAdapter {
 
-	String xmlfile = "order_pickup_productlist_item.xml";// 修改就行
+	String xmlfile = "order_shoppingcar_productlist_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -162,7 +163,9 @@ public class CreaterAdapter {
 				} else if (control.equals("Button")) {
 					m += " viewHolder."+firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener( \n new View.OnClickListener() {\n"
-							+ "public void onClick(View v) {}\n});\n\n";
+							+ "public void onClick(View v) {";
+							m+=btnXmlnameTodbnameOrjavaname(idToName[1]);
+							m+= "}\n});\n\n";
 				}
 			}
 		}
@@ -242,7 +245,7 @@ public class CreaterAdapter {
 		m += "	}\n";
 
 		m += "public	static class " + className + "AdapterBean {\n";
-
+		 m+="public String id;\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -252,7 +255,7 @@ public class CreaterAdapter {
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
                 m+="/**"+text+"*/\n";
-                m+="public String id;\n";
+               
 				if (control.equals("ImageView")) {
 					m += "		public String "
 							+ firstCharToLowerAndJavaName(idToName[1])
@@ -275,6 +278,8 @@ public class CreaterAdapter {
 
 		m += "	}\n";
 
+		
+		m+=beanChange();
 		m += "	}\n";
 
 		System.out.println(m);
@@ -302,11 +307,142 @@ public class CreaterAdapter {
 			temp += s.substring(0, 1).toLowerCase() + s.substring(1);
 			}else
 			{
-				temp += s.substring(0, 1).toUpperCase() + s.substring(1);
+				temp += "_"+s.substring(0, 1).toUpperCase() + s.substring(1);
 			}
 			i++;
 		}
 		return temp;
 	}
+	
+	
+	public String beanChange()
+	{
+	     String temp = "";
+	     HashSet<String> set = new HashSet<String>(); 
+			for (String control : controls) {
+				// control为Button TextView....
+				NodeList buttonItems = root.getElementsByTagName(control);
+				for (int i = 0; i < buttonItems.getLength(); i++) {
+					Element personNode = (Element) buttonItems.item(i);
+					String id = personNode.getAttribute("android:id");
+					String text = personNode.getAttribute("android:text");
+					String[] idToName = id.split("/");
+				
+					if (control.equals("TextView")) {
+						
+						
+						String[] ss = idToName[1].split("_");
+				
+					
+						for (String s : ss) {
+							 if ( s.equals("select")) {
+								 
+								 set.add(new String(ss[0]));
+						
+								}
+							
+						}
+					}
+				}
+			}
+			
+			String tableName="";
+			for(String tablename:set){
+				tableName=tablename;
+			}
+		
+		
+		temp+="	public  void beanChange(List<"+className+"AdapterBean> adapterBeans,List<"+tableName+"Bean>  dbBeans)\n";
+		
+		temp+="{\n";
+			
+		temp+="	for("+tableName+"Bean dbBean:dbBeans)\n";
+		temp+="{\n";
+			
+		 temp+=className+"AdapterBean adapterBean=new "+className+"AdapterBean();\n";
+		 
+			for (String control : controls) {
+				// control为Button TextView....
+				NodeList buttonItems = root.getElementsByTagName(control);
+				for (int i = 0; i < buttonItems.getLength(); i++) {
+					Element personNode = (Element) buttonItems.item(i);
+					String id = personNode.getAttribute("android:id");
+					String text = personNode.getAttribute("android:text");
+					String[] idToName = id.split("/");
+					String[] ss = idToName[1].split("_");
+					
+					if (control.equals("ImageView")) {
+						 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
+									+ "Url"+"=dbBean.get"+ss[1]+"();\n";
+					} else if (control.equals("TextView")) {
+						 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
+									+ "Value"+"=dbBean.get"+ss[1]+"();\n";
+					} else if (control.equals("EditText")) {
+						
+					} else if (control.equals("CheckBox")) {
+						
+					}
+				}
+			}
+			
+			
+		temp+="		adapterBeans.add(adapterBean);\n";
+	    temp+="}\n";
+			
+	    temp+="}\n";
+	    
+	    return temp;
+	}
 
+	
+	public static String btnXmlnameTodbnameOrjavaname(String string) {
+		// buy_typelist
+		String[] ss = string.split("_");
+		
+		String temp = "";
+		int i = 0;
+
+		for (String s : ss) {
+			if (s.equals("jump")) {
+
+				for (int j = 0; j < i; j++) {
+					
+					temp += ss[j].substring(0, 1).toUpperCase() +ss[j].substring(1);
+				}
+				temp = "//((...FragmentActivity)context).pushFragment(new "
+						+ temp + "());\n";
+				
+
+			} else if (s.equals("back")) {
+				temp = "//((...FragmentActivity)context).popFragment();\n";
+				
+			}
+
+			else if ( s.equals("update")) {
+
+				
+				temp+=ss[0]+"DBContentResolver dBContentResolver = new "+ss[0]+"DBContentResolver(mContext);\n";
+						
+				temp+="List<"+ss[0]+"Bean> beans = dBContentResolver.query"+ss[0]+"By"+ss[1]+"(\"ProductId\");\n";
+				
+				temp+="if(beans!=null && beans.size()>0)\n";
+				temp+="{\n";
+				temp+=ss[0]+"Bean bean=beans.get(0);\n";
+				temp+="	if(bean.get"+ss[2]+"().equals(\"true\"))\n";
+				temp+="	{\n";
+				
+				temp+="	}\n";
+				temp+="	bean.set"+ss[2]+"(\"true\");\n";
+				
+				temp+="	dBContentResolver.update(bean);\n";
+				temp+="}\n";
+				
+			
+				}
+			
+			i++;
+		}
+		return temp;
+	}
+	
 }

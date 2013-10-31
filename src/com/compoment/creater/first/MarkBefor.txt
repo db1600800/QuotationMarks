@@ -1,55 +1,18 @@
-import android.content.ContentResolver;
+import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.support.v4.widget.CursorAdapter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-
-public class SearchCursorAdpter extends CursorAdapter {  
-    private int columnIndex;  
-     Context context;
-    public SearchCursorAdpter(Context context, Cursor c, int col) {  
-        super(context, c);  
-        this.columnIndex = col;  
-        this.context=context;
-    }  
-    @Override  
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {  
-        final LayoutInflater inflater = LayoutInflater.from(context);  
-        final TextView view = (TextView) inflater.inflate(  
-                android.R.layout.simple_dropdown_item_1line, parent, false);  
-        view.setText(cursor.getString(columnIndex));  
-        return view;  
-    }  
-    @Override  
-    public void bindView(View view, Context context, Cursor cursor) {  
-        ((TextView) view).setText(cursor.getString(columnIndex));  
-    }  
-      
-    @Override  
-    public String convertToString(Cursor cursor) {  
-        return cursor.getString(columnIndex);  
-    }  
-    @Override  
-    public Cursor runQueryOnBackgroundThread(CharSequence constraint) {  
-        if (constraint != null) {  
-            String selection = " like \'" + constraint.toString() +"%\'";  
-            ContentResolver resolver=context.getContentResolver();
-    		Cursor cursor = resolver
-    				.query(Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBTableDescribe.ProductShoppingcarStoreUpTable.CONTENT_URI,
-    						new String[] {
-							Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBTableDescribe.ProductShoppingcarStoreUpTable.PRODUCT_NAME
-							,"_id"},//String[] trainColumns = new String[] {"train_no", "id as _id" };
-							//欲查询匹配的列放第一,查询结果必须有_id列，因我的表中没有，所以把id as成_id,实践证明，其实随便哪个字段都可以as _id，不用主键，这里也可以train_no as _id.
-    						Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBTableDescribe.ProductShoppingcarStoreUpTable.PRODUCT_NAME
-    								+ selection, null, null);
-            return cursor;  
-        }  
-        else {  
-            return null;  
-        }  
-    }
-
-}  
+import java.util.ArrayList;
+import java.util.List;
