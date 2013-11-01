@@ -125,7 +125,7 @@ public class CreaterAdapter {
 
 		m += "	@Override\n";
 		m += "	public View getView(int position, View convertView, ViewGroup parent) {\n";
-		m += "		" + className + "AdapterBean adapterbean = list.get(position);\n";
+	
 		m += "		ViewHolder viewHolder = null;\n";
 		m += "		if (convertView == null) {\n";
 		m += "			convertView = LayoutInflater.from(mContext).inflate(\n";
@@ -176,7 +176,7 @@ public class CreaterAdapter {
 		m += "			viewHolder = (ViewHolder) convertView.getTag();\n";
 		m += "		}\n";
 
-		
+		m += "		" + className + "AdapterBean adapterbean = list.get(position);\n";
 		m += "		if (adapterbean != null) {\n";
 
 		for (String control : controls) {
@@ -210,6 +210,7 @@ public class CreaterAdapter {
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				} else if (control.equals("Button")) {
+					m+="viewHolder."+ firstCharToLowerAndJavaName(idToName[1])+".setTag(position);\n";
 
 				} else if (control.equals("TextView")) {
 					m += "viewHolder."
@@ -422,7 +423,8 @@ public class CreaterAdapter {
 
 			else if ( s.equals("update")) {
 
-				
+				temp+="\n int position=Integer.valueOf(v.getTag().toString());\n";
+				temp+=className+"AdapterBean adapterbean = list.get(position);\n";
 				temp+=ss[0]+"DBContentResolver dBContentResolver = new "+ss[0]+"DBContentResolver(mContext);\n";
 						
 				temp+="List<"+ss[0]+"Bean> beans = dBContentResolver.query"+ss[0]+"By"+ss[1]+"(\"ProductId\");\n";

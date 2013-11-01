@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 
 
 
-
 public class CreateView {
 
 	String xmlfile = "order_shoppingcar_productlist.xml";// 修改就行
@@ -27,7 +26,7 @@ public class CreateView {
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
 			"ExpandableListView", "ListView", "GridView", "Spinner",
-			"AutoCompleteTextView","CheckBox" };
+			"AutoCompleteTextView", "CheckBox" };
 	Element root = null;
 	String m = "";
 
@@ -64,25 +63,25 @@ public class CreateView {
 	}
 
 	public void create() {
-		m+="import android.app.Activity;\n";
-		m+="import android.content.Context;\n";
-		m+="import android.os.AsyncTask;\n";
-		m+="import android.os.Bundle;\n";
-		m+="import android.os.Handler;\n";
-		m+="import android.os.Message;\n";
-		m+="import android.support.v4.app.Fragment;\n";
-		m+="import android.view.LayoutInflater;\n";
-		m+="import android.view.View;\n";
-		m+="import android.view.ViewGroup;\n";
-		m+="import android.view.inputmethod.InputMethodManager;\n";
-		m+="import android.widget.AbsListView;\n";
-		m+="import android.widget.AdapterView;\n";
-		m+="import android.widget.Button;\n";
-		m+="import android.widget.ListView;\n";
-		m+="import android.widget.TextView;\n";
-		m+="import java.util.ArrayList;\n";
-		m+="import java.util.List;\n";
-        m+="import android.widget.AdapterView.OnItemClickListener;\n";
+		m += "import android.app.Activity;\n";
+		m += "import android.content.Context;\n";
+		m += "import android.os.AsyncTask;\n";
+		m += "import android.os.Bundle;\n";
+		m += "import android.os.Handler;\n";
+		m += "import android.os.Message;\n";
+		m += "import android.support.v4.app.Fragment;\n";
+		m += "import android.view.LayoutInflater;\n";
+		m += "import android.view.View;\n";
+		m += "import android.view.ViewGroup;\n";
+		m += "import android.view.inputmethod.InputMethodManager;\n";
+		m += "import android.widget.AbsListView;\n";
+		m += "import android.widget.AdapterView;\n";
+		m += "import android.widget.Button;\n";
+		m += "import android.widget.ListView;\n";
+		m += "import android.widget.TextView;\n";
+		m += "import java.util.ArrayList;\n";
+		m += "import java.util.List;\n";
+		m += "import android.widget.AdapterView.OnItemClickListener;\n";
 		/*
 		 * private static final String[] URLS = {
 		 * "http://lh5.ggpht.com/_mrb7w4gF8Ds/TCpetKSqM1I/AAAAAAAAD2c/Qef6Gsqf12Y/s144-c/_DSC4374%20copy.jpg"
@@ -291,6 +290,7 @@ public class CreateView {
 		m += "public void onAttach(Activity activity) {\n";
 		m += "   super.onAttach(activity);\n";
 		m += "      context=activity;\n";
+		m += "//...value= getArguments().getString(\"" + className + "\");\n";
 		m += "}\n";
 
 		m += " @Override\n";
@@ -326,9 +326,8 @@ public class CreateView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
-					List l=btnXmlnameTodbnameOrjavaname(idToName[1]);
-					if(l.size()==1)
-					{
+					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
+					if (l.size() == 1) {
 						m += l.get(0).toString();
 					}
 					m += "						}\n";
@@ -370,23 +369,24 @@ public class CreateView {
 							+ ".clearFocus();\n";
 					m += "	}\n";
 					m += "	});\n";
-				}else if(control.equals("CheckBox"))
-				{
-					
+				} else if (control.equals("CheckBox")) {
+
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ "= (CheckBox) containView.findViewById(R.id."
 							+ idToName[1] + ");\n";
-					
-				     m+=firstCharToLowerAndJavaName(idToName[1])+".setOnClickListener(new OnClickListener() {\n";
-				     m+="       @Override\n";
-				     m+="       public void onClick(View v) {\n";
-				     m+="if ("+firstCharToLowerAndJavaName(idToName[1])+".isChecked()) {\n";
-				    m+=" adapter.selectAllCheckBox();\n";
-			        m+=" }else{\n";
-			        m+=" adapter.disSelectAllCheckBox();\n";
-				     m+="}";
-				      m+="      }\n";
-				    m+="    });\n";
+
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnClickListener(new OnClickListener() {\n";
+					m += "       @Override\n";
+					m += "       public void onClick(View v) {\n";
+					m += "if (" + firstCharToLowerAndJavaName(idToName[1])
+							+ ".isChecked()) {\n";
+					m += " adapter.selectAllCheckBox();\n";
+					m += " }else{\n";
+					m += " adapter.disSelectAllCheckBox();\n";
+					m += "}";
+					m += "      }\n";
+					m += "    });\n";
 				}
 
 				else {
@@ -399,6 +399,12 @@ public class CreateView {
 
 		m += "		}\n";
 		m += "return containView;\n";
+		m += "}\n";
+
+		m += "public void runAsyncTask()\n";
+		m += "{\n";
+		m += "	GetNetInfoTask getNetInfoTask=new GetNetInfoTask();\n";
+		m += "	getNetInfoTask.execute(\"\");\n";
 		m += "}\n";
 
 		m += "	private class GetNetInfoTask extends\n";
@@ -437,9 +443,6 @@ public class CreateView {
 
 		m += "		}\n";
 
-		
-		
-		
 		m += "		@Override\n";
 		m += "		protected List<" + className
 				+ "AdapterBean> doInBackground(String... params) {\n";
@@ -452,29 +455,21 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-			
+
 				if (control.equals("ListView") || control.equals("GridView")) {
-					m+=listXmlnameTodbnameOrjavaname(idToName[1]);
-				} 
+					m += listXmlnameTodbnameOrjavaname(idToName[1]);
+				}
 			}
 		}
-		
+
 		m += "			return null;\n";
 		m += "		}\n";
 
-		
-		
-		
-		
 		m += "		@Override\n";
 		m += "		protected void onProgressUpdate(Integer... values) {\n";
 		m += "			// 更新进度\n";
 		m += "		}\n";
 
-		
-		
-		
-		
 		m += "		@Override\n";
 		m += "	      protected void onPostExecute(List<" + className
 				+ "AdapterBean> list) {\n";
@@ -498,9 +493,6 @@ public class CreateView {
 		}
 		m += "	      }\n";
 
-		
-		
-		
 		m += "		@Override\n";
 		m += "		protected void onCancelled() {\n";
 		m += "			super.onCancelled();\n";
@@ -573,7 +565,7 @@ public class CreateView {
 			if (i == 0) {
 				temp += s.substring(0, 1).toLowerCase() + s.substring(1);
 			} else {
-				temp += "_"+s.substring(0, 1).toUpperCase() + s.substring(1);
+				temp += "_" + s.substring(0, 1).toUpperCase() + s.substring(1);
 			}
 			i++;
 		}
@@ -589,75 +581,81 @@ public class CreateView {
 
 		for (String s : ss) {
 			if (s.equals("jump")) {
-
+				String fragmentName = "";
 				for (int j = 0; j < i; j++) {
-					
-					temp += ss[j].substring(0, 1).toUpperCase() +ss[j].substring(1);
+
+					fragmentName += ss[j].substring(0, 1).toUpperCase()
+							+ ss[j].substring(1);
 				}
-				
-				temp = "//"
-						+ "...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n"
-						+ "fragmentActivity.pushFragment(new "
-						+ temp + "());\n";
+
+				temp += "Fragment fragment = new " + fragmentName + "();\n";
+
+				temp += "Bundle bundle = new Bundle();\n";
+				temp += "bundle.putString(\"" + fragmentName + "\", value);\n";
+				temp += "fragment.setArguments(bundle);\n";
+				temp += "//...FragmentActivity activity = (...FragmentActivity) getActivity();\n";
+				temp += "activity.pushFragment(fragment);\n";
+
 				result.add(temp);
 
 			} else if (s.equals("back")) {
-				temp = "//"
-						+ "...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n"
-						+ "fragmentActivity.popFragment();\n";
+				
+					temp+="//...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n";
+					temp+="fragmentActivity.popFragment();\n";
 				result.add(temp);
 			}
 
-			else if ( s.equals("update")) {
+			else if (s.equals("update")) {
 
-				
-				temp+=ss[0]+"DBContentResolver dBContentResolver = new "+ss[0]+"DBContentResolver(context);\n";
-						
-				temp+="List<"+ss[0]+"Bean> beans = dBContentResolver.query"+ss[0]+"By"+ss[1]+"(\"ProductId\");\n";
-				
-				temp+="if(beans!=null && beans.size()>0)\n";
-				temp+="{\n";
-				temp+=ss[0]+"Bean bean=beans.get(0);\n";
-				temp+="	if(bean.get"+ss[2]+"().equals(\"true\"))\n";
-				temp+="	{\n";
-				
-				temp+="	}\n";
-				temp+="	bean.set"+ss[2]+"(\"true\");\n";
-				
-				temp+="	dBContentResolver.update(bean);\n";
-				temp+="}\n";
+				temp += ss[0] + "DBContentResolver dBContentResolver = new "
+						+ ss[0] + "DBContentResolver(context);\n";
+
+				temp += "List<" + ss[0]
+						+ "Bean> beans = dBContentResolver.query" + ss[0]
+						+ "By" + ss[1] + "(\"ProductId\");\n";
+
+				temp += "if(beans!=null && beans.size()>0)\n";
+				temp += "{\n";
+				temp += ss[0] + "Bean bean=beans.get(0);\n";
+				temp += "	if(bean.get" + ss[2] + "().equals(\"true\"))\n";
+				temp += "	{\n";
+
+				temp += "	}\n";
+				temp += "	bean.set" + ss[2] + "(\"true\");\n";
+
+				temp += "	dBContentResolver.update(bean);\n";
+				temp += "}\n";
 				result.add(temp);
-			
-				}
-			
+
+			}
+
 			i++;
 		}
 		return result;
 	}
-	
-	
-	
+
 	public static String listXmlnameTodbnameOrjavaname(String string) {
 		// buy_typelist
 		String[] ss = string.split("_");
 		String temp = "";
 		int i = 0;
 		for (String s : ss) {
-			 if ( s.equals("select")) {
-				temp+=ss[0]+"DBContentResolver dBContentResolver = new "+ss[0]+"DBContentResolver(context);\n";
-				temp+="List<"+ss[0]+"Bean> dbBeans = dBContentResolver.query"+ss[0]+"By"+ss[1]+"(\"ProductId\");\n";
-				temp+="adapter.beanChange(list, dbBeans);\n";
-				}
+			if (s.equals("select")) {
+				temp += ss[0] + "DBContentResolver dBContentResolver = new "
+						+ ss[0] + "DBContentResolver(context);\n";
+				temp += "List<" + ss[0]
+						+ "Bean> dbBeans = dBContentResolver.query" + ss[0]
+						+ "By" + ss[1] + "(\"ProductId\");\n";
+				temp += "adapter.beanChange(list, dbBeans);\n";
+			}
 			i++;
 		}
 		return temp;
 	}
-	
-	
-	public String textviewXmlnameTodbnameOrjavaname()
-	{
-		String temp="";
-		boolean isHaveListView=false;
+
+	public String textviewXmlnameTodbnameOrjavaname() {
+		String temp = "";
+		boolean isHaveListView = false;
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -666,18 +664,17 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-			
+
 				if (control.equals("ListView") || control.equals("GridView")) {
-					isHaveListView=true;
+					isHaveListView = true;
 				} else if (control.equals("TextView")) {
-					
+
 				}
 			}
 		}
-		
-		if(!isHaveListView)
-		{
-			 HashSet<String> set = new HashSet<String>(); 
+
+		if (!isHaveListView) {
+			HashSet<String> set = new HashSet<String>();
 			for (String control : controls) {
 				// control为Button TextView....
 				NodeList buttonItems = root.getElementsByTagName(control);
@@ -686,36 +683,34 @@ public class CreateView {
 					String id = personNode.getAttribute("android:id");
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
-				
+
 					if (control.equals("TextView")) {
-						
-						
+
 						String[] ss = idToName[1].split("_");
-				
-					
+
 						for (String s : ss) {
-							 if ( s.equals("select")) {
-								 
-								 set.add(new String(ss[0]));
-						
-								}
-							
+							if (s.equals("select")) {
+
+								set.add(new String(ss[0]));
+
+							}
+
 						}
 					}
 				}
 			}
-			
-			for(String tablename:set)
-			{
-			 
-			temp+=tablename+"DBContentResolver dBContentResolver = new "+tablename+"DBContentResolver(context);\n";
-			temp+="List<"+tablename+"Bean> beans = dBContentResolver.query"+tablename+"By(\"ProductId\");\n";
+
+			for (String tablename : set) {
+
+				temp += tablename
+						+ "DBContentResolver dBContentResolver = new "
+						+ tablename + "DBContentResolver(context);\n";
+				temp += "List<" + tablename
+						+ "Bean> beans = dBContentResolver.query" + tablename
+						+ "By(\"ProductId\");\n";
 			}
 		}
 		return temp;
 	}
-	
-	
-	
-	
+
 }
