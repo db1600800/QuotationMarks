@@ -301,9 +301,9 @@ public class CreaterDBTest {
 			e.printStackTrace();
 		}
 
-		for (XmlDBTableBean table : tables) {
-			className += table.tableName + "_";
-		}
+//		for (XmlDBTableBean table : tables) {
+//			className += table.tableName + "_";
+//		}
 
 	}
 	

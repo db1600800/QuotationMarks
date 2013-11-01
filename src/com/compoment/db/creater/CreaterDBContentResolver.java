@@ -34,9 +34,9 @@ public class CreaterDBContentResolver {
 		}
 
 		String className = "";
-		for (XmlDBTableBean table : tables) {
-			className += table.tableName + "_";
-		}
+//		for (XmlDBTableBean table : tables) {
+//			className += table.tableName + "_";
+//		}
 
 		
 		for (XmlDBTableBean table : tables) {

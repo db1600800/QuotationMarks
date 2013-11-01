@@ -47,9 +47,9 @@ public class CreaterDBContentProvider {
 		m += "import android.util.Log;\n";
 
 		String className = "";
-		for (XmlDBTableBean table : tables) {
-			className += table.tableName + "_";
-		}
+//		for (XmlDBTableBean table : tables) {
+//			className += table.tableName + "_";
+//		}
 
 		m += "/**<provider\n";
 		m += "android:name=\"com." + className + "DBContentProvider\"\n";

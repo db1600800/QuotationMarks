@@ -42,10 +42,10 @@ public class CreaterDBTableDescribe {
 		// OrderForm_Deliver_Account_ProductShoppingcarStoreUp_DBTableDescribe
 		// {// 订单_送货_帐户信息_产品购物车　收藏_
 		String className = "";
-		for (XmlDBTableBean table : tables) {
-			className += table.tableName + "_";
-		}
-		className += "DBTableDescribe";
+//		for (XmlDBTableBean table : tables) {
+//			className += table.tableName + "_";
+//		}
+		className = "DBTableDescribe";
 
 		m += "/**";
 		for (XmlDBTableBean table : tables) {
@@ -60,13 +60,13 @@ public class CreaterDBTableDescribe {
 
 
 		// public static final String AUTHORITY =
-		// "OrderForm_Deliver_Account_ProductShoppingcarStoreUp_DBTableDescribe_DBContentProvider";
+		// "DBContentProvider";
 		// public static final Uri AUTHORITY_URI = Uri.parse("content://" +
 		// AUTHORITY);
 
 		int pos=className.lastIndexOf("_");
-		m += "	public static final String AUTHORITY = \"" + className.substring(0, pos)
-				+ "_DBContentProvider\";\n";
+		m += "	public static final String AUTHORITY = \"" 
+				+ "DBContentProvider\";\n";
 		m += "	public static final Uri AUTHORITY_URI = Uri.parse(\"content://\" + AUTHORITY);\n";
 
 		// m +=
