@@ -27,8 +27,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>30</x>
-      <y>730</y>
+      <x>20</x>
+      <y>830</y>
       <w>430</w>
       <h>500</h>
     </coordinates>
@@ -36,7 +36,9 @@
 --
 产品ID:ProductId 
 --
-产品所属系列:ProductClass
+产品所属系列ID:ProductClassId
+--
+产品所属系列名字:ProductClassName
 --
 产品名字:ProductName
 --
@@ -102,9 +104,9 @@ bg=blue</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>490</x>
-      <y>370</y>
+      <y>360</y>
       <w>410</w>
-      <h>470</h>
+      <h>310</h>
     </coordinates>
     <panel_attributes>订单_表:OrderForm
 --
@@ -120,35 +122,19 @@ bg=blue</panel_attributes>
 --
 送货方式:DeliverWay
 --
-送货（提货）地址：DeliverAddress
+送货（提货）地址:DeliverAddress
 --
-提货人姓名：PickupManName
+提货人姓名:PickupManName
 --
-提货人电话：PickupManPhone
+提货人电话:PickupManPhone
 --
-提货地址：PickupAddress
+提货地址:PickupAddress
 --
-提货人证件号：PickupManCertificateNo
+提货人证件号:PickupManCertificateNo
 --
-产品ID(多个产品用逗号分割',')：ProductId
+产品总金额:ProductTotalPrice
 --
-产品名：ProductName
---
-产品价格：ProductPrice
---
-产品数量：ProductNum
---
-产品点数:ProductIntegrate
---
-产品总金额：ProductTotalPrice
---
-运费：DeliverPrice
---
-礼品ID(多个产品用逗号分割',')：GiftId
---
-礼品名：GiftName
---
-礼品数量：GiftNum
+运费:DeliverPrice
 --
 订单状态(已付款，未付款,已经发货,付款失败):OrderState
 
@@ -195,23 +181,32 @@ bg=blue</panel_attributes>
     <coordinates>
       <x>30</x>
       <y>560</y>
-      <w>430</w>
-      <h>160</h>
+      <w>450</w>
+      <h>220</h>
     </coordinates>
     <panel_attributes>送货_表:Deliver
 --
 送货ID:DeliverId
 --
-送货方式（自己提货，快递送货）:DeliverWay
+送货方式代码:DeliverWayCode
+--
+送货方式（专卖店提货Z，服务中心提货F，家居配送J）:DeliverWay
 --
 地址:DeliverAddress
 --
-收件人:Receiver
+卡号:CardNumber
+--
+收件人(姓名 名称):Receiver
 --
 收件人移动电话:ReceiverMobilePhone
 --
 收件人固定电话:ReceiverPhone
---</panel_attributes>
+--
+授权编码:AuthorCode
+--
+生效时间:EffectTime
+--
+身份证号:IDCardNumber</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -257,6 +252,61 @@ bg=blue</panel_attributes>
 帐户密码:PassWord
 
 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>490</x>
+      <y>700</y>
+      <w>430</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>产品类_表:ProductClass
+--
+产品类所属:ProductClassInWhere
+--
+产品类ID:ProductClassId
+--
+产品类名字:ProductClassName
+--
+产品类图片:ProductClassPic
+--
+产品类名字图片:ProductClassNamePic
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>490</x>
+      <y>850</y>
+      <w>430</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>促销赠品_随货配送_订单产品_表:PromotionDeliverOrderProduct
+--
+订单号:OrderId
+--
+产品ID:ProductId 
+--
+产品名字:ProductName
+--
+产品图片:ProductPic
+--
+购买数量:BuyNumber 
+--
+产品价格:ProductPrice
+--
+产品规格:ProductStype 
+--
+产品点数:ProductIntegrate
+--
+产品总金额:ProductTotalPrice
+--
+是否促销赠品:isPromotionProduct
+--
+是否随货配送:isDeliverProduct</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

@@ -17,25 +17,24 @@ import org.xml.sax.SAXException;
 
 
 
-public class CreateView {
+public class CreateMiniView {
 
-	String xmlfile = "order_shoppingcar_productlist.xml";// 修改就行
+	String xmlfile = "order_deliverway_deliverproduct.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
-			"ExpandableListView", "ListView", "GridView", "Spinner",
-			"AutoCompleteTextView", "CheckBox" };
+			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout" };
 	Element root = null;
 	String m = "";
 
 	public static void main(String[] args) throws SAXException, IOException {
-		CreateView createView = new CreateView();
+		CreateMiniView createView = new CreateMiniView();
 		createView.create();
 	}
 
-	public CreateView() {
+	public CreateMiniView() {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
@@ -186,8 +185,7 @@ public class CreateView {
 		 * };
 		 */
 
-		m += "public class " + className
-				+ " extends Fragment implements OnScrollListener {\n";
+		m += "public class " + className + " implements OnScrollListener {\n";
 
 		m += "	Context context;\n";
 		m += "	public View containView;\n";
@@ -215,24 +213,24 @@ public class CreateView {
 					m += firstCharToUpperAndJavaName(idToName[1]) + "Adapter "
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Adapter;\n";
-				}
-
-				else {
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += control + " "
+								+ firstCharToLowerAndJavaName(idToName[1])
+								+ ";\n";
+						m += className + "Adapter " + "adapter;\n";
+					}
+				} else {
 					m += control + " "
 							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
 				}
 			}
 		}
 
-		m += "public " + className + "()\n";
+		m += "public " + className + "(Context context)\n";
 		m += "{\n";
+		m += "this.context=context;\n";
 		m += "}\n";
-
-		m += "  @Override\n";
-		m += "    public void onDestroy() {\n";
-		m += "        super.onDestroy();\n";
-		m += "        clean();\n";
-		m += " }\n";
 
 		m += "	public void clean() {\n";
 		m += "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
@@ -263,7 +261,16 @@ public class CreateView {
 					CreateSearchCursorAdapter createSearchCursorAdapter = new CreateSearchCursorAdapter();
 					createSearchCursorAdapter
 							.create(firstCharToUpperAndJavaName(idToName[1]));
-				} else
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += firstCharToLowerAndJavaName(idToName[1])
+								+ "=null;\n";
+						m += "adapter.list.clear();\n";
+						m += "adapter=null;\n";
+					}
+				}
+
+				else
 
 				{
 					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
@@ -271,37 +278,6 @@ public class CreateView {
 			}
 		}
 
-		m += "}\n";
-
-		m += "	Handler handler = new Handler() {\n";
-		m += "		public void handleMessage(Message msg) {\n";
-		m += "			switch (msg.what) {\n";
-		m += "			// case SHOW_LOCKER:\n";
-		m += "			// break;\n";
-		m += "			default:\n";
-		m += "				super.handleMessage(msg);\n";
-
-		m += "			}\n";
-
-		m += "		}\n";
-		m += "	};\n";
-
-		m += "@Override\n";
-		m += "public void onAttach(Activity activity) {\n";
-		m += "   super.onAttach(activity);\n";
-		m += "      context=activity;\n";
-		m += "//...value= getArguments().getString(\"" + className + "\");\n";
-		m += "}\n";
-
-		m += " @Override\n";
-		m += " public void onCreate(Bundle savedInstanceState) {\n";
-		m += "     super.onCreate(savedInstanceState);\n";
-		m += " }\n";
-
-		m += "@Override\n";
-		m += "public View onCreateView(LayoutInflater inflater, ViewGroup container,\n";
-		m += "        Bundle savedInstanceState) {\n";
-		m += "    return init();\n";
 		m += "}\n";
 
 		m += "	public View init() {\n";
@@ -339,7 +315,17 @@ public class CreateView {
 							+ idToName[1] + ");\n";
 					m += "adapter= new " + className + "Adapter(context);\n";
 
-				} else if (control.equals("AutoCompleteTextView")) {
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
+								+ control + ") containView.findViewById(R.id."
+								+ idToName[1] + ");\n";
+						m += "adapter= new " + className
+								+ "Adapter(context);\n";
+					}
+				}
+
+				else if (control.equals("AutoCompleteTextView")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ "= (AutoCompleteTextView) containView.findViewById(R.id."
 							+ idToName[1] + ");\n";
@@ -437,7 +423,12 @@ public class CreateView {
 					m += "		public void onItemClick(AdapterView<?> arg0, View view,int position, long id) {\n";
 					m += "	}});\n";
 
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += "adapter.setList(list);\n";
+					}
 				}
+
 			}
 		}
 
@@ -446,7 +437,7 @@ public class CreateView {
 		m += "		@Override\n";
 		m += "		protected List<" + className
 				+ "AdapterBean> doInBackground(String... params) {\n";
-		m+=textviewXmlnameTodbnameOrjavaname();
+		m += textviewXmlnameTodbnameOrjavaname();
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -458,6 +449,10 @@ public class CreateView {
 
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += listXmlnameTodbnameOrjavaname(idToName[1]);
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += linearLayoutXmlnameTodbnameOrjavaname(idToName[1]);
+					}
 				}
 			}
 		}
@@ -488,6 +483,12 @@ public class CreateView {
 				} else if (control.equals("TextView")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setText(\"\");\n";
+				} else if (control.equals("LinearLayout")) {
+					if (idToName[1].contains("form_linearlayout")) {
+						m += "adapter.getView("
+								+ firstCharToLowerAndJavaName(idToName[1])
+								+ ");\n";
+					}
 				}
 			}
 		}
@@ -599,9 +600,9 @@ public class CreateView {
 				result.add(temp);
 
 			} else if (s.equals("back")) {
-				
-					temp+="//...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n";
-					temp+="fragmentActivity.popFragment();\n";
+
+				temp += "//...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n";
+				temp += "fragmentActivity.popFragment();\n";
 				result.add(temp);
 			}
 
@@ -635,6 +636,25 @@ public class CreateView {
 	}
 
 	public static String listXmlnameTodbnameOrjavaname(String string) {
+		// buy_typelist
+		String[] ss = string.split("_");
+		String temp = "";
+		int i = 0;
+		for (String s : ss) {
+			if (s.equals("select")) {
+				temp += ss[0] + "DBContentResolver dBContentResolver = new "
+						+ ss[0] + "DBContentResolver(context);\n";
+				temp += "List<" + ss[0]
+						+ "Bean> dbBeans = dBContentResolver.query" + ss[0]
+						+ "By" + ss[1] + "(\"ProductId\");\n";
+				temp += "adapter.beanChange(list, dbBeans);\n";
+			}
+			i++;
+		}
+		return temp;
+	}
+
+	public static String linearLayoutXmlnameTodbnameOrjavaname(String string) {
 		// buy_typelist
 		String[] ss = string.split("_");
 		String temp = "";
