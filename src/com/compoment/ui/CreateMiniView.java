@@ -19,13 +19,13 @@ import org.xml.sax.SAXException;
 
 public class CreateMiniView {
 
-	String xmlfile = "order_deliverway_deliverproduct.xml";// 修改就行
+	String xmlfile = "order_deliverway_address_choose_empty.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
-			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout" };
+			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout","RadioButton","RadioGroup"};
 	Element root = null;
 	String m = "";
 
@@ -214,13 +214,14 @@ public class CreateMiniView {
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Adapter;\n";
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += control + " "
 								+ firstCharToLowerAndJavaName(idToName[1])
 								+ ";\n";
 						m += className + "Adapter " + "adapter;\n";
 					}
 				} else {
+					if(idToName.length>1)
 					m += control + " "
 							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
 				}
@@ -262,7 +263,7 @@ public class CreateMiniView {
 					createSearchCursorAdapter
 							.create(firstCharToUpperAndJavaName(idToName[1]));
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += firstCharToLowerAndJavaName(idToName[1])
 								+ "=null;\n";
 						m += "adapter.list.clear();\n";
@@ -273,6 +274,7 @@ public class CreateMiniView {
 				else
 
 				{
+					if(idToName.length>1)
 					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
 				}
 			}
@@ -308,7 +310,20 @@ public class CreateMiniView {
 					}
 					m += "						}\n";
 					m += "					});\n";
-				} else if (control.equals("ListView")
+				}else if(control.equals("RadioGroup"))
+				{
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ " = (RadioGroup) containView\n";
+					m += "					.findViewById(R.id." + idToName[1] + ");\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {\n";
+					m += "		public void onCheckedChanged(RadioGroup group, int checkedId) {  \n";
+					m+="  if(checkedId==((RadioButton)..).getId()) {}\n";
+					m += "						}\n";
+					m += "					});\n";
+				}
+				
+				else if (control.equals("ListView")
 						|| control.equals("GridView")) {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
 							+ control + ") containView.findViewById(R.id."
@@ -316,7 +331,7 @@ public class CreateMiniView {
 					m += "adapter= new " + className + "Adapter(context);\n";
 
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
 								+ control + ") containView.findViewById(R.id."
 								+ idToName[1] + ");\n";
@@ -376,6 +391,7 @@ public class CreateMiniView {
 				}
 
 				else {
+					if(idToName.length>1)
 					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
 							+ control + ") containView.findViewById(R.id."
 							+ idToName[1] + ");\n";
@@ -424,7 +440,7 @@ public class CreateMiniView {
 					m += "	}});\n";
 
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += "adapter.setList(list);\n";
 					}
 				}
@@ -450,7 +466,7 @@ public class CreateMiniView {
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += listXmlnameTodbnameOrjavaname(idToName[1]);
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += linearLayoutXmlnameTodbnameOrjavaname(idToName[1]);
 					}
 				}
@@ -477,6 +493,8 @@ public class CreateMiniView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName.length<=1)
+					continue;
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += "adapter.notifyDataSetChanged();\n";
@@ -484,7 +502,7 @@ public class CreateMiniView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setText(\"\");\n";
 				} else if (control.equals("LinearLayout")) {
-					if (idToName[1].contains("form_linearlayout")) {
+					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
 						m += "adapter.getView("
 								+ firstCharToLowerAndJavaName(idToName[1])
 								+ ");\n";
@@ -704,6 +722,8 @@ public class CreateMiniView {
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
 
+					if(idToName.length<=1)
+						continue;
 					if (control.equals("TextView")) {
 
 						String[] ss = idToName[1].split("_");

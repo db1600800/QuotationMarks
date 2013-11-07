@@ -182,7 +182,7 @@ bg=blue</panel_attributes>
       <x>30</x>
       <y>560</y>
       <w>450</w>
-      <h>220</h>
+      <h>250</h>
     </coordinates>
     <panel_attributes>送货_表:Deliver
 --
@@ -196,11 +196,11 @@ bg=blue</panel_attributes>
 --
 卡号:CardNumber
 --
-收件人(姓名 名称):Receiver
+收件人(姓名 名称):Name
 --
-收件人移动电话:ReceiverMobilePhone
+移动电话:MobilePhone
 --
-收件人固定电话:ReceiverPhone
+固定电话:Phone
 --
 授权编码:AuthorCode
 --
