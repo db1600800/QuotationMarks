@@ -1,36 +1,56 @@
 {
-	"result":0,
-	"msg":"success",
-“isAD”:1,
-	"data":
-	[
-		{
-			"id":"1000",
-			"imageUrl":"http://ip:port/image",
-" operType ":0,
-			" beginDate ": "2013-09-03 23:12:14",
-" endDate ": "2013-09-03 23:12:14",
-			" status ":0,
-" createDate ": "2013-09-03 23:12:14"
-		},
-		{
-			"id":"1000",
-			"imageUrl":"http://ip:port/image",
-" operType ":0,
-			" beginDate ": "2013-09-03 23:12:14",
-" endDate ": "2013-09-03 23:12:14",
-			" status ":0,
-" createDate ": "2013-09-03 23:12:14"
-		},
-		{
-			"id":"1000",
-			"imageUrl":"http://ip:port/image",
-" operType ":0,
-			" beginDate ": "2013-09-03 23:12:14",
-" endDate ": "2013-09-03 23:12:14",
-			" status ":0,
-" createDate ": "2013-09-03 23:12:14"
-		}
-	]
+“result”:0,
+“msg”:””, 
+“totalSize”:”108”,
+“data”:[
+{
+“id”:”1000”,
+“code”:”xxxx”,
+“icon”:”imgurl”,
+“imgUrl”:”imgurl”,
+“name”:”产品名称”,
+“describe”:”产品描述”,
+“productRetailPrice”:4999.00,
+“productPrice”:3999.50,
+“point”:40,
+“specifications”:“产品规格”，
+“buyUnit”:4，
+“maxBuy”:30，
+“promotion”:1, 
+“seriesCode”:”xxxx”,
+“status”:1
+},{
+“id”:”1000”,
+“code”:”xxxx”,
+“icon”:” imgurl”,
+“imgUrl”:” imgurl”,
+“name”:”产品名称”,
+“describe”:”产品描述”,
+“productRetailPrice”:4999.00,
+“productPrice”:3999.50,
+“point”:40,
+“specifications”:“产品规格”，
+“buyUnit”:4，
+“maxBuy”:30，
+“promotion”:1, 
+“seriesCode”:”xxxx”,
+“status”:1
+},{
+“id”:”1000”,
+“code”:”xxxx”,
+“icon”:” imgurl”,
+“imgUrl”:” imgurl”,
+“name”:”产品名称”,
+“describe”:”产品描述”,
+“productRetailPrice”:4999.00,
+“productPrice”:3999.50,
+“point”:40,
+“specifications”:“产品规格”，
+“buyUnit”:4，
+“maxBuy”:30，
+“promotion”:1, 
+“seriesCode”:”xxxx”,
+“status”:1
 }
-
+]
+}

@@ -5,7 +5,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>560</x>
+      <x>540</x>
       <y>230</y>
       <w>50</w>
       <h>80</h>
@@ -16,7 +16,7 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>560</x>
+      <x>540</x>
       <y>130</y>
       <w>50</w>
       <h>90</h>
@@ -27,7 +27,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>20</x>
+      <x>0</x>
       <y>830</y>
       <w>430</w>
       <h>500</h>
@@ -87,7 +87,7 @@
   <element>
     <type>com.umlet.element.Note</type>
     <coordinates>
-      <x>120</x>
+      <x>100</x>
       <y>220</y>
       <w>290</w>
       <h>120</h>
@@ -104,33 +104,29 @@ bg=blue</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>490</x>
-      <y>360</y>
+      <y>350</y>
       <w>410</w>
-      <h>310</h>
+      <h>290</h>
     </coordinates>
     <panel_attributes>订单_表:OrderForm
 --
 订单号:OrderId
 --
+订单类型(个人购货or订单购货):OrderType
+--
 购货日期:OrderDate
 --
 订货人ID :OrderManID
 --
+卡号:CardNumber
+--
 订货人姓名:OrderManName
+--
+订货人身份:OrderManNameDegree
 --
 订货人电话:OrderManPhone
 --
-送货方式:DeliverWay
---
-送货（提货）地址:DeliverAddress
---
-提货人姓名:PickupManName
---
-提货人电话:PickupManPhone
---
-提货地址:PickupAddress
---
-提货人证件号:PickupManCertificateNo
+送货ID:DeliverId
 --
 产品总金额:ProductTotalPrice
 --
@@ -144,7 +140,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.custom.State</type>
     <coordinates>
-      <x>480</x>
+      <x>460</x>
       <y>290</y>
       <w>210</w>
       <h>40</h>
@@ -155,7 +151,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.custom.State</type>
     <coordinates>
-      <x>480</x>
+      <x>460</x>
       <y>110</y>
       <w>210</w>
       <h>50</h>
@@ -166,7 +162,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>330</x>
+      <x>310</x>
       <y>0</y>
       <w>510</w>
       <h>50</h>
@@ -179,7 +175,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>30</x>
+      <x>10</x>
       <y>560</y>
       <w>450</w>
       <h>250</h>
@@ -212,7 +208,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.custom.State</type>
     <coordinates>
-      <x>480</x>
+      <x>460</x>
       <y>200</y>
       <w>210</w>
       <h>60</h>
@@ -223,7 +219,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.custom.State</type>
     <coordinates>
-      <x>660</x>
+      <x>640</x>
       <y>210</y>
       <w>130</w>
       <h>40</h>
@@ -234,7 +230,7 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>90</x>
+      <x>70</x>
       <y>370</y>
       <w>370</w>
       <h>180</h>
@@ -257,10 +253,10 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>490</x>
-      <y>700</y>
+      <x>470</x>
+      <y>680</y>
       <w>430</w>
-      <h>130</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>产品类_表:ProductClass
 --
@@ -273,6 +269,8 @@ bg=blue</panel_attributes>
 产品类图片:ProductClassPic
 --
 产品类名字图片:ProductClassNamePic
+--
+状态(0：注销1：正常):status
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -280,9 +278,9 @@ bg=blue</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>490</x>
-      <y>850</y>
+      <y>880</y>
       <w>430</w>
-      <h>250</h>
+      <h>290</h>
     </coordinates>
     <panel_attributes>促销赠品_随货配送_订单产品_表:PromotionDeliverOrderProduct
 --
@@ -295,6 +293,8 @@ bg=blue</panel_attributes>
 产品图片:ProductPic
 --
 购买数量:BuyNumber 
+--
+可达数量:CanBuyNumber
 --
 产品价格:ProductPrice
 --

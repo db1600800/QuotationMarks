@@ -1,5 +1,6 @@
 package com.compoment.ui;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterMiniAdapter {
 
-	String xmlfile = "order_deliverway_deliverproduct_item.xml";// 修改就行
+	String xmlfile = "order_typelist_levelnext_lefttype_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -334,8 +335,9 @@ public class CreaterMiniAdapter {
 		m += "	}\n";
 
 		System.out.println(m);
+		stringToFile("d:\\" + className + "Adapter.java", m);
 	}
-
+ 
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
 		String[] ss = string.split("_");
@@ -516,6 +518,8 @@ public class CreaterMiniAdapter {
 			}
 		}
 
+		if(adapterbeanCheckBoxName.equals(""))
+			return "";
 		temp += "public void selectAllCheckBox() { // 全选checkBox\n";
 		temp += "    for (int i = 0; i < list.size(); i++) {\n";
 		temp += className + "AdapterBean adapterbean = list.get(i);\n";
@@ -546,4 +550,17 @@ public class CreaterMiniAdapter {
 		return temp;
 	}
 
+	
+	public void stringToFile(String fileName, String str) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str);
+			fw.flush();// 加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

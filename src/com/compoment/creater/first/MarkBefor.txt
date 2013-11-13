@@ -1,18 +1,7 @@
-import android.app.Activity;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:state_enabled="true" android:state_pressed="true"
+		android:drawable="@drawable/widget_soft_h"></item>
+	<item android:state_enabled="true" android:state_pressed="false"
+		android:drawable="@drawable/widget_soft" />
+</selector>

@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 
 public class CreateView {
 
-	String xmlfile = "order_shoppingcar_productlist.xml";// 修改就行
+	String xmlfile = "order_detail.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
