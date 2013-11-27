@@ -17,9 +17,10 @@ import org.xml.sax.SAXException;
 
 
 
+
 public class CreateView {
 
-	String xmlfile = "order_pickup_productlist.xml";// 修改就行
+	String xmlfile = "order_payway.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -203,6 +204,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+				continue;
+				
 				m += "/**" + text + "*/\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += control + " "
@@ -218,6 +222,7 @@ public class CreateView {
 				}
 
 				else {
+					
 					m += control + " "
 							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
 				}
@@ -247,6 +252,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+					continue;
+					
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
@@ -318,6 +326,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+					continue;
+					
 				m += "//" + text + "\n";
 				if (control.equals("Button")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
@@ -326,10 +337,31 @@ public class CreateView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
+
+					m+="new  AsyncTask<String, Integer, Boolean>() {\n";
+					m+="	@Override\n";
+					m+="	protected void onPreExecute() {\n";
+					m+="	}\n";
+
+					m+="	@Override\n";
+					m+="	protected Boolean doInBackground(String... params) {\n";
+							 
 					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
 					if (l.size() == 1) {
 						m += l.get(0).toString();
 					}
+							
+					m+="	}\n";
+
+					m+="	@Override\n";
+					m+="	protected void onPostExecute(Boolean shoppingcarok) {\n";
+						   
+						
+					m+="	}\n";
+
+					m+="}.execute(\"\");\n";
+					
+					
 					m += "						}\n";
 					m += "					});\n";
 				} else if (control.equals("ListView")

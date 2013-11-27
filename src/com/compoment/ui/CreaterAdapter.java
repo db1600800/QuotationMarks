@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterAdapter {
 
-	String xmlfile = "order_shoppingcar_productlist_item.xml";// 修改就行
+	String xmlfile = "order_pickup_productlist_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -143,6 +143,10 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				
+				if(idToName==null || idToName.length<2)
+					continue;
+				
 				 m+="//"+text+"\n";
 				m += "			viewHolder."
 						+ firstCharToLowerAndJavaName(idToName[1]) + " = ("
@@ -189,6 +193,8 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+				   continue;
 				 m+="//"+text+"\n";
 				if (control.equals("ImageView")) {
 					m += "			mImageLoader.setImgToImageView(adapterbean."
@@ -240,6 +246,8 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+					continue;
 				m+="/**"+text+"*/\n";
 				m += control + " " + firstCharToLowerAndJavaName(idToName[1])
 						+ ";\n";
@@ -258,6 +266,8 @@ public class CreaterAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+					continue;
                 m+="/**"+text+"*/\n";
                
 				if (control.equals("ImageView")) {
@@ -374,6 +384,10 @@ public class CreaterAdapter {
 					String id = personNode.getAttribute("android:id");
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
+					if(idToName==null || idToName.length<2)
+					{
+						continue;
+					}
 					String[] ss = idToName[1].split("_");
 					
 					if (control.equals("ImageView")) {

@@ -35,6 +35,15 @@ public class CreaterDBTest {
 			m += "/**插入记录 ( " + table.tableChineseName + ")*/\n";
 			m += "public void insert" + table.tableName
 					+ "Test(Context context){\n";
+			
+			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
+			// dBContentResolver = new
+			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
+			m += "        " + table.tableName
+					+ "DBContentResolver dBContentResolver  = new " + table.tableName
+					+ "DBContentResolver(context);\n";
+			
+			m+="for(int i=0;i<3;i++){\n";
 			// AccountBean accountBean =new AccountBean ();
 			m += "        " + table.tableName + "Bean "
 					+ table.firstCharLowercase(table.tableName) + "Bean =new "
@@ -46,16 +55,10 @@ public class CreaterDBTest {
 						+ column.columnName + "\");//"
 						+ column.columnChineseName + "\n";
 			}
-
-			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver
-			// dBContentResolver = new
-			// Account_Deliver_OrderForm_ProductShoppingcarStoreUp_DBContentResolver(this);
-			m += "        " + table.tableName
-					+ "DBContentResolver dBContentResolver  = new " + table.tableName
-					+ "DBContentResolver(context);\n";
 			// dBContentResolver.insert(accountBean);
 			m += "		dBContentResolver.insert("
 					+ table.firstCharLowercase(table.tableName) + "Bean);\n";
+			m+="}\n";
 
 			m += "}\n";
 		}

@@ -27,8 +27,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>0</x>
-      <y>830</y>
+      <x>10</x>
+      <y>840</y>
       <w>430</w>
       <h>500</h>
     </coordinates>
@@ -130,6 +130,9 @@ bg=blue</panel_attributes>
 --
 产品总金额:ProductTotalPrice
 --
+产品总点数:ProductTotalIntegrate
+
+--
 运费:DeliverPrice
 --
 订单状态(已付款，未付款,已经发货,付款失败):OrderState
@@ -178,7 +181,7 @@ bg=blue</panel_attributes>
       <x>10</x>
       <y>560</y>
       <w>450</w>
-      <h>250</h>
+      <h>270</h>
     </coordinates>
     <panel_attributes>送货_表:Deliver
 --
@@ -202,7 +205,9 @@ bg=blue</panel_attributes>
 --
 生效时间:EffectTime
 --
-身份证号:IDCardNumber</panel_attributes>
+身份证号:IDCardNumber
+--
+是否为默认地址:isDefaultAddress </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -253,8 +258,8 @@ bg=blue</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>470</x>
-      <y>680</y>
+      <x>490</x>
+      <y>670</y>
       <w>430</w>
       <h>150</h>
     </coordinates>
@@ -270,7 +275,7 @@ bg=blue</panel_attributes>
 --
 产品类名字图片:ProductClassNamePic
 --
-状态(0：注销1：正常):status
+状态(0注销1正常):status
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -278,7 +283,7 @@ bg=blue</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>490</x>
-      <y>880</y>
+      <y>850</y>
       <w>430</w>
       <h>290</h>
     </coordinates>

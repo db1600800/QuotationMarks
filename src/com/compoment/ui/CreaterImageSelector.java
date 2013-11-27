@@ -15,7 +15,7 @@ public class CreaterImageSelector {
 	}
 	public  CreaterImageSelector() {
 
-		String path="C:\\Users\\460702000148\\workspace\\切图\\购货__收藏夹v2.0\\android_W480";
+		String path="C:\\Users\\460702000148\\workspace\\切图\\购货__配送类v3.0\\android_W480";
 		File dirFile = new File(path);
 		// 如果dir对应的文件不存在，或者不是一个文件夹则退出
 		if (!dirFile.exists() || (!dirFile.isDirectory())) {
@@ -36,9 +36,25 @@ public class CreaterImageSelector {
 				{
 				
 				String lastString=filename.substring(filename.lastIndexOf("_"),filename.lastIndexOf("."));
-				if (lastString.equals("_press")) {
+				
+				String nolastString=filename.substring(0,filename.lastIndexOf("_")); 
+				String lastSecond="";
+				if(nolastString.lastIndexOf("_")!=-1)
+				{
+				 lastSecond=nolastString.substring(nolastString.lastIndexOf("_"));
+				}
+				
+				
+				if (lastString.equals("_press") )
+				{
 
-					xmlCreate(AbsolutePath,filename.substring(0,filename.lastIndexOf("_")));
+					if( lastSecond.equals("_checkbox"))
+					{
+						xmlCreate(AbsolutePath,filename.substring(0,filename.lastIndexOf("_")),"checkbox");
+					}else
+					{
+					xmlCreate(AbsolutePath,filename.substring(0,filename.lastIndexOf("_")),"");
+					}
 					
 				}else if(lastString.equals("_s"))
 				{
@@ -54,14 +70,26 @@ public class CreaterImageSelector {
 
 	}
 	
-	public void xmlCreate(String path,String picName)
+	public void xmlCreate(String path,String picName,String type)
 	{
+	
+		String stateTrue;
+		String stateFalse;
+		if(type.equals("checkbox"))
+		{
+			 stateTrue="android:state_checked=\"true\"";
+			 stateFalse="android:state_checked=\"false\"";
+		}else
+		{
+			 stateTrue="android:state_pressed=\"true\"";
+			 stateFalse="android:state_pressed=\"false\"";
+		}
 		String m = "";
 		m += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		m += "<selector xmlns:android=\"http://schemas.android.com/apk/res/android\">\n";
-		m += "	<item  android:state_pressed=\"true\"\n";
+		m += "	<item "+stateTrue+"\n";
 		m += "		android:drawable=\"@drawable/"+picName+"_press\"></item>\n";
-		m += "	<item  android:state_pressed=\"false\"\n";
+		m += "	<item  "+stateFalse+"\n";
 		m += "		android:drawable=\"@drawable/"+picName+"\" />\n";
 		m += "</selector>\n";
 		
