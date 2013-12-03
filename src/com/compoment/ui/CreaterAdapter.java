@@ -1,5 +1,6 @@
 package com.compoment.ui;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterAdapter {
 
-	String xmlfile = "order_pickup_productlist_item.xml";// 修改就行
+	String xmlfile = "order_default_address_list_item_zm.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -42,7 +43,7 @@ public class CreaterAdapter {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/" + xmlfilename;
+		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -78,6 +79,7 @@ public class CreaterAdapter {
 		m += "import android.widget.TextView;\n";
 		m+="import android.widget.Button;\n";
 		m+="import android.widget.EditText;\n";
+		m+="import android.widget.CheckBox;\n";
 
 		m += "public class " + className + "Adapter extends BaseAdapter {\n";
 
@@ -297,7 +299,23 @@ public class CreaterAdapter {
 		m+=checkBoxSelectAll();
 		m += "	}\n";
 
+	
+		
 		System.out.println(m);
+		stringToFile("d:\\" + className + "Adapter.java", m);
+	}
+	
+	public void stringToFile(String fileName, String str) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(str);
+			fw.flush();// 加上这句
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static String firstCharToUpperAndJavaName(String string) {

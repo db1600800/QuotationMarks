@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 public class CreateView {
 
-	String xmlfile = "order_payway.xml";// 修改就行
+	String xmlfile = "order_default_address_list.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -40,7 +40,7 @@ public class CreateView {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/" + xmlfilename;
+		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -355,7 +355,7 @@ public class CreateView {
 
 					m+="	@Override\n";
 					m+="	protected void onPostExecute(Boolean shoppingcarok) {\n";
-						   
+					   m+="//if(list==null || list.size()<1) return;\n";
 						
 					m+="	}\n";
 
@@ -430,6 +430,7 @@ public class CreateView {
 		}
 
 		m += "		}\n";
+		m+="runAsyncTask();\n";
 		m += "return containView;\n";
 		m += "}\n";
 
@@ -505,7 +506,7 @@ public class CreateView {
 		m += "		@Override\n";
 		m += "	      protected void onPostExecute(List<" + className
 				+ "AdapterBean> list) {\n";
-
+        m+="if(list==null || list.size()<1) return;\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);

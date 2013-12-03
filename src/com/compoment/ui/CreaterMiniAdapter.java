@@ -16,13 +16,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 //http://www.189works.com/article-37835-1.html
 
 public class CreaterMiniAdapter {
 
-	String xmlfile = "order_typelist_levelnext_lefttype_item.xml";// 修改就行
+	String xmlfile = "order_payway_coupon_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -43,7 +41,7 @@ public class CreaterMiniAdapter {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/" + xmlfilename;
+		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -77,6 +75,7 @@ public class CreaterMiniAdapter {
 		m += "import android.widget.TextView;\n";
 		m += "import android.widget.Button;\n";
 		m += "import android.widget.EditText;\n";
+		m += "import android.widget.CheckBox;\n";
 
 		m += "public class " + className + "Adapter  {\n";
 
@@ -112,8 +111,9 @@ public class CreaterMiniAdapter {
 		m += "	public void getView(ViewGroup parent) {\n";
 
 		m += "this.parent=parent;\n";
+		m += "this.parent.removeAllViews();\n";
 		m += "int position=0;\n";
-		m += "for ("+className+"AdapterBean adapterbean : list) {\n";
+		m += "for (" + className + "AdapterBean adapterbean : list) {\n";
 		m += "		ViewHolder viewHolder = null;\n";
 		m += "			View convertView= LayoutInflater.from(mContext).inflate(\n";
 		m += "					R.layout." + xmlfilename + ", null);\n";
@@ -130,6 +130,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				m += "//" + text + "\n";
 				m += "			viewHolder."
 						+ firstCharToLowerAndJavaName(idToName[1]) + " = ("
@@ -173,6 +175,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				m += "//" + text + "\n";
 				if (control.equals("ImageView")) {
 					m += "			mImageLoader.setImgToImageView(adapterbean."
@@ -238,6 +242,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				m += "//" + text + "\n";
 				if (control.equals("ImageView")) {
 					m += "			mImageLoader.setImgToImageView(adapterbean."
@@ -247,7 +253,7 @@ public class CreaterMiniAdapter {
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ ", defaultImg, isScrolling);\n";
 				} else if (control.equals("CheckBox")) {
-				
+
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ ".setChecked(adapterbean."
@@ -261,7 +267,6 @@ public class CreaterMiniAdapter {
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				} else if (control.equals("Button")) {
-				
 
 				} else if (control.equals("TextView")) {
 					m += "viewHolder."
@@ -277,8 +282,6 @@ public class CreaterMiniAdapter {
 		m += "}\n";
 		m += "}\n";
 
-		
-		
 		m += "	static class ViewHolder {\n";
 		for (String control : controls) {
 			// control为Button TextView....
@@ -288,12 +291,14 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				m += "/**" + text + "*/\n";
 				m += control + " " + firstCharToLowerAndJavaName(idToName[1])
 						+ ";\n";
 			}
 		}
-		m+="int position;\n";
+		m += "int position;\n";
 		m += "	}\n";
 
 		m += "public	static class " + className + "AdapterBean {\n";
@@ -306,6 +311,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				m += "/**" + text + "*/\n";
 
 				if (control.equals("ImageView")) {
@@ -337,7 +344,7 @@ public class CreaterMiniAdapter {
 		System.out.println(m);
 		stringToFile("d:\\" + className + "Adapter.java", m);
 	}
- 
+
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
 		String[] ss = string.split("_");
@@ -376,7 +383,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-
+				if (idToName == null || idToName.length < 2)
+					continue;
 				if (control.equals("TextView")) {
 
 					String[] ss = idToName[1].split("_");
@@ -418,6 +426,8 @@ public class CreaterMiniAdapter {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
 				String[] ss = idToName[1].split("_");
 
 				if (control.equals("ImageView")) {
@@ -518,7 +528,7 @@ public class CreaterMiniAdapter {
 			}
 		}
 
-		if(adapterbeanCheckBoxName.equals(""))
+		if (adapterbeanCheckBoxName.equals(""))
 			return "";
 		temp += "public void selectAllCheckBox() { // 全选checkBox\n";
 		temp += "    for (int i = 0; i < list.size(); i++) {\n";
@@ -550,7 +560,6 @@ public class CreaterMiniAdapter {
 		return temp;
 	}
 
-	
 	public void stringToFile(String fileName, String str) {
 		FileWriter fw;
 		try {

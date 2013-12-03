@@ -15,17 +15,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 public class CreateMiniView {
 
-	String xmlfile = "order_typelist_levelnext_lefttype.xml";// 修改就行
+	String xmlfile = "order_payway_coupon.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
-			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout","RadioButton","RadioGroup"};
+			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout",
+			"RadioButton", "RadioGroup" };
 	Element root = null;
 	String m = "";
 
@@ -38,7 +37,7 @@ public class CreateMiniView {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/" + xmlfilename;
+		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -81,13 +80,17 @@ public class CreateMiniView {
 		m += "import java.util.ArrayList;\n";
 		m += "import java.util.List;\n";
 		m += "import android.widget.AdapterView.OnItemClickListener;\n";
-		
-
+        m+="import android.view.View.OnClickListener;\n";
+        m+="import android.widget.AbsListView.OnScrollListener;\n";
+        m+="import android.widget.CheckBox;\n";
+        
 		m += "public class " + className + " implements OnScrollListener {\n";
 
 		m += "	Context context;\n";
 		m += "	public View containView;\n";
 		m += "String searchText;\n";
+		m += "public ViewGroup parentViewContain;\n";
+		m+="public ... parentThis;\n";
 		// m += "	private OrderTypelistAdapter adapter;\n";
 		// m += "	private ListView list;\n";
 
@@ -112,23 +115,29 @@ public class CreateMiniView {
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Adapter;\n";
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += control + " "
 								+ firstCharToLowerAndJavaName(idToName[1])
 								+ ";\n";
 						m += className + "Adapter " + "adapter;\n";
 					}
 				} else {
-					if(idToName.length>1)
-					m += control + " "
-							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
+					if (idToName.length > 1)
+						m += control + " "
+								+ firstCharToLowerAndJavaName(idToName[1])
+								+ ";\n";
 				}
 			}
 		}
 
-		m += "public " + className + "(Context context)\n";
+		m += "public " + className
+				+ "(Context context,ViewGroup parentViewContain,... parentThis)\n";
 		m += "{\n";
+		m += "this.parentViewContain=parentViewContain;\n";
 		m += "this.context=context;\n";
+		m+="this.parentThis=parentThis;\n";
+		m += "init();\n";
 		m += "}\n";
 
 		m += "	public void clean() {\n";
@@ -161,7 +170,8 @@ public class CreateMiniView {
 					createSearchCursorAdapter
 							.create(firstCharToUpperAndJavaName(idToName[1]));
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += firstCharToLowerAndJavaName(idToName[1])
 								+ "=null;\n";
 						m += "adapter.list.clear();\n";
@@ -172,8 +182,9 @@ public class CreateMiniView {
 				else
 
 				{
-					if(idToName.length>1)
-					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
+					if (idToName.length > 1)
+						m += firstCharToLowerAndJavaName(idToName[1])
+								+ "=null;\n";
 				}
 			}
 		}
@@ -208,19 +219,18 @@ public class CreateMiniView {
 					}
 					m += "						}\n";
 					m += "					});\n";
-				}else if(control.equals("RadioGroup"))
-				{
+				} else if (control.equals("RadioGroup")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ " = (RadioGroup) containView\n";
 					m += "					.findViewById(R.id." + idToName[1] + ");\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {\n";
 					m += "		public void onCheckedChanged(RadioGroup group, int checkedId) {  \n";
-					m+="  if(checkedId==((RadioButton)..).getId()) {}\n";
+					m += "  if(checkedId==((RadioButton)..).getId()) {}\n";
 					m += "						}\n";
 					m += "					});\n";
 				}
-				
+
 				else if (control.equals("ListView")
 						|| control.equals("GridView")) {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
@@ -229,7 +239,8 @@ public class CreateMiniView {
 					m += "adapter= new " + className + "Adapter(context);\n";
 
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
 								+ control + ") containView.findViewById(R.id."
 								+ idToName[1] + ");\n";
@@ -289,15 +300,17 @@ public class CreateMiniView {
 				}
 
 				else {
-					if(idToName.length>1)
-					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
-							+ control + ") containView.findViewById(R.id."
-							+ idToName[1] + ");\n";
+					if (idToName.length > 1)
+						m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
+								+ control + ") containView.findViewById(R.id."
+								+ idToName[1] + ");\n";
 				}
 			}
 		}
 
 		m += "		}\n";
+		m += "parentViewContain.addView(containView);\n";
+		m+="runAsyncTask();\n";
 		m += "return containView;\n";
 		m += "}\n";
 
@@ -338,7 +351,8 @@ public class CreateMiniView {
 					m += "	}});\n";
 
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += "adapter.setList(list);\n";
 					}
 				}
@@ -364,7 +378,8 @@ public class CreateMiniView {
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += listXmlnameTodbnameOrjavaname(idToName[1]);
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += linearLayoutXmlnameTodbnameOrjavaname(idToName[1]);
 					}
 				}
@@ -382,7 +397,7 @@ public class CreateMiniView {
 		m += "		@Override\n";
 		m += "	      protected void onPostExecute(List<" + className
 				+ "AdapterBean> list) {\n";
-
+		   m+="if(list==null || list.size()<1) return;\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -391,7 +406,7 @@ public class CreateMiniView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-				if(idToName.length<=1)
+				if (idToName.length <= 1)
 					continue;
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
@@ -400,7 +415,8 @@ public class CreateMiniView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setText(\"\");\n";
 				} else if (control.equals("LinearLayout")) {
-					if (idToName.length>1 && idToName[1].contains("list_linearlayout")) {
+					if (idToName.length > 1
+							&& idToName[1].contains("list_linearlayout")) {
 						m += "adapter.getView("
 								+ firstCharToLowerAndJavaName(idToName[1])
 								+ ");\n";
@@ -620,7 +636,7 @@ public class CreateMiniView {
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
 
-					if(idToName.length<=1)
+					if (idToName.length <= 1)
 						continue;
 					if (control.equals("TextView")) {
 

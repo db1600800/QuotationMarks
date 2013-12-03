@@ -32,7 +32,7 @@ public class CreaterPopupWindow {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/" + xmlfilename;
+		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

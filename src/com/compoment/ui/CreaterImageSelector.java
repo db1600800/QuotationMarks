@@ -9,13 +9,18 @@ import org.xml.sax.SAXException;
 public class CreaterImageSelector {
 
 	public static void main(String[] args) throws SAXException, IOException {
-		CreaterImageSelector createrImageSelector = new CreaterImageSelector();
+		String path="C:\\Users\\460702000148\\workspace\\切图";
+		CreaterImageSelector createrImageSelector = new CreaterImageSelector( );
+		createrImageSelector.CreaterImageSelector(path);
 	
 
 	}
-	public  CreaterImageSelector() {
+	
+	
+	
+	public  void CreaterImageSelector(String path) {
 
-		String path="C:\\Users\\460702000148\\workspace\\切图\\购货__配送类v3.0\\android_W480";
+		
 		File dirFile = new File(path);
 		// 如果dir对应的文件不存在，或者不是一个文件夹则退出
 		if (!dirFile.exists() || (!dirFile.isDirectory())) {
@@ -62,6 +67,9 @@ public class CreaterImageSelector {
 				}
 				}
 
+			}else
+			{
+				CreaterImageSelector(files[i].getAbsolutePath());
 			}
 		}
 
