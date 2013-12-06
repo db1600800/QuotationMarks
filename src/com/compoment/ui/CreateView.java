@@ -15,9 +15,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
-
 public class CreateView {
 
 	String xmlfile = "order_default_address_list.xml";// 修改就行
@@ -193,6 +190,7 @@ public class CreateView {
 		m += "	Context context;\n";
 		m += "	public View containView;\n";
 		m += "String searchText;\n";
+		m += "LoadingProgressDialog loading ;\n";
 		// m += "	private OrderTypelistAdapter adapter;\n";
 		// m += "	private ListView list;\n";
 
@@ -204,9 +202,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-				if(idToName==null || idToName.length<2)
-				continue;
-				
+				if (idToName == null || idToName.length < 2)
+					continue;
+
 				m += "/**" + text + "*/\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += control + " "
@@ -222,7 +220,7 @@ public class CreateView {
 				}
 
 				else {
-					
+
 					m += control + " "
 							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
 				}
@@ -252,9 +250,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-				if(idToName==null || idToName.length<2)
+				if (idToName == null || idToName.length < 2)
 					continue;
-					
+
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
@@ -326,9 +324,9 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
-				if(idToName==null || idToName.length<2)
+				if (idToName == null || idToName.length < 2)
 					continue;
-					
+
 				m += "//" + text + "\n";
 				if (control.equals("Button")) {
 					m += firstCharToLowerAndJavaName(idToName[1])
@@ -338,30 +336,33 @@ public class CreateView {
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
 
-					m+="new  AsyncTask<String, Integer, Boolean>() {\n";
-					m+="	@Override\n";
-					m+="	protected void onPreExecute() {\n";
-					m+="	}\n";
+					m += "new  AsyncTask<String, Integer, Boolean>() {\n";
+					m += "	@Override\n";
+					m += "	protected void onPreExecute() {\n";
+					m += "if (loading == null) {\n";
+					m += "	loading = new LoadingProgressDialog();\n";
+					m += "}\n";
+					m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
+					m += "	}\n";
 
-					m+="	@Override\n";
-					m+="	protected Boolean doInBackground(String... params) {\n";
-							 
+					m += "	@Override\n";
+					m += "	protected Boolean doInBackground(String... params) {\n";
+
 					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
 					if (l.size() == 1) {
 						m += l.get(0).toString();
 					}
-							
-					m+="	}\n";
 
-					m+="	@Override\n";
-					m+="	protected void onPostExecute(Boolean shoppingcarok) {\n";
-					   m+="//if(list==null || list.size()<1) return;\n";
-						
-					m+="	}\n";
+					m += "	}\n";
 
-					m+="}.execute(\"\");\n";
-					
-					
+					m += "	@Override\n";
+					m += "	protected void onPostExecute(Boolean shoppingcarok) {\n";
+					m += "//if(list==null || list.size()<1) return;\n";
+					m += "	loading.cancleProgressDialog();\n";
+					m += "	}\n";
+
+					m += "}.execute(\"\");\n";
+
 					m += "						}\n";
 					m += "					});\n";
 				} else if (control.equals("ListView")
@@ -430,7 +431,7 @@ public class CreateView {
 		}
 
 		m += "		}\n";
-		m+="runAsyncTask();\n";
+		m += "runAsyncTask();\n";
 		m += "return containView;\n";
 		m += "}\n";
 
@@ -446,7 +447,10 @@ public class CreateView {
 		m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
 		m += "		@Override\n";
 		m += "		protected void onPreExecute() {\n";
-
+		m += "if (loading == null) {\n";
+		m += "	loading = new LoadingProgressDialog();\n";
+		m += "}\n";
+		m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -479,7 +483,7 @@ public class CreateView {
 		m += "		@Override\n";
 		m += "		protected List<" + className
 				+ "AdapterBean> doInBackground(String... params) {\n";
-		m+=textviewXmlnameTodbnameOrjavaname();
+		m += textviewXmlnameTodbnameOrjavaname();
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -506,7 +510,8 @@ public class CreateView {
 		m += "		@Override\n";
 		m += "	      protected void onPostExecute(List<" + className
 				+ "AdapterBean> list) {\n";
-        m+="if(list==null || list.size()<1) return;\n";
+		m += "	loading.cancleProgressDialog();\n";
+		m += "if(list==null || list.size()<1) return;\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -632,9 +637,9 @@ public class CreateView {
 				result.add(temp);
 
 			} else if (s.equals("back")) {
-				
-					temp+="//...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n";
-					temp+="fragmentActivity.popFragment();\n";
+
+				temp += "//...FragmentActivity fragmentActivity=((...FragmentActivity)context);\n";
+				temp += "fragmentActivity.popFragment();\n";
 				result.add(temp);
 			}
 

@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class CreateMiniView {
 
-	String xmlfile = "order_payway_coupon.xml";// 修改就行
+	String xmlfile = "order_detail_totalprice.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -80,17 +80,18 @@ public class CreateMiniView {
 		m += "import java.util.ArrayList;\n";
 		m += "import java.util.List;\n";
 		m += "import android.widget.AdapterView.OnItemClickListener;\n";
-        m+="import android.view.View.OnClickListener;\n";
-        m+="import android.widget.AbsListView.OnScrollListener;\n";
-        m+="import android.widget.CheckBox;\n";
-        
+		m += "import android.view.View.OnClickListener;\n";
+		m += "import android.widget.AbsListView.OnScrollListener;\n";
+		m += "import android.widget.CheckBox;\n";
+
 		m += "public class " + className + " implements OnScrollListener {\n";
 
 		m += "	Context context;\n";
 		m += "	public View containView;\n";
 		m += "String searchText;\n";
 		m += "public ViewGroup parentViewContain;\n";
-		m+="public ... parentThis;\n";
+		m += "public ... parentThis;\n";
+		m += "LoadingProgressDialog loading ;\n";
 		// m += "	private OrderTypelistAdapter adapter;\n";
 		// m += "	private ListView list;\n";
 
@@ -131,12 +132,13 @@ public class CreateMiniView {
 			}
 		}
 
-		m += "public " + className
+		m += "public "
+				+ className
 				+ "(Context context,ViewGroup parentViewContain,... parentThis)\n";
 		m += "{\n";
 		m += "this.parentViewContain=parentViewContain;\n";
 		m += "this.context=context;\n";
-		m+="this.parentThis=parentThis;\n";
+		m += "this.parentThis=parentThis;\n";
 		m += "init();\n";
 		m += "}\n";
 
@@ -213,10 +215,30 @@ public class CreateMiniView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
+					m += "new  AsyncTask<String, Integer, Boolean>() {\n";
+					m += "	@Override\n";
+					m += "	protected void onPreExecute() {\n";
+					m += "if (loading == null) {\n";
+					m += "	loading = new LoadingProgressDialog();\n";
+					m += "}\n";
+					m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
+					m += "	}\n";
+					m += "	@Override\n";
+					m += "	protected Boolean doInBackground(String... params) {\n";
 					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
 					if (l.size() == 1) {
 						m += l.get(0).toString();
 					}
+
+					m += "	}\n";
+
+					m += "	@Override\n";
+					m += "	protected void onPostExecute(Boolean shoppingcarok) {\n";
+					m += "//if(list==null || list.size()<1) return;\n";
+					m += "	loading.cancleProgressDialog();\n";
+					m += "	}\n";
+
+					m += "}.execute(\"\");\n";
 					m += "						}\n";
 					m += "					});\n";
 				} else if (control.equals("RadioGroup")) {
@@ -310,7 +332,7 @@ public class CreateMiniView {
 
 		m += "		}\n";
 		m += "parentViewContain.addView(containView);\n";
-		m+="runAsyncTask();\n";
+		m += "runAsyncTask();\n";
 		m += "return containView;\n";
 		m += "}\n";
 
@@ -326,7 +348,10 @@ public class CreateMiniView {
 		m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
 		m += "		@Override\n";
 		m += "		protected void onPreExecute() {\n";
-
+		m += "if (loading == null) {\n";
+		m += "	loading = new LoadingProgressDialog();\n";
+		m += "}\n";
+		m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -397,7 +422,8 @@ public class CreateMiniView {
 		m += "		@Override\n";
 		m += "	      protected void onPostExecute(List<" + className
 				+ "AdapterBean> list) {\n";
-		   m+="if(list==null || list.size()<1) return;\n";
+		m += "	loading.cancleProgressDialog();\n";
+		m += "if(list==null || list.size()<1) return;\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
