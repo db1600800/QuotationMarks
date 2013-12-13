@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class CreateView {
 
-	String xmlfile = "order_default_address_list.xml";// 修改就行
+	String xmlfile = "order_paycomplete_for_recomment.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -520,6 +520,8 @@ public class CreateView {
 				String id = personNode.getAttribute("android:id");
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
+				if(idToName==null || idToName.length<2)
+					 continue;
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 					m += "adapter.notifyDataSetChanged();\n";
@@ -721,7 +723,8 @@ public class CreateView {
 					String id = personNode.getAttribute("android:id");
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
-
+                    if(idToName==null || idToName.length<2)
+                    	continue;
 					if (control.equals("TextView")) {
 
 						String[] ss = idToName[1].split("_");

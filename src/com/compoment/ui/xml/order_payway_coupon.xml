@@ -16,7 +16,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/order_check2_sl"
+            android:background="@drawable/order_pickup_item_checkbox_sl"
             android:button="@null"
             android:text="使用优惠券" />
     </LinearLayout>
