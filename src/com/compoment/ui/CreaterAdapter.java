@@ -183,8 +183,9 @@ public class CreaterAdapter {
 		m += "		} else {\n";
 		m += "			viewHolder = (ViewHolder) convertView.getTag();\n";
 		m += "		}\n";
-
-		m += "		" + className + "AdapterBean adapterbean = list.get(position);\n";
+		m += "		" + className + "AdapterBean adapterbean = null\n";	
+		m+="	if(list!=null && list.size()>position)\n";
+		m += " adapterbean = list.get(position);\n";
 		m += "		if (adapterbean != null) {\n";
 
 		for (String control : controls) {
@@ -458,7 +459,12 @@ public class CreaterAdapter {
 			else if ( s.equals("update")) {
 
 				temp+="\n int position=Integer.valueOf(v.getTag().toString());\n";
-				temp+=className+"AdapterBean adapterbean = list.get(position);\n";
+				
+				temp+= "		" + className + "AdapterBean adapterbean = null\n";	
+				temp+="	if(list!=null && list.size()>position)\n";
+				temp += " adapterbean = list.get(position);\n";
+				
+		
 				temp+=ss[0]+"DBContentResolver dBContentResolver = new "+ss[0]+"DBContentResolver(mContext);\n";
 						
 				temp+="List<"+ss[0]+"Bean> beans = dBContentResolver.query"+ss[0]+"By"+ss[1]+"(\"ProductId\");\n";

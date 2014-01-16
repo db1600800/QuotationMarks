@@ -34,7 +34,7 @@ public class WordtableToJava {
 	static String javaName = "";
     static String path="";
 	public static void main(String[] args) throws Exception {
-		path="gbss-mobile-business/sales/getSalesListForProduct";
+		path="gbss-mobile-order/order/saveOrderCheckInfo";
 		javaName =path.substring( path.lastIndexOf("/")+1);
 		
 		javaName= javaName.substring(0, 1).toUpperCase() + javaName.substring(1);

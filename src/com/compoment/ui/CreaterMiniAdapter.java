@@ -145,8 +145,11 @@ public class CreaterMiniAdapter {
 					m += "	                      @Override \n";
 					m += "	                      public void onClick(View v) {\n";
 					m += "\n int position=Integer.valueOf(v.getTag().toString());\n";
-					m += className
-							+ "AdapterBean adapterbean = list.get(position);\n";
+					
+					m += "		" + className + "AdapterBean adapterbean = null\n";	
+					m+="	if(list!=null && list.size()>position)\n";
+					m += " adapterbean = list.get(position);\n";
+					
 					m += "	                          CheckBox cb = (CheckBox)v;\n";
 
 					m += "adapterbean."
@@ -231,8 +234,11 @@ public class CreaterMiniAdapter {
 		m += "	{\n";
 		m += "		View view=parent.getChildAt(i);\n";
 		m += "		ViewHolder viewHolder =(ViewHolder)view.getTag();\n";
-		m += className
-				+ "AdapterBean adapterbean = list.get(viewHolder.position);\n";
+		
+		m += "		" + className + "AdapterBean adapterbean = null\n";	
+		m+="	if(list!=null && list.size()>viewHolder.position)\n";
+		m += " adapterbean = list.get(viewHolder.position);\n";
+
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -480,8 +486,9 @@ public class CreaterMiniAdapter {
 			else if (s.equals("update")) {
 
 				temp += "\n int position=Integer.valueOf(v.getTag().toString());\n";
-				temp += className
-						+ "AdapterBean adapterbean = list.get(position);\n";
+				temp+= "		" + className + "AdapterBean adapterbean = null\n";	
+				temp+="	if(list!=null && list.size()>position)\n";
+				temp += " adapterbean = list.get(position);\n";
 				temp += ss[0] + "DBContentResolver dBContentResolver = new "
 						+ ss[0] + "DBContentResolver(mContext);\n";
 
