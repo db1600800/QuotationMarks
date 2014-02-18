@@ -11,9 +11,98 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+/**
+ * <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+   
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+ 
+   android:background="#eee"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bg_g"
+        android:gravity="center_horizontal"
+        android:padding="10dp"  >
+
+        <TextView
+            android:id="@+id/order_prompt_add_shoppingcar_title_txtview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/dialog_title"
+            android:textColor="#B2CBA6"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout  android:background="#eee"
+         android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp" >
+
+        <TextView
+            android:id="@+id/msg_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购物车中，以下产品库存不足，是否只购买所有库存量。"
+            android:scrollbars="vertical"
+            android:textColor="#151515"
+            android:maxLines="15"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp"
+         >
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         
+            android:text="确定"
+            android:layout_weight="1"
+            android:textColor="#B2CBA6"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+         
+            android:text="取消"
+             android:layout_weight="1"
+            android:textColor="#B2CBA6"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
+ * 
+ * */
 public class CreaterPopupWindow {
 
-	String xmlfile = "order_prompt_add_shoppingcar.xml";// 修改就行
+	String xmlfile = "popup_group.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -191,7 +280,7 @@ public class CreaterPopupWindow {
 
 		m += "	private void initPopWindow(View view) {\n";
 		m += "		menuPopUp = new PopupWindow(view, LayoutParams.FILL_PARENT,\n";
-		m += "				LayoutParams.FILL_PARENT, true);//\n";
+		m += "				LayoutParams.WRAP_CONTENT, true);//\n";
 
 		m += "		menuPopUp.setFocusable(true);\n";
 

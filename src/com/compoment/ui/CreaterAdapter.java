@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterAdapter {
 
-	String xmlfile = "order_default_address_list_item_zm.xml";// 修改就行
+	String xmlfile = "layout_group_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
