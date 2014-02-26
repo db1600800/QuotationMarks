@@ -80,25 +80,31 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 		return fileContent;
 	}
 
-	public static synchronized void convertDirectory(File dir)
+	public static synchronized void convertDirectory(File dir,boolean isUtf82Gbk)
 			throws IOException {
 		if (!dir.exists() && !dir.isDirectory()) {
 			throw new IOException("[" + dir + "] not exsit or not a Directory");
 		}
-		convert(dir);
+		convert(dir,isUtf82Gbk);
 	}
 
-	public static void convert(File dir) {
+	public static void convert(File dir,boolean  isUtf82Gbk) {
 		if (dir.canRead() && dir.canWrite()) {
 			if (dir.isDirectory()) {// Directory
 				String[] files = dir.list();
 				if (files != null) {
 					for (int i = 0; i < files.length; i++) {
-						convert(new File(dir, files[i]));// �ݹ�
+						convert(new File(dir, files[i]),isUtf82Gbk);// �ݹ�
 					}
 				}
 			} else {// File
+				if(isUtf82Gbk)
+				{
+					convertUTF82GBK(dir);
+				}else
+				{
 				convertGBK2UTF8(dir);
+				}
 			}
 		}
 	}
@@ -108,8 +114,9 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 
 		// D:\\Workspace\\Android_Demonstrate_AbstractCode\\src\\com\\compoment\\file_manage
 		 File src = new
-		 File("D:\\work_dir\\svn_12\\autocreater\\src");
-		 convertDirectory(src);
+		 File("D:\\create");
+		 boolean isUtf82Gbk=true;//false  Gbk2Utf8
+		 convertDirectory(src,isUtf82Gbk);
 
 
 
