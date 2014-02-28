@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 
 public class CreaterAdapter {
 
-	String xmlfile = "layout_group_item.xml";// 修改就行
+	String xmlfile = "dialog_fuhao_list_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -183,7 +183,7 @@ public class CreaterAdapter {
 		m += "		} else {\n";
 		m += "			viewHolder = (ViewHolder) convertView.getTag();\n";
 		m += "		}\n";
-		m += "		" + className + "AdapterBean adapterbean = null\n";	
+		m += "		" + className + "AdapterBean adapterbean = null;\n";	
 		m+="	if(list!=null && list.size()>position)\n";
 		m += " adapterbean = list.get(position);\n";
 		m += "		if (adapterbean != null) {\n";
