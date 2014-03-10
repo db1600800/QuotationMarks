@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/contact_editor_space10"
+    android:background="@drawable/menu_bg"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/contact_editor_title"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="把1个联系人默认联系号码设置为"
+        android:textColor="@color/black"
+        android:textSize="@dimen/contact_editor_text" />
+
+    <ListView
+        android:id="@+id/fuhao_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/global_main_bg"
+        android:cacheColorHint="#00000000"
+        android:divider="@drawable/global_main_line"
+        android:dividerHeight="2px"
+        android:fadingEdge="none" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/checkBoxPhoto"
+            style="@style/MsgCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/contact_editor_space10"
+            android:text="" />
+
+        <Button
+            android:id="@+id/textViewSet"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/contact_editor_title"
+
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/contact_editor_space10"
+            android:singleLine="true"
+            android:text="@string/prompt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/contact_editor_text" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/contact_editor_space10"
+    android:background="#eee"
+
+ >
+
+
+ 
+    <LinearLayout
+        android:layout_width="@dimen/dialog_popwin_context_width"
+        android:layout_height="@dimen/contact_editor_title"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        
+        <TextView
+            android:id="@+id/fuhao_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/contact_editor_title"
+   
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/contact_editor_space10"
+            android:singleLine="true"
+            android:text="副号1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/contact_editor_text" />
+        
+              <TextView
+            android:id="@+id/fuhao_number_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/contact_editor_title"
+     
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/contact_editor_space10"
+            android:singleLine="true"
+            android:text="15818876767"
+            android:textColor="@color/black"
+            android:textSize="@dimen/contact_editor_text" />
+
+
+
+    </LinearLayout>
+    
+    
+                  <CheckBox
+                  android:id="@+id/is_check_checkbox"
+                  style="@style/MsgCheckBox"
+                  android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:paddingLeft="@dimen/contact_editor_space10" />
+
+</RelativeLayout>

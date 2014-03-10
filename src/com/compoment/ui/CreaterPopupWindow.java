@@ -102,7 +102,7 @@ import org.xml.sax.SAXException;
  * */
 public class CreaterPopupWindow {
 
-	String xmlfile = "popup_group.xml";// 修改就行
+	String xmlfile = "dialog_fuhao_list.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;

@@ -368,7 +368,7 @@ public class CreaterDBContentProvider {
 
 		m += "	private static class DatabaseHelper extends SQLiteOpenHelper {\n";
 		m += "		private static final String TAG = DatabaseHelper.class.getCanonicalName();\n";
-		m += "		private static final String DATABASE_NAME = \"Message\";\n";
+		m += "		private static final String DATABASE_NAME = \"D_B\";\n";
 		m += "		private static final int DATABASE_VERSION = 1;\n";
 
 		// m+="		// 创建表的sql语句\n";
