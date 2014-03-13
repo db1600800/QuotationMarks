@@ -15,8 +15,8 @@ import org.xml.sax.SAXException;
 /**
  * <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:padding="20dp"
    
     android:gravity="center_horizontal"
@@ -284,11 +284,11 @@ public class CreaterPopupWindow {
 
 		m += "		menuPopUp.setFocusable(true);\n";
 
-		m += "		menuPopUp.setOutsideTouchable(false);\n";
+		m += "		menuPopUp.setOutsideTouchable(true);\n";
 		m += "		//\n";
-		m += "		menuPopUp.setBackgroundDrawable(new BitmapDrawable());\n";
+		m += "		menuPopUp.setBackgroundDrawable(new BitmapDrawable());// 注掉 点 PopupWindow之外的区域后， PopupWindow不会消失。\n"; 
 		m += "		//\n";
-		m += "		menuPopUp.setBackgroundDrawable(new ColorDrawable(R.color.prompt_menupopupwindow_bg));//#c0000000\n";
+		m += "		menuPopUp.setBackgroundDrawable(new ColorDrawable(R.color.prompt_menupopupwindow_bg));//#c0000000 ColorDrawable dw = new ColorDrawable(-00000);全透明 // 注掉 点 PopupWindow之外的区域后， PopupWindow不会消失。  \n";
 
 		m += "		view.setFocusableInTouchMode(true);\n";
 
