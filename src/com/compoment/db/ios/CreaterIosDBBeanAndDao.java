@@ -13,10 +13,12 @@ public class CreaterIosDBBeanAndDao {
 	List<XmlDBTableBean> tables = null;
 
 	public static void main(String[] args) {
-		new CreaterIosDBBeanAndDao();
+		String dbName="User.sqlite";
+		CreaterIosDBBeanAndDao createrIosDBBeanAndDao=new CreaterIosDBBeanAndDao(dbName);
+		createrIosDBBeanAndDao.createTableString();
 	}
 
-	public CreaterIosDBBeanAndDao() {
+	public CreaterIosDBBeanAndDao(String dbName) {
 
 		String classDir = this.getClass().getResource("/").getPath();
 		try {
@@ -29,10 +31,13 @@ public class CreaterIosDBBeanAndDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		this.DbFileManager(dbName);
+		Test();
+		
 		String m = "\n";
 		for (XmlDBTableBean table : tables) {
-
+			
 			// Bean .h文件
 			m = "\n";
 			m += "#import <Foundation/Foundation.h>\n";
@@ -73,9 +78,9 @@ public class CreaterIosDBBeanAndDao {
 			m += "@end\n";
 
 			System.out.println(m);
-			stringToFile(""+ table.tableName + "Bean.m", m);
+			stringToFile("" + table.tableName + "Bean.m", m);
 
-			// .h文件
+			// Dao.h文件
 			m = "";
 			m = "\n";
 			m += "#import <Foundation/Foundation.h>\n";
@@ -110,7 +115,7 @@ public class CreaterIosDBBeanAndDao {
 			System.out.println(m);
 			stringToFile("" + table.tableName + "Dao.h", m);
 
-			// .m文件
+			// Dao.m文件
 			m = "";
 			m = "\n";
 			m += "#import \"" + table.tableName + "Dao.h\"\n";
@@ -167,11 +172,13 @@ public class CreaterIosDBBeanAndDao {
 			for (XmlDBColumnBean column : table.columnsName) {
 				m += "    bean." + column.columnName
 						+ " = [rs stringForColumn:@\""
-						+ column.columnName.toLowerCase() + "\"];\n";
+						+ column.getSqliteColumnName().toLowerCase() + "\"];\n";
 			}
 			m += "    return bean;\n";
 			m += "}\n";
 
+			
+			//insert
 			m += "- (void)insert" + table.tableName + ":(" + table.tableName
 					+ "Bean *)bean\n";
 			m += "{\n";
@@ -182,8 +189,8 @@ public class CreaterIosDBBeanAndDao {
 			String columnString2 = "";
 			String columnString3 = "";
 			for (XmlDBColumnBean column : table.columnsName) {
-				columnString += column.columnName.toLowerCase() + ",";
-				columnString2 += "bean." + column.columnName.toLowerCase()
+				columnString += column.getSqliteColumnName().toLowerCase() + ",";
+				columnString2 += "bean." + column.columnName
 						+ ",";
 				columnString3 += "?" + ",";
 			}
@@ -213,6 +220,8 @@ public class CreaterIosDBBeanAndDao {
 			m += "    }];  \n";
 			m += "}\n";
 
+			
+			//query
 			m += "- (NSArray *)query" + table.tableName + ";\n";
 			m += "{\n";
 			m += "    __block NSMutableArray *beans = [[NSMutableArray alloc] init] ;  \n";
@@ -240,7 +249,7 @@ public class CreaterIosDBBeanAndDao {
 				m += "    [self.dbQueue inDatabase:^(FMDatabase *db)   {\n";
 				m += "        [db open];\n";
 				m += "FMResultSet *rs =[db executeQuery:[NSString stringWithFormat:@\"select * from %@ where "
-						+ column.columnName.toLowerCase()
+						+ column.getSqliteColumnName().toLowerCase()
 						+ " = ?\","
 						+ table.getSqliteTableName()
 						+ "], [NSString stringWithString:"
@@ -257,6 +266,8 @@ public class CreaterIosDBBeanAndDao {
 				m += "}\n";
 			}
 
+			
+			//delete
 			m += "- (BOOL)delete" + table.tableName + "By" + table.tableName
 					+ "Bean:(" + table.tableName + "Bean *)bean{\n";
 			m += "    BOOL success = YES;\n";
@@ -285,12 +296,218 @@ public class CreaterIosDBBeanAndDao {
 
 	}
 
+	public void DbFileManager(String dbName) {
+		String m = "\n";
+		m += "//针对数据库文件的封装类\n";
+		m += "#import <Foundation/Foundation.h>\n";
+
+		m += "@interface DbFileManager : NSObject\n";
+
+		m += "+ (NSString *)documentPath;\n";
+
+		m += "+ (void)checkWithCreateDbFile:(NSString *)fullPath;\n";
+
+		m += "+ (NSString *)dbFilePath;\n";
+
+		m += "+ (BOOL)createFolderInDocment:(NSString *)folderName;\n";
+
+		m += "@end\n";
+
+		System.out.println(m);
+
+		stringToFile("DbFileManager.h", m);
+
+		m = "\n";
+		m += "#import \"DbFileManager.h\"\n";
+		m += "#define k_DB_NAME @\""+dbName+"\"\n";
+
+		m += "@implementation DbFileManager\n";
+		m += "+ (NSString *)documentPath\n";
+		m += "{\n";
+		m += "    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);\n";
+		m += "    return [paths objectAtIndex:0];\n";
+		m += "}\n";
+
+		m += "+ (void)checkWithCreateDbFile:(NSString *)fullPath\n";
+		m += "{\n";
+		m += "    NSFileManager *fileManager = [NSFileManager defaultManager];\n";
+		m += "    NSError *error;\n";
+		m += "    \n";
+		m += "    NSString *dbFileName = k_DB_NAME;\n";
+		m += "    BOOL found = [fileManager fileExistsAtPath:fullPath];\n";
+		m += "    if(!found)\n";
+		m += "    {\n";
+		m += "        NSString *resourcePath = [[NSBundle mainBundle] resourcePath];\n";
+		m += "        NSString *defaultDBFilePath =\n";
+		m += "        [resourcePath stringByAppendingPathComponent:dbFileName];\n";
+		m += "        \n";
+		m += "        found = [fileManager copyItemAtPath:defaultDBFilePath\n";
+		m += "                                     toPath:fullPath\n";
+		m += "                                      error:&error];\n";
+		m += "        if (!found)\n";
+		m += "        {\n";
+		m += "            NSAssert1(0,\n";
+		m += "                      @\"创建数据库失败 '%@'.\",\n";
+		m += "                      [error localizedDescription]);\n";
+		m += "        }\n";
+		m += "    }\n";
+		m += "}\n";
+
+		m += "+ (NSString *)dbFilePath\n";
+		m += "{\n";
+		m += "    NSString *dbFileName = k_DB_NAME;\n";
+		m += "    NSString *documentsDirectory = [DbFileManager documentPath];\n";
+		m += "    \n";
+		m += "    NSString *dbFilePath =\n";
+		m += "    [documentsDirectory stringByAppendingPathComponent:dbFileName];\n";
+		m += "    \n";
+		m += "    [DbFileManager checkWithCreateDbFile:dbFilePath];\n";
+		m += "    \n";
+		m += "    return dbFilePath;\n";
+		m += "}\n";
+
+		m += "+ (BOOL)createFolderInDocment:(NSString *)folderName\n";
+		m += "{\n";
+		m += "    NSFileManager *fileManager = [NSFileManager defaultManager];\n";
+		m += "    NSString *documentsDirectory = [DbFileManager documentPath];\n";
+		m += "    NSString *foldFullPath =  [documentsDirectory stringByAppendingPathComponent:folderName];\n";
+		m += "    return [fileManager createDirectoryAtPath:foldFullPath withIntermediateDirectories:YES attributes:nil error:nil];\n";
+		m += "}\n";
+
+		m += "@end\n";
+
+		System.out.println(m);
+
+		stringToFile("DbFileManager.m", m);
+
+	}
+	
+	
+	public void Test()
+	{
+		String classDir = this.getClass().getResource("/").getPath();
+		try {
+
+			XmlDBParser xmlDbParser = new XmlDBParser();
+			xmlDbParser.parserXml(classDir + "com/compoment/db/db.uxf");
+			tables = xmlDbParser.tables;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+
+		String m = "\n";
+		m+="#import <UIKit/UIKit.h>\n";
+		
+		for (XmlDBTableBean table : tables) {
+		m+="#import \""+table.tableName+"Bean.h\"\n";
+		m+="#import \""+table.tableName+"Dao.h\"\n";
+		}
+		
+		
+		m+="@interface ViewController : UIViewController\n";
+		m+="{\n";
+		m+="}\n";
+		m+="@end\n";
+
+		System.out.println(m);
+		stringToFile("ViewController.h", m);
+
+		m="";
+		m+="#import \"ViewController.h\"\n";
+		m+="@implementation ViewController\n";
+		m+="- (void)viewDidLoad\n";
+		m+="{\n";
+		m+="    [super viewDidLoad];\n";
+		for (XmlDBTableBean table : tables) {
+		m+="    [NSThread detachNewThreadSelector:@selector(test"+table.tableName+") toTarget:self withObject:nil];\n";
+		}
+		m+="}\n";
+
+		for (XmlDBTableBean table : tables) {
+		m+="- (void)test"+table.tableName+"\n";
+		m+="{\n";
+		m+="    "+table.tableName+"Dao *dao = ["+table.tableName+"Dao  getInstance];\n";
+		m+="    for (int i = 0; i < 12; i++)\n";
+		m+="    {\n";
+		m+="        @autoreleasepool\n";
+		m+="        {\n";
+		m+="            "+table.tableName+"Bean *bean = [["+table.tableName+"Bean alloc] init] ;\n";
+		
+		for (XmlDBColumnBean column : table.columnsName) {
+		m+="            bean."+column.columnName+" = [NSString stringWithFormat:@\""+column.columnName+" %d\", i];\n";
+		}
+		m+="            [dao insert"+table.tableName+":bean];\n";
+		m+="            NSLog(@\"hobbytest %@\", @\"dd\");\n";
+		m+="        }\n";
+		m+="        \n";
+		m+="    }\n";
+		m+="    \n";
+		
+		m+="    "+table.tableName+"Dao *dao = ["+table.tableName+"Dao  getInstance];\n";
+		m+="    NSArray *beans =   [dao query"+table.tableName+"];\n";
+		m+="    NSLog(@\"%@\", beans);\n";
+		m+="}\n";
+		}
+
+		m+="- (void)viewDidUnload\n";
+		m+="{\n";
+		m+="    [super viewDidUnload];\n";
+		m+="}\n";
+
+		m+="- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation\n";
+		m+="{\n";
+		m+="    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);\n";
+		m+="}\n";
+
+		m+="@end\n";
+		
+		System.out.println(m);
+		stringToFile("ViewController.m", m);
+		
+	}
+	
+	public void createTableString()
+	{
+		String m = "\n";
+		
+		String classDir = this.getClass().getResource("/").getPath();
+		try {
+
+			XmlDBParser xmlDbParser = new XmlDBParser();
+			xmlDbParser.parserXml(classDir + "com/compoment/db/db.uxf");
+			tables = xmlDbParser.tables;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		for (XmlDBTableBean table : tables) {
+			
+			String columnString="";
+			for (XmlDBColumnBean column : table.columnsName) {
+				columnString+=","+column.getSqliteColumnName().toLowerCase()+" TEXT";
+			}
+			m+="CREATE TABLE "+table.getSqliteTableName()+" (_id INTEGER PRIMARY KEY AUTOINCREMENT"+columnString+")\n";
+
+		}
+	
+		
+		System.out.println(m);
+	}
+	
+
 	public void stringToFile(String fileName, String str) {
 		FileWriter fw;
 		try {
 			fw = new FileWriter(fileName);
 			fw.write(str);
-			fw.flush();// ???�?�????
+			fw.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
