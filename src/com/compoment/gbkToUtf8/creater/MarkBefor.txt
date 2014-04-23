@@ -22,19 +22,19 @@ public class QuotationMarks {
 	            while (br.ready()) {
 	                myreadline = br.readLine();
 
-	             
-	                if(myreadline.length()>=1)
+
+	                if(myreadline.length()>2)
 	                {
 
 
-//	                String head=myreadline.substring(0, 2);
-//
-//	                //将例�?�?.�?过滤�?
-//	                if(isinteger(head))
-//	                {
-//	                	int position=myreadline.indexOf(".");
-//	                	myreadline=myreadline.substring(position+1);
-//	                }
+	                String head=myreadline.substring(0, 2);
+
+	                //将例�?�?.�?过滤�?
+	                if(isinteger(head))
+	                {
+	                	int position=myreadline.indexOf(".");
+	                	myreadline=myreadline.substring(position+1);
+	                }
 
 	                myreadline=myreadline.replace("\"", "\\\"");
 	                myreadline="m+=\""+myreadline+"\\n"+"\";";

@@ -14,19 +14,11 @@
         android:layout_marginTop="15dp"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:text="把1个联系人默认联系号码设置为"
+        android:text="输入名字"
         android:textColor="@color/black"
         android:textSize="@dimen/contact_editor_text" />
 
-    <ListView
-        android:id="@+id/fuhao_list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/global_main_bg"
-        android:cacheColorHint="#00000000"
-        android:divider="@drawable/global_main_line"
-        android:dividerHeight="2px"
-        android:fadingEdge="none" />
+
 
     <LinearLayout
         android:layout_width="fill_parent"

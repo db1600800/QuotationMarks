@@ -1,16 +1,200 @@
+#import "CRM_EventMamager.h"
+#import "CRM_CoreDataManager.h"
+#import "ShellSDK.h"
+#import "CRM_UUID.h"
+#import "CRM.h"
+@implementation CRM_EventMamager
 
-#import "UserEntity.h"
+static CRM_EventMamager *sharedInstance;
 
-@implementation UserEntity
-@synthesize _id;
-@synthesize name;
-@synthesize password;
++ (instancetype)sharedInstance {
+    if (sharedInstance == nil) {
+        sharedInstance = [[CRM_EventMamager alloc] init];
+    }
+    return sharedInstance;
+}
 
-- (void)dealloc
-{
-    self.name = nil;
-    self.password = nil;
-  
+- (CRM_Event *)createWithServerID:(NSString *)serverID
+                       terminalID:(NSString *)terminalID
+                           status:(NSNumber *)status
+                          content:(NSString *)content
+                         category:(CRM_EventCategory *)category
+                         customer:(CRM_Customer *)customer {
+    
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    
+    CRM_Event *event = [[CRM_CoreDataManager sharedInstance]
+                        createWithEntityClass:[CRM_Event class]];
+    event.serverID = serverID;
+    event.terminalID = terminalID;
+    event.status = status;
+    event.content = content;
+    event.ada = currentAda;
+    event.category = category;
+    event.customer = customer;
+    event.date = [NSDate date];
+    [[CRM_CoreDataManager sharedInstance] save:event];
+    return event;
+}
+
+//插入
+- (CRM_Event *)createWithContent:(NSString *)content
+                        category:(CRM_EventCategory *)category
+                        customer:(CRM_Customer *)customer {
+    
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    
+    CRM_Event *event = [[CRM_CoreDataManager sharedInstance]
+                        createWithEntityClass:[CRM_Event class]];
+    
+    event.terminalID = [CRM_UUID UUID];
+    event.content = content;
+    event.ada = currentAda;
+    event.category = category;
+    event.customer = customer;
+    event.date = [NSDate date];
+    [[CRM_CoreDataManager sharedInstance] save:event];
+    return event;
+}
+
+//更新
+- (CRM_Event *)updateWithEvent:(CRM_Event *)event
+                       content:(NSString *)content
+                      category:(CRM_EventCategory *)category
+                      customer:(CRM_Customer *)customer {
+    
+    if ([event.status isEqualToNumber:@(CRM_ENTITY_DELETED)]) {
+        return event;
+    }
+    
+    event.content = content;
+    event.category = category;
+    event.customer = customer;
+    event.date = [NSDate date];
+    
+    if ([event.status isEqualToNumber:@(CRM_ENTITY_NORMAL)]) {
+        
+        event.status = @(CRM_ENTITY_CHANGED);
+    }
+    
+    [[CRM_CoreDataManager sharedInstance] save:event];
+    
+    return event;
+}
+
+//删除
+- (void)deleteWithEvent:(CRM_Event *)event {
+    
+    if ([event.status isEqualToNumber:@(CRM_ENTITY_DELETED)]) {
+        return;
+    }
+    
+    if ([event.status isEqualToNumber:@(CRM_ENTITY_NEW)]) {
+        [[CRM_CoreDataManager sharedInstance] delete:event];
+    } else {
+        event.status = @(CRM_ENTITY_DELETED);
+        [[CRM_CoreDataManager sharedInstance] save:event];
+    }
+}
+//查询全部
+- (NSArray *)findAll {
+    NSManagedObjectContext *context =
+    [[CRM_CoreDataManager sharedInstance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[CRM_CoreDataManager sharedInstance]
+                                    generateFetchRequestWithEntityClass:[CRM_Event class]];
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    // where
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"ada = %@ AND status!=%@", currentAda,
+     @(CRM_ENTITY_DELETED)];
+    [fetchRequest setPredicate:predicate];
+    
+    return [context executeFetchRequest:fetchRequest error:nil];
+}
+
+//查询By date
+- (NSArray *)findAllByMonth:(NSDate *)date {
+    
+    NSManagedObjectContext *context =
+    [[CRM_CoreDataManager sharedInstance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[CRM_CoreDataManager sharedInstance]
+                                    generateFetchRequestWithEntityClass:[CRM_Event class]];
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    
+    //本月有多少天
+    NSCalendar *calendar =
+    [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit
+                                   inUnit:NSMonthCalendarUnit
+                                  forDate:date];
+    NSUInteger numberOfDaysInMonth = range.length;
+    
+    //取得年月日
+    NSDateComponents *components = [[NSCalendar currentCalendar]
+                                    components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                    fromDate:date];
+    
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *startS = [NSString
+                        stringWithFormat:@"%@-%@-%@ 00:00:00", [NSNumber numberWithInteger:year],
+                        [NSNumber numberWithInteger:month],
+                        [NSNumber numberWithInt:1]];
+    NSDate *startDate = [dateFormatter dateFromString:startS];
+    
+    NSString *endS = [NSString
+                      stringWithFormat:@"%@-%@-%@ 00:00:00", [NSNumber numberWithInteger:year],
+                      [NSNumber numberWithInteger:month],
+                      [NSNumber numberWithInteger:numberOfDaysInMonth]];
+    NSDate *endDate = [dateFormatter dateFromString:endS];
+    
+    // where
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:
+     @"date >= %@ AND date <= %@ AND ada = %@ AND status!=%@",
+     startDate, endDate, currentAda, @(CRM_ENTITY_DELETED)];
+    [fetchRequest setPredicate:predicate];
+    
+    NSArray *objs = [context executeFetchRequest:fetchRequest error:nil];
+    return objs;
+}
+
+//查询By Customer
+- (NSArray *)findAllByCustomer:(CRM_Customer *)customer {
+    NSManagedObjectContext *context =
+    [[CRM_CoreDataManager sharedInstance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[CRM_CoreDataManager sharedInstance]
+                                    generateFetchRequestWithEntityClass:[CRM_Event class]];
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    // where
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"customer = %@ AND ada = %@ AND status!=%@",
+                              customer, currentAda, @(CRM_ENTITY_DELETED)];
+    [fetchRequest setPredicate:predicate];
+    
+    NSArray *objs = [context executeFetchRequest:fetchRequest error:nil];
+    return objs;
+}
+
+- (NSArray *)findWithTerminalID:(NSString *)terminalID {
+    NSManagedObjectContext *context =
+    [[CRM_CoreDataManager sharedInstance] managedObjectContext];
+    NSFetchRequest *fetchRequest = [[CRM_CoreDataManager sharedInstance]
+                                    generateFetchRequestWithEntityClass:[CRM_Event class]];
+    NSString *currentAda = [[ShellSDK sharedInstance] currentAda];
+    // where
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"terminalID = %@ AND ada = %@",
+     terminalID, currentAda];
+    [fetchRequest setPredicate:predicate];
+    
+    NSArray *objs = [context executeFetchRequest:fetchRequest error:nil];
+    return objs;
 }
 
 @end

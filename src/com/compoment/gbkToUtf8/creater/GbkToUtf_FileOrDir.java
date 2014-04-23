@@ -32,6 +32,8 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 		try {
 			String str = readFileToString(file, fromEncode);
 			writeStringToFile(file, str, toEncode);
+			String strResult = readFileToString(file, toEncode);
+			System.out.println(strResult);
 		} catch (IOException e) {
 			System.out.println("Convert failed. File not exsit?");
 			e.printStackTrace();
@@ -113,9 +115,12 @@ public class GbkToUtf_FileOrDir extends org.apache.commons.io.FileUtils {
 		GbkToUtf_FileOrDir gbkToUtf_FileOrDir = new GbkToUtf_FileOrDir();
 
 		// D:\\Workspace\\Android_Demonstrate_AbstractCode\\src\\com\\compoment\\file_manage
-		 File src = new
-		 File("D:\\create");
-		 boolean isUtf82Gbk=true;//false  Gbk2Utf8
+		 
+		String classDir = gbkToUtf_FileOrDir.getClass().getResource("/").getPath();
+       
+		File src = new
+		 File(classDir+"com/compoment/gbkToUtf8/creater/MarkBefor.txt");
+		 boolean isUtf82Gbk=false;//false  Gbk2Utf8
 		 convertDirectory(src,isUtf82Gbk);
 
 
