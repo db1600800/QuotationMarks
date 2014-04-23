@@ -95,7 +95,7 @@ public class CoredataDbDao {
 
 		m += "+ (instancetype)sharedInstance;\n\n";
 
-		m += "//网络同步时使用 插入 更新 \n";
+		m += "//网络同步时使用 插入 \n";
 		m += "- (" + className + " *)createWith";
 		int k=0;
 		for (int i = 0; i < propertys.size(); i++) {
@@ -113,6 +113,23 @@ public class CoredataDbDao {
 						+ property.name + "\n";
 			}
 			k++;
+		}
+		m += ";\n\n";
+		
+		
+		m += "//网络同步时使用  更新 \n";
+		m += "- (" + className + " *)updateWith"+ className + ":(" + className
+				+ "*)" + className.toLowerCase() +"\n";
+		for (int i = 0; i < propertys.size(); i++) {
+			PropertyBean property = (PropertyBean) propertys.get(i);
+			if(property.name.equals("ada") )
+					{
+				continue;
+					}
+			
+				m += property.name + ":(" + property.type + " *)"
+						+ property.name + "\n";
+		
 		}
 		m += ";\n\n";
 
@@ -189,7 +206,7 @@ public class CoredataDbDao {
 		
 		
 		
-        m+="//同步时使用 插入 更新\n";
+        m+="//同步时使用 插入\n";
 		m += "- (" + className + " *)createWith";
 		int k=0;
 		for (int i = 0; i < propertys.size(); i++) {
@@ -237,6 +254,47 @@ public class CoredataDbDao {
 				+ className.toLowerCase() + "];\n";
 		m += "    return " + className.toLowerCase() + ";\n";
 		m += "}\n\n";
+		
+		
+		 m+="//同步时使用 更新\n";
+			m += "- (" + className + " *)updateWith"+ className + ":(" + className
+					+ " *)" + className.toLowerCase() +"\n";
+		
+			for (int i = 0; i < propertys.size(); i++) {
+				PropertyBean property = (PropertyBean) propertys.get(i);
+				if(property.name.equals("ada"))
+				{
+					continue;
+				}
+				
+			
+					m += property.name + ":(" + property.type + " *)"
+							+ property.name + "\n";
+				
+			}
+			m += "{\n";
+			m+="  if (["+className.toLowerCase()+".status isEqualToNumber:@(CRM_ENTITY_DELETED)]) {\n";
+			m+="        return "+className.toLowerCase()+";\n";
+			m+="    }\n";
+
+			m += "    \n";
+			for (int i = 0; i < propertys.size(); i++) {
+				PropertyBean property = (PropertyBean) propertys.get(i);
+				if(property.name.equals("ada"))
+				{
+					continue;
+				}
+			
+				
+					m += "" + className.toLowerCase() + "." + property.name + " = "
+							+ property.name + ";\n";
+				
+			}
+
+			m += "    [[CRM_CoreDataManager sharedInstance] save:"
+					+ className.toLowerCase() + "];\n";
+			m += "    return " + className.toLowerCase() + ";\n";
+			m += "}\n\n";
 		
 		
 		m+="//插入\n";

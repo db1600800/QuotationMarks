@@ -8,17 +8,17 @@ import com.compoment.db.helper.XmlDBColumnBean;
 import com.compoment.db.helper.XmlDBParser;
 import com.compoment.db.helper.XmlDBTableBean;
 
-public class CreaterIosDBBeanAndDao {
+public class FMDBBeanAndDao {
 
 	List<XmlDBTableBean> tables = null;
 
 	public static void main(String[] args) {
 		String dbName="User.sqlite";
-		CreaterIosDBBeanAndDao createrIosDBBeanAndDao=new CreaterIosDBBeanAndDao(dbName);
+		FMDBBeanAndDao createrIosDBBeanAndDao=new FMDBBeanAndDao(dbName);
 		createrIosDBBeanAndDao.createTableString();
 	}
 
-	public CreaterIosDBBeanAndDao(String dbName) {
+	public FMDBBeanAndDao(String dbName) {
 
 		String classDir = this.getClass().getResource("/").getPath();
 		try {
