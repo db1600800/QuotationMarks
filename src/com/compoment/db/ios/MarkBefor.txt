@@ -1,10 +1,8 @@
-@interface CRM_Event : NSManagedObject
+@interface CRM_PictureInfo : NSManagedObject
 
-@property (nonatomic, retain) NSString * ada;
-@property (nonatomic, retain) NSString * content;
-@property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) NSString * terminalID;
+@property (nonatomic, retain) NSString * ownerAda;
+@property (nonatomic, retain) NSString * picName;
 @property (nonatomic, retain) NSString * serverID;
 @property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) CRM_EventCategory *category;
-@property (nonatomic, retain) CRM_Customer *customer;
+@property (nonatomic, retain) NSString * terminalID;
+@property (nonatomic, retain) CRM_CustomerTimeLine *timeLine;

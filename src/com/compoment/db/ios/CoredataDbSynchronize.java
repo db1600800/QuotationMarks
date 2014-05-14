@@ -22,7 +22,7 @@ public class CoredataDbSynchronize {
 		CoredataDbSynchronize mark = new CoredataDbSynchronize();
 		mark.init(mark);
 		 mark.hfile();
-		//mark.mfile();
+		mark.mfile();
 
 	}
 
@@ -88,21 +88,33 @@ public class CoredataDbSynchronize {
 		String m = "";
 
 		m+="#import <Foundation/Foundation.h>\n";
-		m+="#import \"CRM_EventCategory.h\"\n";
-		m+="#import \"CRM_Customer.h\"\n";
+		for (int i = 0; i < propertys.size(); i++) {
+			PropertyBean property = (PropertyBean) propertys.get(i);
+		
+			if(property.type.contains("NS"))
+			{
+			
+			}else
+			{
+				
+				m+="#import \""+property.type+".h\"\n";
+				m+="#import \""+property.type+"Manager.h\"\n\n";
+			}
+			}
 
-		m+="@interface "+className+"Synchronize : NSObject \n";
+		m+="@interface "+className+"Synchronize : NSObject \n\n";
 	
-		m+="- (void)sync"+className+"With";
+		m+="// 服务端数据同步到本地"+className+"\n";
+		m+="- (void)sync"+className;
 		int k=0;
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada"))
+			if(property.name.equals("ada") || property.type.equals("NSSet"))
 			{
 				continue;
 			}
 			if (k == 0) {
-				m += firstCharToUpper(property.name) + ":(" + property.type
+				m += ":(" + property.type
 						+ " *)" + property.name + "\n";
 			} else {
 				m += property.name + ":(" + property.type + " *)"
@@ -116,11 +128,12 @@ public class CoredataDbSynchronize {
 		
 		
 
-		m+="- (void)sync"+className+"DicArray:(NSArray *)"+className.toLowerCase()+"DicArray;\n";
+		m+="- (void)sync"+className+"DicArray:(NSArray *)"+className.toLowerCase()+"DicArray;\n\n";
 
-		m+="- (NSArray *)unSync"+className+"Array;\n";
+		m+="//查询待同步（"+className+"新增或修改的记录）\n";
+		m+="- (NSArray *)unSync"+className+"Array;\n\n";
 
-		m+="- (NSArray *)unSync"+className+"DicArray;\n";
+		m+="- (NSArray *)unSync"+className+"DicArray;\n\n";
 
 		m+="@end\n";
 
@@ -129,26 +142,26 @@ public class CoredataDbSynchronize {
 	}
 
 	public void mfile() {
-		String m = "";
+		String m = "########################\n\n";
 			
 		m+="#import \""+className+"Synchronize.h\"\n";
-		m+="#import \""+className+"Mamager.h\"\n";
+		m+="#import \""+className+"Manager.h\"\n";
 		m+="#import \"CRM.h\"\n";
-		m+="#import \""+className+"CategoryManager.h\"\n";
+		m+="#import \""+className+"CategoryManager.h\"\n\n";
 
-		m+="@implementation "+className+"Synchronize\n";
+		m+="@implementation "+className+"Synchronize\n\n";
 
 		m+="// 服务端数据同步到本地"+className+"\n";
-		m+="- (void)sync"+className+"With";
+		m+="- (void)sync"+className;
 		int k=0;
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada"))
+			if(property.name.equals("ada")||property.type.equals("NSSet"))
 			{
 				continue;
 			}
 			if (k == 0) {
-				m += firstCharToUpper(property.name) + ":(" + property.type
+				m +=  ":(" + property.type
 						+ " *)" + property.name + "\n";
 			} else {
 				m += property.name + ":(" + property.type + " *)"
@@ -158,28 +171,28 @@ public class CoredataDbSynchronize {
 		}
 		m+=" {\n";
 		m+="    \n";
-		m+="    "+className+"Mamager *"+className.toLowerCase()+"Mamager = ["+className+"Mamager sharedInstance];\n";
-		m+="    NSArray *"+className.toLowerCase()+"s = ["+className.toLowerCase()+"Mamager findWithTerminalID:terminalID];\n";
+		m+="    "+className+"Manager *"+className.toLowerCase()+"Manager = ["+className+"Manager sharedInstance];\n";
+		m+="    "+className+" *"+className.toLowerCase()+" = ["+className.toLowerCase()+"Manager findByTerminalID:terminalID];\n";
 		m+="    \n";
-		m+="    if ("+className.toLowerCase()+"s != nil && ["+className.toLowerCase()+"s count] > 0) {\n";
+		m+="    if ("+className.toLowerCase()+" != nil ) {\n";
 		m+="        //本地有记录\n";
-		m+="        "+className+" *"+className.toLowerCase()+" = ["+className.toLowerCase()+"s objectAtIndex:0];\n";
+		
 		m+="        if ([status isEqualToNumber:@(CRM_ENTITY_NORMAL)]) {\n";
 		m+="            if (["+className.toLowerCase()+".status isEqualToNumber:@(CRM_ENTITY_DELETED)]) {\n";
 		m+="                return;\n";
 		m+="            }\n";
 		m+="        }\n";
 		m+="        \n";
-		m+="        ["+className.toLowerCase()+"Mamager updateWith"+className+":"+className.toLowerCase()+"\n";
+		m+="        ["+className.toLowerCase()+"Manager updateWith"+className+":"+className.toLowerCase()+"\n";
 		
 	
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada"))
+			if(property.name.equals("ada") ||property.type.equals("NSSet"))
 			{
 				continue;
 			}
-				m += property.name + ":(" + property.type + " *)"
+				m += property.name + ":"
 						+ property.name + "\n";
 			
 		}
@@ -187,20 +200,19 @@ public class CoredataDbSynchronize {
 		m+="        \n";
 		m+="    } else {\n";
 		m+="        \n";
-		m+="        [eventMamager createWith\n";
+		m+="        ["+className.toLowerCase()+"Manager createWith";
 		
 	     k=0;
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada"))
+			if(property.name.equals("ada") ||property.type.equals("NSSet"))
 			{
 				continue;
 			}
 			if (k == 0) {
-				m += firstCharToUpper(property.name) + ":(" + property.type
-						+ " *)" + property.name + "\n";
+				m += firstCharToUpper(property.name) + ":" + property.name + "\n";
 			} else {
-				m += property.name + ":(" + property.type + " *)"
+				m += property.name + ":"
 						+ property.name + "\n";
 			}
 			k++;
@@ -216,61 +228,111 @@ public class CoredataDbSynchronize {
 		m+="- (void)sync"+className+"DicArray:(NSArray *)"+className.toLowerCase()+"DicArray {\n";
 		m+="    \n";
 		m+="    for (NSDictionary *item in "+className.toLowerCase()+"DicArray) {\n";
-		m+="        NSString *serverID = [item objectForKey:@\"serverID\"];\n";
-		m+="        NSString *terminalID = [item objectForKey:@\"terminalID\"];\n";
-		m+="        NSNumber *status = [item objectForKey:@\"status\"];\n";
+		
+			for (int i = 0; i < propertys.size(); i++) {
+				PropertyBean property = (PropertyBean) propertys.get(i);
+			
+				if(property.type.contains("NS") && !property.type.equals("NSSet") )
+				{
+					if(property.type.equals("NSNumber"))
+					{
+						m+=property.type+" *"+property.name+" =[NSNumber numberWithInt:[[item objectForKey:@\""+property.name+"\"] intValue]];\n\n";
+					}else if(property.type.equals("NSDate"))
+					{
+						m+="long "+property.name+"Long = (long)[item objectForKey:@\""+property.name+"\"];\n\n";
+					
+				       m+=" NSDate *"+property.name+" = [NSDate dateWithTimeIntervalSince1970:"+property.name+"Long];\n";
+					}
+					
+					else
+					{
+				m+=property.type+" *"+property.name+" = [item objectForKey:@\""+property.name+"\"];\n\n";
+					}
+				}else if(property.type.contains("NS") && property.type.equals("NSSet") )
+				{
+					continue;
+				}
+				
+				else
+				{
+					m+="NSString *"+property.name+"TerminalID = [item objectForKey:@\""+property.name+"TerminalID\"];\n";
+					m+="        "+property.type+"Manager *"+property.type.toLowerCase()+"Manager =\n";
+					m+="        ["+property.type+"Manager sharedInstance];\n\n";
+					m+="        "+property.type+" *"+property.name+" =\n";
+					m+="        ["+property.type.toLowerCase()+"Manager findByTerminalID:"+property.name+"TerminalID];\n\n";
+				}
+				}
+		
+		
 		m+="        \n";
-		m+="        NSString *content = [item objectForKey:@\"content\"];\n";
-		m+="        \n";
-		m+="        CRM_EventCategoryManager *eventCategoryManager =\n";
-		m+="        [CRM_EventCategoryManager sharedInstance];\n";
-		m+="        CRM_EventCategory *eventCategory =\n";
-		m+="        [eventCategoryManager findWithTerminalID:terminalID];\n";
-		m+="        \n";
-		m+="        [slef syncCRM_Event:serverID\n";
-		m+="                 terminalID:terminalID\n";
-		m+="                     status:status\n";
-		m+="                    content:content\n";
-		m+="                   category:eventCategory\n";
-		m+="                   customer:nil];\n";
+		m+="        [self sync"+className;
+	      k=0;
+		for (int i = 0; i < propertys.size(); i++) {
+			PropertyBean property = (PropertyBean) propertys.get(i);
+			if(property.name.equals("ada")|| property.type.equals("NSSet"))
+			{
+				continue;
+			}
+			if (k == 0) {
+				m +=  ":" + property.name + "\n";
+			} else {
+				m += property.name + ":"
+						+ property.name + "\n";
+			}
+			k++;
+		}
+		m+=" ];\n";
 		m+="    }\n";
-		m+="}\n";
+		m+="}\n\n";
 
-		m+="//查询待同步（CRM_Event新增或修改的记录）\n";
-		m+="- (NSArray *)unSyncCRM_EventArray {\n";
-		m+="    CRM_EventMamager *eventMamager = [CRM_EventMamager sharedInstance];\n";
+		
+		
+		m+="//查询待同步（"+className+"新增或修改的记录）\n";
+		m+="- (NSArray *)unSync"+className+"Array {\n";
+		m+="    "+className+"Manager *"+className.toLowerCase()+"Manager = ["+className+"Manager sharedInstance];\n";
 		m+="    \n";
 		m+="    NSPredicate *filter =\n";
 		m+="    [NSPredicate predicateWithFormat:@\"status != %@\", @(CRM_ENTITY_NORMAL)];\n";
-		m+="    NSArray *result = [[eventMamager findAll] filteredArrayUsingPredicate:filter];\n";
+		m+="    NSArray *result = [["+className.toLowerCase()+"Manager findAll] filteredArrayUsingPredicate:filter];\n";
 		m+="    \n";
 		m+="    return result;\n";
-		m+="}\n";
-
-		m+="- (NSArray *)unSyncCRM_EventDicArray {\n";
+		m+="}\n\n";
+		
+		
+		
+		
+		m+="//查询待同步（"+className+"新增或修改的记录）\n";
+		m+="- (NSArray *)unSync"+className+"DicArray {\n";
 		m+="    \n";
 		m+="    // BeanArray 转成 DicArray\n";
-		m+="    NSArray *crm_eventArray = [self unSyncCRM_EventArray];\n";
+		m+="    NSArray *"+className.toLowerCase()+"Array = [self unSync"+className+"Array];\n";
 		m+="    \n";
 		m+="    //参数\n";
-		m+="    // CRM_Event\n";
-		m+="    NSMutableArray *crm_eventDicArray = [[NSMutableArray alloc] init];\n";
-		m+="    for (CRM_Event *event in crm_eventArray) {\n";
+		m+="    // "+className+"\n";
+		m+="    NSMutableArray *"+className.toLowerCase()+"DicArray = [[NSMutableArray alloc] init];\n";
+		m+="    for ("+className+" *"+className.toLowerCase()+" in "+className.toLowerCase()+"Array) {\n";
 		m+="        \n";
 		m+="        NSMutableDictionary *dic = [NSMutableDictionary dictionary];\n";
 		m+="        \n";
-		m+="        // [dicGroup setObject:group.ServerId forKey:@\"serverId\"];\n";
-		m+="        //[dicGroup setObject:group.GroupName forKey:@\"groupName\"];\n";
-		m+="        // [dicGroup setObject:[NSString stringWithFormat:@\"%d\", group.SortCode]\n";
-		m+="        //          forKey:@\"sortCode\"];\n";
-		m+="        // long\n";
-		m+="        //        [dicGroup\n";
-		m+="        //         setObject:[NSNumber numberWithLongLong:[group.UpdateTime\n";
-		m+="        // longLongValue]]\n";
-		m+="        //         forKey:@\"updateTime\"];\n";
+		
+		
+		
+		for (int i = 0; i < propertys.size(); i++) {
+			PropertyBean property = (PropertyBean) propertys.get(i);
+			if( property.type.contains("NSSet"))
+			{
+				continue;
+			}
+			m+="[dic setObject:"+className.toLowerCase()+"."+property.name+" forKey:@\""+property.name+"\"];\n";
+		
+		}
+		
+		
+
 		m+="        \n";
-		m+="        [crm_eventDicArray addObject:dic];\n";
+		m+="        ["+className.toLowerCase()+"DicArray addObject:dic];\n";
 		m+="    }\n";
+		m+=" return "+className.toLowerCase()+"DicArray;\n";
 		m+="}\n";
 
 

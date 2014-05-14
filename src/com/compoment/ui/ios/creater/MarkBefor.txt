@@ -1,0 +1,215 @@
+@property(nonatomic, strong)  UIView *infoBoxView;
+@property(nonatomic, strong)  UIView  *descBoxView;
+@property(nonatomic, strong)  UIView  *todoMemoView;
+@property(nonatomic, strong) UIImageView *memoSpLine;
+@property(nonatomic, strong) BXDTextView *todoDescTextField;
+@property(nonatomic, strong) BXDTextView  *todoMemoTextField;
+@property(nonatomic, strong) BXDModelButton *todoBeginTimeBtn;
+@property(nonatomic, strong) BXDModelButton *todoRepeatIntervalBtn;
+@property(nonatomic, strong) BXDModelButton *todoRemindTimeBtn;
+ @property(nonatomic, strong) BXDModelButton *addTodoRelatedCustomers;
+@property(nonatomic, strong) BXDModelButton *resetBeginTimeBtn;
+ @property(nonatomic, strong) BXDModelButton *resetRemindTimeBtn;
+@property(nonatomic, strong) UIView *addRelatedCustomersView;
+@property(nonatomic, strong) UIView *relatedCustomersView;
+
+
+
+
+
+
+
+        // make desc box view
+        _descBoxView = [self makeTodoItemView:60
+                                            y:0
+                                        width:_width - 60
+                                withLabelName:@"标题"
+                                   withSpLine:NO];
+        
+        _todoDescTextField = [[BXDTextView alloc]
+                              initWithFrame:CGRectMake(100, 0,
+                                                       CGRectGetWidth(_descBoxView.bounds) - 100,
+                                                       BXDTodoEditItemCellHeight)];
+        _todoDescTextField.font = [UIFont systemFontOfSize:18.f];
+        _todoDescTextField.backgroundColor = [UIColor clearColor];
+        _todoDescTextField.autocapitalizationType =
+        UITextAutocapitalizationTypeNone;
+        _todoDescTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+        _todoDescTextField.contentInset = UIEdgeInsetsMake(-10, 0, -10, 0);
+        [_descBoxView addSubview:_todoDescTextField];
+        
+        _infoBoxView = [[UIView alloc]
+                        initWithFrame:CGRectMake(60, 50, self.width - 60,
+                                                 BXDTodoEditItemCellHeight * 7)];
+        UIImageView *spImage = [[UIImageView alloc]
+                                initWithFrame:CGRectMake(0, 0, _infoBoxView.frame.size.width, 1)];
+        spImage.backgroundColor =
+        [UIColor colorWithRed:0.914 green:0.914 blue:0.906 alpha:1.000];
+        [_infoBoxView addSubview:spImage];
+        
+        // begin time
+        UIView *beginTimeView = [self makeTodoItemView:0
+                                                     y:0
+                                                 width:_width - 60
+                                         withLabelName:@"开始日期"
+                                            withSpLine:YES];
+        _todoBeginTimeBtn = [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _todoBeginTimeBtn.frame =
+        CGRectMake(100, 0, CGRectGetWidth(_infoBoxView.bounds) - 180,
+                   BXDTodoEditItemCellHeight);
+        [_todoBeginTimeBtn setTitleColor:[UIColor blackColor]
+                                forState:UIControlStateNormal];
+        _todoBeginTimeBtn.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentLeft;
+        [beginTimeView addSubview:_todoBeginTimeBtn];
+        
+        _resetBeginTimeBtn = [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _resetBeginTimeBtn.frame =
+        CGRectMake(CGRectGetWidth(_infoBoxView.bounds) - 100, 0, 100,
+                   BXDTodoEditItemCellHeight);
+        _resetBeginTimeBtn.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentRight;
+        [_resetBeginTimeBtn setTitle:@"清空" forState:UIControlStateNormal];
+        [_resetBeginTimeBtn setTitleColor:[UIColor blackColor]
+                                 forState:UIControlStateHighlighted];
+        [_resetBeginTimeBtn
+         setTitleColor:BXDCrmPersonContactCardFooterViewTitleColor
+         forState:UIControlStateNormal];
+        [beginTimeView addSubview:_resetBeginTimeBtn];
+        
+        [_infoBoxView addSubview:beginTimeView];
+        
+        // repeat time
+        UIView *repeatTimeView =
+        [self makeTodoItemView:0
+                             y:CGRectGetHeight(beginTimeView.bounds)
+                         width:_width - 60
+                 withLabelName:@"重复日期"
+                    withSpLine:YES];
+        _todoRepeatIntervalBtn = [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _todoRepeatIntervalBtn.frame =
+        CGRectMake(100, 0, CGRectGetWidth(_infoBoxView.bounds) - 180,
+                   BXDTodoEditItemCellHeight);
+        [_todoRepeatIntervalBtn setTitleColor:[UIColor blackColor]
+                                     forState:UIControlStateNormal];
+        _todoRepeatIntervalBtn.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentLeft;
+        [repeatTimeView addSubview:_todoRepeatIntervalBtn];
+        [_infoBoxView addSubview:repeatTimeView];
+        
+        // remind time
+        UIView *remindTimeView =
+        [self makeTodoItemView:0
+                             y:CGRectGetHeight(repeatTimeView.bounds) +
+         repeatTimeView.frame.origin.y
+                         width:_width - 60
+                 withLabelName:@"提醒时间"
+                    withSpLine:YES];
+        _todoRemindTimeBtn = [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _todoRemindTimeBtn.frame =
+        CGRectMake(100, 0, CGRectGetWidth(_infoBoxView.bounds) - 180,
+                   BXDTodoEditItemCellHeight);
+        [_todoRemindTimeBtn setTitleColor:[UIColor blackColor]
+                                 forState:UIControlStateNormal];
+        _todoRemindTimeBtn.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentLeft;
+        [remindTimeView addSubview:_todoRemindTimeBtn];
+        
+        _resetRemindTimeBtn = [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _resetRemindTimeBtn.frame =
+        CGRectMake(CGRectGetWidth(_infoBoxView.bounds) - 100, 0, 100,
+                   BXDTodoEditItemCellHeight);
+        _resetRemindTimeBtn.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentRight;
+        [_resetRemindTimeBtn setTitle:@"清空" forState:UIControlStateNormal];
+        [_resetRemindTimeBtn setTitleColor:[UIColor blackColor]
+                                  forState:UIControlStateHighlighted];
+        [_resetRemindTimeBtn
+         setTitleColor:BXDCrmPersonContactCardFooterViewTitleColor
+         forState:UIControlStateNormal];
+        [remindTimeView addSubview:_resetRemindTimeBtn];
+        
+        [_infoBoxView addSubview:remindTimeView];
+        
+        // related customers
+        _relatedCustomersView =
+        [self makeTodoItemView:0
+                             y:CGRectGetHeight(remindTimeView.bounds) +
+         remindTimeView.frame.origin.y
+                         width:_width - 60
+                 withLabelName:@"关联顾客"
+                    withSpLine:NO];
+        [_infoBoxView addSubview:_relatedCustomersView];
+        
+        // add related customers
+        _addRelatedCustomersView = [[UIView alloc]
+                                    initWithFrame:CGRectMake(
+                                                             0, CGRectGetHeight(_relatedCustomersView.bounds) +
+                                                             _relatedCustomersView.frame.origin.y,
+                                                             self.width - 60, BXDTodoEditItemCellHeight * 2)];
+        UIImageView *imageViewTop = [[UIImageView alloc]
+                                     initWithFrame:CGRectMake(0, 0,
+                                                              _addRelatedCustomersView.frame.size.width, 1)];
+        imageViewTop.backgroundColor =
+        [UIColor colorWithRed:0.914 green:0.914 blue:0.906 alpha:1.000];
+        [_addRelatedCustomersView addSubview:imageViewTop];
+        
+        _addTodoRelatedCustomers =
+        [BXDModelButton buttonWithType:UIButtonTypeCustom];
+        _addTodoRelatedCustomers.frame =
+        CGRectMake(0, 0, self.width - 80, BXDTodoEditItemCellHeight);
+        [_addTodoRelatedCustomers setTitle:@"添加关联顾客"
+                                  forState:UIControlStateNormal];
+        [_addTodoRelatedCustomers
+         setTitleColor:BXDCrmPersonContactCardFooterViewTitleColor
+         forState:UIControlStateNormal];
+        _addTodoRelatedCustomers.contentHorizontalAlignment =
+        UIControlContentHorizontalAlignmentLeft;
+        [_addRelatedCustomersView addSubview:_addTodoRelatedCustomers];
+        
+        UIImageView *imageView = [[UIImageView alloc]
+                                  initWithFrame:CGRectMake(0, 49,
+                                                           _addRelatedCustomersView.frame.size.width, 1)];
+        imageView.backgroundColor =
+        [UIColor colorWithRed:0.914 green:0.914 blue:0.906 alpha:1.000];
+        [_addRelatedCustomersView addSubview:imageView];
+        
+        [_infoBoxView addSubview:_addRelatedCustomersView];
+        
+        // add memo
+        _todoMemoView = [[UIView alloc]
+                         initWithFrame:CGRectMake(0, CGRectGetHeight(imageView.bounds) +
+                                                  imageView.frame.origin.y,
+                                                  self.width - 60,
+                                                  BXDTodoEditItemCellHeight * 2)];
+        
+        UILabel *descLabel = [[UILabel alloc]
+                              initWithFrame:CGRectMake(0, 0, 80, BXDTodoEditItemCellHeight)];
+        descLabel.textColor = [UIColor blackColor];
+        descLabel.text = @"备注";
+        descLabel.textAlignment = NSTextAlignmentLeft;
+        [_todoMemoView addSubview:descLabel];
+        
+        _todoMemoTextField = [[BXDTextView alloc]
+                              initWithFrame:CGRectMake(100, 0,
+                                                       CGRectGetWidth(_descBoxView.bounds) - 100,
+                                                       BXDTodoEditItemCellHeight * 2)];
+        _todoMemoTextField.backgroundColor = [UIColor clearColor];
+        _todoMemoTextField.autocapitalizationType =
+        UITextAutocapitalizationTypeNone;
+        _todoMemoTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+        _todoMemoTextField.font = [UIFont systemFontOfSize:16.f];
+        _todoMemoTextField.contentInset = UIEdgeInsetsMake(-10, 0, -10, 0);
+        [_todoMemoView addSubview:_todoMemoTextField];
+        
+        _memoSpLine = [[UIImageView alloc]
+                       initWithFrame:CGRectMake(-40, _todoMemoView.frame.size.height - 1,
+                                                _todoMemoView.frame.size.width + 40.f, 1)];
+        _memoSpLine.backgroundColor =
+        [UIColor colorWithRed:0.914 green:0.914 blue:0.906 alpha:1.000];
+        [_todoMemoView addSubview:_memoSpLine];
+        
+        [_addRelatedCustomersView addSubview:_todoMemoView];
+        
+        [self addSubview:_descBoxView];
+        [self addSubview:_infoBoxView];

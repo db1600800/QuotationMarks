@@ -20,7 +20,7 @@ public class CoredataDbDao {
 
 		CoredataDbDao mark = new CoredataDbDao();
 		mark.init(mark);
-		// mark.hfile();
+		 mark.hfile();
 		mark.mfile();
 
 	}
@@ -91,7 +91,7 @@ public class CoredataDbDao {
 		m += "#import \"" + className + ".h\"\n";
 		m += "#import \"BaseCoreDataManager.h\"\n";
 
-		m += "@interface " + className + "Mamager : NSObject\n\n";
+		m += "@interface " + className + "Manager : NSObject\n\n";
 
 		m += "+ (instancetype)sharedInstance;\n\n";
 
@@ -100,7 +100,7 @@ public class CoredataDbDao {
 		int k=0;
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada") )
+			if(property.name.equals("ada") ||property.type.equals("NSSet"))
 					{
 				continue;
 					}
@@ -122,7 +122,7 @@ public class CoredataDbDao {
 				+ "*)" + className.toLowerCase() +"\n";
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("ada") )
+			if(property.name.equals("ada") ||property.type.equals("NSSet") )
 					{
 				continue;
 					}
@@ -139,7 +139,7 @@ public class CoredataDbDao {
 		int j=0;
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("serverID") || property.name.equals("terminalID")||property.name.equals("status")||property.name.equals("ada")  )
+			if(property.name.equals("serverID") || property.name.equals("terminalID")||property.name.equals("status")||property.name.equals("ada") ||property.type.equals("NSSet") )
 			{
 				continue;
 			}
@@ -173,9 +173,17 @@ public class CoredataDbDao {
 					|| property.name.equals("status")) {
 			} else {
 				m += "//查询By " + property.name + "\n";
+				if(property.name.equals("terminalID"))
+				{
+					m += "- ("+className+" *)findBy" + firstCharToUpper(property.name)
+							+ ":(" + property.type + " *)" + property.name
+							+ ";\n\n";
+				}else
+				{
 				m += "- (NSArray *)findBy" + firstCharToUpper(property.name)
 						+ ":(" + property.type + " *)" + property.name
 						+ ";\n\n";
+				}
 
 			}
 		}
@@ -186,20 +194,20 @@ public class CoredataDbDao {
 	}
 
 	public void mfile() {
-		String m = "";
-		m += "#import \"" + className + "Mamager.h\"\n";
+		String m = "＃＃＃＃＃＃＃＃＃＃＃＃＃\n\n";
+		m += "#import \"" + className + "Manager.h\"\n";
 		m += "#import \"CRM_CoreDataManager.h\"\n";
 		m += "#import \"ShellSDK.h\"\n";
 		m += "#import \"CRM_UUID.h\"\n";
-		m += "#import \"CRM.h\"\n";
-		m += "@implementation " + className + "Mamager\n\n";
+		m += "#import \"CRM.h\"\n\n";
+		m += "@implementation " + className + "Manager\n\n";
 
-		m += "static " + className + "Mamager *sharedInstance;\n\n";
+		m += "static " + className + "Manager *sharedInstance;\n\n";
 
 		m += "+ (instancetype)sharedInstance {\n";
 		m += "    if (sharedInstance == nil) {\n";
 		m += "        sharedInstance = [[" + className
-				+ "Mamager alloc] init];\n";
+				+ "Manager alloc] init];\n";
 		m += "    }\n";
 		m += "    return sharedInstance;\n";
 		m += "}\n\n";
@@ -329,14 +337,20 @@ public class CoredataDbDao {
 	
 		for (int i = 0; i < propertys.size(); i++) {
 			PropertyBean property = (PropertyBean) propertys.get(i);
-			if(property.name.equals("serverID") ||property.name.equals("status") ||property.name.equals("ada"))
+			if(property.name.equals("serverID")  ||property.name.equals("ada"))
 			{
 				continue;
 			}
 			if (property.type.equals("NSDate")) {
 				m += "" + className.toLowerCase() + "." + property.name
 						+ " = [NSDate date];\n";
-			}else if(property.name.equals("terminalID"))
+			}else if(property.name.equals("status")) {
+				m += "" + className.toLowerCase() + "." + property.name
+						+ " = [NSNumber numberWithInt:CRM_ENTITY_NEW];\n";
+				
+			}
+			
+			else if(property.name.equals("terminalID"))
 			{
 				m += className.toLowerCase()+".terminalID = [CRM_UUID UUID];\n";
 			}
@@ -490,9 +504,17 @@ public class CoredataDbDao {
 
 				} else {
 					m += "//查询By " + property.name + "\n";
-					m += "- (NSArray *)findBy"
+					if(property.name.equals("terminalID"))
+					{
+					m += "- ("+className+" *)findBy"
 							+ this.firstCharToUpper(property.name) + ":("
 							+ property.type + " *)" + property.name + " {\n";
+					}else
+					{
+						m += "- (NSArray *)findBy"
+								+ this.firstCharToUpper(property.name) + ":("
+								+ property.type + " *)" + property.name + " {\n";
+					}
 					m += "    NSManagedObjectContext *context =\n";
 					m += "    [[CRM_CoreDataManager sharedInstance] managedObjectContext];\n";
 					m += "    NSFetchRequest *fetchRequest = [[CRM_CoreDataManager sharedInstance]\n";
@@ -509,7 +531,19 @@ public class CoredataDbDao {
 					m += "    [fetchRequest setPredicate:predicate];\n";
 					m += "    \n";
 					m += "    NSArray *objs = [context executeFetchRequest:fetchRequest error:nil];\n";
-					m += "    return objs;\n";
+					if(property.name.equals("terminalID"))
+					{
+					  m+="  if(objs!=nil && [objs count]>0)\n";
+					  m+= "{\n";
+					  m+="      return  [objs objectAtIndex:0];\n";
+					  m+="  }\n";
+						m += "    return nil;\n";
+					}else
+					{
+						m += "    return objs;\n";
+					}
+					
+					
 					m += "}\n\n";
 
 				}

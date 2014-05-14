@@ -1,109 +1,14 @@
-#import "CRM_EventSynchronize.h"
-#import "CRM_EventMamager.h"
-#import "CRM.h"
-#import "CRM_EventCategoryManager.h"
-
-@implementation CRM_EventSynchronize
-
-// 服务端数据同步到本地CRM_Event
-- (void)syncCRM_Event:(NSString *)serverID
-           terminalID:(NSString *)terminalID
-               status:(NSNumber *)status
-              content:(NSString *)content
-             category:(CRM_EventCategory *)category
-             customer:(CRM_Customer *)customer {
-    
-    CRM_EventMamager *eventMamager = [CRM_EventMamager sharedInstance];
-    NSArray *events = [eventMamager findWithTerminalID:terminalID];
-    
-    if (events != nil && [events count] > 0) {
-        //本地有记录
-        CRM_Event *event = [events objectAtIndex:0];
-        if ([status isEqualToNumber:@(CRM_ENTITY_NORMAL)]) {
-            if ([event.status isEqualToNumber:@(CRM_ENTITY_DELETED)]) {
-                return;
-            }
-        }
-        
-        [eventMamager updateWithEvent:event
-                             serverID:serverID
-                           terminalID:terminalID
-                               status:status
-                              content:content
-                             category:category
-                             customer:customer];
-        
-    } else {
-        
-        [eventMamager createWithServerID:serverID
-                              terminalID:terminalID
-                                  status:status
-                                 content:content
-                                category:category
-                                customer:customer];
-    }
-    return;
-}
-
-- (void)syncCRM_EventDicArray:(NSArray *)crm_eventDicArray {
-    
-    for (NSDictionary *item in crm_eventDicArray) {
-        NSString *serverID = [item objectForKey:@"serverID"];
-        NSString *terminalID = [item objectForKey:@"terminalID"];
-        NSNumber *status = [item objectForKey:@"status"];
-        
-        NSString *content = [item objectForKey:@"content"];
-        
-        CRM_EventCategoryManager *eventCategoryManager =
-        [CRM_EventCategoryManager sharedInstance];
-        CRM_EventCategory *eventCategory =
-        [eventCategoryManager findWithTerminalID:terminalID];
-        
-        [slef syncCRM_Event:serverID
-                 terminalID:terminalID
-                     status:status
-                    content:content
-                   category:eventCategory
-                   customer:nil];
-    }
-}
-
-//查询待同步（CRM_Event新增或修改的记录）
-- (NSArray *)unSyncCRM_EventArray {
-    CRM_EventMamager *eventMamager = [CRM_EventMamager sharedInstance];
-    
-    NSPredicate *filter =
-    [NSPredicate predicateWithFormat:@"status != %@", @(CRM_ENTITY_NORMAL)];
-    NSArray *result = [[eventMamager findAll] filteredArrayUsingPredicate:filter];
-    
-    return result;
-}
-
-- (NSArray *)unSyncCRM_EventDicArray {
-    
-    // BeanArray 转成 DicArray
-    NSArray *crm_eventArray = [self unSyncCRM_EventArray];
-    
-    //参数
-    // CRM_Event
-    NSMutableArray *crm_eventDicArray = [[NSMutableArray alloc] init];
-    for (CRM_Event *event in crm_eventArray) {
-        
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        
-        // [dicGroup setObject:group.ServerId forKey:@"serverId"];
-        //[dicGroup setObject:group.GroupName forKey:@"groupName"];
-        // [dicGroup setObject:[NSString stringWithFormat:@"%d", group.SortCode]
-        //          forKey:@"sortCode"];
-        // long
-        //        [dicGroup
-        //         setObject:[NSNumber numberWithLongLong:[group.UpdateTime
-        // longLongValue]]
-        //         forKey:@"updateTime"];
-        
-        [crm_eventDicArray addObject:dic];
-    }
-}
-
-
-@end
+              <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RM-8O-PhO">
+                                <rect key="frame" x="174" y="16" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            
+                            
+                            
+      <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHs-2P-FI6">
+                                <rect key="frame" x="101" y="10" width="160" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>

@@ -12,97 +12,63 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
+
 /**
- * <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="20dp"
-   
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
-
-    <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
- 
-   android:background="#eee"
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/title_bg_g"
-        android:gravity="center_horizontal"
-        android:padding="10dp"  >
-
-        <TextView
-            android:id="@+id/order_prompt_add_shoppingcar_title_txtview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/dialog_title"
-            android:textColor="#B2CBA6"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-
-    <LinearLayout  android:background="#eee"
-         android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp" >
-
-        <TextView
-            android:id="@+id/msg_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="购物车中，以下产品库存不足，是否只购买所有库存量。"
-            android:scrollbars="vertical"
-            android:textColor="#151515"
-            android:maxLines="15"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="5dp"
-         >
-
-        <Button
-            android:id="@+id/ok_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-         
-            android:text="确定"
-            android:layout_weight="1"
-            android:textColor="#B2CBA6"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/cancel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-         
-            android:text="取消"
-             android:layout_weight="1"
-            android:textColor="#B2CBA6"
-            android:textSize="14sp" />
-    </LinearLayout>
-</LinearLayout>
-</LinearLayout>
+ * <?xml version="1.0" encoding="utf-8"?> <LinearLayout
+ * xmlns:android="http://schemas.android.com/apk/res/android"
+ * android:layout_width="fill_parent" android:layout_height="fill_parent"
+ * android:padding="20dp"
+ * 
+ * android:gravity="center_horizontal" android:orientation="vertical" >
+ * 
+ * <LinearLayout android:layout_width="wrap_content"
+ * android:layout_height="wrap_content"
+ * 
+ * android:background="#eee" android:gravity="center_horizontal"
+ * android:orientation="vertical" >
+ * 
+ * <LinearLayout android:layout_width="fill_parent"
+ * android:layout_height="wrap_content"
+ * android:background="@drawable/title_bg_g" android:gravity="center_horizontal"
+ * android:padding="10dp" >
+ * 
+ * <TextView android:id="@+id/order_prompt_add_shoppingcar_title_txtview"
+ * android:layout_width="wrap_content" android:layout_height="wrap_content"
+ * android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+ * android:text="@string/dialog_title" android:textColor="#B2CBA6"
+ * android:textSize="20sp" /> </LinearLayout>
+ * 
+ * 
+ * <LinearLayout android:background="#eee" android:gravity="center_horizontal"
+ * android:layout_width="wrap_content" android:layout_height="wrap_content"
+ * android:layout_margin="20dp" >
+ * 
+ * <TextView android:id="@+id/msg_textview" android:layout_width="wrap_content"
+ * android:layout_height="wrap_content" android:text="购物车中，以下产品库存不足，是否只购买所有库存量。"
+ * android:scrollbars="vertical" android:textColor="#151515"
+ * android:maxLines="15" android:textSize="18sp" /> </LinearLayout>
+ * 
+ * 
+ * <LinearLayout android:layout_width="match_parent"
+ * android:layout_height="wrap_content" android:gravity="center_horizontal"
+ * android:orientation="horizontal" android:padding="5dp" >
+ * 
+ * <Button android:id="@+id/ok_btn" android:layout_width="wrap_content"
+ * android:layout_height="wrap_content"
+ * 
+ * android:text="确定" android:layout_weight="1" android:textColor="#B2CBA6"
+ * android:textSize="14sp" />
+ * 
+ * <Button android:id="@+id/cancel_btn" android:layout_width="wrap_content"
+ * android:layout_height="wrap_content" android:layout_marginLeft="5dp"
+ * 
+ * android:text="取消" android:layout_weight="1" android:textColor="#B2CBA6"
+ * android:textSize="14sp" /> </LinearLayout> </LinearLayout> </LinearLayout>
  * 
  * */
 public class CreaterPopupWindow {
 
-	String xmlfile = "dialog_fuhao_list.xml";// 修改就行
+	String xmlfile = "cutpic_popupwindow_name_layout.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -155,6 +121,7 @@ public class CreaterPopupWindow {
 		m += "import android.graphics.drawable.ColorDrawable;\n";
 		m += "import android.text.method.ScrollingMovementMethod;\n";
 		m += "import android.view.Gravity;\n";
+		m += "import android.widget.ArrayAdapter;\n";
 		m += "import android.view.KeyEvent;\n";
 		m += "import android.view.LayoutInflater;\n";
 		m += "import android.view.MotionEvent;\n";
@@ -164,7 +131,7 @@ public class CreaterPopupWindow {
 		m += "import android.view.ViewGroup;\n";
 		m += "import android.view.ViewGroup.LayoutParams;\n";
 		m += "import android.widget.AdapterView;\n";
-		m += "import android.widget.AdapterView.OnItemClickListener;\n";
+		m += "import android.widget.AdapterView.OnItemSelectedListener;\n";
 		m += "import android.widget.BaseAdapter;\n";
 		m += "import android.widget.Button;\n";
 		m += "import android.widget.CheckBox;\n";
@@ -175,18 +142,16 @@ public class CreaterPopupWindow {
 		m += "import android.widget.ListView;\n";
 		m += "import android.widget.PopupWindow;\n";
 		m += "import android.widget.TextView;\n";
-
+		m += "import android.widget.AdapterView;\n";
+		m += "import android.widget.AdapterView.OnItemClickListener;\n";
+		m += "import android.widget.Spinner;\n";
 		m += "/*" + className + "PopupWindow menuPopupWindow = new "
-				+ className
-				+ "PopupWindow(context, new OnClickListener() {\n";
+				+ className + "PopupWindow(context, new OnClickListener() {\n";
 		m += "	@Override\n";
 		m += "	public void onClick(View arg0) {\n";
-		m+="menuPopupWindow.dismiss();\n";
+		m += "menuPopupWindow.dismiss();\n";
 		m += "}});\n";
-		m+="menuPopupWindow.show();*/\n\n";
-
-
-
+		m += "menuPopupWindow.show();*/\n\n";
 
 		m += "public class " + className + "PopupWindow {\n";
 		m += "	private PopupWindow menuPopUp;\n";
@@ -217,16 +182,16 @@ public class CreaterPopupWindow {
 		m += "    /**false在中部显示     true在底部显示*/\n";
 		m += "	private boolean isBottomOrCenter = false;\n\n";
 
-		if(hasListViewOrGridView)
-		{
+		if (hasListViewOrGridView) {
 			m += "	public "
 					+ className
-					+ "PopupWindow(Context context,List<"+className+"AdapterBean> list,OnClickListener onClicklistener,OnItemClickListener onItemClickListener) {\n";
-		}else
-		{
-		m += "	public "
-				+ className
-				+ "PopupWindow(Context context,OnClickListener onClicklistener) {\n";
+					+ "PopupWindow(Context context,List<"
+					+ className
+					+ "AdapterBean> list,OnClickListener onClicklistener,OnItemClickListener onItemClickListener) {\n";
+		} else {
+			m += "	public "
+					+ className
+					+ "PopupWindow(Context context,OnClickListener onClicklistener) {\n";
 		}
 
 		m += "		inflater = LayoutInflater.from(context);\n";
@@ -254,14 +219,48 @@ public class CreaterPopupWindow {
 							+ idToName[1] + ");\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener(onClicklistener);\n";
-				}else if(control.equals("ListView") || control.equals("GridView"))
-				{
-					m += firstCharToLowerAndJavaName(idToName[1])+"= ("+control+") view.findViewById(R.id."+idToName[1]+");\n";
-					m += "		final "+className+"Adapter adapter = new "+className+"Adapter( context);\n";
-                    m+="adapter.setList(list);\n";
-					m += firstCharToLowerAndJavaName(idToName[1])+".setAdapter(adapter);\n";
-					m += firstCharToLowerAndJavaName(idToName[1])+".setOnItemClickListener(onItemClickListener);\n";
+				} else if (control.equals("ListView")
+						|| control.equals("GridView")) {
+					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
+							+ control + ") view.findViewById(R.id."
+							+ idToName[1] + ");\n";
+					m += "		final " + className + "Adapter adapter = new "
+							+ className + "Adapter( context);\n";
+					m += "adapter.setList(list);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setAdapter(adapter);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnItemClickListener(onItemClickListener);\n";
+				} else if (control.equals("Spinner")) {
+					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
+							+ control + ") view.findViewById(R.id."
+							+ idToName[1] + ");\n";
+
+					m += "List "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "_data = Arrays.asList(new String[] { \"\" ,\"\"});\n";
+					m += "ArrayAdapter "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "_adapter= new ArrayAdapter<String>(context,  android.R.layout.simple_spinner_item, "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "_data);\n";
+
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setAdapter("
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "_adapter);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnItemSelectedListener(new OnItemSelectedListener(){";
+
+					m += "		@Override\n";
+					m += "		public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {\n";
+					m += "			String value=(String) arg0.getItemAtPosition(arg2);\n";
+					m += "	}\n";
+					m += "public void onNothingSelected(AdapterView<?> arg0) {\n";
+					m += "}\n";
+					m += "});\n";
 				}
+
 			}
 		}
 
@@ -274,8 +273,6 @@ public class CreaterPopupWindow {
 		}
 		m += "}\n";
 
-
-
 		m += "	//not need change\n";
 
 		m += "	private void initPopWindow(View view) {\n";
@@ -286,7 +283,7 @@ public class CreaterPopupWindow {
 
 		m += "		menuPopUp.setOutsideTouchable(true);\n";
 		m += "		//\n";
-		m += "		menuPopUp.setBackgroundDrawable(new BitmapDrawable());// 注掉 点 PopupWindow之外的区域后， PopupWindow不会消失。\n"; 
+		m += "		menuPopUp.setBackgroundDrawable(new BitmapDrawable());// 注掉 点 PopupWindow之外的区域后， PopupWindow不会消失。\n";
 		m += "		//\n";
 		m += "		menuPopUp.setBackgroundDrawable(new ColorDrawable(R.color.prompt_menupopupwindow_bg));//#c0000000 ColorDrawable dw = new ColorDrawable(-00000);全透明 // 注掉 点 PopupWindow之外的区域后， PopupWindow不会消失。  \n";
 
