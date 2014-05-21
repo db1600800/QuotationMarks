@@ -35,7 +35,7 @@ public class ImgBean {
 	
 	public String controlType;//控件类型
 	
-	public ImgBean controlBelong;//控件属于哪个控件
+	public ImgBean controlBelong=null;//控件属于哪个控件
 	
 	public String id;
 	
@@ -148,6 +148,20 @@ public class ImgBean {
 	             
 	    return val;     
 	}   
+
+	
+	
+	public boolean equals(Object obj){
+        if(this == obj){
+            return true;
+        }
+        if(obj instanceof ImgBean){
+        	ImgBean anotherRouter = (ImgBean) obj;
+        	if(enName!=null && anotherRouter!=null && anotherRouter.enName!=null)
+            return enName.equals(anotherRouter.enName);
+        }
+        return false;
+    }
 
 
 }

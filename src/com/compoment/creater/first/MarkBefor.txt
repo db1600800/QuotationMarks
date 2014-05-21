@@ -1,14 +1,28 @@
-              <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RM-8O-PhO">
-                                <rect key="frame" x="174" y="16" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            
-                            
-                            
-      <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHs-2P-FI6">
-                                <rect key="frame" x="101" y="10" width="160" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+- (CGSize)calContentTextHeight:(NSString *)text
+                         width:(CGFloat)w
+                          font:(UIFont *)font {
+    if (text == nil) {
+        return CGSizeMake(w, 0);
+    }
+    CGSize textSize;
+    if (kBXDCRM_IOS7) {
+        NSAttributedString *attrStr = [[NSAttributedString alloc]
+                                       initWithString:text
+                                       attributes:@{ NSFontAttributeName : font }];
+        NSRange textRange = NSMakeRange(0, attrStr.length);
+        NSDictionary *dic = [attrStr attributesAtIndex:0 effectiveRange:&textRange];
+        //计算文本的大小
+        textSize =
+        [text boundingRectWithSize:CGSizeMake(w, MAXFLOAT)
+                           options:NSStringDrawingUsesLineFragmentOrigin |
+         NSStringDrawingUsesFontLeading
+                        attributes:dic
+                           context:nil].size;
+        
+    } else {
+        textSize = [text sizeWithFont:font
+                    constrainedToSize:CGSizeMake(w, MAXFLOAT)
+                        lineBreakMode:NSLineBreakByWordWrapping];
+    }
+    return textSize;
+}
