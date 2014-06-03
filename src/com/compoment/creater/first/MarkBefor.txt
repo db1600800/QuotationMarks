@@ -1,28 +1,25 @@
-- (CGSize)calContentTextHeight:(NSString *)text
-                         width:(CGFloat)w
-                          font:(UIFont *)font {
-    if (text == nil) {
-        return CGSizeMake(w, 0);
+//加载数据loading
+- (void)showLoading {
+    
+    UIView *mainView = nil;
+    
+    if ([[[UIApplication sharedApplication] windows] count] > 1) {
+        mainView = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
     }
-    CGSize textSize;
-    if (kBXDCRM_IOS7) {
-        NSAttributedString *attrStr = [[NSAttributedString alloc]
-                                       initWithString:text
-                                       attributes:@{ NSFontAttributeName : font }];
-        NSRange textRange = NSMakeRange(0, attrStr.length);
-        NSDictionary *dic = [attrStr attributesAtIndex:0 effectiveRange:&textRange];
-        //计算文本的大小
-        textSize =
-        [text boundingRectWithSize:CGSizeMake(w, MAXFLOAT)
-                           options:NSStringDrawingUsesLineFragmentOrigin |
-         NSStringDrawingUsesFontLeading
-                        attributes:dic
-                           context:nil].size;
-        
-    } else {
-        textSize = [text sizeWithFont:font
-                    constrainedToSize:CGSizeMake(w, MAXFLOAT)
-                        lineBreakMode:NSLineBreakByWordWrapping];
+    else {
+        mainView = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
     }
-    return textSize;
+    
+    HUD = [[MBProgressHUD alloc] init];
+    [mainView addSubview:HUD];
+    [HUD show:YES];
+}
+
+- (void)hideLoading
+{
+    if (HUD != nil) {
+        [HUD removeFromSuperview];
+        [HUD release];
+        HUD = nil;
+    }
 }
