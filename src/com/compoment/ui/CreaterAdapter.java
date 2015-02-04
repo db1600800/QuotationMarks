@@ -16,13 +16,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.compoment.cut.swing.ui.KeyValue;
+import com.compoment.cut.swing.ui.FileUtil;
+
 
 
 //http://www.189works.com/article-37835-1.html
 
 public class CreaterAdapter {
 
-	String xmlfile = "dialog_fuhao_list_item.xml";// 修改就行
+	String xmlfile = "accountinfo_item.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -33,17 +36,32 @@ public class CreaterAdapter {
 	String m = "";
 
 	public static void main(String[] args) throws SAXException, IOException {
-		CreaterAdapter createrAdapter = new CreaterAdapter();
+		CreaterAdapter createrAdapter = new CreaterAdapter("");
 		createrAdapter.create();
 
 	}
 
-	public CreaterAdapter() {
+	public CreaterAdapter(String filename) {
 
+//		classDir = this.getClass().getResource("/").getPath();
+//		int pos = xmlfile.indexOf(".");
+//		xmlfilename = xmlfile.substring(0, pos);
+//		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
+//		
+		
+		if(filename.equals(""))
+		{
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
 		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
+		}else
+		{
+		
+		xmlfilename=filename;
+		xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+filename;
+		}
+		
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -303,7 +321,8 @@ public class CreaterAdapter {
 	
 		
 		System.out.println(m);
-		stringToFile("d:\\" + className + "Adapter.java", m);
+		FileUtil.makeFile(KeyValue.readCache("picPath"),"java",className+"Adapter","java",m);
+		//stringToFile("d:\\" + className + "Adapter.java", m);
 	}
 	
 	public void stringToFile(String fileName, String str) {
@@ -410,11 +429,25 @@ public class CreaterAdapter {
 					String[] ss = idToName[1].split("_");
 					
 					if (control.equals("ImageView")) {
+						if(ss.length>1)
+						{
 						 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
 									+ "Url"+"=dbBean.get"+ss[1]+"();\n";
+						}else
+						{
+							 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
+										+ "Url"+"=dbBean.get"+ss[0]+"();\n";
+						}
 					} else if (control.equals("TextView")) {
+						if(ss.length>1)
+						{
 						 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
 									+ "Value"+"=dbBean.get"+ss[1]+"();\n";
+						}else
+						{
+							 temp+="adapterBean."+ firstCharToLowerAndJavaName(idToName[1])
+										+ "Value"+"=dbBean.get"+ss[0]+"();\n";
+						}
 					} else if (control.equals("EditText")) {
 						
 					} else if (control.equals("CheckBox")) {

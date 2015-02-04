@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class CreateMiniView {
 
-	String xmlfile = "order_payway_coupon.xml";// 修改就行
+	String xmlfile = "drawbackr_detail_chirld.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;

@@ -15,11 +15,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.compoment.cut.swing.ui.KeyValue;
+import com.compoment.cut.swing.ui.FileUtil;
+
 
 
 public class CreateActivityView {
 
-	String xmlfile = "layout_fuhao_list.xml";// 修改就行
+	String xmlfile = "quota_detail.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
@@ -31,15 +34,24 @@ public class CreateActivityView {
 	String m = "";
 
 	public static void main(String[] args) throws SAXException, IOException {
-		CreateActivityView createView = new CreateActivityView();
+		CreateActivityView createView = new CreateActivityView("");
 		createView.create();
 	}
 
-	public CreateActivityView() {
+	public CreateActivityView(String filename) {
+		
+		if(filename.equals(""))
+		{
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
 		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
+		}else
+		{
+		
+		xmlfilename=filename;
+		xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+filename;
+		}
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -565,7 +577,8 @@ public class CreateActivityView {
 		m += "}\n";
 
 		System.out.println(m);
-		stringToFile("d:\\" + className + ".java", m);
+		FileUtil.makeFile(KeyValue.readCache("picPath"),"java",className,"java",m);
+		//stringToFile("d:\\" + className + ".java", m);
 	}
 
 	public void stringToFile(String fileName, String str) {

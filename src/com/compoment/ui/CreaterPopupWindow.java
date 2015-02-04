@@ -68,7 +68,7 @@ import org.xml.sax.SAXException;
  * */
 public class CreaterPopupWindow {
 
-	String xmlfile = "cutpic_popupwindow_name_layout.xml";// 修改就行
+	String xmlfile = "popup.xml";// 修改就行
 	static String classDir = null;
 	static String xmlFilePath = null;
 	static String xmlfilename = null;
