@@ -443,6 +443,7 @@ public class CodeFunctionAdd extends JFrame {
 		/** 图片 */
 		 imgTextView = new JLabel("");
 		JScrollPane imgScrollPane = new JScrollPane(imgTextView);
+		imgScrollPane.setPreferredSize(new Dimension(300,300));
 		bg1422609099562LinearLayout.addComponent(imgScrollPane);
 
 		bg1422608964921LinearLayout.addGroup(bg1422609099562LinearLayout);
