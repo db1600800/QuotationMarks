@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.compoment.cut.CompomentDialog;
+
 public class ProjectPrototypePicPanel {
 	ProjectFrame projectFrame;
 	 ArrayList listDate = new ArrayList();
@@ -73,7 +75,7 @@ public class ProjectPrototypePicPanel {
 		bg1420792068718.addComponent(listScrollPane);
 
 		layout.setHorizontalGroup(bg1420792068718);
-		searchPics(projectFrame.picPath);
+		searchPics(KeyValue.readCache("picPath"));
 		return panel;
 
 	}
@@ -101,6 +103,10 @@ public class ProjectPrototypePicPanel {
 		{
 			listDate.clear();
 			picListListView.setListData(listDate.toArray());
+			
+			JOptionPane.showMessageDialog(projectFrame,
+					"请建立pic文件夹并放入原型图", "", JOptionPane.INFORMATION_MESSAGE);
+			
 			return null;
 		}
 		listDate.clear();

@@ -46,7 +46,7 @@ public class ProjectFrame extends JFrame {
 	ProjectPrototypePicPanel projectPrototypePicPanel;
 	ProjectPathPanel projectPathPanel;
 	ProjectDocPanel projectDocPanel;
-	public String picPath="";
+	
 	
 	public ProjectFrame() {
 

@@ -2,37 +2,48 @@ package com.compoment.cut.android.function;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import android.widget.TextView;
+
 import com.compoment.cut.swing.ui.FileUtil;
+import com.compoment.cut.swing.ui.KeyValue;
+import com.gdpost.cps.activitys.order.Drawback.OnDateClickListener;
 
 public class DateSelect {
 	
 	List<FileBean> fileBeans=new ArrayList();
 	
 	
-	String sourceAddress="E:\\183Android\\ConvenientPlatform";
-	String destinationAddress="C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
-	
+	String sourceAddress="C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
+	String destinationAddress=KeyValue.readCache("projectPath");
+	String waitByModifyFileName;
+
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-            new DateSelect();
+            new DateSelect("");
 	}
 	
 	
-
-	
-	
-	public  DateSelect()
+	public  DateSelect(String waitByModifyFileName)
 	{
-		
+		copyFile();
+		modify();
+		this.waitByModifyFileName=waitByModifyFileName;
+	}
 	
-		String sourcePackage="/com/gdpost/cps/view/date";
+	
+	public void copyFile()
+	{
+
+		String sourcePackage="/com/compoment/dateselect";
 		String destinationPackage="/com/compoment/dateselect";
 		
 		fileBeans.add(new FileBean("/src"+sourcePackage,"/src"+destinationPackage,"ArrayWheelAdapter","java"));
@@ -101,6 +112,64 @@ public class DateSelect {
 		    System.out.println(filename);  
 		    }
 		}
+		
+		
+		
+		
+		
+	
+		
+		
+	
+	}
+	
+	
+	public void modify()
+	{
+		
+		
+		
+    	List lines=FileUtil.fileContentToArrayList(waitByModifyFileName);
+    	
+    	String content="";
+    	for(int i=0;i<lines.size();i++)
+    	{String line="";
+    		if(lines.get(i)==null)
+    		{
+    			line="";
+    		}else
+    		{
+    			 line=lines.get(i).toString();
+    		}
+    		
+    		
+    		if(line.contains("startDate"))
+    		{
+    			line="package "+destinationPackage.substring(1).replaceAll("/", ".")+";";
+    		}else 	if(line.contains("import") && line.contains(".R"))
+    		{
+    			line="";
+    		}
+    		content+=line+"\n";
+    	}
+    	
+    String filename=FileUtil.makeFile(destinationAddress+bean.destinationPath, null, bean.name, bean.type, content);
+		
+		
+
+		
+	
+		
+		
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy年MM月dd日");
+		calendar.add(Calendar.DATE, 0);// 结束日期是今天
+		endDateTextView.setText(ymd.format(calendar.getTime()));
+		calendar.add(Calendar.DATE, -3);// 开始日期是今天的前三天
+		startDateTextView.setText(ymd.format(calendar.getTime()));
+		OnDateClickListener clickListener = new OnDateClickListener();
+		startDateTextView.setOnClickListener(clickListener);
+		endDateTextView.setOnClickListener(clickListener);
 	}
 
 	
