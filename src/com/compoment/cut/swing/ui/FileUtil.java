@@ -1,5 +1,6 @@
 package com.compoment.cut.swing.ui;
 
+import java.awt.List;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class FileUtil {
 
@@ -84,6 +86,34 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 		return myreadline;
+
+	}
+	
+	
+	/**
+	 * 取文件内容到字符串
+	 * */
+	public static ArrayList fileContentToArrayList(String filePath) {
+		String myreadline = "";
+		ArrayList lines=new ArrayList();
+		try {
+			FileReader fr = new FileReader(filePath);
+			BufferedReader br = new BufferedReader(fr);
+
+			while (br.ready()) {
+				//myreadline += br.readLine() + "\n";
+				lines.add(br.readLine());
+			}
+
+			br.close();
+
+			br.close();
+			fr.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return lines;
 
 	}
 
