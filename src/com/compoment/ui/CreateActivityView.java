@@ -201,8 +201,8 @@ public class CreateActivityView {
 		m += "public class " + className
 				+ " extends Activity implements OnScrollListener {\n";
 
-		m += "	Context context;\n";
-		m += "	public View containView;\n";
+		m += "Context context;\n";
+		m += "public View containView;\n";
 		m += "String searchText;\n";
 		m += "LoadingProgressDialog loading ;\n";
 		// m += "	private OrderTypelistAdapter adapter;\n";

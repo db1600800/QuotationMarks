@@ -143,12 +143,9 @@ public class DateSelect {
     		}
     		
     		
-    		if(line.contains("startDate"))
+    		if(line.contains("import "))
     		{
-    			line="package "+destinationPackage.substring(1).replaceAll("/", ".")+";";
-    		}else 	if(line.contains("import") && line.contains(".R"))
-    		{
-    			line="";
+    			
     		}
     		content+=line+"\n";
     	}
@@ -161,15 +158,15 @@ public class DateSelect {
 	
 		
 		
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat ymd = new SimpleDateFormat("yyyy年MM月dd日");
-		calendar.add(Calendar.DATE, 0);// 结束日期是今天
-		endDateTextView.setText(ymd.format(calendar.getTime()));
-		calendar.add(Calendar.DATE, -3);// 开始日期是今天的前三天
-		startDateTextView.setText(ymd.format(calendar.getTime()));
-		OnDateClickListener clickListener = new OnDateClickListener();
-		startDateTextView.setOnClickListener(clickListener);
-		endDateTextView.setOnClickListener(clickListener);
+//		Calendar calendar = Calendar.getInstance();
+//		SimpleDateFormat ymd = new SimpleDateFormat("yyyy年MM月dd日");
+//		calendar.add(Calendar.DATE, 0);// 结束日期是今天
+//		endDateTextView.setText(ymd.format(calendar.getTime()));
+//		calendar.add(Calendar.DATE, -3);// 开始日期是今天的前三天
+//		startDateTextView.setText(ymd.format(calendar.getTime()));
+//		OnDateClickListener clickListener = new OnDateClickListener();
+//		startDateTextView.setOnClickListener(clickListener);
+//		endDateTextView.setOnClickListener(clickListener);
 	}
 
 	

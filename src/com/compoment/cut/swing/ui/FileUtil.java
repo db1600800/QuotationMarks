@@ -73,7 +73,7 @@ public class FileUtil {
 			BufferedReader br = new BufferedReader(fr);
 
 			while (br.ready()) {
-				myreadline += br.readLine() + "\n";
+				myreadline += br.readLine()+ "\n";
 
 			}
 
