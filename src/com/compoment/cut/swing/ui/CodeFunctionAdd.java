@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -363,7 +364,21 @@ public class CodeFunctionAdd extends JFrame {
 		// 自定义jlist的item单元格显示样子
 		functionListListView.setCellRenderer(new FunctionListCell());
 		// functionListListView.setListData(functionParents.toArray());
+		
+		
+		//双击
+		functionListListView.addMouseListener(new MouseAdapter()
+		 {
+		 public void mouseReleased(MouseEvent me)
+		 {
+		 if(checkClickTime())
+		 {
+			 String fileName=   functionListListView.getSelectedValue().toString();
+      
+		 }
+		 }});
 
+		//单击
 		functionListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		functionListListView
@@ -645,4 +660,17 @@ public class CodeFunctionAdd extends JFrame {
 	public static void main(String[] args) {
 		new CodeFunctionAdd();
 	}
+	
+	 long clickTime=0;
+	public boolean checkClickTime()
+	 {
+	 long nowTime = (new Date()).getTime();
+	 if((nowTime-clickTime)<300)
+	 {
+	 clickTime = nowTime;
+	 return true;
+	 }
+	 clickTime = nowTime;
+	 return false;
+	 }
 }

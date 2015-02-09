@@ -15,6 +15,40 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class FileUtil {
+	
+	
+	/**
+	 * 字符串写出到文件
+	 * */
+	public static String makeFile(String fileFullPath, String s) {
+	
+		try {
+
+			File tofile = new File(fileFullPath);
+			if (!tofile.exists()) {
+				makeDir(tofile.getParentFile());
+			}
+
+			tofile.createNewFile();
+
+			FileWriter fw;
+
+			fw = new FileWriter(tofile);
+			BufferedWriter buffw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(buffw);
+
+			pw.println(s);
+
+			pw.close();
+			buffw.close();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return fileFullPath;
+	}
 
 	/**
 	 * 字符串写出到文件
