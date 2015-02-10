@@ -8,8 +8,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.compoment.cut.android.function.Regex.RegexBean;
-import com.compoment.cut.swing.ui.FileUtil;
-import com.compoment.cut.swing.ui.KeyValue;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
+
 
 public class DateSelect {
 
@@ -57,6 +58,10 @@ public class DateSelect {
 				+ destinationPackage, "WheelMain", "java"));
 		fileBeans.add(new FileBean("/src" + sourcePackage, "/src"
 				+ destinationPackage, "WheelView", "java"));
+		
+		fileBeans.add(new FileBean("/src" + sourcePackage, "/src"
+				+ destinationPackage, "OnDateSelectClickListener", "java"));
+		
 
 		fileBeans.add(new FileBean("/res/layout", null,
 				"ipo_dialog_date_picker", "xml"));

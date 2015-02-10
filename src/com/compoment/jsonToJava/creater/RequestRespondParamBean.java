@@ -26,10 +26,11 @@ import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
-import com.compoment.cut.swing.ui.KeyValue;
+
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 
 public class RequestRespondParamBean {

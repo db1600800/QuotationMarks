@@ -16,8 +16,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.compoment.cut.swing.ui.KeyValue;
-import com.compoment.cut.swing.ui.FileUtil;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
+
+
 
 
 

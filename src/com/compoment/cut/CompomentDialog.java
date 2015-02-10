@@ -33,7 +33,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.compoment.cut.swing.ui.KeyValue;
+import com.compoment.util.KeyValue;
+
+
 
 /**
  * 填写截取图片的更多属性（中文名，英文名，色值，控件类型，是否有圆角），生成控件对象

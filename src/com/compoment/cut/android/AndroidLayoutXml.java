@@ -11,8 +11,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.compoment.cut.CompomentBean;
-import com.compoment.cut.swing.ui.KeyValue;
-import com.compoment.cut.swing.ui.FileUtil;
+
+
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 
 public class AndroidLayoutXml {
 
