@@ -83,12 +83,14 @@ public class WordtableToJavaObject {
 		public String title;// 接口名称
 		public String detail;// 接口描述
 		public String id;// 接口id号
-		List<Group> requestGroups = new ArrayList();// 循环域开始结束构成一个组 ，
+		public List<Group> requestGroups = new ArrayList();// 循环域开始结束构成一个组 ，
 													// 自定义对象开始结束构成一个组，
 		// 其它的则构成一个通用组
 		// ，每个组由一行或多行row构成
 
-		List<Group> respondGroups = new ArrayList();
+		public List<Group> respondGroups = new ArrayList();
+		
+	
 	}
 
 	class Group {
@@ -132,6 +134,7 @@ public class WordtableToJavaObject {
 			Paragraph p = range.getParagraph(i);
 
 			if (getInterfaceId(p.text()) != null) {
+					
 				interfaceBean = new InterfaceBean();
 				interfaceBean.title = getInterfaceTitle(p.text());
 				interfaceBean.id = getInterfaceId(p.text());
