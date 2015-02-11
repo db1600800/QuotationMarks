@@ -17,10 +17,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Document;
 
+import com.compoment.cut.android.function.DateSelect;
 import com.compoment.jsonToJava.creater.RequestRespond;
 import com.compoment.jsonToJava.creater.RequestRespondParamBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class ProjectDocPanel {
@@ -323,9 +325,16 @@ public class ProjectDocPanel {
 					String err = "请检查word中接口 " + interfaceBean.id
 							+ " 是否有标题\"传入参数\"";
 
-					JOptionPane.showMessageDialog(projectFrame, err, "",
-							JOptionPane.INFORMATION_MESSAGE);
-					return;
+					Object[] options = {"检查","不检查"};
+					int response=JOptionPane.showOptionDialog(projectFrame, err, "温馨提示",JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					if(response==0)
+					{ 
+						return;
+					}
+					else if(response==1)
+					{ 
+						
+					}
 				}
 
 				else if (interfaceBean.respondGroups != null
@@ -333,9 +342,18 @@ public class ProjectDocPanel {
 
 					String err = "请检查word中接口 " + interfaceBean.id
 							+ " 是否有标题\"传出参数\"";
-					JOptionPane.showMessageDialog(projectFrame, err, "",
-							JOptionPane.INFORMATION_MESSAGE);
-					return;
+					
+					
+					Object[] options = {"检查","不检查"};
+					int response=JOptionPane.showOptionDialog(projectFrame, err, "温馨提示",JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					if(response==0)
+					{ 
+						return;
+					}
+					else if(response==1)
+					{ 
+						
+					}
 				}
 			}
 
