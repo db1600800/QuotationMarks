@@ -102,7 +102,7 @@ public class Regex {
 		return false;
 	}
 
-	public    RegexBean findViewByIdRegex(String input) {
+	public    ControllerBean findViewByIdRegex(String input) {
 		//String input1 = "queryButton = (Button) containView.findViewById(R.id.queryButton);ddddddddddddd";
 
 		String regex = "[(](\\w+)[)](\\s*)(\\w+).findViewById[(]R.id.(\\w+)[)];";
@@ -112,7 +112,7 @@ public class Regex {
 		while (matcher.find()) {
 			System.out.println(input.length()+" "+matcher.end()+matcher.group(1));
 			
-			RegexBean regexBean=new RegexBean();
+			ControllerBean regexBean=new ControllerBean();
 			regexBean.end=matcher.end();
 			regexBean.name=matcher.group(4);
 			regexBean.type=matcher.group(1);
@@ -122,7 +122,7 @@ public class Regex {
 	}
 	
 	
-	public class RegexBean
+	public class ControllerBean
 	{
 		public int end;
 		public String name;

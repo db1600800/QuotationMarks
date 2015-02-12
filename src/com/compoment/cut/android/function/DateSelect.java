@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.compoment.cut.android.function.Regex.RegexBean;
+import com.compoment.cut.android.function.Regex.ControllerBean;
+
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -19,7 +20,7 @@ public class DateSelect {
 	String sourceAddress = "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
 	String waitByModifyFileName;
-
+	List addedLines =new ArrayList();
 	/**
 	 * @param args
 	 */
@@ -30,13 +31,13 @@ public class DateSelect {
 
 	public DateSelect(String waitByModifyFileName) {
 		this.waitByModifyFileName = waitByModifyFileName;
-		copyFile();
-		modify();
+		
+		
 		
 	}
 
 	public void copyFile() {
-
+		fileBeans.clear();
 		String sourcePackage = "/com/compoment/dateselect";
 		String destinationPackage = "/com/compoment/dateselect";
 
@@ -122,12 +123,20 @@ public class DateSelect {
 
 	}
 
-	public void modify() {
+	
 
+	public void add() {
+		copyFile();
+		
+	
 		Regex regex = new Regex();
 
 		List lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
 
+		
+		
+		
+		//遍历是否有 "开始日期" "结束日期"控件
 		String startDateName = "";
 		String endDateName = "";
 		for (int i = 0; i < lines.size(); i++) {
@@ -138,7 +147,7 @@ public class DateSelect {
 				line = lines.get(i).toString();
 			}
 
-			RegexBean regexBean = regex.findViewByIdRegex(line);
+			ControllerBean regexBean = regex.findViewByIdRegex(line);
 			if (regexBean != null && regexBean.name.contains("startDate")) {
 
 				startDateName = regexBean.name;
@@ -147,8 +156,15 @@ public class DateSelect {
 
 				endDateName = regexBean.name;
 			}
+			
+			if(line.contains("//注入日期选择功能"))
+			{
+				return;
+			}
 		}
 
+		
+		//控件末尾处插入代码
 		String content = "";
 		for (int i = 0; i < lines.size(); i++) {
 			String line = "";
@@ -160,24 +176,43 @@ public class DateSelect {
 
 			content += line + "\n";
 
-			RegexBean regexBean = regex.findViewByIdRegex(line);
+		
+			
+			
+			ControllerBean regexBean = regex.findViewByIdRegex(line);
 			if (regexBean != null && (regexBean.name.contains("startDate"))) {
 
-				String m = "";
-
+				
+				String m = "//注入日期选择功能\n";
 				m += "Calendar startCalendar = Calendar.getInstance();\n";
+				addedLines.add("Calendar startCalendar = Calendar.getInstance();\n");
+				
 				m += " startCalendar.add(Calendar.DATE, -3);// 开始日期是前3天\n";
+				addedLines.add(" startCalendar.add(Calendar.DATE, -3);// 开始日期是前3天\n");
+				
 				m += regexBean.name
 						+ ".setText(new SimpleDateFormat(\"yyyy年MM月dd日\").format(startCalendar.getTime()));\n";
+				addedLines.add(regexBean.name
+						+ ".setText(new SimpleDateFormat(\"yyyy年MM月dd日\").format(startCalendar.getTime()));\n");
+				
+		
 
 				if (!startDateName.equals("") && !endDateName.equals("")) {
 					m += regexBean.name
 							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
 							+ startDateName + "," + endDateName + "));\n";
+					addedLines.add( regexBean.name
+							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
+							+ startDateName + "," + endDateName + "));\n");
+					
 				} else {
 					m += regexBean.name
 							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
 							+ startDateName + "));\n";
+					
+					addedLines.add(regexBean.name
+							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
+							+ startDateName + "));\n");
 				}
 				content += m;
 			} else if (regexBean != null
@@ -186,28 +221,45 @@ public class DateSelect {
 				String m = "";
 
 				m += "Calendar endCalendar = Calendar.getInstance();\n";
+				addedLines.add("Calendar endCalendar = Calendar.getInstance();\n");
+				
 				m += " endCalendar.add(Calendar.DATE, 0);// 结束日期是今天\n";
+				addedLines.add(" endCalendar.add(Calendar.DATE, 0);// 结束日期是今天\n");
+				
 				m += regexBean.name
 						+ ".setText(new SimpleDateFormat(\"yyyy年MM月dd日\").format(endCalendar.getTime()));\n";
+				addedLines.add(regexBean.name
+						+ ".setText(new SimpleDateFormat(\"yyyy年MM月dd日\").format(endCalendar.getTime()));\n");
+				
 
 				if (!startDateName.equals("") && !endDateName.equals("")) {
 					m += regexBean.name
 							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
 							+ startDateName + "," + endDateName + "));\n";
+					addedLines.add(regexBean.name
+							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
+							+ startDateName + "," + endDateName + "));\n");
 				} else {
 					m += regexBean.name
 							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
 							+ startDateName + "));\n";
+					addedLines.add(regexBean.name
+							+ ".setOnClickListener(new OnDateSelectClickListener(context,"
+							+ startDateName + "));\n");
 				}
 				content += m;
 			}
 		}
 
 	 String filename=FileUtil.makeFile(waitByModifyFileName, content);
-
-		
 	}
 
+	
+	
+	
+
+	
+	
 	public class FileBean {
 		String name;
 		String type;

@@ -550,17 +550,19 @@ public class CodeFunctionAdd extends JFrame {
 		if(functionName.equals("日期选择"))
 		{
 		
+			DateSelect dateSelect=new DateSelect(currentCodeFileFullPath);
 			
 			Object[] options = {"添加","删除"};
 			int response=JOptionPane.showOptionDialog(this, "添加或删除"+functionName+"功能", functionName,JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if(response==0)
 			{ 
-				DateSelect dateSelect=new DateSelect(currentCodeFileFullPath);
+				dateSelect.add();
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
 			}
 			else if(response==1)
 			{ 
+				
 			}
 		
 			
