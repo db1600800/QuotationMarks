@@ -1,25 +1,34 @@
-//加载数据loading
-- (void)showLoading {
-    
-    UIView *mainView = nil;
-    
-    if ([[[UIApplication sharedApplication] windows] count] > 1) {
-        mainView = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-    }
-    else {
-        mainView = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-    }
-    
-    HUD = [[MBProgressHUD alloc] init];
-    [mainView addSubview:HUD];
-    [HUD show:YES];
-}
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal" >
 
-- (void)hideLoading
-{
-    if (HUD != nil) {
-        [HUD removeFromSuperview];
-        [HUD release];
-        HUD = nil;
-    }
-}
+ <ProgressBar  
+        android:id="@+id/progress"  
+        style="@android:style/Widget.ProgressBar.Small.Inverse"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:gravity="center"  
+        android:indeterminate="true">  
+    </ProgressBar> 
+    
+
+    <TextView
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="上拉更多!" >
+    </TextView>
+    
+       <TextView
+        android:id="@+id/load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="加载中" >
+    </TextView>
+
+</LinearLayout>

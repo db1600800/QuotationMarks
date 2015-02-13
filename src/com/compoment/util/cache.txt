@@ -1,10 +1,11 @@
-#Update 'codeFilePath' value
-#Fri Feb 13 10:36:50 CST 2015
-\u4E2D\u6587\u540D=0
-\u5907\u6CE8=4
-docPath=E\:\\183Android\\Test\\doc\\1.doc
-codeFilePath=E\:\\183Android\\Test\\pic\\java
+#Update 'compomentProjectAddress' value
+#Fri Feb 13 10:56:56 CST 2015
 \u53D8\u91CF\u540D=1
 \u7C7B\u578B=2
-projectPath=E\:\\183Android\\Test
+codeFilePath=E\:\\183Android\\Test\\pic\\java
+\u5907\u6CE8=4
+compomentProjectAddress=C\:\\Documents and Settings\\Administrator\\My Documents\\\u4E0B\u8F7D\\mobile-android
 picPath=E\:\\183Android\\Test\\pic
+\u4E2D\u6587\u540D=0
+projectPath=E\:\\183Android\\Test
+docPath=E\:\\183Android\\Test\\doc\\1.doc

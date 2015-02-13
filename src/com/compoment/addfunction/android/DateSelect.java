@@ -7,17 +7,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.compoment.addfunction.android.Regex.ControllerBean;
 
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.RegexUtil;
+import com.compoment.util.RegexUtil.ControllerBean;
 
+/**日期选择器**/
 
 public class DateSelect {
 
 	List<FileBean> fileBeans = new ArrayList();
 
-	String sourceAddress = "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
+	String sourceAddress = KeyValue.readCache("compomentProjectAddress");//"C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
 	String waitByModifyFileName;
 	List addedLines =new ArrayList();
@@ -129,7 +131,7 @@ public class DateSelect {
 		copyFile();
 		
 	
-		Regex regex = new Regex();
+		RegexUtil regex = new RegexUtil();
 
 		List lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
 
@@ -260,22 +262,5 @@ public class DateSelect {
 
 	
 	
-	public class FileBean {
-		String name;
-		String type;
-		String sourcePath;
-		String destinationPath;
-
-		public FileBean(String sourcePath, String destinationPath, String name,
-				String type) {
-			this.sourcePath = sourcePath;
-			if (destinationPath == null) {
-				this.destinationPath = sourcePath;
-			} else {
-				this.destinationPath = destinationPath;
-			}
-			this.name = name;
-			this.type = type;
-		}
-	}
+	
 }

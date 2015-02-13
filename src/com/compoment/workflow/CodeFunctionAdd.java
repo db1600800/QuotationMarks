@@ -109,6 +109,15 @@ public class CodeFunctionAdd extends JFrame {
 		pack();
 
 		setVisible(true);
+		
+		
+		if(KeyValue.readCache("compomentProjectAddress")==null || KeyValue.readCache("compomentProjectAddress").equals(""))
+		{
+		String inputValue = JOptionPane.showInputDialog("请输入组件工程路径");
+		KeyValue.writeCache("compomentProjectAddress", inputValue);
+		}
+		
+		
 	}
 
 	public JPanel createPart1() {

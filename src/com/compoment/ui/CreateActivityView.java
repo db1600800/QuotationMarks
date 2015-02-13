@@ -250,54 +250,54 @@ public class CreateActivityView {
 		m += "  @Override\n";
 		m += "    public void onDestroy() {\n";
 		m += "        super.onDestroy();\n";
-		m += "        clean();\n";
+	    //m += "        clean();\n";
 		m += " }\n";
 
-		m += "	public void clean() {\n";
-		m += "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
-		m += "m.hideSoftInputFromWindow(containView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);\n";
-		m += "		containView = null;\n";
-		// m += "		containView = null;\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				if (idToName == null || idToName.length < 2)
-					continue;
+//		m += "	public void clean() {\n";
+//		m += "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
+//		m += "m.hideSoftInputFromWindow(containView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);\n";
+//		m += "		containView = null;\n";
+//		// m += "		containView = null;\n";
+//		for (String control : controls) {
+//			// control为Button TextView....
+//			NodeList buttonItems = root.getElementsByTagName(control);
+//			for (int i = 0; i < buttonItems.getLength(); i++) {
+//				Element personNode = (Element) buttonItems.item(i);
+//				String id = personNode.getAttribute("android:id");
+//				String text = personNode.getAttribute("android:text");
+//				String[] idToName = id.split("/");
+//				if (idToName == null || idToName.length < 2)
+//					continue;
+//
+//				m += "//" + text + "\n";
+//				if (control.equals("ListView") || control.equals("GridView")) {
+//					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
+//					m += "adapter.list.clear();\n";
+//					m += "adapter=null;\n";
+//				}
+//
+//				else if (control.equals("AutoCompleteTextView")) {
+//					m += "	Cursor cursor="
+//							+ firstCharToLowerAndJavaName(idToName[1])
+//							+ "Adapter.getCursor();\n";
+//					m += "	if(cursor!=null)\n";
+//					m += "		cursor.close();\n";
+//					CreateSearchCursorAdapter createSearchCursorAdapter = new CreateSearchCursorAdapter();
+//					createSearchCursorAdapter
+//							.create(firstCharToUpperAndJavaName(idToName[1]));
+//				} else
+//
+//				{
+//					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
+//				}
+//			}
+//		}
+//
+//		m += "}\n";
 
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
-					m += "adapter.list.clear();\n";
-					m += "adapter=null;\n";
-				}
-
-				else if (control.equals("AutoCompleteTextView")) {
-					m += "	Cursor cursor="
-							+ firstCharToLowerAndJavaName(idToName[1])
-							+ "Adapter.getCursor();\n";
-					m += "	if(cursor!=null)\n";
-					m += "		cursor.close();\n";
-					CreateSearchCursorAdapter createSearchCursorAdapter = new CreateSearchCursorAdapter();
-					createSearchCursorAdapter
-							.create(firstCharToUpperAndJavaName(idToName[1]));
-				} else
-
-				{
-					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
-				}
-			}
-		}
-
-		m += "}\n";
-
-		m += "	Handler handler = new Handler() {\n";
-		m += "		public void handleMessage(Message msg) {\n";
-		m += "			switch (msg.what) {\n";
+		m += "Handler handler = new Handler() {\n";
+		m += "	public void handleMessage(Message msg) {\n";
+		m += "		switch (msg.what) {\n";
 		m += "			// case SHOW_LOCKER:\n";
 		m += "			// break;\n";
 		m += "			default:\n";
@@ -310,17 +310,17 @@ public class CreateActivityView {
 
 
 
-		m += " @Override\n";
-		m += " public void onCreate(Bundle savedInstanceState) {\n";
+		m += "@Override\n";
+		m += "public void onCreate(Bundle savedInstanceState) {\n";
 		m += "     super.onCreate(savedInstanceState);\n";
 		m+="context = this;\n";
 		m+="View view = init();\n";
 		m+="this.setContentView(view);\n";
-		m += " }\n";
+		m+= " }\n";
 
 
 
-		m += "	public View init() {\n";
+		m += "public View init() {\n";
 		m += "		if (containView == null) {\n";
 		m += "			containView = inflateView(R.layout." + xmlfilename + ");\n";
 
@@ -373,7 +373,7 @@ public class CreateActivityView {
 
 					m += "}.execute(\"\");\n";
 
-					m += "						}\n";
+					m += "}\n";
 					m += "					});\n";
 				} else if (control.equals("ListView")
 						|| control.equals("GridView")) {
@@ -451,7 +451,7 @@ public class CreateActivityView {
 		m += "	getNetInfoTask.execute(\"\");\n";
 		m += "}\n";
 
-		m += "	private class GetNetInfoTask extends\n";
+		m += "private class GetNetInfoTask extends\n";
 		m += "			AsyncTask<String, Integer, List<" + className
 				+ "AdapterBean>> {\n";
 		m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
@@ -490,8 +490,8 @@ public class CreateActivityView {
 
 		m += "		}\n";
 
-		m += "		@Override\n";
-		m += "		protected List<" + className
+		m += "@Override\n";
+		m += "protected List<" + className
 				+ "AdapterBean> doInBackground(String... params) {\n";
 		m += textviewXmlnameTodbnameOrjavaname();
 		for (String control : controls) {
@@ -510,10 +510,10 @@ public class CreateActivityView {
 		}
 
 		m += "			return null;\n";
-		m += "		}\n";
+		m += "}\n";
 
-		m += "		@Override\n";
-		m += "		protected void onProgressUpdate(Integer... values) {\n";
+		m += "@Override\n";
+		m += "protected void onProgressUpdate(Integer... values) {\n";
 		m += "			// 更新进度\n";
 		m += "		}\n";
 
@@ -544,31 +544,31 @@ public class CreateActivityView {
 		m += "	      }\n";
 
 		m += "		@Override\n";
-		m += "		protected void onCancelled() {\n";
+		m += "protected void onCancelled() {\n";
 		m += "			super.onCancelled();\n";
 		m += "           list.clear();\n";
 		m += "		}\n";
 		m += "}\n";
 
-		m += "	private View inflateView(int resource) {\n";
+		m += "private View inflateView(int resource) {\n";
 		m += "		LayoutInflater vi = (LayoutInflater) context\n";
 		m += "				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);\n";
 		m += "		return vi.inflate(resource, null);\n";
 		m += "}\n";
 
 		m += "	@Override\n";
-		m += "	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {\n";
+		m += "public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {\n";
 		m += "		// TODO Auto-generated method stub\n";
 
 		m += "}\n";
 
 		m += "	@Override\n";
-		m += "	public void onScrollStateChanged(AbsListView arg0, int arg1) {\n";
+		m += "public void onScrollStateChanged(AbsListView arg0, int arg1) {\n";
 		m += "		// TODO Auto-generated method stub\n";
 
 		m += "}\n";
 
-		m += "	public void tread() {\n";
+		m += "public void tread() {\n";
 		m += "		Thread thread = new Thread(new Runnable() {\n";
 		m += "			public void run() {\n";
 

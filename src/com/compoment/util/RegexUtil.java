@@ -1,4 +1,4 @@
-package com.compoment.addfunction.android;
+package com.compoment.util;
 
 
 
@@ -21,15 +21,15 @@ import java.util.regex.Pattern;
 //* 重复前面的子模式0次或多次 
 //+ 重复前面的子模式一次到多次
 
-public class Regex {
+public class RegexUtil {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Regex regex = new Regex();
-		regex.findViewByIdRegex("");
+		RegexUtil regex = new RegexUtil();
+		regex.functionRegex("");
 	}
 
 	public boolean classRegex(String input) {
@@ -38,7 +38,7 @@ public class Regex {
 		String regex = "(public|private)(\\s+)class(\\s+)(\\w+)([\\s\\S]*)";
 		Pattern pattern = Pattern.compile(regex);
 
-		Matcher matcher = pattern.matcher(input1);
+		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			System.out.println(matcher.group());
 			return true;
@@ -46,7 +46,7 @@ public class Regex {
 		return false;
 	}
 
-	public boolean functionRegex(String input) {
+	public String functionRegex(String input) {
 		String input1 = "public void About(String a){\n";
 
 		String regex = "(public|private)(\\s+)(\\w+)(\\s+)(\\w+)(\\s*)((.*))(\\s*)([\\s\\S]*)";
@@ -54,11 +54,28 @@ public class Regex {
 
 		Matcher matcher = pattern.matcher(input1);
 		while (matcher.find()) {
-			System.out.println(matcher.group(5));
+			String name=matcher.group(5);
+			System.out.println(name);
+			return name;
+		}
+		return null;
+	}
+	
+	
+	public boolean constructFunctionRegex(String input) {
+		String input1 = "  public About(String a){\n";
+
+		String regex = "(public|private)(\\s+)(\\w+)(\\s*)((.*))([\\s\\S]*)";
+		Pattern pattern = Pattern.compile(regex);
+
+		Matcher matcher = pattern.matcher(input);
+		while (matcher.find()) {
+			System.out.println(matcher.group());
 			return true;
 		}
 		return false;
 	}
+	
 
 	public boolean importRegex(String input) {
 		String input1 = "import com.a ;";
@@ -66,7 +83,7 @@ public class Regex {
 		String regex = "import(\\s+)(\\w+)(\\.+)([\\s\\S]*)";
 		Pattern pattern = Pattern.compile(regex);
 
-		Matcher matcher = pattern.matcher(input1);
+		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			System.out.println(matcher.group());
 			return true;
@@ -80,7 +97,7 @@ public class Regex {
 		String regex = "([\\s\\S]*)(\\{)";
 		Pattern pattern = Pattern.compile(regex);
 
-		Matcher matcher = pattern.matcher(input1);
+		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			System.out.println(matcher.group());
 			return true;
@@ -94,7 +111,7 @@ public class Regex {
 		String regex = "([\\s\\S]*)(\\})";
 		Pattern pattern = Pattern.compile(regex);
 
-		Matcher matcher = pattern.matcher(input1);
+		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			System.out.println(matcher.group());
 			return true;
