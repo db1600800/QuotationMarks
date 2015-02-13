@@ -1,4 +1,4 @@
-package com.compoment.cut.android.function;
+package com.compoment.addfunction.android;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.compoment.cut.android.function.Regex.ControllerBean;
+import com.compoment.addfunction.android.Regex.ControllerBean;
 
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
