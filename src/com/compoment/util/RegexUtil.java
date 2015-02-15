@@ -29,7 +29,7 @@ public class RegexUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		RegexUtil regex = new RegexUtil();
-		regex.functionRegex("");
+		regex.constructFunctionRegex("");
 	}
 
 	public boolean classRegex(String input) {
@@ -62,7 +62,7 @@ public class RegexUtil {
 	}
 	
 	
-	public boolean constructFunctionRegex(String input) {
+	public String constructFunctionRegex(String input) {
 		String input1 = "public  About(String a){\n";
 
 		String regex = "(public|private)(\\s+)(\\w+)(\\s*)[\\(](.*)[\\)]([\\s\\S]*)";
@@ -70,10 +70,10 @@ public class RegexUtil {
 
 		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
-			System.out.println(matcher.group());
-			return true;
+			System.out.println(matcher.group(3));
+			return matcher.group(3);
 		}
-		return false;
+		return null;
 	}
 	
 

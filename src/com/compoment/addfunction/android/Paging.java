@@ -105,11 +105,9 @@ public class Paging {
 		List lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
 
 		
-		
+		String className="";
 		
 		//是否已注入过此功能
-		String startDateName = "";
-		String endDateName = "";
 		for (int i = 0; i < lines.size(); i++) {
 			String line = "";
 			if (lines.get(i) == null) {
@@ -138,7 +136,8 @@ public class Paging {
 			}
 
 		
-	       if ( regex.constructFunctionRegex(line)) {
+	       if ( regex.constructFunctionRegex(line)!=null) {
+	    	   className=regex.constructFunctionRegex(line);
 		    	String m="";
 		    	m+="\n//注入分页功能\n";
 		    	m+="private int recodeCount = 1;//发分页请求时用（起始记录号 ）\n";
@@ -187,8 +186,8 @@ public class Paging {
 			}else if(line.contains(".setOnScrollListener"))
 				
 			{
-				String m="";
-				m+="//listData.add()之前加入  int oldSize = listData.size();\n";
+				String m="//分页\n";
+				m+="(listData.add()之前加入  int oldSize = listData.size();)\n";
 		    	m+="countPage(maxCount);\n";
 		    	m+="listListView.setSelection(oldSize);\n";
 		    	content += m;
@@ -205,7 +204,7 @@ public class Paging {
 			    	m+="					page++;\n";
 			    	m+="					recodeCount += pageSize;\n";
 			    	m+="					request4453020();\n";
-			    	m+="					Toast.makeText(Drawback.this, \"数据已加载...\" + page + \" 页\",\n";
+			    	m+="					Toast.makeText("+className+".this, \"数据已加载...\" + page + \" 页\",\n";
 			    	m+="							Toast.LENGTH_SHORT).show();\n";
 			    	m+="					\n";
 			    	m+="					more.setVisibility(view.GONE);\n";
@@ -214,7 +213,7 @@ public class Paging {
 			    	m+="					footerView.setVisibility(View.VISIBLE);\n";
 			    	m+="				} else {\n";
 
-			    	m+="					Toast.makeText(Drawback.this, \"数据已加载完...\" + page + \" 页\",\n";
+			    	m+="					Toast.makeText("+className+".this, \"数据已加载完...\" + page + \" 页\",\n";
 			    	m+="							Toast.LENGTH_SHORT).show();\n";
 			    	m+="					\n";
 			    	m+="					footerView.setVisibility(View.GONE);\n";
