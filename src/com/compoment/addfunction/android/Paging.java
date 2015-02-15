@@ -140,7 +140,7 @@ public class Paging {
 		
 	       if ( regex.constructFunctionRegex(line)) {
 		    	String m="";
-		    	m+="\n\n//分页\n";
+		    	m+="\n//注入分页功能\n";
 		    	m+="private int recodeCount = 1;//发分页请求时用（起始记录号 ）\n";
 		    	m+="private int page = 1;//页码\n";
 		    	m+="private int totalPage;\n";
@@ -162,7 +162,7 @@ public class Paging {
 		    	findViewByIdFirst=false;
 			}else  if (regex.functionRegex(line)!=null && regex.functionRegex(line).equals("onScroll")) {
 				
-				String m="";
+				String m="//分页\n";
 		    	m+="	public void countPage(int maxCounts) {\n";
 		    	m+="		if (maxCounts % pageSize == 0) {\n";
 		    	m+="			totalPage = maxCounts / pageSize;\n";
@@ -198,7 +198,7 @@ public class Paging {
 			
 			 if (regex.functionRegex(line)!=null && regex.functionRegex(line).equals("onScrollStateChanged")) {
 				 
-					String m="";
+					String m="//分页\n";
 				    m+="		if (scrollState == SCROLL_STATE_IDLE) {\n";
 			    	m+="			if (view.getLastVisiblePosition() == (view.getCount() - 1)) {\n";
 			    	m+="				if ((page) < totalPage) {\n";

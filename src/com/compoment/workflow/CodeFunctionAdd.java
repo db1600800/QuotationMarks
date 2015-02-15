@@ -18,6 +18,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
+import com.compoment.addfunction.android.Paging;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -46,8 +47,8 @@ public class CodeFunctionAdd extends JFrame {
 	JTextArea editorValueEditText;
 	JLabel imgTextView;
 	int lineno;
-	
-	String currentCodeFileFullPath="";
+
+	String currentCodeFileFullPath = "";
 
 	public CodeFunctionAdd() {
 
@@ -109,15 +110,13 @@ public class CodeFunctionAdd extends JFrame {
 		pack();
 
 		setVisible(true);
-		
-		
-		if(KeyValue.readCache("compomentProjectAddress")==null || KeyValue.readCache("compomentProjectAddress").equals(""))
-		{
-		String inputValue = JOptionPane.showInputDialog("请输入组件工程路径");
-		KeyValue.writeCache("compomentProjectAddress", inputValue);
+
+		if (KeyValue.readCache("compomentProjectAddress") == null
+				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+			String inputValue = JOptionPane.showInputDialog("请输入组件工程路径");
+			KeyValue.writeCache("compomentProjectAddress", inputValue);
 		}
-		
-		
+
 	}
 
 	public JPanel createPart1() {
@@ -241,28 +240,27 @@ public class CodeFunctionAdd extends JFrame {
 				.addListSelectionListener(new ListSelectionListener() {
 
 					public void valueChanged(ListSelectionEvent even) {
-						String fileName = codeFileListListView.getSelectedValue()
-								.toString();
-						currentCodeFileFullPath=codePathValueEditText.getText()+ "/" + fileName;
+						String fileName = codeFileListListView
+								.getSelectedValue().toString();
+						currentCodeFileFullPath = codePathValueEditText
+								.getText() + "/" + fileName;
 						editorValueEditText.setText(FileUtil
 								.fileContent(currentCodeFileFullPath));
-						
-						
-						
-						String codePath=codePathValueEditText.getText();
-						
-						String picPath=codePath.substring(0,codePath.lastIndexOf("\\"));
-						String img=picPath+"/"+getPicName(fileName)+".png";
-						File file=new File(img);
-						if(file!=null && file.isFile())
-						{
-						
-						
-						}else
-						{ img=picPath+"/"+getPicName(fileName)+".jpg";
-							
+
+						String codePath = codePathValueEditText.getText();
+
+						String picPath = codePath.substring(0,
+								codePath.lastIndexOf("\\"));
+						String img = picPath + "/" + getPicName(fileName)
+								+ ".png";
+						File file = new File(img);
+						if (file != null && file.isFile()) {
+
+						} else {
+							img = picPath + "/" + getPicName(fileName) + ".jpg";
+
 						}
-						 imgTextView.setIcon(new ImageIcon(img));
+						imgTextView.setIcon(new ImageIcon(img));
 						CodeFunctionAdd.this
 								.setExtendedState(Frame.MAXIMIZED_BOTH);
 						CodeFunctionAdd.this.setVisible(true);
@@ -380,24 +378,21 @@ public class CodeFunctionAdd extends JFrame {
 		// 自定义jlist的item单元格显示样子
 		functionListListView.setCellRenderer(new FunctionListCell());
 		// functionListListView.setListData(functionParents.toArray());
-		
-		
-		//双击
-		functionListListView.addMouseListener(new MouseAdapter()
-		 {
-		 public void mouseReleased(MouseEvent me)
-		 {
-		 if(checkClickTime())
-		 {
-				Function function = (Function) functionListListView
-						.getSelectedValue();
-				if (function == null)
-					return;
-			 androidFunction(function.name);
-		 }
-		 }});
 
-		//单击
+		// 双击
+		functionListListView.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent me) {
+				if (checkClickTime()) {
+					Function function = (Function) functionListListView
+							.getSelectedValue();
+					if (function == null)
+						return;
+					androidFunction(function);
+				}
+			}
+		});
+
+		// 单击
 		functionListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		functionListListView
@@ -475,9 +470,9 @@ public class CodeFunctionAdd extends JFrame {
 		GroupLayout.ParallelGroup bg1422609099562LinearLayout = layout
 				.createParallelGroup();
 		/** 图片 */
-		 imgTextView = new JLabel("");
+		imgTextView = new JLabel("");
 		JScrollPane imgScrollPane = new JScrollPane(imgTextView);
-		imgScrollPane.setPreferredSize(new Dimension(300,300));
+		imgScrollPane.setPreferredSize(new Dimension(300, 300));
 		bg1422609099562LinearLayout.addComponent(imgScrollPane);
 
 		bg1422608964921LinearLayout.addGroup(bg1422609099562LinearLayout);
@@ -523,8 +518,6 @@ public class CodeFunctionAdd extends JFrame {
 		return panel;
 	}
 
-	
-
 	/**
 	 * 定制swing里面dblist的cell单元格如何显示
 	 * */
@@ -553,34 +546,40 @@ public class CodeFunctionAdd extends JFrame {
 
 	}
 
-	
-	public  void androidFunction(String functionName)
-	{
-		if(functionName.equals("日期选择"))
-		{
-		
-			DateSelect dateSelect=new DateSelect(currentCodeFileFullPath);
-			
-			Object[] options = {"添加","删除"};
-			int response=JOptionPane.showOptionDialog(this, "添加或删除"+functionName+"功能", functionName,JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-			if(response==0)
-			{ 
+	public void androidFunction(Function function) {
+		if (function.id.equals("1")) {// 日期选择
+
+			DateSelect dateSelect = new DateSelect(currentCodeFileFullPath);
+
+			Object[] options = { "添加", "删除" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
 				dateSelect.add();
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
+			} else if (response == 1) {
+
 			}
-			else if(response==1)
-			{ 
-				
+
+		} else if (function.id.equals("2")) {// 分页(列表)
+
+			Object[] options = { "添加", "删除" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				Paging paging = new Paging(currentCodeFileFullPath);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+			} else if (response == 1) {
+
 			}
-		
-			
-			
-	
-		
 		}
 	}
-
 
 	public void androidData() {
 		functionParents.clear();
@@ -673,50 +672,41 @@ public class CodeFunctionAdd extends JFrame {
 			}
 		}
 	}
-	
-	
-	public String getPicName(String fileName)
-	{
-		String picName="";
-		
-		fileName=fileName.subSequence(0, fileName.indexOf(".")).toString();
-		for (int i = 0;i < fileName.length();i++)
-		{
-			
-		if(fileName.charAt(i)>='A'&&fileName.charAt(i)<='Z')
-		{
-		    if(i==0)
-		    {
-		    	picName+=String.valueOf(fileName.charAt(i)).toLowerCase();
-		    }else
-		    {
-		    	picName+="_"+String.valueOf(fileName.charAt(i)).toLowerCase();
-		    }
+
+	public String getPicName(String fileName) {
+		String picName = "";
+
+		fileName = fileName.subSequence(0, fileName.indexOf(".")).toString();
+		for (int i = 0; i < fileName.length(); i++) {
+
+			if (fileName.charAt(i) >= 'A' && fileName.charAt(i) <= 'Z') {
+				if (i == 0) {
+					picName += String.valueOf(fileName.charAt(i)).toLowerCase();
+				} else {
+					picName += "_"
+							+ String.valueOf(fileName.charAt(i)).toLowerCase();
+				}
+			} else if (fileName.charAt(i) >= 'a' && fileName.charAt(i) <= 'z') {
+				picName += String.valueOf(fileName.charAt(i)).toLowerCase();
+			}
 		}
-		else if(fileName.charAt(i)>='a'&&fileName.charAt(i)<='z')
-		{
-			picName+=String.valueOf(fileName.charAt(i)).toLowerCase();
-		}
-		}
-		
-		
+
 		return picName;
 	}
 
 	public static void main(String[] args) {
 		new CodeFunctionAdd();
 	}
-	
-	 long clickTime=0;
-	public boolean checkClickTime()
-	 {
-	 long nowTime = (new Date()).getTime();
-	 if((nowTime-clickTime)<300)
-	 {
-	 clickTime = nowTime;
-	 return true;
-	 }
-	 clickTime = nowTime;
-	 return false;
-	 }
+
+	long clickTime = 0;
+
+	public boolean checkClickTime() {
+		long nowTime = (new Date()).getTime();
+		if ((nowTime - clickTime) < 300) {
+			clickTime = nowTime;
+			return true;
+		}
+		clickTime = nowTime;
+		return false;
+	}
 }

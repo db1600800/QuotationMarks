@@ -49,10 +49,10 @@ public class RegexUtil {
 	public String functionRegex(String input) {
 		String input1 = "public void About(String a){\n";
 
-		String regex = "(public|private)(\\s+)(\\w+)(\\s+)(\\w+)(\\s*)((.*))(\\s*)([\\s\\S]*)";
+		String regex = "(public|private)(\\s+)(\\w+)(\\s+)(\\w+)(\\s*)[\\(](.*)[\\)](\\s*)([\\s\\S]*)";
 		Pattern pattern = Pattern.compile(regex);
 
-		Matcher matcher = pattern.matcher(input1);
+		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
 			String name=matcher.group(5);
 			System.out.println(name);
@@ -63,9 +63,9 @@ public class RegexUtil {
 	
 	
 	public boolean constructFunctionRegex(String input) {
-		String input1 = "  public About(String a){\n";
+		String input1 = "public  About(String a){\n";
 
-		String regex = "(public|private)(\\s+)(\\w+)(\\s*)((.*))([\\s\\S]*)";
+		String regex = "(public|private)(\\s+)(\\w+)(\\s*)[\\(](.*)[\\)]([\\s\\S]*)";
 		Pattern pattern = Pattern.compile(regex);
 
 		Matcher matcher = pattern.matcher(input);
