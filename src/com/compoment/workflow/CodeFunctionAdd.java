@@ -49,7 +49,7 @@ public class CodeFunctionAdd extends JFrame {
 	int lineno;
 
 	String currentCodeFileFullPath = "";
-
+    String backupBeforeModify="";
 	public CodeFunctionAdd() {
 
 		super("");
@@ -240,6 +240,7 @@ public class CodeFunctionAdd extends JFrame {
 				.addListSelectionListener(new ListSelectionListener() {
 
 					public void valueChanged(ListSelectionEvent even) {
+						backupBeforeModify="";
 						String fileName = codeFileListListView
 								.getSelectedValue().toString();
 						currentCodeFileFullPath = codePathValueEditText
@@ -551,32 +552,49 @@ public class CodeFunctionAdd extends JFrame {
 
 			DateSelect dateSelect = new DateSelect(currentCodeFileFullPath);
 
-			Object[] options = { "添加", "删除" };
+			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
+				backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
 				dateSelect.add();
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
+				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
 			} else if (response == 1) {
-
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
 			}
 
 		} else if (function.id.equals("2")) {// 分页(列表)
 
-			Object[] options = { "添加", "删除" };
+			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
+				backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
 				Paging paging = new Paging(currentCodeFileFullPath);
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
+				
+				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
 			} else if (response == 1) {
-
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
 			}
 		}
 	}
