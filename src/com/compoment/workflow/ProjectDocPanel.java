@@ -40,7 +40,11 @@ public class ProjectDocPanel {
 	JTextField remarksValueEditText;
 	JList listListView;
 	JTextField pathValueEditText;
-
+	
+	JTextField requestJsonValueEditText;
+	JTextField respondJsonValueEditText;
+	JTextField respondJsonDetailValueEditText;
+	
 	public ProjectDocPanel(ProjectFrame projectFrame) {
 		this.projectFrame = projectFrame;
 	}
@@ -129,6 +133,10 @@ public class ProjectDocPanel {
 		bg1421554061119LinearLayout.addComponent(enNameValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554061119LinearLayout);
+		
+		
+		
+		
 		/** typeTitleTextView typeValueEditText */
 		GroupLayout.ParallelGroup bg1421554117584LinearLayout = layout
 				.createParallelGroup();
@@ -141,6 +149,10 @@ public class ProjectDocPanel {
 		bg1421554117584LinearLayout.addComponent(typeValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554117584LinearLayout);
+		
+		
+		
+		
 		/** remarksTitleTextView remarksValueEditText */
 		GroupLayout.ParallelGroup bg1421554170543LinearLayout = layout
 				.createParallelGroup();
@@ -153,6 +165,53 @@ public class ProjectDocPanel {
 		bg1421554170543LinearLayout.addComponent(remarksValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554170543LinearLayout);
+		
+		
+		
+		/**请求格式 request json   */
+		GroupLayout.ParallelGroup requestJsonLinearLayout = layout
+				.createParallelGroup();
+		/** request */
+		JLabel requestJsonTitleTextView = new JLabel("RequestJson");
+		requestJsonLinearLayout.addComponent(requestJsonTitleTextView);
+
+		/** request */
+		requestJsonValueEditText = new JTextField("");
+		requestJsonLinearLayout.addComponent(requestJsonValueEditText);
+
+		bg1421553890229LinearLayout.addGroup(requestJsonLinearLayout);
+		
+		
+		
+		/**响应 格式respond json  简化 */
+		GroupLayout.ParallelGroup respondJsonLinearLayout = layout
+				.createParallelGroup();
+		/** respond*/
+		JLabel respondJsonTitleTextView = new JLabel("RespondJson简化");
+		respondJsonLinearLayout.addComponent(respondJsonTitleTextView);
+
+		/** respond */
+		respondJsonValueEditText = new JTextField("{\"returnCode\": \"0\",\"returnData\": {\"HEAD\": { \"RET_MSG\": \"成功\", \"RET_ERR\": \"000000\"}, \"RECORDNUM\": \"3\" ,\"ASS_NO\": [\"\", \"\", \"\" ],\"MAXRECORD\": \"6\"}}");
+		respondJsonLinearLayout.addComponent(respondJsonValueEditText);
+
+		bg1421553890229LinearLayout.addGroup(respondJsonLinearLayout);
+		
+		
+		
+		/**响应 格式respond json  详细 */
+		GroupLayout.ParallelGroup respondJsonDetailLinearLayout = layout
+				.createParallelGroup();
+		/** respond*/
+		JLabel respondJsonDetailTitleTextView = new JLabel("RespondJson详细");
+		respondJsonDetailLinearLayout.addComponent(respondJsonDetailTitleTextView);
+
+		/** respond */
+		respondJsonDetailValueEditText = new JTextField("{\"returnCode\": \"0\",\"returnMsg\": \"\",\"returnDate\": {\"HEAD\": {\"RET_MSG\": \"成功\",\"RET_ERR\": \"000000\"},\"product\": [{\"code\": \"13\",\"totalPrice\": 6},{\"code\": \"3\",\"totalPrice\": 3.22}]}}");
+		respondJsonDetailLinearLayout.addComponent(respondJsonDetailValueEditText);
+
+		bg1421553890229LinearLayout.addGroup(respondJsonDetailLinearLayout);
+	
+		
 		/** tojavaButton */
 		GroupLayout.ParallelGroup bg1421554220555LinearLayout = layout
 				.createParallelGroup();
@@ -171,6 +230,11 @@ public class ProjectDocPanel {
 		});
 
 		bg1421553890229LinearLayout.addGroup(bg1421554220555LinearLayout);
+		
+		
+		
+		
+		
 		/** listListView */
 		GroupLayout.ParallelGroup bg1421554259446LinearLayout = layout
 				.createParallelGroup();
@@ -230,7 +294,16 @@ public class ProjectDocPanel {
 
 		/** 备注 */
 		bg1421554304832.addComponent(remarksTitleTextView);
+		
+		/** 请求格式 */
+		bg1421554304832.addComponent(requestJsonTitleTextView);
+		
+		/** 响应格式  简版*/
+		bg1421554304832.addComponent(respondJsonTitleTextView);
 
+		/** 响应格式  详细 */
+		bg1421554304832.addComponent(respondJsonDetailTitleTextView);
+		
 		bg1421554314417.addGroup(bg1421554304832);
 
 		/**
@@ -253,7 +326,17 @@ public class ProjectDocPanel {
 
 		/** remarks */
 		bg1421554308560.addComponent(remarksValueEditText);
+		
+		/** 请求格式 */
+		bg1421554308560.addComponent(requestJsonValueEditText);
+		
+		/** 响应格式  简版 */
+		bg1421554308560.addComponent(respondJsonValueEditText);
 
+		
+		/** 响应格式 详细 */
+		bg1421554308560.addComponent(respondJsonDetailValueEditText);
+		
 		bg1421554314417.addGroup(bg1421554308560);
 
 		bg1421554327272.addGroup(bg1421554314417);
