@@ -19,6 +19,7 @@ import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
 import com.compoment.addfunction.android.Paging;
+import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -50,6 +51,8 @@ public class CodeFunctionAdd extends JFrame {
 
 	String currentCodeFileFullPath = "";
     String backupBeforeModify="";
+    
+     JList codeTypeListListView ;
 	public CodeFunctionAdd() {
 
 		super("");
@@ -140,7 +143,7 @@ public class CodeFunctionAdd extends JFrame {
 		bg1422276551990LinearLayout.addComponent(codeTypeTitleTextView);
 
 		/** 代码类型列表 */
-		final JList codeTypeListListView = new JList();
+		codeTypeListListView = new JList();
 		JScrollPane codeTypeListScrollPane = new JScrollPane(
 				codeTypeListListView);
 		ArrayList listDate = new ArrayList();
@@ -170,7 +173,22 @@ public class CodeFunctionAdd extends JFrame {
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
 
-						} else {
+						} else	if (value.equals("Swing")) {
+							swingData();
+							// 设值
+							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							for (Function function : functionParents) {
+
+								functionModelList.addElement(function);
+
+							}
+							// 自定义对象加入模型列表
+							functionListListView.setModel(functionModelList);
+
+						} 
+						
+						
+						else {
 							DefaultListModel functionModelList = new DefaultListModel<Function>();
 
 							// 自定义对象加入模型列表
@@ -388,7 +406,13 @@ public class CodeFunctionAdd extends JFrame {
 							.getSelectedValue();
 					if (function == null)
 						return;
-					androidFunction(function);
+					String value = codeTypeListListView.getSelectedValue()
+							.toString();
+
+					if (value.equals("Android")) {
+						androidFunction(function);
+					}
+					
 				}
 			}
 		});
@@ -446,20 +470,39 @@ public class CodeFunctionAdd extends JFrame {
 		// 自定义jlist的item单元格显示样子
 		functionList2ListView.setCellRenderer(new FunctionListCell());
 		// functionListListView.setListData(functionParents.toArray());
-		functionList2ListView
-				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		functionList2ListView
-				.addListSelectionListener(new ListSelectionListener() {
 
-					public void valueChanged(ListSelectionEvent even) {
-						// String value =
-						// functionList2ListView.getSelectedValue()
-						// .toString();
-						Function function = (Function) functionList2ListView
-								.getSelectedValue();
+		//单击
+//		functionList2ListView
+//				.addListSelectionListener(new ListSelectionListener() {
+//
+//					public void valueChanged(ListSelectionEvent even) {
+//						// String value =
+//						// functionList2ListView.getSelectedValue()
+//						// .toString();
+//						Function function = (Function) functionList2ListView
+//								.getSelectedValue();
+//					}
+//				});
+		
+		//双击
+		functionList2ListView.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent me) {
+				if (checkClickTime()) {
+					Function function = (Function) functionList2ListView
+							.getSelectedValue();
+					if (function == null)
+						return;
+					String value = codeTypeListListView.getSelectedValue()
+							.toString();
+
+					if (value.equals("Swing")) {
+						swingFunction(function);
 					}
-				});
+					
+				}
+			}
+		});
 		bg1422609048781LinearLayout
 				.addComponent(functionList2ListViewScrollPane);
 
@@ -598,6 +641,59 @@ public class CodeFunctionAdd extends JFrame {
 			}
 		}
 	}
+	
+	
+	public void swingFunction(Function function) {
+		if (function.id.equals("41")) {// 系统对话框提示(单个按钮)
+			SystemDialog dialog = new SystemDialog();
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				dialog.msg();
+			} else if (response == 1) {
+				
+			}
+		}else if (function.id.equals("42")) {// 系统对话框提示(左右按钮)
+			SystemDialog dialog = new SystemDialog();
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				dialog.confirm();
+			} else if (response == 1) {
+				
+			}
+		} else if (function.id.equals("43")) {// 系统对话框选择(列表)"
+			SystemDialog dialog = new SystemDialog();
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				dialog.inputListSelect();
+			} else if (response == 1) {
+				
+			}
+		} else if (function.id.equals("44")) {// 系统对话框输入
+			SystemDialog dialog = new SystemDialog();
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				dialog.inputText();
+			} else if (response == 1) {
+				
+			}
+		} 
+	}
 
 	public void androidData() {
 		functionParents.clear();
@@ -653,6 +749,27 @@ public class CodeFunctionAdd extends JFrame {
 
 		functionParents.add(new Function("8", "不显示Title行"));
 		functionParents.add(new Function("9", "日期格式化"));
+
+	}
+	
+	
+	public void swingData() {
+		functionParents.clear();
+
+		Function dialogParent = new Function("4", "对话框");
+		functionParents.add(dialogParent);
+		ArrayList<Function> dialogChirlds = new ArrayList<Function>();
+		dialogParent.chirlds = dialogChirlds;
+		dialogChirlds.add(new Function("41", "系统对话框提示(单个按钮)"));
+		dialogChirlds.add(new Function("42", "系统对话框提示(左右按钮)"));
+		dialogChirlds.add(new Function("43", "系统对话框选择(列表)"));
+		dialogChirlds.add(new Function("44", "系统对话框输入"));
+		dialogChirlds.add(new Function("45", "自定义对话框提示(单个按钮)"));
+		dialogChirlds.add(new Function("46", "自定义对话框提示(左右按钮)"));
+		dialogChirlds.add(new Function("47", "自定义对话框选择(列表)"));
+		dialogChirlds.add(new Function("48", "自定义对话框输入"));
+
+		
 
 	}
 
@@ -720,7 +837,9 @@ public class CodeFunctionAdd extends JFrame {
 
 	public boolean checkClickTime() {
 		long nowTime = (new Date()).getTime();
+	
 		if ((nowTime - clickTime) < 300) {
+			
 			clickTime = nowTime;
 			return true;
 		}

@@ -176,7 +176,7 @@ public class ProjectDocPanel {
 		requestJsonLinearLayout.addComponent(requestJsonTitleTextView);
 
 		/** request */
-		requestJsonValueEditText = new JTextField("");
+		requestJsonValueEditText = new JTextField("{\"STARTRECORD\": \"0\",\"MAXRECORD\": \"6\",\"PAGE\":\"1\",\"PAGENUM\":\"6\"}");
 		requestJsonLinearLayout.addComponent(requestJsonValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(requestJsonLinearLayout);
