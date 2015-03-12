@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.GroupLayout;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -74,11 +75,27 @@ public class SwingLayout {
 		System.out.println(m);
 
 	}
+	
+	public void createJDialog(List<CompomentBean> oldBeans,
+			List<CompomentBean> newBeans) {
+		m="\n";
+		m+="JDialog jdialog = new JDialog(null, \"title\", true);\n";
+		m+="jdialog.setSize(800, 800);\n";
+		m+="Panel panel=new Panel();\n";
+		m+="jdialog.add(panel);\n";
+		m+="jdialog.setLocation(10, 10);\n";
+		m+="jdialog.setVisible(true);\n";
+		System.out.println(m);
+		createJPanel(oldBeans,newBeans);
+	}
+	
 
 	public void createJPanel(List<CompomentBean> oldBeans,
 			List<CompomentBean> newBeans) {
 		// JPanel
-
+		m="\n";
+		m += " public class Panel \n";
+		m += " {\n\n";
 		m+="public JPanel create() {\n";
 
 		m+="	JPanel panel = new JPanel();\n";
@@ -93,6 +110,7 @@ public class SwingLayout {
 		analyseRelativeForSwingHorizontal(newBeans);
 
 		m+="return panel;\n";
+		m+="}\n";
 		m+="}\n";
 		System.out.println(m);
 	}

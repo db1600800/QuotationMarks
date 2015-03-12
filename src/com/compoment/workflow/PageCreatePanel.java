@@ -141,6 +141,25 @@ public class PageCreatePanel {
 				}else if(frame.pageType.contains("JDialog-Swing"))
 				{
 					
+					//android页面分析生成
+					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
+					
+				
+					
+					
+					//Swing页面水平方向 再次取得分组信息
+					JPanel swingPanel = new CutCompomentsTypeImg(frame,
+							frame.beansForSwing);
+					JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
+					jdialog.setSize(800, 800);
+					jdialog.add(swingPanel);
+					jdialog.setLocation(10, 10);
+					jdialog.setVisible(true);
+					
+					SwingLayout swingLayout = new SwingLayout();
+					swingLayout.createJDialog(frame.beans,frame.beansForSwing);
+					
 				}else if(frame.pageType.contains("JPanel-Swing"))
 				{
 					//android页面分析生成
