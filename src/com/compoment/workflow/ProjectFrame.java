@@ -47,7 +47,7 @@ import com.compoment.util.KeyValue;
 public class ProjectFrame extends JFrame {
 	ProjectPrototypePicPanel projectPrototypePicPanel;
 	ProjectPathPanel projectPathPanel;
-	ProjectDocPanel projectDocPanel;
+	//ProjectDocPanel projectDocPanel;
 	
 	
 	public ProjectFrame() {
@@ -91,9 +91,9 @@ public class ProjectFrame extends JFrame {
 		bg1420785982703LinearLayout.addComponent(right2View);
 
 		/** 文档 */
-		projectDocPanel=new ProjectDocPanel(this);
-		JPanel docsView = projectDocPanel.create();
-		bg1420785982703LinearLayout.addComponent(docsView);
+		//projectDocPanel=new ProjectDocPanel(this);
+//		JPanel docsView = projectDocPanel.create();
+	//	bg1420785982703LinearLayout.addComponent(docsView);
 
 		layout.setVerticalGroup(bg1420785982703LinearLayout);
 
@@ -148,7 +148,7 @@ public class ProjectFrame extends JFrame {
 		GroupLayout.SequentialGroup bg1420786383484 = layout
 				.createSequentialGroup();
 		/** 文档 */
-		bg1420786383484.addComponent(docsView);
+		//bg1420786383484.addComponent(docsView);
 
 		bg1420786390765.addGroup(bg1420786383484);
 		

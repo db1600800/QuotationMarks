@@ -639,7 +639,19 @@ public class CodeFunctionAdd extends JFrame {
 				backupBeforeModify="";
 				}
 			}
+		}else if (function.id.equals("3")) {// 网络请求,响应,等待提示
+			
+			ProjectDocPanel projectDocPanel=new ProjectDocPanel(this);
+			JPanel docsPanel = projectDocPanel.create();
+			JDialog jdialog = new JDialog(this, "", true);
+			jdialog.setSize(800, 400);
+			jdialog.add(docsPanel);
+			jdialog.setLocation(10, 10);
+			jdialog.setVisible(true);
+
 		}
+		
+
 	}
 	
 	

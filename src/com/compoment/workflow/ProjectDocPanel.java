@@ -26,7 +26,7 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class ProjectDocPanel {
-	ProjectFrame projectFrame;
+	JFrame projectFrame;
 
 	ArrayList listDate = new ArrayList();
 	/** 中文 */
@@ -45,7 +45,7 @@ public class ProjectDocPanel {
 	JTextField respondJsonValueEditText;
 	JTextField respondJsonDetailValueEditText;
 	
-	public ProjectDocPanel(ProjectFrame projectFrame) {
+	public ProjectDocPanel(JFrame projectFrame) {
 		this.projectFrame = projectFrame;
 	}
 
