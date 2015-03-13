@@ -83,7 +83,7 @@ public class SwingLayout {
 		m+="jdialog.setSize(800, 800);\n";
 		m+="Panel panel=new Panel();\n";
 		m+="jdialog.add(panel);\n";
-		m+="jdialog.setLocation(10, 10);\n";
+		m+="jdialog.setLocationRelativeTo(null);\n";
 		m+="jdialog.setVisible(true);\n";
 		System.out.println(m);
 		createJPanel(oldBeans,newBeans);

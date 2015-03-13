@@ -25,7 +25,7 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class ProjectDocPanel {
+public class PageInterfaceDocPanel {
 	JFrame projectFrame;
 
 	ArrayList listDate = new ArrayList();
@@ -45,7 +45,7 @@ public class ProjectDocPanel {
 	JTextField respondJsonValueEditText;
 	JTextField respondJsonDetailValueEditText;
 	
-	public ProjectDocPanel(JFrame projectFrame) {
+	public PageInterfaceDocPanel(JFrame projectFrame) {
 		this.projectFrame = projectFrame;
 	}
 
@@ -216,8 +216,10 @@ public class ProjectDocPanel {
 		GroupLayout.ParallelGroup bg1421554220555LinearLayout = layout
 				.createParallelGroup();
 		/** toJava */
-		JButton tojavaButton = new JButton("toJava");
+		JButton tojavaButton = new JButton("接口代码生成");
+		JButton  netButton= new JButton("页面网络代码生成");
 		bg1421554220555LinearLayout.addComponent(tojavaButton);
+		bg1421554220555LinearLayout.addComponent(netButton);
 		tojavaButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -243,12 +245,19 @@ public class ProjectDocPanel {
 		JScrollPane listScrollPane = new JScrollPane(listListView);
 		ArrayList listDate = new ArrayList();
 
-		listListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listListView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		listListView.setListData(listDate.toArray());
 		listListView.addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent even) {
-				String value = listListView.getSelectedValue().toString();
+				if(even.getValueIsAdjusting()==true)
+				{//按下时
+				Object[] selects = listListView.getSelectedValues();
+				for(Object select:selects)
+				{
+					System.out.println(String.valueOf(select));
+				}
+				}
 			}
 		});
 		bg1421554259446LinearLayout.addComponent(listScrollPane);
@@ -346,7 +355,7 @@ public class ProjectDocPanel {
 				.createSequentialGroup();
 		/** toJava */
 		bg1421554323910.addComponent(tojavaButton);
-
+		bg1421554323910.addComponent(netButton);
 		bg1421554327272.addGroup(bg1421554323910);
 
 		layout.setHorizontalGroup(bg1421554327272);

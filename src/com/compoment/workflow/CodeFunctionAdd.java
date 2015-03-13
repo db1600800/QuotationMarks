@@ -640,14 +640,25 @@ public class CodeFunctionAdd extends JFrame {
 				}
 			}
 		}else if (function.id.equals("3")) {// 网络请求,响应,等待提示
-			
-			ProjectDocPanel projectDocPanel=new ProjectDocPanel(this);
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+			PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
 			JPanel docsPanel = projectDocPanel.create();
 			JDialog jdialog = new JDialog(this, "", true);
 			jdialog.setSize(800, 400);
+			jdialog.setLocationRelativeTo(null);
 			jdialog.add(docsPanel);
-			jdialog.setLocation(10, 10);
 			jdialog.setVisible(true);
+			
+			System.out.println("dd");
+			}else if (response == 1) {
+			
+				
+			}
 
 		}
 		
