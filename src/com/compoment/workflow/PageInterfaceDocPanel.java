@@ -26,24 +26,42 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class PageInterfaceDocPanel {
-	JFrame projectFrame;
+	public JFrame projectFrame;
 
-	ArrayList listDate = new ArrayList();
+	public ArrayList listDate = new ArrayList();
 	/** 中文 */
-	JTextField cnNameValueEditText;
+	public JTextField cnNameValueEditText;
 	/** enName */
-	JTextField enNameValueEditText;
+	public JTextField enNameValueEditText;
 	/** type */
-	JTextField typeValueEditText;
+	public JTextField typeValueEditText;
 
 	/** remarks */
-	JTextField remarksValueEditText;
-	JList listListView;
-	JTextField pathValueEditText;
+	public JTextField remarksValueEditText;
+	public JList listListView;
+	public JTextField pathValueEditText;
 	
-	JTextField requestJsonValueEditText;
-	JTextField respondJsonValueEditText;
-	JTextField respondJsonDetailValueEditText;
+	/**
+	 * 请求json
+	 * */
+	public JTextField requestJsonValueEditText;
+	/**
+	 * 响应json简版
+	 * */
+	public JTextField respondJsonValueEditText;
+	/**
+	 * 响应json详细版
+	 * */
+	public JTextField respondJsonDetailValueEditText;
+	
+	/**word文档解析出来的接口对象*/
+	List<InterfaceBean> interfaceBeans;
+	
+	/**
+	 * 接口列表多选的值   (f.id + "" + f.title);
+	 * */
+	public Object[] selects;
+	
 	
 	public PageInterfaceDocPanel(JFrame projectFrame) {
 		this.projectFrame = projectFrame;
@@ -230,6 +248,8 @@ public class PageInterfaceDocPanel {
 				searchDoc(s);
 			}
 		});
+		
+		
 
 		bg1421553890229LinearLayout.addGroup(bg1421554220555LinearLayout);
 		
@@ -252,11 +272,8 @@ public class PageInterfaceDocPanel {
 			public void valueChanged(ListSelectionEvent even) {
 				if(even.getValueIsAdjusting()==true)
 				{//按下时
-				Object[] selects = listListView.getSelectedValues();
-				for(Object select:selects)
-				{
-					System.out.println(String.valueOf(select));
-				}
+				selects = listListView.getSelectedValues();
+			
 				}
 			}
 		});
@@ -395,7 +412,7 @@ public class PageInterfaceDocPanel {
 				Integer.valueOf(remarksValueEditText.getText().toString()));
 
 		WordtableToJavaObject wordtable = new WordtableToJavaObject();
-		List<InterfaceBean> interfaceBeans = wordtable.wordAnalyse(filePath,
+		 interfaceBeans = wordtable.wordAnalyse(filePath,
 				point);
 
 		listDate.clear();
@@ -454,21 +471,50 @@ public class PageInterfaceDocPanel {
 		
 		
 		for (InterfaceBean f : interfaceBeans) {
-			listDate.add(f.id + "" + f.title);
+			listDate.add(f.id + ":" + f.title);
 
 		}
 		listListView.setListData(listDate.toArray());
+		
 		RequestRespondParamBean requestRespond = new RequestRespondParamBean();
 		requestRespond.requestRespondParamBean(interfaceBeans);
 
-		RequestRespond rr = new RequestRespond();
-		rr.requestRespond(interfaceBeans);
+	
 		
 		
 		JOptionPane.showMessageDialog(projectFrame, "代码生成,请刷新doc目录", "",
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}
+	
+	public String  requestFunction(String id)
+	{
+		for(InterfaceBean bean:interfaceBeans )
+		{
+		  if(bean.id.equals(id))
+		  {
+		RequestRespond rr = new RequestRespond();
+		return rr.request(bean);
+		  }
+		}
+		return "";
+	}
+	
+	
+	public String  respondFunction(String id)
+	{
+		for(InterfaceBean bean:interfaceBeans )
+		{
+		  if(bean.id.equals(id))
+		  {
+		RequestRespond rr = new RequestRespond();
+		return rr.respond(bean);
+		  }
+		}
+		return "";
+	}
+	
+	
 
 	public static void main(String[] args) {
 

@@ -1,202 +1,125 @@
-
-
-
-
-package com.gdpost.cps.http;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
+import com.android_demonstrate_abstractcode.R;
+import com.compoment.network.HttpClientManager;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
-
-import com.chinapost.baselib.webservice.WebServiceUtils;
-import com.chinapost.publiclibrary.ErrorMsg;
-import com.chinapost.publiclibrary.MsgReturn;
-import com.chinapost.publiclibrary.ServiceInvoker;
-import com.chinapost.publiclibrary.WGErrorCode;
-import com.gdpost.cps.BaseActivity;
-import com.gdpost.cps.CPApplication;
-import com.gdpost.cps.R;
-import com.gdpost.cps.activitys.LoginActivity;
-import com.gdpost.cps.activitys.MainActivity;
-import com.gdpost.cps.broadcastreceiver.BroadcastReceiverUtil;
-import com.gdpost.cps.business.OperatorMsg;
-import com.gdpost.cps.business.SendMsgHead;
-import com.gdpost.cps.model.SerializableMap;
-import com.gdpost.cps.util.DataDictionaryUtil;
-import com.gdpost.cps.util.tools.AppUtils;
-import com.gdpost.cps.util.tools.CustomToast;
-import com.google.gson.Gson;
+import android.view.Window;
 
 /**
- * 电商交易类
- * 
- * @author Tzz
  * 
  */
 public class WaitActivity extends Activity {
 
-	private String TAG = WaitActivity.class.getName();
 	private Thread mThread;
-	
-
-	private String gxhTranCall;
+	String url;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// -=-=-=开启对话框-=-=-=-
-		showWaitProgressDialog("请稍候...");
-	
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.progressbar);
+
 		Bundle extras = this.getIntent().getExtras();
+		if (extras == null)
+			return;
+		url = extras.getString("url");
+		if (url == null)
+			return;
 
-		final String strFormName = extras.getString("strFormName");// 交易代号
+		// 打印log
 
-		final SerializableMap linkedMap = (SerializableMap) extras.get("map");
-
-		//http json字符串gxhTranCall
-	
-		// 不为空打印log
-		// for log
-		if (!TextUtils.isEmpty(WebServiceUtils.ENCRYPT_KEY)) {
-			showLogDebug(TAG, "发起 " + strFormName + " 交易信息-->:" + gxhTranCall);
+		if (true) {
+			Log.i("hobby", url);
 		}
-		
-		
+
+		final Intent intent = new Intent();
+		final Bundle bundle = new Bundle();
+
 		Runnable requestRunnable = new Runnable() {
 
 			@Override
 			public void run() {
 
-				// 调用底座接口发起交易请求
-				MsgReturn msgReturn = mServiceInvoker.callWebService(
-						gxhTranCall, strFormName);
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-				// 不为空打印log
-				if (!TextUtils.isEmpty(WebServiceUtils.ENCRYPT_KEY)) {
-					showLogDebug(TAG, "返回 " + strFormName
-							+ " 交易信息_errorCode-->:"
-							+ msgReturn.errorMsg.errorCode);
-					showLogDebug(TAG, "返回 " + strFormName
-							+ " 交易信息_errorDesc-->:"
-							+ msgReturn.errorMsg.errorDesc);
-					showLogDebug(TAG, "返回 " + strFormName
-							+ " 交易信息_errorType-->:"
-							+ msgReturn.errorMsg.errorType);
-					showLogDebug(TAG, "返回 " + strFormName + " 交易信息_Map-->:"
-							+ msgReturn.map);
-				}
-				bundle.putString("errorCode", msgReturn.errorMsg.errorCode);
-				bundle.putString("errorDesc", msgReturn.errorMsg.errorDesc);
-				bundle.putString("errorType", msgReturn.errorMsg.errorType);
-				// 当前app版本不可用，需要强制更新当前app版本；
-				if (msgReturn.errorMsg.errorCode
-						.equalsIgnoreCase(WGErrorCode.WG2008)) {
-					updateVersion();// 调用更新方法
-				}
-				if (!ErrorMsg.ERROR_NOT_NET
-						.equals(msgReturn.errorMsg.errorCode)
-						&& !ErrorMsg.ERROR_FORMAT
-								.equals(msgReturn.errorMsg.errorCode)
-						&& !ErrorMsg.ERROR_SERVICE
-								.equals(msgReturn.errorMsg.errorCode)
-						&& !ErrorMsg.ERROR_OTHER
-								.equals(msgReturn.errorMsg.errorCode)
-						&& !ErrorMsg.ERROR_SUCCESS
-								.equals(msgReturn.errorMsg.errorCode)) {
-					CustomToast.showToast(WaitActivity.this,
-							msgReturn.errorMsg.errorDesc);
-				}
-				Map<String, Object> maps = msgReturn.map;
-				if (maps != null && !maps.isEmpty()) {
-					String jsonStr = maps.get(ServiceInvoker.KEY_CALL)
-							.toString();
-					
+				// 发起请求
+				HttpClientManager httpClientManager = new HttpClientManager();
+				HttpClientManager.NetErrBean netErrBean = httpClientManager
+						.httpGet(url);
+				if (netErrBean != null && netErrBean.errorCode.equals("000000")) {// 有数据返回
+
+					String jsonStr = netErrBean.returnData;
+
+					if (jsonStr == null || jsonStr.equals("")) {// 返回空字符串
+						return;
+					}
+
 					try {
 						JSONObject jsonObject = new JSONObject(jsonStr);
-						// 无线网关调用是否成功
-						boolean isSuccess = jsonObject.optBoolean("success");
-						String dataJson = jsonObject.getString("data");
-						if (isSuccess) {// 网关调用成功
 
-							JSONObject dataObject = new JSONObject(dataJson);
-							JSONObject kkObject = dataObject
-									.optJSONObject("kk");
-							JSONObject returnData = kkObject
-									.optJSONObject("returnData");
-							if (returnData != null
-									&& returnData.has("RCVMSG_HEAD")) {
+						boolean isSuccess = jsonObject.optBoolean("returnCode");
+						String dataJson = jsonObject.getString("returnData");
+						if (isSuccess) {// 调用成功
 
-								JSONObject RCVMSG_HEAD = returnData
-										.optJSONObject("RCVMSG_HEAD");
-								final String HOST_RET_ERR = RCVMSG_HEAD
+							JSONObject returnData = new JSONObject(dataJson);
+
+							if (returnData != null && returnData.has("HEAD")) {
+
+								JSONObject HEAD = returnData
+										.optJSONObject("HEAD");
+								final String HOST_RET_ERR = HEAD
 										.optString("HOST_RET_ERR");
-								final String HOST_RET_MSG = RCVMSG_HEAD
+								final String HOST_RET_MSG = HEAD
 										.optString("HOST_RET_MSG");
 								if (!HOST_RET_ERR.equals("000000")) {
 
 									if (HOST_RET_ERR.contains("2001")) {
-										//token失效不做提示处理
+										// token失效不做提示处理
 									} else if (HOST_RET_ERR.contains("050008")) {
-									    //  交易代号为 4460140 并且 HOST_RET_ERR（错误响应吗）为“050008”(超时），屏蔽提示，交给具体调用的地方处理。
+										// 交易代号为 4460140 并且
+										// HOST_RET_ERR（错误响应吗）为“050008”(超时），屏蔽提示，交给具体调用的地方处理。
 									} else {
-										//1、根据后台返回的错误描述查询数据库对应的转义描述
-										List<Map<String, String>> list = DataDictionaryUtil.queryDataWithLike(WaitActivity.this, "SYSTEMERRORTIP", HOST_RET_MSG);
-										//2、如果查询结果为null,则根据"*"去查询通用的错误描述文字信息
-										if(list == null || list.isEmpty()) {
-											list = DataDictionaryUtil.queryDataWithLike(WaitActivity.this, "SYSTEMERRORTIP", "*");
-										}
-										//在此提示数据错误描述转义信息
-										CustomToast.showToast(WaitActivity.this,
-												list.get(0).get("SERVICENAME"));
+										// 1、根据后台返回的错误描述查询数据库对应的转义描述
+										// 2、如果查询结果为null,则根据"*"去查询通用的错误描述文字信息
+
+										// 在此提示数据错误描述转义信息
+
 									}
+								} else {// 报文头 0000000 表示成功获取内容
+
+									bundle.putString("result", jsonStr);
+
 								}
-								// 交易的错误代号包含2001表示token失效，回话时间超时。需重新启动app.
-								if (HOST_RET_ERR.contains("2001")) {
-									mHandler.sendEmptyMessage(100);
-								}
-							} else {
-								bundle.putString("errorCode",
-										ErrorMsg.ERROR_SERVICE);
-								bundle.putString("errorDesc", "交易报文出错.");
+
+								// mHandler.sendEmptyMessage(100);
+
+							} else {// 没有报文头
+
+								// "交易报文出错
 							}
 
-						} else {
-							if (TextUtils.isEmpty(dataJson)) {
-								dataJson = "网关调用失败";
-							}
-							final String hintText = dataJson;
+						} else {// 网关调用失败
+
 							runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									CustomToast.showToast(WaitActivity.this,
-											hintText);
+
 								}
 							});
 						}
-					} catch (JSONException e) {
+					} catch (JSONException e) {// json格式出错
 						e.printStackTrace();
 					}
+
+				} else if (netErrBean != null
+						&& !netErrBean.errorCode.equals("000000")) {// 没数据返回
+
 				}
-	
-				SerializableMap mapSerializableMap = new SerializableMap();
-				mapSerializableMap.setMap(msgReturn.map);
-				bundle.putSerializable("map", mapSerializableMap);
+
 				intent.putExtras(bundle);
-				setResult(RESULT_OK, intent);
+				setResult(0, intent);
 				finish();// 此处一定要调用finish()方法
 			}
 		};
@@ -205,195 +128,4 @@ public class WaitActivity extends Activity {
 
 	}
 
-	/**
-	 * 版本检测
-	 */
-	private void updateVersion() {
-		ServiceInvoker serviceInvoker = new ServiceInvoker(this, mHandler);
-		String serviceVersion = serviceInvoker.versionUpdates(mAppId,
-				mAppVersion);
-		boolean versionComplete = AppUtils.versionComplete(this,
-				serviceVersion, mAppVersion);
-		if (versionComplete) {
-			showLogDebug(TAG, "******发现新版本******");
-		}
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		int lockIntervalTime = appLock.getLockIntervalTime();
-		appLock.setTimeout(lockIntervalTime * 60 * 1000);
-	}
-
-	static class EBTranCall {
-
-		/**
-		 * 电商默认交易 （登录成功后使用该函数）
-		 * 
-		 * @param bodyMap
-		 *            组装的查询报文参数 交易代号
-		 * @return
-		 */
-		public static String gxhTranCall(OperatorMsg operatorMsg,
-				String formName, Map<String, Object> bodyMap) {
-
-			// 报文头拼接
-			SendMsgHead msgHead = new SendMsgHead();
-			Map<String, Object> param = new TreeMap<String, Object>();
-			Map<String, Object> headMap = new TreeMap<String, Object>();
-			headMap.put(msgHead.KEY_H_SEQ_NO, msgHead.VALUE_H_SEQ_NO);
-			headMap.put(msgHead.KEY_H_SFILE_NUM, msgHead.VALUE_H_SFILE_NUM);
-			headMap.put(msgHead.KEY_H_CHANNEL_TRACE,
-					msgHead.VALUE_H_CHANNEL_TRACE);
-			headMap.put(msgHead.KEY_H_CHANNEL_NO, msgHead.VALUE_H_CHANNEL_NO);
-			headMap.put(msgHead.KEY_H_IP_ADDR, msgHead.VALUE_H_IP_ADDR);
-			headMap.put(msgHead.KEY_H_TTY, msgHead.VALUE_H_TTY);
-			headMap.put(msgHead.KEY_H_BRCH_NO, msgHead.VALUE_H_BRCH_NO);
-			headMap.put(msgHead.KEY_H_AUTH_OPER_NO,
-					msgHead.VALUE_H_AUTH_OPER_NO);
-			headMap.put(msgHead.KEY_H_OPER_NO, msgHead.VALUE_H_OPER_NO);
-			headMap.put(msgHead.KEY_H_OPER_NO_NEW, operatorMsg.oprID);
-			headMap.put(msgHead.KEY_H_BRCH_NO_NEW, operatorMsg.organID);
-			param.put("SNDMSG_HEAD", headMap);
-			Iterator body = bodyMap.keySet().iterator();
-			while (body.hasNext()) {
-				String key = (String) body.next();
-				Object value = bodyMap.get(key);
-				param.put(key, value);
-
-			}
-			return sendMsgComp(param);
-		}
-
-		/**
-		 * Map format to transform Json format
-		 * 
-		 * @param map
-		 *            ;
-		 */
-		private static String sendMsgComp(Map<String, Object> map) {
-			Gson gson = new Gson();
-			String json = gson.toJson(map);
-			return json;
-		}
-	}
 }
-
-
-
-
-	Intent intent = new Intent(mContext, WaitActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable(OperatorMsg.class.getName(), operatorMsg);
-		bundle.putString("strFormName", String.valueOf(requestCode));
-		bundle.putSerializable("map", cpsMap);
-		intent.putExtras(bundle);
-		AppLockImpl.closeLock = true;
-		startActivityForResult(intent, requestCode);
-
-
-
-int nRefresh=-1;
-
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        //返回刷新
-		if (requestCode == n4453020) {
-			if (resultCode == nRefresh) {
-				// 重新查询一次
-				if (listData != null)
-					listData.clear();
-
-				if (adapter != null)
-					adapter.notifyDataSetChanged();
-				page = 1;
-				recodeCount = 1;
-				request4453020();
-
-			}
-			return;
-		}
-
-		if (data == null)
-			return;
-		Bundle bundle = data.getExtras();
-		String errorCode = bundle.getString("errorCode");// 错误码
-		String errorDesc = bundle.getString("errorDesc");// 错误描述
-		String errorType = bundle.getString("errorType");// 类型，暂时用不到
-		SerializableMap map = (SerializableMap) bundle.get("map");
-		/************* <成功:0000> *****************/
-		if (ErrorMsg.ERROR_SUCCESS.equals(errorCode)) {
-			// 交易成功 交易数据不一定成功
-			if (resultCode == RESULT_OK) {
-				Map<String, Object> maps = map.getMap();
-
-				String jsonStr = maps.get(ServiceInvoker.KEY_CALL).toString();
-
-				try {
-					JSONObject jsonObject = new JSONObject(jsonStr);
-
-					// 无线网关调用是否成功
-					boolean isSuccess = jsonObject.optBoolean("success");
-					if (isSuccess) {// 网关调用成功
-
-						String dataJson = jsonObject.getString("data");
-						JSONObject dataObject = new JSONObject(dataJson);
-						JSONObject kkObject = dataObject.optJSONObject("kk");
-						int returnCode = kkObject.optInt("returnCode", 1);
-						switch (returnCode) {
-						case Constants.RETURNCODE_0:// 交易调用成功
-							if (requestCode == n4453020) {
-
-								LinkedHashMap resultMap = JSONConversion
-										.getMap(kkObject
-												.getString("returnData"));
-								
-								
-							} else if (requestCode == Constants.FORMNAME_4463604) {
-
-							}
-							break;
-						case Constants.RETURNCODE_1: {
-							if (kkObject.getString("returnData").contains(
-									"起止日期")) {
-								Toast.makeText(Drawback.this, "无数据,请修改查询日期...",
-										Toast.LENGTH_SHORT).show();
-							} else {
-								Toast.makeText(Drawback.this,
-										kkObject.getString("returnData"),
-										Toast.LENGTH_SHORT).show();
-							}
-
-						}
-							break;
-
-						default:
-							break;
-						}
-					} else {// 网关调用失败
-
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-		
-			/************* <网络错误:1001> *****************/
-		} else if (ErrorMsg.ERROR_NOT_NET.equals(errorCode)) {
-			Toast.makeText(context, errorDesc, Toast.LENGTH_SHORT).show();
-			/************* <xml报文格式错误:2001> *****************/
-		} else if (ErrorMsg.ERROR_FORMAT.equals(errorCode)) {
-			Toast.makeText(context, errorDesc, Toast.LENGTH_SHORT).show();
-			/************* <服务器错误:3001> *****************/
-		} else if (ErrorMsg.ERROR_SERVICE.equals(errorCode)) {
-			Toast.makeText(context, errorDesc, Toast.LENGTH_SHORT).show();
-			/************* <其它错误错误:4001> *****************/
-		} else if (ErrorMsg.ERROR_OTHER.equals(errorCode)) {
-			Toast.makeText(context, errorDesc, Toast.LENGTH_SHORT).show();
-		}
-
-	}

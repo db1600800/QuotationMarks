@@ -32,7 +32,9 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
-
+/**
+ * 接口 请求 接收Bean
+ * */
 public class RequestRespondParamBean {
 
 	public void requestRespondParamBean(List<InterfaceBean> interfaceBeans) {

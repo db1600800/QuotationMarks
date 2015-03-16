@@ -108,7 +108,7 @@ public class RegexUtil {
 	public boolean rightBraceRegex(String input) {
 		String input1 = "}";
 
-		String regex = "([\\s\\S]*)(\\})";
+		String regex = "([\\s\\S]*)(\\})([\\s\\S]*)";
 		Pattern pattern = Pattern.compile(regex);
 
 		Matcher matcher = pattern.matcher(input);

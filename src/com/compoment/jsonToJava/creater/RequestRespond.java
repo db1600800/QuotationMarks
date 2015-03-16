@@ -28,6 +28,9 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.google.gson.Gson;
 
+/**
+ * 请求 接收 函数
+ * */
 public class RequestRespond {
 
 	public void requestRespond(List<InterfaceBean> interfaceBeans) {
@@ -41,7 +44,7 @@ public class RequestRespond {
 		}
 	}
 
-	public void request(InterfaceBean interfaceBean) {
+	public String request(InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
 		List<String> mChirldClass = new ArrayList();
 		String className="RequestParam" + interfaceBean.id ;	
@@ -111,10 +114,11 @@ public class RequestRespond {
 	
 
 		System.out.println(m);
+		return m;
 	}
 	
 	
-	public void respond(InterfaceBean interfaceBean) {
+	public String  respond(InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
 		List<String> mChirldClass = new ArrayList();
 		String className="RespondParam" + interfaceBean.id ;	
@@ -185,6 +189,7 @@ groupCount++;
 	
 
 		System.out.println(m);
+		return m;
 	}
 
 	

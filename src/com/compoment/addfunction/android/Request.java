@@ -11,10 +11,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTextField;
+
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
 import com.compoment.util.RegexUtil.ControllerBean;
+import com.compoment.workflow.PageInterfaceDocPanel;
 
 /***
  * 分页
@@ -24,14 +27,15 @@ public class Request {
 	String sourceAddress = KeyValue.readCache("compomentProjectAddress");// "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
 	String waitByModifyFileName;
-
+	PageInterfaceDocPanel pageInterfaceDocPanel;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Paging("");
 	}
 
-	public Request(String waitByModifyFileName) {
+	public Request(String waitByModifyFileName,PageInterfaceDocPanel pageInterfaceDocPanel) {
 		this.waitByModifyFileName = waitByModifyFileName;
+		this.pageInterfaceDocPanel=pageInterfaceDocPanel;
 		copyFile();
 		add();
 	}
@@ -39,9 +43,25 @@ public class Request {
 	public void copyFile() {
 
 		List<FileBean> fileBeans = new ArrayList();
+		String sourcePackage = "/com/compoment/network";
+		String destinationPackage = "/com/compoment/network";
+		
 
-		fileBeans.add(new FileBean("/res/layout", null, "listfooter", "xml"));
-
+		fileBeans.add(new FileBean("/src/com/compoment/network"  , "/src/com/compoment/network"
+				, "WaitActivity", "java"));
+		
+		fileBeans.add(new FileBean("/src" + sourcePackage, "/src"
+				+ destinationPackage, "HttpClientManager", "java"));
+		
+		fileBeans.add(new FileBean("/res/layout", null, "progressbar", "xml"));
+		fileBeans.add(new FileBean("/res/drawable", null, "progressbar_img_xml",
+				"xml"));
+		fileBeans.add(new FileBean("/res/drawable", null, "progressbar_bg",
+				"xml"));
+		fileBeans.add(new FileBean("/res/drawable", null, "progressbar_img",
+				"png"));
+		
+	
 		for (FileBean bean : fileBeans) {
 
 			File wantFile = FileUtil.findFile(new File(sourceAddress
@@ -92,26 +112,31 @@ public class Request {
 
 		RegexUtil regex = new RegexUtil();
 
-		List lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
+		List<String> lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
 
 		String className = "";
 
+		int lastIndexOfEndClass=-1;
+		// 类结尾位置
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if (line!=null && regex.rightBraceRegex(line)) {
+				lastIndexOfEndClass=i;
+			}
+		}
+		
+		
 		// 是否已注入过此功能
 		for (int i = 0; i < lines.size(); i++) {
-			String line = "";
-			if (lines.get(i) == null) {
-				line = "";
-			} else {
-				line = lines.get(i).toString();
-			}
-
-			if (line.contains("//注入分页功能")) {
+			String line = lines.get(i);
+			if (line!=null && line.contains("//注入网络功能")) {
 				return;
 			}
 		}
 
 		boolean findViewByIdFirst = true;
-
+        
+		String m="";
 		//
 		String content = "";
 		for (int i = 0; i < lines.size(); i++) {
@@ -122,102 +147,30 @@ public class Request {
 				line = lines.get(i).toString();
 			}
 
-			if (regex.constructFunctionRegex(line) != null) {
-				className = regex.constructFunctionRegex(line);
-				String m = "";
-				m += "\n//注入分页功能\n";
-				m += "private int recodeCount = 1;//发分页请求时用（起始记录号 ）\n";
-				m += "private int page = 1;//页码\n";
-				m += "private int totalPage;\n";
-				m += "private int pageSize = 5;// 每页5条数据\n";
-				m += "private View footerView;\n";
-				m += "private View load;\n";
-				m += "private View more;\n";
-				m += "private View progress;\n\n\n";
-
+			if (lastIndexOfEndClass!=-1 && lastIndexOfEndClass==i) {
+				for(Object select:pageInterfaceDocPanel.selects)
+				{
+					String id=select.toString().split(":")[0];
+					String cn=select.toString().split(":")[1];
+					
+				m+=pageInterfaceDocPanel.requestFunction(id);
+				m+=pageInterfaceDocPanel.requestFunction(id);
+				}
 				content += m;
-			} else if (findViewByIdFirst
-					&& regex.findViewByIdRegex(line) != null) {
-
-				String m = "\n//分页\n";
-				m += "footerView =inflateView(R.layout.listfooter);\n";
-				m += "more =footerView.findViewById(R.id.more);\n";
-				m += "progress =footerView.findViewById(R.id.progress);\n";
-				m += "load =footerView.findViewById(R.id.load);\n\n";
-				content += m;
-				findViewByIdFirst = false;
-			} else if (regex.functionRegex(line) != null
-					&& regex.functionRegex(line).equals("onScroll")) {
-
-				String m = "//分页\n";
-				m += "	public void countPage(int maxCounts) {\n";
-				m += "		if (maxCounts % pageSize == 0) {\n";
-				m += "			totalPage = maxCounts / pageSize;\n";
-				m += "		} else {\n";
-				m += "			totalPage = maxCounts / pageSize + 1;\n";
-				m += "		}\n";
-				m += "		\n";
-				m += "		if(page==totalPage)\n";
-				m += "		{\n";
-				m += "			footerView.setVisibility(View.GONE);\n";
-				m += "		}else\n";
-				m += "		{\n";
-				m += "			more.setVisibility(View.VISIBLE);\n";
-				m += "			progress.setVisibility(View.GONE);\n";
-				m += "			load.setVisibility(View.GONE);\n";
-				m += "			footerView.setVisibility(View.VISIBLE);\n";
-				m += "		}\n";
-				m += "	}\n\n";
-
-				content += m;
-
-			} else if (line.contains(".setOnScrollListener"))
-
-			{
-				String m = "//分页\n";
-				m += "(listData.add()之前加入  int oldSize = listData.size();)\n";
-				m += "countPage(maxCount);\n";
-				m += "listListView.setSelection(oldSize);\n";
-				content += m;
-			}
+			} 
 
 			content += line + "\n";
 
-			if (regex.functionRegex(line) != null
-					&& regex.functionRegex(line).equals("onScrollStateChanged")) {
-
-				String m = "//分页\n";
-				m += "		if (scrollState == SCROLL_STATE_IDLE) {\n";
-				m += "			if (view.getLastVisiblePosition() == (view.getCount() - 1)) {\n";
-				m += "				if ((page) < totalPage) {\n";
-				m += "					page++;\n";
-				m += "					recodeCount += pageSize;\n";
-				m += "					request4453020();\n";
-				m += "					Toast.makeText(" + className
-						+ ".this, \"数据已加载...\" + page + \" 页\",\n";
-				m += "							Toast.LENGTH_SHORT).show();\n";
-				m += "					\n";
-				m += "					more.setVisibility(view.GONE);\n";
-				m += "					progress.setVisibility(View.VISIBLE);\n";
-				m += "					load.setVisibility(View.VISIBLE);\n";
-				m += "					footerView.setVisibility(View.VISIBLE);\n";
-				m += "				} else {\n";
-
-				m += "					Toast.makeText(" + className
-						+ ".this, \"数据已加载完...\" + page + \" 页\",\n";
-				m += "							Toast.LENGTH_SHORT).show();\n";
-				m += "					\n";
-				m += "					footerView.setVisibility(View.GONE);\n";
-
-				m += "				}\n";
-				m += "			}\n";
-				m += "		}\n";
-				content += m;
-			}
+		
 
 		}
 
 		String filename = FileUtil.makeFile(waitByModifyFileName, content);
 	}
+	
+	
+	
+	
+
 
 }

@@ -19,6 +19,7 @@ import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
 import com.compoment.addfunction.android.Paging;
+import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -402,6 +403,16 @@ public class CodeFunctionAdd extends JFrame {
 		functionListListView.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
 				if (checkClickTime()) {
+					
+					
+					String codeFile=(String) codeFileListListView.getSelectedValue();
+					if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
+					{
+						
+						JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+						return;
+					}
+					
 					Function function = (Function) functionListListView
 							.getSelectedValue();
 					if (function == null)
@@ -654,10 +665,22 @@ public class CodeFunctionAdd extends JFrame {
 			jdialog.add(docsPanel);
 			jdialog.setVisible(true);
 			
-			System.out.println("dd");
+			
+			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+			Request paging = new Request(currentCodeFileFullPath,projectDocPanel);
+			editorValueEditText.setText(FileUtil
+					.fileContent(currentCodeFileFullPath));
+			
+		
 			}else if (response == 1) {
 			
-				
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
 			}
 
 		}
