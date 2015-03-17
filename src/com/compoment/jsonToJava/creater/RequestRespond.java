@@ -52,6 +52,8 @@ public class RequestRespond {
 	
 		
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m+="int n"+interfaceBean.id+"="+interfaceBean.id +";\n";
+		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "public void request"+interfaceBean.id+"(){\n";
 		
 		 m+=className+" bean"+"=new "+className+"();\n";
@@ -126,11 +128,11 @@ public class RequestRespond {
 		m+="List<"+className+"> listDate=new ArrayList();\n";
 		
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "{\n";
+		m += "if (requestCode == n"+interfaceBean.id +"){\n";
 
 		m+="Gson gson = new Gson();\n";
 	
-		m+= classNameForCache+" bean = gson.fromJson(jsonString, "+classNameForCache+".class);\n";
+		m+= classNameForCache+" bean = gson.fromJson(returnData, "+classNameForCache+".class);\n";
 		
 		List<Group> groups = interfaceBean.respondGroups;
 		

@@ -140,7 +140,7 @@ public class Paging {
 	    	   className=regex.constructFunctionRegex(line);
 		    	String m="";
 		    	m+="\n//注入分页功能\n";
-		    	m+="private int recodeCount = 1;//发分页请求时用（起始记录号 ）\n";
+		    	m+="private int recordCount = 1;//发分页请求时用（起始记录号 ）\n";
 		    	m+="private int page = 1;//页码\n";
 		    	m+="private int totalPage;\n";
 		    	m+="private int pageSize = 5;// 每页5条数据\n";
@@ -202,7 +202,7 @@ public class Paging {
 			    	m+="			if (view.getLastVisiblePosition() == (view.getCount() - 1)) {\n";
 			    	m+="				if ((page) < totalPage) {\n";
 			    	m+="					page++;\n";
-			    	m+="					recodeCount += pageSize;\n";
+			    	m+="					recordCount += pageSize;\n";
 			    	m+="					request4453020();\n";
 			    	m+="					Toast.makeText("+className+".this, \"数据已加载...\" + page + \" 页\",\n";
 			    	m+="							Toast.LENGTH_SHORT).show();\n";

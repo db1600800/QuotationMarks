@@ -18,10 +18,6 @@ import org.xml.sax.SAXException;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-
-
-
-
 public class CreateActivityView {
 
 	String xmlfile = "quota_detail.xml";// 修改就行
@@ -41,18 +37,16 @@ public class CreateActivityView {
 	}
 
 	public CreateActivityView(String filename) {
-		
-		if(filename.equals(""))
-		{
-		classDir = this.getClass().getResource("/").getPath();
-		int pos = xmlfile.indexOf(".");
-		xmlfilename = xmlfile.substring(0, pos);
-		xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
-		}else
-		{
-		
-		xmlfilename=filename;
-		xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+filename;
+
+		if (filename.equals("")) {
+			classDir = this.getClass().getResource("/").getPath();
+			int pos = xmlfile.indexOf(".");
+			xmlfilename = xmlfile.substring(0, pos);
+			xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
+		} else {
+
+			xmlfilename = filename;
+			xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + filename;
 		}
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
@@ -206,9 +200,7 @@ public class CreateActivityView {
 		m += "Context context;\n";
 		m += "public View containView;\n";
 		m += "String searchText;\n";
-		m += "LoadingProgressDialog loading ;\n";
-		// m += "	private OrderTypelistAdapter adapter;\n";
-		// m += "	private ListView list;\n";
+		// m += "LoadingProgressDialog loading ;\n";
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -250,50 +242,53 @@ public class CreateActivityView {
 		m += "  @Override\n";
 		m += "    public void onDestroy() {\n";
 		m += "        super.onDestroy();\n";
-	    //m += "        clean();\n";
+		// m += "        clean();\n";
 		m += " }\n";
 
-//		m += "	public void clean() {\n";
-//		m += "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
-//		m += "m.hideSoftInputFromWindow(containView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);\n";
-//		m += "		containView = null;\n";
-//		// m += "		containView = null;\n";
-//		for (String control : controls) {
-//			// control为Button TextView....
-//			NodeList buttonItems = root.getElementsByTagName(control);
-//			for (int i = 0; i < buttonItems.getLength(); i++) {
-//				Element personNode = (Element) buttonItems.item(i);
-//				String id = personNode.getAttribute("android:id");
-//				String text = personNode.getAttribute("android:text");
-//				String[] idToName = id.split("/");
-//				if (idToName == null || idToName.length < 2)
-//					continue;
-//
-//				m += "//" + text + "\n";
-//				if (control.equals("ListView") || control.equals("GridView")) {
-//					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
-//					m += "adapter.list.clear();\n";
-//					m += "adapter=null;\n";
-//				}
-//
-//				else if (control.equals("AutoCompleteTextView")) {
-//					m += "	Cursor cursor="
-//							+ firstCharToLowerAndJavaName(idToName[1])
-//							+ "Adapter.getCursor();\n";
-//					m += "	if(cursor!=null)\n";
-//					m += "		cursor.close();\n";
-//					CreateSearchCursorAdapter createSearchCursorAdapter = new CreateSearchCursorAdapter();
-//					createSearchCursorAdapter
-//							.create(firstCharToUpperAndJavaName(idToName[1]));
-//				} else
-//
-//				{
-//					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
-//				}
-//			}
-//		}
-//
-//		m += "}\n";
+		// m += "	public void clean() {\n";
+		// m +=
+		// "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
+		// m +=
+		// "m.hideSoftInputFromWindow(containView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);\n";
+		// m += "		containView = null;\n";
+		// // m += "		containView = null;\n";
+		// for (String control : controls) {
+		// // control为Button TextView....
+		// NodeList buttonItems = root.getElementsByTagName(control);
+		// for (int i = 0; i < buttonItems.getLength(); i++) {
+		// Element personNode = (Element) buttonItems.item(i);
+		// String id = personNode.getAttribute("android:id");
+		// String text = personNode.getAttribute("android:text");
+		// String[] idToName = id.split("/");
+		// if (idToName == null || idToName.length < 2)
+		// continue;
+		//
+		// m += "//" + text + "\n";
+		// if (control.equals("ListView") || control.equals("GridView")) {
+		// m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
+		// m += "adapter.list.clear();\n";
+		// m += "adapter=null;\n";
+		// }
+		//
+		// else if (control.equals("AutoCompleteTextView")) {
+		// m += "	Cursor cursor="
+		// + firstCharToLowerAndJavaName(idToName[1])
+		// + "Adapter.getCursor();\n";
+		// m += "	if(cursor!=null)\n";
+		// m += "		cursor.close();\n";
+		// CreateSearchCursorAdapter createSearchCursorAdapter = new
+		// CreateSearchCursorAdapter();
+		// createSearchCursorAdapter
+		// .create(firstCharToUpperAndJavaName(idToName[1]));
+		// } else
+		//
+		// {
+		// m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
+		// }
+		// }
+		// }
+		//
+		// m += "}\n";
 
 		m += "Handler handler = new Handler() {\n";
 		m += "	public void handleMessage(Message msg) {\n";
@@ -308,24 +303,18 @@ public class CreateActivityView {
 		m += "		}\n";
 		m += "	};\n";
 
-
-
 		m += "@Override\n";
 		m += "public void onCreate(Bundle savedInstanceState) {\n";
 		m += "     super.onCreate(savedInstanceState);\n";
-		m+="context = this;\n";
-		m+="View view = init();\n";
-		m+="this.setContentView(view);\n";
-		m+= " }\n";
-
-
+		m += "context = this;\n";
+		m += "View view = init();\n";
+		m += "this.setContentView(view);\n";
+		m += " }\n";
 
 		m += "public View init() {\n";
 		m += "		if (containView == null) {\n";
 		m += "			containView = inflateView(R.layout." + xmlfilename + ");\n";
 
-		// m +=
-		// "			list = (ListView) this.findViewById(R.id.listview); // 联系人ListView\n";
 		for (String control : controls) {
 			// control为Button TextView....
 			NodeList buttonItems = root.getElementsByTagName(control);
@@ -346,32 +335,35 @@ public class CreateActivityView {
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
 
-					m += "new  AsyncTask<String, Integer, Boolean>() {\n";
-					m += "	@Override\n";
-					m += "	protected void onPreExecute() {\n";
-					m += "if (loading == null) {\n";
-					m += "	loading = new LoadingProgressDialog();\n";
-					m += "}\n";
-					m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
-					m += "	}\n";
-
-					m += "	@Override\n";
-					m += "	protected Boolean doInBackground(String... params) {\n";
-
-					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
-					if (l.size() == 1) {
-						m += l.get(0).toString();
-					}
-
-					m += "	}\n";
-
-					m += "	@Override\n";
-					m += "	protected void onPostExecute(Boolean shoppingcarok) {\n";
-					m += "//if(list==null || list.size()<1) return;\n";
-					m += "	loading.cancleProgressDialog();\n";
-					m += "	}\n";
-
-					m += "}.execute(\"\");\n";
+					// m += "new  AsyncTask<String, Integer, Boolean>() {\n";
+					// m += "	@Override\n";
+					// m += "	protected void onPreExecute() {\n";
+					// m += "if (loading == null) {\n";
+					// m += "	loading = new LoadingProgressDialog();\n";
+					// m += "}\n";
+					// m +=
+					// "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
+					// m += "	}\n";
+					//
+					// m += "	@Override\n";
+					// m +=
+					// "	protected Boolean doInBackground(String... params) {\n";
+					//
+					// List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
+					// if (l.size() == 1) {
+					// m += l.get(0).toString();
+					// }
+					//
+					// m += "	}\n";
+					//
+					// m += "	@Override\n";
+					// m +=
+					// "	protected void onPostExecute(Boolean shoppingcarok) {\n";
+					// m += "//if(list==null || list.size()<1) return;\n";
+					// m += "	loading.cancleProgressDialog();\n";
+					// m += "	}\n";
+					//
+					// m += "}.execute(\"\");\n";
 
 					m += "}\n";
 					m += "					});\n";
@@ -430,6 +422,31 @@ public class CreateActivityView {
 					m += "}";
 					m += "      }\n";
 					m += "    });\n";
+				} else if (control.equals("EditText")) {
+					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
+							+ control + ") containView.findViewById(R.id."
+							+ idToName[1] + ");\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".addTextChangedListener(\n";
+					m += "new TextWatcher() {\n";
+					m += "		@Override\n";
+					m += "		public void afterTextChanged(Editable s) {\n";
+					m += "			\n";
+					m += "		}\n";
+
+					m += "		@Override\n";
+					m += "		public void beforeTextChanged(CharSequence s, int start, int count,\n";
+					m += "				int after) {\n";
+					m += "			\n";
+					m += "		}\n";
+
+					m += "		@Override\n";
+					m += "		public void onTextChanged(CharSequence s, int start, int before,\n";
+					m += "				int count) {\n";
+					m += "				\n";
+					m += "		}\n";
+					m += "}\n";
+					m += ");\n";
 				}
 
 				else {
@@ -441,114 +458,116 @@ public class CreateActivityView {
 		}
 
 		m += "		}\n";
-		m += "runAsyncTask();\n";
+		// m += "runAsyncTask();\n";
+		m += "request...();\n";
 		m += "return containView;\n";
 		m += "}\n";
 
-		m += "public void runAsyncTask()\n";
-		m += "{\n";
-		m += "	GetNetInfoTask getNetInfoTask=new GetNetInfoTask();\n";
-		m += "	getNetInfoTask.execute(\"\");\n";
-		m += "}\n";
+		// m += "public void runAsyncTask()\n";
+		// m += "{\n";
+		// m += "	GetNetInfoTask getNetInfoTask=new GetNetInfoTask();\n";
+		// m += "	getNetInfoTask.execute(\"\");\n";
+		// m += "}\n";
 
-		m += "private class GetNetInfoTask extends\n";
-		m += "			AsyncTask<String, Integer, List<" + className
-				+ "AdapterBean>> {\n";
-		m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
-		m += "		@Override\n";
-		m += "		protected void onPreExecute() {\n";
-		m += "if (loading == null) {\n";
-		m += "	loading = new LoadingProgressDialog();\n";
-		m += "}\n";
-		m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-
-					m += "adapter.setList(list);\n";
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setAdapter(adapter);// 将数据适配器与Activity进行绑定\n";
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setOnScrollListener(" + className + ".this);\n";
-
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setOnItemClickListener(new OnItemClickListener(){\n";
-					m += "		@Override\n";
-					m += "		public void onItemClick(AdapterView<?> arg0, View view,int position, long id) {\n";
-					m += "	}});\n";
-
-				}
-			}
-		}
-
-		m += "		}\n";
-
-		m += "@Override\n";
-		m += "protected List<" + className
-				+ "AdapterBean> doInBackground(String... params) {\n";
-		m += textviewXmlnameTodbnameOrjavaname();
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += listXmlnameTodbnameOrjavaname(idToName[1]);
-				}
-			}
-		}
-
-		m += "			return null;\n";
-		m += "}\n";
-
-		m += "@Override\n";
-		m += "protected void onProgressUpdate(Integer... values) {\n";
-		m += "			// 更新进度\n";
-		m += "		}\n";
-
-		m += "		@Override\n";
-		m += "	      protected void onPostExecute(List<" + className
-				+ "AdapterBean> list) {\n";
-		m += "	loading.cancleProgressDialog();\n";
-		m += "if(list==null || list.size()<1) return;\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				if(idToName==null || idToName.length<2)
-					 continue;
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += "adapter.notifyDataSetChanged();\n";
-				} else if (control.equals("TextView")) {
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(\"\");\n";
-				}
-			}
-		}
-		m += "	      }\n";
-
-		m += "		@Override\n";
-		m += "protected void onCancelled() {\n";
-		m += "			super.onCancelled();\n";
-		m += "           list.clear();\n";
-		m += "		}\n";
-		m += "}\n";
+		// m += "private class GetNetInfoTask extends\n";
+		// m += "			AsyncTask<String, Integer, List<" + className
+		// + "AdapterBean>> {\n";
+		// m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
+		// m += "		@Override\n";
+		// m += "		protected void onPreExecute() {\n";
+		// m += "if (loading == null) {\n";
+		// m += "	loading = new LoadingProgressDialog();\n";
+		// m += "}\n";
+		// m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
+		// for (String control : controls) {
+		// // control为Button TextView....
+		// NodeList buttonItems = root.getElementsByTagName(control);
+		// for (int i = 0; i < buttonItems.getLength(); i++) {
+		// Element personNode = (Element) buttonItems.item(i);
+		// String id = personNode.getAttribute("android:id");
+		// String text = personNode.getAttribute("android:text");
+		// String[] idToName = id.split("/");
+		// m += "//" + text + "\n";
+		// if (control.equals("ListView") || control.equals("GridView")) {
+		//
+		// m += "adapter.setList(list);\n";
+		// m += firstCharToLowerAndJavaName(idToName[1])
+		// + ".setAdapter(adapter);// 将数据适配器与Activity进行绑定\n";
+		// m += firstCharToLowerAndJavaName(idToName[1])
+		// + ".setOnScrollListener(" + className + ".this);\n";
+		//
+		// m += firstCharToLowerAndJavaName(idToName[1])
+		// + ".setOnItemClickListener(new OnItemClickListener(){\n";
+		// m += "		@Override\n";
+		// m +=
+		// "		public void onItemClick(AdapterView<?> arg0, View view,int position, long id) {\n";
+		// m += "	}});\n";
+		//
+		// }
+		// }
+		// }
+		//
+		// m += "		}\n";
+		//
+		// m += "@Override\n";
+		// m += "protected List<" + className
+		// + "AdapterBean> doInBackground(String... params) {\n";
+		// m += textviewXmlnameTodbnameOrjavaname();
+		// for (String control : controls) {
+		// // control为Button TextView....
+		// NodeList buttonItems = root.getElementsByTagName(control);
+		// for (int i = 0; i < buttonItems.getLength(); i++) {
+		// Element personNode = (Element) buttonItems.item(i);
+		// String id = personNode.getAttribute("android:id");
+		// String text = personNode.getAttribute("android:text");
+		// String[] idToName = id.split("/");
+		//
+		// if (control.equals("ListView") || control.equals("GridView")) {
+		// m += listXmlnameTodbnameOrjavaname(idToName[1]);
+		// }
+		// }
+		// }
+		//
+		// m += "			return null;\n";
+		// m += "}\n";
+		//
+		// m += "@Override\n";
+		// m += "protected void onProgressUpdate(Integer... values) {\n";
+		// m += "			// 更新进度\n";
+		// m += "		}\n";
+		//
+		// m += "		@Override\n";
+		// m += "	      protected void onPostExecute(List<" + className
+		// + "AdapterBean> list) {\n";
+		// m += "	loading.cancleProgressDialog();\n";
+		// m += "if(list==null || list.size()<1) return;\n";
+		// for (String control : controls) {
+		// // control为Button TextView....
+		// NodeList buttonItems = root.getElementsByTagName(control);
+		// for (int i = 0; i < buttonItems.getLength(); i++) {
+		// Element personNode = (Element) buttonItems.item(i);
+		// String id = personNode.getAttribute("android:id");
+		// String text = personNode.getAttribute("android:text");
+		// String[] idToName = id.split("/");
+		// if (idToName == null || idToName.length < 2)
+		// continue;
+		// m += "//" + text + "\n";
+		// if (control.equals("ListView") || control.equals("GridView")) {
+		// m += "adapter.notifyDataSetChanged();\n";
+		// } else if (control.equals("TextView")) {
+		// m += firstCharToLowerAndJavaName(idToName[1])
+		// + ".setText(\"\");\n";
+		// }
+		// }
+		// }
+		// m += "	      }\n";
+		//
+		// m += "		@Override\n";
+		// m += "protected void onCancelled() {\n";
+		// m += "			super.onCancelled();\n";
+		// m += "           list.clear();\n";
+		// m += "		}\n";
+		// m += "}\n";
 
 		m += "private View inflateView(int resource) {\n";
 		m += "		LayoutInflater vi = (LayoutInflater) context\n";
@@ -576,11 +595,127 @@ public class CreateActivityView {
 		m += "		});\n";
 		m += "		thread.start();\n";
 		m += "}\n";
+
+		m += "new  AsyncTask<String, Integer, Boolean>() {\n";
+		m += "	@Override\n";
+		m += "	protected void onPreExecute() {\n";
+		m += "	}\n";
+		m += "	@Override\n";
+		m += "	protected Boolean doInBackground(String... params) {\n";
+		m += "return true;\n";
+		m += "	}\n";
+		m += "	@Override\n";
+		m += "	protected void onPostExecute(Boolean isOk) {\n";
+		m += "	}\n";
+		m += "}.execute(\"\");\n";
+
+		m += "public void setView(){\n";
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "//" + text + "\n";
+				if (control.equals("TextView")) {
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setText(\"\");\n";
+				}
+			}
+		}
+		m += "}\n";
+
+		m += "/**返回本页刷新数据*/\n";
+		m += "int n0000=0;\n";
+		m += "protected void onActivityResult(int requestCode, int resultCode, Intent data) {\n";
+		m += "		if (requestCode == n0000) {\n";
+		m += "		\n";
+		m += "				// 页面刷新  重新查询一次\n";
+		m += "				if (listDate != null)\n";
+		m += "					listDate.clear();\n";
+
+		m += "				if (adapter != null)\n";
+		m += "					adapter.notifyDataSetChanged();\n";
+		m += "				//page = 1;//分页使用\n";
+		m += "				//recordCount = 1;//分页使用\n";
+		m += "				request();\n";
+
+		m += "			\n";
+		m += "			return;\n";
+		m += "		}\n";
+
+		m += "		if (data == null)\n";
+		m += "			return;\n";
+		m += "	\n";
+		m += "		Bundle bundle = data.getExtras();\n";
+		m += "		String jsonString = bundle.getString(\"jsonString\");\n";
+		m += "	\n";
+		m += "		if (jsonString!=null) {\n";
+		m += "			//有数据 且头没错\n";
+		m += "				try {\n";
+		m += "					JSONObject jsonObject = new JSONObject(jsonString);\n";
+		m += "					String returnData = jsonObject.getString(\"returnData\");\n";
+
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				m += "//" + text + "\n";
+				if (control.equals("ListView") || control.equals("GridView")) {
+
+					m += "adapter.setList(listDate);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setAdapter(adapter);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnScrollListener(Operator.this);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnItemClickListener(new OnItemClickListener() {\n";
+					m += "											@Override\n";
+					m += "											public void onItemClick(\n";
+					m += "													AdapterView<?> arg0,\n";
+					m += "													View view, int position,\n";
+					m += "													long id) {\n";
+
+					m += "												Intent intent = new Intent();\n";
+					m += "												intent.setClass(" + className
+							+ ".this,OperatorModify.class);\n";
+					m += "												Bundle bundle = new Bundle();\n";
+					m += "												bundle.putSerializable(\"operator\",((RespondParam4463604) listDate.get(position)));\n";
+					m += "												intent.putExtras(bundle);\n";
+					m += "												startActivityForResult(intent,n0000);\n";
+					m += "											}\n";
+					m += "										});\n";
+
+				}
+			}
+		}
+
+		m += "					//注入RequestRespond		\n";
+
+		m += "				} catch (JSONException e) {\n";
+		m += "					e.printStackTrace();\n";
+		m += "				}\n";
+		m += "			\n";
+
+		m += "		} else  {\n";
+		m += "			//page--;//分页使用\n";
+		m += "		} \n";
+		m += "	}\n";
+
 		m += "}\n";
 
 		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"),"java",className,"java",m);
-		//stringToFile("d:\\" + className + ".java", m);
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className,
+				"java", m);
+		// stringToFile("d:\\" + className + ".java", m);
 	}
 
 	public void stringToFile(String fileName, String str) {
@@ -734,8 +869,8 @@ public class CreateActivityView {
 					String id = personNode.getAttribute("android:id");
 					String text = personNode.getAttribute("android:text");
 					String[] idToName = id.split("/");
-                    if(idToName==null || idToName.length<2)
-                    	continue;
+					if (idToName == null || idToName.length < 2)
+						continue;
 					if (control.equals("TextView")) {
 
 						String[] ss = idToName[1].split("_");

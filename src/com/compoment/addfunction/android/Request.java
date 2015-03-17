@@ -58,7 +58,7 @@ public class Request {
 				"xml"));
 		fileBeans.add(new FileBean("/res/drawable", null, "progressbar_bg",
 				"xml"));
-		fileBeans.add(new FileBean("/res/drawable", null, "progressbar_img",
+		fileBeans.add(new FileBean("/res/drawable-hdpi", null, "progressbar_img",
 				"png"));
 		
 	
@@ -154,7 +154,7 @@ public class Request {
 					String cn=select.toString().split(":")[1];
 					
 				m+=pageInterfaceDocPanel.requestFunction(id);
-				m+=pageInterfaceDocPanel.requestFunction(id);
+			
 				}
 				content += m;
 			} 
