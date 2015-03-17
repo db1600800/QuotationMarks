@@ -116,6 +116,7 @@ public class Request {
 
 		String className = "";
 
+		/**类结尾位置*/
 		int lastIndexOfEndClass=-1;
 		// 类结尾位置
 		for (int i = 0; i < lines.size(); i++) {
@@ -129,7 +130,7 @@ public class Request {
 		// 是否已注入过此功能
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
-			if (line!=null && line.contains("//注入网络功能")) {
+			if (line!=null && line.contains("//注入网络请求,响应,等待提示")) {
 				return;
 			}
 		}
@@ -139,6 +140,7 @@ public class Request {
 		String m="";
 		//
 		String content = "";
+		content+="//注入网络请求,响应,等待提示\n";
 		for (int i = 0; i < lines.size(); i++) {
 			String line = "";
 			if (lines.get(i) == null) {
@@ -157,7 +159,18 @@ public class Request {
 			
 				}
 				content += m;
-			} 
+			}else if(line.contains("//End注入RequestRespond"))
+			{
+				for(Object select:pageInterfaceDocPanel.selects)
+				{
+					String id=select.toString().split(":")[0];
+					String cn=select.toString().split(":")[1];
+					
+				m+=pageInterfaceDocPanel.respondFunction(id);
+			
+				}
+				content += m;
+			}
 
 			content += line + "\n";
 
