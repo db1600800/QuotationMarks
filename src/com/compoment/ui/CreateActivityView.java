@@ -71,25 +71,31 @@ public class CreateActivityView {
 	}
 
 	public void create() {
-		m += "import android.app.Activity;\n";
-		m += "import android.content.Context;\n";
-		m += "import android.os.AsyncTask;\n";
-		m += "import android.os.Bundle;\n";
-		m += "import android.os.Handler;\n";
-		m += "import android.os.Message;\n";
-		m += "import android.support.v4.app.Fragment;\n";
-		m += "import android.view.LayoutInflater;\n";
-		m += "import android.view.View;\n";
-		m += "import android.view.ViewGroup;\n";
-		m += "import android.view.inputmethod.InputMethodManager;\n";
-		m += "import android.widget.AbsListView;\n";
-		m += "import android.widget.AdapterView;\n";
-		m += "import android.widget.Button;\n";
-		m += "import android.widget.ListView;\n";
-		m += "import android.widget.TextView;\n";
-		m += "import java.util.ArrayList;\n";
-		m += "import java.util.List;\n";
-		m += "import android.widget.AdapterView.OnItemClickListener;\n";
+		m+="import android.app.Activity;\n";
+		m+="import android.content.Context;\n";
+		m+="import android.content.Intent;\n";
+		m+="import android.os.AsyncTask;\n";
+		m+="import android.os.Bundle;\n";
+		m+="import android.os.Handler;\n";
+		m+="import android.os.Message;\n";
+		m+="import android.support.v4.app.Fragment;\n";
+		m+="import android.view.LayoutInflater;\n";
+		m+="import android.view.View;\n";
+		m+="import android.view.ViewGroup;\n";
+		m+="import android.view.inputmethod.InputMethodManager;\n";
+		m+="import android.widget.AbsListView;\n";
+		m+="import android.widget.AbsListView.OnScrollListener;\n";
+		m+="import android.widget.Adapter;\n";
+		m+="import android.widget.AdapterView;\n";
+		m+="import android.widget.Button;\n";
+		m+="import android.widget.ListView;\n";
+		m+="import android.widget.TextView;\n";
+		m+="import java.util.ArrayList;\n";
+		m+="import java.util.List;\n";
+
+		m+="import org.json.JSONException;\n";
+		m+="import org.json.JSONObject;\n";
+		
 		/*
 		 * private static final String[] URLS = {
 		 * "http://lh5.ggpht.com/_mrb7w4gF8Ds/TCpetKSqM1I/AAAAAAAAD2c/Qef6Gsqf12Y/s144-c/_DSC4374%20copy.jpg"
@@ -596,7 +602,7 @@ public class CreateActivityView {
 		m += "		thread.start();\n";
 		m += "}\n";
 
-		m += "new  AsyncTask<String, Integer, Boolean>() {\n";
+		m += "{new  AsyncTask<String, Integer, Boolean>() {\n";
 		m += "	@Override\n";
 		m += "	protected void onPreExecute() {\n";
 		m += "	}\n";
@@ -607,7 +613,7 @@ public class CreateActivityView {
 		m += "	@Override\n";
 		m += "	protected void onPostExecute(Boolean isOk) {\n";
 		m += "	}\n";
-		m += "}.execute(\"\");\n";
+		m += "}.execute(\"\");}\n";
 
 		m += "public void setView(){\n";
 		for (String control : controls) {
@@ -675,41 +681,41 @@ public class CreateActivityView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setAdapter(adapter);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setOnScrollListener(Operator.this);\n";
+							+ ".setOnScrollListener("+className+".this);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnItemClickListener(new OnItemClickListener() {\n";
-					m += "											@Override\n";
-					m += "											public void onItemClick(\n";
-					m += "													AdapterView<?> arg0,\n";
-					m += "													View view, int position,\n";
-					m += "													long id) {\n";
+					m += "	@Override\n";
+					m += "	public void onItemClick(\n";
+					m += "	AdapterView<?> arg0,\n";
+					m += "	View view, int position,\n";
+					m += "	long id) {\n";
 
-					m += "												Intent intent = new Intent();\n";
-					m += "												intent.setClass(" + className
+					m += "	Intent intent = new Intent();\n";
+					m += "	intent.setClass(" + className
 							+ ".this,OperatorModify.class);\n";
-					m += "												Bundle bundle = new Bundle();\n";
-					m += "												bundle.putSerializable(\"operator\",((RespondParam4463604) listDate.get(position)));\n";
-					m += "												intent.putExtras(bundle);\n";
-					m += "												startActivityForResult(intent,n0000);\n";
-					m += "											}\n";
-					m += "										});\n";
+					m += "	Bundle bundle = new Bundle();\n";
+					m += "	bundle.putSerializable(\"operator\",((RespondParam4463604) listDate.get(position)));\n";
+					m += "	intent.putExtras(bundle);\n";
+					m += "	startActivityForResult(intent,n0000);\n";
+					m += "	}\n";
+					m += "});\n";
 
 				}
 			}
 		}
 
-		m += "					//注入RequestRespond		\n";
-		m += "					//End注入RequestRespond\n";
+		m += "//注入RequestRespond		\n";
+		m += "//End注入RequestRespond\n";
 
-		m += "				} catch (JSONException e) {\n";
-		m += "					e.printStackTrace();\n";
-		m += "				}\n";
-		m += "			\n";
+		m += "} catch (JSONException e) {\n";
+		m += "e.printStackTrace();\n";
+		m += "}\n";
+		m += "\n";
 
-		m += "		} else  {\n";
-		m += "			//page--;//分页使用\n";
-		m += "		} \n";
-		m += "	}\n";
+		m += "} else  {\n";
+		m += "//page--;//分页使用\n";
+		m += "} \n";
+		m += "}\n";
 
 		m += "}\n";
 

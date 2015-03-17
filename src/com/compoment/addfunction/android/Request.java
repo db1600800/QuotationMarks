@@ -74,7 +74,7 @@ public class Request {
 			if (bean.type.equals("png") || bean.type.equals("jpg")) {
 				try {
 					FileUtil.copyFile(wantFile, new File(destinationAddress
-							+ bean.destinationPath + bean.name + "."
+							+ bean.destinationPath +"/"+ bean.name + "."
 							+ bean.type));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -137,7 +137,7 @@ public class Request {
 
 		boolean findViewByIdFirst = true;
         
-		String m="";
+		
 		//
 		String content = "";
 		content+="//注入网络请求,响应,等待提示\n";
@@ -150,6 +150,8 @@ public class Request {
 			}
 
 			if (lastIndexOfEndClass!=-1 && lastIndexOfEndClass==i) {
+				// 类结尾位置
+				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)
 				{
 					String id=select.toString().split(":")[0];
@@ -161,6 +163,7 @@ public class Request {
 				content += m;
 			}else if(line.contains("//End注入RequestRespond"))
 			{
+				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)
 				{
 					String id=select.toString().split(":")[0];
