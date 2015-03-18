@@ -588,7 +588,7 @@ public class CreateActivityView {
 		m += "}\n";
 
 		m += "	@Override\n";
-		m += "public void onScrollStateChanged(AbsListView arg0, int arg1) {\n";
+		m += "public void onScrollStateChanged(AbsListView view, int scrollState) {\n";
 		m += "		// TODO Auto-generated method stub\n";
 
 		m += "}\n";
@@ -612,6 +612,13 @@ public class CreateActivityView {
 		m += "	}\n";
 		m += "	@Override\n";
 		m += "	protected void onPostExecute(Boolean isOk) {\n";
+		m += "		Intent intent = new Intent();\n";
+		m += "		intent.setClass(" + className
+				+ ".this,OperatorModify.class);\n";
+		m += "		Bundle bundle = new Bundle();\n";
+		m += "		bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
+		m += "		intent.putExtras(bundle);\n";
+		m += "		startActivityForResult(intent,n0000);\n";
 		m += "	}\n";
 		m += "}.execute(\"\");}\n";
 
@@ -639,18 +646,15 @@ public class CreateActivityView {
 		m += "int n0000=0;\n";
 		m += "protected void onActivityResult(int requestCode, int resultCode, Intent data) {\n";
 		m += "		if (requestCode == n0000) {\n";
-		m += "		\n";
 		m += "				// 页面刷新  重新查询一次\n";
-		m += "				if (listDate != null)\n";
-		m += "					listDate.clear();\n";
+		m += "				if (listData != null)\n";
+		m += "					listData.clear();\n";
 
 		m += "				if (adapter != null)\n";
 		m += "					adapter.notifyDataSetChanged();\n";
 		m += "				//page = 1;//分页使用\n";
 		m += "				//recordCount = 1;//分页使用\n";
-		m += "				request();\n";
-
-		m += "			\n";
+		m += "				request...();\n";
 		m += "			return;\n";
 		m += "		}\n";
 
@@ -677,7 +681,7 @@ public class CreateActivityView {
 				m += "//" + text + "\n";
 				if (control.equals("ListView") || control.equals("GridView")) {
 
-					m += "adapter.setList(listDate);\n";
+					m += "adapter.setList(listData);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setAdapter(adapter);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
@@ -690,13 +694,13 @@ public class CreateActivityView {
 					m += "	View view, int position,\n";
 					m += "	long id) {\n";
 
-					m += "	Intent intent = new Intent();\n";
-					m += "	intent.setClass(" + className
+					m += "		Intent intent = new Intent();\n";
+					m += "		intent.setClass(" + className
 							+ ".this,OperatorModify.class);\n";
-					m += "	Bundle bundle = new Bundle();\n";
-					m += "	bundle.putSerializable(\"operator\",((RespondParam4463604) listDate.get(position)));\n";
-					m += "	intent.putExtras(bundle);\n";
-					m += "	startActivityForResult(intent,n0000);\n";
+					m += "		Bundle bundle = new Bundle();\n";
+					m += "		bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
+					m += "		intent.putExtras(bundle);\n";
+					m += "		startActivityForResult(intent,n0000);\n";
 					m += "	}\n";
 					m += "});\n";
 

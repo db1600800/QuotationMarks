@@ -46,6 +46,7 @@ public class CodeFunctionAdd extends JFrame {
 	ArrayList codeFileListDate = new ArrayList();
 	JList codeFileListListView;
 
+	/**编辑器*/
 	JTextArea editorValueEditText;
 	JLabel imgTextView;
 	int lineno;
@@ -683,6 +684,39 @@ public class CodeFunctionAdd extends JFrame {
 				}
 			}
 
+		}else if (function.id.equals("10")) {//网络获取图片二级缓存
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+			PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
+			JPanel docsPanel = projectDocPanel.create();
+			JDialog jdialog = new JDialog(this, "", true);
+			jdialog.setSize(800, 400);
+			jdialog.setLocationRelativeTo(null);
+			jdialog.add(docsPanel);
+			jdialog.setVisible(true);
+			
+			
+			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+			Request paging = new Request(currentCodeFileFullPath,projectDocPanel);
+			editorValueEditText.setText(FileUtil
+					.fileContent(currentCodeFileFullPath));
+			
+		
+			}else if (response == 1) {
+			
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
+			}
+
 		}
 		
 
@@ -751,11 +785,14 @@ public class CodeFunctionAdd extends JFrame {
 		dateParent.chirlds = dateChirlds;
 		dateChirlds.add(new Function("11", "开始日期选择"));
 		dateChirlds.add(new Function("12", "结束日期选择"));
-
+		
+		functionParents.add(new Function("3", "网络请求,响应,等待提示"));
+		
+		
 		functionParents.add(new Function("2", "分页(列表)"));
 
-		functionParents.add(new Function("3", "网络请求,响应,等待提示"));
-
+		functionParents.add(new Function("10", "网络获取图片二级缓存"));
+		
 		Function dialogParent = new Function("4", "对话框");
 		functionParents.add(dialogParent);
 		ArrayList<Function> dialogChirlds = new ArrayList<Function>();

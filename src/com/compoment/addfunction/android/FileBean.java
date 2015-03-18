@@ -1,10 +1,10 @@
 package com.compoment.addfunction.android;
 
 public class FileBean {
-	String name;
-	String type;
-	String sourcePath;
-	String destinationPath;
+	public String name;
+	public String type;
+	public String sourcePath;
+	public String destinationPath;
 
 	public FileBean(String sourcePath, String destinationPath, String name,
 			String type) {

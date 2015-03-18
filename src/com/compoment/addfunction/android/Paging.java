@@ -191,6 +191,13 @@ public class Paging {
 		    	m+="countPage(maxCount);\n";
 		    	m+="listListView.setSelection(oldSize);\n";
 		    	content += m;
+			}else if(line.contains("//分页使用"))
+			{
+				int p=line.indexOf("//");
+				if(p!=-1)
+				{
+					line=line.substring(p+2);
+				}
 			}
 			
 			content += line + "\n";
@@ -203,7 +210,7 @@ public class Paging {
 			    	m+="				if ((page) < totalPage) {\n";
 			    	m+="					page++;\n";
 			    	m+="					recordCount += pageSize;\n";
-			    	m+="					request4453020();\n";
+			    	m+="					request...();\n";
 			    	m+="					Toast.makeText("+className+".this, \"数据已加载...\" + page + \" 页\",\n";
 			    	m+="							Toast.LENGTH_SHORT).show();\n";
 			    	m+="					\n";

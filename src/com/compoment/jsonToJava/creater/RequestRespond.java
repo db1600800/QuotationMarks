@@ -125,7 +125,7 @@ public class RequestRespond {
 		List<String> mChirldClass = new ArrayList();
 		String className="RespondParam" + interfaceBean.id ;	
 		String classNameForCache="CacheRespondParam" + interfaceBean.id ;
-		m+="List<"+className+"> listDate=new ArrayList();\n";
+		m+="List<"+className+"> listData=new ArrayList();\n";
 		
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "if (requestCode == n"+interfaceBean.id +"){\n";

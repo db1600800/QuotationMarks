@@ -48,10 +48,11 @@ public class CompomentDialog extends JDialog {
 	JTextField enNameEdit;
 	JTextField picNameEdit;
 	JCheckBox circularCheckBox;
+	JCheckBox imgCacheCheckBox;
 	String compomentType;
 	ArrayList listDate =null;
 	/**
-	 * 填写截取图片的更多属性（中文名，英文名，色值，控件类型，是否有圆角），生成控件对象
+	 * 填写截取图片的更多属性（中文名，英文名，色值，控件类型，是否有圆角，是否图片二级缓存），生成控件对象
 	 * */
 	public CompomentDialog(final CompomentDialogCallBack implementInterfaceFrame,JFrame frame, final Image image, final int x, final int y,
 			final int w, final int h,ArrayList listDate) {
@@ -99,6 +100,11 @@ public class CompomentDialog extends JDialog {
                 if(bean.type.equals("ImageView"))
                 {
                 	savePic(image,bean.picName);
+                	if(imgCacheCheckBox.isSelected())
+                	{
+                		bean.isImgCache=true;	
+                	}
+                	
                 }
                 circula(bean);
                 implementInterfaceFrame.compomentDialogCallBack(bean);
@@ -241,7 +247,7 @@ public class CompomentDialog extends JDialog {
 		textSizeEdit = new JTextField();
 		textSizeEdit.setText("16");
 		circularCheckBox=new JCheckBox("是否圆角", false);
-
+		imgCacheCheckBox=new JCheckBox("是否图片二级缓存", false);
 
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.add(cnNameEdit);
@@ -254,6 +260,8 @@ public class CompomentDialog extends JDialog {
 		buttonpanel.add(picNameEdit);
 		buttonpanel.add(textSizeEdit);
 		buttonpanel.add(circularCheckBox);
+		buttonpanel.add(imgCacheCheckBox);
+		
 		
 		add(buttonpanel, BorderLayout.SOUTH);
 

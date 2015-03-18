@@ -109,7 +109,7 @@ public class PageCreatePanel {
 					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName+"_item",frame.beans);
 					
 					
-					com.compoment.ui.CreaterAdapter createrAdapter=new CreaterAdapter(frame.pageName+"_item");
+					com.compoment.ui.CreaterAdapter createrAdapter=new CreaterAdapter(frame.pageName+"_item",frame.beans);
 					createrAdapter.create();
 				}else if(frame.pageType.contains("Fragment-Android"))
 				{

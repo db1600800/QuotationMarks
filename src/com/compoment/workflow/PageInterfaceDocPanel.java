@@ -235,9 +235,9 @@ public class PageInterfaceDocPanel {
 				.createParallelGroup();
 		/** toJava */
 		JButton tojavaButton = new JButton("接口代码生成");
-		JButton  netButton= new JButton("页面网络代码生成");
+	
 		bg1421554220555LinearLayout.addComponent(tojavaButton);
-		bg1421554220555LinearLayout.addComponent(netButton);
+	
 		tojavaButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -372,7 +372,7 @@ public class PageInterfaceDocPanel {
 				.createSequentialGroup();
 		/** toJava */
 		bg1421554323910.addComponent(tojavaButton);
-		bg1421554323910.addComponent(netButton);
+	
 		bg1421554327272.addGroup(bg1421554323910);
 
 		layout.setHorizontalGroup(bg1421554327272);
