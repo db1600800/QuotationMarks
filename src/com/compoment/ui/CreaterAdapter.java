@@ -115,7 +115,7 @@ public class CreaterAdapter {
 		m += "	private Context mContext;\n";
 
 		if (isImgCache) {
-			m += "\\图片二级缓存\n";
+			m += "//图片二级缓存\n";
 			m += "	/** 列表是否滑动中，如果是滑动状态则仅从内存中获取图片，否则开启线程去外存或网络获取图片。 */\n";
 			m += "	private boolean isScrolling = false;\n";
 			m += "	public void setFlagIsScrolling(boolean isScrolling) {\n";
@@ -123,7 +123,7 @@ public class CreaterAdapter {
 			m += "	}\n";
 			m += "	public ImageLoader mImageLoader;\n";
 			m += "	int defaultImg = R.drawable.ic_launcher;\n";
-			m += "\\End图片二级缓存\n";
+			m += "//End图片二级缓存\n";
 		}
 
 		m += "	public " + className + "Adapter(Context context) {\n";
@@ -349,6 +349,9 @@ public class CreaterAdapter {
 		System.out.println(m);
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className
 				+ "Adapter", "java", m);
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
+				"java", m);
 		// stringToFile("d:\\" + className + "Adapter.java", m);
 	}
 

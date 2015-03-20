@@ -413,6 +413,7 @@ public class CompomentDialog extends JDialog {
 
 			// 将BufferedImage变量写入文件中。
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("picPath")+"/drawable/"+picName+".png"));
+			ImageIO.write(bi, "png", new File(KeyValue.readCache("projectPath")+"/res/drawable-hdpi/"+picName+".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -296,18 +296,7 @@ public class CreateActivityView {
 		//
 		// m += "}\n";
 
-		m += "Handler handler = new Handler() {\n";
-		m += "	public void handleMessage(Message msg) {\n";
-		m += "		switch (msg.what) {\n";
-		m += "			// case SHOW_LOCKER:\n";
-		m += "			// break;\n";
-		m += "			default:\n";
-		m += "				super.handleMessage(msg);\n";
-
-		m += "			}\n";
-
-		m += "		}\n";
-		m += "	};\n";
+	
 
 		m += "@Override\n";
 		m += "public void onCreate(Bundle savedInstanceState) {\n";
@@ -575,11 +564,7 @@ public class CreateActivityView {
 		// m += "		}\n";
 		// m += "}\n";
 
-		m += "private View inflateView(int resource) {\n";
-		m += "		LayoutInflater vi = (LayoutInflater) context\n";
-		m += "				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);\n";
-		m += "		return vi.inflate(resource, null);\n";
-		m += "}\n";
+	
 
 		m += "	@Override\n";
 		m += "public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {\n";
@@ -593,16 +578,37 @@ public class CreateActivityView {
 
 		m += "}\n";
 
-		m += "public void tread() {\n";
+	
+		m += "private View inflateView(int resource) {\n";
+		m += "		LayoutInflater vi = (LayoutInflater) context\n";
+		m += "				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);\n";
+		m += "		return vi.inflate(resource, null);\n";
+		m += "}\n";
+		
+		m += "{\n";
+		
 		m += "		Thread thread = new Thread(new Runnable() {\n";
 		m += "			public void run() {\n";
 
 		m += "			}\n";
 		m += "		});\n";
-		m += "		thread.start();\n";
-		m += "}\n";
+		m += "		thread.start();\n\n";
+		
+		
+		m += "Handler handler = new Handler() {\n";
+		m += "	public void handleMessage(Message msg) {\n";
+		m += "		switch (msg.what) {\n";
+		m += "			// case SHOW_LOCKER:\n";
+		m += "			// break;\n";
+		m += "			default:\n";
+		m += "				super.handleMessage(msg);\n";
 
-		m += "{new  AsyncTask<String, Integer, Boolean>() {\n";
+		m += "			}\n";
+
+		m += "		}\n";
+		m += "	};\n\n";
+		
+		m += " new  AsyncTask<String, Integer, Boolean>() {\n";
 		m += "	@Override\n";
 		m += "	protected void onPreExecute() {\n";
 		m += "	}\n";
@@ -612,13 +618,13 @@ public class CreateActivityView {
 		m += "	}\n";
 		m += "	@Override\n";
 		m += "	protected void onPostExecute(Boolean isOk) {\n";
-		m += "		Intent intent = new Intent();\n";
-		m += "		intent.setClass(" + className
+		m += "		//Intent intent = new Intent();\n";
+		m += "		//intent.setClass(" + className
 				+ ".this,OperatorModify.class);\n";
-		m += "		Bundle bundle = new Bundle();\n";
-		m += "		bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
-		m += "		intent.putExtras(bundle);\n";
-		m += "		startActivityForResult(intent,n0000);\n";
+		m += "		//Bundle bundle = new Bundle();\n";
+		m += "		//bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
+		m += "		//intent.putExtras(bundle);\n";
+		m += "		//startActivityForResult(intent,n0000);\n";
 		m += "	}\n";
 		m += "}.execute(\"\");}\n";
 
@@ -725,6 +731,8 @@ public class CreateActivityView {
 
 		System.out.println(m);
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className,
+				"java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className,
 				"java", m);
 		// stringToFile("d:\\" + className + ".java", m);
 	}
