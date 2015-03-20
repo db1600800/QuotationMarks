@@ -1,8 +1,1 @@
-	private boolean isScrolling = false;
-				private ImageLoader mImageLoader;
-				public void setFlagIsScrolling(boolean isScrolling) {
-					this.isScrolling = isScrolling;
-				}
-				public ImageLoader getImageLoader() {
-					return mImageLoader;
-				}
+ <View android:layout_width="fill_parent" android:layout_height="1dip" android:background="#c4d5ce" />

@@ -460,7 +460,11 @@ public class AndroidLayoutXml {
 					+ bean.relative + ">\n";
 			m += "</ExpandableListView>\n";
 		}
+		
+		if (bean.type.equals("View")) {
+			m+=" <View android:layout_width=\"fill_parent\" android:layout_height=\"1dip\" android:background=\""+bean.bgRgb16+"\" />\n";
 
+		}
 		// }
 
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {

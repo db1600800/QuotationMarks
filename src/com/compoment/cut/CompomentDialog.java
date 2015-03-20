@@ -291,7 +291,98 @@ public class CompomentDialog extends JDialog {
 					enNameEdit.setText("bg"+id);
 					
 					bgColorEdit.setText(colorEdit.getText());
+					
+					
+				     colorEdit.setText("边框颜色");
+					 colorEdit.setVisible(true);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(true);
+					 textSizeEdit.setVisible(false);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(false);
+					 circularCheckBox.setVisible(true);
+				     imgCacheCheckBox.setVisible(false);
+				    
+				}else if(compomentType.contains("ImageView"))
+				{
+				     colorEdit.setText("颜色");
+					 colorEdit.setVisible(false);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(false);
+					 textSizeEdit.setVisible(false);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(true);
+					 circularCheckBox.setVisible(false);
+				     imgCacheCheckBox.setVisible(true);
 				}
+				else if(compomentType.contains("ListView"))
+				{
+				     colorEdit.setText("行间距颜色");
+					 colorEdit.setVisible(true);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(false);
+					 textSizeEdit.setVisible(false);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(false);
+					 circularCheckBox.setVisible(false);
+				     imgCacheCheckBox.setVisible(false);
+				}else if(compomentType.contains("Button")||compomentType.contains("EditText"))
+				{
+				     colorEdit.setText("文字颜色");
+					 colorEdit.setVisible(true);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(true);
+					 textSizeEdit.setVisible(true);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(false);
+					 circularCheckBox.setVisible(false);
+				     imgCacheCheckBox.setVisible(false);
+				}
+				else if(compomentType.contains("CheckBox")||compomentType.contains("TextView"))
+				{
+				     colorEdit.setText("文字颜色");
+					 colorEdit.setVisible(true);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(false);
+					 textSizeEdit.setVisible(true);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(false);
+					 circularCheckBox.setVisible(false);
+				     imgCacheCheckBox.setVisible(false);
+				}
+				else if(compomentType.equals("View"))
+				{
+				     colorEdit.setText("文字颜色");
+					 colorEdit.setVisible(false);
+					 bgColorEdit.setText("背景颜色");
+					 bgColorEdit.setVisible(true);
+					 textSizeEdit.setVisible(false);
+					 cnNameEdit.setVisible(true);
+					 enNameEdit.setVisible(true);
+					 picNameEdit.setVisible(false);
+					 circularCheckBox.setVisible(false);
+				     imgCacheCheckBox.setVisible(false);
+				}
+				else
+				{
+					  colorEdit.setText("颜色");
+						 colorEdit.setVisible(true);
+						 bgColorEdit.setText("背景颜色");
+						 bgColorEdit.setVisible(true);
+						 textSizeEdit.setVisible(true);
+						 cnNameEdit.setVisible(true);
+						 enNameEdit.setVisible(true);
+						 picNameEdit.setVisible(true);
+						 circularCheckBox.setVisible(false);
+					     imgCacheCheckBox.setVisible(false);
+				}
+				
+				 CompomentDialog.this.setVisible(true);
 
 			}
 
@@ -337,14 +428,14 @@ public class CompomentDialog extends JDialog {
 		{
 			if(bean.bgRgb16.equals(bean.rgb16))
 			{
-				//填充
+				//填充 没描边
 				m+="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"; 
 				m+="<shape xmlns:android=\"http://schemas.android.com/apk/res/android\">\n";    
 				m+=" <solid android:color=\""+bean.bgRgb16+"\" /> \n";   
 				m+=" <corners android:radius=\"10dp\" />\n";   
 				m+="</shape>\n";    
 			}else
-			{   //描边
+			{   // 填充 描边 
 				m+="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"; 
 				m+="<shape xmlns:android=\"http://schemas.android.com/apk/res/android\">\n";   
 				m+=" <solid android:color=\""+bean.bgRgb16+"\" /> \n";   
