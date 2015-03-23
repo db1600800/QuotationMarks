@@ -56,8 +56,16 @@ public class ColorPanel extends JPanel {
 				int rgb[]=getrgb(x1,y1);
 				String rgb16=getColorInHexFromRGB(rgb[0],rgb[1],rgb[2]);
 
-			
-				dialog.setRgb(rgb16);
+				 if (e.isMetaDown()) {//检查是否是鼠标右键单击
+
+					 dialog.setBgRgb(rgb16);
+
+               } else {//如果是左键单击，则设置lbl的文本为“1”
+
+            	   dialog.setRgb(rgb16);
+
+               }
+				
 				}else
 				{
 					JOptionPane.showMessageDialog(frame,

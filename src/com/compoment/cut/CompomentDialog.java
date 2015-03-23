@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -173,77 +175,49 @@ public class CompomentDialog extends JDialog {
 			}});
 		cnNameEdit = new JTextField();
 		cnNameEdit.setText("中文名");
-		
-		cnNameEdit.addMouseListener(new MouseListener(){
+		cnNameEdit.addFocusListener(new FocusAdapter() {
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				if(cnNameEdit.getText().equals("中文名"))
+            @Override
+            public void focusGained(final FocusEvent arg0) {
+            	if(cnNameEdit.getText().equals("中文名"))
 				{
-					cnNameEdit.setText("");
+            		cnNameEdit.setText("");
 				}
-			}
+            }
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}});
+            @Override
+            public void focusLost(FocusEvent e) {
+            	if(cnNameEdit.getText().equals(""))
+				{
+            		cnNameEdit.setText("中文名");
+				}
+            }
+        });
+		
 		enNameEdit = new JTextField();
 		enNameEdit.setText("英文名");
-		enNameEdit.addMouseListener(new MouseListener(){
+		enNameEdit.addFocusListener(new FocusAdapter() {
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				if(enNameEdit.getText().equals("英文名"))
-				{
-					enNameEdit.setText("");
-				}
-			}
+	            @Override
+	            public void focusGained(final FocusEvent arg0) {
+	            	if(enNameEdit.getText().equals("英文名"))
+					{
+						enNameEdit.setText("");
+					}
+	            }
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+	            @Override
+	            public void focusLost(FocusEvent e) {
+	            	if(enNameEdit.getText().equals(""))
+					{
+						enNameEdit.setText("英文名");
+					}
+	            }
+	        });
 
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}});
+		
+		
+		
 		textSizeEdit = new JTextField();
 		textSizeEdit.setText("16");
 		circularCheckBox=new JCheckBox("是否圆角", false);
@@ -397,6 +371,9 @@ public class CompomentDialog extends JDialog {
 
 	public void setRgb(String rgb16) {
 		colorEdit.setText(rgb16);
+	}
+	public void setBgRgb(String bgrgb16) {
+		bgColorEdit.setText(bgrgb16);
 	}
 
 	public void savePic(Image iamge,String picName) {
