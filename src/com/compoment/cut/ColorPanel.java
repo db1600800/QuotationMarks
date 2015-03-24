@@ -2,6 +2,7 @@ package com.compoment.cut;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -38,6 +39,7 @@ public class ColorPanel extends JPanel {
 	int x1, y1, x2, y2;
 
 	JFrame frame;
+	private static Dimension theSize;
 
 	/**
 	 * 获得截取图片的色值
@@ -45,6 +47,10 @@ public class ColorPanel extends JPanel {
 	public ColorPanel(JFrame mframe, Image img, final CompomentDialog dialog) {
 		super();
 		this.frame = mframe;
+		int width = img.getWidth(mframe);
+		int height = img.getHeight(mframe);
+		theSize = new Dimension(width, height);
+
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				x1 = e.getX();
@@ -230,7 +236,8 @@ public class ColorPanel extends JPanel {
 		int width = originalImage.getWidth() * times;
 
 		int height = originalImage.getHeight() * times;
-
+		theSize = new Dimension(width, height);
+		
 		BufferedImage newImage = new BufferedImage(width, height,
 				originalImage.getType());
 
@@ -242,6 +249,10 @@ public class ColorPanel extends JPanel {
 
 		return newImage;
 
+	}
+
+	public Dimension getPreferredSize() {
+		return this.theSize;
 	}
 
 }

@@ -225,8 +225,7 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		
 		CompomentDialog dialog;
 		dialog = new CompomentDialog(this,this, image, x, y, w, h,components);
-		dialog.setLocation(300, 300);
-		dialog.setVisible(true);//
+		
 	}
 	
 	
