@@ -22,6 +22,7 @@ public class CompomentBean  implements Serializable{
 	public  String enname;
 	public  String textSize;
 	public boolean isImgCache=false;
+	public boolean isPublicCompoment=false;
 	
 	/**
 	 * 控件类型 Button  List  TextView  LinearLayout 

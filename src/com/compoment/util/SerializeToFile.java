@@ -57,6 +57,21 @@ public class SerializeToFile {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void serializeToXml(List<CompomentBean> myPersons,String path) {
+
+	
+		try {
+			XStream xStream = new XStream();
+			xStream.alias("CompomentBean", CompomentBean.class);
+
+			FileOutputStream foStream = new FileOutputStream(path);
+			xStream.toXML(myPersons, foStream);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public List<CompomentBean> deSerializeFromXml() {
 		String courseFile = null;

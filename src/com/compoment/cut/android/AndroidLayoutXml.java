@@ -15,6 +15,7 @@ import com.compoment.cut.CompomentBean;
 
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.SerializeToFile;
 
 public class AndroidLayoutXml {
 
@@ -315,6 +316,9 @@ public class AndroidLayoutXml {
 		FileUtil.makeFile(KeyValue.readCache("projectPath")+"/res", "layout", filename,
 				"xml", m);
 		System.out.println(m);
+		
+		//保存公共组件
+		setPublicCompoment(beans);
 		return xmlFileName;
 	}
 
@@ -481,6 +485,35 @@ public class AndroidLayoutXml {
 			m += "</" + bean.type + ">\n";
 		}
 		// }
+	}
+	
+	
+	public void setPublicCompoment(List<CompomentBean>  beans)
+	{
+		SerializeToFile serializeToFile=new SerializeToFile();
+		List<CompomentBean> temps=new ArrayList();
+		String fileName="";
+		for(CompomentBean bean:beans)
+		{
+			if(bean.isPublicCompoment)
+			{temps.add(bean);
+			fileName=bean.enname;
+				if(bean.chirlds!=null&& bean.chirlds.size()>0)
+				{
+					for(CompomentBean b:bean.chirlds)
+					{
+						if(b.isPublicCompoment)
+						{temps.add(b);
+						
+						}
+					}
+				}
+			}
+		}
+		
+		String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
+				"publiccompoment", fileName, "xml", "");
+		serializeToFile.serializeToXml(temps,xmlFileName);
 	}
 
 	Comparator<CompomentBean> comparatorX = new Comparator<CompomentBean>() {

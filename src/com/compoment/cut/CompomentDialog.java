@@ -67,6 +67,7 @@ public class CompomentDialog {
 	JTextField picNameEdit;
 	JCheckBox circularCheckBox;
 	JCheckBox imgCacheCheckBox;
+	JCheckBox setPublicCheckBox;
 	String compomentType;
 	ArrayList listDate = null;
 
@@ -82,7 +83,7 @@ public class CompomentDialog {
 			final int w, final int h, ArrayList listDate) {
 		this.frame = frame;
 		jdialog = new JDialog(frame, "组件设置", true);
-		jdialog.setSize(800, 600);
+		jdialog.setSize(1000, 600);
 		JPanel panel = create(implementInterfaceFrame, frame, image, x, y, w,
 				h, listDate);
 		jdialog.add(panel);
@@ -300,6 +301,11 @@ public class CompomentDialog {
 					}
 
 				}
+				if(setPublicCheckBox.isSelected())
+				{   
+					savePic(image, bean.enname);
+					bean.isPublicCompoment=true;
+				}
 				circula(bean);
 				implementInterfaceFrame.compomentDialogCallBack(bean);
 				jdialog.setVisible(false);
@@ -407,6 +413,7 @@ public class CompomentDialog {
 		textSizeEdit.setText("16");
 		circularCheckBox = new JCheckBox("是否圆角", false);
 		imgCacheCheckBox = new JCheckBox("是否图片二级缓存", false);
+		setPublicCheckBox = new JCheckBox("设为公共组件", false);
 
 		JPanel buttonpanel = buttonPanel;
 		buttonpanel.add(cnNameEdit);
@@ -420,7 +427,8 @@ public class CompomentDialog {
 		buttonpanel.add(textSizeEdit);
 		buttonpanel.add(circularCheckBox);
 		buttonpanel.add(imgCacheCheckBox);
-
+		buttonpanel.add(setPublicCheckBox);
+		
 		final JList list = baseListListView;
 
 		list.setListData(this.listDate.toArray());
@@ -452,7 +460,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(true);
 					imgCacheCheckBox.setVisible(false);
-
+					setPublicCheckBox.setVisible(true);
 				} else if (compomentType.contains("ImageView")) {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(false);
@@ -464,6 +472,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(true);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(true);
+					setPublicCheckBox.setVisible(false);
 				} else if (compomentType.contains("ListView")) {
 					colorEdit.setText("行间距颜色");
 					colorEdit.setVisible(true);
@@ -475,6 +484,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
 				} else if (compomentType.contains("Button")
 						|| compomentType.contains("EditText")) {
 					colorEdit.setText("文字颜色");
@@ -487,6 +497,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
 				} else if (compomentType.contains("CheckBox")
 						|| compomentType.contains("TextView")) {
 					colorEdit.setText("文字颜色");
@@ -499,6 +510,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
 				} else if (compomentType.equals("View")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(false);
@@ -510,6 +522,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
 				} else {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(true);
@@ -521,6 +534,7 @@ public class CompomentDialog {
 					picNameEdit.setVisible(true);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
 				}
 
 				jdialog.setVisible(true);
@@ -554,6 +568,7 @@ public class CompomentDialog {
 			// 将BufferedImage变量写入文件中。
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("picPath")
 					+ "/drawable/" + picName + ".png"));
+			if(!setPublicCheckBox.isSelected())
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("projectPath")
 					+ "/res/drawable-hdpi/" + picName + ".png"));
 		} catch (IOException e) {
