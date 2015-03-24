@@ -36,6 +36,12 @@ public class SwingLayout {
 
 		m += " public class Frame extends JFrame\n";
 		m += " {\n\n";
+		
+		for(CompomentBean bean:oldBeans)
+		{
+			m+="public "+typeChange(bean.type)+" "+bean.enname+"\n;";
+		}
+		
 		m += " public Frame()\n";
 		m += " {\n\n";
 		m += "super(\"\");\n";
@@ -96,6 +102,16 @@ public class SwingLayout {
 		m="\n";
 		m += " public class Panel \n";
 		m += " {\n\n";
+		
+		for(CompomentBean bean:oldBeans)
+		{
+			if(!typeChange(bean.type).equals(""))
+			{
+				m+="/** "+bean.cnname+"*/\n";
+			m+="public "+typeChange(bean.type)+" "+bean.enname+";\n";
+			}
+		}
+		
 		m+="public JPanel create() {\n";
 
 		m+="	JPanel panel = new JPanel();\n";
@@ -186,14 +202,14 @@ public class SwingLayout {
 
 		if (chirld.type.equals("TextView")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JLabel " + chirld.enname + " = new JLabel(\"" + chirld.cnname
+			m += " " + chirld.enname + " = new JLabel(\"" + chirld.cnname
 					+ "\");\n";
 			m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
 		}
 
 		if (chirld.type.equals("Button")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JButton " + chirld.enname + " = new JButton(\""
+			m += " " + chirld.enname + " = new JButton(\""
 					+ chirld.cnname + "\");\n";
 			
 			m+=chirld.enname +".addActionListener(new ActionListener() {\n";
@@ -206,7 +222,7 @@ public class SwingLayout {
 
 		if (chirld.type.equals("EditText")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JTextField " + chirld.enname + " = new JTextField(\""
+			m += " " + chirld.enname + " = new JTextField(\""
 					+ chirld.cnname + "\");\n";
 			m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
 
@@ -226,7 +242,7 @@ public class SwingLayout {
 
 		if (chirld.type.equals("CheckBox")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JCheckBox " + chirld.enname + " = new JCheckBox(\""
+			m += " " + chirld.enname + " = new JCheckBox(\""
 					+ chirld.cnname + "\");\n";
 			m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
 
@@ -234,7 +250,7 @@ public class SwingLayout {
 
 		if (chirld.type.equals("ListView")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JList " + chirld.enname + " = new JList();\n";
+			m += " " + chirld.enname + " = new JList();\n";
 			m+=" JScrollPane "+chirld.enname +"ScrollPane = new JScrollPane("+chirld.enname +"); \n";
 				
 			m += " ArrayList listDate = new ArrayList();\n";
@@ -260,7 +276,7 @@ public class SwingLayout {
 
 		if (chirld.type.equals("JPanel")) {
 			m += "/**" + chirld.cnname + "*/\n";
-			m += "JPanel " + chirld.enname + " = new JPanel();\n";
+			m += " " + chirld.enname + " = new JPanel();\n";
 			m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
 		}
 
@@ -489,6 +505,42 @@ public class SwingLayout {
 
 		}
 	}
+	
+	
+	
+	
+	public String typeChange(String type) {
+
+		if (type.equals("TextView")) {
+			
+			return "JLabel";
+		}
+
+		if (type.equals("Button")) {
+			
+			return  "JButton";
+		}
+
+		if (type.equals("EditText")) {
+			return "JTextField";
+		}
+
+		if (type.equals("CheckBox")) {
+			
+			return  "JCheckBox" ;
+		}
+
+		if (type.equals("ListView")) {
+			
+			return "JList" ;
+		}
+
+		if (type.equals("JPanel")) {
+			return "JPanel" ;
+		}
+		return "";
+	}
+
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {

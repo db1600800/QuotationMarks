@@ -26,6 +26,7 @@ import com.compoment.cut.swing.SwingLayout;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.util.KeyValue;
+import com.compoment.util.SerializeToFile;
 
 public class PageCreatePanel {
 	
@@ -47,7 +48,7 @@ public class PageCreatePanel {
 		/**resetButton createButton */
 		GroupLayout.SequentialGroup bg1420980499385LinearLayout = layout.createSequentialGroup();
 		/**重置*/
-		JButton resetButton = new JButton("重置");
+		JButton resetButton = new JButton("用缓存重新生成");
 		bg1420980499385LinearLayout.addComponent(resetButton);
 
 		/**生成代码*/
@@ -73,123 +74,9 @@ public class PageCreatePanel {
 		
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-
-				//拷贝保留原始位置数据
-				try {
-					frame.beansForSwing = copyBySerialize(frame.beans);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-		
-
-			
-				if(frame.pageType==null)
-				{
-					JOptionPane.showMessageDialog(frame,
-							"请选择页面类型", "", JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}else if(frame.pageType.contains("Activity-Android"))
-				{
-					//android页面分析生成
-					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
-					
-					CreateActivityView createView = new CreateActivityView(frame.pageName);
-					createView.create();
-				}else if(frame.pageType.contains("Item-Android"))
-				{
-					
-					//android页面分析生成
-					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName+"_item",frame.beans);
-					
-					
-					com.compoment.ui.CreaterAdapter createrAdapter=new CreaterAdapter(frame.pageName+"_item",frame.beans);
-					createrAdapter.create();
-				}else if(frame.pageType.contains("Fragment-Android"))
-				{
-					
-				}else if(frame.pageType.contains("Layout-Android"))
-				{
-					
-				}else if(frame.pageType.contains("JFrame-Swing"))
-				{
-					//android页面分析生成
-					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
-					
-				
-					
-					
-					//Swing页面水平方向 再次取得分组信息
-					JPanel swingPanel = new CutCompomentsTypeImg(frame,
-							frame.beansForSwing);
-					JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
-					jdialog.setSize(800, 800);
-					jdialog.add(swingPanel);
-					jdialog.setLocation(10, 10);
-					jdialog.setVisible(true);
-					
-					SwingLayout swingLayout = new SwingLayout();
-					swingLayout.createJFrame(frame.beans,frame.beansForSwing);
-					
-				}else if(frame.pageType.contains("JDialog-Swing"))
-				{
-					
-					//android页面分析生成
-					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
-					
-				
-					
-					
-					//Swing页面水平方向 再次取得分组信息
-					JPanel swingPanel = new CutCompomentsTypeImg(frame,
-							frame.beansForSwing);
-					JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
-					jdialog.setSize(800, 800);
-					jdialog.add(swingPanel);
-					jdialog.setLocation(10, 10);
-					jdialog.setVisible(true);
-					
-					SwingLayout swingLayout = new SwingLayout();
-					swingLayout.createJDialog(frame.beans,frame.beansForSwing);
-					
-				}else if(frame.pageType.contains("JPanel-Swing"))
-				{
-					//android页面分析生成
-					AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-					String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
-					
-				
-					
-					
-					//Swing页面水平方向 再次取得分组信息
-					JPanel swingPanel = new CutCompomentsTypeImg(frame,
-							frame.beansForSwing);
-					JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
-					jdialog.setSize(800, 800);
-					jdialog.add(swingPanel);
-					jdialog.setLocation(10, 10);
-					jdialog.setVisible(true);
-					
-					SwingLayout swingLayout = new SwingLayout();
-					swingLayout.createJPanel(frame.beans,frame.beansForSwing);
-				}
-				
-				frame.beans.clear();
-				frame.beansForSwing.clear();
-				
-				JOptionPane.showMessageDialog(frame,
-						"刷新Eclipse目录或到"+KeyValue.readCache("picPath")+"查看生成的文件", "", JOptionPane.INFORMATION_MESSAGE);
-			
-				new CodeFunctionAdd();
-				
+				SerializeToFile serializeToFile = new SerializeToFile();
+				serializeToFile.serializeToXml(frame.beans);
+				createPageCode();
 			}
 
 		});
@@ -198,9 +85,12 @@ public class PageCreatePanel {
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				frame.beans.clear();
+				if(frame.beansForSwing!=null)
 				frame.beansForSwing.clear();
-				System.out.println(frame.beans.size());
-			
+				
+				SerializeToFile serializeToFile = new SerializeToFile();
+				frame.beans=serializeToFile.deSerializeFromXml();
+				createPageCode();
 			}
 
 		});
@@ -236,6 +126,126 @@ public class PageCreatePanel {
 				}
 			}
 
+		}
+		
+		
+		public void createPageCode()
+		{
+			//拷贝保留原始位置数据
+			try {
+				frame.beansForSwing = copyBySerialize(frame.beans);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	
+
+		
+			if(frame.pageType==null)
+			{
+				JOptionPane.showMessageDialog(frame,
+						"请选择页面类型", "", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}else if(frame.pageType.contains("Activity-Android"))
+			{
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
+				
+				CreateActivityView createView = new CreateActivityView(frame.pageName);
+				createView.create();
+			}else if(frame.pageType.contains("Item-Android"))
+			{
+				
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName+"_item",frame.beans);
+				
+				
+				com.compoment.ui.CreaterAdapter createrAdapter=new CreaterAdapter(frame.pageName+"_item",frame.beans);
+				createrAdapter.create();
+			}else if(frame.pageType.contains("Fragment-Android"))
+			{
+				
+			}else if(frame.pageType.contains("Layout-Android"))
+			{
+				
+			}else if(frame.pageType.contains("JFrame-Swing"))
+			{
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
+				
+			
+				
+				
+				//Swing页面水平方向 再次取得分组信息
+				JPanel swingPanel = new CutCompomentsTypeImg(frame,
+						frame.beansForSwing);
+				JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
+				jdialog.setSize(800, 800);
+				jdialog.add(swingPanel);
+				jdialog.setLocation(10, 10);
+				jdialog.setVisible(true);
+				
+				SwingLayout swingLayout = new SwingLayout();
+				swingLayout.createJFrame(frame.beans,frame.beansForSwing);
+				
+			}else if(frame.pageType.contains("JDialog-Swing"))
+			{
+				
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
+				
+			
+				
+				
+				//Swing页面水平方向 再次取得分组信息
+				JPanel swingPanel = new CutCompomentsTypeImg(frame,
+						frame.beansForSwing);
+				JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
+				jdialog.setSize(800, 800);
+				jdialog.add(swingPanel);
+				jdialog.setLocation(10, 10);
+				jdialog.setVisible(true);
+				
+				SwingLayout swingLayout = new SwingLayout();
+				swingLayout.createJDialog(frame.beans,frame.beansForSwing);
+				
+			}else if(frame.pageType.contains("JPanel-Swing"))
+			{
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
+				
+			
+				
+				
+				//Swing页面水平方向 再次取得分组信息
+				JPanel swingPanel = new CutCompomentsTypeImg(frame,
+						frame.beansForSwing);
+				JDialog jdialog = new JDialog(frame, "swing水平方向截取", true);
+				jdialog.setSize(800, 800);
+				jdialog.add(swingPanel);
+				jdialog.setLocation(10, 10);
+				jdialog.setVisible(true);
+				
+				SwingLayout swingLayout = new SwingLayout();
+				swingLayout.createJPanel(frame.beans,frame.beansForSwing);
+			}
+			
+			frame.beans.clear();
+			frame.beansForSwing.clear();
+			
+			JOptionPane.showMessageDialog(frame,
+					"刷新Eclipse目录或到"+KeyValue.readCache("picPath")+"查看生成的文件", "", JOptionPane.INFORMATION_MESSAGE);
+		
+			new CodeFunctionAdd();
 		}
 		
 		
