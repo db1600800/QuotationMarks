@@ -37,6 +37,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 /**
@@ -566,11 +567,20 @@ public class CompomentDialog {
 			g.drawImage(iamge, 0, 0, null);
 
 			// 将BufferedImage变量写入文件中。
+			if(!setPublicCheckBox.isSelected())
+			{
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("picPath")
 					+ "/drawable/" + picName + ".png"));
-			if(!setPublicCheckBox.isSelected())
+			
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("projectPath")
 					+ "/res/drawable-hdpi/" + picName + ".png"));
+			}else
+			{
+				FileUtil.makeDir(new File(KeyValue.readCache("picPath")
+						+ "/publiccompoment/"));
+				ImageIO.write(bi, "png", new File(KeyValue.readCache("picPath")
+						+ "/publiccompoment/" + picName + ".png"));
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
