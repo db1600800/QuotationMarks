@@ -46,7 +46,7 @@ public class SerializeToFile {
 			courseFile = directory.getCanonicalPath();
 
 			String path = courseFile
-					+ "/src/com/compoment/util/CompomentBean.xml";
+					+ "/src/com/compoment/util/CacheCompomentBeans.xml";
 
 			XStream xStream = new XStream();
 			xStream.alias("CompomentBean", CompomentBean.class);
@@ -80,7 +80,7 @@ public class SerializeToFile {
 			courseFile = directory.getCanonicalPath();
 
 			String path = courseFile
-					+ "/src/com/compoment/util/CompomentBean.xml";
+					+ "/src/com/compoment/util/CacheCompomentBeans.xml";
 			XStream xStream = new XStream();
 			xStream.alias("CompomentBean", CompomentBean.class);
 			List<CompomentBean> myPersons = null;
