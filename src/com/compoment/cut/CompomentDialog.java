@@ -18,10 +18,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -39,6 +42,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.SerializeToFile;
 
 /**
  * 填写截取图片的更多属性（中文名，英文名，色值，控件类型，是否有圆角），生成控件对象
@@ -156,9 +160,17 @@ public class CompomentDialog {
 		publicListListView = new JList();
 		JScrollPane publicListListViewScrollPane = new JScrollPane(
 				publicListListView);
+		
 		ArrayList listDate1 = new ArrayList();
-		listDate1.add("RelativeLayout");
-		listDate1.add("LinearLayout");
+		final File[] files=FileUtil.findFiles(new File(KeyValue.readCache("picPath")+"/publiccompoment/"));
+		for(File file:files)
+		{
+	    if(file.getName().contains(".xml"))
+		listDate1.add(file.getName().replace(".xml", ""));
+		
+		}
+		//SerializeToFile.deSerializeFromXml(KeyValue.readCache("picPath")+"/publiccompoment/");
+		
 		publicListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		publicListListView.setListData(listDate1.toArray());
@@ -166,14 +178,25 @@ public class CompomentDialog {
 				.addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent even) {
-						String value = publicListListView.getSelectedValue()
+						String name = publicListListView.getSelectedValue()
 								.toString();
+						for(File file:files)
+						{
+						  if(file.getName().contains(name)&& file.getName().contains(".png"))
+						  {
+							  ImageIcon icon = new ImageIcon(file.getAbsoluteFile().toString()); 
+							  publicPicTextView.setIcon(icon);
+						  }else if(file.getName().contains(name)&& file.getName().contains(".xml"))
+						  {
+							  compomentType=file.getAbsoluteFile().toString();
+						  }
+						}
 					}
 				});
 		bg1427167380796LinearLayout.addComponent(publicListListViewScrollPane);
 
 		/** 公共组件图片 */
-		publicPicTextView = new JLabel("公共组件图片");
+		publicPicTextView = new JLabel("");
 		bg1427167380796LinearLayout.addComponent(publicPicTextView);
 
 		bg1427167232671LinearLayout.addGroup(bg1427167380796LinearLayout);
@@ -257,6 +280,17 @@ public class CompomentDialog {
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
+				if(compomentType.contains(".xml"))
+				{
+					List<CompomentBean>  beans=SerializeToFile.deSerializeFromXml(compomentType);//filepath
+					for(CompomentBean bean:beans)
+					{
+					implementInterfaceFrame.compomentDialogCallBack(bean);
+					}
+					jdialog.setVisible(false);
+					return;
+				}
+				
 				if (compomentType == null) {
 					JOptionPane.showMessageDialog(null, "请选择类型", "",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -440,6 +474,8 @@ public class CompomentDialog {
 			@Override
 			public void valueChanged(ListSelectionEvent even) {
 				// TODO Auto-generated method stub
+				
+				
 				String value = list.getSelectedValue().toString();
 				compomentType = value;
 

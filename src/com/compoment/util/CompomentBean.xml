@@ -2,29 +2,29 @@
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <bgRgb16>#FFFFFF</bgRgb16>
-    <x>48</x>
-    <y>368</y>
-    <w>551</w>
-    <h>58</h>
-    <cnname>bg1427190649625</cnname>
-    <enname>bg1427190649625LinearLayout</enname>
+    <x>50</x>
+    <y>370</y>
+    <w>557</w>
+    <h>70</h>
+    <cnname>bg1427251146734</cnname>
+    <enname>bg1427251146734LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
+    <isPublicCompoment>true</isPublicCompoment>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427190651562</time>
+    <time>1427251150265</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#E6E7E1</rgb16>
+    <rgb16>#B5C482</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
-    <x>76</x>
-    <y>383</y>
-    <w>495</w>
-    <h>25</h>
+    <x>133</x>
+    <y>390</y>
+    <w>247</w>
+    <h>19</h>
     <cnname>bb</cnname>
     <enname>bbTextView</enname>
     <textSize>16</textSize>
@@ -35,6 +35,6 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427190664765</time>
+    <time>1427251159203</time>
   </CompomentBean>
 </list>

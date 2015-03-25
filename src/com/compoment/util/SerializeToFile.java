@@ -38,7 +38,7 @@ public class SerializeToFile {
 		
 	}
 
-	public void serializeToXml(List<CompomentBean> myPersons) {
+	public static void serializeToXml(List<CompomentBean> myPersons) {
 
 		String courseFile = null;
 		File directory = new File("");// 参数为空
@@ -59,7 +59,7 @@ public class SerializeToFile {
 	}
 	
 	
-	public void serializeToXml(List<CompomentBean> myPersons,String path) {
+	public static void serializeToXml(List<CompomentBean> myPersons,String path) {
 
 	
 		try {
@@ -73,7 +73,7 @@ public class SerializeToFile {
 		}
 	}
 
-	public List<CompomentBean> deSerializeFromXml() {
+	public static List<CompomentBean> deSerializeFromXml() {
 		String courseFile = null;
 		File directory = new File("");// 参数为空
 		try {
@@ -81,6 +81,23 @@ public class SerializeToFile {
 
 			String path = courseFile
 					+ "/src/com/compoment/util/CompomentBean.xml";
+			XStream xStream = new XStream();
+			xStream.alias("CompomentBean", CompomentBean.class);
+			List<CompomentBean> myPersons = null;
+
+			FileInputStream flStream = new FileInputStream(path);
+			myPersons = (List<CompomentBean>) xStream.fromXML(flStream);
+			return myPersons;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static List<CompomentBean> deSerializeFromXml(String path) {
+		
+		try {
+		
 			XStream xStream = new XStream();
 			xStream.alias("CompomentBean", CompomentBean.class);
 			List<CompomentBean> myPersons = null;

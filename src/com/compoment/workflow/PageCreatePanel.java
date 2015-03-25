@@ -18,13 +18,14 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.swing.SwingLayout;
-
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
 
@@ -156,6 +157,8 @@ public class PageCreatePanel {
 				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
 				
+				savePublicCompoment();
+				
 				CreateActivityView createView = new CreateActivityView(frame.pageName);
 				createView.create();
 			}else if(frame.pageType.contains("Item-Android"))
@@ -165,6 +168,7 @@ public class PageCreatePanel {
 				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName+"_item",frame.beans);
 				
+				savePublicCompoment();
 				
 				com.compoment.ui.CreaterAdapter createrAdapter=new CreaterAdapter(frame.pageName+"_item",frame.beans);
 				createrAdapter.create();
@@ -181,7 +185,7 @@ public class PageCreatePanel {
 				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
 				
 			
-				
+				savePublicCompoment();
 				
 				//Swing页面水平方向 再次取得分组信息
 				JPanel swingPanel = new CutCompomentsTypeImg(frame,
@@ -203,7 +207,7 @@ public class PageCreatePanel {
 				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
 				
 			
-				
+				savePublicCompoment();
 				
 				//Swing页面水平方向 再次取得分组信息
 				JPanel swingPanel = new CutCompomentsTypeImg(frame,
@@ -224,7 +228,7 @@ public class PageCreatePanel {
 				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
 				
 			
-				
+				savePublicCompoment();
 				
 				//Swing页面水平方向 再次取得分组信息
 				JPanel swingPanel = new CutCompomentsTypeImg(frame,
@@ -248,5 +252,54 @@ public class PageCreatePanel {
 			new CodeFunctionAdd();
 		}
 		
+		
+		
+		public void savePublicCompoment()
+		{
+			SerializeToFile serializeToFile=new SerializeToFile();
+			List temps=new ArrayList();
+			String fileName="";
+			for(CompomentBean bean:frame.beans)
+			{
+			
+				if(bean.isPublicCompoment)
+				{
+					 fileName=bean.enname;
+					 
+						for(CompomentBean unmodifybean:frame.beansForSwing)
+						{
+							if(unmodifybean.enname.equals(fileName))
+							{
+								  temps.add(unmodifybean);
+							}
+						}
+					 
+				    
+				 
+					if(bean.chirlds!=null&& bean.chirlds.size()>0)
+					{
+						
+						for(CompomentBean chrild:bean.chirlds)
+						{
+						
+							for(CompomentBean unmodifybean:frame.beansForSwing)
+							{
+								if(unmodifybean.enname.equals(chrild.enname))
+								{
+									  temps.add(unmodifybean);
+								}
+							}
+								
+							
+							
+						}
+					}
+				}
+			}
+			
+			String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
+					"publiccompoment", fileName, "xml", "");
+			serializeToFile.serializeToXml(temps,xmlFileName);
+		}
 		
 }

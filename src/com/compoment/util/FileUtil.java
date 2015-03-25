@@ -170,6 +170,14 @@ public class FileUtil {
 	}
 	
 	
+	public static File[] findFiles(File startDirectory) {
+       
+		File[] childs = startDirectory.listFiles(); // listFiles()返回目录下的所有文件.
+		return childs;
+	}
+	
+	
+	
 	 // 复制文件
     public static void copyFile(File sourceFile, File targetFile) throws IOException {
         BufferedInputStream inBuff = null;
