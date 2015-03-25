@@ -684,7 +684,7 @@ public class CodeFunctionAdd extends JFrame {
 				}
 			}
 
-		}else if (function.id.equals("10")) {//网络获取图片二级缓存
+		}else if (function.id.equals("10")) {//报表(首列固定左右滑动 首行固定上下滑)
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
@@ -783,15 +783,13 @@ public class CodeFunctionAdd extends JFrame {
 		functionParents.add(dateParent);
 		ArrayList<Function> dateChirlds = new ArrayList<Function>();
 		dateParent.chirlds = dateChirlds;
-		dateChirlds.add(new Function("11", "开始日期选择"));
-		dateChirlds.add(new Function("12", "结束日期选择"));
-		
+
 		functionParents.add(new Function("3", "网络请求,响应,等待提示"));
 		
 		
 		functionParents.add(new Function("2", "分页(列表)"));
 
-		functionParents.add(new Function("10", "网络获取图片二级缓存"));
+		functionParents.add(new Function("10", "报表(首列固定左右滑动 首行固定上下滑)"));
 		
 		Function dialogParent = new Function("4", "对话框");
 		functionParents.add(dialogParent);
