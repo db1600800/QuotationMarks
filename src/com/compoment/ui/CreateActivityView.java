@@ -571,13 +571,13 @@ public class CreateActivityView {
 
 	
 
-		m += "	@Override\n";
+	
 		m += "public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {\n";
 		m += "		// TODO Auto-generated method stub\n";
 
 		m += "}\n";
 
-		m += "	@Override\n";
+		
 		m += "public void onScrollStateChanged(AbsListView view, int scrollState) {\n";
 		m += "		// TODO Auto-generated method stub\n";
 

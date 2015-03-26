@@ -1,1 +1,21 @@
-<list/>
+<list>
+  <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <x>30</x>
+    <y>367</y>
+    <w>595</w>
+    <h>62</h>
+    <cnname>bg1427341012031</cnname>
+    <enname>bg1427341012031LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1427341014281</time>
+  </CompomentBean>
+</list>

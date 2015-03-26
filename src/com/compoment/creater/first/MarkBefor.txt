@@ -1,1 +1,24 @@
- <View android:layout_width="fill_parent" android:layout_height="1dip" android:background="#c4d5ce" />
+	public void addHViews(final MyHorizontalScrollView hScrollView) {
+			if (!mHScrollViews.isEmpty()) {
+				int size = mHScrollViews.size();
+				MyHorizontalScrollView scrollView = mHScrollViews.get(size - 1);
+				final int scrollX = scrollView.getScrollX();
+
+				if (scrollX != 0) {
+					listView.post(new Runnable() {
+						@Override
+						public void run() {
+							hScrollView.scrollTo(scrollX, 0);
+						}
+					});
+				}
+			}
+			mHScrollViews.add(hScrollView);
+		}
+
+		public void onScrollChanged(int l, int t, int oldl, int oldt) {
+			for (MyHorizontalScrollView scrollView : mHScrollViews) {
+				if (mTouchView != scrollView)
+					scrollView.smoothScrollTo(l, t);
+			}
+		}
