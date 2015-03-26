@@ -62,6 +62,7 @@ public class RegexUtil {
 	}
 	
 	
+	/**构造函数*/
 	public String constructFunctionRegex(String input) {
 		String input1 = "public  About(String a){\n";
 
