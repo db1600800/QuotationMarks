@@ -140,36 +140,35 @@ public class Report {
 				m+="public List<MyHorizontalScrollView> mHScrollViews = new ArrayList<MyHorizontalScrollView>();\n";
 		    	
 				content += m;
-			}else  if (findViewByIdFirst&& regex.findViewByIdRegex(line)!=null) {
+			}
+	       else  if (regex.functionRegex(line)!=null && regex.functionRegex(line).equals("onScroll")) {
 				
-				String m="\n//分页\n";
-				m+="footerView =inflateView(R.layout.listfooter);\n";
-		    	m+="more =footerView.findViewById(R.id.more);\n";
-		    	m+="progress =footerView.findViewById(R.id.progress);\n";
-		    	m+="load =footerView.findViewById(R.id.load);\n\n";
-		    	content += m;
-		    	findViewByIdFirst=false;
-			}else  if (regex.functionRegex(line)!=null && regex.functionRegex(line).equals("onScroll")) {
+				String m="//报表列表\n";
+				m+="	public void addHViews(final MyHorizontalScrollView hScrollView) {\n";
+				m+="			if (!mHScrollViews.isEmpty()) {\n";
+				m+="				int size = mHScrollViews.size();\n";
+				m+="				MyHorizontalScrollView scrollView = mHScrollViews.get(size - 1);\n";
+				m+="				final int scrollX = scrollView.getScrollX();\n";
+
+				m+="				if (scrollX != 0) {\n";
+				m+="					listView.post(new Runnable() {\n";
+				m+="						@Override\n";
+				m+="						public void run() {\n";
+				m+="							hScrollView.scrollTo(scrollX, 0);\n";
+				m+="						}\n";
+				m+="					});\n";
+				m+="				}\n";
+				m+="			}\n";
+				m+="			mHScrollViews.add(hScrollView);\n";
+				m+="		}\n\n";
 				
-				String m="//分页\n";
-		    	m+="	public void countPage(int maxCounts) {\n";
-		    	m+="		if (maxCounts % pageSize == 0) {\n";
-		    	m+="			totalPage = maxCounts / pageSize;\n";
-		    	m+="		} else {\n";
-		    	m+="			totalPage = maxCounts / pageSize + 1;\n";
-		    	m+="		}\n";
-		    	m+="		\n";
-		    	m+="		if(page==totalPage)\n";
-		    	m+="		{\n";
-		    	m+="			footerView.setVisibility(View.GONE);\n";
-		    	m+="		}else\n";
-		    	m+="		{\n";
-		    	m+="			more.setVisibility(View.VISIBLE);\n";
-		    	m+="			progress.setVisibility(View.GONE);\n";
-		    	m+="			load.setVisibility(View.GONE);\n";
-		    	m+="			footerView.setVisibility(View.VISIBLE);\n";
-		    	m+="		}\n";
-		    	m+="	}\n\n";
+				m+="//报表列表\n";
+				m+="		public void onHorizontalScrollChanged (int l, int t, int oldl, int oldt) {\n";
+				m+="			for (MyHorizontalScrollView scrollView : mHScrollViews) {\n";
+				m+="				if (mTouchView != scrollView)\n";
+				m+="					scrollView.smoothScrollTo(l, t);\n";
+				m+="			}\n";
+				m+="		}\n";
 
 		    	content += m;
 		    	
@@ -234,31 +233,7 @@ public class Report {
 
 
 
-		public void addHViews(final MyHorizontalScrollView hScrollView) {
-			if (!mHScrollViews.isEmpty()) {
-				int size = mHScrollViews.size();
-				MyHorizontalScrollView scrollView = mHScrollViews.get(size - 1);
-				final int scrollX = scrollView.getScrollX();
-
-				if (scrollX != 0) {
-					listView.post(new Runnable() {
-						@Override
-						public void run() {
-							hScrollView.scrollTo(scrollX, 0);
-						}
-					});
-				}
-			}
-			mHScrollViews.add(hScrollView);
-		}
-
-		public void onScrollChanged(int l, int t, int oldl, int oldt) {
-			for (MyHorizontalScrollView scrollView : mHScrollViews) {
-				if (mTouchView != scrollView)
-					scrollView.smoothScrollTo(l, t);
-			}
-		}
-
+	
 		
 
 
@@ -382,7 +357,7 @@ public class MyHorizontalScrollView extends HorizontalScrollView {
 			if(context instanceof AccumulatedMailDynActivity) {
 				AccumulatedMailDynActivity accumulatedMailDynActivity = ((AccumulatedMailDynActivity) context);
 				if(accumulatedMailDynActivity.mTouchView == this) {
-					accumulatedMailDynActivity.onScrollChanged(l, t, oldl, oldt);
+					accumulatedMailDynActivity.onHorizontalScrollChanged (l, t, oldl, oldt);
 				}else{
 					super.onScrollChanged(l, t, oldl, oldt);
 				}
@@ -390,7 +365,7 @@ public class MyHorizontalScrollView extends HorizontalScrollView {
 			if(context instanceof AbnormalMailQueryStatActivity) {
 				AbnormalMailQueryStatActivity accumulatedMailDynActivity = ((AbnormalMailQueryStatActivity) context);
 				if(accumulatedMailDynActivity.mTouchView == this) {
-					accumulatedMailDynActivity.onScrollChanged(l, t, oldl, oldt);
+					accumulatedMailDynActivity.onHorizontalScrollChanged (l, t, oldl, oldt);
 				}else{
 					super.onScrollChanged(l, t, oldl, oldt);
 				}
