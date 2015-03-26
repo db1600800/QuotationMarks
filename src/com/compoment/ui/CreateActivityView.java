@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -301,6 +302,10 @@ public class CreateActivityView {
 		m += "@Override\n";
 		m += "public void onCreate(Bundle savedInstanceState) {\n";
 		m += "     super.onCreate(savedInstanceState);\n";
+		m+="	Bundle extras = getIntent().getExtras();\n";
+		m+="	if (extras != null) {\n";
+		m+="		//userPara = extras.getString(\"userPara\");\n";
+		m+="	}\n";
 		m += "context = this;\n";
 		m += "View view = init();\n";
 		m += "this.setContentView(view);\n";
