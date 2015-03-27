@@ -1,5 +1,6 @@
 package com.compoment.addfunction.android;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,15 +29,17 @@ public class ReportList {
 		
 	
 		
-			String adapterFilePath=waitByModifyFileName.replace("Adapter", "");
-			File tofile = new File(adapterFilePath);
-			if (!tofile.exists()) {
-				JOptionPane.showMessageDialog(null, "", "先生成Adapter！", JOptionPane.PLAIN_MESSAGE);
-				return;
-			}
+		if(waitByModifyFileName.contains("Adapter"))
+		{
+			 addFunctionForAdapter(waitByModifyFileName);
+		}else
+		{
 			addFunctionForActivity();
 			
-			 addFunctionForAdapter(adapterFilePath);
+		}
+		
+			
+			
 		
 	}
 
@@ -176,7 +179,7 @@ public class ReportList {
 
 			{
 				String m = "//报表列表\n";
-				m += "addHViews(("+horizontalScrollViewClassName+") converView\n";
+				m += "(("+adapterClassName.replace("Adapter", "")+")mContext)"+".addHViews(("+adapterClassName.replace("Adapter", "")+"HorizontalScrollView) convertView\n";
 				m += "		.findViewById(R.id.item_horizontalscroll));\n";
 				content += m;
 			}
@@ -186,10 +189,9 @@ public class ReportList {
 		String filename = FileUtil.makeFile(adapterFilePath, content);
 		
 		
-		 String xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+adapterClassName+".xml";
+		 String xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+adapterClassName.replace("Adapter", "").toLowerCase()+"_item.xml";
 		addFunctionForAdapterXml(adapterClassName,xmlFilePath);
-		 String xmlFilePath2=KeyValue.readCache("projectPath")+"/res/layout/"+adapterClassName+".xml";
-			addFunctionForAdapterXml(adapterClassName,xmlFilePath2);
+		
 	}
 
 	public void addFunctionForAdapterXml(String adapterClassName,String xmlFilePath) {
@@ -236,7 +238,7 @@ public class ReportList {
 
 			{
 				String m = "<!--注入报表列表   插到固定列后面  后边所有做为滚动-->\n";
-				m += "<com.chinapost.view."+horizontalScrollViewClassName+"\n";
+				m += "<com.chinapost.view."+adapterClassName.replace("Adapter", "")+"HorizontalScrollView"+"\n";
 				m += "android:id=\"@+id/item_horizontalscroll\"\n";
 				m += "android:layout_width=\"fill_parent\"\n";
 				m += "android:layout_height=\"fill_parent\"\n";
@@ -258,6 +260,10 @@ public class ReportList {
 
 		
 		String m = "";
+		m+="import android.content.Context;\n";
+		m+="import android.util.AttributeSet;\n";
+		m+="import android.view.MotionEvent;\n";
+		m+="import android.widget.HorizontalScrollView;\n";
 		m += "public class "+horizontalScrollViewClassName+" extends HorizontalScrollView {\n";
 		m += "	\n";
 		m += "	Context context;\n";
@@ -297,7 +303,7 @@ public class ReportList {
 		m += "	\n";
 		m += "	@Override\n";
 		m += "	protected void onScrollChanged(int l, int t, int oldl, int oldt) {\n";
-		m += "		if (context != null) {//报表列表onScrollChanged\n//";
+		m += "		if (context != null) {//报表列表onScrollChanged\n";
 		m += "			if(context instanceof " + activityName + ") {\n";
 		m += "				" + activityName + " activity = ((" + activityName
 				+ ") context);\n";

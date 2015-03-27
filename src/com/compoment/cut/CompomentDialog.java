@@ -88,7 +88,7 @@ public class CompomentDialog {
 			final int w, final int h, ArrayList listDate) {
 		this.frame = frame;
 		jdialog = new JDialog(frame, "组件设置", true);
-		jdialog.setSize(1000, 600);
+		jdialog.setSize(1000, 800);
 		JPanel panel = create(implementInterfaceFrame, frame, image, x, y, w,
 				h, listDate);
 		jdialog.add(panel);
@@ -197,6 +197,7 @@ public class CompomentDialog {
 
 		/** 公共组件图片 */
 		publicPicTextView = new JLabel("");
+	
 		bg1427167380796LinearLayout.addComponent(publicPicTextView);
 
 		bg1427167232671LinearLayout.addGroup(bg1427167380796LinearLayout);

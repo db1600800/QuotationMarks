@@ -19,6 +19,7 @@ import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
 import com.compoment.addfunction.android.Paging;
+import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.util.FileUtil;
@@ -684,30 +685,21 @@ public class CodeFunctionAdd extends JFrame {
 				}
 			}
 
-		}else if (function.id.equals("10")) {//报表(首列固定左右滑动 首行固定上下滑)
+		}else if (function.id.equals("10")) {//报表列表(首列固定左右滑动 首行固定上下滑)
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-			PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
-			JPanel docsPanel = projectDocPanel.create();
-			JDialog jdialog = new JDialog(this, "", true);
-			jdialog.setSize(800, 400);
-			jdialog.setLocationRelativeTo(null);
-			jdialog.add(docsPanel);
-			jdialog.setVisible(true);
-			
-			
+				
 			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			Request paging = new Request(currentCodeFileFullPath,projectDocPanel);
+			ReportList paging = new ReportList(currentCodeFileFullPath);
 			editorValueEditText.setText(FileUtil
 					.fileContent(currentCodeFileFullPath));
 			
-		
 			}else if (response == 1) {
-			
+				
 				if(!backupBeforeModify.equals(""))
 				{
 				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
