@@ -240,8 +240,8 @@ public class ReportList {
 				String m = "<!--注入报表列表   插到固定列后面  后边所有做为滚动-->\n";
 				m += "<com.chinapost.view."+adapterClassName.replace("Adapter", "")+"HorizontalScrollView"+"\n";
 				m += "android:id=\"@+id/item_horizontalscroll\"\n";
-				m += "android:layout_width=\"fill_parent\"\n";
-				m += "android:layout_height=\"fill_parent\"\n";
+				m += "android:layout_width=\"wrap_content\"\n";
+				m += "android:layout_height=\"wrap_content\"\n";
 				m += "android:scrollbars=\"none\" >\n";
 
 				m += "<LinearLayout\n";
