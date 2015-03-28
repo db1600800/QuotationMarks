@@ -25,9 +25,7 @@ public class ReportList {
 
 	public ReportList(String waitByModifyFileName) {
 		this.waitByModifyFileName = waitByModifyFileName;//包含路径
-			
-		
-	
+
 		
 		if(waitByModifyFileName.contains("Adapter"))
 		{
@@ -64,7 +62,7 @@ public class ReportList {
 				line = lines.get(i).toString();
 			}
 
-			if (line.contains("//注入报表列表")) {
+			if (line.contains("//报表列表")) {
 				return;
 			}
 		}
@@ -85,7 +83,7 @@ public class ReportList {
 				horizontalScrollViewClassName = regex.constructFunctionRegex(line)+"HorizontalScrollView";
 				activityClassName=regex.constructFunctionRegex(line);
 				String m = "";
-				m += "\n//注入报表列表\n";
+				m += "\n//报表列表\n";
 				m += "public HorizontalScrollView mTouchView;\n";
 				m += "public List<"+horizontalScrollViewClassName+"> mHScrollViews = new ArrayList<"+horizontalScrollViewClassName+">();\n";
 
@@ -125,6 +123,14 @@ public class ReportList {
 			}
 
 			content += line + "\n";
+			
+			if(line.contains("inflateView(R.layout."))
+			{
+			String m = "//报表列表\n";
+			m+=horizontalScrollViewClassName+" headerScroll = ("+horizontalScrollViewClassName+") containView.findViewById(R.id.item_horizontalscroll);\n";
+			m+="mHScrollViews.add(headerScroll);\n\n";
+			content += m;
+			}
 
 		}
 
@@ -151,7 +157,7 @@ public class ReportList {
 				line = lines.get(i).toString();
 			}
 
-			if (line.contains("//注入报表列表")) {
+			if (line.contains("//报表列表")) {
 				return;
 			}
 		}
@@ -238,10 +244,10 @@ public class ReportList {
 
 			{
 				String m = "<!--注入报表列表   插到固定列后面  后边所有做为滚动-->\n";
-				m += "<com.chinapost.view."+adapterClassName.replace("Adapter", "")+"HorizontalScrollView"+"\n";
+				m += "<com."+adapterClassName.replace("Adapter", "")+"HorizontalScrollView"+"\n";
 				m += "android:id=\"@+id/item_horizontalscroll\"\n";
-				m += "android:layout_width=\"fill_parent\"\n";
-				m += "android:layout_height=\"fill_parent\"\n";
+				m += "android:layout_width=\"wrap_content\"\n";
+				m += "android:layout_height=\"wrap_content\"\n";
 				m += "android:scrollbars=\"none\" >\n";
 
 				m += "<LinearLayout\n";
@@ -292,7 +298,7 @@ public class ReportList {
 		m += "	\n";
 		m += "	@Override\n";
 		m += "	public boolean onTouchEvent(MotionEvent ev) {\n";
-		m += "		if (context != null) {//报表列表onTouchEvent\n";
+		m += "		if (context != null) {\n";
 		m += "			if(context instanceof " + activityName + ") {\n";
 		m += "				((" + activityName + ") context).mTouchView = this;\n";
 		m += "			}\n";
@@ -303,7 +309,7 @@ public class ReportList {
 		m += "	\n";
 		m += "	@Override\n";
 		m += "	protected void onScrollChanged(int l, int t, int oldl, int oldt) {\n";
-		m += "		if (context != null) {//报表列表onScrollChanged\n";
+		m += "		if (context != null) {\n";
 		m += "			if(context instanceof " + activityName + ") {\n";
 		m += "				" + activityName + " activity = ((" + activityName
 				+ ") context);\n";
