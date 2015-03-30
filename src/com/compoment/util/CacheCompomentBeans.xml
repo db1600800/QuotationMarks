@@ -2,12 +2,12 @@
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <bgRgb16>#FFFFFF</bgRgb16>
-    <x>41</x>
+    <x>34</x>
     <y>377</y>
-    <w>567</w>
-    <h>55</h>
-    <cnname>bg1427447768296</cnname>
-    <enname>bg1427447768296LinearLayout</enname>
+    <w>583</w>
+    <h>56</h>
+    <cnname>bg1427681464000</cnname>
+    <enname>bg1427681464000LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -16,15 +16,15 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427447770046</time>
+    <time>1427681467515</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
+    <rgb16>#CBCEC1</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
-    <x>64</x>
-    <y>397</y>
-    <w>38</w>
-    <h>15</h>
+    <x>63</x>
+    <y>396</y>
+    <w>33</w>
+    <h>17</h>
     <cnname>t1</cnname>
     <enname>t1TextView</enname>
     <textSize>16</textSize>
@@ -35,15 +35,15 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427447779968</time>
+    <time>1427681482343</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#BAC88C</rgb16>
+    <rgb16>#C9D4A7</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
-    <x>128</x>
-    <y>401</y>
-    <w>31</w>
-    <h>11</h>
+    <x>115</x>
+    <y>396</y>
+    <w>28</w>
+    <h>16</h>
     <cnname>t2</cnname>
     <enname>t2TextView</enname>
     <textSize>16</textSize>
@@ -54,15 +54,15 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427447791703</time>
+    <time>1427681494406</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#E0E6CE</rgb16>
+    <rgb16>#BAC88C</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
-    <x>182</x>
-    <y>404</y>
-    <w>51</w>
-    <h>7</h>
+    <x>158</x>
+    <y>400</y>
+    <w>35</w>
+    <h>10</h>
     <cnname>t3</cnname>
     <enname>t3TextView</enname>
     <textSize>16</textSize>
@@ -73,6 +73,82 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427447801843</time>
+    <time>1427681505218</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#BAC88C</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <x>206</x>
+    <y>403</y>
+    <w>27</w>
+    <h>7</h>
+    <cnname>t4</cnname>
+    <enname>t4TextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1427681515140</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#B5C482</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <x>240</x>
+    <y>401</y>
+    <w>20</w>
+    <h>8</h>
+    <cnname>t5</cnname>
+    <enname>t5TextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1427681527828</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#C9D4A7</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <x>273</x>
+    <y>401</y>
+    <w>24</w>
+    <h>6</h>
+    <cnname>t6</cnname>
+    <enname>t6TextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1427681540218</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#B5C482</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <x>312</x>
+    <y>403</y>
+    <w>20</w>
+    <h>6</h>
+    <cnname>t7</cnname>
+    <enname>t7TextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1427681551156</time>
   </CompomentBean>
 </list>
