@@ -33,9 +33,6 @@ public class DateSelect {
 
 	public DateSelect(String waitByModifyFileName) {
 		this.waitByModifyFileName = waitByModifyFileName;
-		
-		
-		
 	}
 
 	public void copyFile() {

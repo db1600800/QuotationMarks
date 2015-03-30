@@ -1,4 +1,17 @@
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.widget.HorizontalScrollView;
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("title");
+		builder.setMessage("msg").setCancelable(false);
+		builder.setPositiveButton("确定",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						
+					}
+				});
+		builder.setNegativeButton("取消",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+
+					}
+				});
+		builder.show();
