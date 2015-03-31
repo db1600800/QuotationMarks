@@ -1,8 +1,5 @@
 package com.compoment.util;
 
-
-
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +26,7 @@ public class RegexUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		RegexUtil regex = new RegexUtil();
-		regex.constructFunctionRegex("");
+		regex.variable();
 	}
 
 	public boolean classRegex(String input) {
@@ -54,15 +51,14 @@ public class RegexUtil {
 
 		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
-			String name=matcher.group(5);
+			String name = matcher.group(5);
 			System.out.println(name);
 			return name;
 		}
 		return null;
 	}
-	
-	
-	/**构造函数*/
+
+	/** 构造函数 */
 	public String constructFunctionRegex(String input) {
 		String input1 = "public  About(String a){\n";
 
@@ -76,7 +72,22 @@ public class RegexUtil {
 		}
 		return null;
 	}
-	
+
+	/** 变量 */
+	public void variable() {
+		String input1 = " private String maintain;//期望";
+
+		String regex = "(public|private)(\\s+)(String|int|float|long)(\\s+)(\\w+)(\\s*)(;)(\\s*)(//)(\\w*)([\\s\\S]*)";
+		Pattern pattern = Pattern.compile(regex);
+
+		Matcher matcher = pattern.matcher(input1);
+		if (matcher.find()) {
+			System.out.println(matcher.group(3));
+			System.out.println(matcher.group(5));
+			System.out.println(matcher.group(11));
+
+		}
+	}
 
 	public boolean importRegex(String input) {
 		String input1 = "import com.a ;";
@@ -120,32 +131,32 @@ public class RegexUtil {
 		return false;
 	}
 
-	public    ControllerBean findViewByIdRegex(String input) {
-		//String input1 = "queryButton = (Button) containView.findViewById(R.id.queryButton);ddddddddddddd";
+	public ControllerBean findViewByIdRegex(String input) {
+		// String input1 =
+		// "queryButton = (Button) containView.findViewById(R.id.queryButton);ddddddddddddd";
 
 		String regex = "[(](\\w+)[)](\\s*)(\\w+).findViewById[(]R.id.(\\w+)[)];";
 		Pattern pattern = Pattern.compile(regex);
 
 		Matcher matcher = pattern.matcher(input);
 		while (matcher.find()) {
-			System.out.println(input.length()+" "+matcher.end()+matcher.group(1));
-			
-			ControllerBean regexBean=new ControllerBean();
-			regexBean.end=matcher.end();
-			regexBean.name=matcher.group(4);
-			regexBean.type=matcher.group(1);
+			System.out.println(input.length() + " " + matcher.end()
+					+ matcher.group(1));
+
+			ControllerBean regexBean = new ControllerBean();
+			regexBean.end = matcher.end();
+			regexBean.name = matcher.group(4);
+			regexBean.type = matcher.group(1);
 			return regexBean;
 		}
 		return null;
 	}
-	
-	
-	public class ControllerBean
-	{
+
+	public class ControllerBean {
 		public int end;
 		public String name;
 		public String type;
-		
+
 	}
 
 }
