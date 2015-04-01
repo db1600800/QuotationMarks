@@ -61,7 +61,7 @@ public class WordtableToJavaObject {
 		String docpath = null;
 
 	   String	sourceFile = classDir + "/src/com/compoment/jsonToJava/creater/"
-				+ "wordTableToJaveObject.doc";
+				+ "wordTableToJaveObject.doc"; //JaveObjectTowordTable2.doc  wordTableToJaveObject.doc
 	
 
 		WordtableToJavaObject wordtable = new WordtableToJavaObject();

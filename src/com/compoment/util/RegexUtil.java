@@ -3,6 +3,8 @@ package com.compoment.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+
 //http://www.jb51.net/article/31251.htm
 
 //\d 数字 
@@ -26,7 +28,7 @@ public class RegexUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		RegexUtil regex = new RegexUtil();
-		regex.variable();
+		regex.dbTable();
 	}
 
 	public boolean classRegex(String input) {
@@ -150,6 +152,34 @@ public class RegexUtil {
 			return regexBean;
 		}
 		return null;
+	}
+	
+	public void json()
+	{
+		String line="\"id\": 0,\"name\":\"zhan\"";
+		String regex1 = "(\")(\\s*)(\\w+)(\\s*)(\")(\\s*)(:)(\\s*)(\"?)(\\w+)(\"?)(\\s*)(,*)";
+		Pattern pattern1 = Pattern.compile(regex1);
+
+		Matcher matcher1 = pattern1.matcher(line);
+		while (matcher1.find()) {
+			System.out.println(matcher1.group(3));
+		}
+	}
+	
+	
+	public void dbTable()
+	{
+		String line=" CREATE TABLE pedometer_app_log (app_log_type   VARCHAR2(25)  NOT  null,app_start_time   VARCHAR2(25) NOT NULL PRIMARY KEY,dd";
+		String regex2 = "(,?)(\\w+)(\\s+)(VARCHAR2|INTEGER|TEXT|REAL)(\\w*)(,?)";
+		Pattern pattern2 = Pattern.compile(regex2);
+
+		Matcher matcher2 = pattern2.matcher(line);
+		while (matcher2.find()) {
+		
+	
+			System.out.println(matcher2.group(2));
+			
+		}
 	}
 
 	public class ControllerBean {
