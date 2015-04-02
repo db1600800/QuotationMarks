@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class CreateMiniView {
+public class CreateActivityChirldView {
 
 	String xmlfile = "drawbackr_detail_chirld.xml";// 修改就行
 	static String classDir = null;
@@ -29,11 +29,11 @@ public class CreateMiniView {
 	String m = "";
 
 	public static void main(String[] args) throws SAXException, IOException {
-		CreateMiniView createView = new CreateMiniView();
+		CreateActivityChirldView createView = new CreateActivityChirldView();
 		createView.create();
 	}
 
-	public CreateMiniView() {
+	public CreateActivityChirldView() {
 		classDir = this.getClass().getResource("/").getPath();
 		int pos = xmlfile.indexOf(".");
 		xmlfilename = xmlfile.substring(0, pos);
@@ -90,8 +90,8 @@ public class CreateMiniView {
 		m += "	public View containView;\n";
 		m += "String searchText;\n";
 		m += "public ViewGroup parentViewContain;\n";
-		m += "public ... parentThis;\n";
-		m += "LoadingProgressDialog loading ;\n";
+		m += "public ... parentActivity;\n";
+	
 		// m += "	private OrderTypelistAdapter adapter;\n";
 		// m += "	private ListView list;\n";
 
@@ -134,64 +134,15 @@ public class CreateMiniView {
 
 		m += "public "
 				+ className
-				+ "(Context context,ViewGroup parentViewContain,... parentThis)\n";
+				+ "(ViewGroup parentViewContain,...Activity parentActivity)\n";
 		m += "{\n";
 		m += "this.parentViewContain=parentViewContain;\n";
-		m += "this.context=context;\n";
-		m += "this.parentThis=parentThis;\n";
+		m += "this.context=parentActivity;\n";
+		m += "this.parentActivity=parentActivity;\n";
 		m += "init();\n";
 		m += "}\n";
 
-		m += "	public void clean() {\n";
-		m += "InputMethodManager m = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);\n";
-		m += "m.hideSoftInputFromWindow(containView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);\n";
-		m += "		containView = null;\n";
-		// m += "		containView = null;\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += firstCharToLowerAndJavaName(idToName[1]) + "=null;\n";
-					m += "adapter.list.clear();\n";
-					m += "adapter=null;\n";
-				}
-
-				else if (control.equals("AutoCompleteTextView")) {
-					m += "	Cursor cursor="
-							+ firstCharToLowerAndJavaName(idToName[1])
-							+ "Adapter.getCursor();\n";
-					m += "	if(cursor!=null)\n";
-					m += "		cursor.close();\n";
-					CreateSearchCursorAdapter createSearchCursorAdapter = new CreateSearchCursorAdapter();
-					createSearchCursorAdapter
-							.create(firstCharToUpperAndJavaName(idToName[1]));
-				} else if (control.equals("LinearLayout")) {
-					if (idToName.length > 1
-							&& idToName[1].contains("list_linearlayout")) {
-						m += firstCharToLowerAndJavaName(idToName[1])
-								+ "=null;\n";
-						m += "adapter.list.clear();\n";
-						m += "adapter=null;\n";
-					}
-				}
-
-				else
-
-				{
-					if (idToName.length > 1)
-						m += firstCharToLowerAndJavaName(idToName[1])
-								+ "=null;\n";
-				}
-			}
-		}
-
-		m += "}\n";
+	
 
 		m += "	public View init() {\n";
 		m += "		if (containView == null) {\n";
@@ -215,30 +166,7 @@ public class CreateMiniView {
 					m += firstCharToLowerAndJavaName(idToName[1])
 							+ ".setOnClickListener(new View.OnClickListener() {\n";
 					m += "						public void onClick(View v) {\n";
-					m += "new  AsyncTask<String, Integer, Boolean>() {\n";
-					m += "	@Override\n";
-					m += "	protected void onPreExecute() {\n";
-					m += "if (loading == null) {\n";
-					m += "	loading = new LoadingProgressDialog();\n";
-					m += "}\n";
-					m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
-					m += "	}\n";
-					m += "	@Override\n";
-					m += "	protected Boolean doInBackground(String... params) {\n";
-					List l = btnXmlnameTodbnameOrjavaname(idToName[1]);
-					if (l.size() == 1) {
-						m += l.get(0).toString();
-					}
-
-					m += "	}\n";
-
-					m += "	@Override\n";
-					m += "	protected void onPostExecute(Boolean shoppingcarok) {\n";
-					m += "//if(list==null || list.size()<1) return;\n";
-					m += "	loading.cancleProgressDialog();\n";
-					m += "	}\n";
-
-					m += "}.execute(\"\");\n";
+				
 					m += "						}\n";
 					m += "					});\n";
 				} else if (control.equals("RadioGroup")) {
@@ -332,7 +260,7 @@ public class CreateMiniView {
 
 		m += "		}\n";
 		m += "parentViewContain.addView(containView);\n";
-		m += "runAsyncTask();\n";
+	
 		m += "return containView;\n";
 		m += "}\n";
 
