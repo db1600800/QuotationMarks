@@ -140,6 +140,7 @@ public class CreateActivityChirldView {
 		m += "this.context=parentActivity;\n";
 		m += "this.parentActivity=parentActivity;\n";
 		m += "init();\n";
+		m+="  setView();\n";
 		m += "}\n";
 
 	
@@ -264,128 +265,7 @@ public class CreateActivityChirldView {
 		m += "return containView;\n";
 		m += "}\n";
 
-		m += "public void runAsyncTask()\n";
-		m += "{\n";
-		m += "	GetNetInfoTask getNetInfoTask=new GetNetInfoTask();\n";
-		m += "	getNetInfoTask.execute(\"\");\n";
-		m += "}\n";
 
-		m += "	private class GetNetInfoTask extends\n";
-		m += "			AsyncTask<String, Integer, List<" + className
-				+ "AdapterBean>> {\n";
-		m += "List<" + className + "AdapterBean> list =new ArrayList();\n";
-		m += "		@Override\n";
-		m += "		protected void onPreExecute() {\n";
-		m += "if (loading == null) {\n";
-		m += "	loading = new LoadingProgressDialog();\n";
-		m += "}\n";
-		m += "loading.showProgressDailg(\"提示\", \"加载中。。。\", context);\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-
-					m += "adapter.setList(list);\n";
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setAdapter(adapter);// 将数据适配器与Activity进行绑定\n";
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setOnScrollListener(" + className + ".this);\n";
-
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setOnItemClickListener(new OnItemClickListener(){\n";
-					m += "		@Override\n";
-					m += "		public void onItemClick(AdapterView<?> arg0, View view,int position, long id) {\n";
-					m += "	}});\n";
-
-				} else if (control.equals("LinearLayout")) {
-					if (idToName.length > 1
-							&& idToName[1].contains("list_linearlayout")) {
-						m += "adapter.setList(list);\n";
-					}
-				}
-
-			}
-		}
-
-		m += "		}\n";
-
-		m += "		@Override\n";
-		m += "		protected List<" + className
-				+ "AdapterBean> doInBackground(String... params) {\n";
-		m += textviewXmlnameTodbnameOrjavaname();
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += listXmlnameTodbnameOrjavaname(idToName[1]);
-				} else if (control.equals("LinearLayout")) {
-					if (idToName.length > 1
-							&& idToName[1].contains("list_linearlayout")) {
-						m += linearLayoutXmlnameTodbnameOrjavaname(idToName[1]);
-					}
-				}
-			}
-		}
-
-		m += "			return null;\n";
-		m += "		}\n";
-
-		m += "		@Override\n";
-		m += "		protected void onProgressUpdate(Integer... values) {\n";
-		m += "			// 更新进度\n";
-		m += "		}\n";
-
-		m += "		@Override\n";
-		m += "	      protected void onPostExecute(List<" + className
-				+ "AdapterBean> list) {\n";
-		m += "	loading.cancleProgressDialog();\n";
-		m += "if(list==null || list.size()<1) return;\n";
-		for (String control : controls) {
-			// control为Button TextView....
-			NodeList buttonItems = root.getElementsByTagName(control);
-			for (int i = 0; i < buttonItems.getLength(); i++) {
-				Element personNode = (Element) buttonItems.item(i);
-				String id = personNode.getAttribute("android:id");
-				String text = personNode.getAttribute("android:text");
-				String[] idToName = id.split("/");
-				if (idToName.length <= 1)
-					continue;
-				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
-					m += "adapter.notifyDataSetChanged();\n";
-				} else if (control.equals("TextView")) {
-					m += firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(\"\");\n";
-				} else if (control.equals("LinearLayout")) {
-					if (idToName.length > 1
-							&& idToName[1].contains("list_linearlayout")) {
-						m += "adapter.getView("
-								+ firstCharToLowerAndJavaName(idToName[1])
-								+ ");\n";
-					}
-				}
-			}
-		}
-		m += "	      }\n";
-
-		m += "		@Override\n";
-		m += "		protected void onCancelled() {\n";
-		m += "			super.onCancelled();\n";
-		m += "           list.clear();\n";
-		m += "		}\n";
-		m += "}\n";
 
 		m += "	private View inflateView(int resource) {\n";
 		m += "		LayoutInflater vi = (LayoutInflater) context\n";
@@ -405,14 +285,54 @@ public class CreateActivityChirldView {
 
 		m += "}\n";
 
-		m += "	public void tread() {\n";
-		m += "		Thread thread = new Thread(new Runnable() {\n";
-		m += "			public void run() {\n";
+		
+		m += "public void setView(){\n";
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "//" + text + "\n";
+				if (control.equals("TextView")) {
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setText(\"\");\n";
+				}
+				if (control.equals("ListView") || control.equals("GridView")) {
 
-		m += "			}\n";
-		m += "		});\n";
-		m += "		thread.start();\n";
+					m += "adapter.setList(listData);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setAdapter(adapter);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnScrollListener("+className+".this);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnItemClickListener(new OnItemClickListener() {\n";
+					m += "	@Override\n";
+					m += "	public void onItemClick(\n";
+					m += "	AdapterView<?> arg0,\n";
+					m += "	View view, int position,\n";
+					m += "	long id) {\n";
+
+					m += "		Intent intent = new Intent();\n";
+					m += "		intent.setClass(" + className
+							+ ".this,OperatorModify.class);\n";
+					m += "		Bundle bundle = new Bundle();\n";
+					m += "		bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
+					m += "		intent.putExtras(bundle);\n";
+					m += "		startActivityForResult(intent,n0000);\n";
+					m += "	}\n";
+					m += "});\n";
+
+				}
+			}
+		}
 		m += "}\n";
+		
+		
 		m += "}\n";
 
 		System.out.println(m);
