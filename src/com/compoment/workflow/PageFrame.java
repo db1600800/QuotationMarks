@@ -172,8 +172,10 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		if(pageType.contains("Android"))
 		{
 			components.clear();
+			
 			components.add("RelativeLayout");
 			components.add("LinearLayout");
+			components.add("DrawerLayout");
 			components.add("TableRow");
 			components.add("ScrollView");
 			components.add("View");

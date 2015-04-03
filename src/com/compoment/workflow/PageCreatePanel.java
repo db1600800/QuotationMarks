@@ -23,6 +23,7 @@ import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.swing.SwingLayout;
+import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.util.FileUtil;
@@ -177,7 +178,14 @@ public class PageCreatePanel {
 				
 			}else if(frame.pageType.contains("Layout-Android"))
 			{
+				//android页面分析生成
+				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+				String xmlFileName=androidLayoutXml.analyseRelative(frame.pageName,frame.beans);
 				
+				savePublicCompoment();
+				
+				com.compoment.ui.CreateActivityChirldView createrAdapter=new CreateActivityChirldView(frame.pageName);
+				createrAdapter.create();
 			}else if(frame.pageType.contains("JFrame-Swing"))
 			{
 				//android页面分析生成
