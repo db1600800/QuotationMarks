@@ -2,12 +2,12 @@
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <bgRgb16>#FFFFFF</bgRgb16>
-    <x>72</x>
-    <y>258</y>
-    <w>517</w>
-    <h>265</h>
-    <cnname>bg1428032929281</cnname>
-    <enname>bg1428032929281LinearLayout</enname>
+    <x>69</x>
+    <y>269</y>
+    <w>469</w>
+    <h>39</h>
+    <cnname>bg1428035255328</cnname>
+    <enname>bg1428035255328LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -16,25 +16,25 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1428032931000</time>
+    <time>1428035257062</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
+    <rgb16>#13140E</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
-    <x>156</x>
-    <y>311</y>
-    <w>333</w>
-    <h>136</h>
-    <cnname>left</cnname>
-    <enname>leftListView</enname>
+    <x>108</x>
+    <y>283</y>
+    <w>56</w>
+    <h>9</h>
+    <cnname>t</cnname>
+    <enname>tTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
-    <type>ListView</type>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1428032940281</time>
+    <time>1428035264578</time>
   </CompomentBean>
 </list>

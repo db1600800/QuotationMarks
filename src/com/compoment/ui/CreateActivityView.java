@@ -385,6 +385,7 @@ public class CreateActivityView {
 							+ control + ") containView.findViewById(R.id."
 							+ idToName[1] + ");//将抽屉打开方法 mDrawerLayout.openDrawer(Gravity.LEFT);\n";
 					m+=" leftDrawerContain=(LinearLayout)containView.findViewById(R.id.leftDrawerContain);\n";
+				    m+="new ActivityChirldView(leftDrawerContain,this);\n";
 				}
 				else {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
