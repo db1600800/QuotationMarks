@@ -27,7 +27,7 @@ public class CreateActivityChirldView {
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
 			"Spinner", "AutoCompleteTextView", "CheckBox", "LinearLayout",
-			"RadioButton", "RadioGroup" };
+			"RadioButton", "RadioGroup","ListView","GirdView" };
 	Element root = null;
 	String m = "";
 

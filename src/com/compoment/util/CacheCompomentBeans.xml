@@ -1,13 +1,13 @@
 <list>
   <CompomentBean>
-    <rgb16>#EEEFEA</rgb16>
-    <bgRgb16>#D8DAD1</bgRgb16>
-    <x>20</x>
-    <y>256</y>
-    <w>600</w>
-    <h>239</h>
-    <cnname>bg1428029695765</cnname>
-    <enname>bg1428029695765LinearLayout</enname>
+    <rgb16>#FFFFFF</rgb16>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <x>72</x>
+    <y>258</y>
+    <w>517</w>
+    <h>265</h>
+    <cnname>bg1428032929281</cnname>
+    <enname>bg1428032929281LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -16,15 +16,15 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1428029698437</time>
+    <time>1428032931000</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#EDF5D2</rgb16>
-    <bgRgb16>#EDF5D2</bgRgb16>
-    <x>86</x>
-    <y>294</y>
-    <w>440</w>
-    <h>114</h>
+    <rgb16>#FFFFFF</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <x>156</x>
+    <y>311</y>
+    <w>333</w>
+    <h>136</h>
     <cnname>left</cnname>
     <enname>leftListView</enname>
     <textSize>16</textSize>
@@ -35,6 +35,6 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1428029709656</time>
+    <time>1428032940281</time>
   </CompomentBean>
 </list>
