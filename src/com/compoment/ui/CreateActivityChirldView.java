@@ -275,9 +275,7 @@ public class CreateActivityChirldView {
 		m += "return containView;\n";
 		m += "}\n";
 
-	
 
-		
 
 		m += "	private View inflateView(int resource) {\n";
 		m += "		LayoutInflater vi = (LayoutInflater) context\n";
@@ -297,7 +295,54 @@ public class CreateActivityChirldView {
 
 		m += "}\n";
 
-	
+
+		
+		m += "public void setView(){\n";
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "//" + text + "\n";
+				if (control.equals("TextView")) {
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setText(\"\");\n";
+				}
+				if (control.equals("ListView") || control.equals("GridView")) {
+
+					m += "adapter.setList(listData);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setAdapter(adapter);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnScrollListener("+className+".this);\n";
+					m += firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnItemClickListener(new OnItemClickListener() {\n";
+					m += "	@Override\n";
+					m += "	public void onItemClick(\n";
+					m += "	AdapterView<?> arg0,\n";
+					m += "	View view, int position,\n";
+					m += "	long id) {\n";
+
+					m += "		Intent intent = new Intent();\n";
+					m += "		intent.setClass(" + className
+							+ ".this,OperatorModify.class);\n";
+					m += "		Bundle bundle = new Bundle();\n";
+					m += "		bundle.putSerializable(\"operator\",((RespondParam4463604) listData.get(position)));\n";
+					m += "		intent.putExtras(bundle);\n";
+					m += "		startActivityForResult(intent,n0000);\n";
+					m += "	}\n";
+					m += "});\n";
+
+				}
+			}
+		}
+		m += "}\n";
+
 		m += "}\n";
 
 		System.out.println(m);

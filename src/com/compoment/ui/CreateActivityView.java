@@ -258,8 +258,7 @@ public class CreateActivityView {
 		m += "        super.onDestroy();\n";
 		
 		m += " }\n";
-		
-		
+
 
 		m += "@Override\n";
 		m += "public void onCreate(Bundle savedInstanceState) {\n";
