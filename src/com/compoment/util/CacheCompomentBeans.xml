@@ -1,13 +1,13 @@
 <list>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <x>35</x>
-    <y>371</y>
-    <w>579</w>
-    <h>65</h>
-    <cnname>bg1427682094390</cnname>
-    <enname>bg1427682094390LinearLayout</enname>
+    <rgb16>#EEEFEA</rgb16>
+    <bgRgb16>#D8DAD1</bgRgb16>
+    <x>20</x>
+    <y>256</y>
+    <w>600</w>
+    <h>239</h>
+    <cnname>bg1428029695765</cnname>
+    <enname>bg1428029695765LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -16,120 +16,25 @@
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427682096265</time>
+    <time>1428029698437</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#CBCEC1</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>56</x>
-    <y>395</y>
-    <w>36</w>
-    <h>10</h>
-    <cnname>t1</cnname>
-    <enname>t1TextView</enname>
+    <rgb16>#EDF5D2</rgb16>
+    <bgRgb16>#EDF5D2</bgRgb16>
+    <x>86</x>
+    <y>294</y>
+    <w>440</w>
+    <h>114</h>
+    <cnname>left</cnname>
+    <enname>leftListView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
+    <type>ListView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1427682110437</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#D3DBB7</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>109</x>
-    <y>394</y>
-    <w>35</w>
-    <h>12</h>
-    <cnname>t2</cnname>
-    <enname>t2TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1427682125640</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#C9D4A7</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>160</x>
-    <y>396</y>
-    <w>19</w>
-    <h>10</h>
-    <cnname>t3</cnname>
-    <enname>t3TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1427682135531</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#B5C482</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>198</x>
-    <y>394</y>
-    <w>30</w>
-    <h>12</h>
-    <cnname>t4</cnname>
-    <enname>t4TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1427682144750</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#B5C482</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>242</x>
-    <y>396</y>
-    <w>23</w>
-    <h>7</h>
-    <cnname>t5</cnname>
-    <enname>t5TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1427682154703</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#DCE3C6</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <x>279</x>
-    <y>397</y>
-    <w>29</w>
-    <h>5</h>
-    <cnname>t6</cnname>
-    <enname>t6TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1427682164625</time>
+    <time>1428029709656</time>
   </CompomentBean>
 </list>

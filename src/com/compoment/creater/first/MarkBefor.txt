@@ -1,17 +1,12 @@
-	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("title");
-		builder.setMessage("msg").setCancelable(false);
-		builder.setPositiveButton("确定",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						
-					}
-				});
-		builder.setNegativeButton("取消",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
 
-					}
-				});
-		builder.show();
+        
+         <!-- The navigation drawer 左抽屉 -->
+         <LinearLayout
+            android:layout_width="240dp"
+            android:layout_gravity="start" 
+            android:background="#111"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+             >
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
