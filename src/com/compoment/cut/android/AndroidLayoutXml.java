@@ -338,8 +338,16 @@ public class AndroidLayoutXml {
 		}
 
 		// if (bean.chirlds != null && bean.chirlds.size() > 0) {
-		if (bean.type.contains("Layout")) {
-			if (bean.bgRgb16.contains("颜色")) {
+		 if (bean.type.contains("Layout")) {
+			if(bean.type.contains("DrawerLayout"))
+			{
+				m += "<android.support.v4.widget." + bean.type + " android:id=\"@+id/"
+					+ bean.enname+"\" android:layout_width=\"" + width
+						+ "\"  android:layout_height=\"" + height
+						+ "\"    android:background=\"" + bean.bgRgb16.trim()
+						+ "\"  >\n   <!-- The main content view 主页布局--> \n";
+			}
+			else if (bean.bgRgb16.contains("颜色")) {
 				m += "<" + bean.type + "  android:layout_width=\"" + width
 						+ "\"  android:layout_height=\"" + height
 						+ "\"    android:background=\"#" + "ffffff"
@@ -481,7 +489,23 @@ public class AndroidLayoutXml {
 
 		// if (bean.chirlds != null && bean.chirlds.size() > 0) {
 		if (bean.type.contains("Layout")) {
+			if(bean.type.contains("DrawerLayout"))
+			{
+				m+="         <!-- The navigation drawer 左抽屉 由ActivityChirld提供 -->\n";
+				m+="         <LinearLayout\n";
+				m+="            android:id=\"@+id/leftDrawerContain\"\n";
+				m+="            android:layout_width=\"240dp\"\n";
+				m+="            android:layout_gravity=\"start\" \n";
+				m+="            android:background=\"#111\"\n";
+				m+="            android:layout_height=\"fill_parent\"\n";
+				m+="            android:orientation=\"vertical\"\n";
+				m+="             >\n";
+				m+="        </LinearLayout>\n";
+				m+="    </android.support.v4.widget."+bean.type+">\n";
+			}else
+			{
 			m += "</" + bean.type + ">\n";
+			}
 		}
 		// }
 	}
