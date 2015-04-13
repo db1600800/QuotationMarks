@@ -107,7 +107,7 @@ public class ProjectPrototypePicPanel {
 		{
 		
 			
-			JOptionPane.showMessageDialog(projectFrame,
+			JOptionPane.showMessageDialog(null,
 					"请建立pic文件夹并放入原型图", "", JOptionPane.INFORMATION_MESSAGE);
 			
 			return null;

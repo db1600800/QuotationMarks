@@ -78,7 +78,9 @@ public class ProjectPathPanel {
 
 		/** c://dd */
 		final JTextField androidPathValueEditText = new JTextField("");
-		androidPathValueEditText.setText(KeyValue.readCache("projectPath"));
+		String projectpath=KeyValue.readCache("projectPath");
+		if(projectpath!=null && !projectpath.equals(""))
+		androidPathValueEditText.setText(projectpath);
 		Document doc = androidPathValueEditText.getDocument();
 
 		// 添加DocumentListener监听器
@@ -94,7 +96,9 @@ public class ProjectPathPanel {
 			public void insertUpdate(DocumentEvent e) {
 
 				String s = androidPathValueEditText.getText();
-				write(s);
+				KeyValue.writeCache("projectPath",s);
+				
+				KeyValue.writeCache("picPath", s+"/pic");
 				projectFrame.searchPrototypePic();
 			
 			}
@@ -140,7 +144,7 @@ public class ProjectPathPanel {
 				String s = iphonePathValueEditText.getText();
 				
 				KeyValue.writeCache("projectPath", s);
-				KeyValue.writeCache("picPath", s+"\\pic");
+				KeyValue.writeCache("picPath", s+"/pic");
 			
 				projectFrame.searchPrototypePic();
 			
