@@ -552,7 +552,7 @@ public class CreateActivityView {
 			}
 		}
 
-		m += "//注入RequestRespond		\n";
+		m += "//注入RequestRespond\n";
 		m += "//End注入RequestRespond\n";
 
 		m += "} catch (JSONException e) {\n";

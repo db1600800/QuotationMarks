@@ -667,6 +667,11 @@ public class CodeFunctionAdd extends JFrame {
 			jdialog.add(docsPanel);
 			jdialog.setVisible(true);
 			
+			if(projectDocPanel.selects==null)
+			{
+				JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+				return ;
+			}
 			
 			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
 			Request paging = new Request(currentCodeFileFullPath,projectDocPanel);

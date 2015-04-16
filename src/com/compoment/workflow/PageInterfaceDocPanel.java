@@ -101,6 +101,7 @@ public class PageInterfaceDocPanel {
 
 		/** path */
 		pathValueEditText = new JTextField("path");
+		pathValueEditText.setText(KeyValue.readCache("interfaceDocPath"));
 		bg1421553933783LinearLayout.addComponent(pathValueEditText);
 
 		Document doc = pathValueEditText.getDocument();
@@ -117,6 +118,8 @@ public class PageInterfaceDocPanel {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 
+				KeyValue.writeCache("interfaceDocPath", pathValueEditText.getText());
+				
 			}
 
 			@Override
@@ -136,6 +139,7 @@ public class PageInterfaceDocPanel {
 
 		/** 中文 */
 		cnNameValueEditText = new JTextField("0");
+		cnNameValueEditText.setText("0");
 		bg1421554005542LinearLayout.addComponent(cnNameValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554005542LinearLayout);
@@ -148,6 +152,7 @@ public class PageInterfaceDocPanel {
 
 		/** enName */
 		enNameValueEditText = new JTextField("1");
+		enNameValueEditText.setText("1");
 		bg1421554061119LinearLayout.addComponent(enNameValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554061119LinearLayout);
@@ -164,6 +169,7 @@ public class PageInterfaceDocPanel {
 
 		/** type */
 		typeValueEditText = new JTextField("2");
+		typeValueEditText.setText("2");
 		bg1421554117584LinearLayout.addComponent(typeValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554117584LinearLayout);
@@ -180,6 +186,7 @@ public class PageInterfaceDocPanel {
 
 		/** remarks */
 		remarksValueEditText = new JTextField("4");
+		remarksValueEditText.setText("4");
 		bg1421554170543LinearLayout.addComponent(remarksValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(bg1421554170543LinearLayout);
