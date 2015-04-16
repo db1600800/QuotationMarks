@@ -1,4 +1,5 @@
-#Update 'picPath' value
-#Mon Apr 13 15:22:53 CST 2015
-projectPath=/Users/gdpost/Documents/workspace/mobile/mobile
-picPath=/Users/gdpost/Documents/workspace/mobile/mobile/pic
+#Update 'compomentProjectAddress' value
+#Thu Apr 16 09:35:41 CST 2015
+projectPath=E\:\\183Android\\dd
+compomentProjectAddress=D\:\\workspace\\mobile-android
+picPath=E\:\\183Android\\dd/pic

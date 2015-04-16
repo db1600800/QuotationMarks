@@ -163,6 +163,7 @@ public class CompomentDialog {
 		
 		ArrayList listDate1 = new ArrayList();
 		final File[] files=FileUtil.findFiles(new File(KeyValue.readCache("picPath")+"/publiccompoment/"));
+		if(files!=null)
 		for(File file:files)
 		{
 	    if(file.getName().contains(".xml"))

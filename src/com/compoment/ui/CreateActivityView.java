@@ -222,7 +222,7 @@ public class CreateActivityView {
 					continue;
 
 				m += "/**" + text + "*/\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
+				if (control.equals("ListView") || control.equals("GridView")||control.equals("ExpandableListView")) {
 					m += control + " "
 							+ firstCharToLowerAndJavaName(idToName[1]) + ";\n";
 					m += className + "Adapter " + "adapter;\n";
@@ -300,7 +300,7 @@ public class CreateActivityView {
 					m += "}\n";
 					m += "					});\n";
 				} else if (control.equals("ListView")
-						|| control.equals("GridView")) {
+						|| control.equals("GridView")||control.equals("ExpandableListView")) {
 					m += firstCharToLowerAndJavaName(idToName[1]) + "= ("
 							+ control + ") containView.findViewById(R.id."
 							+ idToName[1] + ");\n";
@@ -523,7 +523,7 @@ public class CreateActivityView {
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
 				m += "//" + text + "\n";
-				if (control.equals("ListView") || control.equals("GridView")) {
+				if (control.equals("ListView") || control.equals("GridView")||control.equals("ExpandableListView")) {
 
 					m += "adapter.setList(listData);\n";
 					m += firstCharToLowerAndJavaName(idToName[1])
@@ -708,7 +708,7 @@ public class CreateActivityView {
 				String text = personNode.getAttribute("android:text");
 				String[] idToName = id.split("/");
 
-				if (control.equals("ListView") || control.equals("GridView")) {
+				if (control.equals("ListView") || control.equals("GridView")||control.equals("ExpandableListView")) {
 					isHaveListView = true;
 				} else if (control.equals("TextView")) {
 

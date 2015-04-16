@@ -17,6 +17,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+
 import com.compoment.addfunction.android.FileBean;
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
@@ -24,12 +26,12 @@ import com.compoment.util.KeyValue;
 
 //http://www.189works.com/article-37835-1.html
 
-public class CreaterAdapter {
+public class CreaterExpandAdapter {
 
 	String xmlfile = "accountinfo_item.xml";// 修改就行
 	static String classDir = null;
-	static String xmlFilePath = null;
-	static String xmlfilename = null;
+
+
 	static String className = null;
 	String[] controls = { "Button", "TextView", "EditText", "ImageView",
 			"ExpandableListView", "ListView", "GridView", "Spinner", "CheckBox" };
@@ -37,52 +39,19 @@ public class CreaterAdapter {
 	List<CompomentBean> beans;
 	boolean isImgCache = false;
 	String m = "";
-
+    String filename="";  
+	
 	public static void main(String[] args) throws SAXException, IOException {
-		CreaterAdapter createrAdapter = new CreaterAdapter("", null);
+		CreaterExpandAdapter createrAdapter = new CreaterExpandAdapter("", null);
 		createrAdapter.create();
-
+	
 	}
 
-	public CreaterAdapter(String filename, List<CompomentBean> beans) {
+	public CreaterExpandAdapter(String filename, List<CompomentBean> beans) {
 		this.beans = beans;
- 
-		// classDir = this.getClass().getResource("/").getPath();
-		// int pos = xmlfile.indexOf(".");
-		// xmlfilename = xmlfile.substring(0, pos);
-		// xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
-		//
+        this.filename=filename;
 
-		if (filename.equals("")) {
-			classDir = this.getClass().getResource("/").getPath();
-			int pos = xmlfile.indexOf(".");
-			xmlfilename = xmlfile.substring(0, pos);
-			xmlFilePath = classDir + "com/compoment/ui/xml/" + xmlfilename;
-		} else {
-
-			xmlfilename = filename;
-			xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + filename;
-		}
-
-		className = firstCharToUpperAndJavaName(xmlfilename);
-
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
-
-		try {
-			builder = dbf.newDocumentBuilder();
-			Document doc = builder.parse(xmlFilePath + ".xml");
-			root = doc.getDocumentElement();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		className = firstCharToUpperAndJavaName(filename);
 
 		for (CompomentBean bean : beans) {
 			if (bean.isImgCache) {
@@ -90,7 +59,7 @@ public class CreaterAdapter {
 				copyFile();
 			}
 		}
-
+		
 	}
 
 	public void create() {
@@ -106,12 +75,12 @@ public class CreaterAdapter {
 		m += "import android.widget.EditText;\n";
 		m += "import android.widget.CheckBox;\n";
 
-		m += "public class " + className + "Adapter extends BaseAdapter {\n";
+		m += "public class " + className + "Adapter extends BaseExpandableListAdapter {\n";
 
 		m += "	private static final String TAG = \"" + className
 				+ "Adapter\";\n";
 
-		m += "	public List<" + className + "AdapterBean> list;\n";
+		m += "	public List<" + className + "GroupBean> listGroup;\n";
 
 		m += "	private Context mContext;\n";
 
@@ -135,34 +104,79 @@ public class CreaterAdapter {
 		m += "	}\n";
 
 		m += "	public void setList(List<" + className
-				+ "AdapterBean> list) {\n";
-		m += "		this.list = list;\n";
+				+ "GroupBean> list) {\n";
+		m += "		this.listGroup = listGroup;\n";
 
 		m += "	}\n";
 
+		group();
+		
+		child();
+	
+		m += "	}\n";
+		
+		System.out.println(m);
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className
+				+ "Adapter", "java", m);
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
+				"java", m);
+		// stringToFile("d:\\" + className + "Adapter.java", m);
+	}
+	
+	
+	public void group()
+	{
+	
+		String parentXmlFileName=filename+"_parentitem";
+		String childXmlFileName=filename+"_childitem";
+		String xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + parentXmlFileName;
+		
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+
+		try {
+			builder = dbf.newDocumentBuilder();
+			Document doc = builder.parse(xmlFilePath + ".xml");
+			root = doc.getDocumentElement();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		
+		
 		m += "	@Override\n";
-		m += "	public int getCount() {\n";
-		m += "		return list.size();\n";
+		m += "	public int getGroupCount() {\n";
+		m += "		return listGroup.size();\n";
 		m += "	}\n";
 
 		m += "	@Override\n";
-		m += "	public Object getItem(int position) {\n";
-		m += "		return list.get(position);\n";
+		m += "	public Object getGroup(int groupPosition) {\n";
+		m += "		return listGroup.get(groupPosition);\n";
 		m += "	}\n";
 
 		m += "	@Override\n";
-		m += "	public long getItemId(int position) {\n";
-		m += "		return position;\n";
+		m += "	public long getGroupId(int groupPosition) {\n";
+		m += "		return groupPosition;\n";
 		m += "	}\n";
 
 		m += "	@Override\n";
-		m += "	public View getView(int position, View convertView, ViewGroup parent) {\n";
+		m += "	public View getGroupView(int groupPosition, boolean isExpanded,View convertView, ViewGroup parent) {\n";
 
-		m += "		ViewHolder viewHolder = null;\n";
+		m += "		ViewHolderGroup viewHolder = null;\n";
 		m += "		if (convertView == null) {\n";
 		m += "			convertView = LayoutInflater.from(mContext).inflate(\n";
-		m += "					R.layout." + xmlfilename + ", null);\n";
-		m += "			viewHolder = new ViewHolder();\n";
+		m += "					R.layout." + parentXmlFileName + ", null);\n";
+		m += "			viewHolder = new ViewHolderGroup();\n";
 
 		// m += "			viewHolder.mTextView = (TextView) convertView\n";
 		// m += "					.findViewById(R.id.tv_tips);\n";
@@ -193,7 +207,7 @@ public class CreaterAdapter {
 					m += "	                      public void onClick(View v) {\n";
 					m += "\n int position=Integer.valueOf(v.getTag().toString());\n";
 					m += className
-							+ "AdapterBean adapterbean = list.get(position);\n";
+							+ "GroupBean groupbean = listGroup.get(position);\n";
 					m += "	                          CheckBox cb = (CheckBox)v;\n";
 
 					m += "adapterbean."
@@ -214,12 +228,12 @@ public class CreaterAdapter {
 
 		m += "			convertView.setTag(viewHolder);\n";
 		m += "		} else {\n";
-		m += "			viewHolder = (ViewHolder) convertView.getTag();\n";
+		m += "			viewHolder = (ViewHolderGroup) convertView.getTag();\n";
 		m += "		}\n";
-		m += "		" + className + "AdapterBean adapterbean = null;\n";
-		m += "	if(list!=null && list.size()>position)\n";
-		m += " adapterbean = list.get(position);\n";
-		m += "		if (adapterbean != null) {\n";
+		m += "		" + className + "GroupBean groupbean = null;\n";
+		m += "	if(listGroup!=null && listGroup.size()>groupPosition)\n";
+		m += " groupbean = listGroup.get(groupPosition);\n";
+		m += "		if (groupbean != null) {\n";
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -237,7 +251,7 @@ public class CreaterAdapter {
 						for (CompomentBean bean : beans) {
 							if (bean.enname.equals(idToName[1])
 									&& bean.isImgCache) {
-								m += "			mImageLoader.setImgToImageView(adapterbean."
+								m += "			mImageLoader.setImgToImageView(groupbean."
 										+ firstCharToLowerAndJavaName(idToName[1])
 										+ "Url,\n";
 								m += "					viewHolder."
@@ -250,28 +264,28 @@ public class CreaterAdapter {
 				} else if (control.equals("CheckBox")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setTag(position);\n";
+							+ ".setTag(groupPosition);\n";
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setChecked(adapterbean."
+							+ ".setChecked(groupbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "CheckBoxState);\n";
 
 				} else if (control.equals("EditText")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(adapterbean."
+							+ ".setText(groupbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				} else if (control.equals("Button")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setTag(position);\n";
+							+ ".setTag(groupPosition);\n";
 
 				} else if (control.equals("TextView")) {
 					m += "viewHolder."
 							+ firstCharToLowerAndJavaName(idToName[1])
-							+ ".setText(adapterbean."
+							+ ".setText(groupbean."
 							+ firstCharToLowerAndJavaName(idToName[1])
 							+ "Value);\n";
 				}
@@ -284,7 +298,7 @@ public class CreaterAdapter {
 		m += "		return convertView;\n";
 		m += "	}\n";
 
-		m += "	static class ViewHolder {\n";
+		m += "	public class ViewHolderGroup {\n";
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -303,8 +317,247 @@ public class CreaterAdapter {
 		}
 
 		m += "	}\n";
+		
+		m += "public	static class " + className + "GroupBean {\n";
+		m += "public String id;\n";
+		m+="List<"+className+"ChildBean> child;\n;";
+		boolean hasCheckBox = false;
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "/**" + text + "*/\n";
 
-		m += "public	static class " + className + "AdapterBean {\n";
+				if (control.equals("ImageView")) {
+					m += "		public String "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "Url;\n";
+				} else if (control.equals("TextView")) {
+					m += "		public String "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "Value;\n";
+				} else if (control.equals("EditText")) {
+					m += "		public String "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "Value;\n";
+				} else if (control.equals("CheckBox")) {
+					m += "		public boolean "
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "CheckBoxState;\n";
+					hasCheckBox = true;
+				}
+			}
+		}
+
+		m += "	}\n";
+		
+		if (hasCheckBox)
+			m += checkBoxSelectAll();
+	
+		
+	}
+	
+	public void child()
+	{
+	
+		
+		String childXmlFileName=filename+"_childitem";
+		String xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + childXmlFileName;
+		
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+
+		try {
+			builder = dbf.newDocumentBuilder();
+			Document doc = builder.parse(xmlFilePath + ".xml");
+			root = doc.getDocumentElement();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		
+		
+		m += "	@Override\n";
+		m += "	public int getChildrenCount(int groupPosition) {\n";
+		m += "		return listGroup.get(groupPosition).child.size();\n";
+		m += "	}\n";
+
+		m += "	@Override\n";
+		m += "	public Object getChild(int groupPosition, int childPosition) {\n";
+		m += "		return listGroup.get(groupPosition).child.get(childPosition);\n";
+		m += "	}\n";
+
+		m += "	@Override\n";
+		m += "	public long getChildId(int groupPosition, int childPosition) {\n";
+		m += "		return 0;\n";
+		m += "	}\n";
+
+		m += "	@Override\n";
+		m += "	public View getChildView(int groupPosition, int childPosition,boolean isLastChild, View convertView, ViewGroup parent) {\n";
+
+		m += "		ViewHolderChild viewHolder = null;\n";
+		m += "		if (convertView == null) {\n";
+		m += "			convertView = LayoutInflater.from(mContext).inflate(\n";
+		m += "					R.layout." + childXmlFileName + ", null);\n";
+		m += "			viewHolder = new ViewHolderChild();\n";
+
+		// m += "			viewHolder.mTextView = (TextView) convertView\n";
+		// m += "					.findViewById(R.id.tv_tips);\n";
+
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+
+				if (idToName == null || idToName.length < 2)
+					continue;
+
+				m += "//" + text + "\n";
+				m += "			viewHolder."
+						+ firstCharToLowerAndJavaName(idToName[1]) + " = ("
+						+ control + ") convertView";
+				m += ".findViewById(R.id." + idToName[1] + ");\n";
+
+				if (control.equals("CheckBox")) {
+					m += " viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnClickListener(new View.OnClickListener() {\n";
+					m += "	                      @Override \n";
+					m += "	                      public void onClick(View v) {\n";
+					m += "\n int groupPosition=Integer.valueOf(v.getTag().toString().split(\":\")[0]);\n";
+					m += "\n int childPosition=Integer.valueOf(v.getTag().toString().split(\":\")[1]);\n";
+					m += className
+							+ "ChildBean bean = listGroup.get(groupPosition).child.get(childPosition);\n";
+					m += "	                          CheckBox cb = (CheckBox)v;\n";
+
+					m += "bean."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "CheckBoxState=cb.isChecked()" + ";\n";
+					m += "}\n";
+					m += "});\n";
+				} else if (control.equals("Button")) {
+					m += " viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setOnClickListener( \n new View.OnClickListener() {\n"
+							+ "public void onClick(View v) {";
+					m += btnXmlnameTodbnameOrjavaname(idToName[1]);
+					m += "}\n});\n\n";
+				}
+			}
+		}
+
+		m += "			convertView.setTag(viewHolder);\n";
+		m += "		} else {\n";
+		m += "			viewHolder = (ViewHolderChild) convertView.getTag();\n";
+		m += "		}\n";
+		m += "		" + className + "ChildBean bean = null;\n";
+		m += "	if(listGroup!=null && listGroup.get(groupPosition).child.size()>groupPosition)\n";
+		m += " bean = listGroup.get(groupPosition).child.get(childPosition);\n";
+		m += "		if (bean != null) {\n";
+
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "//" + text + "\n";
+				if (control.equals("ImageView")) {
+					if (isImgCache) {
+						for (CompomentBean bean : beans) {
+							if (bean.enname.equals(idToName[1])
+									&& bean.isImgCache) {
+								m += "			mImageLoader.setImgToImageView(bean."
+										+ firstCharToLowerAndJavaName(idToName[1])
+										+ "Url,\n";
+								m += "					viewHolder."
+										+ firstCharToLowerAndJavaName(idToName[1])
+										+ ", defaultImg, isScrolling);\n";
+							}
+						}
+
+					}
+				} else if (control.equals("CheckBox")) {
+					m += "viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setTag(groupPosition+\":\"+childPosition);\n";
+					m += "viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setChecked(bean."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "CheckBoxState);\n";
+
+				} else if (control.equals("EditText")) {
+					m += "viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setText(bean."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "Value);\n";
+				} else if (control.equals("Button")) {
+					m += "viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setTag(groupPosition+\":\"+childPosition);\n";
+
+				} else if (control.equals("TextView")) {
+					m += "viewHolder."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ ".setText(bean."
+							+ firstCharToLowerAndJavaName(idToName[1])
+							+ "Value);\n";
+				}
+
+			}
+		}
+
+		m += "		}\n";
+
+		m += "		return convertView;\n";
+		m += "	}\n";
+
+		m += "	public class ViewHolderChild {\n";
+
+		for (String control : controls) {
+			// control为Button TextView....
+			NodeList buttonItems = root.getElementsByTagName(control);
+			for (int i = 0; i < buttonItems.getLength(); i++) {
+				Element personNode = (Element) buttonItems.item(i);
+				String id = personNode.getAttribute("android:id");
+				String text = personNode.getAttribute("android:text");
+				String[] idToName = id.split("/");
+				if (idToName == null || idToName.length < 2)
+					continue;
+				m += "/**" + text + "*/\n";
+				m += control + " " + firstCharToLowerAndJavaName(idToName[1])
+						+ ";\n";
+			}
+		}
+
+		m += "	}\n";
+		
+		m += "public	static class " + className + "ChildBean {\n";
 		m += "public String id;\n";
 		boolean hasCheckBox = false;
 		for (String control : controls) {
@@ -341,19 +594,11 @@ public class CreaterAdapter {
 		}
 
 		m += "	}\n";
-
-		// m+=beanChange();
+		
 		if (hasCheckBox)
 			m += checkBoxSelectAll();
-		m += "	}\n";
 
-		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className
-				+ "Adapter", "java", m);
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
-				"java", m);
-		// stringToFile("d:\\" + className + "Adapter.java", m);
 	}
 
 	public void stringToFile(String fileName, String str) {

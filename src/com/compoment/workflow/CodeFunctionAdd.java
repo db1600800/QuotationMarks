@@ -119,7 +119,7 @@ public class CodeFunctionAdd extends JFrame {
 
 		if (KeyValue.readCache("compomentProjectAddress") == null
 				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-			String inputValue = JOptionPane.showInputDialog("请输入组件工程路径");
+			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)路径");
 			KeyValue.writeCache("compomentProjectAddress", inputValue);
 		}
 
