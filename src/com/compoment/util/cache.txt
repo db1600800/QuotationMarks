@@ -1,12 +1,12 @@
-#Update '\u5907\u6CE8' value
-#Thu Apr 16 17:00:30 CST 2015
+#Update 'codeFilePath' value
+#Sat Apr 18 10:44:20 CST 2015
 \u53D8\u91CF\u540D=1
 interfaceDocPath=E\:\\183Android\\dd\\doc\\interface.doc
 \u7C7B\u578B=2
-codeFilePath=E\:\\183Android\\dd\\pic\\java
+codeFilePath=/Users/apple/Documents/workspace/test/pic/java
 \u5907\u6CE8=4
 compomentProjectAddress=D\:\\workspace\\mobile-android
-picPath=E\:\\183Android\\dd/pic
+picPath=/Users/apple/Documents/workspace/test/pic
 \u4E2D\u6587\u540D=0
-projectPath=E\:\\183Android\\dd
+projectPath=/Users/apple/Documents/workspace/test
 docPath=E\:\\183Android\\dd\\doc\\interface.doc

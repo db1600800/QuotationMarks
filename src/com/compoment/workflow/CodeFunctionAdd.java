@@ -18,6 +18,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
+import com.compoment.addfunction.android.MyDialog;
 import com.compoment.addfunction.android.Paging;
 import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
@@ -271,8 +272,14 @@ public class CodeFunctionAdd extends JFrame {
 
 						String codePath = codePathValueEditText.getText();
 
+						int p=codePath.lastIndexOf("\\");
+						if(p==-1)
+						{
+							p=codePath.lastIndexOf("/");
+						}
+						
 						String picPath = codePath.substring(0,
-								codePath.lastIndexOf("\\"));
+								p);
 						String img = picPath + "/" + getPicName(fileName)
 								+ ".png";
 						File file = new File(img);
@@ -511,6 +518,9 @@ public class CodeFunctionAdd extends JFrame {
 
 					if (value.equals("Swing")) {
 						swingFunction(function);
+					}else if(value.equals("Android"))
+					{
+						androidFunction(function);
 					}
 					
 				}
@@ -714,6 +724,80 @@ public class CodeFunctionAdd extends JFrame {
 				}
 			}
 
+		}else if (function.id.equals("41")) {//Dialog   msg:title:leftBtn:rightBtn:rightBtn2
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				
+			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"1");
+			editorValueEditText.setText(FileUtil
+					.fileContent(currentCodeFileFullPath));
+			
+			}else if (response == 1) {
+				
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
+			}
+
+		}
+		else if (function.id.equals("42")) {//Dialog   msg:list
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				
+			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"2");
+			editorValueEditText.setText(FileUtil
+					.fileContent(currentCodeFileFullPath));
+			
+			}else if (response == 1) {
+				
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
+			}
+
+		}
+		else if (function.id.equals("43")) {//Dialog   msg:editText
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				
+			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"3");
+			editorValueEditText.setText(FileUtil
+					.fileContent(currentCodeFileFullPath));
+			
+			}else if (response == 1) {
+				
+				if(!backupBeforeModify.equals(""))
+				{
+				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+				backupBeforeModify="";
+				}
+			}
+
 		}
 		
 
@@ -792,10 +876,9 @@ public class CodeFunctionAdd extends JFrame {
 		functionParents.add(dialogParent);
 		ArrayList<Function> dialogChirlds = new ArrayList<Function>();
 		dialogParent.chirlds = dialogChirlds;
-		dialogChirlds.add(new Function("41", "系统对话框提示(单个按钮)"));
-		dialogChirlds.add(new Function("42", "系统对话框提示(左右按钮)"));
-		dialogChirlds.add(new Function("43", "系统对话框选择(列表)"));
-		dialogChirlds.add(new Function("44", "系统对话框输入"));
+		dialogChirlds.add(new Function("41", "系统对话框提示(title:msg:leftBtn:rightBtn:rightBtn2)"));
+		dialogChirlds.add(new Function("42", "系统对话框提示(title:list)"));
+		dialogChirlds.add(new Function("43", "系统对话框输入"));
 		dialogChirlds.add(new Function("45", "自定义对话框提示(单个按钮)"));
 		dialogChirlds.add(new Function("46", "自定义对话框提示(左右按钮)"));
 		dialogChirlds.add(new Function("47", "自定义对话框选择(列表)"));
@@ -874,11 +957,12 @@ public class CodeFunctionAdd extends JFrame {
 	/**
 	 * 用于侦听文本组件插入符的位置更改的侦听器 获取当前光标在文件中的行号
 	 */
+	int whichLine=-1;
 	class CaretLis_lineNo implements CaretListener {
 		public void caretUpdate(CaretEvent e) {
 			try {
 
-				int lineno = editorValueEditText
+				whichLine = editorValueEditText
 						.getLineOfOffset(editorValueEditText.getCaretPosition()) + 1;
 			} catch (BadLocationException eB) {
 				System.out.println("IO Wrong");
