@@ -104,7 +104,7 @@ public class CreaterExpandAdapter {
 		m += "	}\n";
 
 		m += "	public void setList(List<" + className
-				+ "GroupBean> list) {\n";
+				+ "GroupBean> listGroup) {\n";
 		m += "		this.listGroup = listGroup;\n";
 
 		m += "	}\n";
@@ -470,7 +470,7 @@ public class CreaterExpandAdapter {
 		m += "			viewHolder = (ViewHolderChild) convertView.getTag();\n";
 		m += "		}\n";
 		m += "		" + className + "ChildBean bean = null;\n";
-		m += "	if(listGroup!=null && listGroup.get(groupPosition).child.size()>groupPosition)\n";
+		m += "	if(listGroup!=null && listGroup.get(groupPosition).child.size()>childPosition)\n";
 		m += " bean = listGroup.get(groupPosition).child.get(childPosition);\n";
 		m += "		if (bean != null) {\n";
 
