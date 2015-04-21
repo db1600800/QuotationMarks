@@ -42,6 +42,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class ProjectFrame extends JFrame {
@@ -162,6 +163,24 @@ public class ProjectFrame extends JFrame {
 		this.setTitle("工程设置");
 		pack();
 		setVisible(true);
+		
+		if (KeyValue.readCache("compomentProjectAddress") == null
+				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+			KeyValue.writeCache("compomentProjectAddress", inputValue);
+		}else
+		{
+			
+			String projectPath=KeyValue.readCache("compomentProjectAddress");
+			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
+			{
+				
+			}else
+			{
+				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+				KeyValue.writeCache("compomentProjectAddress", inputValue);
+			}
+		}
 	}
 
 	public static void main(String[] args) {

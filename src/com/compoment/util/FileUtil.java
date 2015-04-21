@@ -169,6 +169,17 @@ public class FileUtil {
 		return null;
 	}
 	
+	public static boolean isFileExist(String wantFindFileFullPath) {
+
+	     File file = new File(wantFindFileFullPath);
+	        
+	        if (file!=null && file.isFile() && file.exists()) {
+	        	
+	        	return true;
+	        }
+		return false;
+	}
+	
 	
 	public static File[] findFiles(File startDirectory) {
        
@@ -222,6 +233,13 @@ public class FileUtil {
             flag = true;
         }
         return flag;
+    }
+    
+    
+    public static boolean isDirectory(String filePath)
+    {
+    	File temp=new File(filePath);
+    	return temp.isDirectory();
     }
 
 }

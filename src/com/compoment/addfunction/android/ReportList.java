@@ -29,10 +29,22 @@ public class ReportList {
 		
 		if(waitByModifyFileName.contains("Adapter"))
 		{
-			 addFunctionForAdapter(waitByModifyFileName);
+			addFunctionForAdapter(waitByModifyFileName);
 		}else
 		{
 			addFunctionForActivity();
+			int p=waitByModifyFileName.lastIndexOf(".");
+			String pre=waitByModifyFileName.substring(0, p);
+			String suffix=waitByModifyFileName.substring(p);
+			
+			if(FileUtil.isFileExist(pre+"Adapter"+suffix))
+			{
+				 addFunctionForAdapter(waitByModifyFileName);
+			}else
+			{
+				JOptionPane.showMessageDialog(null, "Adapter也需添加此功能", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
 			
 		}
 		
