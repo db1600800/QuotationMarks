@@ -38,7 +38,7 @@ public class PageTypePanel {
 		listDate.add("Activity-Android");
 		listDate.add("Item-Android");
 		listDate.add("Fragment-Android");
-		listDate.add("Layout-Android");
+		listDate.add("Activity-ChirldView-Android");
 		listDate.add("---Swing---");
 		listDate.add("JFrame-Swing");
 		listDate.add("JDialog-Swing");

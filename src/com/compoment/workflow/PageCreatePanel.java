@@ -194,7 +194,7 @@ public class PageCreatePanel {
 
 		} else if (frame.pageType.contains("Fragment-Android")) {
 
-		} else if (frame.pageType.contains("Layout-Android")) {
+		} else if (frame.pageType.contains("Activity-ChirldView-Android")) {
 			// android页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
