@@ -407,9 +407,7 @@ public class AndroidLayoutXml {
 					+ bean.textSize
 					+ "sp\" android:textColor=\""
 					+ bean.rgb16
-					+ "\"   android:background=\""
-					+ bean.bgRgb16
-					+ "\"  android:gravity=\"center\"   android:singleLine=\"true\"   android:maxLength=\"40\"  "
+					+ "\"   android:gravity=\"center\"   android:singleLine=\"true\"   android:maxLength=\"40\"  "
 					+ bean.relative + ">\n";
 			m += "</EditText>\n";
 		}
