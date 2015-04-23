@@ -111,6 +111,14 @@ public class RequestRespond {
 		
 		m+="Gson gson = new Gson();\n";
 		m+= "String s  = gson.toJson(bean);\n";
+		
+		
+		m+="Intent intent = new Intent();\n";
+		m+="intent.setClass(.this,WaitActivity.class);\n";
+		m+="Bundle bundle = new Bundle();\n";
+		m+="bundle.putString(\"url\",WaitActivity.urlbase+\"?parameter=s\");\n";
+		m+="intent.putExtras(bundle);\n";
+		m+="startActivityForResult(intent,n"+interfaceBean.id+");\n";
 		m += "}\n\n";
 
 	
