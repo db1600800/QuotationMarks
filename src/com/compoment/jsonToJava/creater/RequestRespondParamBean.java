@@ -69,7 +69,7 @@ public class RequestRespondParamBean {
 			if (groupname.equals("CommonGroup")) {
 				for (Row row : group.rows) {
 					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-					m += "public " + row.type + " " + row.enName + ";\n";
+					m += "public " + row.getType() + " " + row.enName + ";\n";
 
 				}
 			} else {
@@ -78,16 +78,16 @@ public class RequestRespondParamBean {
 				for (Row row : group.rows) {
 					
 					if (i == 0) {// 循环域开始
-						if (row.type != null && !isCommonType(row.type)) {
+						if (row.getType() != null && !isCommonType(row.getType())) {
 							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public List<" + row.type + "> " + row.type + ";\n";
+							m += "public List<" + row.getType() + "> " + row.getType() + ";\n";
 							mChirldClass.add(chirldClass(group));
 							isCustomerClass = true;
 						} else {
 							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.type + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName
 									+ ";\n";
 							isCustomerClass = false;
 						}
@@ -99,21 +99,21 @@ public class RequestRespondParamBean {
 							{
 								m += "/** " + row.cnName + " 备注:" + row.remarks
 										+ "*/\n";
-								m += "public " + row.type + " " + row.enName
+								m += "public " + row.getType() + " " + row.enName
 										+ ";\n";
 							}
 							if(type.equals("Respond"))
 							{
 							m += "/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.type + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName
 									+ ";\n";
 							}
 							if(type.equals("CacheRespond"))
 							{
 							m += "/** " + row.cnName + " (数组)备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.type + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName
 									+ "[];\n";
 							}
 						}
@@ -137,11 +137,11 @@ public class RequestRespondParamBean {
 		int i = 0;
 		for (Row row : group.rows) {
 			if (i == 0) {
-				n += "/** 子类" + row.type + " " + row.cnName + " 备注:"
+				n += "/** 子类" + row.getType() + " " + row.cnName + " 备注:"
 						+ row.remarks + "*/\n";
-				n += "public class " + row.type + "{\n";
+				n += "public class " + row.getType() + "{\n";
 			} else {
-				n += "public " + row.type + " " + row.enName + ";\n";
+				n += "public " + row.getType() + " " + row.enName + ";\n";
 			}
 			i++;
 		}

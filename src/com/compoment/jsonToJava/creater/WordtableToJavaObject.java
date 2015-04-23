@@ -102,7 +102,15 @@ public class WordtableToJavaObject {
 		String cnName;
 		String enName;
 		String type;
+		public String getType() {
+			return type.replaceAll("[^0-9a-zA-Z]","");
+		}
+		public void setType(String type) {
+			this.type = type;
+		}
 		String remarks;
+		
+		
 	}
 
 	public List<InterfaceBean> wordAnalyse(String file,Map point) {
