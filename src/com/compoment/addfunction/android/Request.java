@@ -158,7 +158,7 @@ public class Request {
 					String cn=select.toString().split(":")[1];
 					
 				m+=pageInterfaceDocPanel.requestFunction(id);
-			
+				pageInterfaceDocPanel.serverlet(id);
 				}
 				content += m;
 			}else if(line.contains("//End注入RequestRespond"))

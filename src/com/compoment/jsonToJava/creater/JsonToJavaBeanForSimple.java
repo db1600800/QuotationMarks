@@ -77,21 +77,105 @@ import net.sf.json.JSONObject;
  "吴川市邮政局"
  ]*/
 
-public class JsonToJSONOBJECT {
+public class JsonToJavaBeanForSimple {
+
+	String m = "";
+
+	List touse = new ArrayList();
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		JsonToJSONOBJECT pojo = new JsonToJSONOBJECT();
+		JsonToJavaBeanForSimple pojo = new JsonToJavaBeanForSimple();
 		String jsonString = pojo.jsonFromFile();
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
-		// System.out.println("public class Bean{");
-		//pojo.getPojo(jsonObject);
-		Bean rootBean=pojo.child("root",jsonObject);
-		
-		System.out.println(pojo.m);
+		Bean rootBean = pojo.relation("respond", jsonObject);
+		pojo.createJavaBeanClass(rootBean);
+		System.out.println(pojo.getJaveBeanClass());
+		System.out.println(pojo.toUseJavaBeanClass());
 	}
+
+	public JsonToJavaBeanForSimple() {
+
+	}
+
+	public JsonToJavaBeanForSimple(String jsonString) {
+		JSONObject jsonObject = JSONObject.fromObject(jsonString);
+		Bean rootBean = relation("respond", jsonObject);
+		createJavaBeanClass(rootBean);
+	}
+
+	public String getJaveBeanClass() {
+		return m;
+	}
+
+	public void createJavaBeanClass(Bean rootBean) {
+
+		m += "\n class " + firstCharUpperCase(rootBean.name) + "{\n";
+		touse.add(firstCharUpperCase(rootBean.name) + " " + rootBean.name
+				+ "=new " + firstCharUpperCase(rootBean.name) + "();\n");
+
+		Set set = rootBean.kvcommonobject.keySet();
+		Iterator it = set.iterator();
+		while (it.hasNext()) {
+			String key = (String) it.next();
+			m += "public String " + key + ";\n";
+
+			touse.add(rootBean.name + "." + key + "=;\n");
+			Object obj = (Object) rootBean.kvcommonobject.get(key);
+		}
+
+		Set setArray = rootBean.kvarrayobject.keySet();
+		Iterator itArray = setArray.iterator();
+		while (itArray.hasNext()) {
+			String key = (String) itArray.next();
+			m += "public String " + key + "[];\n";
+			Object obj = (Object) rootBean.kvarrayobject.get(key);
+		}
+
+		for (Bean bean : rootBean.childs) {
+			m += "public " + firstCharUpperCase(bean.name) + " " + bean.name
+					+ ";\n";
+
+			touse.add(rootBean.name + "." + bean.name + "=" + bean.name + ";\n");
+			createJavaBeanClass(bean);
+		}
+
+		m += "}\n";
+
+	}
+
+	public String  toUseJavaBeanClass() {
+
+		// 功能：1.在new前加root. 2.对调下面两行
+		// root.returnData = returnData;
+		// ReturnData returnData = new ReturnData();
+
+		for (int i = 0; i < touse.size(); i++) {
+			if (i != 0 && touse.get(i).toString().contains("new ")) {
+				String before = touse.get(i - 1).toString();
+				String beforeindex = before.substring(0,
+						before.indexOf(".") + 1);
+
+				String current = touse.get(i).toString();
+				current = current.replace("new", beforeindex + "new");
+
+				touse.set(i - 1, current);
+				touse.set(i, before);
+
+			}
+		}
+
+		String m = "";
+		for (int i = 0; i < touse.size(); i++) {
+			m += touse.get(i);
+		}
+		return m;
+		
+	}
+
+
 
 	/** 从文件得到json数据 */
 	public String jsonFromFile() {
@@ -123,17 +207,14 @@ public class JsonToJSONOBJECT {
 		String name = "";
 		Bean parent;
 		Map kvcommonobject = new HashMap();
-		Map kvarrayobject=new HashMap();
+		Map kvarrayobject = new HashMap();
 		List<Bean> childs = new ArrayList();
 	}
 
-
-	
-	
-	public Bean child(String name, JSONObject jsonObject) {
+	public Bean relation(String name, JSONObject jsonObject) {
 		Bean bean = new Bean();
 		bean.name = name;
-        
+
 		try {
 			Set set = jsonObject.keySet();
 			Iterator it = set.iterator();
@@ -146,11 +227,11 @@ public class JsonToJSONOBJECT {
 
 					JSONArray jSONArray = (JSONArray) obj;
 					if (jSONArray != null && jSONArray.size() > 0) {
-						bean.kvarrayobject.put(key, jSONArray.size() );
+						bean.kvarrayobject.put(key, jSONArray.size());
 					}
 				} else if (obj instanceof JSONObject) {
 
-					Bean child=child(key,(JSONObject)obj) ;
+					Bean child = relation(key, (JSONObject) obj);
 					bean.childs.add(child);
 				} else {
 
@@ -160,71 +241,11 @@ public class JsonToJSONOBJECT {
 		} catch (Exception e) {
 
 		}
-		
+
 		return bean;
 	}
 
-	String name = "root";
-	String m = "";
-
-	/** 生成Bean json->bean */
-	public void getPojo(JSONObject jsonObject) {
-
-		m += "JSONObject " + name + "=new JSONObject();\n";
-
-		Map kvcommonobject = new HashMap();
-		Map kvjson0bject = new HashMap();
-
-		try {
-			Set set = jsonObject.keySet();
-			Iterator it = set.iterator();
-
-
-			while (it.hasNext()) {
-				String key = (String) it.next();
-				Object obj = (Object) jsonObject.get(key);
-
-				if (obj instanceof JSONArray) {
-					// // List<PhotoBean> photoBeanList;
-					// System.out.println("public List<" +
-					// firstCharUpperCase(key)
-					// + "Bean> " + key + ";");
-					// // public class PhotoBean {
-					// System.out.println("public class "
-					// + firstCharUpperCase(key) + "Bean{");
-					JSONArray jSONArray = (JSONArray) obj;
-					if (jSONArray != null && jSONArray.size() > 0) {
-						for (int i = 0; i < 1; i++) {
-							JSONObject temp = jSONArray.getJSONObject(i); // ���JSON�����е�ÿһ��JSONObject����
-							getPojo(temp);
-						}
-					}
-				} else if (obj instanceof JSONObject) {
-
-					m += name + ".put(" + key + "," + key + ");\n";
-					name = key;
-					// System.out.println("public "
-					// + firstCharUpperCase(key) + "Bean "+key+";");
-					//
-					// System.out.println("public class "
-					// + firstCharUpperCase(key) + "Bean{");
-
-					JSONObject temp = (JSONObject) obj;
-					getPojo(temp);
-
-				} else {
-					m += name + ".put(" + key + ",);\n";
-					// System.out.println("public String " + key + ";");
-				}
-
-			}
-			// System.out.println("}");
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	/** 首字母大写 */
 	public static String firstCharUpperCase(String s) {
@@ -239,28 +260,7 @@ public class JsonToJSONOBJECT {
 
 	}
 
-	public void parseJson01(String jsonData) {
-		try {
-			// 解析json对象首先要生产一个JsonReader对象
-			JsonReader reader = new JsonReader(new StringReader(jsonData));
-			reader.beginArray();
-			while (reader.hasNext()) {
-				reader.beginObject();
-				while (reader.hasNext()) {
-					String tagName = reader.nextName();
-					if ("name".equals(tagName)) {
-						System.out.println("name--->" + reader.nextString());
-					} else if ("age".equals(tagName)) {
-						System.out.println("age--->" + reader.nextInt());
-					}
-				}
-				reader.endObject();
-			}
-			reader.endArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * 简化版例子

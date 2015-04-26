@@ -100,7 +100,7 @@ public class RequestRespondParamBean {
 								m += "/** " + row.cnName + " 备注:" + row.remarks
 										+ "*/\n";
 								m += "public " + row.getType() + " " + row.enName
-										+ ";\n";
+										+ "[];\n";
 							}
 							if(type.equals("Respond"))
 							{

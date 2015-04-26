@@ -22,6 +22,7 @@ import com.compoment.jsonToJava.creater.RequestRespond;
 import com.compoment.jsonToJava.creater.RequestRespondParamBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.server.Serverlet;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -216,7 +217,7 @@ public class PageInterfaceDocPanel {
 		respondJsonLinearLayout.addComponent(respondJsonTitleTextView);
 
 		/** respond */
-		respondJsonValueEditText = new JTextField("{\"returnCode\": \"0\",\"returnData\": {\"HEAD\": { \"RET_MSG\": \"成功\", \"RET_ERR\": \"000000\"}, \"RECORDNUM\": \"3\" ,\"ASS_NO\": [\"\", \"\", \"\" ],\"MAXRECORD\": \"6\"}}");
+		respondJsonValueEditText = new JTextField("{\"returnCode\": \"0\",\"returnData\": {\"head\": { \"ret_msg\": \"成功\", \"ret_errcode\": \"000000\"}, \"body\":{} }}");
 		respondJsonLinearLayout.addComponent(respondJsonValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(respondJsonLinearLayout);
@@ -486,6 +487,7 @@ public class PageInterfaceDocPanel {
 		RequestRespondParamBean requestRespond = new RequestRespondParamBean();
 		requestRespond.requestRespondParamBean(interfaceBeans);
 
+		
 	
 		
 		
@@ -500,8 +502,11 @@ public class PageInterfaceDocPanel {
 		{
 		  if(bean.id.equals(id))
 		  {
+
 		RequestRespond rr = new RequestRespond();
 		return rr.request(bean);
+		
+
 		  }
 		}
 		return "";
@@ -521,6 +526,20 @@ public class PageInterfaceDocPanel {
 		return "";
 	}
 	
+	
+	public String  serverlet(String id)
+	{
+		for(InterfaceBean bean:interfaceBeans )
+		{
+		  if(bean.id.equals(id))
+		  {
+				Serverlet serverlet=new Serverlet();
+				serverlet.create(respondJsonValueEditText.getText(), bean);	  
+			 
+		  }
+		}
+		return "";
+	}
 	
 
 	public static void main(String[] args) {

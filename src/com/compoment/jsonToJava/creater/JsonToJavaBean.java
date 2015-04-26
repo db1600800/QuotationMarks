@@ -99,8 +99,8 @@ public class JsonToJavaBean {
 		//String jsonString=pojo.jsonFromUrl();
 		JSONObject jsonObject = JSONObject.fromObject(jsonString);
 		System.out.println("public class Bean{");
-		//pojo.getPojo(jsonObject);
-		pojo.toJson01(pojo.parseJson02(jsonString));
+		pojo.getPojo(jsonObject);
+		//pojo.parseJson01(jsonString);
 	}
 
 	/**从url得到json数据*/
@@ -254,11 +254,11 @@ public class JsonToJavaBean {
                 reader.beginObject();
                 while(reader.hasNext()){
                     String tagName=reader.nextName();
-                    if("name".equals(tagName)){
+                    //if("name".equals(tagName)){
                         System.out.println("name--->"+reader.nextString());
-                    }else if("age".equals(tagName)){
-                        System.out.println("age--->"+reader.nextInt());
-                    }
+                   // }else if("age".equals(tagName)){
+                      //  System.out.println("age--->"+reader.nextInt());
+                    //}
                 }
                 reader.endObject();
             }
