@@ -112,6 +112,7 @@ public class Serverlet {
 
 		m+="					ctx.getResponse().setContentType(\"application/json\");\n";
 
+		m+="//000000 表示成功\n";
 		m+=jsonToJavaBeanForSimple.toUseJavaBeanClass();
 		
 		m+=requestRespondForServerlet.respond(interfaceBean);

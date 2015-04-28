@@ -116,7 +116,7 @@ public class RequestRespond {
 		m+="Intent intent = new Intent();\n";
 		m+="intent.setClass(.this,WaitActivity.class);\n";
 		m+="Bundle bundle = new Bundle();\n";
-		m+="bundle.putString(\"url\",WaitActivity.urlbase+\"?parameter=s\");\n";
+		m+="bundle.putString(\"url\",WaitActivity.urlbase+\"/Serverlet"+interfaceBean.id+"?parameter=s\");\n";
 		m+="intent.putExtras(bundle);\n";
 		m+="startActivityForResult(intent,n"+interfaceBean.id+");\n";
 		m += "}\n\n";
