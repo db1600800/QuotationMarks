@@ -140,7 +140,7 @@ public class RequestRespond {
 
 		m+="Gson gson = new Gson();\n";
 	
-		m+= classNameForCache+" bean = gson.fromJson(returnData, "+classNameForCache+".class);\n";
+		m+= classNameForCache+" bean = gson.fromJson(body, "+classNameForCache+".class);\n";
 		
 		List<Group> groups = interfaceBean.respondGroups;
 		

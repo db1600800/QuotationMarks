@@ -506,13 +506,12 @@ public class CreateActivityView {
 		m += "			return;\n";
 		m += "	\n";
 		m += "		Bundle bundle = data.getExtras();\n";
-		m += "		String jsonString = bundle.getString(\"jsonString\");\n";
+		m += "		String body = bundle.getString(\"jsonString\");\n";
 		m += "	\n";
-		m += "		if (jsonString!=null) {\n";
+		m += "		if (body!=null) {\n";
 		m += "			//有数据 且头没错\n";
 		m += "				try {\n";
-		m += "					JSONObject jsonObject = new JSONObject(jsonString);\n";
-		m += "					String returnData = jsonObject.getString(\"returnData\");\n";
+	
 
 		for (String control : controls) {
 			// control为Button TextView....
@@ -555,7 +554,7 @@ public class CreateActivityView {
 		m += "//注入RequestRespond\n";
 		m += "//End注入RequestRespond\n";
 
-		m += "} catch (JSONException e) {\n";
+		m += "} catch (Exception e) {\n";
 		m += "e.printStackTrace();\n";
 		m += "}\n";
 		m += "\n";
