@@ -22,6 +22,7 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
+import com.compoment.cut.iphone.IphoneLayout;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
@@ -265,6 +266,16 @@ public class PageCreatePanel {
 
 			SwingLayout swingLayout = new SwingLayout();
 			swingLayout.createJPanel(frame.beans, frame.beansForSwing);
+		}else if (frame.pageType.contains("ViewController-IOS")) {
+			// 页面分析生成
+			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					frame.pageName, frame.beans);
+
+			savePublicCompoment();
+
+			IphoneLayout iphoneLayout = new IphoneLayout(frame.beans);
+			
 		}
 
 		frame.beans.clear();

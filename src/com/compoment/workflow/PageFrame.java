@@ -169,7 +169,7 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 					"请选择页面类型", "", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
-		if(pageType.contains("Android"))
+		if(pageType.contains("Android")||pageType.contains("IOS"))
 		{
 			components.clear();
 			

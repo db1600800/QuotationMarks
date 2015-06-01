@@ -43,6 +43,8 @@ public class PageTypePanel {
 		listDate.add("JFrame-Swing");
 		listDate.add("JDialog-Swing");
 		listDate.add("JPanel-Swing");
+		listDate.add("---IOS---");
+		listDate.add("ViewController-IOS");
 		
 		pageTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
