@@ -25,6 +25,7 @@ import com.compoment.cut.CompomentBean;
 public class IphoneLayout {
 
 	String m = "\n\n\n";
+	String n="";
     String pageName="";
     
 	public  IphoneLayout(List<CompomentBean> oldBeans) {
@@ -66,20 +67,21 @@ public class IphoneLayout {
 		
 		
 		
-		m+="                <viewController title=\""+pageName+"\" id=\""+id()+"\" customClass=\"ViewController\" customModule=\"mobile\" customModuleProvider=\"target\" sceneMemberID=\"viewController\">\n";
+		m+="                <viewController title=\""+pageName+"\" id=\""+id()+"\" customClass=\"ViewController\" customModule=\"\" customModuleProvider=\"\" sceneMemberID=\"viewController\">\n";
 		m+="                    <layoutGuides>\n";
 		m+="                        <viewControllerLayoutGuide type=\"top\" id=\""+id()+"\"/>\n";
 		m+="                        <viewControllerLayoutGuide type=\"bottom\" id=\""+id()+"\"/>\n";
 		m+="                    </layoutGuides>\n";
 		
-//		m+="                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""+maxBean.id+"\">\n";
-//		m+="                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-//		m+="                        <subviews>\n";
+		m+="                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""+maxBean.id+"\">\n";
+		m+="<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"600\" height=\"600\"/>\n";
+		m+="                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
+		m+="                        <subviews>\n";
 		
 		parent(maxBean);
 		
-//		m+="                        </subviews>\n";
-//		m+="                        <color key=\"backgroundColor\" red=\""+maxBean.getR(maxBean.bgRgb16)+"\" green=\""+maxBean.getG(maxBean.bgRgb16)+"\" blue=\""+maxBean.getB(maxBean.bgRgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+		m+="                        </subviews>\n";
+		m+="                        <color key=\"backgroundColor\" red=\""+maxBean.getR(maxBean.bgRgb16)+"\" green=\""+maxBean.getG(maxBean.bgRgb16)+"\" blue=\""+maxBean.getB(maxBean.bgRgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
 //		m+="                        <constraints>\n";
 //		m+="                            <constraint firstItem=\"SyQ-o4-jyF\" firstAttribute=\"leading\" secondItem=\"kh9-bI-dsS\" secondAttribute=\"leadingMargin\" constant=\"20\" id=\"1hU-hb-12c\"/>\n";
@@ -120,7 +122,7 @@ public class IphoneLayout {
 
 		m+="                    </view>\n";
 		m+="                    <connections>\n";
-		m+="                        <outlet property=\"login\" destination=\"SyQ-o4-jyF\" id=\"bfG-j0-QU0\"/>\n";
+		m+=n;
 		m+="                    </connections>\n";
 		m+="                </viewController>\n";
 
@@ -134,6 +136,8 @@ public class IphoneLayout {
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
 					m+="                            <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
+					m+="<rect key=\"frame\" x=\""+(chirld.x-bean.x)+"\" y=\""+(chirld.y-bean.y)+"\" width=\""+chirld.w+"\" height=\""+chirld.h+"\"/>\n";
+					m+="                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 					m+="                                <subviews>\n";
 					parent(chirld);
 					m+="                                </subviews>\n";
@@ -153,8 +157,8 @@ public class IphoneLayout {
 //					m+="                                    <constraint firstAttribute=\"trailingMargin\" secondItem=\"0iP-qh-p3z\" secondAttribute=\"trailing\" constant=\"10\" id=\"wIu-1n-N1A\"/>\n";
 //					m+="                                </constraints>\n";
 					
-					if(bean.type.contains("Layout") && bean.rgb16!=null)
-					{//边框颜色
+					if(bean.type.contains("Layout") && bean.rgb16!=null && bean.isFilletedCorner)
+					{//圆角边框颜色
 					m+="                                <userDefinedRuntimeAttributes>\n";
 					m+="                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.borderWidth\">\n";
 					m+="                                        <integer key=\"value\" value=\"1\"/>\n";
@@ -168,7 +172,7 @@ public class IphoneLayout {
 					m+="                                </userDefinedRuntimeAttributes>\n";
 					}
 					
-					m+="                                <variation key=\"default\">\n";
+					//m+="                                <variation key=\"default\">\n";
 //					m+="                                    <mask key=\"subviews\">\n";
 //					m+="                                        <exclude reference=\"IYI-bQ-iz6\"/>\n";
 //					m+="                                        <exclude reference=\"0iP-qh-p3z\"/>\n";
@@ -189,15 +193,15 @@ public class IphoneLayout {
 //					m+="                                        <exclude reference=\"ctI-ZM-EAO\"/>\n";
 //					m+="                                        <exclude reference=\"lmb-pJ-JUc\"/>\n";
 //					m+="                                    </mask>\n";
-					m+="                                </variation>\n";
+					//m+="                                </variation>\n";
 					
-					m+="                                <variation key=\"widthClass=compact\">\n";
-					m+="                                    <mask key=\"subviews\">\n";
-					for(int i=0;i<bean.chirlds.size();i++)
-					{
-					m+="                                        <include reference=\""+bean.chirlds.get(i).id+"\"/>\n";
-					}
-					m+="                                    </mask>\n";
+//					m+="                                <variation key=\"widthClass=compact\">\n";
+//					m+="                                    <mask key=\"subviews\">\n";
+//					for(int i=0;i<bean.chirlds.size();i++)
+//					{
+//					m+="                                        <include reference=\""+bean.chirlds.get(i).id+"\"/>\n";
+//					}
+//					m+="                                    </mask>\n";
 					
 //					m+="                                    <mask key=\"constraints\">\n";
 //					m+="                                        <include reference=\"Fc6-1K-XdQ\"/>\n";
@@ -213,7 +217,7 @@ public class IphoneLayout {
 //					m+="                                        <include reference=\"ctI-ZM-EAO\"/>\n";
 //					m+="                                        <include reference=\"lmb-pJ-JUc\"/>\n";
 //					m+="                                    </mask>\n";
-					m+="                                </variation>\n";
+				//	m+="                                </variation>\n";
 					m+="                            </view>\n";
 
 					
@@ -235,6 +239,7 @@ public class IphoneLayout {
 			m+="                                        <color key=\"textColor\" red=\""+chirld.getR(chirld.rgb16)+"\" green=\""+chirld.getG(chirld.rgb16)+"\" blue=\""+chirld.getB(chirld.rgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			m+="                                        <nil key=\"highlightedColor\"/>\n";
 			m+="                                    </label>\n";
+			n+="                        <outlet property=\""+chirld.enname+"\" destination=\""+chirld.id+"\" id=\""+id()+"\"/>\n";
 		}
 
 		if (chirld.type.equals("Button")) {
@@ -246,14 +251,16 @@ public class IphoneLayout {
 			m+="                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			m+="                                </state>\n";
 			m+="                            </button>\n";
+			n+="                        <outlet property=\""+chirld.enname+"\" destination=\""+chirld.id+"\" id=\""+id()+"\"/>\n";
 		}
 
 		if (chirld.type.equals("EditText")) {
-			m+="                                    <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
+			m+="                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
 			m+="                                <rect key=\"frame\" x=\""+(chirld.x-parent.x)+"\" y=\""+(chirld.y-parent.y)+"\" width=\""+chirld.w+"\" height=\""+chirld.h+"\"/>\n";
 			m+="                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""+chirld.textSize+"\"/>\n";
 			m+="                                        <textInputTraits key=\"textInputTraits\"/>\n";
 			m+="                                    </textField>\n";
+			n+="                        <outlet property=\""+chirld.enname+"\" destination=\""+chirld.id+"\" id=\""+id()+"\"/>\n";
 			
 		}
 
@@ -291,10 +298,12 @@ public class IphoneLayout {
 //			m += parent.enname + ".addComponent(" + chirld.enname + "ScrollPane);\n\n";
 		}
 
-		if (chirld.type.equals("JPanel")) {
-//			m += "/**" + chirld.cnname + "*/\n";
-//			m += " " + chirld.enname + " = new JPanel();\n";
-//			m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
+		if (chirld.type.equals("ImageView")) {
+
+			m +=" <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
+			m +=" <rect key=\"frame\" x=\""+(chirld.x-parent.x)+"\" y=\""+(chirld.y-parent.y)+"\" width=\""+(chirld.w)+"\" height=\""+(chirld.h)+"\"/>\n";
+	        m +=" </imageView>\n";
+	    	n+="                        <outlet property=\""+chirld.enname+"\" destination=\""+chirld.id+"\" id=\""+id()+"\"/>\n";
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {

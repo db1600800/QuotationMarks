@@ -631,6 +631,7 @@ public class CompomentDialog {
 	public void circula(CompomentBean bean) {
 		String m = "";
 		if (circularCheckBox.isSelected()) {
+			bean.isFilletedCorner=true;
 			if (bean.bgRgb16.equals(bean.rgb16)) {
 				// 填充 没描边
 				m += "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
