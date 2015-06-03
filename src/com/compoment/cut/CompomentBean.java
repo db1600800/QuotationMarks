@@ -28,38 +28,8 @@ public class CompomentBean implements Serializable {
 	public String textSize;
 	public boolean isImgCache = false;
 	public boolean isPublicCompoment = false;
+	public boolean isFilletedCorner=false;//是否是圆角
 	public String id;// for iPhone id=jyV-Pf-zRb
-
-	public CompomentBean() {
-        id=genID(3)+"-"+genID(2)+"-"+genID(3);
-	}
-	
-	public float getR(String rgb)
-	{
-	
-			float first=Integer.parseInt(rgb.substring(1, 2),16);
-			float second=Integer.parseInt(rgb.substring(2, 3),16);
-			return (first*16+second)/255;
-		
-	}
-	
-	public float getG(String rgb)
-	{
-		
-			float first=Integer.parseInt(rgb.substring(3, 4),16);
-			float second=Integer.parseInt(rgb.substring(4, 5),16);
-			return (first*16+second)/255;
-		
-	}
-	
-	public float getB(String rgb)
-	{
-	
-			float first=Integer.parseInt(rgb.substring(5, 6),16);
-			float second=Integer.parseInt(rgb.substring(6, 7),16);
-			return (first*16+second)/255;
-		
-	}
 
 	/**
 	 * 控件类型 Button List TextView LinearLayout
@@ -81,6 +51,39 @@ public class CompomentBean implements Serializable {
 	 * */
 	public long time;
 	public List<CompomentBean> chirlds;
+	
+	public CompomentBean() {
+        id=genID(3)+"-"+genID(2)+"-"+genID(3);
+	}
+	
+	public float getR(String rgb)
+	{
+	
+			float first=Integer.parseInt(rgb.substring(1, 2),16);
+			float second=Integer.parseInt(rgb.substring(2, 3),16);
+			return (first*16+second)/255;
+		
+	}
+	
+	public float getG(String rgb)
+	{
+	
+			float first=Integer.parseInt(rgb.substring(3, 4),16);
+			float second=Integer.parseInt(rgb.substring(4, 5),16);
+			return (first*16+second)/255;
+		
+	}
+	
+	public float getB(String rgb)
+	{
+		
+			float first=Integer.parseInt(rgb.substring(5, 6),16);
+			float second=Integer.parseInt(rgb.substring(6, 7),16);
+			return (first*16+second)/255;
+		
+	}
+
+	
 
 	public void setChirld(CompomentBean chirld) {
 		if (chirlds == null) {

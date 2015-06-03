@@ -1,94 +1,186 @@
 <list>
   <CompomentBean>
-    <rgb16>#F1F0EA</rgb16>
-    <bgRgb16>#F1F0EA</bgRgb16>
+    <rgb16>#FFFFFD</rgb16>
+    <bgRgb16>#FFFFFD</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>39</x>
-    <y>76</y>
-    <w>110</w>
-    <h>183</h>
-    <cnname>bg1433166019978</cnname>
-    <enname>bg1433166019978LinearLayout</enname>
+    <x>3</x>
+    <y>401</y>
+    <w>632</w>
+    <h>244</h>
+    <cnname>bg1433212791561</cnname>
+    <enname>bg1433212791561LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
-    <id>krl-Gh-B7w</id>
+    <id>l6G-M8-zYR</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433166028052</time>
+    <time>1433212819314</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
+    <rgb16>#F8F9FB</rgb16>
+    <bgRgb16>#F8F9FB</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>15</x>
+    <y>408</y>
+    <w>607</w>
+    <h>67</h>
+    <cnname>bg1433212829539</cnname>
+    <enname>bg1433212829539LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>1YR-Jr-gzy</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433212832916</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#DF2F31</rgb16>
+    <bgRgb16>#DF2F31</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>22</x>
+    <y>416</y>
+    <w>69</w>
+    <h>49</h>
+    <cnname>bg1433212866900</cnname>
+    <enname>bg1433212866900LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>sUW-hR-V6L</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433212872165</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFCCD2</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>31</x>
+    <y>426</y>
+    <w>54</w>
+    <h>28</h>
+    <cnname>热点</cnname>
+    <enname>hotTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>fGk-xn-FoN</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433212893140</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#565457</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>107</x>
+    <y>431</y>
+    <w>177</w>
+    <h>39</h>
+    <cnname>北京强力禁烟</cnname>
+    <enname>msgTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>Xb6-8L-A8n</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433212928689</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#B95436</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>20</x>
+    <y>488</y>
+    <w>193</w>
+    <h>137</h>
+    <cnname>sdd</cnname>
+    <enname>sddTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>OA2-0Y-pYu</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433212994074</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#27282C</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>234</x>
+    <y>488</y>
+    <w>374</w>
+    <h>75</h>
+    <cnname>专题</cnname>
+    <enname>zhuangTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <id>sRi-mo-mdb</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1433213027856</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#C2C3C5</rgb16>
     <bgRgb16>#FFFFFF</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>61</x>
-    <y>108</y>
-    <w>66</w>
-    <h>138</h>
-    <cnname>bg1433166042935</cnname>
-    <enname>bg1433166042935LinearLayout</enname>
+    <x>234</x>
+    <y>589</y>
+    <w>115</w>
+    <h>34</h>
+    <cnname>1分种</cnname>
+    <enname>miniTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
-    <id>yDw-La-5Fx</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1433166046448</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>67</x>
-    <y>114</y>
-    <w>50</w>
-    <h>12</h>
-    <cnname>a</cnname>
-    <enname>aTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <id>ymZ-oK-Ztj</id>
+    <id>fao-77-TqL</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433166064530</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>71</x>
-    <y>142</y>
-    <w>36</w>
-    <h>13</h>
-    <cnname>b</cnname>
-    <enname>bTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <id>uQZ-qo-vhT</id>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1433166078118</time>
+    <time>1433213059254</time>
   </CompomentBean>
 </list>
