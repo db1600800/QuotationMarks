@@ -36,47 +36,29 @@ public class CompomentBean implements Serializable {
 	
 	public float getR(String rgb)
 	{
-		if(rgb.indexOf("#")==-1)
-		{//R=A(即10)×16+9=169
-			int first=Integer.parseInt(rgb.substring(0, 1),16);
-			int second=Integer.parseInt(rgb.substring(1, 2),16);
+	
+			float first=Integer.parseInt(rgb.substring(1, 2),16);
+			float second=Integer.parseInt(rgb.substring(2, 3),16);
 			return (first*16+second)/255;
-		}else
-		{
-			int first=Integer.parseInt(rgb.substring(1, 2),16);
-			int second=Integer.parseInt(rgb.substring(2, 3),16);
-			return (first*16+second)/255;
-		}
+		
 	}
 	
 	public float getG(String rgb)
 	{
-		if(rgb.indexOf("#")==-1)
-		{//G=A(即10)×16+9=169
-			int first=Integer.parseInt(rgb.substring(2,3 ),16);
-			int second=Integer.parseInt(rgb.substring(3,4),16);
+		
+			float first=Integer.parseInt(rgb.substring(3, 4),16);
+			float second=Integer.parseInt(rgb.substring(4, 5),16);
 			return (first*16+second)/255;
-		}else
-		{
-			int first=Integer.parseInt(rgb.substring(3, 4),16);
-			int second=Integer.parseInt(rgb.substring(4, 5),16);
-			return (first*16+second)/255;
-		}
+		
 	}
 	
 	public float getB(String rgb)
 	{
-		if(rgb.indexOf("#")==-1)
-		{//B=A(即10)×16+9=169
-			int first=Integer.parseInt(rgb.substring(4,5 ),16);
-			int second=Integer.parseInt(rgb.substring(5,6),16);
+	
+			float first=Integer.parseInt(rgb.substring(5, 6),16);
+			float second=Integer.parseInt(rgb.substring(6, 7),16);
 			return (first*16+second)/255;
-		}else
-		{
-			int first=Integer.parseInt(rgb.substring(5, 6),16);
-			int second=Integer.parseInt(rgb.substring(6, 7),16);
-			return (first*16+second)/255;
-		}
+		
 	}
 
 	/**

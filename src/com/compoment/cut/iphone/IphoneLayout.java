@@ -72,14 +72,14 @@ public class IphoneLayout {
 		m+="                        <viewControllerLayoutGuide type=\"bottom\" id=\""+id()+"\"/>\n";
 		m+="                    </layoutGuides>\n";
 		
-//		m+="                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""+maxBean.id+"\">\n";
-//		m+="                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-//		m+="                        <subviews>\n";
+		m+="                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""+maxBean.id+"\">\n";
+		m+="                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
+		m+="                        <subviews>\n";
 		
 		parent(maxBean);
 		
-//		m+="                        </subviews>\n";
-//		m+="                        <color key=\"backgroundColor\" red=\""+maxBean.getR(maxBean.bgRgb16)+"\" green=\""+maxBean.getG(maxBean.bgRgb16)+"\" blue=\""+maxBean.getB(maxBean.bgRgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+		m+="                        </subviews>\n";
+		m+="                        <color key=\"backgroundColor\" red=\""+maxBean.getR(maxBean.bgRgb16)+"\" green=\""+maxBean.getG(maxBean.bgRgb16)+"\" blue=\""+maxBean.getB(maxBean.bgRgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
 //		m+="                        <constraints>\n";
 //		m+="                            <constraint firstItem=\"SyQ-o4-jyF\" firstAttribute=\"leading\" secondItem=\"kh9-bI-dsS\" secondAttribute=\"leadingMargin\" constant=\"20\" id=\"1hU-hb-12c\"/>\n";
