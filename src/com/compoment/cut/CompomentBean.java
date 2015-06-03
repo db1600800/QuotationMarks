@@ -23,6 +23,7 @@ public class CompomentBean implements Serializable {
 	public int y;
 	public int w;
 	public int h;
+	
 	public String cnname;
 	public String enname;
 	public String textSize;
