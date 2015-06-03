@@ -1,4 +1,3 @@
-
 package com.compoment.cut.iphone;
 
 import java.awt.event.ActionEvent;
