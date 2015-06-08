@@ -7,15 +7,15 @@ import java.util.Random;
 
 import com.compoment.cut.CompomentBean;
 
-public class ViewController {
+public class ViewControllerH {
 
 
 
 		String m = "\n\n\n";
-		String i="\n\n\n";
+	
 	    String pageName="";
 	    
-		public  ViewController(List<CompomentBean> oldBeans) {
+		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans) {
 
 			analyseRelativeForVertical(oldBeans);
 
@@ -23,7 +23,7 @@ public class ViewController {
 		
 			System.out.println(m);
 			
-			System.out.println(i);
+		
 
 		}
 
@@ -57,14 +57,14 @@ public class ViewController {
 			m+="#import <UIKit/UIKit.h>\n";
 			m+="@interface ViewController : UIViewController\n";
 
-			i+="@implementation ViewController\n";
+			
 			
 		
 			
 			parent(maxBean);
 			
 			m+="@end\n";
-            i+="\n@end\n";
+      
 		}
 
 		public void parent(CompomentBean bean) {
@@ -91,8 +91,7 @@ public class ViewController {
 				m+="//"+chirld.cnname+"\n";
 				m+="@property (weak, nonatomic) IBOutlet UILabel *"+chirld.enname+";\n";
 		
-				i+="//"+chirld.cnname+"\n";
-				i+="@synthesize "+chirld.enname+";\n";
+			
 			}
 
 			if (chirld.type.equals("Button")) {
@@ -100,8 +99,6 @@ public class ViewController {
 				m+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 				
 			
-				i+="//"+chirld.cnname+"\n";
-				i+="@synthesize "+chirld.enname+";\n";
 			}
 
 			if (chirld.type.equals("EditText")) {
@@ -109,8 +106,7 @@ public class ViewController {
 				m+="@property (weak, nonatomic) IBOutlet UITextField *"+chirld.enname+";\n";
 				
 				
-				i+="//"+chirld.cnname+"\n";
-				i+="@synthesize "+chirld.enname+";\n";
+	
 			}
 
 			if (chirld.type.equals("CheckBox")) {
@@ -119,15 +115,21 @@ public class ViewController {
 			}
 
 			if (chirld.type.equals("ListView")) {
-
+				m+="//"+chirld.cnname+"\n";
+				m+="@property (weak, nonatomic) IBOutlet UITableView *"+chirld.enname+";\n";
+				m+="@property (strong, nonatomic) NSMutableDictionary *cacheCells;\n";
+				
+				if(m.contains("@interface ViewController : UIViewController\n"))
+				{
+					m=m.replace("@interface ViewController : UIViewController\n", "@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n");
+				}
 			}
 
 			if (chirld.type.equals("ImageView")) {
 				m+="//"+chirld.cnname+"\n";
 				m+="@property (weak, nonatomic) IBOutlet UIImageView *"+chirld.enname+";\n";
 			
-				i+="//"+chirld.cnname+"\n";
-				i+="@synthesize "+chirld.enname+";\n";
+			
 			}
 
 			if (chirld.type.equals("ExpandableListView")) {

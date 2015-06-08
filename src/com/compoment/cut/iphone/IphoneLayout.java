@@ -27,8 +27,8 @@ public class IphoneLayout {
 	String n = "";
 	String pageName = "";
 
-	public IphoneLayout(List<CompomentBean> oldBeans) {
-
+	public IphoneLayout(String pageName,List<CompomentBean> oldBeans) {
+		this.pageName=pageName;
 		analyseRelativeForVertical(oldBeans);
 
 		System.out.println(m);
@@ -58,12 +58,17 @@ public class IphoneLayout {
 				layouts.add(bean);
 			}
 		}
+		
+		String ibtype="xib";//storyboard
+		
+		//if(ibtype.equals("storyboard"))
+		{
 
 		m += "                <viewController title=\""
 				+ pageName
 				+ "\" id=\""
 				+ id()
-				+ "\" customClass=\"ViewController\" customModule=\"\" customModuleProvider=\"\" sceneMemberID=\"viewController\">\n";
+				+ "\" customClass=\""+pageName+"ViewController\" customModule=\"\" customModuleProvider=\"\" sceneMemberID=\"viewController\">\n";
 		m += "                    <layoutGuides>\n";
 		m += "                        <viewControllerLayoutGuide type=\"top\" id=\""
 				+ id() + "\"/>\n";
@@ -71,6 +76,8 @@ public class IphoneLayout {
 				+ id() + "\"/>\n";
 		m += "                    </layoutGuides>\n";
 
+		}
+		
 		m += "                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
 		m += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"600\" height=\"600\"/>\n";
@@ -288,31 +295,21 @@ public class IphoneLayout {
 		}
 
 		if (chirld.type.equals("ListView")) {
-			// m += "/**" + chirld.cnname + "*/\n";
-			// m += " " + chirld.enname + " = new JList();\n";
-			// m+=" JScrollPane "+chirld.enname
-			// +"ScrollPane = new JScrollPane("+chirld.enname +"); \n";
-			//
-			// m += " ArrayList listDate = new ArrayList();\n";
-			// m += " listDate.add(\"RelativeLayout\");\n";
-			// m += " listDate.add(\"LinearLayout\");\n";
-			// m += chirld.enname
-			// + ".setSelectionMode(ListSelectionModel.SINGLE_SELECTION);\n";
-			// m += chirld.enname + ".setListData(listDate.toArray());\n";
-			// m += chirld.enname
-			// + ".addListSelectionListener(new ListSelectionListener() {\n";
-			//
-			// m += "	@Override\n";
-			// m += "	public void valueChanged(ListSelectionEvent even) {\n";
-			//
-			// m += "	String value = " + chirld.enname
-			// + ".getSelectedValue().toString();\n";
-			// m += "	}\n";
-			//
-			// m += "});\n";
-			//
-			// m += parent.enname + ".addComponent(" + chirld.enname +
-			// "ScrollPane);\n\n";
+			 m+=" <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
+	    		m += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
+				+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
+				+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+		m += " <color key=\"backgroundColor\" red=\""
+				+ chirld.getR(chirld.bgRgb16)
+				+ "\" green=\""
+				+ chirld.getG(chirld.bgRgb16)
+				+ "\" blue=\""
+				+ chirld.getB(chirld.bgRgb16)
+				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+	    m+="  </tableView>\n";
+	    n += "                        <outlet property=\"" + chirld.enname
+				+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
+				+ "\"/>\n";
 		}
 
 		if (chirld.type.equals("ImageView")) {

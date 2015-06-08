@@ -28,7 +28,7 @@ import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
-import com.compoment.ui.ios.creater.ViewController;
+import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
@@ -275,8 +275,8 @@ public class PageCreatePanel {
 
 			savePublicCompoment();
 
-			ViewController viewController=new ViewController(frame.beans);
-			IphoneLayout iphoneLayout = new IphoneLayout(frame.beans);
+			ViewControllerH viewController=new ViewControllerH(frame.pageName,frame.beans);
+			IphoneLayout iphoneLayout = new IphoneLayout(frame.pageName,frame.beans);
 			
 		}
 
