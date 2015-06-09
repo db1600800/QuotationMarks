@@ -23,12 +23,14 @@ import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneLayout;
+import com.compoment.cut.iphone.IphoneTableViewCellXib;
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
+import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
@@ -36,6 +38,7 @@ import com.compoment.ui.ios.creater.ViewControllerM;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
+import com.compoment.util.StringUtil;
 
 public class PageCreatePanel {
 
@@ -284,7 +287,7 @@ public class PageCreatePanel {
 			
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
-		}
+			}
 		
 		else if (frame.pageType.contains("TableViewCell-IOS")) {
 			// 页面分析生成
@@ -297,7 +300,11 @@ public class PageCreatePanel {
 			TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans);
 			TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans);
 			
-			IphoneLayout iphoneLayout = new IphoneLayout(frame.pageName,frame.beans);
+			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans);
+			
+			String 	fileName = KeyValue.readCache("picPath") + "/" + "java" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
+					+ "." + "m";
+			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName);
 			
 		}
 

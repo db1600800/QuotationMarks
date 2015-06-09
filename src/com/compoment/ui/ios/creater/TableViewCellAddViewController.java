@@ -21,8 +21,7 @@ public class TableViewCellAddViewController {
 
 	
 
-	String sourceAddress = KeyValue.readCache("compomentProjectAddress");//"C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
-	String destinationAddress = KeyValue.readCache("projectPath");
+
 	String waitByModifyFileName;
     String className="";
 
@@ -233,8 +232,8 @@ public class TableViewCellAddViewController {
 		}
 
 		if (chirld.type.equals("Button")) {
-			n+="//"+chirld.cnname+"\n";
-			n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+			//n+="//"+chirld.cnname+"\n";
+			//n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 			
 		
 		}
