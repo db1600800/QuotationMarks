@@ -45,6 +45,7 @@ public class PageTypePanel {
 		listDate.add("JPanel-Swing");
 		listDate.add("---IOS---");
 		listDate.add("ViewController-IOS");
+		listDate.add("TableViewCell-IOS");
 		
 		pageTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

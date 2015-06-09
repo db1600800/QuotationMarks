@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 
 public class ViewControllerM {
 
@@ -13,10 +15,12 @@ public class ViewControllerM {
 
 	
 		String i="\n\n\n";
+		String m="\n";
 	    String pageName="";
-	    
+	    String className="";
 		public  ViewControllerM(String pageName,List<CompomentBean> oldBeans) {
             this.pageName=pageName;
+            className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
 
 
@@ -24,6 +28,17 @@ public class ViewControllerM {
 			
 			System.out.println(i);
 
+		}
+		
+		public static String firstCharToUpperAndJavaName(String string) {
+			// buy_typelist
+			String[] ss = string.split("_");
+			String temp = "";
+			for (String s : ss) {
+				if (!s.equals("item"))
+					temp += s.substring(0, 1).toUpperCase() + s.substring(1);
+			}
+			return temp;
 		}
 
 		
@@ -53,15 +68,34 @@ public class ViewControllerM {
 			}
 			
 	
-
-			i+="@implementation ViewController\n";
+            i+="#import "+className+"ViewController.h\n";
+            i+="#import \"UIImageView+WebCache.h\"\n";
+			i+="@implementation "+className+"ViewController\n";
 			
 		
 			
 			parent(maxBean);
 			
 		
+			i+="- (void)viewDidLoad\n";
+			i+="{\n";
+			i+="    [super viewDidLoad];\n";
+
+			i+="}\n";
+
+
+
+			i+="-(void) viewWillAppear:(BOOL)animated{\n";
+		
+			
+			i+="}\n";
+			
+			i+=m;
+			
             i+="\n@end\n";
+            
+            FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+					"m", i);
 		}
 
 		public void parent(CompomentBean bean) {
@@ -108,13 +142,89 @@ public class ViewControllerM {
 			}
 
 			if (chirld.type.equals("CheckBox")) {
-//			
+			
 
 			}
 
 			if (chirld.type.equals("ListView")) {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+				
+
+				m+="- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
+				m+="    \n";
+				m+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
+				m+="    \n";
+				m+="    NSMutableDictionary *sectionHeaderDic=[sectionADic objectForKey:@\"SectionHeaderDic\"];\n";
+				m+="    \n";
+				m+="    NSString *title= [sectionHeaderDic objectForKey:@\"title\"];\n";
+				m+="    \n";
+				m+="    return title;\n";
+				m+="  \n";
+				m+="}\n";
+
+				m+="//自定义SectionHeader\n";
+				m+="- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
+			
+		
+				m+="}\n";
+
+				m+="//自定义SectionHeader高度\n";
+				m+="-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
+				m+="    return 22.0;\n";
+				m+="}\n";
+
+
+				m+="//指定有多少个分区(Section)，默认为1\n";
+				m+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
+				m+="    \n";
+				m+="    return [sectionAZDicArray count];//返回标题数组中元素的个数来确定分区的个数\n";
+				m+="}\n";
+
+
+				m+="//指定每个分区中有多少行，默认为1\n";
+				m+="- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{\n";
+				m+="    \n";
+				m+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
+				m+="    \n";
+				m+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
+				m+="    \n";
+				m+="    return  [sectionChirldsArray count];\n";
+				m+="    \n";
+				m+="}\n";
+
+
+
+				m+="//绘制Cell\n";
+				m+="-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
+				m+="    \n";
+
+				m+="}\n";
+
+
+
+				m+="//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度\n";
+				m+="- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+			
+			
+
+				m+="}\n";
+
+
+				m+="- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
+				m+="    return 88;\n";
+				m+="}\n";
+
+
+				m+="//点击后，过段时间cell自动取消选中\n";
+				m+="- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+				m+="    //消除cell选择痕迹\n";
+				m+="    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];\n";
+				m+="}\n";
+				m+="- (void)deselect\n";
+				m+="{\n";
+				m+="    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
+				m+="}\n";
 			}
 
 			if (chirld.type.equals("ImageView")) {

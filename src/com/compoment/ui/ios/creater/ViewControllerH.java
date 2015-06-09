@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 
 public class ViewControllerH {
 
@@ -14,9 +16,10 @@ public class ViewControllerH {
 		String m = "\n\n\n";
 	
 	    String pageName="";
-	    
+	    String className="";
 		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans) {
-
+            this.pageName=pageName;
+            className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
 
 
@@ -27,7 +30,16 @@ public class ViewControllerH {
 
 		}
 
-		
+		public static String firstCharToUpperAndJavaName(String string) {
+			// buy_typelist
+			String[] ss = string.split("_");
+			String temp = "";
+			for (String s : ss) {
+				if (!s.equals("item"))
+					temp += s.substring(0, 1).toUpperCase() + s.substring(1);
+			}
+			return temp;
+		}
 
 		public void analyseRelativeForVertical(List<CompomentBean> oldBeans) {
 		
@@ -55,7 +67,7 @@ public class ViewControllerH {
 			
 			
 			m+="#import <UIKit/UIKit.h>\n";
-			m+="@interface ViewController : UIViewController\n";
+			m+="@interface "+className+"ViewController : UIViewController\n";
 
 			
 			
@@ -64,6 +76,9 @@ public class ViewControllerH {
 			parent(maxBean);
 			
 			m+="@end\n";
+			
+			FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+					"h", m);
       
 		}
 
@@ -118,6 +133,7 @@ public class ViewControllerH {
 				m+="//"+chirld.cnname+"\n";
 				m+="@property (weak, nonatomic) IBOutlet UITableView *"+chirld.enname+";\n";
 				m+="@property (strong, nonatomic) NSMutableDictionary *cacheCells;\n";
+				m+=" NSMutableArray *sectionAZDicArray;\n";
 				
 				if(m.contains("@interface ViewController : UIViewController\n"))
 				{
