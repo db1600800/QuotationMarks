@@ -38,26 +38,41 @@ public class IphoneTableViewCellXib {
 
 
 		String m="";
+		
 		m+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-		m+="<document type=\"com.apple.InterfaceBuilder3.CocoaTouch.XIB\" version=\"3.0\" toolsVersion=\"6751\" systemVersion=\"14D136\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\">\n";
+		m+="<document type=\"com.apple.InterfaceBuilder3.CocoaTouch.XIB\" version=\"3.0\" toolsVersion=\"6751\" systemVersion=\"14D131\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\">\n";
 		m+="    <dependencies>\n";
 		m+="        <deployment identifier=\"iOS\"/>\n";
 		m+="        <plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"6736\"/>\n";
+		m+="        <capability name=\"Constraints to layout margins\" minToolsVersion=\"6.0\"/>\n";
+		m+="        <capability name=\"Constraints with non-1.0 multipliers\" minToolsVersion=\"5.1\"/>\n";
 		m+="    </dependencies>\n";
 		m+="    <objects>\n";
-		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""+className+"TableViewController\">\n";
-		m+="            <connections>\n";
-		m+=connection;
-		m+="                <outlet property=\"view\" destination=\""+maxBean.id +"\" id=\""+id()+"\"/>\n";
-		m+="            </connections>\n";
-		m+="        </placeholder>\n";
+		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\"/>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
+		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+maxBean.id+"\">\n";
+		m+="            <rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"320\" height=\""+maxBean.h+"\"/>\n";
+		m+="            <autoresizingMask key=\"autoresizingMask\"/>\n";
+		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+maxBean.id+"\" id=\""+id()+"\">\n";
+		m+="                <autoresizingMask key=\"autoresizingMask\"/>\n";
+		m+="                <subviews>\n";
 
 		m+=body;
 		
+		m+=" </subviews>\n";
+		m+="   </tableViewCellContentView>\n";
+		m+="            <inset key=\"separatorInset\" minX=\"0.0\" minY=\"0.0\" maxX=\"0.0\" maxY=\"0.0\"/>\n";
+		m+=" <connections>\n";
+        m+=connection;
+        m+="</connections>\n";
+		m+="        </tableViewCell>\n";
+		m+="    </objects>\n";
+		m+="</document>\n";
+
+		
 		System.out.println(m);
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"TableViewCell",
 				"xib", m);
 
 	}
