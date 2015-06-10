@@ -19,6 +19,7 @@ import javax.swing.text.Document;
 
 import com.compoment.addfunction.android.DateSelect;
 import com.compoment.jsonToJava.creater.RequestRespond;
+import com.compoment.jsonToJava.creater.RequestRespondForIphone;
 import com.compoment.jsonToJava.creater.RequestRespondParamBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
@@ -496,6 +497,7 @@ public class PageInterfaceDocPanel {
 
 	}
 	
+	/**android request*/
 	public String  requestFunction(String id)
 	{
 		for(InterfaceBean bean:interfaceBeans )
@@ -512,7 +514,7 @@ public class PageInterfaceDocPanel {
 		return "";
 	}
 	
-	
+	/**android respond*/
 	public String  respondFunction(String id)
 	{
 		for(InterfaceBean bean:interfaceBeans )
@@ -525,6 +527,39 @@ public class PageInterfaceDocPanel {
 		}
 		return "";
 	}
+	
+	
+	/**iphone request*/
+	public String  requestFunctionForIphone(String id)
+	{
+		for(InterfaceBean bean:interfaceBeans )
+		{
+		  if(bean.id.equals(id))
+		  {
+
+		RequestRespondForIphone rr = new RequestRespondForIphone();
+		return rr.request(bean);
+		
+
+		  }
+		}
+		return "";
+	}
+	
+	/**iphone respond*/
+	public String  respondFunctionForIphone(String id)
+	{
+		for(InterfaceBean bean:interfaceBeans )
+		{
+		  if(bean.id.equals(id))
+		  {
+			  RequestRespondForIphone rr = new RequestRespondForIphone();
+		return rr.respond(bean);
+		  }
+		}
+		return "";
+	}
+	
 	
 	
 	public String  serverlet(String id)
