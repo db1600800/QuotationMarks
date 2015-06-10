@@ -610,8 +610,8 @@ public class CompomentDialog {
 			ImageIO.write(bi, "png", new File(KeyValue.readCache("picPath")
 					+ "/drawable/" + picName + ".png"));
 			
-			ImageIO.write(bi, "png", new File(KeyValue.readCache("projectPath")
-					+ "/res/drawable-hdpi/" + picName + ".png"));
+			//ImageIO.write(bi, "png", new File(KeyValue.readCache("projectPath")
+					//+ "/res/drawable-hdpi/" + picName + ".png"));
 			}else
 			{
 				FileUtil.makeDir(new File(KeyValue.readCache("picPath")

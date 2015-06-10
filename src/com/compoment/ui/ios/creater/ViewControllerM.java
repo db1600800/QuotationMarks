@@ -68,8 +68,9 @@ public class ViewControllerM {
 			}
 			
 	
-            i+="#import "+className+"ViewController.h\n";
+            i+="#import \""+className+"ViewController.h\"\n";
             i+="#import \"UIImageView+WebCache.h\"\n";
+            i+="#import <Foundation/Foundation.h>\n";
 			i+="@implementation "+className+"ViewController\n";
 			
 		
@@ -81,14 +82,14 @@ public class ViewControllerM {
 			i+="{\n";
 			i+="    [super viewDidLoad];\n";
 
-			i+="}\n";
+			i+="}\n\n";
 
 
 
 			i+="-(void) viewWillAppear:(BOOL)animated{\n";
 		
 			
-			i+="}\n";
+			i+="}\n\n";
 			
 			i+=m;
 			
@@ -148,7 +149,7 @@ public class ViewControllerM {
 
 			if (chirld.type.equals("ListView")) {
 				i+="//"+chirld.cnname+"\n";
-				i+="@synthesize "+chirld.enname+";\n";
+				i+="@synthesize tableView;\n";
 				
 
 				m+="- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
@@ -161,25 +162,25 @@ public class ViewControllerM {
 				m+="    \n";
 				m+="    return title;\n";
 				m+="  \n";
-				m+="}\n";
+				m+="}\n\n";
 
 				m+="//自定义SectionHeader\n";
 				m+="- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
 			
 		
-				m+="}\n";
+				m+="}\n\n";
 
 				m+="//自定义SectionHeader高度\n";
 				m+="-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
 				m+="    return 22.0;\n";
-				m+="}\n";
+				m+="}\n\n";
 
 
 				m+="//指定有多少个分区(Section)，默认为1\n";
 				m+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
 				m+="    \n";
 				m+="    return [sectionAZDicArray count];//返回标题数组中元素的个数来确定分区的个数\n";
-				m+="}\n";
+				m+="}\n\n";
 
 
 				m+="//指定每个分区中有多少行，默认为1\n";
@@ -191,7 +192,7 @@ public class ViewControllerM {
 				m+="    \n";
 				m+="    return  [sectionChirldsArray count];\n";
 				m+="    \n";
-				m+="}\n";
+				m+="}\n\n";
 
 
 
@@ -199,7 +200,7 @@ public class ViewControllerM {
 				m+="-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
 				m+="    \n";
 
-				m+="}\n";
+				m+="}\n\n";
 
 
 
@@ -208,12 +209,12 @@ public class ViewControllerM {
 			
 			
 
-				m+="}\n";
+				m+="}\n\n";
 
 
 				m+="- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
 				m+="    return 88;\n";
-				m+="}\n";
+				m+="}\n\n";
 
 
 				m+="//点击后，过段时间cell自动取消选中\n";

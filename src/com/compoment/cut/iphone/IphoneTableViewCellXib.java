@@ -50,10 +50,11 @@ public class IphoneTableViewCellXib {
 		m+="    <objects>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\"/>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
-		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+maxBean.id+"\">\n";
+		String tableViewCellid=id();
+		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+tableViewCellid+"\" customClass=\""+className+"TableViewCell\">\n";
 		m+="            <rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"320\" height=\""+maxBean.h+"\"/>\n";
 		m+="            <autoresizingMask key=\"autoresizingMask\"/>\n";
-		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+maxBean.id+"\" id=\""+id()+"\">\n";
+		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+tableViewCellid+"\" id=\""+id()+"\">\n";
 		m+="                <autoresizingMask key=\"autoresizingMask\"/>\n";
 		m+="                <subviews>\n";
 
@@ -119,7 +120,7 @@ public class IphoneTableViewCellXib {
 		
 		bodym += "                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
-		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"600\" height=\"600\"/>\n";
+		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"320\" height=\""+maxBean.h+"\"/>\n";
 		bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 		bodym += "                        <subviews>\n";
 
@@ -135,8 +136,7 @@ public class IphoneTableViewCellXib {
 	
 		bodym += constraint(maxBean);
 		bodym += "                    </view>\n";
-		bodym+="</objects>\n";
-		bodym+="</document>\n";
+	
 
       return bodym;
 	}

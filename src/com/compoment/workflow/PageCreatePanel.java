@@ -156,7 +156,14 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+            if(xmlFileName.equals("no have layout"))
+            {
+            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+    					JOptionPane.INFORMATION_MESSAGE);
+            	return;
+            }
+			
+			
 			savePublicCompoment();
 
 			CreateActivityView createView = new CreateActivityView(
@@ -175,7 +182,12 @@ public class PageCreatePanel {
 				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 				String xmlFileName = androidLayoutXml.analyseRelative(
 						frame.pageName + "_item", frame.beans);
-
+				  if(xmlFileName.equals("no have layout"))
+		            {
+		            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+		    					JOptionPane.INFORMATION_MESSAGE);
+		            	return;
+		            }
 				savePublicCompoment();
 
 				com.compoment.ui.CreaterAdapter createrAdapter = new CreaterAdapter(
@@ -187,11 +199,23 @@ public class PageCreatePanel {
 				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 				String xmlFileName = androidLayoutXml.analyseRelative(
 						frame.pageName + "_parentitem", frame.beans);
+				  if(xmlFileName.equals("no have layout"))
+		            {
+		            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+		    					JOptionPane.INFORMATION_MESSAGE);
+		            	return;
+		            }
 			} else if (response == 2) {
 				// android页面分析生成
 				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 				String xmlFileName = androidLayoutXml.analyseRelative(
 						frame.pageName + "_childitem", frame.beans);
+				  if(xmlFileName.equals("no have layout"))
+		            {
+		            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+		    					JOptionPane.INFORMATION_MESSAGE);
+		            	return;
+		            }
 				
 				savePublicCompoment();
 
@@ -208,7 +232,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
@@ -219,7 +248,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -240,7 +274,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -260,7 +299,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -279,7 +323,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
@@ -294,7 +343,12 @@ public class PageCreatePanel {
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
 					frame.pageName, frame.beans);
-
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
 			savePublicCompoment();
 
 			TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans);

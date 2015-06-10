@@ -5,46 +5,70 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>126</x>
-    <y>409</y>
-    <w>430</w>
-    <h>134</h>
-    <cnname>bg1433819311572</cnname>
-    <enname>bg1433819311572LinearLayout</enname>
+    <x>275</x>
+    <y>519</y>
+    <w>289</w>
+    <h>57</h>
+    <cnname>bg1433898939550</cnname>
+    <enname>bg1433898939550LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>XXw-51-KuT</id>
+    <id>bol-kJ-sxM</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433819315706</time>
+    <time>1433898943149</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <bgRgb16>#FFFFFF</bgRgb16>
+    <rgb16>#FCFCFC</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>219</x>
-    <y>437</y>
-    <w>231</w>
-    <h>70</h>
-    <cnname>a</cnname>
-    <enname>aListView</enname>
+    <x>294</x>
+    <y>531</y>
+    <w>37</w>
+    <h>21</h>
+    <cnname>pp</cnname>
+    <enname>ppImageView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>9Oa-0X-RPO</id>
-    <type>ListView</type>
+    <id>ZZJ-cS-Qum</id>
+    <type>ImageView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>pp</picName>
+    <time>1433898963334</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#232325</rgb16>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>365</x>
+    <y>534</y>
+    <w>65</w>
+    <h>15</h>
+    <cnname>遇见</cnname>
+    <enname>seeTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>iyt-dS-cw1</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433819330945</time>
+    <time>1433898988607</time>
   </CompomentBean>
 </list>

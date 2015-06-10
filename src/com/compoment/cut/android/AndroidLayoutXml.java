@@ -43,6 +43,11 @@ public class AndroidLayoutXml {
 				layouts.add(bean);
 			}
 		}
+		
+		if(maxBean==null)
+		{
+			return "no have layout";
+		}
 
 		// 儿子找父亲 （子控件找容器）
 		for (CompomentBean bean : beans) {

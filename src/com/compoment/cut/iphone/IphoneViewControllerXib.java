@@ -45,7 +45,7 @@ public class IphoneViewControllerXib {
 		m+="        <plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"6736\"/>\n";
 		m+="    </dependencies>\n";
 		m+="    <objects>\n";
-		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""+className+"TableViewController\">\n";
+		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""+className+"ViewController\">\n";
 		m+="            <connections>\n";
 		m+=connection;
 		m+="                <outlet property=\"view\" destination=\""+maxBean.id +"\" id=\""+id()+"\"/>\n";

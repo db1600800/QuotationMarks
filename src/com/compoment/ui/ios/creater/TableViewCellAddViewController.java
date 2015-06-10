@@ -74,7 +74,7 @@ public class TableViewCellAddViewController {
 		List lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
 
 		
-		String className="";
+
 		
 		//是否已注入过此功能
 		for (int i = 0; i < lines.size(); i++) {
@@ -107,11 +107,20 @@ public class TableViewCellAddViewController {
 			
 			 if(line.contains("@implementation"))
 			 {
-					String m="static NSString *CellIdentifier = @\""+className+"TableViewCell\"\n";	
+				 String m="";
+				     m+="#import \""+className+"TableViewCell.h\"\n;";
+					 m+="static NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
 			    	content += m;
 			 }
 		
 			content += line + "\n";
+			
+			 if(line.contains("@implementation"))
+			 {
+					String m="@synthesize cacheCells;\n";	
+			    	content += m;
+			 }
+			
 			
 		 if(line.contains("[super viewDidLoad]"))
 					

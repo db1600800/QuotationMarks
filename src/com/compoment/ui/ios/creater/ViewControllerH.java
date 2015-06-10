@@ -67,7 +67,7 @@ public class ViewControllerH {
 			
 			
 			m+="#import <UIKit/UIKit.h>\n";
-			m+="@interface "+className+"ViewController : UIViewController\n";
+			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
 
 			
 			
@@ -131,7 +131,7 @@ public class ViewControllerH {
 
 			if (chirld.type.equals("ListView")) {
 				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UITableView *"+chirld.enname+";\n";
+				m+="@property (weak, nonatomic) IBOutlet UITableView *tableView;\n";
 				m+="@property (strong, nonatomic) NSMutableDictionary *cacheCells;\n";
 				m+=" NSMutableArray *sectionAZDicArray;\n";
 				
