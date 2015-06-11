@@ -33,16 +33,16 @@ import com.google.gson.Gson;
  * */
 public class RequestRespondForIphone {
 
-	public void requestRespond(List<InterfaceBean> interfaceBeans) {
-		if (interfaceBeans == null)
-			return;
-
-		for (InterfaceBean interfaceBean : interfaceBeans) {
-
-			request(interfaceBean);
-			respond(interfaceBean);
-		}
-	}
+//	public void requestRespond(List<InterfaceBean> interfaceBeans) {
+//		if (interfaceBeans == null)
+//			return;
+//
+//		for (InterfaceBean interfaceBean : interfaceBeans) {
+//
+//			request(interfaceBean);
+//			respond(interfaceBean);
+//		}
+//	}
 
 	public String request(InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
@@ -110,6 +110,32 @@ public class RequestRespondForIphone {
 		}
 
 		m+=" [serviceInvoker callWebservice:businessparam formName:n"+interfaceBean.id+" ];\n";
+		
+		m+="    NSString *baseUrl=@\"http://localhost:8080/Serlet/Serverlet"+interfaceBean.id+"?parameter=\";\n";
+		m+="    NSString *fullUrl = [baseUrl stringByAppendingString:[businessparam JSONString]];\n";
+		m+="    NSURL *url = [NSURL URLWithString:fullUrl];\n";
+
+		m+="    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];\n";
+		m+="    [request setHTTPMethod:@\"GET\"];\n";
+		m+="    [request setTimeoutInterval:30.0];\n";
+		m+="    \n";
+		m+="    NSOperationQueue *queue = [[NSOperationQueue alloc]init];\n";
+		m+="    [NSURLConnection sendAsynchronousRequest:request\n";
+		m+="                                       queue:queue\n";
+		m+="                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){\n";
+		m+="                               if (error) {\n";
+		m+="                                   NSLog(@\"Httperror:%@%d\", error.localizedDescription,error.code);\n";
+		m+="                               }else{\n";
+		m+="                                   \n";
+		m+="                                   NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];\n";
+		m+="                                   \n";
+		m+="                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];\n";
+		m+="                                   \n";
+		m+="                                   NSLog(@\"HttpResponseCode:%d\", responseCode);\n";
+		m+="                                   NSLog(@\"HttpResponseBody %@\",responseString);\n";
+		m+="                               }\n";
+		m+="                           }];\n";
+
 		m += "}\n\n";
 
 		System.out.println(m);
@@ -117,7 +143,7 @@ public class RequestRespondForIphone {
 	}
 	
 	
-	public String  respond(InterfaceBean interfaceBean) {
+	public String  respond(String baseJson,InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
 	
 		String className="RespondParam" + interfaceBean.id ;	
@@ -165,12 +191,13 @@ public class RequestRespondForIphone {
 	//    
 //	     NSString *D44_70_RECORDNUM1= [returnDataBody objectForKey:@"D44_70_RECORDNUM1"];
 	    
-		
+	
 		
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "if ([requestCode isEqualToString:n"+interfaceBean.id +"]){\n";
 
-	
+		JsonToIosBeanForSimple jsonToIosBeanForSimple=new JsonToIosBeanForSimple(baseJson);
+		m+=jsonToIosBeanForSimple.getJaveBeanClass();
 		
 		List<Group> groups = interfaceBean.respondGroups;
 		
@@ -234,97 +261,6 @@ public class RequestRespondForIphone {
 
 	
 	
-	public String  respondClass(InterfaceBean interfaceBean) {
-		String m = "\n\n\n";
-		List<String> mChirldClass = new ArrayList();
-		String className="RespondParam" + interfaceBean.id ;	
-		String classNameForCache="CacheRespondParam" + interfaceBean.id ;
-		m+="List<"+className+"> listData=new ArrayList();\n";
-		
-//		m+="NSMutableArray *sectionAZDicArray=[[NSMutableArray alloc]init];\n";
-//		
-//		NSMutableDictionary *sectionParentDic = [NSMutableDictionary dictionary];
-//		
-//		//chirlds
-//		m+="NSMutableArray *sectionChirldsArray=[[NSMutableArray alloc]init];\n";
-//		//chirldA
-//		m+="NSMutableDictionary *sectionAChirldADic = [NSMutableDictionary dictionary];\n";
-//		m+="[sectionAChirldADic setValue:@\"\" forKey:@\"\"];";
-//		
-//		
-//		NSMutableDictionary *sectionADic = [NSMutableDictionary dictionary];
-//		[sectionADic setValue:@"SectionParent" forKey:@"SectionParent"];
-//		[sectionADic setValue:sectionChirldsArray forKey:@"SectionChirlds"];
-//		[sectionAZDicArray addObject:sectionADic];
-		
-		
-		
-		
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-
-		m+="@interface "+className+" :NSObject\n";
-	
-		
-		
-		List<Group> groups = interfaceBean.respondGroups;
-		
-
-		int groupCount=0;
-		for (Group group : groups) {
-		
-			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
-
-				int i = 0;
-				boolean isCustomerClass = false;
-				for (Row row : group.rows) {
-					
-					if (i == 0) {
-						// 循环域开始
-						if (row.type != null && !isCommonType(row.type)) {//自定义对象
-							
-							isCustomerClass = true;
-						} else {//非自定义对象
-							m += "/** " + row.cnName + " 备注:" + row.remarks
-									+ "*/\n";
-						  
-							m+="for(int i=0;i<bean."+row.enName+";i++)\n{\n";
-							  m+=className+" item"+groupCount+"=new "+className+"();\n";
-							isCustomerClass = false;
-						}
-					} else {
-						if (isCustomerClass) {
-
-						} else {
-							m += "/** " + row.cnName + " 备注:" + row.remarks
-									+ "*/\n";
-							m += "item"+groupCount+"."+row.enName+"=bean." + row.enName
-									+ "[i];\n";
-						
-						}
-					}
-					i++;
-				}
-			
-				m+="}\n\n";
-				
-			} else {
-				 m+=className+" commonItem"+"=new "+className+"();\n";
-				for (Row row : group.rows) {
-					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-					m +=  "commonItem." + row.enName + "=bean."+row.enName+";\n";
-
-				}
-			}
-groupCount++;
-		}
-		m += "}\n\n";
-
-	
-
-		System.out.println(m);
-		return m;
-	}
 	
 
 	public boolean isCommonType(String type) {
