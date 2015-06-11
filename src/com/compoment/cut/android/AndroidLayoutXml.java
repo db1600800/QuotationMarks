@@ -46,6 +46,7 @@ public class AndroidLayoutXml {
 		
 		if(maxBean==null)
 		{
+			beans.clear();
 			return "no have layout";
 		}
 

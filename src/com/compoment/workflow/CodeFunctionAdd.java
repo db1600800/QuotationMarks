@@ -449,6 +449,8 @@ public class CodeFunctionAdd extends JFrame {
 
 					if (value.equals("Android")) {
 						androidFunction(function);
+					}else 	if (value.equals("Iphone")) {
+						iphoneFunction(function);
 					}
 					
 				}

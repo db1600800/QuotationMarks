@@ -119,10 +119,11 @@ public class RequestRespondForIphone {
 	
 	public String  respond(InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
-		List<String> mChirldClass = new ArrayList();
+	
 		String className="RespondParam" + interfaceBean.id ;	
-		String classNameForCache="CacheRespondParam" + interfaceBean.id ;
-		m+="List<"+className+"> listData=new ArrayList();\n";
+		
+		
+		m+="NSMutableArray *listData=[[NSMutableArray alloc]init];\n";
 		
 //		m+="NSMutableArray *sectionAZDicArray=[[NSMutableArray alloc]init];\n";
 //		
@@ -141,14 +142,35 @@ public class RequestRespondForIphone {
 //		[sectionAZDicArray addObject:sectionADic];
 		
 		
+
+
+		
+		
+//	    NSMutableString *businessParam= [map objectForKey:@"businessParam"];
+	//    
+//	    NSDictionary *paramdic=[self jsonString2Dic:[businessParam dataUsingEncoding:NSUTF8StringEncoding] ];
+	//    
+//	       bool success= [paramdic objectForKey:@"success"];
+//	     NSMutableString *data= [paramdic objectForKey:@"data"];
+//	       NSDictionary *datadic=[self jsonString2Dic:[data dataUsingEncoding:NSUTF8StringEncoding] ];
+	//    
+//	     NSDictionary *kk= [datadic objectForKey:@"kk"];
+	//    
+//	     NSDictionary *returnData= [kk objectForKey:@"returnData"];
+//	     NSArray *D4496_MAIL_STATUS= [returnData objectForKey:@"D4496_MAIL_STATUS"];
+//	     NSString *t2t=[D4496_MAIL_STATUS objectAtIndex:0];
+//	        NSArray *D44_70_TRAN_TIME= [returnData objectForKey:@"D44_70_TRAN_TIME"];
+	//    
+//	    NSString *tt=[D44_70_TRAN_TIME objectAtIndex:0];
+	//    
+//	     NSString *D44_70_RECORDNUM1= [returnDataBody objectForKey:@"D44_70_RECORDNUM1"];
+	    
 		
 		
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "if (requestCode == n"+interfaceBean.id +"){\n";
+		m += "if ([requestCode isEqualToString:n"+interfaceBean.id +"]){\n";
 
-		m+="Gson gson = new Gson();\n";
 	
-		m+= classNameForCache+" bean = gson.fromJson(body, "+classNameForCache+".class);\n";
 		
 		List<Group> groups = interfaceBean.respondGroups;
 		
@@ -172,8 +194,9 @@ public class RequestRespondForIphone {
 							m += "/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 						  
-							m+="for(int i=0;i<bean."+row.enName+";i++)\n{\n";
-							  m+=className+" item"+groupCount+"=new "+className+"();\n";
+							m+="int "+row.enName+"= [[returnDataBody objectForKey:@\""+row.enName+"\"]intValue];\n";
+							m+="for(int i=0;i<"+row.enName+";i++)\n{\n";
+							  m+=className+" *item"+groupCount+"=[["+className+"alloc]init];\n";
 							isCustomerClass = false;
 						}
 					} else {
@@ -182,25 +205,24 @@ public class RequestRespondForIphone {
 						} else {
 							m += "/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "item"+groupCount+"."+row.enName+"=bean." + row.enName
-									+ "[i];\n";
+							m += "item"+groupCount+"."+row.enName+"=[[returnData objectForKey:@\""+row.enName+"\"] objectAtIndex:i];\n";
 						
 						}
 					}
 					i++;
 				}
-			
+				m+="[listData addObject:item"+groupCount+"];\n";
 				m+="}\n\n";
 				
 			} else {
-				 m+=className+" commonItem"+"=new "+className+"();\n";
+				 m+=className+" *commonItem"+"=[["+className+"alloc]init];\n";
 				for (Row row : group.rows) {
 					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-					m +=  "commonItem." + row.enName + "=bean."+row.enName+";\n";
-
+					m +=  "commonItem." + row.enName + "=[returnDataBody objectForKey:@\""+row.enName+"\"];\n";
+					
 				}
 			}
-groupCount++;
+          groupCount++;
 		}
 		m += "}\n\n";
 

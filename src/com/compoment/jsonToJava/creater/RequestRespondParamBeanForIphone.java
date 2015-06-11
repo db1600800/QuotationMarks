@@ -43,20 +43,24 @@ public class RequestRespondParamBeanForIphone {
 
 		for (InterfaceBean interfaceBean : interfaceBeans) {
 
-			beanCreate(interfaceBean, "Request");
-			beanCreate(interfaceBean, "CacheRespond");
+			//beanCreate(interfaceBean, "Request");
+			//beanCreate(interfaceBean, "CacheRespond");
 			beanCreate(interfaceBean, "Respond");
 		}
 	}
 
 	public void beanCreate(InterfaceBean interfaceBean, String type) {
 		String m = "\n\n\n";
+		String n="\n";
 		List<String> mChirldClass = new ArrayList();
 
 	
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "@interface " + type + "Param" + interfaceBean.id + ":NSObject{\n";
-
+		m += "@interface " + type + "Param" + interfaceBean.id + ":NSObject\n";
+		
+        n+="#import \"" + type + "Param" + interfaceBean.id +".h\"\n";
+		n+="@implementation " + type + "Param" + interfaceBean.id+"\n" ;
+        
 		List<Group> groups = null;
 		if (type.equals("Request")) {
 			groups = interfaceBean.requestGroups;
@@ -69,71 +73,62 @@ public class RequestRespondParamBeanForIphone {
 			if (groupname.equals("CommonGroup")) {
 				for (Row row : group.rows) {
 					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-					String typename="";
-					if(row.getType().equals("String"))
-					{
-						typename="NSString";
-						m+="@property (strong, nonatomic) "+typename+" *"+row.enName+";\n";
-					}else if(row.getType().equals("List"))
-					{
-						typename="NSMutableArray";
-						m+="@property (strong, nonatomic) "+typename+" *"+row.enName+";\n";
-					}else if(row.getType().equals("Map"))
-					{
-						typename="NSMutableDictionary";
-						m+="@property (strong, nonatomic) "+typename+" *"+row.enName+";\n";
-					}else 
-					{
-						typename=row.getType();
-						m+="@property (strong, nonatomic) "+typename+" "+row.enName+";\n";
-					}
-				
 
+				    m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
+                    
+				    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+				    n+="@synthesize "+row.enName+";\n";
 				}
 			} else {
 				int i = 0;
 				boolean isCustomerClass = false;
 				for (Row row : group.rows) {
 					
-					if (i == 0) {// 循环域开始
+					if (i == 0) {// 循环域开始 
 						if (row.getType() != null && !isCommonType(row.getType())) {//自定义类型
 							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							m += "public List<" + row.getType() + "> " + row.getType() + ";\n";
 							mChirldClass.add(chirldClass(group));
 							isCustomerClass = true;
-						} else {//非自定义类型
+						} else {//非自定义类型  number
 							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
-									+ ";\n";
+							
+							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
+							
+						    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+						    n+="@synthesize "+row.enName+";\n";
 							isCustomerClass = false;
 						}
 					} else {
 						if (isCustomerClass) {
 
 						} else {
-							if(type.equals("Request"))
-							{
-								m += "/** " + row.cnName + " 备注:" + row.remarks
-										+ "*/\n";
-								m += "public " + row.getType() + " " + row.enName
-										+ "[];\n";
-							}
+//							if(type.equals("Request"))
+//							{
+//								m += "/** " + row.cnName + " 备注:" + row.remarks
+//										+ "*/\n";
+//								m += "public " + row.getType() + " " + row.enName
+//										+ "[];\n";
+//							}
 							if(type.equals("Respond"))
 							{
 							m += "/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
-									+ ";\n";
+						
+							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
+							
+						    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+						    n+="@synthesize "+row.enName+";\n";
 							}
-							if(type.equals("CacheRespond"))
-							{
-							m += "/** " + row.cnName + " (数组)备注:" + row.remarks
-									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
-									+ "[];\n";
-							}
+//							if(type.equals("CacheRespond"))
+//							{
+//							m += "/** " + row.cnName + " (数组)备注:" + row.remarks
+//									+ "*/\n";
+//							m += "public " + row.getType() + " " + row.enName
+//									+ "[];\n";
+//							}
 						}
 					}
 					i++;
@@ -141,12 +136,14 @@ public class RequestRespondParamBeanForIphone {
 			}
 
 		}
-		m += "}\n\n";
-
+		m += "@end\n\n";
+        n+="@end\n";
 		for (String cirldClassString : mChirldClass) {
 			m += cirldClassString + "\n\n";
 		}
-		makeFile( type + "Param" + interfaceBean.id,m);
+		
+		makeFile( type + "Param" + interfaceBean.id,m,"h");
+		makeFile( type + "Param" + interfaceBean.id,n,"m");
 		System.out.println(m);
 	}
 
@@ -175,33 +172,36 @@ public class RequestRespondParamBeanForIphone {
 		}
 	}
 
-//    NSMutableString *businessParam= [map objectForKey:@"businessParam"];
-//    
-//    NSDictionary *paramdic=[self jsonString2Dic:[businessParam dataUsingEncoding:NSUTF8StringEncoding] ];
-//    
-//       bool success= [paramdic objectForKey:@"success"];
-//     NSMutableString *data= [paramdic objectForKey:@"data"];
-//       NSDictionary *datadic=[self jsonString2Dic:[data dataUsingEncoding:NSUTF8StringEncoding] ];
-//    
-//     NSDictionary *kk= [datadic objectForKey:@"kk"];
-//    
-//     NSDictionary *returnData= [kk objectForKey:@"returnData"];
-//     NSArray *D4496_MAIL_STATUS= [returnData objectForKey:@"D4496_MAIL_STATUS"];
-//     NSString *t2t=[D4496_MAIL_STATUS objectAtIndex:0];
-//        NSArray *D44_70_TRAN_TIME= [returnData objectForKey:@"D44_70_TRAN_TIME"];
-//    
-//    NSString *tt=[D44_70_TRAN_TIME objectAtIndex:0];
-//    
-//     NSString *D44_70_RECORDNUM1= [returnData objectForKey:@"D44_70_RECORDNUM1"];
-    
-    
+
+	public String  iosType(String javatype)
+	{
+		String typename;
+	if(javatype.equals("String"))
+	{
+		typename="NSString *";
+		
+	}else if(javatype.equals("List"))
+	{
+		typename="NSMutableArray *";
+		
+	}else if(javatype.equals("Map"))
+	{
+		typename="NSMutableDictionary *";
+		
+	}else 
+	{
+		typename=javatype+" ";
+		
+	}
+	return typename;
+	}
 	
 	public boolean isNum(String str) {
 		Pattern pattern = Pattern.compile("[0-9]*");
 		return pattern.matcher(str).matches();
 	}
 	
-	public void makeFile(String fileName,String s)
+	public void makeFile(String fileName,String s,String filetype)
 	{
 		try {
 		String doc=KeyValue.readCache("docPath");
@@ -215,7 +215,7 @@ public class RequestRespondParamBeanForIphone {
 		      
 		    
 		
-		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".java");
+		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+"."+filetype+"");
 		  if(! tofile.exists()) {  
 	            makeDir(tofile.getParentFile());  
 	        }  

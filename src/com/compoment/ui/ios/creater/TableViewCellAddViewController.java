@@ -109,6 +109,7 @@ public class TableViewCellAddViewController {
 			 {
 				 String m="";
 				     m+="#import \""+className+"TableViewCell.h\"\n;";
+				     m+="//注入table功能\n";
 					 m+="static NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
 			    	content += m;
 			 }
@@ -181,10 +182,10 @@ public class TableViewCellAddViewController {
 	String n="";
 	public void analyse(List<CompomentBean> oldBeans) {
 		
-		n+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:indexPath.section];  \n";
-		n+="    \n";
-		n+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
-		n+="    NSMutableDictionary *chirldDic=[sectionChirldsArray objectAtIndex:indexPath.row];\n";
+		//n+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:indexPath.section];  \n";
+		//n+="    \n";
+		//n+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
+		//n+="    NSMutableDictionary *chirldDic=[sectionChirldsArray objectAtIndex:indexPath.row];\n";
 		int maxW = 0;
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
@@ -235,7 +236,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("TextView")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= [chirldDic objectForKey:@\""+chirld.enname+"\"];\n";
+			n+="cell."+chirld.enname+".text= [listData objectAtIndex:indexPath.row]."+chirld.enname+";\n";
 	
 		
 		}
@@ -249,7 +250,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("EditText")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= [chirldDic objectForKey:@\""+chirld.enname+"\"];\n";
+			n+="cell."+chirld.enname+".text= [listData objectAtIndex:indexPath.row]."+chirld.enname+";\n";
 			
 			
 
@@ -266,7 +267,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("ImageView")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:[chirldDic objectForKey:@\""+chirld.enname+"\"]] placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
+			n+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:[listData objectAtIndex:indexPath.row]."+chirld.enname+" placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 		
 		}
 

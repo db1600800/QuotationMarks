@@ -21,6 +21,7 @@ import com.compoment.addfunction.android.DateSelect;
 import com.compoment.jsonToJava.creater.RequestRespond;
 import com.compoment.jsonToJava.creater.RequestRespondForIphone;
 import com.compoment.jsonToJava.creater.RequestRespondParamBean;
+import com.compoment.jsonToJava.creater.RequestRespondParamBeanForIphone;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.server.Serverlet;
@@ -486,8 +487,9 @@ public class PageInterfaceDocPanel {
 		listListView.setListData(listDate.toArray());
 		
 		RequestRespondParamBean requestRespond = new RequestRespondParamBean();
+		RequestRespondParamBeanForIphone requestRespondForIphone = new RequestRespondParamBeanForIphone();
 		requestRespond.requestRespondParamBean(interfaceBeans);
-
+		requestRespondForIphone.requestRespondParamBean(interfaceBeans);
 		
 	
 		
@@ -554,7 +556,7 @@ public class PageInterfaceDocPanel {
 		  if(bean.id.equals(id))
 		  {
 			  RequestRespondForIphone rr = new RequestRespondForIphone();
-		return rr.respond(bean);
+		      return rr.respond(bean);
 		  }
 		}
 		return "";
