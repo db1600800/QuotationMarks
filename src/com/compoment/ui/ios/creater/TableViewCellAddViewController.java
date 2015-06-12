@@ -108,7 +108,7 @@ public class TableViewCellAddViewController {
 			 if(line.contains("@implementation"))
 			 {
 				 String m="";
-				     m+="#import \""+className+"TableViewCell.h\"\n;";
+				     m+="#import \""+className+"TableViewCell.h\"\n";
 				     m+="//注入table功能\n";
 					 m+="static NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
 			    	content += m;

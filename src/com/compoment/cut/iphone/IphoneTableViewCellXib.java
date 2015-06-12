@@ -29,6 +29,10 @@ public class IphoneTableViewCellXib {
 	String connection = "";
 	String pageName = "";
     String className="";
+    String tableViewCellContentViewId="";
+    String tableViewCellid="";
+
+    
 	public IphoneTableViewCellXib(String pageName,List<CompomentBean> oldBeans) {
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
@@ -50,17 +54,26 @@ public class IphoneTableViewCellXib {
 		m+="    <objects>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\"/>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
-		String tableViewCellid=id();
+		 tableViewCellid=id();
+		tableViewCellContentViewId=id();
 		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+tableViewCellid+"\" customClass=\""+className+"TableViewCell\">\n";
 		m+="            <rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"320\" height=\""+maxBean.h+"\"/>\n";
 		m+="            <autoresizingMask key=\"autoresizingMask\"/>\n";
-		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+tableViewCellid+"\" id=\""+id()+"\">\n";
+		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+tableViewCellid+"\" id=\""+tableViewCellContentViewId+"\">\n";
 		m+="                <autoresizingMask key=\"autoresizingMask\"/>\n";
 		m+="                <subviews>\n";
 
 		m+=body;
 		
 		m+=" </subviews>\n";
+		
+		m+="         <constraints>\n";
+		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"leading\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"leadingMargin\" id=\""+id()+"\"/>\n";
+		m+="                    <constraint firstItem=\""+tableViewCellContentViewId+"\" firstAttribute=\"bottomMargin\" secondItem=\""+maxBean.id+"\" secondAttribute=\"bottom\" id=\""+id()+"\"/>\n";
+		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"trailing\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"trailingMargin\" id=\""+id()+"\"/>\n";
+		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"top\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"topMargin\" id=\""+id()+"\"/>\n";
+		m+="         </constraints>\n";
+		
 		m+="   </tableViewCellContentView>\n";
 		m+="            <inset key=\"separatorInset\" minX=\"0.0\" minY=\"0.0\" maxX=\"0.0\" maxY=\"0.0\"/>\n";
 		m+=" <connections>\n";
