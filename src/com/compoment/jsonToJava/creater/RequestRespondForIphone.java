@@ -113,7 +113,7 @@ public class RequestRespondForIphone {
 		
 		m+="    NSString *baseUrl=@\"http://localhost:8080/Serlet/Serverlet"+interfaceBean.id+"?parameter=\";\n";
 		m+="    NSString *fullUrl = [baseUrl stringByAppendingString:[businessparam JSONString]];\n";
-		m+="    NSURL *url = [NSURL URLWithString:fullUrl];\n";
+		m+="    NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];\n";
 
 		m+="    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];\n";
 		m+="    [request setHTTPMethod:@\"GET\"];\n";
@@ -223,7 +223,7 @@ public class RequestRespondForIphone {
 						  
 							m+="int "+row.enName+"= [[returnDataBody objectForKey:@\""+row.enName+"\"]intValue];\n";
 							m+="for(int i=0;i<"+row.enName+";i++)\n{\n";
-							  m+=className+" *item"+groupCount+"=[["+className+"alloc]init];\n";
+							  m+=className+" *item"+groupCount+"=[["+className+" alloc]init];\n";
 							isCustomerClass = false;
 						}
 					} else {

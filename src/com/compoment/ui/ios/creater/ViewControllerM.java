@@ -71,6 +71,7 @@ public class ViewControllerM {
             i+="#import \""+className+"ViewController.h\"\n";
             i+="#import \"UIImageView+WebCache.h\"\n";
             i+="#import <Foundation/Foundation.h>\n";
+            i+="#import <PublicFramework/JSONKit.h>\n";
 			i+="@implementation "+className+"ViewController\n";
 			
 		

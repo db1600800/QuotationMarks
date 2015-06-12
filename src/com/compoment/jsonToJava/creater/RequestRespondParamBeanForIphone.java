@@ -54,7 +54,7 @@ public class RequestRespondParamBeanForIphone {
 		String n="\n";
 		List<String> mChirldClass = new ArrayList();
 
-	
+	    m+="#import <Foundation/Foundation.h>\n";
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "@interface " + type + "Param" + interfaceBean.id + ":NSObject\n";
 		
