@@ -1,74 +1,74 @@
 <list>
   <CompomentBean>
-    <rgb16>#FEFEFE</rgb16>
-    <bgRgb16>#FFFFFF</bgRgb16>
+    <rgb16>#FFFFFD</rgb16>
+    <bgRgb16>#FFFFFD</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>271</x>
-    <y>501</y>
-    <w>313</w>
-    <h>61</h>
-    <cnname>bg1433989983023</cnname>
-    <enname>bg1433989983023LinearLayout</enname>
+    <x>301</x>
+    <y>519</y>
+    <w>206</w>
+    <h>39</h>
+    <cnname>bg1434070105672</cnname>
+    <enname>bg1434070105672LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>0Tn-0Z-fJh</id>
+    <id>npk-vN-8re</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433989987659</time>
+    <time>1434070109940</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#29292B</rgb16>
+    <rgb16>#2B2C2E</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>310</x>
-    <y>522</y>
-    <w>19</w>
-    <h>15</h>
+    <x>323</x>
+    <y>532</y>
+    <w>35</w>
+    <h>19</h>
     <cnname>t1</cnname>
     <enname>t1TextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>W8c-gl-FzD</id>
+    <id>ACf-LP-7KW</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433989999581</time>
+    <time>1434070122767</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#28282A</rgb16>
+    <rgb16>#2B2C31</rgb16>
     <bgRgb16>#背景颜色</bgRgb16>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>366</x>
-    <y>526</y>
-    <w>15</w>
-    <h>8</h>
+    <x>378</x>
+    <y>536</y>
+    <w>30</w>
+    <h>10</h>
     <cnname>t2</cnname>
     <enname>t2TextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>vII-R9-gLL</id>
+    <id>vIX-wm-nCI</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1433990013076</time>
+    <time>1434070137537</time>
   </CompomentBean>
 </list>

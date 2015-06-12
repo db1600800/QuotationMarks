@@ -133,6 +133,10 @@ public class RequestRespondForIphone {
 		m+="                                   \n";
 		m+="                                   NSLog(@\"HttpResponseCode:%d\", responseCode);\n";
 		m+="                                   NSLog(@\"HttpResponseBody %@\",responseString);\n";
+		
+		m+="   dispatch_async(dispatch_get_main_queue(), ^{\n";
+        m+="       [self.tableView reloadData];\n";
+        m+="   });\n";
 		m+="                               }\n";
 		m+="                           }];\n";
 
@@ -232,7 +236,7 @@ public class RequestRespondForIphone {
 						} else {
 							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "item"+groupCount+"."+row.enName+"=[[returnData objectForKey:@\""+row.enName+"\"] objectAtIndex:i];\n";
+							m += "item"+groupCount+"."+row.enName+"=[[returnDataBody objectForKey:@\""+row.enName+"\"] objectAtIndex:i];\n";
 						
 						}
 					}
