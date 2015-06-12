@@ -51,9 +51,9 @@ public class RequestRespondForIphone {
 		
 	
 		
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m+="NSString  *n"+interfaceBean.id+"=@\""+interfaceBean.id +"\";\n";
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "-(void) request"+interfaceBean.id+"{\n";
 		
 		m+="NSMutableDictionary *businessparam=[[NSMutableDictionary alloc] init];\n";
@@ -78,7 +78,7 @@ public class RequestRespondForIphone {
 							isCustomerClass = true;
 						} else {//非自定义对象
 							
-							m += "/** " + row.cnName + " 备注:" + row.remarks
+							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							m+="[businessparam setValue:@\"\" forKey:@\""+row.enName+"\"];\n";
 							isCustomerClass = false;
@@ -87,7 +87,7 @@ public class RequestRespondForIphone {
 						if (isCustomerClass) {
 
 						} else {
-							m += "/** " + row.cnName + " 备注:" + row.remarks
+							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							m+="NSMutableArray *"+row.enName+"List=[[NSMutableArray alloc]init];\n";
 							m+="// ["+row.enName+"List addObject:@\"\"];\n";
@@ -103,7 +103,7 @@ public class RequestRespondForIphone {
 			} else {
 				
 				for (Row row : group.rows) {
-					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 					m+="[businessparam setValue:@\"\" forKey:@\""+row.enName+"\"];\n";
 				}
 			}
@@ -193,7 +193,7 @@ public class RequestRespondForIphone {
 	    
 	
 		
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "if ([requestCode isEqualToString:n"+interfaceBean.id +"]){\n";
 
 		JsonToIosBeanForSimple jsonToIosBeanForSimple=new JsonToIosBeanForSimple(baseJson);
@@ -218,7 +218,7 @@ public class RequestRespondForIphone {
 							
 							isCustomerClass = true;
 						} else {//非自定义对象
-							m += "/** " + row.cnName + " 备注:" + row.remarks
+							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 						  
 							m+="int "+row.enName+"= [[returnDataBody objectForKey:@\""+row.enName+"\"]intValue];\n";
@@ -230,7 +230,7 @@ public class RequestRespondForIphone {
 						if (isCustomerClass) {
 
 						} else {
-							m += "/** " + row.cnName + " 备注:" + row.remarks
+							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							m += "item"+groupCount+"."+row.enName+"=[[returnData objectForKey:@\""+row.enName+"\"] objectAtIndex:i];\n";
 						
@@ -244,7 +244,7 @@ public class RequestRespondForIphone {
 			} else {
 				 m+=className+" *commonItem"+"=[["+className+"alloc]init];\n";
 				for (Row row : group.rows) {
-					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 					m +=  "commonItem." + row.enName + "=[returnDataBody objectForKey:@\""+row.enName+"\"];\n";
 					
 				}

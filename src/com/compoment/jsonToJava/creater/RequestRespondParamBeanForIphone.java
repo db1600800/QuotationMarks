@@ -55,7 +55,7 @@ public class RequestRespondParamBeanForIphone {
 		List<String> mChirldClass = new ArrayList();
 
 	    m+="#import <Foundation/Foundation.h>\n";
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "@interface " + type + "Param" + interfaceBean.id + ":NSObject\n";
 		
         n+="#import \"" + type + "Param" + interfaceBean.id +".h\"\n";
@@ -72,11 +72,11 @@ public class RequestRespondParamBeanForIphone {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
 				for (Row row : group.rows) {
-					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 
 				    m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
                     
-				    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+				    n += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 				    n+="@synthesize "+row.enName+";\n";
 				}
 			} else {
@@ -86,18 +86,18 @@ public class RequestRespondParamBeanForIphone {
 					
 					if (i == 0) {// 循环域开始 
 						if (row.getType() != null && !isCommonType(row.getType())) {//自定义类型
-							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
+							m += "\n\n/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							m += "public List<" + row.getType() + "> " + row.getType() + ";\n";
 							mChirldClass.add(chirldClass(group));
 							isCustomerClass = true;
 						} else {//非自定义类型  number
-							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
+							m += "\n\n/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							
 							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
 							
-						    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+						    n += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 						    n+="@synthesize "+row.enName+";\n";
 							isCustomerClass = false;
 						}
@@ -107,24 +107,24 @@ public class RequestRespondParamBeanForIphone {
 						} else {
 //							if(type.equals("Request"))
 //							{
-//								m += "/** " + row.cnName + " 备注:" + row.remarks
+//								m += "/* " + row.cnName + " 备注:" + row.remarks
 //										+ "*/\n";
 //								m += "public " + row.getType() + " " + row.enName
 //										+ "[];\n";
 //							}
 							if(type.equals("Respond"))
 							{
-							m += "/** " + row.cnName + " 备注:" + row.remarks
+							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 						
 							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
 							
-						    n += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+						    n += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 						    n+="@synthesize "+row.enName+";\n";
 							}
 //							if(type.equals("CacheRespond"))
 //							{
-//							m += "/** " + row.cnName + " (数组)备注:" + row.remarks
+//							m += "/* " + row.cnName + " (数组)备注:" + row.remarks
 //									+ "*/\n";
 //							m += "public " + row.getType() + " " + row.enName
 //									+ "[];\n";
@@ -152,7 +152,7 @@ public class RequestRespondParamBeanForIphone {
 		int i = 0;
 		for (Row row : group.rows) {
 			if (i == 0) {
-				n += "/** 子类" + row.getType() + " " + row.cnName + " 备注:"
+				n += "/* 子类" + row.getType() + " " + row.cnName + " 备注:"
 						+ row.remarks + "*/\n";
 				n += "public class " + row.getType() + "{\n";
 			} else {
