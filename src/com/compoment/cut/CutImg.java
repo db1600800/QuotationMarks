@@ -2,8 +2,14 @@ package com.compoment.cut;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Transparency;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -17,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -74,6 +81,9 @@ public class CutImg extends JPanel {
 		});
 		try {
 			image = ImageIO.read(file);
+            Image img=image.getScaledInstance(600, 600, Image.SCALE_DEFAULT);//按照指定宽度和高度缩放以后的Image实例
+			 image=toBufferedImage(img);
+			
 		} catch (IOException e) {
 			System.out.println("输入文件不是一个图片文件！");
 		}
@@ -165,5 +175,58 @@ public class CutImg extends JPanel {
 	public void cutImgCallBack(final Image image, final int x, final int y,
 			final int w, final int h) ;
 	
+	}
+	
+	
+	
+	public static BufferedImage toBufferedImage(Image image) {
+	    if (image instanceof BufferedImage) {
+	        return (BufferedImage)image;
+	     }
+	 
+	    // This code ensures that all the pixels in the image are loaded
+	     image = new ImageIcon(image).getImage();
+	 
+	    // Determine if the image has transparent pixels; for this method's
+	    // implementation, see e661 Determining If an Image Has Transparent Pixels
+	    //boolean hasAlpha = hasAlpha(image);
+	 
+	    // Create a buffered image with a format that's compatible with the screen
+	     BufferedImage bimage = null;
+	     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    try {
+	        // Determine the type of transparency of the new buffered image
+	        int transparency = Transparency.OPAQUE;
+	       /* if (hasAlpha) {
+	         transparency = Transparency.BITMASK;
+	         }*/
+	 
+	        // Create the buffered image
+	         GraphicsDevice gs = ge.getDefaultScreenDevice();
+	         GraphicsConfiguration gc = gs.getDefaultConfiguration();
+	         bimage = gc.createCompatibleImage(
+	         image.getWidth(null), image.getHeight(null), transparency);
+	     } catch (HeadlessException e) {
+	        // The system does not have a screen
+	     }
+	 
+	    if (bimage == null) {
+	        // Create a buffered image using the default color model
+	        int type = BufferedImage.TYPE_INT_RGB;
+	        //int type = BufferedImage.TYPE_3BYTE_BGR;//by wang
+	        /*if (hasAlpha) {
+	         type = BufferedImage.TYPE_INT_ARGB;
+	         }*/
+	         bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+	     }
+	 
+	    // Copy image to buffered image
+	     Graphics g = bimage.createGraphics();
+	 
+	    // Paint the image onto the buffered image
+	     g.drawImage(image, 0, 0, null);
+	     g.dispose();
+	 
+	    return bimage;
 	}
 }
