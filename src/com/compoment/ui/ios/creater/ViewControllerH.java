@@ -77,7 +77,7 @@ public class ViewControllerH {
 			
 			m+="@end\n";
 			
-			FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"h", m);
       
 		}

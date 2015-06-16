@@ -57,7 +57,7 @@ public class IphoneViewControllerXib {
 		
 		System.out.println(m);
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 				"xib", m);
 
 	}

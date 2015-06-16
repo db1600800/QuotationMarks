@@ -336,7 +336,7 @@ public class ReportList {
 		m += "	}\n";
 		m += "}\n";
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", horizontalScrollViewClassName,
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", horizontalScrollViewClassName,
 				"java", m);
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", horizontalScrollViewClassName,
 				"java", m);

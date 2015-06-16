@@ -567,7 +567,7 @@ public class CreateActivityView {
 		m += "}\n";
 
 		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className,
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", className,
 				"java", m);
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className,
 				"java", m);

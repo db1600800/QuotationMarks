@@ -77,7 +77,7 @@ public class TableViewHeadViewH {
 			
 			m+="@end\n";
 			
-			FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"HeadView",
+			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"HeadView",
 					"h", m);
       
 		}

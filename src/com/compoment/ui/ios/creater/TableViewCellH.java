@@ -98,7 +98,7 @@ public class TableViewCellH {
 		n+="@end\n";
   
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"TableViewCell",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"TableViewCell",
 				"h", n);
 	}
 

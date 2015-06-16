@@ -15,7 +15,8 @@ public class ViewControllerM {
 
 	
 		String i="\n\n\n";
-		String m="\n";
+		String tablem="\n";
+		String setvaluem="\n";
 	    String pageName="";
 	    String className="";
 		public  ViewControllerM(String pageName,List<CompomentBean> oldBeans) {
@@ -92,11 +93,14 @@ public class ViewControllerM {
 			
 			i+="}\n\n";
 			
-			i+=m;
+			i+=tablem;
 			
+			i+="-(void) setUiValue{\n";
+			i+=setvaluem;
+			i+="}\n\n";
             i+="\n@end\n";
             
-            FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+            FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"m", i);
 		}
 
@@ -125,6 +129,9 @@ public class ViewControllerM {
 		
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+				
+				setvaluem+="//"+chirld.cnname+"\n";
+				setvaluem+="["+chirld.enname+" setValue:]\n";
 			}
 
 			if (chirld.type.equals("Button")) {
@@ -141,6 +148,9 @@ public class ViewControllerM {
 				
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+				
+				setvaluem+="//"+chirld.cnname+"\n";
+				setvaluem+="["+chirld.enname+" setValue:]\n";
 			}
 
 			if (chirld.type.equals("CheckBox")) {
@@ -153,86 +163,90 @@ public class ViewControllerM {
 				i+="@synthesize tableView;\n";
 				
 
-				m+="- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
-				m+="    \n";
-				m+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
-				m+="    \n";
-				m+="    NSMutableDictionary *sectionHeaderDic=[sectionADic objectForKey:@\"SectionHeaderDic\"];\n";
-				m+="    \n";
-				m+="    NSString *title= [sectionHeaderDic objectForKey:@\"title\"];\n";
-				m+="    \n";
-				m+="    return title;\n";
-				m+="  \n";
-				m+="}\n\n";
+				tablem+="- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
+				tablem+="    \n";
+				tablem+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
+				tablem+="    \n";
+				tablem+="    NSMutableDictionary *sectionHeaderDic=[sectionADic objectForKey:@\"SectionHeaderDic\"];\n";
+				tablem+="    \n";
+				tablem+="    NSString *title= [sectionHeaderDic objectForKey:@\"title\"];\n";
+				tablem+="    \n";
+				tablem+="    return title;\n";
+				tablem+="  \n";
+				tablem+="}\n\n";
 
-				m+="//自定义SectionHeader\n";
-				m+="- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
+				tablem+="//自定义SectionHeader\n";
+				tablem+="- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
 			
 		
-				m+="}\n\n";
+				tablem+="}\n\n";
 
-				m+="//自定义SectionHeader高度\n";
-				m+="-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
-				m+="    return 22.0;\n";
-				m+="}\n\n";
-
-
-				m+="//指定有多少个分区(Section)，默认为1\n";
-				m+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
-				m+="    \n";
-				m+="    return [sectionAZDicArray count];//返回标题数组中元素的个数来确定分区的个数\n";
-				m+="}\n\n";
+				tablem+="//自定义SectionHeader高度\n";
+				tablem+="-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
+				tablem+="    return 22.0;\n";
+				tablem+="}\n\n";
 
 
-				m+="//指定每个分区中有多少行，默认为1\n";
-				m+="- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{\n";
-				m+="    \n";
-				m+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
-				m+="    \n";
-				m+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
-				m+="    \n";
-				m+="    return  [sectionChirldsArray count];\n";
-				m+="    \n";
-				m+="}\n\n";
+				tablem+="//指定有多少个分区(Section)，默认为1\n";
+				tablem+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
+				tablem+="    \n";
+				tablem+="    return [sectionAZDicArray count];//返回标题数组中元素的个数来确定分区的个数\n";
+				tablem+="}\n\n";
 
 
-
-				m+="//绘制Cell\n";
-				m+="-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
-				m+="    \n";
-
-				m+="}\n\n";
+				tablem+="//指定每个分区中有多少行，默认为1\n";
+				tablem+="- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{\n";
+				tablem+="    \n";
+				tablem+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
+				tablem+="    \n";
+				tablem+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
+				tablem+="    \n";
+				tablem+="    return  [sectionChirldsArray count];\n";
+				tablem+="    \n";
+				tablem+="}\n\n";
 
 
 
-				m+="//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度\n";
-				m+="- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+				tablem+="//绘制Cell\n";
+				tablem+="-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
+				tablem+="    \n";
+
+				tablem+="}\n\n";
+
+
+
+				tablem+="//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度\n";
+				tablem+="- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\n";
 			
 			
 
-				m+="}\n\n";
+				tablem+="}\n\n";
 
 
-				m+="- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
-				m+="    return 88;\n";
-				m+="}\n\n";
+				tablem+="- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
+				tablem+="    return 88;\n";
+				tablem+="}\n\n";
 
 
-				m+="//点击后，过段时间cell自动取消选中\n";
-				m+="- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\n";
-				m+="    //消除cell选择痕迹\n";
-				m+="    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];\n";
-				m+="}\n";
-				m+="- (void)deselect\n";
-				m+="{\n";
-				m+="    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
-				m+="}\n";
+				tablem+="//点击后，过段时间cell自动取消选中\n";
+				tablem+="- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+				tablem+="    //消除cell选择痕迹\n";
+				tablem+="    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];\n";
+				tablem+="}\n";
+				tablem+="- (void)deselect\n";
+				tablem+="{\n";
+				tablem+="    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
+				tablem+="}\n";
 			}
 
 			if (chirld.type.equals("ImageView")) {
 		
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+				
+				setvaluem+="//"+chirld.cnname+"\n";
+				setvaluem+="["+chirld.enname+" setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
+				
 			}
 
 			if (chirld.type.equals("ExpandableListView")) {

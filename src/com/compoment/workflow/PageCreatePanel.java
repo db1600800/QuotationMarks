@@ -334,10 +334,16 @@ public class PageCreatePanel {
 	            }
 			savePublicCompoment();
 
+			//ios
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans);
 			
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
+			//android
+			CreateActivityView createView = new CreateActivityView(
+					frame.pageName);
+			createView.create();
 			
 			}
 		
