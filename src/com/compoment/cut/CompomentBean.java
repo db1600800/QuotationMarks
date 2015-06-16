@@ -114,4 +114,13 @@ public class CompomentBean implements Serializable {
 		return sb.toString();
 	}
 
+	
+    public int getIosW()
+    {
+    	if(w>600)
+    	{
+    		return 600;
+    	}
+    	return w;
+    }
 }

@@ -23,13 +23,13 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class IphoneViewControllerXib {
+public class IphoneTableViewHeadViewXib {
 
 	String bodym= "\n\n\n";
 	String connection = "";
 	String pageName = "";
     String className="";
-	public IphoneViewControllerXib(String pageName,List<CompomentBean> oldBeans) {
+	public IphoneTableViewHeadViewXib(String pageName,List<CompomentBean> oldBeans) {
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
 		
@@ -57,7 +57,7 @@ public class IphoneViewControllerXib {
 		
 		System.out.println(m);
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"ViewController",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "java", className+"HeadView",
 				"xib", m);
 
 	}
@@ -137,7 +137,7 @@ public class IphoneViewControllerXib {
 							+ chirld.id + "\">\n";
 					bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
 							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.getIosW() + "\" height=\"" + chirld.h + "\"/>\n";
+							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 					bodym += "                                <subviews>\n";
 					parent(chirld);
@@ -219,7 +219,7 @@ public class IphoneViewControllerXib {
 					+ "\" y=\""
 					+ (chirld.y - parent.y)
 					+ "\" width=\""
-					+ chirld.getIosW()
+					+ chirld.w
 					+ "\" height=\""
 					+ chirld.h
 					+ "\"/>\n";
@@ -246,7 +246,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.getIosW() + "\" height=\"" + chirld.h
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16)
@@ -277,7 +277,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.getIosW() + "\" height=\"" + chirld.h
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
@@ -301,7 +301,7 @@ public class IphoneViewControllerXib {
 			 bodym+=" <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
 	    		bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 				+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-				+ (chirld.getIosW()) + "\" height=\"" + (chirld.h) + "\"/>\n";
+				+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 		bodym += " <color key=\"backgroundColor\" red=\""
 				+ chirld.getR(chirld.bgRgb16)
 				+ "\" green=\""
@@ -321,7 +321,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-					+ (chirld.getIosW()) + "\" height=\"" + (chirld.h) + "\"/>\n";
+					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 			bodym += " </imageView>\n";
 			connection += "                        <outlet property=\"" + chirld.enname
 					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
