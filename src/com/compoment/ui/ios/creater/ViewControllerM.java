@@ -245,6 +245,7 @@ public class ViewControllerM {
 				i+="@synthesize "+chirld.enname+";\n";
 				
 				setvaluem+="//"+chirld.cnname+"\n";
+				setvaluem+="["+chirld.enname+" setImage:[UIImage imageNamed:@\"1.jpeg\"]]\n";
 				setvaluem+="["+chirld.enname+" setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 				
 			}

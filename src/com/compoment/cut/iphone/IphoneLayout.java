@@ -140,11 +140,11 @@ public class IphoneLayout {
 					parent(chirld);
 					m += "                                </subviews>\n";
 					m += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(bean.bgRgb16)
+							+ bean.getR(chirld.bgRgb16)
 							+ "\" green=\""
-							+ bean.getG(bean.bgRgb16)
+							+ bean.getG(chirld.bgRgb16)
 							+ "\" blue=\""
-							+ bean.getB(bean.bgRgb16)
+							+ bean.getB(chirld.bgRgb16)
 							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 					// m+="                                <constraints>\n";
 					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";

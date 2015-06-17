@@ -115,12 +115,5 @@ public class CompomentBean implements Serializable {
 	}
 
 	
-    public int getIosW()
-    {
-    	if(w>600)
-    	{
-    		return 600;
-    	}
-    	return w;
-    }
+  
 }

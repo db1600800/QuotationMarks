@@ -137,17 +137,17 @@ public class IphoneViewControllerXib {
 							+ chirld.id + "\">\n";
 					bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
 							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.getIosW() + "\" height=\"" + chirld.h + "\"/>\n";
+							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 					bodym += "                                <subviews>\n";
 					parent(chirld);
 					bodym += "                                </subviews>\n";
 					bodym += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(bean.bgRgb16)
+							+ bean.getR(chirld.bgRgb16)
 							+ "\" green=\""
-							+ bean.getG(bean.bgRgb16)
+							+ bean.getG(chirld.bgRgb16)
 							+ "\" blue=\""
-							+ bean.getB(bean.bgRgb16)
+							+ bean.getB(chirld.bgRgb16)
 							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 					// m+="                                <constraints>\n";
 					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
@@ -219,7 +219,7 @@ public class IphoneViewControllerXib {
 					+ "\" y=\""
 					+ (chirld.y - parent.y)
 					+ "\" width=\""
-					+ chirld.getIosW()
+					+ chirld.w 
 					+ "\" height=\""
 					+ chirld.h
 					+ "\"/>\n";
@@ -246,7 +246,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.getIosW() + "\" height=\"" + chirld.h
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16)
@@ -277,7 +277,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.getIosW() + "\" height=\"" + chirld.h
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
@@ -301,7 +301,7 @@ public class IphoneViewControllerXib {
 			 bodym+=" <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
 	    		bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 				+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-				+ (chirld.getIosW()) + "\" height=\"" + (chirld.h) + "\"/>\n";
+				+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 		bodym += " <color key=\"backgroundColor\" red=\""
 				+ chirld.getR(chirld.bgRgb16)
 				+ "\" green=\""
@@ -321,7 +321,7 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-					+ (chirld.getIosW()) + "\" height=\"" + (chirld.h) + "\"/>\n";
+					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 			bodym += " </imageView>\n";
 			connection += "                        <outlet property=\"" + chirld.enname
 					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
@@ -357,23 +357,38 @@ public class IphoneViewControllerXib {
 						if (left == true) {
 							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
 																					// 换现在这个近的
-
-								String oldString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"leading\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"trailing\" constant=\""
-										+ (leftvalue) + "\"";
+//
+//								String oldString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"leading\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"trailing\" constant=\""
+//										+ (leftvalue) + "\"";
+								String id=id();
 								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
 										+ "\" firstAttribute=\"leading\" secondItem=\""
 										+ chirld2.id
 										+ "\" secondAttribute=\"trailing\" constant=\""
-										+ (leftvalue) + "\"";
+										+ (leftvalue) + "\" id=\"" + id
+									+ "\"/>\n";;
 
-								m = m.replace(oldString, newString);
+								
 
+                              String newStringn=" <include reference=\""+id+"\"/>\n";
+								
+								String rows[]=m.split("\n");
+								String lastrow=rows[rows.length-1];
+								
+								m = m.replace(lastrow, newString);
+								
+								
+								String rowsn[]=n.split("\n");
+								String lastrown=rowsn[rowsn.length-1];
+								
+								n = n.replace(lastrown, newStringn);
+								
 							}
 						} else {
 							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
@@ -437,21 +452,34 @@ public class IphoneViewControllerXib {
 							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
 																					// 换现在这个近的
 
-								String oldString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"top\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"";
+//								String oldString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"top\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"bottom\" constant=\""
+//										+ (topvalue) + "\"";
+								String id=id();
+								
 								topvalue = chirld1.y - (chirld2.y + chirld2.h);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
 										+ "\" firstAttribute=\"top\" secondItem=\""
 										+ chirld2.id
 										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"";
+										+ (topvalue) + "\"  id=\"" + id+ "\"/>\n";
 
-								m = m.replace(oldString, newString);
+								String newStringn=" <include reference=\""+id+"\"/>\n";
+								
+								String rows[]=m.split("\n");
+								String lastrow=rows[rows.length-1];
+								
+								m = m.replace(lastrow, newString);
+								
+								
+								String rowsn[]=n.split("\n");
+								String lastrown=rowsn[rowsn.length-1];
+								
+								n = n.replace(lastrown, newStringn);
 
 							}
 						} else {
