@@ -11,13 +11,17 @@ public class CompomentBean implements Serializable {
 	 * 颜色 #FFFFFF
 	 * */
 	public String rgb16;
+	public String rgb16ios;
 	/**
 	 * 背景颜色 #FFFFFF
 	 * */
 	public String bgRgb16;
+	public String bgRgb16ios;
 	public float r;
 	public float g;
 	public float b;
+	
+	
 	
 	public int x;
 	public int y;
@@ -59,7 +63,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getR(String rgb)
 	{
-	        if(rgb.contains("颜色"))
+	        if(!rgb.contains("#"))
 	        {
 	        	rgb="#ffffff";
 	        }
@@ -71,7 +75,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getG(String rgb)
 	{
-		  if(rgb.contains("颜色"))
+		  if(!rgb.contains("#"))
 	        {
 	        	rgb="#ffffff";
 	        }
@@ -83,7 +87,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getB(String rgb)
 	{
-		  if(rgb.contains("颜色"))
+		  if(!rgb.contains("#"))
 	        {
 	        	rgb="#ffffff";
 	        }

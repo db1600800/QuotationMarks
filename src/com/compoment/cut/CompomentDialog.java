@@ -322,6 +322,9 @@ public class CompomentDialog {
 						.replace(" ", "");
 				bean.rgb16 = "#" + colorEdit.getText().trim();
 				bean.bgRgb16 = "#" + bgColorEdit.getText().trim();
+				
+				bean.rgb16ios = "#" + colorEdit.getText().trim();
+				bean.bgRgb16ios = "#" + bgColorEdit.getText().trim();
 				bean.picName = picNameEdit.getText().trim().toLowerCase()
 						.replace(" ", "");
 				bean.textSize = textSizeEdit.getText().trim();

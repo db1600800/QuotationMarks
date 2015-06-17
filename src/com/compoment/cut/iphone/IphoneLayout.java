@@ -88,9 +88,9 @@ public class IphoneLayout {
 
 		m += "                        </subviews>\n";
 		m += "                        <color key=\"backgroundColor\" red=\""
-				+ maxBean.getR(maxBean.bgRgb16) + "\" green=\""
-				+ maxBean.getG(maxBean.bgRgb16) + "\" blue=\""
-				+ maxBean.getB(maxBean.bgRgb16)
+				+ maxBean.getR(maxBean.bgRgb16ios) + "\" green=\""
+				+ maxBean.getG(maxBean.bgRgb16ios) + "\" blue=\""
+				+ maxBean.getB(maxBean.bgRgb16ios)
 				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
 		// m+="                        <constraints>\n";
@@ -140,11 +140,11 @@ public class IphoneLayout {
 					parent(chirld);
 					m += "                                </subviews>\n";
 					m += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(chirld.bgRgb16)
+							+ bean.getR(chirld.bgRgb16ios)
 							+ "\" green=\""
-							+ bean.getG(chirld.bgRgb16)
+							+ bean.getG(chirld.bgRgb16ios)
 							+ "\" blue=\""
-							+ bean.getB(chirld.bgRgb16)
+							+ bean.getB(chirld.bgRgb16ios)
 							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 					// m+="                                <constraints>\n";
 					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
@@ -221,7 +221,7 @@ public class IphoneLayout {
 					+ chirld.h
 					+ "\"/>\n";
 			
-			m+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16)+"\" green=\""+chirld.getG(chirld.bgRgb16)+"\" blue=\""+chirld.getB(chirld.bgRgb16)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			m+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			
 			m += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
 			m += "                                        <color key=\"textColor\" red=\""
@@ -246,11 +246,11 @@ public class IphoneLayout {
 					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
 			m += "                                <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16)
+					+ chirld.getR(chirld.bgRgb16ios)
 					+ "\" green=\""
-					+ chirld.getG(chirld.bgRgb16)
+					+ chirld.getG(chirld.bgRgb16ios)
 					+ "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16)
+					+ chirld.getB(chirld.bgRgb16ios)
 					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			m += "                                <color key=\"tintColor\" red=\""
 					+ chirld.getR(chirld.rgb16)
@@ -300,11 +300,11 @@ public class IphoneLayout {
 				+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
 				+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 		m += " <color key=\"backgroundColor\" red=\""
-				+ chirld.getR(chirld.bgRgb16)
+				+ chirld.getR(chirld.bgRgb16ios)
 				+ "\" green=\""
-				+ chirld.getG(chirld.bgRgb16)
+				+ chirld.getG(chirld.bgRgb16ios)
 				+ "\" blue=\""
-				+ chirld.getB(chirld.bgRgb16)
+				+ chirld.getB(chirld.bgRgb16ios)
 				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 	    m+="  </tableView>\n";
 	    n += "                        <outlet property=\"" + chirld.enname
