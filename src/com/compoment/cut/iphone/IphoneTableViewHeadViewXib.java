@@ -357,23 +357,38 @@ public class IphoneTableViewHeadViewXib {
 						if (left == true) {
 							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
 																					// 换现在这个近的
-
-								String oldString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"leading\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"trailing\" constant=\""
-										+ (leftvalue) + "\"";
+//
+//								String oldString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"leading\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"trailing\" constant=\""
+//										+ (leftvalue) + "\"";
+								String id=id();
 								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
 										+ "\" firstAttribute=\"leading\" secondItem=\""
 										+ chirld2.id
 										+ "\" secondAttribute=\"trailing\" constant=\""
-										+ (leftvalue) + "\"";
+										+ (leftvalue) + "\" id=\"" + id
+									+ "\"/>\n";;
 
-								m = m.replace(oldString, newString);
+								
 
+                              String newStringn=" <include reference=\""+id+"\"/>\n";
+								
+								String rows[]=m.split("\n");
+								String lastrow=rows[rows.length-1];
+								
+								m = m.replace(lastrow, newString);
+								
+								
+								String rowsn[]=n.split("\n");
+								String lastrown=rowsn[rowsn.length-1];
+								
+								n = n.replace(lastrown, newStringn);
+								
 							}
 						} else {
 							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
@@ -437,21 +452,34 @@ public class IphoneTableViewHeadViewXib {
 							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
 																					// 换现在这个近的
 
-								String oldString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"top\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"";
+//								String oldString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"top\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"bottom\" constant=\""
+//										+ (topvalue) + "\"";
+								String id=id();
+								
 								topvalue = chirld1.y - (chirld2.y + chirld2.h);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
 										+ "\" firstAttribute=\"top\" secondItem=\""
 										+ chirld2.id
 										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"";
+										+ (topvalue) + "\"  id=\"" + id+ "\"/>\n";
 
-								m = m.replace(oldString, newString);
+								String newStringn=" <include reference=\""+id+"\"/>\n";
+								
+								String rows[]=m.split("\n");
+								String lastrow=rows[rows.length-1];
+								
+								m = m.replace(lastrow, newString);
+								
+								
+								String rowsn[]=n.split("\n");
+								String lastrown=rowsn[rowsn.length-1];
+								
+								n = n.replace(lastrown, newStringn);
 
 							}
 						} else {
