@@ -25,43 +25,44 @@ import com.compoment.util.KeyValue;
 
 public class IphoneViewControllerXib {
 
-	String bodym= "\n\n\n";
+	String bodym = "\n\n\n";
 	String connection = "";
 	String pageName = "";
-    String className="";
-	public IphoneViewControllerXib(String pageName,List<CompomentBean> oldBeans) {
-		this.pageName=pageName;
-		className=firstCharToUpperAndJavaName(pageName);
-		
-		
-		String body=analyse(oldBeans);
+	String className = "";
 
+	public IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) {
+		this.pageName = pageName;
+		className = firstCharToUpperAndJavaName(pageName);
 
-		String m="";
-		m+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-		m+="<document type=\"com.apple.InterfaceBuilder3.CocoaTouch.XIB\" version=\"3.0\" toolsVersion=\"6751\" systemVersion=\"14D136\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\">\n";
-		m+="    <dependencies>\n";
-		m+="        <deployment identifier=\"iOS\"/>\n";
-		m+="        <plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"6736\"/>\n";
-		m+="    </dependencies>\n";
-		m+="    <objects>\n";
-		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""+className+"ViewController\">\n";
-		m+="            <connections>\n";
-		m+=connection;
-		m+="                <outlet property=\"view\" destination=\""+maxBean.id +"\" id=\""+id()+"\"/>\n";
-		m+="            </connections>\n";
-		m+="        </placeholder>\n";
-		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
+		String body = analyse(oldBeans);
 
-		m+=body;
-		
+		String m = "";
+		m += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
+		m += "<document type=\"com.apple.InterfaceBuilder3.CocoaTouch.XIB\" version=\"3.0\" toolsVersion=\"6751\" systemVersion=\"14D136\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\">\n";
+		m += "    <dependencies>\n";
+		m += "        <deployment identifier=\"iOS\"/>\n";
+		m += "        <plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"6736\"/>\n";
+		m += "    </dependencies>\n";
+		m += "    <objects>\n";
+		m += "        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""
+				+ className + "ViewController\">\n";
+		m += "            <connections>\n";
+		m += connection;
+		m += "                <outlet property=\"view\" destination=\""
+				+ maxBean.id + "\" id=\"" + id() + "\"/>\n";
+		m += "            </connections>\n";
+		m += "        </placeholder>\n";
+		m += "        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
+
+		m += body;
+
 		System.out.println(m);
-		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
-				"xib", m);
+
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
+				+ "ViewController", "xib", m);
 
 	}
-	
+
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
 		String[] ss = string.split("_");
@@ -72,15 +73,16 @@ public class IphoneViewControllerXib {
 		}
 		return temp;
 	}
+
 	CompomentBean maxBean = null;
+
 	public String analyse(List<CompomentBean> oldBeans) {
 		// Collections.sort(oldBeans, comparatorDate);
-		
-		
+
 		int maxW = 0;
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
-		
+
 		// 找出容器
 		for (CompomentBean bean : oldBeans) {
 			if (bean.type.contains("Layout")) {
@@ -97,11 +99,7 @@ public class IphoneViewControllerXib {
 				layouts.add(bean);
 			}
 		}
-		
 
-			
-
-		
 		bodym += "                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
 		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"600\" height=\"600\"/>\n";
@@ -112,18 +110,19 @@ public class IphoneViewControllerXib {
 
 		bodym += "                        </subviews>\n";
 		bodym += "                        <color key=\"backgroundColor\" red=\""
-				+ maxBean.getR(maxBean.bgRgb16ios) + "\" green=\""
-				+ maxBean.getG(maxBean.bgRgb16ios) + "\" blue=\""
+				+ maxBean.getR(maxBean.bgRgb16ios)
+				+ "\" green=\""
+				+ maxBean.getG(maxBean.bgRgb16ios)
+				+ "\" blue=\""
 				+ maxBean.getB(maxBean.bgRgb16ios)
 				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
-	
 		bodym += constraint(maxBean);
 		bodym += "                    </view>\n";
-		bodym+="</objects>\n";
-		bodym+="</document>\n";
+		bodym += "</objects>\n";
+		bodym += "</document>\n";
 
-      return bodym;
+		return bodym;
 	}
 
 	public void parent(CompomentBean bean) {
@@ -193,7 +192,7 @@ public class IphoneViewControllerXib {
 					// m+="                                    </mask>\n";
 
 					// m+="                                    <mask key=\"constraints\">\n";
-							// m+="                                        <include reference=\"lmb-pJ-JUc\"/>\n";
+					// m+="                                        <include reference=\"lmb-pJ-JUc\"/>\n";
 					// m+="                                    </mask>\n";
 					// m+="                                </variation>\n";
 					bodym += "                            </view>\n";
@@ -219,13 +218,13 @@ public class IphoneViewControllerXib {
 					+ "\" y=\""
 					+ (chirld.y - parent.y)
 					+ "\" width=\""
-					+ chirld.w 
+					+ chirld.w
 					+ "\" height=\""
 					+ chirld.h
 					+ "\"/>\n";
-			
-			//bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			
+
+			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
 			bodym += "                                        <color key=\"textColor\" red=\""
 					+ chirld.getR(chirld.rgb16)
@@ -236,9 +235,9 @@ public class IphoneViewControllerXib {
 					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
 			bodym += "                                    </label>\n";
-			connection += "                        <outlet property=\"" + chirld.enname
-					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
-					+ "\"/>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
 		}
 
 		if (chirld.type.equals("Button")) {
@@ -267,9 +266,9 @@ public class IphoneViewControllerXib {
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";
 			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\"" + chirld.enname
-					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
-					+ "\"/>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
 		}
 
 		if (chirld.type.equals("EditText")) {
@@ -277,15 +276,22 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
+					+ "\" width=\"100\" height=\"30\"/>\n";
+
+			bodym += " <constraints>\n";
+			bodym += " <constraint firstAttribute=\"height\" constant=\"30\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " <constraint firstAttribute=\"width\" constant=\"100\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " </constraints>\n";
+
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
 			bodym += "                                        <textInputTraits key=\"textInputTraits\"/>\n";
 			bodym += "                                    </textField>\n";
-			connection += "                        <outlet property=\"" + chirld.enname
-					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
-					+ "\"/>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
 
 		}
 
@@ -298,21 +304,20 @@ public class IphoneViewControllerXib {
 		}
 
 		if (chirld.type.equals("ListView")) {
-			 bodym+=" <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+chirld.id+"\">\n";
-	    		bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
-				+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-				+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-		bodym += " <color key=\"backgroundColor\" red=\""
-				+ chirld.getR(chirld.bgRgb16ios)
-				+ "\" green=\""
-				+ chirld.getG(chirld.bgRgb16ios)
-				+ "\" blue=\""
-				+ chirld.getB(chirld.bgRgb16ios)
-				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-	    bodym+="  </tableView>\n";
-	    connection += "                        <outlet property=\"" + chirld.enname
-				+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
-				+ "\"/>\n";
+			bodym += " <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+					+ chirld.id + "\">\n";
+			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
+					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
+					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			bodym += " <color key=\"backgroundColor\" red=\""
+					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\""
+					+ chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
+					+ chirld.getB(chirld.bgRgb16ios)
+					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += "  </tableView>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
 		}
 
 		if (chirld.type.equals("ImageView")) {
@@ -322,10 +327,16 @@ public class IphoneViewControllerXib {
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
 					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			bodym += " <constraints>\n";
+			bodym += " <constraint firstAttribute=\"height\" constant=\"50\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " <constraint firstAttribute=\"width\" constant=\"50\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " </constraints>\n";
 			bodym += " </imageView>\n";
-			connection += "                        <outlet property=\"" + chirld.enname
-					+ "\" destination=\"" + chirld.id + "\" id=\"" + id()
-					+ "\"/>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
@@ -334,12 +345,32 @@ public class IphoneViewControllerXib {
 	}
 
 	public String constraint(CompomentBean bean) {
-
+//一组里边的约束条件
+		
 		String m = "<constraints>\n";
-        String n=" <variation key=\"widthClass=compact\">\n";
-		       n+=" <mask key=\"constraints\">\n";
-		       
-        
+		String n = " <variation key=\"widthClass=compact\">\n";
+		n += " <mask key=\"constraints\">\n";
+
+		boolean parentIshorizontal = false;
+		boolean parentHasLayoutChirld = false;
+		if (bean.orientation.equals("horizontal")) {
+			parentIshorizontal = true;
+		}
+		
+		int maxHeight=0;
+		for (CompomentBean chirld1 : bean.chirlds) {
+			if (chirld1.type.contains("Layout")) {
+
+				parentHasLayoutChirld = true;
+			}else
+			{
+				if(chirld1.h>maxHeight)
+				{
+					maxHeight=chirld1.h;
+				}
+			}
+		}
+
 		for (CompomentBean chirld1 : bean.chirlds) {
 			boolean left = false;
 			int leftvalue = 0;
@@ -357,14 +388,8 @@ public class IphoneViewControllerXib {
 						if (left == true) {
 							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
 																					// 换现在这个近的
-//
-//								String oldString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"leading\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"trailing\" constant=\""
-//										+ (leftvalue) + "\"";
-								String id=id();
+
+								String id = id();
 								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
@@ -372,36 +397,34 @@ public class IphoneViewControllerXib {
 										+ chirld2.id
 										+ "\" secondAttribute=\"trailing\" constant=\""
 										+ (leftvalue) + "\" id=\"" + id
-									+ "\"/>\n";;
+										+ "\"/>\n";
+								;
 
-								
+								String newStringn = " <include reference=\""
+										+ id + "\"/>\n";
 
-                              String newStringn=" <include reference=\""+id+"\"/>\n";
-								
-								String rows[]=m.split("\n");
-								String lastrow=rows[rows.length-1];
-								
+								String rows[] = m.split("\n");
+								String lastrow = rows[rows.length - 1];
+
 								m = m.replace(lastrow, newString);
-								
-								
-								String rowsn[]=n.split("\n");
-								String lastrown=rowsn[rowsn.length-1];
-								
+
+								String rowsn[] = n.split("\n");
+								String lastrown = rowsn[rowsn.length - 1];
+
 								n = n.replace(lastrown, newStringn);
-								
+
 							}
 						} else {
 							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
-							String id=id();
+							String id = id();
 							m += "<constraint firstItem=\""
 									+ chirld1.id
 									+ "\" firstAttribute=\"leading\" secondItem=\""
 									+ chirld2.id
 									+ "\" secondAttribute=\"trailing\" constant=\""
-									+ (leftvalue) + "\" id=\"" + id
-									+ "\"/>\n";
-							n+=" <include reference=\""+id+"\"/>\n";
-							
+									+ (leftvalue) + "\" id=\"" + id + "\"/>\n";
+							n += " <include reference=\"" + id + "\"/>\n";
+
 							left = true;
 						}
 
@@ -410,38 +433,38 @@ public class IphoneViewControllerXib {
 					if ((chirld1.x + chirld1.w) < chirld2.x) {// 有人在你(chirld1)右边
 
 						if (right == true) {
-//							if (rightvalue > chirld2.x
-//									- (chirld1.x + chirld1.w)) {// 上一个距离远
-//																// 换现在这个近的
-//
-//								String oldString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"trailing\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"leading\" constant=\""
-//										+ (rightvalue) + "\"";
-//								leftvalue = chirld2.x - (chirld1.x + chirld1.w);
-//								String newString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"trailing\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"leading\" constant=\""
-//										+ (rightvalue) + "\"";
-//
-//								m = m.replace(oldString, newString);
-//
-//							}
+							// if (rightvalue > chirld2.x
+							// - (chirld1.x + chirld1.w)) {// 上一个距离远
+							// // 换现在这个近的
+							//
+							// String oldString = "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"trailing\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"leading\" constant=\""
+							// + (rightvalue) + "\"";
+							// leftvalue = chirld2.x - (chirld1.x + chirld1.w);
+							// String newString = "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"trailing\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"leading\" constant=\""
+							// + (rightvalue) + "\"";
+							//
+							// m = m.replace(oldString, newString);
+							//
+							// }
 						} else {
-//							rightvalue = chirld1.x - (chirld2.x + chirld2.w);
-//							String id=id();
-//							m += "<constraint firstItem=\""
-//									+ chirld1.id
-//									+ "\" firstAttribute=\"trailing\" secondItem=\""
-//									+ chirld2.id
-//									+ "\" secondAttribute=\"leading\" constant=\""
-//									+ (rightvalue) + "\" id=\"" + id
-//									+ "\"/>\n";
-//							n+=" <include reference=\""+id+"\"/>\n";
+							// rightvalue = chirld1.x - (chirld2.x + chirld2.w);
+							// String id=id();
+							// m += "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"trailing\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"leading\" constant=\""
+							// + (rightvalue) + "\" id=\"" + id
+							// + "\"/>\n";
+							// n+=" <include reference=\""+id+"\"/>\n";
 							right = true;
 						}
 					}
@@ -452,46 +475,41 @@ public class IphoneViewControllerXib {
 							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
 																					// 换现在这个近的
 
-//								String oldString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"top\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"bottom\" constant=\""
-//										+ (topvalue) + "\"";
-								String id=id();
-								
+								String id = id();
+
 								topvalue = chirld1.y - (chirld2.y + chirld2.h);
 								String newString = "<constraint firstItem=\""
 										+ chirld1.id
 										+ "\" firstAttribute=\"top\" secondItem=\""
 										+ chirld2.id
 										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"  id=\"" + id+ "\"/>\n";
+										+ (topvalue) + "\"  id=\"" + id
+										+ "\"/>\n";
 
-								String newStringn=" <include reference=\""+id+"\"/>\n";
-								
-								String rows[]=m.split("\n");
-								String lastrow=rows[rows.length-1];
-								
+								String newStringn = " <include reference=\""
+										+ id + "\"/>\n";
+
+								String rows[] = m.split("\n");
+								String lastrow = rows[rows.length - 1];
+
 								m = m.replace(lastrow, newString);
-								
-								
-								String rowsn[]=n.split("\n");
-								String lastrown=rowsn[rowsn.length-1];
-								
+
+								String rowsn[] = n.split("\n");
+								String lastrown = rowsn[rowsn.length - 1];
+
 								n = n.replace(lastrown, newStringn);
 
 							}
 						} else {
 							topvalue = chirld1.y - (chirld2.y + chirld2.h);
-							String id=id();
+							String id = id();
 							m += "<constraint firstItem=\""
 									+ chirld1.id
 									+ "\" firstAttribute=\"top\" secondItem=\""
 									+ chirld2.id
 									+ "\" secondAttribute=\"bottom\" constant=\""
-									+ (topvalue) + "\" id=\"" + id+ "\"/>\n";
-							n+=" <include reference=\""+id+"\"/>\n";
+									+ (topvalue) + "\" id=\"" + id + "\"/>\n";
+							n += " <include reference=\"" + id + "\"/>\n";
 							top = true;
 						}
 					}
@@ -499,39 +517,40 @@ public class IphoneViewControllerXib {
 					if ((chirld1.y + chirld1.h) < chirld2.y) {// 有人在你(chirld1)下边
 
 						if (bottom == true) {
-//							if (bottomvalue > chirld2.y
-//									- (chirld1.y + chirld1.h)) {// 上一个距离远
-//																// 换现在这个近的
-//
-//								String oldString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"bottom\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"top\" constant=\""
-//										+ (bottomvalue) + "\"";
-//								bottomvalue = chirld2.y
-//										- (chirld1.y + chirld1.h);
-//								String newString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"bottom\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"top\" constant=\""
-//										+ (bottomvalue) + "\"";
-//
-//								m = m.replace(oldString, newString);
-//
-//							}
+							// if (bottomvalue > chirld2.y
+							// - (chirld1.y + chirld1.h)) {// 上一个距离远
+							// // 换现在这个近的
+							//
+							// String oldString = "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"bottom\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"top\" constant=\""
+							// + (bottomvalue) + "\"";
+							// bottomvalue = chirld2.y
+							// - (chirld1.y + chirld1.h);
+							// String newString = "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"bottom\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"top\" constant=\""
+							// + (bottomvalue) + "\"";
+							//
+							// m = m.replace(oldString, newString);
+							//
+							// }
 						} else {
-//							bottomvalue = chirld2.y - (chirld1.y + chirld1.h);
-//							String id=id();
-//							m += "<constraint firstItem=\""
-//									+ chirld1.id
-//									+ "\" firstAttribute=\"bottom\" secondItem=\""
-//									+ chirld2.id
-//									+ "\" secondAttribute=\"top\" constant=\""
-//									+ (bottomvalue) + "\" id=\"" + id
-//									+ "\"/>\n";
-//							n+=" <include reference=\""+id+"\"/>\n";
+							// bottomvalue = chirld2.y - (chirld1.y +
+							// chirld1.h);
+							// String id=id();
+							// m += "<constraint firstItem=\""
+							// + chirld1.id
+							// + "\" firstAttribute=\"bottom\" secondItem=\""
+							// + chirld2.id
+							// + "\" secondAttribute=\"top\" constant=\""
+							// + (bottomvalue) + "\" id=\"" + id
+							// + "\"/>\n";
+							// n+=" <include reference=\""+id+"\"/>\n";
 							bottom = true;
 						}
 					}
@@ -540,22 +559,58 @@ public class IphoneViewControllerXib {
 
 			}
 
-			if (top == false) {
-				m += "<constraint firstItem=\"" + chirld1.id
-						+ "\" firstAttribute=\"top\" secondItem=\"" + bean.id
-						+ "\" secondAttribute=\"top\" constant=\""
-						+ (chirld1.y - bean.y) + "\" id=\"" + id() + "\"/>\n";
+			if (parentIshorizontal == true && parentHasLayoutChirld == false
+					&& top == false && bottom == false) {
+				// 没其他孩子在这孩子的上方 下方 
+				m += "<constraint firstAttribute=\"centerY\" secondItem=\""
+						+ chirld1.id + "\" secondAttribute=\"centerY\" id=\""
+						+ id() + "\"/>\n";
+                if(maxHeight==chirld1.h)
+                {
+//                	//top
+//                	m += "<constraint firstItem=\"" + chirld1.id
+//							+ "\" firstAttribute=\"top\" secondItem=\""
+//							+ bean.id
+//							+ "\" secondAttribute=\"top\" constant=\""
+//							+ (chirld1.y - bean.y) + "\" id=\"" + id()
+//							+ "\"/>\n";
+//                	
+//                	//bottom
+//                	m += "<constraint firstItem=\"" + chirld1.id
+//							+ "\" firstAttribute=\"bottom\" secondItem=\""
+//							+ bean.id
+//							+ "\" secondAttribute=\"bottom\" constant=\""
+//							+ ((bean.y + bean.h) - (chirld1.y + chirld1.h))
+//							+ "\" id=\"" + id() + "\"/>\n";
+                }
+				
+			} else {
+
+				// 没其他孩子在这孩子的上方
+				if (top == false) {
+
+					m += "<constraint firstItem=\"" + chirld1.id
+							+ "\" firstAttribute=\"top\" secondItem=\""
+							+ bean.id
+							+ "\" secondAttribute=\"top\" constant=\""
+							+ (chirld1.y - bean.y) + "\" id=\"" + id()
+							+ "\"/>\n";
+
+				}
+
+				// 没其他孩子在这孩子的下方
+				if (bottom == false) {
+					m += "<constraint firstItem=\"" + chirld1.id
+							+ "\" firstAttribute=\"bottom\" secondItem=\""
+							+ bean.id
+							+ "\" secondAttribute=\"bottom\" constant=\""
+							+ ((bean.y + bean.h) - (chirld1.y + chirld1.h))
+							+ "\" id=\"" + id() + "\"/>\n";
+
+				}
 			}
 
-			if (bottom == false) {
-				m += "<constraint firstItem=\"" + chirld1.id
-						+ "\" firstAttribute=\"bottom\" secondItem=\""
-						+ bean.id + "\" secondAttribute=\"bottom\" constant=\""
-						+ ((bean.y + bean.h) - (chirld1.y + chirld1.h))
-						+ "\" id=\"" + id() + "\"/>\n";
-
-			}
-
+			// 没其他孩子在这孩子的左方
 			if (left == false) {
 				m += "<constraint firstItem=\"" + chirld1.id
 						+ "\" firstAttribute=\"leading\" secondItem=\""
@@ -565,6 +620,7 @@ public class IphoneViewControllerXib {
 
 			}
 
+			// 没其他孩子在这孩子的右方
 			if (right == false) {
 				m += "<constraint firstItem=\"" + chirld1.id
 						+ "\" firstAttribute=\"trailing\" secondItem=\""
@@ -576,11 +632,11 @@ public class IphoneViewControllerXib {
 
 		}
 
-		
-	    n+=" </mask>\n";
-	    n+=" </variation>\n";
+		n += " </mask>\n";
+		n += " </variation>\n";
 		m += "</constraints>\n";
-         m+=n;
+		m += n;
+
 		return m;
 	}
 
