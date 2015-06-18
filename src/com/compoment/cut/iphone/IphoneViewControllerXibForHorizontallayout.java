@@ -326,9 +326,9 @@ public class IphoneViewControllerXibForHorizontallayout {
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
 					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
 			bodym += " <constraints>\n";
-			bodym += " <constraint firstAttribute=\"height\" constant=\"50\" id=\""
+			bodym += " <constraint firstAttribute=\"height\" constant=\"40\" id=\""
 					+ id() + "\"/>\n";
-			bodym += " <constraint firstAttribute=\"width\" constant=\"50\" id=\""
+			bodym += " <constraint firstAttribute=\"width\" constant=\"40\" id=\""
 					+ id() + "\"/>\n";
 			bodym += " </constraints>\n";
 			bodym += " </imageView>\n";
@@ -371,6 +371,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 		}
 
 		for (CompomentBean chirld1 : bean.chirlds) {
+			
 			boolean left = false;
 			int leftvalue = 0;
 			boolean right = false;
