@@ -41,7 +41,7 @@ public class CompomentBean implements Serializable {
 	 * */
 	public String type;
 	/**
-	 * LinearLayout 水平 或垂直 android:orientation="vertical"
+	 * LinearLayout 水平 或垂直 android:orientation="vertical" horizontal
 	 * */
 	public String orientation = "";
 	public String gravity = "";
