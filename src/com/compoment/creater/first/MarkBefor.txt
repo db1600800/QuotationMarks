@@ -1,114 +1,50 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.AsyncContext;
-import javax.servlet.AsyncEvent;
-import javax.servlet.AsyncListener;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-/**
- * Servlet implementation class 
- */
-@WebServlet(urlPatterns = "/Test", asyncSupported = true)
-public class Test extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	String parameter = "";
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Test() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		// 1. start async
-		final AsyncContext ctx = request.startAsync();
-		parameter = ctx.getRequest().getParameter("parameter");
-
-		// 2. set the timeout
-		ctx.setTimeout(500);
-
-		// 3. add listener
-		ctx.addListener(new AsyncListener() {
-
-			@Override
-			public void onTimeout(AsyncEvent arg0) throws IOException {
-				System.out.println("onTimeout...");
-			}
-
-			@Override
-			public void onStartAsync(AsyncEvent arg0) throws IOException {
-				System.out.println("onStartAsync...");
-			}
-
-			@Override
-			public void onError(AsyncEvent arg0) throws IOException {
-				System.out.println("onError...");
-			}
-
-			@Override
-			public void onComplete(AsyncEvent arg0) throws IOException {
-				System.out.println("onComplete...");
-			}
-		});
-
-		// 4. run a thread
-		ctx.start(new Runnable() {
-			@Override
-			public void run() {
-				try {
-
-					ctx.getResponse().setContentType("application/json");
-
-			
-					
-					PrintWriter writer = ctx.getResponse().getWriter();
-					writer.write(new Gson().toJson(respond,Respond.class));
-					writer.flush();
-
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				ctx.complete();
-			}
-
-		});
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-
-
-
-	
-
-}
+   <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpa-lu-lwk">
+                    <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTT-z3-e82">
+                            <rect key="frame" x="150" y="9" width="150" height="83"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="los-li-UDo">
+                            <rect key="frame" x="300" y="9" width="150" height="83"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9R-vt-gEv">
+                            <rect key="frame" x="450" y="9" width="150" height="83"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hth-Fn-qeV">
+                            <rect key="frame" x="0.0" y="9" width="150" height="83"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="d9R-vt-gEv" firstAttribute="width" secondItem="los-li-UDo" secondAttribute="width" id="0RS-lL-IMt"/>
+                        <constraint firstItem="d9R-vt-gEv" firstAttribute="top" secondItem="jpa-lu-lwk" secondAttribute="top" constant="9" id="0uY-ab-sr7"/>
+                        <constraint firstAttribute="bottom" secondItem="d9R-vt-gEv" secondAttribute="bottom" constant="8" id="2FW-I5-mXg"/>
+                        <constraint firstAttribute="height" constant="100" id="5r1-gR-DrP"/>
+                        <constraint firstItem="Hth-Fn-qeV" firstAttribute="width" secondItem="jpa-lu-lwk" secondAttribute="width" multiplier="1/4" id="7Qy-aH-rp6"/>
+                        <constraint firstItem="Hth-Fn-qeV" firstAttribute="leading" secondItem="jpa-lu-lwk" secondAttribute="leading" id="SWp-fr-iDb"/>
+                        <constraint firstAttribute="bottom" secondItem="Hth-Fn-qeV" secondAttribute="bottom" constant="8" id="VVp-Cu-psE"/>
+                        <constraint firstAttribute="width" constant="1" id="Whv-Lq-d01"/>
+                        <constraint firstItem="Hth-Fn-qeV" firstAttribute="top" secondItem="jpa-lu-lwk" secondAttribute="top" constant="9" id="Yhk-Jc-kl8"/>
+                        <constraint firstItem="VTT-z3-e82" firstAttribute="width" secondItem="Hth-Fn-qeV" secondAttribute="width" id="bk4-zn-htW"/>
+                        <constraint firstAttribute="bottom" secondItem="VTT-z3-e82" secondAttribute="bottom" constant="8" id="m7M-nV-zPu"/>
+                        <constraint firstItem="los-li-UDo" firstAttribute="leading" secondItem="VTT-z3-e82" secondAttribute="trailing" id="mOq-Sp-skr"/>
+                        <constraint firstItem="VTT-z3-e82" firstAttribute="width" secondItem="los-li-UDo" secondAttribute="width" id="onb-iS-bOD"/>
+                        <constraint firstItem="VTT-z3-e82" firstAttribute="leading" secondItem="Hth-Fn-qeV" secondAttribute="trailing" id="sjf-ex-T2H"/>
+                        <constraint firstItem="los-li-UDo" firstAttribute="top" secondItem="jpa-lu-lwk" secondAttribute="top" constant="9" id="wOD-Lt-Yv6"/>
+                        <constraint firstItem="d9R-vt-gEv" firstAttribute="leading" secondItem="los-li-UDo" secondAttribute="trailing" id="xxf-xo-v7A"/>
+                        <constraint firstAttribute="bottom" secondItem="los-li-UDo" secondAttribute="bottom" constant="8" id="y5o-gy-jbI"/>
+                        <constraint firstItem="VTT-z3-e82" firstAttribute="top" secondItem="jpa-lu-lwk" secondAttribute="top" constant="9" id="zQ8-kX-zIa"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Whv-Lq-d01"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="0.0" y="0.0" width="321" height="137.5"/>
+                    </variation>
+                </view>
