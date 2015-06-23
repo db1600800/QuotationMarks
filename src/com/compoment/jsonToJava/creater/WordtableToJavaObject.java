@@ -150,7 +150,7 @@ public class WordtableToJavaObject {
 				
 			}else
 			{
-				System.out.println("错误 没有Table id");
+				System.out.println("错误 没有Table id"+p.text());
 			}
 
 			if (p.text().contains("传入参数") || p.text().contains("输入参数")||p.text().contains("发送报文")) {

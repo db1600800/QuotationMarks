@@ -30,6 +30,13 @@ public class IphoneViewControllerXibForHorizontallayout {
 	String pageName = "";
 	String className = "";
 
+    int rootViewWidth=600;
+    int rootViewHeight=600;
+	public IphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
+		rootViewWidth=cellWidth;
+		rootViewHeight=cellHeight;
+	}
+	
 	public IphoneViewControllerXibForHorizontallayout(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
@@ -55,7 +62,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 		m += "        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
 
 		m += body;
-
+		m += "</objects>\n";
+		m += "</document>\n";
 		System.out.println(m);
 
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
@@ -74,9 +82,9 @@ public class IphoneViewControllerXibForHorizontallayout {
 		return temp;
 	}
 
-	CompomentBean maxBean = null;
+	 CompomentBean maxBean = null;
 
-	public String analyse(List<CompomentBean> oldBeans) {
+	public  String analyse(List<CompomentBean> oldBeans) {
 		// Collections.sort(oldBeans, comparatorDate);
 
 		int maxW = 0;
@@ -100,9 +108,9 @@ public class IphoneViewControllerXibForHorizontallayout {
 			}
 		}
 
-		bodym += "                    <view key=\"view\" contentMode=\"scaleToFill\" id=\""
+		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
-		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"600\" height=\"600\"/>\n";
+		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\""+rootViewWidth+"\" height=\""+rootViewHeight+"\"/>\n";
 		bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 		bodym += "                        <subviews>\n";
 
@@ -119,8 +127,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 
 		bodym += constraint(maxBean);
 		bodym += "                    </view>\n";
-		bodym += "</objects>\n";
-		bodym += "</document>\n";
+		
 
 		return bodym;
 	}
@@ -392,11 +399,11 @@ public class IphoneViewControllerXibForHorizontallayout {
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
 					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-			bodym += " <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\""
-					+ chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16ios)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+//			bodym += " <color key=\"backgroundColor\" red=\""
+//					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\""
+//					+ chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
+//					+ chirld.getB(chirld.bgRgb16ios)
+//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "  </tableView>\n";
 			connection += "                        <outlet property=\""
 					+ chirld.enname + "\" destination=\"" + chirld.id
