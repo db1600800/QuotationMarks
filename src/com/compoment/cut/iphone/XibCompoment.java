@@ -17,8 +17,9 @@ public static void main(String[] args) {
 	/**平均分四分*/
 	public static String average4()
 	{
-		int count=5;
-		int width=600/count;
+		int count=3;
+		int rootViewWidth=318;
+		int partWidth=rootViewWidth/count;
 		int height=100;
 		
 		Map viewids=new HashMap();
@@ -27,7 +28,7 @@ public static void main(String[] args) {
 		String m="";
 		
 		m+="   <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+parentid+"\">\n";
-		m+="                    <rect key=\"frame\" x=\"0.0\" y=\"500\" width=\"600\" height=\"100\"/>\n";
+		m+="                    <rect key=\"frame\" x=\"0.0\" y=\"0\" width=\""+rootViewWidth+"\" height=\""+height+"\"/>\n";
 		m+="                    <subviews>\n";
 		
 		for(int i=0;i<count;i++)
@@ -35,7 +36,7 @@ public static void main(String[] args) {
 			String id=id();
 			viewids.put(i, id);
 		m+="                        <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+id+"\">\n";
-		m+="                            <rect key=\"frame\" x=\""+i*width+"\" y=\"0\" width=\""+width+"\" height=\""+height+"\"/>\n";
+		m+="                            <rect key=\"frame\" x=\""+i*partWidth+"\" y=\"0\" width=\""+partWidth+"\" height=\""+height+"\"/>\n";
 		m+="                            <color key=\"backgroundColor\" white=\"1\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 		m+="                        </view>\n";
 		}

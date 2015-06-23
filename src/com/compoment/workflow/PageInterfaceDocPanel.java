@@ -219,7 +219,12 @@ public class PageInterfaceDocPanel {
 		respondJsonLinearLayout.addComponent(respondJsonTitleTextView);
 
 		/** respond */
-		respondJsonValueEditText = new JTextField("{\"returnCode\": \"0\",\"returnData\": {\"head\": { \"ret_msg\": \"成功\", \"ret_errcode\": \"000000\"}, \"body\":{} }}");
+		String simpleRespondJson=KeyValue.readCache("SimpleRespondJson");
+		if(simpleRespondJson==null ||(simpleRespondJson!=null && simpleRespondJson.equals("")))
+		{
+			simpleRespondJson="{\"returnCode\": \"0\",\"returnData\": {\"head\": { \"ret_msg\": \"成功\", \"ret_errcode\": \"000000\"}, \"body\":{} }}";
+		}
+		respondJsonValueEditText = new JTextField(simpleRespondJson);
 		respondJsonLinearLayout.addComponent(respondJsonValueEditText);
 
 		bg1421553890229LinearLayout.addGroup(respondJsonLinearLayout);
@@ -252,6 +257,8 @@ public class PageInterfaceDocPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				KeyValue.writeCache("SimpleRespondJson",respondJsonValueEditText.getText());
+				
 				write();
 				String s = pathValueEditText.getText();
 

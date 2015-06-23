@@ -386,7 +386,7 @@ public class PageCreatePanel {
 			
 			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans);
 			
-			String 	fileName = KeyValue.readCache("picPath") + "/" + "java" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
+			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 					+ "." + "m";
 			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName);
 			
