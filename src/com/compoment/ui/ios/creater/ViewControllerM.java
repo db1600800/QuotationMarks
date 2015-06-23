@@ -84,9 +84,15 @@ public class ViewControllerM {
 			i+="{\n";
 			i+="    [super viewDidLoad];\n";
 
+			i+="  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handTap)];\n";
+			i+="    [self.modifyPwdTextView addGestureRecognizer:tap];\n";
+
+			
 			i+="}\n\n";
 
-
+            i+="-(void)handTap{\n  "
+            		+ "  [self presentViewController:updatePwdViewController animated:NO completion:^{}];\n"
+            		+ "[self dismissViewControllerAnimated:NO completion:^(){}]; \n};\n";
 
 			i+="-(void) viewWillAppear:(BOOL)animated{\n";
 		
