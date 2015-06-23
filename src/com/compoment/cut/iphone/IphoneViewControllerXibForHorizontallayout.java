@@ -320,7 +320,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 
 		if (chirld.type.equals("ImageView")) {
 
-			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""+chirld.picName+".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""

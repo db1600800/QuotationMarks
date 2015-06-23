@@ -148,6 +148,9 @@ public class WordtableToJavaObject {
 				interfaceBean.id = getInterfaceId(p.text());
 				interfaceBeans.add(interfaceBean);
 				
+			}else
+			{
+				System.out.println("错误 没有Table id");
 			}
 
 			if (p.text().contains("传入参数") || p.text().contains("输入参数")||p.text().contains("发送报文")) {
