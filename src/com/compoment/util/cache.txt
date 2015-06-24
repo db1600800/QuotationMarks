@@ -1,6 +1,7 @@
 #Update 'codeFilePath' value
-#Thu Jun 18 07:05:51 CST 2015
+#Wed Jun 24 21:43:51 CST 2015
 \u53D8\u91CF\u540D=1
+SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 interfaceDocPath=/Users/apple/Documents/workspace/test/doc/wordTableToJaveObject.doc
 \u7C7B\u578B=2
 codeFilePath=/Users/apple/Documents/workspace/test/pic/src/ios
