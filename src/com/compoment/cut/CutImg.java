@@ -81,7 +81,7 @@ public class CutImg extends JPanel {
 		});
 		try {
 			image = ImageIO.read(file);
-            Image img=image.getScaledInstance(600, 600, Image.SCALE_DEFAULT);//按照指定宽度和高度缩放以后的Image实例
+            Image img=image.getScaledInstance(500, 600, Image.SCALE_DEFAULT);//按照指定宽度和高度缩放以后的Image实例
 			 image=toBufferedImage(img);
 			
 		} catch (IOException e) {

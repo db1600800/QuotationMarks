@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.compoment.util.StringUtil;
+
 public class CompomentBean implements Serializable {
 
 	/**
@@ -63,7 +65,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getR(String rgb)
 	{
-	        if(!rgb.contains("#"))
+	        if(!rgb.contains("#") || StringUtil.isContainChinese(rgb))
 	        {
 	        	rgb="#ffffff";
 	        }
@@ -75,7 +77,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getG(String rgb)
 	{
-		  if(!rgb.contains("#"))
+		  if(!rgb.contains("#")|| StringUtil.isContainChinese(rgb))
 	        {
 	        	rgb="#ffffff";
 	        }
@@ -87,7 +89,7 @@ public class CompomentBean implements Serializable {
 	
 	public float getB(String rgb)
 	{
-		  if(!rgb.contains("#"))
+		  if(!rgb.contains("#")|| StringUtil.isContainChinese(rgb))
 	        {
 	        	rgb="#ffffff";
 	        }
