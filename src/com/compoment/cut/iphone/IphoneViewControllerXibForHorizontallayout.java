@@ -30,7 +30,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 	String pageName = "";
 	String className = "";
 
-    int rootViewWidth=400;
+    int rootViewWidth=600;
     int rootViewHeight=600;
 	public IphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
 		rootViewWidth=cellWidth;
@@ -132,22 +132,22 @@ public class IphoneViewControllerXibForHorizontallayout {
 		return bodym;
 	}
 
-	int parentTopSpace=20;
-	int parentHeight=40;
-	int chirldleftspace=30;
-	int chirldleftspaceConstaraint=30;
-	
-	int textViewHeight=20;
-	int buttonWidth=60;
-	int buttonHeght=30;
-
-	int editTextWidht=100;
-	int editTextHeight=30;
-	
-	int imageWidth=30;
-	int imageHeight=30;
-	int imageWidthConstraint=30;
-	int imageHeightConstraint=30;
+//	int parentTopSpace=20;
+//	int parentHeight=40;
+//	int chirldleftspace=30;
+//	int chirldleftspaceConstaraint=30;
+//	
+//	int textViewHeight=20;
+//	int buttonWidth=60;
+//	int buttonHeght=30;
+//
+//	int editTextWidht=100;
+//	int editTextHeight=30;
+//	
+//	int imageWidth=30;
+//	int imageHeight=30;
+//	int imageWidthConstraint=30;
+//	int imageHeightConstraint=30;
 	
 	public void parent(CompomentBean bean) {
 
@@ -157,10 +157,10 @@ public class IphoneViewControllerXibForHorizontallayout {
 		//有	儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 			
-			int top=parentTopSpace;
-			int martop=0;
-			int chirldCount=0;
-			int height=0;
+//			int top=parentTopSpace;
+//			int martop=0;
+//			int chirldCount=0;
+//			int height=0;
 			for (CompomentBean chirld : bean.chirlds) {
 				
 				//这个儿子是容器 layout
@@ -248,40 +248,40 @@ public class IphoneViewControllerXibForHorizontallayout {
 	public void chirld(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
 
 	   
-	     int left=chirldleftspace;
-	     int marleft=0;
-	     int width=0;
-		 if( parent.orientation.equals("horizontal"))
-	      {//这个儿子的父亲是水平方向
-	    	 
-			  for(int i=0;i<parent.chirlds.size();i++)
-			  {
-			
-				  
-				  if(chirld.enname.equals(parent.chirlds.get(i).enname))
-				  {//这个儿子是老几
-					
-					  if(i==0)
-					  {
-						  marleft=left;
-						 
-					  }
-					  else
-					  {
-					  marleft= width+left*(i+1);
-					  
-					  }
-					  break;
-				  }
-				  width+= parent.chirlds.get(i).w;
-				  
-			  }
-			 
-	       }else if( parent.orientation.equals("vertical"))
-	       {//这个儿子的父亲是垂直方向
-	    	   
-				   
-	       }
+	    // int left=chirldleftspace;
+//	     int marleft=0;
+//	     int width=0;
+//		 if( parent.orientation.equals("horizontal"))
+//	      {//这个儿子的父亲是水平方向
+//	    	 
+//			  for(int i=0;i<parent.chirlds.size();i++)
+//			  {
+//			
+//				  
+//				  if(chirld.enname.equals(parent.chirlds.get(i).enname))
+//				  {//这个儿子是老几
+//					
+//					  if(i==0)
+//					  {
+//						  marleft=left;
+//						 
+//					  }
+//					  else
+//					  {
+//					  marleft= width+left*(i+1);
+//					  
+//					  }
+//					  break;
+//				  }
+//				  width+= parent.chirlds.get(i).w;
+//				  
+//			  }
+//			 
+//	       }else if( parent.orientation.equals("vertical"))
+//	       {//这个儿子的父亲是垂直方向
+//	    	   
+//				   
+//	       }
 		 
 	
 		 
@@ -426,247 +426,247 @@ public class IphoneViewControllerXibForHorizontallayout {
 		}
 	}
 
-	public String constraint(CompomentBean bean) {
-//一组里边的约束条件
-		
-		String m = "<constraints>\n";
-		String n = " <variation key=\"widthClass=compact\">\n";
-		n += " <mask key=\"constraints\">\n";
-
-		CompomentBean leftfirst = null;
-		
-		
-	
-
-		for (CompomentBean chirld1 : bean.chirlds) {
-			
-			boolean left = false;
-			int leftvalue = 0;
-			boolean right = false;
-		
-			boolean top = false;
-			int topvalue = 0;
-			boolean bottom = false;
-		
-
-			for (CompomentBean chirld2 : bean.chirlds) {
-				if (!chirld1.enname.equals(chirld2.enname)) {
-					if (chirld1.x > (chirld2.x + chirld2.w)) {// 有人在你(chirld1)左边
-
-						if (left == true) {
-							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
-																					// 换现在这个近的
-
-								String id = id();
-								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
-								String newString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"leading\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"trailing\" constant=\""
-										+ (leftvalue) + "\" id=\"" + id
-										+ "\"/>\n";
-								;
-
-								String newStringn = " <include reference=\""
-										+ id + "\"/>\n";
-
-								String rows[] = m.split("\n");
-								String lastrow = rows[rows.length - 1];
-
-								m = m.replace(lastrow, newString);
-
-								String rowsn[] = n.split("\n");
-								String lastrown = rowsn[rowsn.length - 1];
-
-								n = n.replace(lastrown, newStringn);
-
-							}
-						} else {
-							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
-							String id = id();
-							m += "<constraint firstItem=\""
-									+ chirld1.id
-									+ "\" firstAttribute=\"leading\" secondItem=\""
-									+ chirld2.id
-									+ "\" secondAttribute=\"trailing\" constant=\""
-									+ chirldleftspace + "\" id=\"" + id + "\"/>\n";
-							n += " <include reference=\"" + id + "\"/>\n";
-
-							left = true;
-						}
-
-					}
-
-					if ((chirld1.x + chirld1.w) < chirld2.x) {// 有人在你(chirld1)右边
-
-						if (right == true) {
-							
-						} else {
-							
-							right = true;
-						}
-					}
-
-					if (chirld1.y > (chirld2.y + chirld2.h)) {// 有人在你(chirld1)上边
-
-						if (top == true) {
-							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
-																					// 换现在这个近的
-
-								String id = id();
-
-								topvalue = chirld1.y - (chirld2.y + chirld2.h);
-								String newString = "<constraint firstItem=\""
-										+ chirld1.id
-										+ "\" firstAttribute=\"top\" secondItem=\""
-										+ chirld2.id
-										+ "\" secondAttribute=\"bottom\" constant=\""
-										+ (topvalue) + "\"  id=\"" + id
-										+ "\"/>\n";
-
-								String newStringn = " <include reference=\""
-										+ id + "\"/>\n";
-
-								String rows[] = m.split("\n");
-								String lastrow = rows[rows.length - 1];
-
-								m = m.replace(lastrow, newString);
-
-								String rowsn[] = n.split("\n");
-								String lastrown = rowsn[rowsn.length - 1];
-
-								n = n.replace(lastrown, newStringn);
-
-							}
-						} else {
-							topvalue = chirld1.y - (chirld2.y + chirld2.h);
-							String id = id();
-							m += "<constraint firstItem=\""
-									+ chirld1.id
-									+ "\" firstAttribute=\"top\" secondItem=\""
-									+ chirld2.id
-									+ "\" secondAttribute=\"bottom\" constant=\""
-									+ (topvalue) + "\" id=\"" + id + "\"/>\n";
-							n += " <include reference=\"" + id + "\"/>\n";
-							top = true;
-						}
-					}
-
-					if ((chirld1.y + chirld1.h) < chirld2.y) {// 有人在你(chirld1)下边
-
-						if (bottom == true) {
-							
-						} else {
-							
-							bottom = true;
-						}
-					}
-
-				}
-
-			}
-
-
-			
-			
-
-				
-				
-				// 没其他孩子在这孩子的上方
-				if (top == false) {
-					if(chirld1.type.contains("Layout"))
-					{
-						m += "<constraint firstItem=\"" + chirld1.id
-								+ "\" firstAttribute=\"top\" secondItem=\""
-								+ bean.id
-								+ "\" secondAttribute=\"top\" constant=\"0\" id=\"" + id()
-								+ "\"/>\n";
-					}else
-					{
-						if(left==false)
-						{//左边第一个
-							leftfirst=chirld1;
-							m += "<constraint firstItem=\"" + chirld1.id
-									+ "\" firstAttribute=\"top\" secondItem=\""
-									+ bean.id
-									+ "\" secondAttribute=\"top\" constant=\"9\" id=\"" + id()
-									+ "\"/>\n";
-						}else
-						{
-							
-							 m+="<constraint firstItem=\""+leftfirst.id+"\" firstAttribute=\"centerY\" secondItem=\""+chirld1.id+"\" secondAttribute=\"centerY\" id=\""+id()+"\"/>\n";
-
-						}
-					}
-
-				}
-
-				// 没其他孩子在这孩子的下方
-				if (bottom == false) {
-					if(chirld1.type.contains("Layout"))
-					{
-						
-						
-					}else
-					{
-						if(left==false)
-						{//左边第一个
-							m += "<constraint firstItem=\"" + chirld1.id
-									+ "\" firstAttribute=\"bottom\" secondItem=\""
-									+ bean.id
-									+ "\" secondAttribute=\"bottom\" constant=\"9\" id=\"" + id() + "\"/>\n";
-						}
-					
-					}
-
-				}
-			
-
-			// 没其他孩子在这孩子的左方
-			if (left == false) {
-				if(chirld1.type.contains("Layout"))
-				{
-					m += "<constraint firstItem=\"" + chirld1.id
-							+ "\" firstAttribute=\"leading\" secondItem=\""
-							+ bean.id
-							+ "\" secondAttribute=\"leading\" constant=\"0\" id=\"" + id() + "\"/>\n";
-				}else
-				{
-				m += "<constraint firstItem=\"" + chirld1.id
-						+ "\" firstAttribute=\"leading\" secondItem=\""
-						+ bean.id
-						+ "\" secondAttribute=\"leading\" constant=\""+chirldleftspaceConstaraint+"\" id=\"" + id() + "\"/>\n";
-				}
-
-			}
-
-			// 没其他孩子在这孩子的右方
-			if (right == false) {
-				if(chirld1.type.contains("Layout"))
-				{
-					m += "<constraint firstItem=\"" + chirld1.id
-							+ "\" firstAttribute=\"trailing\" secondItem=\""
-							+ bean.id
-							+ "\" secondAttribute=\"trailing\" constant=\"0\" id=\"" + id() + "\"/>\n";
-				}else
-				{
-				m += "<constraint firstItem=\"" + chirld1.id
-						+ "\" firstAttribute=\"trailing\" secondItem=\""
-						+ bean.id
-						+ "\" secondAttribute=\"trailing\" constant=\"20\" id=\"" + id() + "\"/>\n";
-				}
-			}
-
-		}
-
-		n += " </mask>\n";
-		n += " </variation>\n";
-		m += "</constraints>\n";
-		//m += n;添加小屏幕限制
-
-		return m;
-	}
+//	public String constraint(CompomentBean bean) {
+////一组里边的约束条件
+//		
+//		String m = "<constraints>\n";
+//		String n = " <variation key=\"widthClass=compact\">\n";
+//		n += " <mask key=\"constraints\">\n";
+//
+//		CompomentBean leftfirst = null;
+//		
+//		
+//	
+//
+//		for (CompomentBean chirld1 : bean.chirlds) {
+//			
+//			boolean left = false;
+//			int leftvalue = 0;
+//			boolean right = false;
+//		
+//			boolean top = false;
+//			int topvalue = 0;
+//			boolean bottom = false;
+//		
+//
+//			for (CompomentBean chirld2 : bean.chirlds) {
+//				if (!chirld1.enname.equals(chirld2.enname)) {
+//					if (chirld1.x > (chirld2.x + chirld2.w)) {// 有人在你(chirld1)左边
+//
+//						if (left == true) {
+//							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
+//																					// 换现在这个近的
+//
+//								String id = id();
+//								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
+//								String newString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"leading\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"trailing\" constant=\""
+//										+ (leftvalue) + "\" id=\"" + id
+//										+ "\"/>\n";
+//								;
+//
+//								String newStringn = " <include reference=\""
+//										+ id + "\"/>\n";
+//
+//								String rows[] = m.split("\n");
+//								String lastrow = rows[rows.length - 1];
+//
+//								m = m.replace(lastrow, newString);
+//
+//								String rowsn[] = n.split("\n");
+//								String lastrown = rowsn[rowsn.length - 1];
+//
+//								n = n.replace(lastrown, newStringn);
+//
+//							}
+//						} else {
+//							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
+//							String id = id();
+//							m += "<constraint firstItem=\""
+//									+ chirld1.id
+//									+ "\" firstAttribute=\"leading\" secondItem=\""
+//									+ chirld2.id
+//									+ "\" secondAttribute=\"trailing\" constant=\""
+//									+ chirldleftspace + "\" id=\"" + id + "\"/>\n";
+//							n += " <include reference=\"" + id + "\"/>\n";
+//
+//							left = true;
+//						}
+//
+//					}
+//
+//					if ((chirld1.x + chirld1.w) < chirld2.x) {// 有人在你(chirld1)右边
+//
+//						if (right == true) {
+//							
+//						} else {
+//							
+//							right = true;
+//						}
+//					}
+//
+//					if (chirld1.y > (chirld2.y + chirld2.h)) {// 有人在你(chirld1)上边
+//
+//						if (top == true) {
+//							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
+//																					// 换现在这个近的
+//
+//								String id = id();
+//
+//								topvalue = chirld1.y - (chirld2.y + chirld2.h);
+//								String newString = "<constraint firstItem=\""
+//										+ chirld1.id
+//										+ "\" firstAttribute=\"top\" secondItem=\""
+//										+ chirld2.id
+//										+ "\" secondAttribute=\"bottom\" constant=\""
+//										+ (topvalue) + "\"  id=\"" + id
+//										+ "\"/>\n";
+//
+//								String newStringn = " <include reference=\""
+//										+ id + "\"/>\n";
+//
+//								String rows[] = m.split("\n");
+//								String lastrow = rows[rows.length - 1];
+//
+//								m = m.replace(lastrow, newString);
+//
+//								String rowsn[] = n.split("\n");
+//								String lastrown = rowsn[rowsn.length - 1];
+//
+//								n = n.replace(lastrown, newStringn);
+//
+//							}
+//						} else {
+//							topvalue = chirld1.y - (chirld2.y + chirld2.h);
+//							String id = id();
+//							m += "<constraint firstItem=\""
+//									+ chirld1.id
+//									+ "\" firstAttribute=\"top\" secondItem=\""
+//									+ chirld2.id
+//									+ "\" secondAttribute=\"bottom\" constant=\""
+//									+ (topvalue) + "\" id=\"" + id + "\"/>\n";
+//							n += " <include reference=\"" + id + "\"/>\n";
+//							top = true;
+//						}
+//					}
+//
+//					if ((chirld1.y + chirld1.h) < chirld2.y) {// 有人在你(chirld1)下边
+//
+//						if (bottom == true) {
+//							
+//						} else {
+//							
+//							bottom = true;
+//						}
+//					}
+//
+//				}
+//
+//			}
+//
+//
+//			
+//			
+//
+//				
+//				
+//				// 没其他孩子在这孩子的上方
+//				if (top == false) {
+//					if(chirld1.type.contains("Layout"))
+//					{
+//						m += "<constraint firstItem=\"" + chirld1.id
+//								+ "\" firstAttribute=\"top\" secondItem=\""
+//								+ bean.id
+//								+ "\" secondAttribute=\"top\" constant=\"0\" id=\"" + id()
+//								+ "\"/>\n";
+//					}else
+//					{
+//						if(left==false)
+//						{//左边第一个
+//							leftfirst=chirld1;
+//							m += "<constraint firstItem=\"" + chirld1.id
+//									+ "\" firstAttribute=\"top\" secondItem=\""
+//									+ bean.id
+//									+ "\" secondAttribute=\"top\" constant=\"9\" id=\"" + id()
+//									+ "\"/>\n";
+//						}else
+//						{
+//							
+//							 m+="<constraint firstItem=\""+leftfirst.id+"\" firstAttribute=\"centerY\" secondItem=\""+chirld1.id+"\" secondAttribute=\"centerY\" id=\""+id()+"\"/>\n";
+//
+//						}
+//					}
+//
+//				}
+//
+//				// 没其他孩子在这孩子的下方
+//				if (bottom == false) {
+//					if(chirld1.type.contains("Layout"))
+//					{
+//						
+//						
+//					}else
+//					{
+//						if(left==false)
+//						{//左边第一个
+//							m += "<constraint firstItem=\"" + chirld1.id
+//									+ "\" firstAttribute=\"bottom\" secondItem=\""
+//									+ bean.id
+//									+ "\" secondAttribute=\"bottom\" constant=\"9\" id=\"" + id() + "\"/>\n";
+//						}
+//					
+//					}
+//
+//				}
+//			
+//
+//			// 没其他孩子在这孩子的左方
+//			if (left == false) {
+//				if(chirld1.type.contains("Layout"))
+//				{
+//					m += "<constraint firstItem=\"" + chirld1.id
+//							+ "\" firstAttribute=\"leading\" secondItem=\""
+//							+ bean.id
+//							+ "\" secondAttribute=\"leading\" constant=\"0\" id=\"" + id() + "\"/>\n";
+//				}else
+//				{
+//				m += "<constraint firstItem=\"" + chirld1.id
+//						+ "\" firstAttribute=\"leading\" secondItem=\""
+//						+ bean.id
+//						+ "\" secondAttribute=\"leading\" constant=\""+chirldleftspaceConstaraint+"\" id=\"" + id() + "\"/>\n";
+//				}
+//
+//			}
+//
+//			// 没其他孩子在这孩子的右方
+//			if (right == false) {
+//				if(chirld1.type.contains("Layout"))
+//				{
+//					m += "<constraint firstItem=\"" + chirld1.id
+//							+ "\" firstAttribute=\"trailing\" secondItem=\""
+//							+ bean.id
+//							+ "\" secondAttribute=\"trailing\" constant=\"0\" id=\"" + id() + "\"/>\n";
+//				}else
+//				{
+//				m += "<constraint firstItem=\"" + chirld1.id
+//						+ "\" firstAttribute=\"trailing\" secondItem=\""
+//						+ bean.id
+//						+ "\" secondAttribute=\"trailing\" constant=\"20\" id=\"" + id() + "\"/>\n";
+//				}
+//			}
+//
+//		}
+//
+//		n += " </mask>\n";
+//		n += " </variation>\n";
+//		m += "</constraints>\n";
+//		//m += n;添加小屏幕限制
+//
+//		return m;
+//	}
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
