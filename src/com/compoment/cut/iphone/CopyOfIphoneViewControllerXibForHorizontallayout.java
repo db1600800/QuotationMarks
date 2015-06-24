@@ -23,21 +23,21 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class IphoneViewControllerXibForHorizontallayout {
+public class CopyOfIphoneViewControllerXibForHorizontallayout {
 
 	String bodym = "\n\n\n";
 	String connection = "";
 	String pageName = "";
 	String className = "";
 
-    int rootViewWidth=400;
+    int rootViewWidth=600;
     int rootViewHeight=600;
-	public IphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
+	public CopyOfIphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
 		rootViewWidth=cellWidth;
 		rootViewHeight=cellHeight;
 	}
 	
-	public IphoneViewControllerXibForHorizontallayout(String pageName, List<CompomentBean> oldBeans) {
+	public CopyOfIphoneViewControllerXibForHorizontallayout(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
@@ -125,7 +125,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 				+ maxBean.getB(maxBean.bgRgb16ios)
 				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
-		//bodym += constraint(maxBean);
+		bodym += constraint(maxBean);
 		bodym += "                    </view>\n";
 		
 
@@ -166,12 +166,28 @@ public class IphoneViewControllerXibForHorizontallayout {
 				//这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""							+ chirld.id + "\">\n";
-
-						bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
-							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-
+					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+							+ chirld.id + "\">\n";
+					
+					   if( bean.orientation.equals("horizontal"))
+					      {//这个儿子的父亲是水平方向
+					    	 
+					       }else if( bean.orientation.equals("vertical"))
+					       {//这个儿子的父亲是垂直方向
+					    	   chirldCount++;
+								
+								
+					    	   if(chirldCount==1)
+					    	   {
+					    		   martop=0;
+					    	   }else
+					    	   {
+					    	   martop=(chirldCount-1)*top+height;
+					    	   }
+					    	   height+=parentHeight;
+					    	   
+								bodym += "<rect key=\"frame\" x=\"0\" y=\""+martop+"\" width=\"600\" height=\""+parentHeight+"\"/>\n";   	   
+					       }
 		
 					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 					bodym += "                                <subviews>\n";
@@ -187,7 +203,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 					// m+="                                <constraints>\n";
 					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
 					// m+="                                </constraints>\n";
-					//bodym += constraint(chirld);
+					bodym += constraint(chirld);
 
 					if (bean.type.contains("Layout") && bean.rgb16 != null
 							&& bean.isFilletedCorner) {// 圆角边框颜色
@@ -290,15 +306,11 @@ public class IphoneViewControllerXibForHorizontallayout {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
+			bodym += "                                        <rect key=\"frame\" x=\""+marleft+"\" y=\""
+					+ (chirld.y - parent.y)
 					+ "\" width=\""
 					+ chirld.w
-					+ "\" height=\""
-					+ chirld.h
-					+ "\"/>\n";
+					+ "\" height=\""+textViewHeight+"\"/>\n";
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
@@ -322,10 +334,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 		if (chirld.type.equals("Button")) {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
+			bodym += "                                <rect key=\"frame\" x=\""+marleft+"\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\""+buttonWidth+"\" height=\""+buttonHeght+"\"/>\n";
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16ios)
 					+ "\" green=\""
@@ -355,9 +365,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 		if (chirld.type.equals("EditText")) {
 			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"100\" height=\"30\"/>\n";
+			bodym += "                                <rect key=\"frame\" x=\""+marleft+"\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\""+editTextWidht+"\" height=\""+editTextHeight+"\"/>\n";
 
 //			bodym += " <constraints>\n";
 //			bodym += " <constraint firstAttribute=\"height\" constant=\"30\" id=\""
@@ -406,15 +415,13 @@ public class IphoneViewControllerXibForHorizontallayout {
 
 			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""+chirld.picName+".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
-					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-//			bodym += " <constraints>\n";
-//			bodym += " <constraint firstAttribute=\"height\" constant=\""+imageHeightConstraint+"\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " <constraint firstAttribute=\"width\" constant=\""+imageWidthConstraint+"\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " </constraints>\n";
+			bodym += " <rect key=\"frame\" x=\""+marleft+"\" y=\"" + (chirld.y - parent.y) + "\" width=\""+imageWidth+"\" height=\""+imageHeight+"\"/>\n";
+			bodym += " <constraints>\n";
+			bodym += " <constraint firstAttribute=\"height\" constant=\""+imageHeightConstraint+"\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " <constraint firstAttribute=\"width\" constant=\""+imageWidthConstraint+"\" id=\""
+					+ id() + "\"/>\n";
+			bodym += " </constraints>\n";
 			bodym += " </imageView>\n";
 			connection += "                        <outlet property=\""
 					+ chirld.enname + "\" destination=\"" + chirld.id
@@ -670,9 +677,9 @@ public class IphoneViewControllerXibForHorizontallayout {
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
-			// 先排年龄
+			// 时间排序 小到大
 			if (s1.time != s2.time) {
-				return (int) (s2.time - s1.time);
+				return (int) (s1.time - s2.time);
 			}
 			return 0;
 		}

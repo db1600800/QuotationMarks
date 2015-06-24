@@ -1,316 +1,81 @@
-
 <list>
   <CompomentBean>
-    <rgb16>#F6F6F6</rgb16>
-    <rgb16ios>#F6F6F6</rgb16ios>
-    <bgRgb16>#F6F6F6</bgRgb16>
-    <bgRgb16ios>#F6F6F6</bgRgb16ios>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>6</x>
-    <y>7</y>
-    <w>589</w>
-    <h>334</h>
-    <cnname>bg1434612759573</cnname>
-    <enname>bg1434612759573LinearLayout</enname>
+    <x>12</x>
+    <y>99</y>
+    <w>581</w>
+    <h>58</h>
+    <cnname>bg1435071884609</cnname>
+    <enname>bg1435071884609LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>cBH-QA-1C5</id>
+    <id>67H-J3-Byw</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434612767378</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FC5F2A</rgb16>
-    <rgb16ios>#FC5F2A</rgb16ios>
-    <bgRgb16>#FC5F2A</bgRgb16>
-    <bgRgb16ios>#FC5F2A</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>16</x>
-    <y>17</y>
-    <w>566</w>
-    <h>39</h>
-    <cnname>bg1434612783857</cnname>
-    <enname>bg1434612783857LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>x3e-Cp-D0p</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612787356</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FD6420</rgb16>
-    <rgb16ios>#FD6420</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>24</x>
-    <y>27</y>
-    <w>26</w>
-    <h>17</h>
-    <cnname>back</cnname>
-    <enname>backImageView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>zEf-ra-Eml</id>
-    <type>ImageView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>back</picName>
-    <time>1434612808383</time>
+    <time>1435071889604</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>239</x>
-    <y>27</y>
-    <w>120</w>
+    <x>20</x>
+    <y>104</y>
+    <w>504</w>
+    <h>48</h>
+    <cnname>bg1435071917296</cnname>
+    <enname>bg1435071917296LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>aHb-eW-zmQ</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1435071921538</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>32</x>
+    <y>106</y>
+    <w>469</w>
     <h>21</h>
-    <cnname>找回密码</cnname>
-    <enname>titleTextView</enname>
+    <cnname>bg1435071994300</cnname>
+    <enname>bg1435071994300LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>s1a-JC-tTf</id>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612837299</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>6</x>
-    <y>70</y>
-    <w>584</w>
-    <h>166</h>
-    <cnname>bg1434612850767</cnname>
-    <enname>bg1434612850767LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>z0R-nm-gH3</id>
+    <id>xwe-aD-Dc9</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434612855568</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>17</x>
-    <y>77</y>
-    <w>560</w>
-    <h>30</h>
-    <cnname>bg1434612867702</cnname>
-    <enname>bg1434612867702LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>1BC-jp-LFa</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612870524</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#676767</rgb16>
-    <rgb16ios>#676767</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>33</x>
-    <y>82</y>
-    <w>98</w>
-    <h>16</h>
-    <cnname>手机号码</cnname>
-    <enname>phoneTitleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>aGF-HV-kGY</id>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612912803</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#CECECE</rgb16>
-    <rgb16ios>#CECECE</rgb16ios>
-    <bgRgb16>#FEFEFE</bgRgb16>
-    <bgRgb16ios>#FEFEFE</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>170</x>
-    <y>80</y>
-    <w>146</w>
-    <h>15</h>
-    <cnname>请输入手机号码</cnname>
-    <enname>phoneValueEditText</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>r2J-z8-kkS</id>
-    <type>EditText</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612959982</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>23</x>
-    <y>115</y>
-    <w>542</w>
-    <h>32</h>
-    <cnname>bg1434612972270</cnname>
-    <enname>bg1434612972270LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>Adb-4R-RUZ</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434612975401</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#676767</rgb16>
-    <rgb16ios>#676767</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>33</x>
-    <y>120</y>
-    <w>80</w>
-    <h>19</h>
-    <cnname>验证码:</cnname>
-    <enname>codeTitleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>EKr-Gd-PIl</id>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434613000668</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#CECECE</rgb16>
-    <rgb16ios>#CECECE</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>172</x>
-    <y>120</y>
-    <w>132</w>
-    <h>16</h>
-    <cnname>请输入验证码</cnname>
-    <enname>codeValueEditText</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>UUS-kQ-Zg0</id>
-    <type>EditText</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434613047224</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>30</x>
-    <y>151</y>
-    <w>449</w>
-    <h>30</h>
-    <cnname>bg1434613076052</cnname>
-    <enname>bg1434613076052LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>3tZ-P5-iwa</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1434613079406</time>
+    <time>1435072000824</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#636363</rgb16>
@@ -320,49 +85,127 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>36</x>
-    <y>158</y>
-    <w>74</w>
-    <h>14</h>
-    <cnname>新密码:</cnname>
-    <enname>pwdTitleTextView</enname>
+    <x>43</x>
+    <y>114</y>
+    <w>52</w>
+    <h>8</h>
+    <cnname>订单号</cnname>
+    <enname>orderFormNumTitleTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>aCa-Bi-8WL</id>
+    <id>Vdm-OB-R4s</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613115437</time>
+    <time>1435072035420</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#D5D5D5</rgb16>
-    <rgb16ios>#D5D5D5</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#333333</rgb16>
+    <rgb16ios>#333333</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>173</x>
-    <y>158</y>
-    <w>169</w>
-    <h>16</h>
-    <cnname>请重新输入密码</cnname>
-    <enname>pwdValueEditText</enname>
+    <x>129</x>
+    <y>114</y>
+    <w>124</w>
+    <h>7</h>
+    <cnname>7899898</cnname>
+    <enname>orderFormNumValueTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Qr5-jt-B9o</id>
-    <type>EditText</type>
+    <id>I3V-9j-Fui</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613146621</time>
+    <time>1435072072207</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#656565</rgb16>
+    <rgb16ios>#656565</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>315</x>
+    <y>113</y>
+    <w>86</w>
+    <h>7</h>
+    <cnname>订单金额</cnname>
+    <enname>orderFormMoneyTitleTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>AKw-dd-x87</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1435072116099</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>433</x>
+    <y>112</y>
+    <w>14</w>
+    <h>10</h>
+    <cnname>money</cnname>
+    <enname>moneyImageView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>jEU-3s-PfK</id>
+    <type>ImageView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>money</picName>
+    <time>1435072164174</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#434343</rgb16>
+    <rgb16ios>#434343</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>457</x>
+    <y>116</y>
+    <w>34</w>
+    <h>4</h>
+    <cnname>243</cnname>
+    <enname>orderFormMoneyValueTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>qPQ-nj-kR1</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1435072194404</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
@@ -373,100 +216,125 @@
     <g>0.0</g>
     <b>0.0</b>
     <x>33</x>
-    <y>190</y>
-    <w>339</w>
-    <h>26</h>
-    <cnname>bg1434613156583</cnname>
-    <enname>bg1434613156583LinearLayout</enname>
+    <y>131</y>
+    <w>476</w>
+    <h>15</h>
+    <cnname>bg1435072245029</cnname>
+    <enname>bg1435072245029LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>7DP-UJ-IoQ</id>
+    <id>Res-E4-uZc</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613159457</time>
+    <time>1435072252302</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#666666</rgb16>
-    <rgb16ios>#666666</rgb16ios>
+    <rgb16>#626262</rgb16>
+    <rgb16ios>#626262</rgb16ios>
     <bgRgb16>#背景颜色</bgRgb16>
     <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>40</x>
-    <y>196</y>
-    <w>104</w>
-    <h>15</h>
-    <cnname>确认新密码:</cnname>
-    <enname>pwd2TitleTextView</enname>
+    <x>50</x>
+    <y>137</y>
+    <w>73</w>
+    <h>5</h>
+    <cnname>下单时间</cnname>
+    <enname>orderFormTimeTitleTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>PWO-VE-G8t</id>
+    <id>uOp-V8-JUR</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613189815</time>
+    <time>1435072314682</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#CBCBCB</rgb16>
-    <rgb16ios>#CBCBCB</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#424242</rgb16>
+    <rgb16ios>#424242</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>174</x>
-    <y>195</y>
-    <w>162</w>
-    <h>15</h>
-    <cnname>请输入新密码</cnname>
-    <enname>pwd2ValueEditText</enname>
+    <x>158</x>
+    <y>138</y>
+    <w>101</w>
+    <h>5</h>
+    <cnname>23434343</cnname>
+    <enname>orderFormTimeTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>zWo-N1-V8d</id>
-    <type>EditText</type>
+    <id>xvk-pm-saE</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613227797</time>
+    <time>1435072341805</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FC5F2A</bgRgb16>
-    <bgRgb16ios>#FC5F2A</bgRgb16ios>
+    <rgb16>#676767</rgb16>
+    <rgb16ios>#676767</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>79</x>
-    <y>244</y>
-    <w>451</w>
-    <h>41</h>
-    <cnname>找回密码</cnname>
-    <enname>findPwdButton</enname>
+    <x>319</x>
+    <y>136</y>
+    <w>83</w>
+    <h>7</h>
+    <cnname>订单状态</cnname>
+    <enname>orderFormStatteTitleTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>h38-yF-Wp5</id>
-    <type>Button</type>
+    <id>AcL-Yt-PKK</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <picName>图片名</picName>
-    <time>1434613283671</time>
+    <time>1435072378820</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#C2674A</rgb16>
+    <rgb16ios>#C2674A</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>436</x>
+    <y>138</y>
+    <w>58</w>
+    <h>4</h>
+    <cnname>等待支付</cnname>
+    <enname>orderFormStateValueTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>oXn-pm-IEd</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <picName>图片名</picName>
+    <time>1435072417618</time>
   </CompomentBean>
 </list>
-

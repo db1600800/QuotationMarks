@@ -69,12 +69,12 @@ public class IphoneTableViewCellXib {
 		
 		m+=" </subviews>\n";
 		
-		m+="         <constraints>\n";
-		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"leading\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"leadingMargin\" id=\""+id()+"\"/>\n";
-		m+="                    <constraint firstItem=\""+tableViewCellContentViewId+"\" firstAttribute=\"bottomMargin\" secondItem=\""+maxBean.id+"\" secondAttribute=\"bottom\" id=\""+id()+"\"/>\n";
-		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"trailing\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"trailingMargin\" id=\""+id()+"\"/>\n";
-		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"top\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"topMargin\" id=\""+id()+"\"/>\n";
-		m+="         </constraints>\n";
+//		m+="         <constraints>\n";
+//		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"leading\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"leadingMargin\" id=\""+id()+"\"/>\n";
+//		m+="                    <constraint firstItem=\""+tableViewCellContentViewId+"\" firstAttribute=\"bottomMargin\" secondItem=\""+maxBean.id+"\" secondAttribute=\"bottom\" id=\""+id()+"\"/>\n";
+//		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"trailing\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"trailingMargin\" id=\""+id()+"\"/>\n";
+//		m+="                    <constraint firstItem=\""+maxBean.id+"\" firstAttribute=\"top\" secondItem=\""+tableViewCellContentViewId+"\" secondAttribute=\"topMargin\" id=\""+id()+"\"/>\n";
+//		m+="         </constraints>\n";
 		
 		m+="   </tableViewCellContentView>\n";
 		m+="            <inset key=\"separatorInset\" minX=\"0.0\" minY=\"0.0\" maxX=\"0.0\" maxY=\"0.0\"/>\n";
