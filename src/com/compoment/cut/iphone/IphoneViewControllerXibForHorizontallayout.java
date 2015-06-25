@@ -30,8 +30,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 	String pageName = "";
 	String className = "";
 
-    int rootViewWidth=600;
-    int rootViewHeight=600;
+    int rootViewWidth=320;
+    int rootViewHeight=568;
 	public IphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
 		rootViewWidth=cellWidth;
 		rootViewHeight=cellHeight;

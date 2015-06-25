@@ -89,7 +89,7 @@ public class ColorPanel extends JPanel {
 		});
 
 		image = toBufferedImage(img);
-		image = zoomInImage(image, 4);
+		image = zoomInImage(image, 6);
 
 	}
 
