@@ -166,8 +166,9 @@ public class TableViewCellAddViewController {
 
 				    m+=n;
 				    
-				    m+="\n CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];\n";
-				    m+="return size.height+1;\n";
+				    m+="\n// CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];//autolayout有效 配合上边使用\n";
+				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
+				    m+="return height+1;\n";
 			    	content += m;
 			 }
 		 
@@ -242,17 +243,36 @@ public class TableViewCellAddViewController {
 		}
 
 		if (chirld.type.equals("Button")) {
-			//n+="//"+chirld.cnname+"\n";
-			//n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+			n+="//"+chirld.cnname+"\n";
+			n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
+		    n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
+			n+="cell."+chirld.enname+".tag =  (indexPath.section)*1000+indexPath.row;\n";
+			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			n+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+			n+="    int tab=btn.tag;\n";
+			n+="    int row= btn.tag%1000;\n";
+			 n+="   int section=btn.tag/1000;\n";
+			 n+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+			n+="}\n";
 			
 		
 		}
 
 		if (chirld.type.equals("EditText")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= ((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+";\n";
 			
-			
+			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
+				n+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
+				n+="UITextRange * selectedRange = [textField.markedTextRange];\n";
+				n+="if(selectedRange == nil || selectedRange.empty){\n";
+				     // 这里取到textfielf.text 进行检索
+				n+="}\n"; 
+				n+="}\n";
+				
+				n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				n+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
+				n+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				n+="}\n";
 
 		}
 

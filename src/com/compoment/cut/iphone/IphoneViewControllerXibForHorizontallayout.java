@@ -19,6 +19,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Document;
 
+import org.apache.poi.poifs.property.Child;
+
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -349,8 +351,16 @@ public class IphoneViewControllerXibForHorizontallayout {
 					+ "\" blue=\""
 					+ chirld.getB(chirld.rgb16)
 					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			
+		    if(!chirld.picName.equals("图片名"))
+		    {
 			bodym += "                                <state key=\"normal\" title=\""
 					+ chirld.cnname + "\">\n";
+		    }else
+		    {
+		    	bodym += "                                <state key=\"normal\" title=\""
+						+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+"\">\n";
+		    }
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";
 	

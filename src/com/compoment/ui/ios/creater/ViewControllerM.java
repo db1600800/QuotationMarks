@@ -170,21 +170,14 @@ public class ViewControllerM {
 				
 
 				tablem+="- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
-				tablem+="    \n";
-				tablem+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
-				tablem+="    \n";
-				tablem+="    NSMutableDictionary *sectionHeaderDic=[sectionADic objectForKey:@\"SectionHeaderDic\"];\n";
-				tablem+="    \n";
-				tablem+="    NSString *title= [sectionHeaderDic objectForKey:@\"title\"];\n";
-				tablem+="    \n";
-				tablem+="    return title;\n";
+				tablem+="    return @\"\";\n";
 				tablem+="  \n";
 				tablem+="}\n\n";
 
 				tablem+="//自定义SectionHeader\n";
 				tablem+="- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
 			
-		
+				tablem+="    return nil;\n";
 				tablem+="}\n\n";
 
 				tablem+="//自定义SectionHeader高度\n";
@@ -196,18 +189,15 @@ public class ViewControllerM {
 				tablem+="//指定有多少个分区(Section)，默认为1\n";
 				tablem+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
 				tablem+="    \n";
-				tablem+="    return [sectionAZDicArray count];//返回标题数组中元素的个数来确定分区的个数\n";
+				tablem+="    return 1;//返回标题数组中元素的个数来确定分区的个数\n";
 				tablem+="}\n\n";
 
 
 				tablem+="//指定每个分区中有多少行，默认为1\n";
 				tablem+="- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{\n";
 				tablem+="    \n";
-				tablem+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:section];  \n";
-				tablem+="    \n";
-				tablem+="    NSMutableArray *sectionChirldsArray=[sectionADic objectForKey:@\"SectionChirldsArray\"];\n";
-				tablem+="    \n";
-				tablem+="    return  [sectionChirldsArray count];\n";
+		
+				tablem+="     return  [listData count];;\n";
 				tablem+="    \n";
 				tablem+="}\n\n";
 

@@ -334,7 +334,8 @@ public class CompomentDialog {
 				bean.h = h;
 				bean.type = compomentType;
 				bean.time = System.currentTimeMillis();
-				if (bean.type.equals("ImageView")) {
+				if (bean.type.equals("ImageView")||bean.type.equals("Button")) {
+					if(!bean.picName.equals("图片名"))
 					savePic(image, bean.picName);
 					if (imgCacheCheckBox.isSelected()) {
 						bean.isImgCache = true;
@@ -527,8 +528,8 @@ public class CompomentDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
-				} else if (compomentType.contains("Button")
-						|| compomentType.contains("EditText")) {
+				} else if (
+						 compomentType.contains("EditText")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
@@ -540,7 +541,24 @@ public class CompomentDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
-				} else if (compomentType.contains("CheckBox")
+				}
+				else if (compomentType.contains("Button")
+						) {
+					colorEdit.setText("文字颜色");
+					colorEdit.setVisible(true);
+					bgColorEdit.setText("背景颜色");
+					bgColorEdit.setVisible(true);
+					textSizeEdit.setVisible(true);
+					cnNameEdit.setVisible(true);
+					enNameEdit.setVisible(true);
+					picNameEdit.setVisible(true);
+					circularCheckBox.setVisible(false);
+					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
+				}
+				
+				
+				else if (compomentType.contains("CheckBox")
 						|| compomentType.contains("TextView")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
