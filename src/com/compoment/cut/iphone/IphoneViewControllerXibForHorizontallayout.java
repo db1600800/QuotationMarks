@@ -70,6 +70,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 				+ "ViewController", "xib", m);
 
 	}
+	
+	
 
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
@@ -131,6 +133,13 @@ public class IphoneViewControllerXibForHorizontallayout {
 
 		return bodym;
 	}
+	
+	
+	public String  getConnection()
+	{
+		return connection;
+	}
+
 
 //	int parentTopSpace=20;
 //	int parentHeight=40;
@@ -295,9 +304,9 @@ public class IphoneViewControllerXibForHorizontallayout {
 					+ "\" y=\""
                  	+ (chirld.y - parent.y)
 					+ "\" width=\""
-					+ chirld.w
+					+ "80"
 					+ "\" height=\""
-					+ chirld.h
+					+ "15"
 					+ "\"/>\n";
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
@@ -397,7 +406,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 //					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "  </tableView>\n";
 			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
+					+ "tableView" + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
 

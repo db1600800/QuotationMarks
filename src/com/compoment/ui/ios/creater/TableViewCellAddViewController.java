@@ -110,7 +110,7 @@ public class TableViewCellAddViewController {
 				 String m="";
 				     m+="#import \""+className+"TableViewCell.h\"\n";
 				     m+="//注入table功能\n";
-					 m+="static NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
+					 m+=" NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
 			    	content += m;
 			 }
 		
@@ -236,7 +236,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("TextView")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= [listData objectAtIndex:indexPath.row]."+chirld.enname+";\n";
+			n+="cell."+chirld.enname+".text= ((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+";\n";
 	
 		
 		}
@@ -250,7 +250,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("EditText")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= [listData objectAtIndex:indexPath.row]."+chirld.enname+";\n";
+			n+="cell."+chirld.enname+".text= ((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+";\n";
 			
 			
 
@@ -267,7 +267,7 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("ImageView")) {
 			n+="//"+chirld.cnname+"\n";
-			n+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:[listData objectAtIndex:indexPath.row]."+chirld.enname+" placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
+			n+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+" placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 		
 		}
 

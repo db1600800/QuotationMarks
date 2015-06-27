@@ -36,7 +36,7 @@ public class IphoneTableViewHeadViewXib {
 		IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,100);
 		
 		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
-
+		
 
 		String m="";
 		m+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";

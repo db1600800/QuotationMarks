@@ -40,6 +40,7 @@ public class IphoneTableViewCellXib {
 	   IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,100);
 		
 		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
+		connection=iphoneViewControllerXibForHorizontallayout.getConnection();
 		 CompomentBean maxBean = iphoneViewControllerXibForHorizontallayout.maxBean;
 
 
@@ -92,6 +93,9 @@ public class IphoneTableViewCellXib {
 				"xib", m);
 
 	}
+	
+	
+	
 	
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
