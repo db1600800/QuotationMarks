@@ -18,6 +18,7 @@ public class TableViewHeadViewM {
 		String m="\n";
 	    String pageName="";
 	    String className="";
+	    String viewClick="";
 		public  TableViewHeadViewM(String pageName,List<CompomentBean> oldBeans) {
             this.pageName=pageName;
             className=firstCharToUpperAndJavaName(pageName);
@@ -83,6 +84,8 @@ public class TableViewHeadViewM {
 			i+="{\n";
 			i+="    [super viewDidLoad];\n";
 
+			i+=viewClick;
+			
 			i+="}\n\n";
 
 
@@ -133,6 +136,13 @@ public class TableViewHeadViewM {
 			
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+				viewClick+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+				viewClick+="    int tab=btn.tag;\n";
+				viewClick+="    int row= btn.tag%1000;\n";
+				viewClick+="   int section=btn.tag/1000;\n";
+				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+				viewClick+="}\n";
 			}
 
 			if (chirld.type.equals("EditText")) {
@@ -141,6 +151,7 @@ public class TableViewHeadViewM {
 				
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
+			
 			}
 
 			if (chirld.type.equals("CheckBox")) {
