@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import com.compoment.cut.CheckProblem;
 import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CompomentDialog.CompomentDialogCallBack;
@@ -151,7 +152,21 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 	 * 根据截取图片生成控件对象
 	 * */
 	public void compomentDialogCallBack(CompomentBean bean) {
+		
+		
 		beans.add(bean);
+		
+		CheckProblem checkProblem=new CheckProblem();
+		
+		if(checkProblem.check(beans))
+		{
+			
+		}else
+		{
+			beans.remove(bean);
+			JOptionPane.showMessageDialog(null, bean.enname+"有问题,请重新生成", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 	}
 
 	

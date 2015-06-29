@@ -354,12 +354,13 @@ public class IphoneViewControllerXibForHorizontallayout {
 			
 		    if(!chirld.picName.equals("图片名"))
 		    {
+			
 			bodym += "                                <state key=\"normal\" title=\""
-					+ chirld.cnname + "\">\n";
+					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+"\">\n";
 		    }else
 		    {
 		    	bodym += "                                <state key=\"normal\" title=\""
-						+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+"\">\n";
+						+ chirld.cnname + "\">\n";
 		    }
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";

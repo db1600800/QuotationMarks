@@ -55,7 +55,8 @@ public class IphoneTableViewHeadViewXib {
 		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
 
 		m+=body;
-		
+		m += "</objects>\n";
+		m += "</document>\n";
 		System.out.println(m);
 		
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"HeadView",
