@@ -351,7 +351,11 @@ public class CheckProblem {
 				layouts.add(bean);
 			}
 		}
-
+   
+		if(oldBeans.size()>1 && maxBean.chirlds==null)
+		{
+			return false;
+		}
 		parent(maxBean);
 		}catch(Exception e)
 		{

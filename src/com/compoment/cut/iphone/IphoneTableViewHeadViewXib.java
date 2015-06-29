@@ -36,7 +36,7 @@ public class IphoneTableViewHeadViewXib {
 		IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,100);
 		
 		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
-		
+		String connection=iphoneViewControllerXibForHorizontallayout.getConnection();
 
 		String m="";
 		m+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
@@ -48,7 +48,7 @@ public class IphoneTableViewHeadViewXib {
 		m+="    <objects>\n";
 		m+="        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""+className+"ViewController\">\n";
 		m+="            <connections>\n";
-		m+=iphoneViewControllerXibForHorizontallayout.connection;
+		m+=connection;
 		m+="                <outlet property=\"view\" destination=\""+iphoneViewControllerXibForHorizontallayout.maxBean.id +"\" id=\""+id()+"\"/>\n";
 		m+="            </connections>\n";
 		m+="        </placeholder>\n";
