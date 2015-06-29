@@ -356,7 +356,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 		    {
 			
 			bodym += "                                <state key=\"normal\" title=\""
-					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+"\">\n";
+					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
 		    }else
 		    {
 		    	bodym += "                                <state key=\"normal\" title=\""
