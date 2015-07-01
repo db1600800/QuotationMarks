@@ -246,7 +246,7 @@ public class RequestRespondForIphone {
 				m+="}\n\n";
 				
 			} else {
-				 m+=className+" *commonItem"+"=[["+className+"alloc]init];\n";
+				 m+=className+" *commonItem"+"=[["+className+" alloc]init];\n";
 				for (Row row : group.rows) {
 					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 					m +=  "commonItem." + row.enName + "=[returnDataBody objectForKey:@\""+row.enName+"\"];\n";
