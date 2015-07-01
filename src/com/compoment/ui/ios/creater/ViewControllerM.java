@@ -149,13 +149,13 @@ public class ViewControllerM {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewClick+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
 				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
 				viewClick+="    int tab=btn.tag;\n";
 				viewClick+="    int row= btn.tag%1000;\n";
 				viewClick+="   int section=btn.tag/1000;\n";
 				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
-				viewClick+="}\n";
+				viewClick+="}\n\n";
 				
 			}
 
@@ -169,7 +169,7 @@ public class ViewControllerM {
 				setvaluem+="//"+chirld.cnname+"\n";
 				setvaluem+="["+chirld.enname+" setValue:]\n";
 				
-				viewClick+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
+				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
 				viewClick+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
 				viewClick+="UITextRange * selectedRange = [textField.markedTextRange];\n";
 				viewClick+="if(selectedRange == nil || selectedRange.empty){\n";
@@ -177,10 +177,10 @@ public class ViewControllerM {
 				viewClick+="}\n"; 
 				viewClick+="}\n";
 				
-				viewClick+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewClick+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
 				viewClick+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
 				viewClick+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
-				viewClick+="}\n";
+				viewClick+="}\n\n";
 			}
 
 			if (chirld.type.equals("CheckBox")) {
