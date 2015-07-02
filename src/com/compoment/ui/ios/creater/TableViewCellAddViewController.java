@@ -110,7 +110,7 @@ public class TableViewCellAddViewController {
 				 String m="";
 				     m+="#import \""+className+"TableViewCell.h\"\n";
 				     m+="//注入table功能\n";
-					 m+=" NSString *CellIdentifier = @\""+className+"TableViewCell\";\n";	
+					 m+=" NSString *"+className+"CellIdentifier = @\""+className+"TableViewCell\";\n";	
 			    	content += m;
 			 }
 		
@@ -133,19 +133,19 @@ public class TableViewCellAddViewController {
 					m+="    \n";
 					m+="    //使用自定义的Cell,需要向UITableView进行注册\n";
 					m+="    UINib *cellNib = [UINib nibWithNibName:@\""+className+"TableViewCell\" bundle:nil];\n";
-					m+="    [tableView registerNib:cellNib forCellReuseIdentifier:CellIdentifier];\n";
+					m+="    [tableView registerNib:cellNib forCellReuseIdentifier:"+className+"CellIdentifier];\n";
 			    	content += m;
 				}
-			 else if(line.contains("viewWillAppear:(BOOL)animated"))		
+	 if(line.contains("viewWillAppear:(BOOL)animated"))		
 				{
 					String m="//table\n";
 					m+="[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
 			    	content += m;
 				}
-			 else if(line.contains("cellForRowAtIndexPath"))		
+	  if(line.contains("cellForRowAtIndexPath"))		
 				{
 					String m="\n";
-					m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];\n";
+					m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
 					m+="    if (!cell)\n";
 					m+="    {\n";
 					m+="       cell = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCell\" owner:self options:nil] lastObject];\n";
@@ -154,13 +154,14 @@ public class TableViewCellAddViewController {
 					m+="return cell;\n";
 			    	content += m;
 				}
-			 else if(line.contains("heightForRowAtIndexPath"))	
+	  
+			 if(line.contains("heightForRowAtIndexPath"))	
 			 {
 					String m="\n";
-					m+="NSString *reuseIdentifier = CellIdentifier;\n";
+					m+="NSString *reuseIdentifier = "+className+"CellIdentifier;\n";
 				    m+=""+className+"TableViewCell *cell= [self.cacheCells objectForKey:reuseIdentifier];\n";
 				    m+="if (!cell) {\n";
-				    m+="  cell=[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];\n";
+				    m+="  cell=[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
 				    m+="  [self.cacheCells setObject:cell forKey:reuseIdentifier];\n";
 				    m+="}\n\n";
 
