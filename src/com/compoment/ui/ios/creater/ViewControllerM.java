@@ -74,6 +74,7 @@ public class ViewControllerM {
             i+="#import \"UIImageView+WebCache.h\"\n";
             i+="#import <Foundation/Foundation.h>\n";
             i+="#import <PublicFramework/JSONKit.h>\n";
+            i+="#import <objc/runtime.h>\n";
 			i+="@implementation "+className+"ViewController\n";
 			
 		
@@ -183,8 +184,22 @@ public class ViewControllerM {
 			}
 
 			if (chirld.type.equals("CheckBox")) {
+				
+				i+="//"+chirld.cnname+"\n";
+				i+="@synthesize "+chirld.enname+";\n";
+				
+				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewClick+="[self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
+				viewClick+=" [self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
+			     
+				
+				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+				viewClick+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewClick+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
+				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+				viewClick+="}\n\n";
 			
-
+				
 			}
 
 			if (chirld.type.equals("ListView")) {

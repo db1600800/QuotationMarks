@@ -125,8 +125,9 @@ public class ViewControllerH {
 			}
 
 			if (chirld.type.equals("CheckBox")) {
-//			
-
+			
+				m+="//"+chirld.cnname+"\n";
+				m+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 			}
 
 			if (chirld.type.equals("ListView")) {

@@ -144,7 +144,9 @@ public class TableViewCellH {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-		
+			n+="//"+chirld.cnname+"\n";
+			n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+			
 
 		}
 

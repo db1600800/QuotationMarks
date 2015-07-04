@@ -149,7 +149,8 @@ public class TableViewCellHeadM {
 
 		if (chirld.type.equals("CheckBox")) {
 		
-
+			n+="//"+chirld.cnname+"\n";
+			n+="@synthesize "+chirld.enname+";\n";
 		}
 
 		if (chirld.type.equals("ListView")) {

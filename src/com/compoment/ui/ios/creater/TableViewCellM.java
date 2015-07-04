@@ -148,7 +148,8 @@ public class TableViewCellM {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-		
+			n+="//"+chirld.cnname+"\n";
+			n+="@synthesize "+chirld.enname+";\n";
 
 		}
 
