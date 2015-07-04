@@ -293,7 +293,7 @@ public class TableViewCellAddViewController {
 			
 			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
 				n+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
-				n+="UITextRange * selectedRange = [textField.markedTextRange];\n";
+				n+="UITextRange * selectedRange = [textField markedTextRange];\n";
 				n+="if(selectedRange == nil || selectedRange.empty){\n";
 				     // 这里取到textfielf.text 进行检索
 				n+="}\n"; 

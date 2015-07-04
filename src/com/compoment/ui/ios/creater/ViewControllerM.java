@@ -171,7 +171,7 @@ public class ViewControllerM {
 				
 				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
 				viewClick+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
-				viewClick+="UITextRange * selectedRange = [textField.markedTextRange];\n";
+				viewClick+="UITextRange * selectedRange = [textField markedTextRange];\n";
 				viewClick+="if(selectedRange == nil || selectedRange.empty){\n";
 				     // 这里取到textfielf.text 进行检索
 				viewClick+="}\n"; 
