@@ -23,8 +23,9 @@ import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneLayout;
+import com.compoment.cut.iphone.IphoneTableViewCellHeadXib;
 import com.compoment.cut.iphone.IphoneTableViewCellXib;
-import com.compoment.cut.iphone.IphoneTableViewHeadViewXib;
+
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.iphone.IphoneViewControllerXibForHorizontallayout;
 import com.compoment.cut.swing.SwingLayout;
@@ -34,9 +35,10 @@ import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
 import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
+import com.compoment.ui.ios.creater.TableViewCellHeadH;
+import com.compoment.ui.ios.creater.TableViewCellHeadM;
 import com.compoment.ui.ios.creater.TableViewCellM;
-import com.compoment.ui.ios.creater.TableViewHeadViewH;
-import com.compoment.ui.ios.creater.TableViewHeadViewM;
+
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
 import com.compoment.util.FileUtil;
@@ -361,10 +363,10 @@ public class PageCreatePanel {
 	            }
 			savePublicCompoment();
 
-			TableViewHeadViewH viewControllerH=new TableViewHeadViewH(frame.pageName,frame.beans);
-			TableViewHeadViewM viewControllerM=new TableViewHeadViewM(frame.pageName,frame.beans);
+			TableViewCellHeadH viewControllerH=new TableViewCellHeadH(frame.pageName,frame.beans);
+			TableViewCellHeadM viewControllerM=new TableViewCellHeadM(frame.pageName,frame.beans);
 			
-			IphoneTableViewHeadViewXib  iphoneLayout = new IphoneTableViewHeadViewXib(frame.pageName,frame.beans);
+			IphoneTableViewCellHeadXib  iphoneLayout = new IphoneTableViewCellHeadXib(frame.pageName,frame.beans);
 			
 			}
 		

@@ -111,6 +111,7 @@ public class TableViewCellAddViewController {
 				     m+="#import \""+className+"TableViewCell.h\"\n";
 				     m+="//注入table功能\n";
 					 m+=" NSString *"+className+"CellIdentifier = @\""+className+"TableViewCell\";\n";	
+					 m+=" NSString *"+className+"CellHeadIdentifier = @\""+className+"TableViewCellHead\";\n";	
 			    	content += m;
 			 }
 		
@@ -142,6 +143,32 @@ public class TableViewCellAddViewController {
 					m+="[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
 			    	content += m;
 				}
+	 
+	 if(line.contains("viewForHeaderInSection"))	
+	 {
+		 
+		 String m="\n";
+			m+=" "+className+"TableViewCellHead *cellHead = ("+className+"TableViewCellHead*)[self.tableView dequeueReusableHeaderFooterViewWithIdentifier:"+className+"CellHeadIdentifier];\n";
+			m+="    if (!cellHead)\n";
+			m+="    {\n";
+			m+="       cellHead = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCellHead\" owner:self options:nil] lastObject];\n";
+			m+="    }\n";
+			m+=n;
+			m+="return cellHead;\n";
+	    	content += m;
+	 }
+	 
+	 if(line.contains("heightForHeaderInSection"))	
+	 {
+		 
+		 String m="\n";
+	
+		   m+="   int height=cellHead.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
+		    m+="return height+1;\n";;
+	    	content += m;
+	 }
+	 
+	 
 	  if(line.contains("cellForRowAtIndexPath"))		
 				{
 					String m="\n";
@@ -250,9 +277,8 @@ public class TableViewCellAddViewController {
 			n+="cell."+chirld.enname+".tag =  (indexPath.section)*1000+indexPath.row;\n";
 			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
 			n+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-			n+="    int tab=btn.tag;\n";
-			n+="    int row= btn.tag%1000;\n";
-			 n+="   int section=btn.tag/1000;\n";
+			n+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			n+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
 			 n+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
 			n+="}\n";
 			

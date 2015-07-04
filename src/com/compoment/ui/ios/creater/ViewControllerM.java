@@ -151,9 +151,8 @@ public class ViewControllerM {
 				
 				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
 				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-				viewClick+="    int tab=btn.tag;\n";
-				viewClick+="    int row= btn.tag%1000;\n";
-				viewClick+="   int section=btn.tag/1000;\n";
+				viewClick+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewClick+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
 				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
 				viewClick+="}\n\n";
 				
@@ -213,7 +212,7 @@ public class ViewControllerM {
 				tablem+="//指定有多少个分区(Section)，默认为1\n";
 				tablem+="- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";
 				tablem+="    \n";
-				tablem+="    return 1;//返回标题数组中元素的个数来确定分区的个数\n";
+				tablem+="    return 1;//返回标题数组中元素的个数来确定分区的个数   return [sections count];\n";
 				tablem+="}\n\n";
 
 
@@ -242,6 +241,12 @@ public class ViewControllerM {
 
 				tablem+="}\n\n";
 
+				
+				tablem+="-(void)viewDidLayoutSubviews\n";
+				tablem+="{//table被挡住时用\n";
+				tablem+=" // int viewHeight=self.view.frame.size.height;\n";
+			    tablem+="//[tableView setFrame:CGRectMake(0, 0, 0 ,0)];\n";  
+			    tablem+="}\n";
 
 				tablem+="- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
 				tablem+="    return 88;\n";
