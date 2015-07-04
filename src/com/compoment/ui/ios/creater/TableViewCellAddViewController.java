@@ -274,8 +274,7 @@ public class TableViewCellAddViewController {
 			n+="//"+chirld.cnname+"\n";
 			n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
 		    n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
-			
-			
+	
 			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 				
@@ -309,7 +308,19 @@ public class TableViewCellAddViewController {
 
 		if (chirld.type.equals("CheckBox")) {
 		
-
+			n+="//"+chirld.cnname+"\n";
+			n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
+		    n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
+	
+			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				
+			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			n+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+			n+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			n+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
+			 n+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+			n+="}\n";
 		}
 
 		if (chirld.type.equals("ListView")) {
