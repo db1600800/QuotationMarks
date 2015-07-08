@@ -91,8 +91,14 @@ public class ChirldViewControllerH {
 			m+="@end\n\n";
 			
 			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
-			m+="// "+className+"ChirldViewCallBackDelegate\n";
+			m+="//1. "+className+"ChirldViewCallBackDelegate\n";
 			m+="//-(void) chirldViewCallBack:(NSString*)mtype  data:(NSMutableArray*)mdata;\n";
+			
+			m+="//2.在viewDidLoad中\n";
+			m+="//guestYouLikeViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
+		    m+="//guestYouLikeViewController.view.frame=CGRectMake(0,0,0,0);\n";
+		    m+="//[ self.view addSubview:guestYouLikeViewController.view];\n";
+
 			
 			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"h", m);
