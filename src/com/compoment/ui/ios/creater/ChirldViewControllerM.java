@@ -9,7 +9,7 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class ViewControllerM {
+public class ChirldViewControllerM {
 
 
 
@@ -20,7 +20,7 @@ public class ViewControllerM {
 		String viewClick="";
 	    String pageName="";
 	    String className="";
-		public  ViewControllerM(String pageName,List<CompomentBean> oldBeans) {
+		public  ChirldViewControllerM(String pageName,List<CompomentBean> oldBeans) {
             this.pageName=pageName;
             className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
@@ -107,9 +107,15 @@ public class ViewControllerM {
 			i+="-(void) setUiValue{\n";
 			i+=setvaluem;
 			i+="}\n\n";
+			
+			i+="-(void) setUiValue:(NSMutableArray*)mdata type:(NSString*)mtype delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent{\n";
+			 i+="   type=mtype;\n";
+			 i+="   self.chirldViewCallBackDelegate=parent;\n";
+			 i+="   data=mdata;\n";
+			 i+="  [tableView reloadData];\n";
+			i+="}\n";
+			
             i+="\n@end\n";
-            
-         
             
             FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"m", i);
@@ -157,6 +163,9 @@ public class ViewControllerM {
 				viewClick+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 				viewClick+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
 				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+				
+				viewClick+="  //[self.chirldViewCallBackDelegate chirldViewCallBack:type data:data];\n";
+				viewClick+="  // self.view.hidden=YES;\n";
 				viewClick+="}\n\n";
 				
 			}

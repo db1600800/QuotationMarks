@@ -9,7 +9,7 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class ViewControllerH {
+public class ChirldViewControllerH {
 
 
 
@@ -17,7 +17,7 @@ public class ViewControllerH {
 	
 	    String pageName="";
 	    String className="";
-		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans) {
+		public  ChirldViewControllerH(String pageName,List<CompomentBean> oldBeans) {
             this.pageName=pageName;
             className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
@@ -67,15 +67,32 @@ public class ViewControllerH {
 			
 			
 			m+="#import <UIKit/UIKit.h>\n";
+			m+="@protocol "+className+"ChirldViewCallBackDelegate;\n";
 			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
-
-			
+			m+="{\n";
+			m+="    NSMutableArray *data;\n";
+			m+="    NSString *type;\n";
+			m+="}\n";
 			
 		
 			
 			parent(maxBean);
 			
+			m+="@property (strong,nonatomic) id<"+className+"ChirldViewCallBackDelegate> chirldViewCallBackDelegate;\n";
+			m+="-(void) setUiValue:(NSMutableArray*)mdata type:(NSString*)mtype delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent;\n";
+			
 			m+="@end\n";
+			
+			
+			m+="@protocol "+className+"ChirldViewCallBackDelegate <NSObject>\n";
+			
+			m+="-(void) chirldViewCallBack:(NSString*)mtype  data:(NSMutableArray*)mdata;\n";
+
+			m+="@end\n\n";
+			
+			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
+			m+="// "+className+"ChirldViewCallBackDelegate\n";
+			m+="//-(void) chirldViewCallBack:(NSString*)mtype  data:(NSMutableArray*)mdata;\n";
 			
 			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"h", m);

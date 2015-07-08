@@ -37,7 +37,7 @@ public class IphoneTableViewCellHeadXib {
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
 		
-	   IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,100);
+	   IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,40);
 		
 		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
 		connection=iphoneViewControllerXibForHorizontallayout.getConnection();

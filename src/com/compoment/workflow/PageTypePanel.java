@@ -44,6 +44,7 @@ public class PageTypePanel {
 		listDate.add("JDialog-Swing");
 		listDate.add("JPanel-Swing");
 		listDate.add("---IOS---");
+		listDate.add("ChirldViewController-IOS");
 		listDate.add("ViewController-IOS");
 		listDate.add("TableViewCell-IOS");
 		listDate.add("TableViewHeadView-IOS");

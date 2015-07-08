@@ -25,7 +25,6 @@ import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneLayout;
 import com.compoment.cut.iphone.IphoneTableViewCellHeadXib;
 import com.compoment.cut.iphone.IphoneTableViewCellXib;
-
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.iphone.IphoneViewControllerXibForHorizontallayout;
 import com.compoment.cut.swing.SwingLayout;
@@ -33,12 +32,13 @@ import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
+import com.compoment.ui.ios.creater.ChirldViewControllerH;
+import com.compoment.ui.ios.creater.ChirldViewControllerM;
 import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
 import com.compoment.ui.ios.creater.TableViewCellHeadH;
 import com.compoment.ui.ios.creater.TableViewCellHeadM;
 import com.compoment.ui.ios.creater.TableViewCellM;
-
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
 import com.compoment.util.FileUtil;
@@ -324,7 +324,7 @@ public class PageCreatePanel {
 
 			SwingLayout swingLayout = new SwingLayout();
 			swingLayout.createJPanel(frame.beans, frame.beansForSwing);
-		}else if (frame.pageType.contains("ViewController-IOS")) {
+		}else if (frame.pageType.equals("ViewController-IOS")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
@@ -340,6 +340,32 @@ public class PageCreatePanel {
 			//ios
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans);
+			
+			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
+			
+			//android
+			CreateActivityView createView = new CreateActivityView(
+					frame.pageName);
+			createView.create();
+			
+			}
+		
+		else if (frame.pageType.equals("ChirldViewController-IOS")) {
+			// 页面分析生成
+			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					frame.pageName, frame.beans);
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
+			savePublicCompoment();
+
+			//ios
+			ChirldViewControllerH viewControllerH=new ChirldViewControllerH(frame.pageName,frame.beans);
+			ChirldViewControllerM viewControllerM=new ChirldViewControllerM(frame.pageName,frame.beans);
 			
 			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
 			

@@ -200,7 +200,59 @@ public class TableViewCellAddViewController {
 			    	content += m;
 			 }
 		 
-			 
+			 if(line.contains("@end"))	
+			 {
+				 
+String m="";
+m+="//九宫图列表数据\n";
+m+="@interface Section : NSObject\n";
+m+="@property (strong,nonatomic) NSString *title;\n";
+m+="@property (strong,nonatomic) NSString *sectionId;\n";
+m+="@property (strong,nonatomic) NSMutableArray *sectionRows;\n";
+m+="@end\n";
+
+
+
+
+m+="@interface Row : NSObject\n";
+m+="@property (strong,nonatomic) NSMutableArray *rowChirlds;\n";
+m+="@end\n";
+
+
+m+="@interface Chirld : NSObject\n";
+m+="@property (strong,nonatomic) NSString *pic;\n";
+m+="@property (strong,nonatomic) NSString *picName;\n";
+m+="@property (strong,nonatomic) NSString *picPrice;\n";
+m+="@property (strong,nonatomic) NSString *productId;\n";
+m+="@end\n";
+
+
+m+="//九宫图列表数据\n";
+m+="Row *sectionRow;\n";
+m+="			    NSMutableArray *rows=[[NSMutableArray alloc] init ];\n";
+m+="			    for (int i=0; i<[mdata count]; i++) {\n";
+m+="			        RespondParam0027 *commonItem2=mdata[i];\n";
+m+="			        \n";
+m+="			        \n";
+m+="			        if (i==0 || i/3) {\n";
+m+="			            sectionRow=[[Row alloc ] init];\n";
+m+="			            sectionRow.rowChirlds=[[NSMutableArray alloc]init];\n";
+m+="			            [rows addObject:sectionRow];\n";
+m+="			        }\n";
+m+="			        \n";
+m+="			        Chirld *rowChirld=[[Chirld alloc] init ];\n";
+m+="			        rowChirld.productId=commonItem2.merchID;\n";
+m+="			        rowChirld.pic=commonItem2.merchPicID;\n";
+m+="			        rowChirld.picName=commonItem2.merchName;\n";
+m+="			        rowChirld.picPrice=[NSString stringWithFormat:@\"%.2f\",commonItem2.merchPrice] ;\n";
+m+="			        \n";
+m+="			        //chirld add\n";
+m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
+m+="			        \n";
+m+="			        \n";
+m+="			    }\n";
+content += m;
+			 }
 
 		}
 
