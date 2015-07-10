@@ -93,10 +93,14 @@ public class ChirldViewControllerM {
 			
 			i+="}\n\n";
 
-            i+="-(void)handTap{\n  "
-            		+ "  [self presentViewController:updatePwdViewController animated:NO completion:^{}];\n"
-            		+ "[self dismissViewControllerAnimated:NO completion:^(){}]; \n};\n";
+		     i+="-(void)handTap{\n  "
+	            		+ "  [self presentViewController:updatePwdViewController animated:NO completion:^{}];\n"
+	            		+ "[self dismissViewControllerAnimated:NO completion:^(){}];\n"
+	            		+ " //  dispatch_async(dispatch_get_current_queue(), ^(void){\n"
+	                    +"[self dismissModalViewControllerAnimated:NO]; \n});"
+	            		+ " \n}\n";
 
+			
 			i+="-(void) viewWillAppear:(BOOL)animated{\n";
 		
 			
