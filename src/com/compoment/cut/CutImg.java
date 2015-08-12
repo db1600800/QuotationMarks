@@ -21,6 +21,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -59,6 +61,7 @@ public class CutImg extends JPanel {
 				int y = y1 < y2 ? y1 : y2;
 				int w = (x1 > x2 ? x1 : x2) - x;
 				int h = (y1 > y2 ? y1 : y2) - y;
+				
 				Image image = CutImg.this.getImageByClip(x, y, w, h);
 				setClipboardImage2(image);
 				
@@ -101,6 +104,9 @@ public class CutImg extends JPanel {
 		tmpImage.setRGB(0, 0, w, h, rgbs, 0, w);
 		return tmpImage;
 	}
+	
+	
+	
 
 	public void paint(Graphics g) {
 		super.paint(g);

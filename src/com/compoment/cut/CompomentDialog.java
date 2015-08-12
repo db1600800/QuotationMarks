@@ -18,7 +18,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -39,6 +42,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import org.apache.commons.logging.Log;
 
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -277,6 +282,11 @@ public class CompomentDialog {
 			JFrame frame, final Image image, final int x, final int y,
 			final int w, final int h, ArrayList listDate) {
 
+	     
+	     
+	     final Map xyzMap=getNearXYZ(image,x,y,w,h);
+		
+		
 		this.listDate = listDate;
 		JButton ok = new JButton("ok");
 		ok.addActionListener(new ActionListener() {
@@ -328,10 +338,21 @@ public class CompomentDialog {
 				bean.picName = picNameEdit.getText().trim().toLowerCase()
 						.replace(" ", "");
 				bean.textSize = textSizeEdit.getText().trim();
-				bean.x = x;
-				bean.y = y;
-				bean.w = w;
-				bean.h = h;
+				
+				if(compomentType.equals("TextView"))
+				{
+				bean.x = x+(int)xyzMap.get("xoffset");
+				bean.y = y+(int)xyzMap.get("yoffset");
+				bean.w = w-(int)xyzMap.get("woffset");
+				bean.h = h-(int)xyzMap.get("hoffset");
+				}else
+				{
+					bean.x = x;
+					bean.y = y;
+					bean.w = w;
+					bean.h = h;	
+					
+				}
 				bean.type = compomentType;
 				bean.time = System.currentTimeMillis();
 				if (bean.type.equals("ImageView")||bean.type.equals("Button")) {
@@ -364,7 +385,8 @@ public class CompomentDialog {
 		});
 
 		colorEdit = new JTextField();
-		colorEdit.setText("颜色             ");
+		
+		colorEdit.setText((String)xyzMap.get("textColor"));
 		JButton gaveBgColor = new JButton("->");
 		gaveBgColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -700,8 +722,203 @@ public class CompomentDialog {
 		}
 		return file;
 	}
+	
+	
+	
 
 	public interface CompomentDialogCallBack {
 		public void compomentDialogCallBack(CompomentBean bean);
 	}
+	
+	
+	
+	public Map getNearXYZ(Image image,int x, int y, int w, int h) {
+		
+		BufferedImage bufImg = new BufferedImage(image.getWidth(null), image.getHeight(null),BufferedImage.TYPE_INT_RGB);   
+	     Graphics g = bufImg .createGraphics();   
+        g.drawImage(image, 0, 0, null);   
+        g.dispose(); 
+		
+		int rgbs[] = new int[w * h];
+		rgbs =  bufImg.getRGB(0, 0, w, h, rgbs, 0, w);
+		
+	
+		
+		Map map=buildMap(rgbs);
+		
+		
+		
+		int max1keyvalue[]=getMax( map);
+		
+		
+		
+		int xoffset=0;//偏移量
+		int yoffset=0;
+		int woffset=0;
+		int hoffset=0;
+		
+		//x
+		boolean xok=false;
+		for(int j=0;j<w;j++)
+		{
+			
+		for(int i=0;i<h;i++)
+		{
+			if(xok)
+			{
+				break;
+			}
+			if(bufImg.getRGB(j, i)!=max1keyvalue[0])
+			{
+				xoffset=j;
+				xok=true;
+				break;
+			}
+		}
+		}
+		
+		
+		//w
+		boolean wok=false;
+		for(int j=w-1;j>1;j--)
+		{
+			if(wok)
+			{
+				break;
+			}
+		for(int i=0;i<h;i++)
+		{
+			
+			if(bufImg.getRGB(j, i)!=max1keyvalue[0])
+			{
+				woffset=(w-1)-j;
+				wok=true;
+				break;
+			}
+		}
+		}
+		
+		
+		//y
+		boolean yok=false;
+		for(int j=0;j<h-1;j++)
+		{
+		for(int i=0;i<w-1;i++)
+		{
+			if(yok)
+			{
+				break;
+			}
+			
+			System.out.println("j:"+j+" i:"+i);
+			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
+			{
+				yoffset=j;
+				yok=true;
+				break;
+			}
+		}
+		}
+		
+		
+		//h
+		boolean hok=false;
+		for(int j=h-1;j>1;j--)
+		{
+			
+			if(hok)
+			{
+				break;
+			}
+			
+		for(int i=0;i<w-1;i++)
+		{
+			
+			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
+			{
+				hoffset=(h-1)-j;
+				hok=true;
+				break;
+			}
+		}
+		}
+		
+		
+		HashMap temp=new HashMap();
+		temp.put("xoffset", xoffset);
+		temp.put("yoffset", yoffset);
+		temp.put("woffset", woffset);
+		temp.put("hoffset", hoffset);
+		
+	
+		
+		
+		temp.put("textColor",rgbString16( maxOne(rgbs)));
+		
+		return temp;
+		
+	}
+	
+	public static String rgbString16(int pixel)
+	{
+		
+		int rgb[]=new int[3];
+		rgb[0] = (pixel & 0xff0000) >> 16;
+		rgb[1] = (pixel & 0xff00) >> 8;
+		rgb[2] = (pixel & 0xff);
+		
+		 String color16=ColorPanel.getColorInHexFromRGB(rgb[0], rgb[1], rgb[2]);
+		return color16;
+		
+	}
+	
+	  public static int maxOne(int[] strArr) { 
+	  
+		  int min=0;
+		  for(int i :strArr)
+		  {
+			  
+			  if(i<min)
+			  {
+				  
+				  min=i;
+			  }
+		  }
+		  
+		  return min;
+		  
+	  }
+	
+	
+	/*************建立哈希映射***************/  
+    public static Map<Integer, Integer> buildMap(int[] strArr) {  
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();  
+        for (int str : strArr) {  
+            if (map.containsKey(str)) {  
+                map.put(str, map.get(str) + 1);  
+            } else {  
+                map.put(str, 0);  
+            }  
+        }  
+        return map;  
+    }  
+  
+    /*************得到最大出现次数的映射***************/  
+    public static int[] getMax(Map<Integer, Integer> map) {  
+        int max = 0;  
+        Integer result = null;  
+        for (Entry<Integer, Integer> entry : map.entrySet()) {  
+        	System.out.println(rgbString16(entry.getKey())+"   "+entry.getKey());
+            if (entry.getValue() > max) {  
+                result = entry.getKey();  
+                if(result !=null) max = entry.getValue();  
+            }  
+        }  
+        int keyvalue[]=new int[2];
+        keyvalue[0]=result;
+        keyvalue[1]=map.get(result);
+       
+        return  keyvalue;  
+    }  
+  
 }
