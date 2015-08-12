@@ -339,7 +339,7 @@ public class CompomentDialog {
 						.replace(" ", "");
 				bean.textSize = textSizeEdit.getText().trim();
 				
-				if(compomentType.equals("TextView"))
+				if(!compomentType.contains("Layout"))
 				{
 				bean.x = x+(int)xyzMap.get("xoffset");
 				bean.y = y+(int)xyzMap.get("yoffset");
