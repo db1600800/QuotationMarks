@@ -81,6 +81,8 @@ public class CompomentDialog2 extends JDialog {
 		}
 	}
 
+	
+	
 	/**
 	 * Create the dialog.
 	 */
