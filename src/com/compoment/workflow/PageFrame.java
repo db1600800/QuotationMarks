@@ -16,11 +16,12 @@ import javax.swing.*;
 
 import com.compoment.cut.CheckProblem;
 import com.compoment.cut.CompomentBean;
-import com.compoment.cut.CompomentDialog;
-import com.compoment.cut.CompomentDialog.CompomentDialogCallBack;
+import com.compoment.workflow.CompomentDialog2;
+import com.compoment.workflow.CompomentDialog2.CompomentDialogCallBack;
 import com.compoment.cut.CutCompomentsTypeImg.CutCompomentsTypeImgCallBack;
 import com.compoment.cut.CutImg;
 import com.compoment.cut.CutImg.CutImgCallBack;
+
 
 public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogCallBack,CutCompomentsTypeImgCallBack{
 
@@ -240,9 +241,16 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		}
 		
 		
-		CompomentDialog dialog;
-		dialog = new CompomentDialog(this,this, image, x, y, w, h,components);
+		//CompomentDialog dialog;
+		//dialog = new CompomentDialog(this,this, image, x, y, w, h,components);
 		
+		
+		CompomentDialog2 jdialog = new CompomentDialog2();
+		//jdialog.setSize(1000, 800);
+		jdialog.init(this,this, image, x, y, w, h,components);
+	
+		jdialog.setLocationRelativeTo(null);
+		jdialog.setVisible(true);
 	}
 	
 	
