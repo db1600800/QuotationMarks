@@ -298,13 +298,10 @@ public class CompomentDialog2 extends JDialog {
 		
 		 interfaceBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(CompomentDialog2.this);
-				JPanel docsPanel = projectDocPanel.create();
-				JDialog jdialog = new JDialog(CompomentDialog2.this, "", true);
-				jdialog.setSize(800, 400);
-				jdialog.setLocationRelativeTo(null);
-				jdialog.getContentPane().add(docsPanel);
-				jdialog.setVisible(true);
+				
+				InterfaceDoc projectDocPanel=new InterfaceDoc();
+				projectDocPanel.setModal(true);
+				projectDocPanel.setVisible(true);
 				
 				if(projectDocPanel.selects==null)
 				{

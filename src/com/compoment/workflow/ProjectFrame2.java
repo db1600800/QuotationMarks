@@ -34,6 +34,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+
+//工程设置
 public class ProjectFrame2 extends JFrame {
 
 	private JPanel contentPane;
@@ -41,8 +43,9 @@ public class ProjectFrame2 extends JFrame {
 	private JTextField iphonePathValueEditText;
 	private JTextField swingPathValueEditText;
 	private JTextField webPathValueEditText;
-	JList picListListView;
-	JCheckBox androidCheckBox;
+	private JList picListListView;
+	private JCheckBox androidCheckBox;
+	JCheckBox iphoneCheckBox;
 	
 	 ArrayList listDate = new ArrayList();
 	
@@ -77,8 +80,6 @@ public class ProjectFrame2 extends JFrame {
 		JLabel lblNewLabel = new JLabel("项目路径");
 		
 		 androidCheckBox = new JCheckBox("Android");
-	
-		
 		
 		androidPathValueEditText = new JTextField();
 		androidPathValueEditText.setColumns(10);
@@ -86,7 +87,8 @@ public class ProjectFrame2 extends JFrame {
 		iphonePathValueEditText = new JTextField();
 		iphonePathValueEditText.setColumns(10);
 		
-		JCheckBox iphoneCheckBox = new JCheckBox("Iphone");
+		 iphoneCheckBox = new JCheckBox("Iphone");
+		
 		
 		JCheckBox swingCheckBox = new JCheckBox("Swing");
 		
@@ -190,7 +192,17 @@ public class ProjectFrame2 extends JFrame {
 		 androidCheckBox.addItemListener(new ItemListener() {
 			 	public void itemStateChanged(ItemEvent e) {
 			 	
-			
+			 		String s = androidPathValueEditText.getText();
+			 		if(s==null || s.equals(""))
+			 		{
+			 		if(androidCheckBox.isSelected())
+			 			 JOptionPane.showMessageDialog(null,"请输入android项目工程路径",null, JOptionPane.ERROR_MESSAGE);
+			 			androidCheckBox.setSelected(false);
+			 			return;
+			 		}
+				 
+					searchPics(KeyValue.readCache("picPath"));
+					
 				if (KeyValue.readCache("compomentProjectAddress") == null
 						|| KeyValue.readCache("compomentProjectAddress").equals("")) {
 					String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
@@ -233,7 +245,7 @@ public class ProjectFrame2 extends JFrame {
 				KeyValue.writeCache("projectPath",s);
 				
 				KeyValue.writeCache("picPath", s+"/pic");
-				searchPics(KeyValue.readCache("picPath"));
+				//searchPics(KeyValue.readCache("picPath"));
 			
 			}
 
@@ -247,6 +259,25 @@ public class ProjectFrame2 extends JFrame {
 		
 		
 		//Iphone
+		
+		iphoneCheckBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				String s = iphonePathValueEditText.getText();
+		 		if(s==null || s.equals(""))
+		 		{
+		 		if(iphoneCheckBox.isSelected())
+		 			 JOptionPane.showMessageDialog(null,"请输入iphone项目工程路径",null, JOptionPane.ERROR_MESSAGE);
+		 		iphoneCheckBox.setSelected(false);
+		 			return;
+		 		}
+			 
+				searchPics(KeyValue.readCache("picPath"));
+			}
+		});
+		
+		if(projectpath!=null && !projectpath.equals(""))
+			iphonePathValueEditText.setText(projectpath);
+		
 		Document docIphone = iphonePathValueEditText.getDocument();
 
 		// 添加DocumentListener监听器
@@ -266,7 +297,7 @@ public class ProjectFrame2 extends JFrame {
 				KeyValue.writeCache("projectPath", s);
 				KeyValue.writeCache("picPath", s+"/pic");
 			
-				searchPics(KeyValue.readCache("picPath"));
+				//searchPics(KeyValue.readCache("picPath"));
 			
 			}
 
@@ -296,7 +327,7 @@ public class ProjectFrame2 extends JFrame {
 
 				String s = swingPathValueEditText.getText();
 			
-				searchPics(KeyValue.readCache("picPath"));
+				//searchPics(KeyValue.readCache("picPath"));
 			
 			}
 
@@ -312,7 +343,7 @@ public class ProjectFrame2 extends JFrame {
 		
 		
 		//piclist
-		JScrollPane listScrollPane = new JScrollPane(picListListView); 
+	
 		 picListListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		 picListListView.setListData(listDate.toArray());
 		 
@@ -355,9 +386,10 @@ public ArrayList searchPics(String root)
 		if(files==null)
 		{
 		
-			
+			androidCheckBox.setSelected(false);
+			FileUtil.makeDir(file);
 			JOptionPane.showMessageDialog(null,
-					"请建立pic文件夹并放入原型图", "", JOptionPane.INFORMATION_MESSAGE);
+					"pic文件夹以建立请放入原型图", "", JOptionPane.INFORMATION_MESSAGE);
 			
 			return null;
 		}
