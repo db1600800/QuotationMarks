@@ -455,16 +455,24 @@ public class InterfaceDoc extends JDialog {
 		}
 		listListView.setListData(listDate.toArray());
 		
+		
+		
 		RequestRespondParamBean requestRespond = new RequestRespondParamBean();
 		RequestRespondParamBeanForIphone requestRespondForIphone = new RequestRespondParamBeanForIphone();
 		requestRespond.requestRespondParamBean(interfaceBeans);
 		requestRespondForIphone.requestRespondParamBean(interfaceBeans);
 		
-	
 		
+		for(InterfaceBean bean:interfaceBeans )
+		{
 		
-		JOptionPane.showMessageDialog(null, "代码生成,请刷新doc目录", "",
-				JOptionPane.INFORMATION_MESSAGE);
+				Serverlet serverlet=new Serverlet();
+				serverlet.create(respondJsonValueEditText.getText(), bean);	  
+			 
+		  
+		}
+		
+		InterfaceDoc.this.setVisible(false);
 
 	}
 	

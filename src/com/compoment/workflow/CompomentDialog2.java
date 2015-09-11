@@ -66,7 +66,9 @@ public class CompomentDialog2 extends JDialog {
 	JButton gaveBgColor;
 	JScrollPane basePicScrollPane;
 	JButton interfaceBtn;
-	
+	JList interfaceList;
+	JList interfaceColumnList;
+	JList actionList;
 	
 	String compomentType;
 	ArrayList listDate = null;
@@ -90,7 +92,7 @@ public class CompomentDialog2 extends JDialog {
 	 * Create the dialog.
 	 */
 	public CompomentDialog2() {
-		setBounds(100, 100, 1000	, 600);
+		setBounds(100, 100, 1200	, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -101,19 +103,15 @@ public class CompomentDialog2 extends JDialog {
 		
 		 basePicScrollPane = new JScrollPane();
 		
-		JList list = new JList();
+		 interfaceList = new JList();
 		
 		JLabel label_1 = new JLabel("字段");
 		
-		JList list_2 = new JList();
+		 interfaceColumnList = new JList();
 		
 		JLabel label_2 = new JLabel("事件");
 		
-		JList list_3 = new JList();
-		
-		JList list_4 = new JList();
-		
-		JList list_1 = new JList();
+		 actionList = new JList();
 		
 		cnNameEdit = new JTextField();
 		cnNameEdit.setText("中文名");
@@ -190,37 +188,28 @@ public class CompomentDialog2 extends JDialog {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPanel.createSequentialGroup()
-													.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-													.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-													.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(textSizeEdit, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-														.addComponent(list_3, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))
-												.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-													.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(interfaceBtn)
-														.addComponent(list, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-													.addGap(23)))
-											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPanel.createSequentialGroup()
-													.addGap(224)
-													.addComponent(list_4, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-												.addGroup(gl_contentPanel.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(label_1)
-														.addGroup(gl_contentPanel.createSequentialGroup()
-															.addComponent(list_2, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(list_1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))))
-											.addGap(137))
+											.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+											.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(449)
-											.addComponent(label_2)
-											.addGap(213))))
+											.addComponent(interfaceBtn)
+											.addGap(151)
+											.addComponent(label_1)
+											.addGap(81))
+										.addGroup(gl_contentPanel.createSequentialGroup()
+											.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(interfaceColumnList, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPanel.createSequentialGroup()
+											.addGap(12)
+											.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_contentPanel.createSequentialGroup()
+											.addGap(48)
+											.addComponent(label_2)))
+									.addGap(80))
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(28)
 									.addComponent(setPublicCheckBox))))
@@ -238,24 +227,19 @@ public class CompomentDialog2 extends JDialog {
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(baseTitleTextView)
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(label_2)
-							.addPreferredGap(ComponentPlacement.UNRELATED))
-						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(interfaceBtn)
 								.addComponent(label_1)
-								.addComponent(interfaceBtn))
+								.addComponent(label_2))
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
-					.addGap(12)
-					.addComponent(list_3, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(19)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-						.addComponent(list_4)
+						.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
 						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(list_1, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-							.addComponent(list_2, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
-						.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+							.addComponent(interfaceList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+							.addComponent(interfaceColumnList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+							.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+						.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
 					.addGap(41)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -303,9 +287,30 @@ public class CompomentDialog2 extends JDialog {
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 				
-				if(projectDocPanel.selects==null)
+				if(projectDocPanel.interfaceBeans!=null)
 				{
-					JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+					
+					
+					interfaceList.setListData(projectDocPanel.listDate.toArray());
+					interfaceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+					interfaceList.addListSelectionListener(new ListSelectionListener() {
+
+						@Override
+						public void valueChanged(ListSelectionEvent even) {
+							// TODO Auto-generated method stub
+							
+							
+							String value = interfaceList.getSelectedValue().toString();
+							compomentType = value;
+
+			               CompomentDialog2.this.setVisible(true);
+
+						}
+
+					});
+					
+					
 					return ;
 				}
 			}
@@ -513,23 +518,7 @@ public class CompomentDialog2 extends JDialog {
 
 		//textSizeEdit = new JTextField();
 		textSizeEdit.setText("16");
-		//circularCheckBox = new JCheckBox("是否圆角", false);
-		//imgCacheCheckBox = new JCheckBox("是否图片二级缓存", false);
-		//setPublicCheckBox = new JCheckBox("设为公共组件", false);
 
-//		JPanel buttonpanel = buttonPanel;
-//		buttonpanel.add(cnNameEdit);
-//		buttonpanel.add(enNameEdit);
-//		buttonpanel.add(ok);
-//		buttonpanel.add(cancel);
-//		buttonpanel.add(colorEdit);
-//		buttonpanel.add(gaveBgColor);
-//		buttonpanel.add(bgColorEdit);
-//		buttonpanel.add(picNameEdit);
-//		buttonpanel.add(textSizeEdit);
-//		buttonpanel.add(circularCheckBox);
-//		buttonpanel.add(imgCacheCheckBox);
-//		buttonpanel.add(setPublicCheckBox);
 		
 		final JList list = baseListListView;
 
@@ -663,6 +652,12 @@ public class CompomentDialog2 extends JDialog {
 			}
 
 		});
+		
+		
+		
+		
+		
+		
 
 	}
 
