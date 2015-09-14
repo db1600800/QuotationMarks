@@ -165,7 +165,7 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		}else
 		{
 			beans.remove(bean);
-			JOptionPane.showMessageDialog(null, bean.enname+"有问题,请重新生成", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, bean.enname+"没有父窗体,请先生成", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 	}

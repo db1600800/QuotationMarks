@@ -32,6 +32,8 @@ import javax.swing.event.ListSelectionListener;
 import com.compoment.cut.ColorPanel;
 import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog.CompomentDialogCallBack;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.*;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
@@ -47,6 +49,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JCheckBox;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 
 public class CompomentDialog2 extends JDialog {
 
@@ -73,6 +76,16 @@ public class CompomentDialog2 extends JDialog {
 	String compomentType;
 	ArrayList listDate = null;
 	JFrame frame;
+	
+	List<InterfaceBean> tempInterfaceBeans;
+	String interfaceid;
+	String interfaceColumnEnName;
+	String actionString;
+	String actionDetailString;
+	private JTextField actionDetail;
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -92,7 +105,7 @@ public class CompomentDialog2 extends JDialog {
 	 * Create the dialog.
 	 */
 	public CompomentDialog2() {
-		setBounds(100, 100, 1200	, 600);
+		setBounds(100, 100, 1000, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -106,8 +119,6 @@ public class CompomentDialog2 extends JDialog {
 		 interfaceList = new JList();
 		
 		JLabel label_1 = new JLabel("字段");
-		
-		 interfaceColumnList = new JList();
 		
 		JLabel label_2 = new JLabel("事件");
 		
@@ -150,7 +161,13 @@ public class CompomentDialog2 extends JDialog {
 		 cancel = new JButton("cancel");
 		
 		 interfaceBtn = new JButton("接口");
+		 interfaceColumnList = new JList();
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(interfaceColumnList);
+		
+		actionDetail = new JTextField();
+		actionDetail.setColumns(10);
 		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -201,15 +218,17 @@ public class CompomentDialog2 extends JDialog {
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(interfaceColumnList, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
+											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(12)
-											.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addGap(48)
-											.addComponent(label_2)))
-									.addGap(80))
+											.addComponent(label_2))
+										.addGroup(gl_contentPanel.createSequentialGroup()
+											.addGap(12)
+											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(actionDetail)
+												.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))))
+									.addGap(166))
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(28)
 									.addComponent(setPublicCheckBox))))
@@ -234,13 +253,16 @@ public class CompomentDialog2 extends JDialog {
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
 					.addGap(19)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+						.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
 						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(interfaceList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-							.addComponent(interfaceColumnList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-							.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
-						.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
-					.addGap(41)
+							.addComponent(interfaceList, GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+							.addGroup(gl_contentPanel.createSequentialGroup()
+								.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+								.addGap(15)
+								.addComponent(actionDetail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(baseListListView, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
+					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -261,6 +283,8 @@ public class CompomentDialog2 extends JDialog {
 					.addGap(65))
 		);
 		
+	
+		
 		
 		contentPanel.setLayout(gl_contentPanel);
 	}
@@ -280,6 +304,32 @@ public class CompomentDialog2 extends JDialog {
 			final int w, final int h, ArrayList listDate) {
 
 		
+		List actions=new ArrayList();
+		actions.add("跳到");
+		actions.add("单选");
+		actions.add("发请求");
+		actions.add("弹出");
+		
+		
+		actionList.setListData(actions.toArray());
+		actionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		actionList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent even) {
+				// TODO Auto-generated method stub
+				
+				if(actionList.getSelectedValue()==null)
+					return;
+				
+				String value = actionList.getSelectedValue().toString();
+			
+				actionString=value;
+			}});
+		
+		
+		
+		//接口按钮
 		 interfaceBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -290,7 +340,8 @@ public class CompomentDialog2 extends JDialog {
 				if(projectDocPanel.interfaceBeans!=null)
 				{
 					
-					
+					tempInterfaceBeans=projectDocPanel.interfaceBeans;
+					//接口列表
 					interfaceList.setListData(projectDocPanel.listDate.toArray());
 					interfaceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -300,10 +351,61 @@ public class CompomentDialog2 extends JDialog {
 						public void valueChanged(ListSelectionEvent even) {
 							// TODO Auto-generated method stub
 							
+							if(interfaceList.getSelectedValue()==null)
+								return;
 							
 							String value = interfaceList.getSelectedValue().toString();
-							compomentType = value;
+							String id= value.split(":")[0];
 
+							interfaceid=id;
+							
+							for(InterfaceBean ibean:tempInterfaceBeans)
+							{
+								
+								
+								
+								if(ibean.id.equals(id))
+								{
+									List<Group> tempGroups=null;
+									List<String> tempcolumns=new ArrayList();
+									//接口字段
+									 interfaceColumnList.setListData(tempcolumns.toArray());
+									
+									 if (compomentType.contains("ImageView")) {
+										
+										 tempGroups=ibean.respondGroups;
+										}  else if (
+												 compomentType.contains("EditText")) {
+											 tempGroups=ibean.requestGroups;
+										}
+									
+										else if (compomentType.contains("CheckBox"))
+										{
+											 tempGroups=ibean.requestGroups;
+										}
+										else if ( compomentType.contains("TextView")) {
+											 tempGroups=ibean.respondGroups;
+										}
+									 
+									 
+									 for(Group group:tempGroups)
+									 {
+										 
+										 for(Row row:group.rows)
+										 {
+											String column= row.enName+":"+row.cnName;
+											tempcolumns.add(column);
+										 }
+										 
+									 }
+									
+									 interfaceColumnList.setListData(tempcolumns.toArray());
+								}
+							}
+							
+							
+							
+							
 			               CompomentDialog2.this.setVisible(true);
 
 						}
@@ -315,6 +417,26 @@ public class CompomentDialog2 extends JDialog {
 				}
 			}
 		});
+		 
+		 
+		 
+		 interfaceColumnList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		 interfaceColumnList.addListSelectionListener(new ListSelectionListener() {
+
+				@Override
+				public void valueChanged(ListSelectionEvent even) {
+					// TODO Auto-generated method stub
+					
+					if(interfaceColumnList.getSelectedValue()==null)
+						return;
+					
+					String value = interfaceColumnList.getSelectedValue().toString();
+					String enname= value.split(":")[0];
+					interfaceColumnEnName=enname;
+					
+				}});
+
 	     
 		ColorPanel basePicPanel = new ColorPanel(frame, image, this);
 	
@@ -364,6 +486,11 @@ public class CompomentDialog2 extends JDialog {
 				}
 
 				CompomentBean bean = new CompomentBean();
+				bean.actionString=actionString;
+				bean.actionDetailString=actionDetail.getText();
+				bean.interfaceId=interfaceid;
+				bean.interfaceColumnEnName=interfaceColumnEnName;
+				
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
 				bean.enname = (enNameEdit.getText().trim() + compomentType)
 						.replace(" ", "");
@@ -433,7 +560,7 @@ public class CompomentDialog2 extends JDialog {
 		});
 
 		//bgColorEdit = new JTextField();
-		bgColorEdit.setText("背景颜色             ");
+		bgColorEdit.setText("背景颜色");
 
 		//picNameEdit = new JTextField();
 		picNameEdit.setText("图片名");
@@ -566,7 +693,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(true);
 					setPublicCheckBox.setVisible(false);
-				} else if (compomentType.contains("ListView")) {
+				} else if (compomentType.contains("ListView")||compomentType.contains("ScrollView")) {
 					colorEdit.setText("行间距颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
@@ -844,7 +971,7 @@ public class CompomentDialog2 extends JDialog {
 				break;
 			}
 			
-			System.out.println("j:"+j+" i:"+i);
+			
 			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
 				yoffset=j;
@@ -942,7 +1069,7 @@ public class CompomentDialog2 extends JDialog {
         int max = 0;  
         Integer result = null;  
         for (Entry<Integer, Integer> entry : map.entrySet()) {  
-        	System.out.println(rgbString16(entry.getKey())+"   "+entry.getKey());
+        	//System.out.println(rgbString16(entry.getKey())+"   "+entry.getKey());
             if (entry.getValue() > max) {  
                 result = entry.getKey();  
                 if(result !=null) max = entry.getValue();  

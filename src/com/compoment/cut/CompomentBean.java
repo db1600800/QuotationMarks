@@ -30,6 +30,10 @@ public class CompomentBean implements Serializable {
 	public int w;
 	public int h;
 	
+	public String interfaceId;
+	public String interfaceColumnEnName;
+	public String actionString;
+	public String actionDetailString;
 	public String cnname;
 	public String enname;
 	public String textSize;

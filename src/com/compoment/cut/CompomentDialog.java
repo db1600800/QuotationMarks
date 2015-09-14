@@ -810,7 +810,7 @@ public class CompomentDialog {
 				break;
 			}
 			
-			System.out.println("j:"+j+" i:"+i);
+			
 			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
 				yoffset=j;
