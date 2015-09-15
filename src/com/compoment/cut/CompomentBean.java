@@ -32,8 +32,10 @@ public class CompomentBean implements Serializable {
 	
 	public String interfaceId;
 	public String interfaceColumnEnName;
-	public String actionString;
+	public String actionString;  //("跳到") ("单选") ("发请求") ("弹出")
 	public String actionDetailString;
+	public String jumpToWhichPage;
+	
 	public String cnname;
 	public String enname;
 	public String textSize;

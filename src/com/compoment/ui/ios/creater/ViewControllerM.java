@@ -17,7 +17,8 @@ public class ViewControllerM {
 		String i="\n\n\n";
 		String tablem="\n";
 		String setvaluem="\n";
-		String viewClick="";
+		String viewDidLoad_viewClickDeclare="";
+		String viewDidLoad_viewClickImplement="";
 	    String pageName="";
 	    String className="";
 		public  ViewControllerM(String pageName,List<CompomentBean> oldBeans) {
@@ -89,7 +90,7 @@ public class ViewControllerM {
 			i+="  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handTap)];\n";
 			i+="    [self.modifyPwdTextView addGestureRecognizer:tap];\n";
 
-			i+=viewClick;
+			i+=viewDidLoad_viewClickDeclare;
 			
 			i+="}\n\n";
 
@@ -104,6 +105,8 @@ public class ViewControllerM {
 		
 			
 			i+="}\n\n";
+			
+			i+=viewDidLoad_viewClickImplement;
 			
 			i+=tablem;
 			
@@ -150,17 +153,96 @@ public class ViewControllerM {
 
 			if (chirld.type.equals("Button")) {
 
-				
-			
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
-				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-				viewClick+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-				viewClick+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
-				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
-				viewClick+="}\n\n";
+				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"Clicked:(UIButton *)btn{\n"; 
+				viewDidLoad_viewClickImplement+="id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
+				viewDidLoad_viewClickImplement+="int mId2 = btn.tag;\n//取绑定数据";
+				
+				 //("跳到") ("单选") ("发请求") ("弹出")
+				if(chirld.actionString.equals("跳到"))
+				{
+					viewDidLoad_viewClickImplement+=" self.hidesBottomBarWhenPushed=YES;\n";
+					viewDidLoad_viewClickImplement+=firstCharToUpperAndJavaName(chirld.jumpToWhichPage)+"ViewController *"+chirld.jumpToWhichPage+"ViewController=[["+firstCharToUpperAndJavaName(chirld.jumpToWhichPage)+"ViewController alloc ] initWithNibName:@\""+firstCharToUpperAndJavaName(chirld.jumpToWhichPage)+"ViewController\" bundle:nil];\n"; 
+					viewDidLoad_viewClickImplement+="    [self.navigationController pushViewController:"+chirld.jumpToWhichPage+"ViewController animated:YES];\n";
+				}
+				else if(chirld.actionString.equals("跳回到上几个"))
+				{
+					viewDidLoad_viewClickImplement+="//方法1.回到上几个页面\n";
+					viewDidLoad_viewClickImplement+=" for (UIViewController *controller in self.navigationController.viewControllers) {\n";
+					viewDidLoad_viewClickImplement+="       if (![controller isKindOfClass:[FirstPageViewController class]]) {\n";
+					viewDidLoad_viewClickImplement+="            [controller removeFromParentViewController];\n";
+					viewDidLoad_viewClickImplement+="  }\n";
+					viewDidLoad_viewClickImplement+="//方法2.回到上几个页面\n";
+					viewDidLoad_viewClickImplement+="//  [self.navigationController popToViewController:controller animated:YES];\n\n";
+					viewDidLoad_viewClickImplement+=" }\n";
+					viewDidLoad_viewClickImplement+="	//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];\n";
+					viewDidLoad_viewClickImplement+="	 //   [appDelegate.tabbar setSelectedIndex:0];\n\n";
+					    
+			
+					viewDidLoad_viewClickImplement+="//方法3.回到上几个页面\n";
+					viewDidLoad_viewClickImplement+="  [self.navigationController popToRootViewControllerAnimated:YES];\n";
+					
+				}
+				else if(chirld.actionString.equals("跳回到上个"))
+				{
+			
+				viewDidLoad_viewClickImplement+="//方法3.回到上页面\n";
+				viewDidLoad_viewClickImplement+="  [self.navigationController popViewControllerAnimated:YES];\n";
+					
+				}else if(chirld.actionString.equals("单选"))
+				{
+					viewDidLoad_viewClickImplement+="  btn.selected = !btn.selected ;//用与button做checkBox\n";
+					viewDidLoad_viewClickImplement+=" OrderForm *orderform=datas[mId];\n";
+				    viewDidLoad_viewClickImplement+=" if (orderform.invoiceCheck ) {//选中\n";
+					viewDidLoad_viewClickImplement+="  orderform.invoiceCheck=false;\n";
+					viewDidLoad_viewClickImplement+="}else\n";
+				    viewDidLoad_viewClickImplement+="{\n";
+					viewDidLoad_viewClickImplement+="   orderform.invoiceCheck=true;\n";
+					viewDidLoad_viewClickImplement+="}\n";
+					viewDidLoad_viewClickImplement+="[self refreshUi];\n";
+					
+					
+				}else if(chirld.actionString.equals("发请求"))
+				{
+					
+					viewDidLoad_viewClickImplement+="[self request00];\n";
+					
+				}else if(chirld.actionString.equals("弹出"))
+				{
+					
+					   productListMenuViewController=[[ProductListMenuViewController alloc ] initWithNibName:@"ProductListMenuViewController" bundle:nil];
+					    [productListMenuViewController.view setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y-8
+					                                                            , tableView.frame.size.width, tableView.frame.size.height)];
+					    
+					    [self.view addSubview:productListMenuViewController.view];
+					    
+					    productListMenuViewController.view.hidden=YES;
+					    
+					    [productListMenuViewController setUiValue:upToLows type:@"price"  delegate:self];
+
+					    
+					    if (productListMenuViewController.view.hidden) {
+					        productListMenuViewController.view.hidden=NO;
+					         [self.priceDownPic setImage:[UIImage imageNamed:@"up.png"]];
+					        [self.categateDownPic setImage:[UIImage imageNamed:@"down.png"]];
+					    }else
+					    {
+					    productListMenuViewController.view.hidden=YES;
+					        [self.priceDownPic setImage:[UIImage imageNamed:@"down.png"]];
+					        [self.categateDownPic setImage:[UIImage imageNamed:@"down.png"]];
+					        
+					    }
+
+				}
+				
+				
+				viewDidLoad_viewClickImplement+="}\n\n";
 				
 			}
 
@@ -174,18 +256,18 @@ public class ViewControllerM {
 				setvaluem+="//"+chirld.cnname+"\n";
 				setvaluem+="["+chirld.enname+" setValue:]\n";
 				
-				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
-				viewClick+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
-				viewClick+="UITextRange * selectedRange = [textField markedTextRange];\n";
-				viewClick+="if(selectedRange == nil || selectedRange.empty){\n";
+				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
+				viewDidLoad_viewClickImplement+="UITextRange * selectedRange = [textField markedTextRange];\n";
+				viewDidLoad_viewClickImplement+="if(selectedRange == nil || selectedRange.empty){\n";
 				     // 这里取到textfielf.text 进行检索
-				viewClick+="}\n"; 
-				viewClick+="}\n";
+				viewDidLoad_viewClickImplement+="}\n"; 
+				viewDidLoad_viewClickImplement+="}\n";
 				
-				viewClick+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
-				viewClick+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
-				viewClick+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
-				viewClick+="}\n\n";
+				viewDidLoad_viewClickImplement+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
+				viewDidLoad_viewClickImplement+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				viewDidLoad_viewClickImplement+="}\n\n";
 			}
 
 			if (chirld.type.equals("CheckBox")) {
@@ -193,16 +275,16 @@ public class ViewControllerM {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewClick+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
-				viewClick+="[self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
-				viewClick+=" [self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
+				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
+				viewDidLoad_viewClickDeclare+=" [self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
 			     
 				
-				viewClick+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-				viewClick+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-				viewClick+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
-				viewClick+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
-				viewClick+="}\n\n";
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+				viewDidLoad_viewClickImplement+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewDidLoad_viewClickImplement+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
+				viewDidLoad_viewClickImplement+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+				viewDidLoad_viewClickImplement+="}\n\n";
 			
 				
 			}

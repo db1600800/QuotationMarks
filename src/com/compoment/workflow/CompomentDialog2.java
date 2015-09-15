@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JCheckBox;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
+import javax.swing.JComboBox;
 
 public class CompomentDialog2 extends JDialog {
 
@@ -72,6 +74,7 @@ public class CompomentDialog2 extends JDialog {
 	JList interfaceList;
 	JList interfaceColumnList;
 	JList actionList;
+	JComboBox jumpToViewComboBox;
 	
 	String compomentType;
 	ArrayList listDate = null;
@@ -82,6 +85,7 @@ public class CompomentDialog2 extends JDialog {
 	String interfaceColumnEnName;
 	String actionString;
 	String actionDetailString;
+	String jumpToWhichPage;
 	private JTextField actionDetail;
 	
 	
@@ -169,6 +173,10 @@ public class CompomentDialog2 extends JDialog {
 		actionDetail = new JTextField();
 		actionDetail.setColumns(10);
 		
+		 jumpToViewComboBox = new JComboBox();
+		
+		JLabel label = new JLabel("页面");
+		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -206,9 +214,9 @@ public class CompomentDialog2 extends JDialog {
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
 											.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
 											.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(interfaceBtn)
@@ -218,7 +226,7 @@ public class CompomentDialog2 extends JDialog {
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
+											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addGap(48)
@@ -226,8 +234,10 @@ public class CompomentDialog2 extends JDialog {
 										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addGap(12)
 											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
 												.addComponent(actionDetail)
-												.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))))
+												.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(label))))
 									.addGap(166))
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(28)
@@ -259,8 +269,13 @@ public class CompomentDialog2 extends JDialog {
 							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
 							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-								.addGap(15)
-								.addComponent(actionDetail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addGap(5)
+								.addComponent(actionDetail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(3)
+								.addComponent(label)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(4)))
 						.addComponent(baseListListView, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
@@ -304,8 +319,24 @@ public class CompomentDialog2 extends JDialog {
 			final int w, final int h, ArrayList listDate) {
 
 		
+		List picnames=searchPics(KeyValue.readCache("picPath"));
+		
+		for(int i=0;i<picnames.size();i++)
+		{
+		jumpToViewComboBox.addItem(picnames.get(i));
+		}
+		
+		jumpToViewComboBox.addActionListener( new ActionListener(){   
+	            public void actionPerformed( ActionEvent e){   
+	             
+	                jumpToWhichPage=jumpToViewComboBox.getSelectedItem().toString();
+	            }   
+	        }); 
+		
 		List actions=new ArrayList();
 		actions.add("跳到");
+		actions.add("跳回到上个");
+		actions.add("跳回到上几个");
 		actions.add("单选");
 		actions.add("发请求");
 		actions.add("弹出");
@@ -490,6 +521,7 @@ public class CompomentDialog2 extends JDialog {
 				bean.actionDetailString=actionDetail.getText();
 				bean.interfaceId=interfaceid;
 				bean.interfaceColumnEnName=interfaceColumnEnName;
+				bean.jumpToWhichPage=jumpToWhichPage;
 				
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
 				bean.enname = (enNameEdit.getText().trim() + compomentType)
@@ -1081,4 +1113,42 @@ public class CompomentDialog2 extends JDialog {
        
         return  keyvalue;  
     }  
+    
+    
+    
+public ArrayList searchPics(String root)
+	
+	{
+	
+	ArrayList temp=new ArrayList();
+		File file = new File(root);
+		
+		File[] files = file.listFiles(new FileFilter(){
+
+			public boolean accept(File fl) {
+				return !fl.isDirectory();
+			}
+			
+		});
+		
+	
+		
+		for(File f:files)
+		{
+			String picname=f.getName();
+			if(picname.indexOf(".")!=-1)
+			{
+				
+				temp.add(picname.split(".")[0]);
+			}else
+				
+			{
+				temp.add(f.getName());
+			}
+			
+		 
+		}
+
+		return temp;
+	}
 }
