@@ -16,6 +16,7 @@ public class ViewControllerM {
 	
 		String i="\n\n\n";
 		String tablem="\n";
+		String scrollm="\n";
 		String setvaluem="\n";
 		String viewDidLoad_viewClickDeclare="";
 		String viewDidLoad_viewClickImplement="";
@@ -92,7 +93,18 @@ public class ViewControllerM {
 
 			i+=viewDidLoad_viewClickDeclare;
 			
-			i+="}\n\n";
+			
+			
+			i+="\n UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboard)];\n";
+			i+="[self.scroll addGestureRecognizer:closeKeyboardtap];\n";
+		    
+		    i+="}\n\n";
+
+		    i+="-(void)closeKeyboard\n";
+		    i+="{\n";
+		    i+=" [[[UIApplication sharedApplication] keyWindow] endEditing:YES];\n";
+		    i+="}\n";
+			
 
             i+="-(void)handTap{\n  "
             		+ "  [self presentViewController:updatePwdViewController animated:NO completion:^{}];\n"
@@ -113,6 +125,9 @@ public class ViewControllerM {
 			i+="-(void) setUiValue{\n";
 			i+=setvaluem;
 			i+="}\n\n";
+			
+			i+=scrollm+"\n";
+			
             i+="\n@end\n";
             
          
@@ -197,47 +212,38 @@ public class ViewControllerM {
 					
 				}else if(chirld.actionString.equals("单选"))
 				{
-					viewDidLoad_viewClickImplement+="  btn.selected = !btn.selected ;//用与button做checkBox\n";
-					viewDidLoad_viewClickImplement+=" OrderForm *orderform=datas[mId];\n";
-				    viewDidLoad_viewClickImplement+=" if (orderform.invoiceCheck ) {//选中\n";
-					viewDidLoad_viewClickImplement+="  orderform.invoiceCheck=false;\n";
-					viewDidLoad_viewClickImplement+="}else\n";
-				    viewDidLoad_viewClickImplement+="{\n";
-					viewDidLoad_viewClickImplement+="   orderform.invoiceCheck=true;\n";
-					viewDidLoad_viewClickImplement+="}\n";
-					viewDidLoad_viewClickImplement+="[self refreshUi];\n";
+					
 					
 					
 				}else if(chirld.actionString.equals("发请求"))
 				{
-					
-					viewDidLoad_viewClickImplement+="[self request00];\n";
+					viewDidLoad_viewClickImplement+=" MsgReturn *msgReturn=[[MsgReturn alloc]init];\n";
+				    viewDidLoad_viewClickImplement+=" msgReturn.errorCode=@\"-1\";//-1显示自定义内容\n";
+					viewDidLoad_viewClickImplement+=" msgReturn.errorType=@\"02\";\n";
+					viewDidLoad_viewClickImplement+=" msgReturn.errorDesc=@\"请输入搜索内容\";\n";
+					viewDidLoad_viewClickImplement+=" [PromptError changeShowErrorMsg:msgReturn title:@\"\"  viewController:self block:^(BOOL OKCancel){}];\n\n";
+					viewDidLoad_viewClickImplement+="[self request"+chirld.interfaceId+"];\n";
 					
 				}else if(chirld.actionString.equals("弹出"))
 				{
 					
-					   productListMenuViewController=[[ProductListMenuViewController alloc ] initWithNibName:@"ProductListMenuViewController" bundle:nil];
-					    [productListMenuViewController.view setFrame:CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y-8
-					                                                            , tableView.frame.size.width, tableView.frame.size.height)];
-					    
-					    [self.view addSubview:productListMenuViewController.view];
-					    
-					    productListMenuViewController.view.hidden=YES;
-					    
-					    [productListMenuViewController setUiValue:upToLows type:@"price"  delegate:self];
-
-					    
-					    if (productListMenuViewController.view.hidden) {
-					        productListMenuViewController.view.hidden=NO;
-					         [self.priceDownPic setImage:[UIImage imageNamed:@"up.png"]];
-					        [self.categateDownPic setImage:[UIImage imageNamed:@"down.png"]];
-					    }else
-					    {
-					    productListMenuViewController.view.hidden=YES;
-					        [self.priceDownPic setImage:[UIImage imageNamed:@"down.png"]];
-					        [self.categateDownPic setImage:[UIImage imageNamed:@"down.png"]];
-					        
-					    }
+					viewDidLoad_viewClickImplement+="if(menu==nil){";
+					viewDidLoad_viewClickImplement+="menu=[["+firstCharToUpperAndJavaName(chirld.jumpToWhichPage)+"MenuViewController alloc ] initWithNibName:@\""+firstCharToUpperAndJavaName(chirld.jumpToWhichPage)+"MenuViewController\" bundle:nil];\n";
+					
+					viewDidLoad_viewClickImplement+="[menu.view setFrame:CGRectMake(menu.frame.origin.x, menu.frame.origin.y-menu.frame.size.height , .frame.size.width, .frame.size.height)];\n";
+				
+					viewDidLoad_viewClickImplement+="[self.view addSubview:menu.view];\n";
+			
+					viewDidLoad_viewClickImplement+="[menu setUiValue:datas  delegate:self];\n";
+					viewDidLoad_viewClickImplement+="menu.view.hidden=YES;\n";
+					viewDidLoad_viewClickImplement+="}\n\n";
+					
+					viewDidLoad_viewClickImplement+="if (menu.view.hidden) {\n";
+					viewDidLoad_viewClickImplement+="    menu.view.hidden=NO;\n";
+					viewDidLoad_viewClickImplement+="}else\n";
+					viewDidLoad_viewClickImplement+="{\n";
+					viewDidLoad_viewClickImplement+="    menu.view.hidden=YES;\n";
+					viewDidLoad_viewClickImplement+="}\n";
 
 				}
 				
@@ -256,18 +262,27 @@ public class ViewControllerM {
 				setvaluem+="//"+chirld.cnname+"\n";
 				setvaluem+="["+chirld.enname+" setValue:]\n";
 				
-				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
-				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
-				viewDidLoad_viewClickImplement+="UITextRange * selectedRange = [textField markedTextRange];\n";
-				viewDidLoad_viewClickImplement+="if(selectedRange == nil || selectedRange.empty){\n";
-				     // 这里取到textfielf.text 进行检索
-				viewDidLoad_viewClickImplement+="}\n"; 
-				viewDidLoad_viewClickImplement+="}\n";
-				
-				viewDidLoad_viewClickImplement+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".tag=i;\n";
+				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
+				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
-				viewDidLoad_viewClickImplement+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				viewDidLoad_viewClickImplement+=" int  orderFormIndex= textField.tag;\n";
+				viewDidLoad_viewClickImplement+="     OrderForm *orderform=orderForms[orderFormIndex ];\n";
+				viewDidLoad_viewClickImplement+="     orderform.invoiceMsg=textField.text;\n";
 				viewDidLoad_viewClickImplement+="}\n\n";
+				
+				
+				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".tag=i;\n";
+				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
+				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEnd:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEnd:(UITextField *)textField{\n";
+	            viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				viewDidLoad_viewClickImplement+=" int  orderFormIndex= textField.tag;\n";
+				viewDidLoad_viewClickImplement+="     OrderForm *orderform=orderForms[orderFormIndex ];\n";
+				viewDidLoad_viewClickImplement+="     orderform.invoiceMsg=textField.text;\n";
+				viewDidLoad_viewClickImplement+="}\n\n";
+				
 			}
 
 			if (chirld.type.equals("CheckBox")) {
@@ -281,9 +296,17 @@ public class ViewControllerM {
 			     
 				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-				viewDidLoad_viewClickImplement+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-				viewDidLoad_viewClickImplement+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
-				viewDidLoad_viewClickImplement+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+				viewDidLoad_viewClickImplement+="id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
+				viewDidLoad_viewClickImplement+="int mId2 = btn.tag;\n//取绑定数据";
+				viewDidLoad_viewClickImplement+="  btn.selected = !btn.selected ;//用与button做checkBox\n";
+				viewDidLoad_viewClickImplement+=" OrderForm *orderform=datas[mId];\n";
+			    viewDidLoad_viewClickImplement+=" if (orderform.invoiceCheck ) {//选中\n";
+				viewDidLoad_viewClickImplement+="  orderform.invoiceCheck=false;\n";
+				viewDidLoad_viewClickImplement+="}else\n";
+			    viewDidLoad_viewClickImplement+="{\n";
+				viewDidLoad_viewClickImplement+="   orderform.invoiceCheck=true;\n";
+				viewDidLoad_viewClickImplement+="}\n";
+				viewDidLoad_viewClickImplement+="[self refreshUi];\n";
 				viewDidLoad_viewClickImplement+="}\n\n";
 			
 				
@@ -380,6 +403,12 @@ public class ViewControllerM {
 			if (chirld.type.equals("ExpandableListView")) {
 
 			}
+			
+			
+			if (chirld.type.equals("ScrollView")) {
+				scrollm+="-(void) scrollUI{\n}\n";
+			}
+			
 		}
 
 			
