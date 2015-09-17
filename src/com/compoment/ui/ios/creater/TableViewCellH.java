@@ -22,7 +22,7 @@ public class TableViewCellH {
 
     String className="";
 
-	
+	String type="";
 	
 	
 	public static void main(String[] args) {
@@ -34,8 +34,9 @@ public class TableViewCellH {
   
 
         
-	public TableViewCellH(String pageName,List<CompomentBean> oldBeans) {
-	
+	public TableViewCellH(String pageName,List<CompomentBean> oldBeans,String type) {
+		//type= TableViewCell  TableViewHeadCell   ScrollViewCell  
+		this.type=type;
 		this.pageName=pageName;
         className=firstCharToUpperAndJavaName(pageName);
 		//copyFile();
@@ -68,7 +69,7 @@ public class TableViewCellH {
 	public void analyse(List<CompomentBean> oldBeans) {
 		
 		n+="#import <UIKit/UIKit.h>\n";
-		n+="@interface "+className+"TableViewCell :UITableViewCell\n";
+		n+="@interface "+className+type+" :UITableViewCell\n";
 
 		
 		int maxW = 0;
@@ -98,7 +99,7 @@ public class TableViewCellH {
 		n+="@end\n";
   
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"TableViewCell",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+type,
 				"h", n);
 	}
 

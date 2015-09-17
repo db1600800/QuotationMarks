@@ -21,7 +21,9 @@ public class TableViewCellM {
 
 	
     String className="";
-
+    
+  /**type= TableViewCell  TableViewHeadCell   ScrollViewCell */
+    String type="";
 	
 	
 	
@@ -34,8 +36,9 @@ public class TableViewCellM {
   
 
         
-	public TableViewCellM(String pageName,List<CompomentBean> oldBeans) {
-	
+	public TableViewCellM(String pageName,List<CompomentBean> oldBeans,String type) {
+		//type= TableViewCell  TableViewHeadCell   ScrollViewCell  
+        this.type=type;
 		this.pageName=pageName;
         className=firstCharToUpperAndJavaName(pageName);
 		//copyFile();
@@ -67,8 +70,8 @@ public class TableViewCellM {
 	public void analyse(List<CompomentBean> oldBeans) {
 		
 		n+="#import <Foundation/Foundation.h>\n";
-		n+="#import \""+className+"TableViewCell.h\"\n";
-		n+="@implementation "+className+"TableViewCell\n";
+		n+="#import \""+className+type+".h\"\n";
+		n+="@implementation "+className+type+"\n";
 
 		
 
@@ -101,7 +104,7 @@ public class TableViewCellM {
 		
 		n+="@end\n";
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"TableViewCell",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+type,
 				"m", n);
 	}
 

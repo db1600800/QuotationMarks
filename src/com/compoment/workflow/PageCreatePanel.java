@@ -36,8 +36,7 @@ import com.compoment.ui.ios.creater.ChirldViewControllerH;
 import com.compoment.ui.ios.creater.ChirldViewControllerM;
 import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
-import com.compoment.ui.ios.creater.TableViewCellHeadH;
-import com.compoment.ui.ios.creater.TableViewCellHeadM;
+
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
@@ -376,7 +375,9 @@ public class PageCreatePanel {
 			
 			}
 		
-		else if (frame.pageType.contains("TableViewHeadView-IOS")) {
+		
+		
+		else if (frame.pageType.contains("TableViewHeadCell-IOS")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
@@ -389,12 +390,13 @@ public class PageCreatePanel {
 	            }
 			savePublicCompoment();
 
-			TableViewCellHeadH viewControllerH=new TableViewCellHeadH(frame.pageName,frame.beans);
-			TableViewCellHeadM viewControllerM=new TableViewCellHeadM(frame.pageName,frame.beans);
+			TableViewCellH viewControllerH=new TableViewCellH(frame.pageName,frame.beans,"TableViewHeadCell");
+			TableViewCellM viewControllerM=new TableViewCellM(frame.pageName,frame.beans,"TableViewHeadCell");
 			
 			IphoneTableViewCellHeadXib  iphoneLayout = new IphoneTableViewCellHeadXib(frame.pageName,frame.beans);
 			
 			}
+		
 		
 		else if (frame.pageType.contains("TableViewCell-IOS")) {
 			// 页面分析生成
@@ -409,8 +411,8 @@ public class PageCreatePanel {
 	            }
 			savePublicCompoment();
 
-			TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans);
-			TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans);
+			TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans,"TableViewCell");
+			TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans,"TableViewCell");
 			
 			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans);
 			
@@ -419,6 +421,25 @@ public class PageCreatePanel {
 			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName);
 			
 		}
+		else if (frame.pageType.contains("ScrollViewCell-IOS")) {
+			// 页面分析生成
+			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					frame.pageName, frame.beans);
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
+			savePublicCompoment();
+
+			TableViewCellH viewControllerH=new TableViewCellH(frame.pageName,frame.beans,"ScrollViewCell");
+			TableViewCellM viewControllerM=new TableViewCellM(frame.pageName,frame.beans,"ScrollViewCell");
+			
+			IphoneTableViewCellHeadXib  iphoneLayout = new IphoneTableViewCellHeadXib(frame.pageName,frame.beans);
+			
+			}
 
 		frame.beans.clear();
 		frame.beansForSwing.clear();

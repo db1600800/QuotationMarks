@@ -262,9 +262,12 @@ public class ViewControllerM {
 				setvaluem+="//"+chirld.cnname+"\n";
 				setvaluem+="["+chirld.enname+" setValue:]\n";
 				
-				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".tag=i;\n";
+				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			
 				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
 				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
 				viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
 				viewDidLoad_viewClickImplement+=" int  orderFormIndex= textField.tag;\n";
@@ -274,10 +277,12 @@ public class ViewControllerM {
 				
 				
 				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".tag=i;\n";
-				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
 				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEnd:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
+				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEnd:(UITextField *)textField{\n";
 	            viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
+	            viewDidLoad_viewClickImplement+="id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 				viewDidLoad_viewClickImplement+=" int  orderFormIndex= textField.tag;\n";
 				viewDidLoad_viewClickImplement+="     OrderForm *orderform=orderForms[orderFormIndex ];\n";
 				viewDidLoad_viewClickImplement+="     orderform.invoiceMsg=textField.text;\n";
@@ -290,12 +295,15 @@ public class ViewControllerM {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			
+				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Check:) forControlEvents:UIControlEventTouchUpInside];\n";
 				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
 				viewDidLoad_viewClickDeclare+=" [self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
 			     
 				
-				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"Check:(UIButton *)btn{\n";
 				viewDidLoad_viewClickImplement+="id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 				viewDidLoad_viewClickImplement+="int mId2 = btn.tag;\n//取绑定数据";
 				viewDidLoad_viewClickImplement+="  btn.selected = !btn.selected ;//用与button做checkBox\n";
