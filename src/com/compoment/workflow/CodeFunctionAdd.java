@@ -25,7 +25,10 @@ import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
-
+/**
+ * 
+ * 功能添加页
+ * */
 public class CodeFunctionAdd extends JFrame {
 
 	class Function {

@@ -83,25 +83,32 @@ public class WordtableToJavaObject {
 		public String title;// 接口名称
 		public String detail;// 接口描述
 		public String id;// 接口id号
-		public List<Group> requestGroups = new ArrayList();// 循环域开始结束构成一个组 ，
+		public List<Group> requestGroups ;// 循环域开始结束构成一个组 ，
 													// 自定义对象开始结束构成一个组，
 		// 其它的则构成一个通用组
 		// ，每个组由一行或多行row构成
 
-		public List<Group> respondGroups = new ArrayList();
+		public List<Group> respondGroups ;
+		
+		public InterfaceBean()
+		{requestGroups = new ArrayList();
+			
+			respondGroups = new ArrayList();
+			
+		}
 		
 	
 	}
 
-	class Group {
-		String name;// 组名
-		List<Row> rows = new ArrayList();
+	public class Group {
+		public String name;// 组名
+		public List<Row> rows = new ArrayList();
 	}
 
-	class Row {
-		String cnName;
-		String enName;
-		String type;
+	public class Row {
+		public String cnName;
+		public String enName;
+		public String type;
 		public String getType() {
 			return type.replaceAll("[^0-9a-zA-Z]","");
 		}

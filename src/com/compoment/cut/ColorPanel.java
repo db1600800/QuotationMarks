@@ -31,6 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.compoment.workflow.CompomentDialog2;
+
 
 /**
  * 获得截取图片的色值
@@ -45,7 +47,7 @@ public class ColorPanel extends JPanel {
 	/**
 	 * 获得截取图片的色值
 	 * */
-	public ColorPanel(JFrame mframe, Image img, final CompomentDialog dialog) {
+	public ColorPanel(JFrame mframe, Image img, final CompomentDialog2 dialog) {
 		super();
 		this.frame = mframe;
 		int width = img.getWidth(mframe);

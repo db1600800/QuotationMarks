@@ -140,7 +140,7 @@ public class CompomentDialog {
 		bg1427167276109LinearLayout.addComponent(baseListListViewScrollPane);
 
 		/** 基本组件图片 */
-		basePicPanel = new ColorPanel(frame, image, this);
+		basePicPanel =null;// new ColorPanel(frame, image, this);
 		JScrollPane basePicScrollPane = new JScrollPane(
 				basePicPanel);
 		
@@ -810,7 +810,7 @@ public class CompomentDialog {
 				break;
 			}
 			
-			System.out.println("j:"+j+" i:"+i);
+			
 			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
 				yoffset=j;

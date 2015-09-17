@@ -4,7 +4,8 @@ package com.compoment.cut.example;
 
 import javax.swing.JFrame;
 
-import com.compoment.workflow.ProjectFrame;
+
+import com.compoment.workflow.ProjectFrame2;
 
 
 
@@ -18,12 +19,13 @@ public class LayoutCreater {
 	public static void main(String[] args) {
 //		String picName="/src/com/compoment/cut/example/1.png";
 //		String picPcPath="c:/pic/";
-//	     MainFrame frame = new MainFrame(picName,picPcPath);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//		frame.setBounds(50, 50, 1024, 768);
-//
-//		frame.setVisible(true);
-		new ProjectFrame();
+		
+		
+		ProjectFrame2 frame = new ProjectFrame2();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		
+		frame.setVisible(true);
+	
 	}
 }

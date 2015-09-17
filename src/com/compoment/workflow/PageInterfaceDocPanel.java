@@ -30,7 +30,7 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class PageInterfaceDocPanel {
-	public JFrame projectFrame;
+	public Component projectFrame;
 
 	public ArrayList listDate = new ArrayList();
 	/** 中文 */
@@ -68,6 +68,10 @@ public class PageInterfaceDocPanel {
 	
 	
 	public PageInterfaceDocPanel(JFrame projectFrame) {
+		this.projectFrame = projectFrame;
+	}
+	
+	public PageInterfaceDocPanel(JDialog projectFrame) {
 		this.projectFrame = projectFrame;
 	}
 
