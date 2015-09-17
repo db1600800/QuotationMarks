@@ -341,10 +341,10 @@ public class CompomentDialog {
 				
 				if(!compomentType.contains("Layout"))
 				{
-				bean.x = x+(int)xyzMap.get("xoffset");
-				bean.y = y+(int)xyzMap.get("yoffset");
-				bean.w = w-(int)xyzMap.get("woffset");
-				bean.h = h-(int)xyzMap.get("hoffset");
+				bean.x = x+(Integer)xyzMap.get("xoffset");
+				bean.y = y+(Integer)xyzMap.get("yoffset");
+				bean.w = w-(Integer)xyzMap.get("woffset");
+				bean.h = h-(Integer)xyzMap.get("hoffset");
 				}else
 				{
 					bean.x = x;
@@ -527,7 +527,7 @@ public class CompomentDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(true);
 				} else if (compomentType.contains("ImageView")) {
-					colorEdit.setText("颜色");
+					//colorEdit.setText("颜色");
 					colorEdit.setVisible(false);
 					bgColorEdit.setText("背景颜色");
 					bgColorEdit.setVisible(false);
@@ -552,7 +552,7 @@ public class CompomentDialog {
 					setPublicCheckBox.setVisible(false);
 				} else if (
 						 compomentType.contains("EditText")) {
-					colorEdit.setText("文字颜色");
+					//colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
 					bgColorEdit.setVisible(true);
@@ -566,7 +566,7 @@ public class CompomentDialog {
 				}
 				else if (compomentType.contains("Button")
 						) {
-					colorEdit.setText("文字颜色");
+					//colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
 					bgColorEdit.setVisible(true);
@@ -582,7 +582,7 @@ public class CompomentDialog {
 				
 				else if (compomentType.contains("CheckBox")
 						|| compomentType.contains("TextView")) {
-					colorEdit.setText("文字颜色");
+					//colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
 					bgColorEdit.setVisible(false);
