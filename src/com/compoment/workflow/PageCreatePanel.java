@@ -421,25 +421,7 @@ public class PageCreatePanel {
 			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName);
 			
 		}
-		else if (frame.pageType.contains("ScrollViewCell-IOS")) {
-			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					frame.pageName, frame.beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
-			savePublicCompoment();
-
-			TableViewCellH viewControllerH=new TableViewCellH(frame.pageName,frame.beans,"ScrollViewCell");
-			TableViewCellM viewControllerM=new TableViewCellM(frame.pageName,frame.beans,"ScrollViewCell");
-			
-			IphoneTableViewCellHeadXib  iphoneLayout = new IphoneTableViewCellHeadXib(frame.pageName,frame.beans);
-			
-			}
+		
 
 		frame.beans.clear();
 		frame.beansForSwing.clear();

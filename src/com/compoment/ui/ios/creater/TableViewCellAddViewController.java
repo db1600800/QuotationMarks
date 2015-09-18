@@ -153,7 +153,7 @@ public class TableViewCellAddViewController {
 			m+="    {\n";
 			m+="       cellHead = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCellHead\" owner:self options:nil] lastObject];\n";
 			m+="    }\n";
-			m+=n;
+			m+=controllers;
 			m+="return cellHead;\n";
 	    	content += m;
 	 }
@@ -177,7 +177,7 @@ public class TableViewCellAddViewController {
 					m+="    {\n";
 					m+="       cell = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCell\" owner:self options:nil] lastObject];\n";
 					m+="    }\n";
-					m+=n;
+					m+=controllers;
 					m+="return cell;\n";
 			    	content += m;
 				}
@@ -192,7 +192,7 @@ public class TableViewCellAddViewController {
 				    m+="  [self.cacheCells setObject:cell forKey:reuseIdentifier];\n";
 				    m+="}\n\n";
 
-				    m+=n;
+				    m+=controllers;
 				    
 				    m+="\n// CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];//autolayout有效 配合上边使用\n";
 				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
@@ -260,7 +260,7 @@ content += m;
 	}
 
 
-	String n="";
+	String controllers="";
 	public void analyse(List<CompomentBean> oldBeans) {
 		
 		//n+="    NSMutableDictionary *sectionADic=[sectionAZDicArray objectAtIndex:indexPath.section];  \n";
@@ -316,63 +316,63 @@ content += m;
 	public void chirld(CompomentBean chirld, CompomentBean parent) {
 
 		if (chirld.type.equals("TextView")) {
-			n+="//"+chirld.cnname+"\n";
-			n+="cell."+chirld.enname+".text= ((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+";\n";
+			controllers+="//"+chirld.cnname+"\n";
+			controllers+="cell."+chirld.enname+".text= ((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+";\n";
 	
 		
 		}
 
 		if (chirld.type.equals("Button")) {
-			n+="//"+chirld.cnname+"\n";
-			n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
-		    n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
+			controllers+="//"+chirld.cnname+"\n";
+			controllers+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
+		    controllers+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
 	
-			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			  controllers+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			  controllers+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 				
-			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
-			n+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-			n+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-			n+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
-			 n+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
-			n+="}\n";
+			controllers+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			controllers+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+			controllers+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			controllers+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
+			 controllers+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+			controllers+="}\n";
 			
 		
 		}
 
 		if (chirld.type.equals("EditText")) {
-			n+="//"+chirld.cnname+"\n";
+			controllers+="//"+chirld.cnname+"\n";
 			
-			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
-				n+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
-				n+="UITextRange * selectedRange = [textField markedTextRange];\n";
-				n+="if(selectedRange == nil || selectedRange.empty){\n";
+			controllers+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"EditingChanged:) forControlEvents:UIControlEventEditingChanged];\n";
+				controllers+="-(void)"+chirld.enname+"EditingChanged:(UITextField *)textField{\n";
+				controllers+="UITextRange * selectedRange = [textField markedTextRange];\n";
+				controllers+="if(selectedRange == nil || selectedRange.empty){\n";
 				     // 这里取到textfielf.text 进行检索
-				n+="}\n"; 
-				n+="}\n";
+				controllers+="}\n"; 
+				controllers+="}\n";
 				
-				n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
-				n+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
-				n+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
-				n+="}\n";
+				controllers+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				controllers+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
+				controllers+=" [...other控件 becomeFirstResponder];//把焦点给别人 键盘消失\n";
+				controllers+="}\n";
 
 		}
 
 		if (chirld.type.equals("CheckBox")) {
 		
-			n+="//"+chirld.cnname+"\n";
-			n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
-		    n+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
+			controllers+="//"+chirld.cnname+"\n";
+			controllers+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\""+chirld.picName+"\"] forState:UIControlStateNormal];\n";
+		    controllers+="[cell."+chirld.enname+" setImage:[UIImage imageNamed:@\"press"+chirld.picName+"\"] forState:UIControlStateSelected];\n";
 	
-			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-			  n+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			  controllers+=" objc_setAssociatedObject(cell."+chirld.enname+", \"section\", indexPath.section, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			  controllers+=" objc_setAssociatedObject(cell."+chirld.enname+", \"row\", indexPath.row, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 				
-			n+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
-			n+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
-			n+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-			n+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
-			 n+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
-			n+="}\n";
+			controllers+="[cell."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			controllers+="-(void)"+chirld.enname+"clicked:(UIButton *)btn{\n";
+			controllers+=" //objc_setAssociatedObject(btn, \"productId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			controllers+="id productId = objc_getAssociatedObject(btn, \"productId\");\n//取数据";
+			 controllers+="  //btn.selected = !btn.selected;\n//用于butoon做checkBox控件";
+			controllers+="}\n";
 		}
 
 		if (chirld.type.equals("ListView")) {
@@ -380,8 +380,8 @@ content += m;
 		}
 
 		if (chirld.type.equals("ImageView")) {
-			n+="//"+chirld.cnname+"\n";
-			n+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+" placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
+			controllers+="//"+chirld.cnname+"\n";
+			controllers+="[cell."+chirld.enname+" setImageWithURL:[NSURL URLWithString:((..*)[listData objectAtIndex:indexPath.row])."+chirld.enname+" placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 		
 		}
 

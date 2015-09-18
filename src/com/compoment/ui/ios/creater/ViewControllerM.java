@@ -120,11 +120,12 @@ public class ViewControllerM {
 			
 			i+=viewDidLoad_viewClickImplement;
 			
+			
 			i+=tablem;
 			
-			i+="-(void) setUiValue{\n";
-			i+=setvaluem;
-			i+="}\n\n";
+//			i+="-(void) setUiValue{\n";
+//			i+=setvaluem;
+//			i+="}\n\n";
 			
 			i+=scrollm+"\n";
 			
