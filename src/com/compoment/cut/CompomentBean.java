@@ -41,6 +41,7 @@ public class CompomentBean implements Serializable {
 	public String textSize;
 	public boolean isImgCache = false;
 	public boolean isPublicCompoment = false;
+	public boolean isRunTimeAddScrollView=false;
 	public boolean isFilletedCorner=false;//是否是圆角
 	public String id;// for iPhone id=jyV-Pf-zRb
 

@@ -140,11 +140,52 @@ public class ViewControllerM {
 		public void parent(CompomentBean bean) {
 
 			if (bean.chirlds != null && bean.chirlds.size() > 0) {
+				
+				if (bean.type.equals("ScrollView"))
+				{
+		    int height=0;
+		    int width=self.scroll.frame.size.width;
+		    int x=0;
+		    int y=0;
+		    
+		    ConfirmOderFormAddressTableViewCell *confirmOderFormAddressTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ConfirmOderFormAddressTableViewCell" owner:self options:nil] lastObject];
+		    [cell2 setFrame:CGRectMake(x
+                    , y+height
+                    , width
+                    , cell2.frame.size.height)];
+		    
+		    
+		    height+=cell1.frame.size.height;
+            NSLog(@"%@",cell1);
+         [self.scroll addSubview:cell1];
+         
+         
+         self.scroll.contentSize=CGSizeMake(width, height);
+         
+         
+         
+         UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+         self.scroll.contentInset = contentInsets;
+         self.scroll.scrollIndicatorInsets = contentInsets;
+         
+
+             [self.scroll setFrame:CGRectMake(0, self.head1.frame.size.height, self.scroll.frame.size.width, self.view.frame.size.height-self.head1.frame.size.height-self.bottom2.frame.size.height)];
+				
+				}
+				
 				for (CompomentBean chirld : bean.chirlds) {
 
 					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
+						if (bean.type.equals("ScrollView"))
+								{
+						    int height=0;
+						    int width=self.scroll.frame.size.width;
+						    int x=0;
+						    int y=0;
+								}
 						parent(chirld);
+						
 					} else {
 						chirld(chirld, bean);
 						

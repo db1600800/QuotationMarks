@@ -88,6 +88,8 @@ public class CompomentDialog2 extends JDialog {
 	String jumpToWhichPage;
 	private JTextField actionDetail;
 	
+	JCheckBox runTimeAddScrollView;
+	
 	
 	
 	/**
@@ -109,7 +111,7 @@ public class CompomentDialog2 extends JDialog {
 	 * Create the dialog.
 	 */
 	public CompomentDialog2() {
-		setBounds(100, 100, 1000, 600);
+		setBounds(100, 100, 1100, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -177,7 +179,7 @@ public class CompomentDialog2 extends JDialog {
 		
 		JLabel label = new JLabel("页面");
 		
-		JCheckBox runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView");
+		 runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView");
 		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -570,6 +572,12 @@ public class CompomentDialog2 extends JDialog {
 					savePic(image, bean.enname);
 					bean.isPublicCompoment=true;
 				}
+				
+				if(runTimeAddScrollView.isSelected())
+				{
+					bean.isRunTimeAddScrollView=true;	
+				}
+				
 				circula(bean);
 				implementInterfaceFrame.compomentDialogCallBack(bean);
 				CompomentDialog2.this.setVisible(false);
@@ -719,6 +727,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(true);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(true);
+					runTimeAddScrollView.setVisible(true);
 				} else if (compomentType.contains("ImageView")) {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(false);
@@ -731,6 +740,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(true);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				} else if (compomentType.contains("ListView")||compomentType.contains("ScrollView")) {
 					colorEdit.setText("行间距颜色");
 					colorEdit.setVisible(true);
@@ -743,6 +753,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				} else if (
 						 compomentType.contains("EditText")) {
 					colorEdit.setText("文字颜色");
@@ -756,6 +767,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				}
 				else if (compomentType.contains("Button")
 						) {
@@ -770,6 +782,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				}
 				
 				
@@ -786,6 +799,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				} else if (compomentType.equals("View")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(false);
@@ -798,6 +812,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				} else {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(true);
@@ -810,6 +825,7 @@ public class CompomentDialog2 extends JDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
 				}
 
                CompomentDialog2.this.setVisible(true);
