@@ -537,10 +537,10 @@ public class CompomentDialog2 extends JDialog {
 				
 				if(!compomentType.contains("Layout"))
 				{
-				bean.x = x+(int)xyzMap.get("xoffset");
-				bean.y = y+(int)xyzMap.get("yoffset");
-				bean.w = w-(int)xyzMap.get("woffset");
-				bean.h = h-(int)xyzMap.get("hoffset");
+				bean.x = x+(Integer)xyzMap.get("xoffset");
+				bean.y = y+(Integer)xyzMap.get("yoffset");
+				bean.w = w-(Integer)xyzMap.get("woffset");
+				bean.h = h-(Integer)xyzMap.get("hoffset");
 				}else
 				{
 					bean.x = x;
