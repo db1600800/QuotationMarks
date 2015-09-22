@@ -192,8 +192,8 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 			components.add("RelativeLayout");
 			components.add("LinearLayout");
 			components.add("DrawerLayout");
+			components.add("ScrollViewLayout");
 			components.add("TableRow");
-			components.add("ScrollView");
 			components.add("View");
 			
 			components.add("TextView");
