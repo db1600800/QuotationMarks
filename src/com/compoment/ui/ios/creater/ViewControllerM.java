@@ -26,10 +26,6 @@ public class ViewControllerM {
             this.pageName=pageName;
             className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
-
-
-	
-			
 			System.out.println(i);
 
 		}
@@ -143,34 +139,14 @@ public class ViewControllerM {
 				
 				if (bean.type.equals("ScrollView"))
 				{
-		    int height=0;
-		    int width=self.scroll.frame.size.width;
-		    int x=0;
-		    int y=0;
-		    
-		    ConfirmOderFormAddressTableViewCell *confirmOderFormAddressTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ConfirmOderFormAddressTableViewCell" owner:self options:nil] lastObject];
-		    [cell2 setFrame:CGRectMake(x
-                    , y+height
-                    , width
-                    , cell2.frame.size.height)];
-		    
-		    
-		    height+=cell1.frame.size.height;
-            NSLog(@"%@",cell1);
-         [self.scroll addSubview:cell1];
-         
-         
-         self.scroll.contentSize=CGSizeMake(width, height);
-         
-         
-         
-         UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-         self.scroll.contentInset = contentInsets;
-         self.scroll.scrollIndicatorInsets = contentInsets;
-         
-
-             [self.scroll setFrame:CGRectMake(0, self.head1.frame.size.height, self.scroll.frame.size.width, self.view.frame.size.height-self.head1.frame.size.height-self.bottom2.frame.size.height)];
-				
+					
+					scrollm+="-(void) scrollUI{\n";	
+					scrollm+="int height=0;\n";
+					scrollm+="int width=self."+bean.enname+".frame.size.width;\n";
+					scrollm+="int x=0;\n";
+					scrollm+="int y=0;\n";
+		   
+ 
 				}
 				
 				for (CompomentBean chirld : bean.chirlds) {
@@ -178,12 +154,34 @@ public class ViewControllerM {
 					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
 						if (bean.type.equals("ScrollView"))
-								{
-						    int height=0;
-						    int width=self.scroll.frame.size.width;
-						    int x=0;
-						    int y=0;
-								}
+					    {
+					
+							if(chirld.isRunTimeAddScrollView)
+							{
+							List tempBeans=new ArrayList();
+							tempBeans=chirld.chirlds;
+							tempBeans.add(chirld);
+							
+							TableViewCellH tableViewCellH=new TableViewCellH(chirld.enname,tempBeans,"ScrollViewCell");
+							TableViewCellM tableViewCellM=new TableViewCellM(chirld.enname,tempBeans,"ScrollViewCell");
+							
+							
+							 scrollm+=firstCharToUpperAndJavaName(chirld.enname)+"ScrollViewCell *"+chirld.enname+" = [[[NSBundle mainBundle] loadNibNamed:@\""+firstCharToUpperAndJavaName(chirld.enname)+"\"ScrollViewCell owner:self options:nil] lastObject];\n";
+							 scrollm+="  ["+chirld.enname+" setFrame:CGRectMake(x, y+height, width, "+chirld.enname+".frame.size.height)];\n";
+							    
+							    
+							 scrollm+=" height+="+chirld.enname+".frame.size.height;\n";
+					          
+							 scrollm+=" [self."+bean.enname+" addSubview:"+chirld.enname+"];\n\n";
+							}else
+								
+							{
+								
+								 scrollm+="  ["+chirld.enname+" setFrame:CGRectMake(x, y+height, width, "+chirld.enname+".frame.size.height)];\n";
+								    
+								 scrollm+=" height+="+chirld.enname+".frame.size.height;\n\n";
+							}
+						}
 						parent(chirld);
 						
 					} else {
@@ -191,12 +189,33 @@ public class ViewControllerM {
 						
 					}
 				}
+				
+				
+				
+				if (bean.type.equals("ScrollView"))
+				{
+
+         scrollm+="self."+bean.enname+".contentSize=CGSizeMake(width, height);\n\n";
+     
+         scrollm+=" UIEdgeInsets contentInsets = UIEdgeInsetsZero;\n";
+         scrollm+=" self."+bean.enname+".contentInset = contentInsets;\n";
+         scrollm+=" self."+bean.enname+".scrollIndicatorInsets = contentInsets;\n\n";
+      
+         scrollm+=" [self."+bean.enname+" setFrame:CGRectMake(0, self.head.frame.size.height, self."+bean.enname+".frame.size.width, self.view.frame.size.height-self.head.frame.size.height-self.bottom.frame.size.height)];\n";
+				
+				}
 
 			}
 
 		}
 
 		public void chirld(CompomentBean chirld, CompomentBean parent) {
+			
+			String selfString="self.";
+			if(parent.isRunTimeAddScrollView)
+			{
+				selfString="";	
+			}
 
 			if (chirld.type.equals("TextView")) {
 		
@@ -213,9 +232,9 @@ public class ViewControllerM {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
-				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewDidLoad_viewClickDeclare+=selfString+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject("+selfString+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewDidLoad_viewClickDeclare+="["+selfString+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
 				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"Clicked:(UIButton *)btn{\n"; 
 				viewDidLoad_viewClickImplement+="id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
@@ -304,11 +323,11 @@ public class ViewControllerM {
 				setvaluem+="//"+chirld.cnname+"\n";
 				setvaluem+="["+chirld.enname+" setValue:]\n";
 				
-				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
-				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewDidLoad_viewClickDeclare+=""+selfString+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject("+selfString+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			
-				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
-				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickDeclare+=" "+selfString+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
+				viewDidLoad_viewClickDeclare+="["+selfString+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
 				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEndOnExit:(UITextField *)textField{\n";
 				viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
@@ -318,9 +337,9 @@ public class ViewControllerM {
 				viewDidLoad_viewClickImplement+="}\n\n";
 				
 				
-				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".tag=i;\n";
-				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEnd:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
-				viewDidLoad_viewClickDeclare+=" self."+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
+				viewDidLoad_viewClickDeclare+=" "+selfString+chirld.enname+".tag=i;\n";
+				viewDidLoad_viewClickDeclare+="["+selfString+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"DidEnd:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+				viewDidLoad_viewClickDeclare+=" "+selfString+chirld.enname+".returnKeyType=UIReturnKeyDone;\n";
 				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"DidEnd:(UITextField *)textField{\n";
 	            viewDidLoad_viewClickImplement+=" [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
@@ -337,12 +356,12 @@ public class ViewControllerM {
 				i+="//"+chirld.cnname+"\n";
 				i+="@synthesize "+chirld.enname+";\n";
 				
-				viewDidLoad_viewClickDeclare+="self."+chirld.enname+".tag=;\n";
-				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject(self."+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+				viewDidLoad_viewClickDeclare+=""+selfString+chirld.enname+".tag=;\n";
+				viewDidLoad_viewClickDeclare+=" objc_setAssociatedObject("+selfString+chirld.enname+", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			
-				viewDidLoad_viewClickDeclare+="\n[self."+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Check:) forControlEvents:UIControlEventTouchUpInside];\n";
-				viewDidLoad_viewClickDeclare+="[self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
-				viewDidLoad_viewClickDeclare+=" [self."+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
+				viewDidLoad_viewClickDeclare+="\n["+selfString+chirld.enname+" addTarget:self action:@selector("+chirld.enname+"Check:) forControlEvents:UIControlEventTouchUpInside];\n";
+				viewDidLoad_viewClickDeclare+="["+selfString+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
+				viewDidLoad_viewClickDeclare+=" ["+selfString+chirld.enname+" setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
 			     
 				
 				viewDidLoad_viewClickImplement+="-(void)"+chirld.enname+"Check:(UIButton *)btn{\n";
@@ -455,9 +474,7 @@ public class ViewControllerM {
 			}
 			
 			
-			if (chirld.type.equals("ScrollView")) {
-				scrollm+="-(void) scrollUI{\n}\n";
-			}
+			
 			
 		}
 
