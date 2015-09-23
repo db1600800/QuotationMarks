@@ -40,7 +40,7 @@ public class IphoneTableViewCellXib {
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
 		
-	   IphoneViewControllerXibForHorizontallayout iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXibForHorizontallayout(320,40);
+	   IphoneViewControllerXib iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXib(320,40);
 		
 		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
 		connection=iphoneViewControllerXibForHorizontallayout.getConnection();

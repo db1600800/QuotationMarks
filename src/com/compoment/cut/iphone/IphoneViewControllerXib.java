@@ -26,7 +26,7 @@ import com.compoment.ui.ios.creater.ScrollViewCells;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class IphoneViewControllerXibForHorizontallayout {
+public class IphoneViewControllerXib {
 
 	String bodym = "\n\n\n";
 	String connection = "";
@@ -35,12 +35,12 @@ public class IphoneViewControllerXibForHorizontallayout {
 
     int rootViewWidth=320;
     int rootViewHeight=568;
-	public IphoneViewControllerXibForHorizontallayout(int cellWidth,int cellHeight) {
+	public IphoneViewControllerXib(int cellWidth,int cellHeight) {
 		rootViewWidth=cellWidth;
 		rootViewHeight=cellHeight;
 	}
 	
-	public IphoneViewControllerXibForHorizontallayout(String pageName, List<CompomentBean> oldBeans) {
+	public IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 

@@ -25,7 +25,7 @@ import com.compoment.cut.android.AndroidLayoutXml;
 
 import com.compoment.cut.iphone.IphoneTableViewCellXib;
 
-import com.compoment.cut.iphone.IphoneViewControllerXibForHorizontallayout;
+import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
@@ -339,7 +339,7 @@ public class PageCreatePanel {
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans);
 			
-			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
@@ -365,7 +365,7 @@ public class PageCreatePanel {
 			ChirldViewControllerH viewControllerH=new ChirldViewControllerH(frame.pageName,frame.beans);
 			ChirldViewControllerM viewControllerM=new ChirldViewControllerM(frame.pageName,frame.beans);
 			
-			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
