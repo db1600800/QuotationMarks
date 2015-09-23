@@ -31,9 +31,12 @@ public class IphoneTableViewCellXib {
     String className="";
     String tableViewCellContentViewId="";
     String tableViewCellid="";
+    String type;
 
     
-	public IphoneTableViewCellXib(String pageName,List<CompomentBean> oldBeans) {
+	public IphoneTableViewCellXib(String pageName,List<CompomentBean> oldBeans,String type) {
+		//type= TableViewCell  TableViewHeadCell   ScrollViewCell  
+		this.type=type;
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
 		
@@ -59,7 +62,7 @@ public class IphoneTableViewCellXib {
 		m+="        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
 		 tableViewCellid=id();
 		tableViewCellContentViewId=id();
-		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+tableViewCellid+"\" customClass=\""+className+"TableViewCell\">\n";
+		m+="        <tableViewCell contentMode=\"scaleToFill\" selectionStyle=\"blue\" indentationWidth=\"0.0\" rowHeight=\""+maxBean.h+"\" id=\""+tableViewCellid+"\" customClass=\""+className+type+"\">\n";
 		m+="            <rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"320\" height=\""+maxBean.h+"\"/>\n";
 		m+="            <autoresizingMask key=\"autoresizingMask\"/>\n";
 		m+="            <tableViewCellContentView key=\"contentView\" opaque=\"NO\" clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\" contentMode=\"center\" tableViewCell=\""+tableViewCellid+"\" id=\""+tableViewCellContentViewId+"\">\n";
@@ -89,7 +92,7 @@ public class IphoneTableViewCellXib {
 		
 		System.out.println(m);
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"TableViewCell",
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+type,
 				"xib", m);
 
 	}

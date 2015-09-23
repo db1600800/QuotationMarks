@@ -19,6 +19,8 @@ public class ViewControllerM {
 	String viewDidLoad_viewClickImplement = "";
 	String pageName = "";
 	String className = "";
+	String closeKeyboardDeclare="";
+	String closeKeyboardImplement="";
 	ScrollViewCells scrollViewCells;
 
 	public ViewControllerM(String pageName, List<CompomentBean> oldBeans) {
@@ -78,8 +80,7 @@ public class ViewControllerM {
 
 		i += viewDidLoad_viewClickDeclare;
 
-		i += "\n UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboard)];\n";
-		i += "[self.scroll addGestureRecognizer:closeKeyboardtap];\n";
+	    i+=closeKeyboardDeclare;
 
 		i += "}\n\n";
 
@@ -89,15 +90,13 @@ public class ViewControllerM {
 		i += "}\n\n";
 		
 		
-		i += "-(void)closeKeyboard\n";
-		i += "{\n";
-		i += " [[[UIApplication sharedApplication] keyWindow] endEditing:YES];\n";
-		i += "}\n\n";
+		
 
 	
 
 		i += viewDidLoad_viewClickImplement;
-
+		i+=closeKeyboardImplement;
+		
 		i += tablem;
 
 		// i+="-(void) setUiValue{\n";
@@ -124,8 +123,9 @@ public class ViewControllerM {
 				scrollViewCells = new ScrollViewCells();
 
 				scrollViewCells.parent(bean);
-
-			}
+               
+			}else
+			{
 
 			for (CompomentBean chirld : bean.chirlds) {
 
@@ -138,6 +138,7 @@ public class ViewControllerM {
 
 				}
 			}
+			}
 
 		}
 
@@ -146,9 +147,7 @@ public class ViewControllerM {
 	public void chirld(CompomentBean chirld, CompomentBean parent) {
 
 		String selfString = "self.";
-		if (parent.isRunTimeAddScrollView) {
-			selfString = "";
-		}
+
 
 		if (chirld.type.equals("TextView")) {
 
@@ -277,6 +276,16 @@ public class ViewControllerM {
 			viewDidLoad_viewClickImplement += "     OrderForm *orderform=orderForms[orderFormIndex ];\n";
 			viewDidLoad_viewClickImplement += "     orderform.invoiceMsg=textField.text;\n";
 			viewDidLoad_viewClickImplement += "}\n\n";
+			
+			
+			
+			closeKeyboardDeclare+= "\n UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboard)];\n";
+			closeKeyboardDeclare += "[self.scrollView addGestureRecognizer:closeKeyboardtap];\n";
+			
+			closeKeyboardImplement += "-(void)closeKeyboard\n";
+			closeKeyboardImplement += "{\n";
+			closeKeyboardImplement += " [[[UIApplication sharedApplication] keyWindow] endEditing:YES];\n";
+			closeKeyboardImplement += "}\n\n";
 
 		}
 
@@ -389,6 +398,12 @@ public class ViewControllerM {
 					+ " setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 
 		}
+		
+		if (chirld.type.equals("ScrollView")) {
+
+		}
+
+		
 
 		if (chirld.type.equals("ExpandableListView")) {
 

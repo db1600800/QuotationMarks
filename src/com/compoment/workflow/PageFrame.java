@@ -156,6 +156,7 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		
 		
 		beans.add(bean);
+	
 		
 		CheckProblem checkProblem=new CheckProblem();
 		

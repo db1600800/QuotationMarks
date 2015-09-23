@@ -22,6 +22,7 @@ import javax.swing.text.Document;
 import org.apache.poi.poifs.property.Child;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.ui.ios.creater.ScrollViewCells;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -168,6 +169,13 @@ public class IphoneViewControllerXibForHorizontallayout {
 		//有	儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 			
+			
+			if (bean.type.equals("ScrollViewLayout")) {
+					
+               
+			}else
+			{
+			
 //			int top=parentTopSpace;
 //			int martop=0;
 //			int chirldCount=0;
@@ -250,6 +258,7 @@ public class IphoneViewControllerXibForHorizontallayout {
 				}
 			}
 
+		}
 		}
 
 	}
@@ -440,6 +449,8 @@ public class IphoneViewControllerXibForHorizontallayout {
 					+ chirld.enname + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
+		
+	
 
 		if (chirld.type.equals("ExpandableListView")) {
 

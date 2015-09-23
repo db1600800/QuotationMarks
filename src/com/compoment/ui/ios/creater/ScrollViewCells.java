@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.cut.iphone.IphoneTableViewCellXib;
 
 public class ScrollViewCells {
 
@@ -18,9 +19,9 @@ public class ScrollViewCells {
 				// start
 				scrollDeclare += "-(void) scrollUI{\n";
 				scrollDeclare += "int height=0;\n";
-				scrollDeclare += "int width=self." + bean.enname + ".frame.size.width;\n";
+				scrollDeclare += "int width=self."+bean.enname.replace("Layout", "")+".frame.size.width;\n";
 				scrollDeclare += "int x=0;\n";
-				scrollDeclare += "int y=0;\n";
+				scrollDeclare += "int y=0;\n\n";
 
 			}
 
@@ -32,22 +33,26 @@ public class ScrollViewCells {
 
 						if (chirld.isRunTimeAddScrollView) {
 						
+							List maxbean=new ArrayList();
+							maxbean.add(chirld);
 
-							ScrollViewCellH tableViewCellH = new ScrollViewCellH(chirld.enname, chirld,
+							TableViewCellH tableViewCellH = new TableViewCellH(chirld.enname, maxbean,
 									"ScrollViewCell");
-							ScrollViewCellM tableViewCellM = new ScrollViewCellM(chirld.enname, chirld,
+							TableViewCellM tableViewCellM = new TableViewCellM(chirld.enname, maxbean,
 									"ScrollViewCell");
 
+							IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(chirld.enname,maxbean,"ScrollViewCell");
+							
 							scrollDeclare += firstCharToUpperAndJavaName(chirld.enname) + "ScrollViewCell *"
 									+ chirld.enname + " = [[[NSBundle mainBundle] loadNibNamed:@\""
 									+ firstCharToUpperAndJavaName(chirld.enname)
-									+ "\"ScrollViewCell owner:self options:nil] lastObject];\n";
+									+ "ScrollViewCell\"  owner:self options:nil] lastObject];\n";
 							scrollDeclare += "  [" + chirld.enname + " setFrame:CGRectMake(x, y+height, width, "
 									+ chirld.enname + ".frame.size.height)];\n";
 
 							scrollDeclare += " height+=" + chirld.enname + ".frame.size.height;\n";
 
-							scrollDeclare += " [self." + bean.enname + " addSubview:" + chirld.enname + "];\n\n";
+							scrollDeclare += " [self." + bean.enname.replace("Layout", "") + " addSubview:" + chirld.enname + "];\n\n";
 						} else
 
 						{
@@ -68,15 +73,14 @@ public class ScrollViewCells {
 
 			if (bean.type.equals("ScrollViewLayout")) {
 				// end
-				scrollDeclare += "self." + bean.enname + ".contentSize=CGSizeMake(width, height);\n\n";
+				scrollDeclare += "//scrollView\n";
+				scrollDeclare += "self."+bean.enname.replace("Layout", "")+".contentSize=CGSizeMake(width, height);\n\n";
 
 				scrollDeclare += " UIEdgeInsets contentInsets = UIEdgeInsetsZero;\n";
-				scrollDeclare += " self." + bean.enname + ".contentInset = contentInsets;\n";
-				scrollDeclare += " self." + bean.enname + ".scrollIndicatorInsets = contentInsets;\n\n";
+				scrollDeclare += " self."+bean.enname.replace("Layout", "")+".contentInset = contentInsets;\n";
+				scrollDeclare += " self."+bean.enname.replace("Layout", "")+".scrollIndicatorInsets = contentInsets;\n\n";
 
-				scrollDeclare += " [self." + bean.enname + " setFrame:CGRectMake(0, self.head.frame.size.height, self."
-						+ bean.enname
-						+ ".frame.size.width, self.view.frame.size.height-self.head.frame.size.height-self.bottom.frame.size.height)];\n";
+				scrollDeclare += " [self."+bean.enname.replace("Layout", "")+" setFrame:CGRectMake(0, self.head.frame.size.height, self."+bean.enname.replace("Layout", "")+".frame.size.width, self.view.frame.size.height-self.head.frame.size.height-self.bottom.frame.size.height)];\n";
 				
 				scrollDeclare += "}\n";
 
@@ -90,13 +94,13 @@ public class ScrollViewCells {
 
 		String selfString = "self.";
 		if (parent.isRunTimeAddScrollView) {
-			selfString = "";
+			selfString = parent.enname+".";
 		}
 
 		if (chirld.type.equals("TextView")) {
 
 			scrollDeclare += "\n//" + chirld.cnname + "\n";
-			scrollDeclare += "[" + chirld.enname + " setValue:]\n\n";
+			scrollDeclare += "[" + selfString+chirld.enname + " setValue:];\n\n";
 		}
 
 		if (chirld.type.equals("Button")) {
