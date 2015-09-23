@@ -100,7 +100,7 @@ public class ScrollViewCells {
 		if (chirld.type.equals("TextView")) {
 
 			scrollDeclare += "\n//" + chirld.cnname + "\n";
-			scrollDeclare += "[" + selfString+chirld.enname + " setValue:];\n\n";
+			scrollDeclare += "[" + selfString+chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n\n";
 		}
 
 		if (chirld.type.equals("Button")) {
