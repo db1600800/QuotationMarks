@@ -112,6 +112,16 @@ public class TableViewCellAddViewController {
 				     m+="//注入table功能\n";
 					 m+=" NSString *"+className+"CellIdentifier = @\""+className+"TableViewCell\";\n";	
 					 m+=" NSString *"+className+"CellHeadIdentifier = @\""+className+"TableViewCellHead\";\n";	
+					 
+					 m+=" @interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
+					 m+="{\n";
+						m+="int page;\n";
+					    m+="int totalRowCount;\n";
+						m+="int currentRowCount;\n";
+						m+="bool request9999IsComplete;//发完一个请求再发下一个\n";
+						m+="NSMutableArray *allIndexpaths;\n";
+						m+="NSMutableArray *rows;\n";
+					 m+="}\n";
 			    	content += m;
 			 }
 		
@@ -127,15 +137,25 @@ public class TableViewCellAddViewController {
 		 if(line.contains("[super viewDidLoad]"))
 					
 				{
-					String m="//table\n";
-					m+="    [tableView setDelegate:self];//指定委托\n";
-					m+="    [tableView setDataSource:self];//指定数据委托\n";
-					m+="     cacheCells = [NSMutableDictionary dictionary];\n";
-					m+="    \n";
+					String m="//start  TableView \n";
+					
+					m+="totalRowCount=0;\n";
+					m+="currentRowCount=0;\n";
+					m+="page=1;\n\n";
+					m+="allIndexpaths=[[NSMutableArray alloc] init];\n";
+					m+=" rows=[[NSMutableArray alloc] init];\n";
+					
+					m+="    [self.tableView setDelegate:self];//tableview委托\n";
+					m+="    [self.tableView setDataSource:self];//tableview数据委托\n";
+					m+="    self.tableView.tableFooterView=[[UIView alloc]init];//tableview去除多余的分隔线\n";
+				
 					m+="    //使用自定义的Cell,需要向UITableView进行注册\n";
 					m+="    UINib *cellNib = [UINib nibWithNibName:@\""+className+"TableViewCell\" bundle:nil];\n";
 					m+="    [tableView registerNib:cellNib forCellReuseIdentifier:"+className+"CellIdentifier];\n";
-			    	content += m;
+			    	
+					m+="     cacheCells = [NSMutableDictionary dictionary];\n";
+					m+="//end TableView \n\n";
+					content += m;
 				}
 	 if(line.contains("viewWillAppear:(BOOL)animated"))		
 				{
@@ -172,6 +192,28 @@ public class TableViewCellAddViewController {
 	  if(line.contains("cellForRowAtIndexPath"))		
 				{
 					String m="\n";
+					
+					
+					m+=" if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
+				       m+=" if( currentRowCount<totalRowCount)\n";
+					   m+=" {\n";
+					      m+="    [self request9999:YES];\n";    
+					      m+="  MoreTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@\"MoreTableViewCell\" owner:self options:nil] lastObject];\n";
+					      m+="  return cell;\n";
+				       m+=" }else\n";
+					      m+=" {\n";
+				          m+="    return [[UITableViewCell alloc] init ];\n";
+					   m+=" }\n";
+					   
+				  m+="  }\n";
+					    
+				  m+=" else  if([indexPath row] == ([rows count]) && [rows count]==0)\n";
+				  m+="{\n";
+							 m+="return [[UITableViewCell alloc] init ];\n";
+				  m+=" }\n";
+				  m+=" else\n";
+				  m+=" {\n";
+					
 					m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
 					m+="    if (!cell)\n";
 					m+="    {\n";
@@ -179,6 +221,7 @@ public class TableViewCellAddViewController {
 					m+="    }\n";
 					m+=controllers;
 					m+="return cell;\n";
+				  m+=" }\n";
 			    	content += m;
 				}
 	  
@@ -194,9 +237,27 @@ public class TableViewCellAddViewController {
 
 				    m+=controllers;
 				    
-				    m+="\n// CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];//autolayout有效 配合上边使用\n";
+				    
+				    
+				    
+				    m+="if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
+				        
+				      m+="if( currentRowCount<totalRowCount)\n";
+				      m+="  {//LoadMoreView\n";
+				    	m+="     return 0;\n";
+				      m+=" }else\n";
+				      m+=" {\n";
+				    		m+="    return 0;\n";
+				      m+=" }\n";     
+				   m+="}else  if([indexPath row] == ([rows count])  && [rows count]==0) {\n";
+				    			m+="   return 0;\n";
+				   m+="}\n";
+				   m+=" else\n";
+				   m+=" {\n";
+				 
 				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
 				    m+="return height+1;\n";
+				   m+=" }\n";
 			    	content += m;
 			 }
 		 
@@ -204,6 +265,35 @@ public class TableViewCellAddViewController {
 			 {
 				 
 String m="";
+
+m+="-(void) request9999:(BOOL)ismore{\n";
+	m+="if(ismore)\n";
+    m+="{\n";
+    	m+="if (request9999IsComplete==false) {\n";
+        	m+="request9999IsComplete=true;\n";
+        	m+="}else\n";
+        	m+="{\n";
+        	m+="return;\n";
+            m+="}\n";
+    m+="}else\n";
+    	 m+="{\n";
+         m+="totalRowCount=0;\n";
+         m+="currentRowCount=0;\n";
+         m+="page=1;\n";
+         
+         m+=" [rows removeAllObjects];\n";
+         
+         m+="if(allIndexpaths!=nil && [allIndexpaths count]>0)\n";
+         m+="{\n";
+        		 m+=" [self.tableView deleteRowsAtIndexPaths:allIndexpaths withRowAnimation:UITableViewRowAnimationFade];\n";
+         m+="}\n";
+       
+         m+=" [ allIndexpaths  removeAllObjects];\n";
+         
+    m+="}\n";
+ m+="}\n\n";
+
+
 m+="//九宫图列表数据\n";
 m+="@interface Section : NSObject\n";
 m+="@property (strong,nonatomic) NSString *title;\n";
@@ -229,7 +319,7 @@ m+="@end\n";
 
 m+="//九宫图列表数据\n";
 m+="Row *sectionRow;\n";
-m+="			    NSMutableArray *rows=[[NSMutableArray alloc] init ];\n";
+m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
 m+="			    for (int i=0; i<[mdata count]; i++) {\n";
 m+="			        RespondParam0027 *commonItem2=mdata[i];\n";
 m+="			        \n";
@@ -237,6 +327,7 @@ m+="			        \n";
 m+="			        if (i==0 || i/3) {\n";
 m+="			            sectionRow=[[Row alloc ] init];\n";
 m+="			            sectionRow.rowChirlds=[[NSMutableArray alloc]init];\n";
+m+="			            [thisPageRows addObject:sectionRow];\n";
 m+="			            [rows addObject:sectionRow];\n";
 m+="			        }\n";
 m+="			        \n";
@@ -250,7 +341,34 @@ m+="			        //chirld add\n";
 m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
 m+="			        \n";
 m+="			        \n";
-m+="			    }\n";
+m+="			    }\n\n";
+
+m+="totalCount=commonItem.totalNum;\n";
+m+="currentCount+=commonItem.recordNum;\n";
+
+m+="if (commonItem.recordNum>0) {\n";
+m+="    if (currentRowCount< totalRowCount) {\n";
+m+="        page++;\n";
+      
+m+="    }\n";
+m+="}else if(commonItem.recordNum==0)\n";
+m+="{\n";
+m+="// 暂无数据\n";
+m+="}\n\n";
+
+
+
+m+="NSMutableArray *insertIndexPaths = [[NSMutableArray alloc]init];\n";
+m+="for (int ind = 0; ind < [thisPageRows count]; ind++) {\n";
+m+="    NSIndexPath    *newPath =  [NSIndexPath indexPathForRow:[rows indexOfObject:[thisPageRows objectAtIndex:ind]] inSection:0];\n";
+m+="    [allIndexpaths addObject:newPath];\n";
+m+="    [insertIndexPaths addObject:newPath];\n";
+m+="}\n";
+m+="[self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];\n";
+
+
+
+
 content += m;
 			 }
 

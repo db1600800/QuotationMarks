@@ -101,6 +101,15 @@ public class ScrollViewCells {
 
 			scrollDeclare += "\n//" + chirld.cnname + "\n";
 			scrollDeclare += "[" + selfString+chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n\n";
+			
+			scrollDeclare += "//start换行高度\n";
+			scrollDeclare += "   ["+selfString+chirld.enname+" setNumberOfLines:0];\n";
+			scrollDeclare += ""+selfString+chirld.enname+".lineBreakMode = NSLineBreakByWordWrapping;\n";
+			scrollDeclare += " CGSize   size"+chirld.enname+" = [ "+selfString+chirld.enname+"  sizeThatFits:CGSizeMake("+selfString+chirld.enname+".frame.size.width, MAXFLOAT)];\n";
+			scrollDeclare += " ["+selfString+chirld.enname+" setFrame:CGRectMake("+selfString+chirld.enname+".frame.origin.x \n";
+		    scrollDeclare += "         , "+selfString+chirld.enname+".frame.origin.y, "+selfString+chirld.enname+".frame.size.width, size"+chirld.enname+".height)];\n";
+		    scrollDeclare += "//end换行高度\n";
+			
 		}
 
 		if (chirld.type.equals("Button")) {

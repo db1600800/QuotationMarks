@@ -325,6 +325,15 @@ public class ViewControllerM {
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize tableView;\n";
 
+			
+			
+			tablem += "-(void)viewWillLayoutSubviews\n";
+			tablem += "{\n";
+			tablem += "int startY=self.headView.frame.origin.y+self.headView.frame.size.height;\n";
+			tablem += " [self.tableView setFrame:CGRectMake(0, startY, self."+chirld.enname+".frame.size.width, self.view.frame.size.height-startY )];\n";
+			tablem += "}\n\n";
+			
+			
 			tablem += "- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
 			tablem += "    return @\"\";\n";
 			tablem += "  \n";
@@ -351,7 +360,7 @@ public class ViewControllerM {
 			tablem += "- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{\n";
 			tablem += "    \n";
 
-			tablem += "     return  [listData count];;\n";
+			tablem += "     return  [rows count]+1;\n";
 			tablem += "    \n";
 			tablem += "}\n\n";
 
@@ -366,11 +375,7 @@ public class ViewControllerM {
 
 			tablem += "}\n\n";
 
-			tablem += "-(void)viewDidLayoutSubviews\n";
-			tablem += "{//table被挡住时用\n";
-			tablem += " // int viewHeight=self.view.frame.size.height;\n";
-			tablem += "//[tableView setFrame:CGRectMake(0, 0, 0 ,0)];\n";
-			tablem += "}\n";
+	
 
 			tablem += "- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
 			tablem += "    return 88;\n";
@@ -378,6 +383,11 @@ public class ViewControllerM {
 
 			tablem += "//点击后，过段时间cell自动取消选中\n";
 			tablem += "- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+			tablem += "if (indexPath.row == [rows count]  && [rows count]>0) {\n";
+		    tablem += "[self request9999:YES];\n";
+			tablem += "   return;\n";
+			tablem += "}else{\n}\n";
+					
 			tablem += "    //消除cell选择痕迹\n";
 			tablem += "    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];\n";
 			tablem += "}\n";
