@@ -31,6 +31,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.compoment.workflow.PageFrame;
+
 
 /**
  * 显示图片，提供截取功能
@@ -40,12 +42,15 @@ public class CutImg extends JPanel {
 	int x1, y1, x2, y2;
 
 	CutImgCallBack implementInterfaceFrame;
+	PageFrame parentView;
 	/**
 	 * 显示图片，提供截取功能
 	 * */
 	public CutImg(final CutImgCallBack implementInterfaceFrame,File file) {
 		super();
 		this.implementInterfaceFrame=implementInterfaceFrame;
+		parentView=(PageFrame)implementInterfaceFrame;
+		
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				x1 = e.getX();
@@ -121,6 +126,12 @@ public class CutImg extends JPanel {
 		int h = (y1 > y2 ? y1 : y2) - y;
 		g.setColor(Color.blue);
 		g.drawRect(x, y, w, h);
+		
+		for(CompomentBean bean:parentView.beans)
+		{
+		
+		g.drawRect(bean.x, bean.y, bean.w, bean.h);
+		}
 	}
 
 	protected static void setClipboardImage2(final Image image) {

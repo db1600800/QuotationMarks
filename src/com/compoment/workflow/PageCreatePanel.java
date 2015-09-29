@@ -22,11 +22,10 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
-import com.compoment.cut.iphone.IphoneLayout;
-import com.compoment.cut.iphone.IphoneTableViewCellHeadXib;
+
 import com.compoment.cut.iphone.IphoneTableViewCellXib;
+
 import com.compoment.cut.iphone.IphoneViewControllerXib;
-import com.compoment.cut.iphone.IphoneViewControllerXibForHorizontallayout;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
@@ -340,7 +339,7 @@ public class PageCreatePanel {
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans);
 			
-			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
@@ -366,7 +365,7 @@ public class PageCreatePanel {
 			ChirldViewControllerH viewControllerH=new ChirldViewControllerH(frame.pageName,frame.beans);
 			ChirldViewControllerM viewControllerM=new ChirldViewControllerM(frame.pageName,frame.beans);
 			
-			IphoneViewControllerXibForHorizontallayout  iphoneLayout = new IphoneViewControllerXibForHorizontallayout(frame.pageName,frame.beans);
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
@@ -377,7 +376,7 @@ public class PageCreatePanel {
 		
 		
 		
-		else if (frame.pageType.contains("TableViewHeadCell-IOS")) {
+		else if (frame.pageType.contains("HeadOrCommonCell-IOS")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
@@ -393,7 +392,7 @@ public class PageCreatePanel {
 			TableViewCellH viewControllerH=new TableViewCellH(frame.pageName,frame.beans,"TableViewHeadCell");
 			TableViewCellM viewControllerM=new TableViewCellM(frame.pageName,frame.beans,"TableViewHeadCell");
 			
-			IphoneTableViewCellHeadXib  iphoneLayout = new IphoneTableViewCellHeadXib(frame.pageName,frame.beans);
+			IphoneTableViewCellXib  iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewHeadCell");
 			
 			}
 		
@@ -414,7 +413,7 @@ public class PageCreatePanel {
 			TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans,"TableViewCell");
 			TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans,"TableViewCell");
 			
-			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans);
+			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewCell");
 			
 			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 					+ "." + "m";

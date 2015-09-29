@@ -85,6 +85,17 @@ public class ViewControllerH {
 		public void parent(CompomentBean bean) {
 
 			if (bean.chirlds != null && bean.chirlds.size() > 0) {
+				
+				if (bean.type.equals("ScrollViewLayout")) {
+
+				     
+						m+="@property (weak, nonatomic) IBOutlet UIScrollView *"+bean.enname.replace("Layout", "")+";\n";
+					
+					
+					
+	               
+				}else
+				{
 				for (CompomentBean chirld : bean.chirlds) {
 
 					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
@@ -94,6 +105,7 @@ public class ViewControllerH {
 						chirld(chirld, bean);
 						
 					}
+				}
 				}
 
 			}
@@ -148,6 +160,9 @@ public class ViewControllerH {
 			
 			
 			}
+			
+			
+		
 
 			if (chirld.type.equals("ExpandableListView")) {
 

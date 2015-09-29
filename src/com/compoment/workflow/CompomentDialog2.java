@@ -180,6 +180,15 @@ public class CompomentDialog2 extends JDialog {
 		JLabel label = new JLabel("页面");
 		
 		 runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView");
+		 runTimeAddScrollView.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		if(runTimeAddScrollView.isSelected())
+		 		{
+		 			cnNameEdit.setText("中文名");
+		 			enNameEdit.setText("英文名");	
+		 		}
+		 	}
+		 });
 		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
