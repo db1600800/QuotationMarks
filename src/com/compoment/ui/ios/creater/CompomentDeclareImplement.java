@@ -18,7 +18,13 @@ public class CompomentDeclareImplement {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent,String selfString  ) {
 
-		
+		i="";
+		viewDidLoad_Declare="";
+		viewDidLoad_Implement="";
+		 setvaluem="";
+		 closeKeyboardDeclare="";
+		 closeKeyboardImplement="";
+		 tablem="";
 
 
 		if (chirld.type.equals("TextView")) {
@@ -27,7 +33,7 @@ public class CompomentDeclareImplement {
 			i += "@synthesize " + chirld.enname + ";\n";
 
 			viewDidLoad_Declare += "//" + chirld.cnname + "\n";
-			viewDidLoad_Declare += "[" + chirld.enname + " setValue:]\n";
+			viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n";
 		}
 
 		if (chirld.type.equals("Button")) {
@@ -202,7 +208,7 @@ public class CompomentDeclareImplement {
 			tablem += "-(void)viewWillLayoutSubviews\n";
 			tablem += "{\n";
 			tablem += "int startY=self.headView.frame.origin.y+self.headView.frame.size.height;\n";
-			tablem += " [self.tableView setFrame:CGRectMake(0, startY, self."+chirld.enname+".frame.size.width, self.view.frame.size.height-startY )];\n";
+			tablem += " [self.tableView setFrame:CGRectMake(0, startY, self.tableView.frame.size.width, self.view.frame.size.height-startY )];\n";
 			tablem += "}\n\n";
 			
 			
@@ -219,7 +225,6 @@ public class CompomentDeclareImplement {
 
 			tablem += "//自定义SectionHeader高度\n";
 			tablem += "-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
-			tablem += "    return 22.0;\n";
 			tablem += "}\n\n";
 
 			tablem += "//指定有多少个分区(Section)，默认为1\n";

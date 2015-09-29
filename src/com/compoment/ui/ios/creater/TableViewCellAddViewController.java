@@ -112,7 +112,7 @@ public class TableViewCellAddViewController {
 				     m+="#import \""+className+"TableViewCell.h\"\n";
 				     m+="//注入table功能\n";
 					 m+=" NSString *"+className+"CellIdentifier = @\""+className+"TableViewCell\";\n";	
-					 m+=" NSString *"+className+"CellHeadIdentifier = @\""+className+"TableViewCellHead\";\n";	
+					 m+=" NSString *"+className+"CellHeadIdentifier = @\""+className+"TableViewCellHead\";\n\n";	
 					 
 					 m+=" @interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
 					 m+="{\n";
@@ -123,6 +123,7 @@ public class TableViewCellAddViewController {
 						m+="NSMutableArray *allIndexpaths;\n";
 						m+="NSMutableArray *rows;\n";
 					 m+="}\n";
+					 m+="@end\n";
 			    	content += m;
 			 }
 			 if(line.contains("@end"))	
@@ -297,8 +298,8 @@ m+="-(void) request9999:(BOOL)ismore{\n";
         		 m+=" [self.tableView deleteRowsAtIndexPaths:allIndexpaths withRowAnimation:UITableViewRowAnimationFade];\n";
          m+="}\n";
        
-         m+=" [ allIndexpaths  removeAllObjects];\n";
-         
+         m+=" [ allIndexpaths  removeAllObjects];\n\n";
+         m+="....";   
     m+="}\n";
  m+="}\n\n";
 
@@ -308,14 +309,14 @@ m+="@interface Section : NSObject\n";
 m+="@property (strong,nonatomic) NSString *title;\n";
 m+="@property (strong,nonatomic) NSString *sectionId;\n";
 m+="@property (strong,nonatomic) NSMutableArray *sectionRows;\n";
-m+="@end\n";
+m+="@end\n\n";
 
 
 
 
 m+="@interface Row : NSObject\n";
 m+="@property (strong,nonatomic) NSMutableArray *rowChirlds;\n";
-m+="@end\n";
+m+="@end\n\n";
 
 
 m+="@interface Chirld : NSObject\n";
@@ -323,9 +324,9 @@ m+="@property (strong,nonatomic) NSString *pic;\n";
 m+="@property (strong,nonatomic) NSString *picName;\n";
 m+="@property (strong,nonatomic) NSString *picPrice;\n";
 m+="@property (strong,nonatomic) NSString *productId;\n";
-m+="@end\n";
+m+="@end\n\n";
 
-
+m+="-(void) respond9999{\n";
 m+="//九宫图列表数据\n";
 m+="Row *sectionRow;\n";
 m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
@@ -375,7 +376,7 @@ m+="    [insertIndexPaths addObject:newPath];\n";
 m+="}\n";
 m+="[self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];\n";
 
-
+m+="}\n\n";
 
 
 content += m;

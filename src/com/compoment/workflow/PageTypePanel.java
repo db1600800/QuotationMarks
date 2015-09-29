@@ -47,7 +47,7 @@ public class PageTypePanel {
 		listDate.add("ChirldViewController-IOS");
 		listDate.add("ViewController-IOS");
 		listDate.add("TableViewCell-IOS");
-		listDate.add("TableViewHeadCell-IOS");
+		listDate.add("HeadOrCommonCell-IOS");
 	
 		pageTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

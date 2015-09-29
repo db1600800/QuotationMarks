@@ -376,7 +376,7 @@ public class PageCreatePanel {
 		
 		
 		
-		else if (frame.pageType.contains("TableViewHeadCell-IOS")) {
+		else if (frame.pageType.contains("HeadOrCommonCell-IOS")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(

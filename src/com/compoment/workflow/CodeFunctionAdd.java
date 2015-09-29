@@ -116,6 +116,7 @@ public class CodeFunctionAdd extends JFrame {
 		bg1422277614475.addComponent(part4JPanel);
 
 		layout.setHorizontalGroup(bg1422277614475);
+	  
 		setLocation(200, 200);
 		pack();
 
