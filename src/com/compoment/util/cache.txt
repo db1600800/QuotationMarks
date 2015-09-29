@@ -1,15 +1,13 @@
 #Update 'codeFilePath' value
-
+#Thu Jun 25 23:31:06 CST 2015
 \u53D8\u91CF\u540D=1
-
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 interfaceDocPath=/Users/apple/Documents/workspace/test/doc/wordTableToJaveObject.doc
-
 \u7C7B\u578B=2
-codeFilePath=/Users/gdpost/Downloads/hobby/Testjava/pic/src/ios
+codeFilePath=/Users/apple/Documents/workspace/test/pic/src/ios
 \u5907\u6CE8=4
-compomentProjectAddress=/Users/gdpost/git/mobile-android
-picPath=/Users/gdpost/Downloads/hobby/Testjava/pic
+compomentProjectAddress=/Users/apple/git/mobile-android
+picPath=/Users/apple/Documents/workspace/test/pic
 \u4E2D\u6587\u540D=0
-projectPath=/Users/gdpost/Downloads/hobby/Testjava
+projectPath=/Users/apple/Documents/workspace/test
 docPath=/Users/gdpost/Downloads/hobby/Testjava/doc/wordTableToJaveObject.doc
