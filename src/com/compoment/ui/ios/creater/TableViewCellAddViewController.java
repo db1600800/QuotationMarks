@@ -35,10 +35,11 @@ public class TableViewCellAddViewController {
 	}
 
     String pageName="";
-  
+    boolean isHeadCell=false;
 
         
-	public TableViewCellAddViewController(String pageName,List<CompomentBean> oldBeans,String waitByModifyFileName) {
+	public TableViewCellAddViewController(String pageName,List<CompomentBean> oldBeans,String waitByModifyFileName,boolean isHeadCell) {
+		this.isHeadCell=isHeadCell;
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageName=pageName;
         className=firstCharToUpperAndJavaName(pageName);
@@ -58,6 +59,7 @@ public class TableViewCellAddViewController {
 		return temp;
 	}
 	
+	
 	public void copyFile() {
 		
 	}
@@ -65,8 +67,6 @@ public class TableViewCellAddViewController {
 	
 
 	public void add() {
-	
-		
 		
 		List addedLines =new ArrayList();
 	
@@ -105,8 +105,44 @@ public class TableViewCellAddViewController {
 				line = lines.get(i).toString();
 			}
 			
+			 if(line.contains("numberOfSectionsInTableView") &&isHeadCell==true)	
+			 {
+				 
+				 String m="\n";
+				
+					m += "- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
+					m+=" "+className+"TableViewCellHead *cell = ("+className+"TableViewCellHead*)[self.tableView dequeueReusableHeaderFooterViewWithIdentifier:"+className+"CellHeadIdentifier];\n";
+					m+="    if (!cell)\n";
+					m+="    {\n";
+					m+="       cell = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCellHead\" owner:self options:nil] lastObject];\n";
+					m+="    }\n";
+					m+=controllers;
+					m+="return cell;\n";
+					m += "}\n\n";
+					
+					
+					
+		
+					m += "-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
+					
+					m+=" "+className+"TableViewCellHead *cell = ("+className+"TableViewCellHead*)[self.tableView dequeueReusableHeaderFooterViewWithIdentifier:"+className+"CellHeadIdentifier];\n";
+					m+="    if (!cell)\n";
+					m+="    {\n";
+					m+="       cell = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCellHead\" owner:self options:nil] lastObject];\n";
+					m+="    }\n";
+				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
+				    m+="return height+1;\n";;
+				    
+					m += "}\n\n";
+					
+			    	content += m;
+			    	
+			  
+			    	
+			 }
 			
-			 if(line.contains("@implementation"))
+			 
+			 if(line.contains("@implementation")&&isHeadCell==false)
 			 {
 				 String m="";
 				     m+="#import \""+className+"TableViewCell.h\"\n";
@@ -114,38 +150,32 @@ public class TableViewCellAddViewController {
 					 m+=" NSString *"+className+"CellIdentifier = @\""+className+"TableViewCell\";\n";	
 					 m+=" NSString *"+className+"CellHeadIdentifier = @\""+className+"TableViewCellHead\";\n\n";	
 					 
-					 m+=" @interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
-					 m+="{\n";
-						m+="int page;\n";
-					    m+="int totalRowCount;\n";
-						m+="int currentRowCount;\n";
-						m+="bool request9999IsComplete;//发完一个请求再发下一个\n";
-						m+="NSMutableArray *allIndexpaths;\n";
-						m+="NSMutableArray *rows;\n";
-					 m+="}\n";
-					 m+="@end\n";
+				
 			    	content += m;
 			 }
-			 if(line.contains("@end"))	
+			 if(line.contains("@end//end viewController")&&isHeadCell==false)	
 			 {
 				 content+=closeKeyboardImplement;
 				 content +=viewDidLoad_Implement;
 				 
 			 }
 		
+			 
+			 //前
 			content += line + "\n";
+			 //后
 			
-			 if(line.contains("@implementation"))
+			 if(line.contains("@implementation")&&isHeadCell==false)
 			 {
 					String m="@synthesize cacheCells;\n";	
 			    	content += m;
 			 }
 			
 			
-		 if(line.contains("[super viewDidLoad]"))
+		 if(line.contains("[super viewDidLoad]")&&isHeadCell==false)
 					
 				{
-					String m="//start  TableView \n";
+					String m="\n//start  TableView \n";
 					
 					m+="totalRowCount=0;\n";
 					m+="currentRowCount=0;\n";
@@ -167,39 +197,18 @@ public class TableViewCellAddViewController {
 					m+=closeKeyboardDeclare;
 					content += m;
 				}
-	 if(line.contains("viewWillAppear:(BOOL)animated"))		
+	 if(line.contains("viewWillAppear:(BOOL)animated")&&isHeadCell==false)		
 				{
 					String m="//table\n";
 					m+="[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];\n";
 			    	content += m;
 				}
 	 
-	 if(line.contains("viewForHeaderInSection"))	
-	 {
-		 
-		 String m="\n";
-			m+=" "+className+"TableViewCellHead *cellHead = ("+className+"TableViewCellHead*)[self.tableView dequeueReusableHeaderFooterViewWithIdentifier:"+className+"CellHeadIdentifier];\n";
-			m+="    if (!cellHead)\n";
-			m+="    {\n";
-			m+="       cellHead = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCellHead\" owner:self options:nil] lastObject];\n";
-			m+="    }\n";
-			m+=controllers;
-			m+="return cellHead;\n";
-	    	content += m;
-	 }
 	 
-	 if(line.contains("heightForHeaderInSection"))	
-	 {
-		 
-		 String m="\n";
-	
-		   m+="   int height=cellHead.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
-		    m+="return height+1;\n";;
-	    	content += m;
-	 }
+
 	 
 	 
-	  if(line.contains("cellForRowAtIndexPath"))		
+	  if(line.contains("cellForRowAtIndexPath")&&isHeadCell==false)		
 				{
 					String m="\n";
 					
@@ -235,7 +244,7 @@ public class TableViewCellAddViewController {
 			    	content += m;
 				}
 	  
-			 if(line.contains("heightForRowAtIndexPath"))	
+			 if(line.contains("heightForRowAtIndexPath")&&isHeadCell==false)	
 			 {
 					String m="\n";
 					m+="NSString *reuseIdentifier = "+className+"CellIdentifier;\n";
@@ -267,11 +276,11 @@ public class TableViewCellAddViewController {
 				 
 				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
 				    m+="return height+1;\n";
-				   m+=" }\n";
+				    m+=" }\n";
 			    	content += m;
 			 }
 		 
-			 if(line.contains("@end"))	
+			 if(line.contains("@end//end viewController")  &&isHeadCell==false)	
 			 {
 				 
 String m="";
@@ -279,8 +288,8 @@ String m="";
 m+="-(void) request9999:(BOOL)ismore{\n";
 	m+="if(ismore)\n";
     m+="{\n";
-    	m+="if (request9999IsComplete==false) {\n";
-        	m+="request9999IsComplete=true;\n";
+    	m+="if (requestUnComplete==false) {\n";
+        	m+="requestUnComplete=true;\n";
         	m+="}else\n";
         	m+="{\n";
         	m+="return;\n";
@@ -299,8 +308,10 @@ m+="-(void) request9999:(BOOL)ismore{\n";
          m+="}\n";
        
          m+=" [ allIndexpaths  removeAllObjects];\n\n";
-         m+="....";   
+         
     m+="}\n";
+    
+    m+="....";   
  m+="}\n\n";
 
 
@@ -327,6 +338,8 @@ m+="@property (strong,nonatomic) NSString *productId;\n";
 m+="@end\n\n";
 
 m+="-(void) respond9999{\n";
+m+="requestUnComplete=false;//避免重复请求 一个发完下一个再发\n";
+
 m+="//九宫图列表数据\n";
 m+="Row *sectionRow;\n";
 m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
@@ -353,8 +366,8 @@ m+="			        \n";
 m+="			        \n";
 m+="			    }\n\n";
 
-m+="totalCount=commonItem.totalNum;\n";
-m+="currentCount+=commonItem.recordNum;\n";
+m+="totalRowCount=commonItem.totalNum;\n";
+m+="currentRowCount+=commonItem.recordNum;\n";
 
 m+="if (commonItem.recordNum>0) {\n";
 m+="    if (currentRowCount< totalRowCount) {\n";

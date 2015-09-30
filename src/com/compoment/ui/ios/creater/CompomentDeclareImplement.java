@@ -212,20 +212,7 @@ public class CompomentDeclareImplement {
 			tablem += "}\n\n";
 			
 			
-			tablem += "- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{\n";
-			tablem += "    return @\"\";\n";
-			tablem += "  \n";
-			tablem += "}\n\n";
-
-			tablem += "//自定义SectionHeader\n";
-			tablem += "- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{\n";
-
-			tablem += "    return nil;\n";
-			tablem += "}\n\n";
-
-			tablem += "//自定义SectionHeader高度\n";
-			tablem += "-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{\n";
-			tablem += "}\n\n";
+			
 
 			tablem += "//指定有多少个分区(Section)，默认为1\n";
 			tablem += "- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {\n";

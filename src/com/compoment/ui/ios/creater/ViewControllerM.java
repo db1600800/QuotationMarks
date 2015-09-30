@@ -110,7 +110,7 @@ public class ViewControllerM {
 			i += scrollViewCells.scrollImplement + "\n\n";
 		}
 
-		i += "\n@end\n";
+		i += "\n@end//end viewController\n";
 
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "m", i);
 	}

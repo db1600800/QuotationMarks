@@ -142,7 +142,7 @@ public class Request {
 				line = lines.get(i).toString();
 			}
 
-			if (line.contains("@end")) {
+			if (line.contains("@end//end viewController")) {
 				// 类结尾位置
 				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)
@@ -159,7 +159,7 @@ public class Request {
 
 			content += line + "\n";
 
-			if(line.contains("@end"))
+			if(line.contains("@end//end viewController"))
 			{
 				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)

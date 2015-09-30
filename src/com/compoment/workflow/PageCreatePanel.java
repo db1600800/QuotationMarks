@@ -376,7 +376,30 @@ public class PageCreatePanel {
 		
 		
 		
-		else if (frame.pageType.contains("HeadOrCommonCell-IOS")) {
+		else if (frame.pageType.contains("TableViewHeadCell-IOS")) {
+			// 页面分析生成
+			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					frame.pageName, frame.beans);
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
+			savePublicCompoment();
+
+			TableViewCellH viewControllerH=new TableViewCellH(frame.pageName,frame.beans,"TableViewHeadCell");
+			TableViewCellM viewControllerM=new TableViewCellM(frame.pageName,frame.beans,"TableViewHeadCell");
+			
+			IphoneTableViewCellXib  iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewHeadCell");
+			
+			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
+					+ "." + "m";
+			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,true);
+			
+			}
+		else if (frame.pageType.contains("CommonCell-IOS")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 			String xmlFileName = androidLayoutXml.analyseRelative(
@@ -395,6 +418,8 @@ public class PageCreatePanel {
 			IphoneTableViewCellXib  iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewHeadCell");
 			
 			}
+		
+	
 		
 		
 		else if (frame.pageType.contains("TableViewCell-IOS")) {
@@ -417,7 +442,7 @@ public class PageCreatePanel {
 			
 			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 					+ "." + "m";
-			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName);
+			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
 			
 		}
 		

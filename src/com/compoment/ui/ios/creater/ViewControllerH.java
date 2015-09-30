@@ -15,6 +15,8 @@ public class ViewControllerH {
 
 		String m = "\n\n\n";
 	
+	    String propertyValue="";
+		String initValue="";
 	    String pageName="";
 	    String className="";
 		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans) {
@@ -68,12 +70,16 @@ public class ViewControllerH {
 			
 			m+="#import <UIKit/UIKit.h>\n";
 			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
-
+			
 			
 			
 		
 			
 			parent(maxBean);
+			m+="\n{\n";
+			m+=initValue;
+			m+="\n}\n";
+			m+=propertyValue;
 			
 			m+="@end\n";
 			
@@ -89,7 +95,7 @@ public class ViewControllerH {
 				if (bean.type.equals("ScrollViewLayout")) {
 
 				     
-						m+="@property (weak, nonatomic) IBOutlet UIScrollView *"+bean.enname.replace("Layout", "")+";\n";
+					propertyValue+="@property (weak, nonatomic) IBOutlet UIScrollView *"+bean.enname.replace("Layout", "")+";\n";
 					
 					
 					
@@ -115,22 +121,22 @@ public class ViewControllerH {
 		public void chirld(CompomentBean chirld, CompomentBean parent) {
 
 			if (chirld.type.equals("TextView")) {
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UILabel *"+chirld.enname+";\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UILabel *"+chirld.enname+";\n";
 		
 			
 			}
 
 			if (chirld.type.equals("Button")) {
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 				
 			
 			}
 
 			if (chirld.type.equals("EditText")) {
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UITextField *"+chirld.enname+";\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UITextField *"+chirld.enname+";\n";
 				
 				
 	
@@ -138,15 +144,21 @@ public class ViewControllerH {
 
 			if (chirld.type.equals("CheckBox")) {
 			
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 			}
 
 			if (chirld.type.equals("ListView")) {
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UITableView *tableView;\n";
-				m+="@property (strong, nonatomic) NSMutableDictionary *cacheCells;\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UITableView *tableView;\n";
+				propertyValue+="@property (strong, nonatomic) NSMutableDictionary *cacheCells;\n";
 			
+				initValue+="int page;\n";
+				initValue+="int totalRowCount;\n";
+				initValue+="int currentRowCount;\n";
+				initValue+="bool requestUnComplete;//发完一个请求再发下一个\n";
+				initValue+="NSMutableArray *allIndexpaths;\n";
+				initValue+="NSMutableArray *rows;\n";
 				
 				if(m.contains("@interface ViewController : UIViewController\n"))
 				{
@@ -155,8 +167,8 @@ public class ViewControllerH {
 			}
 
 			if (chirld.type.equals("ImageView")) {
-				m+="//"+chirld.cnname+"\n";
-				m+="@property (weak, nonatomic) IBOutlet UIImageView *"+chirld.enname+";\n";
+				propertyValue+="//"+chirld.cnname+"\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UIImageView *"+chirld.enname+";\n";
 			
 			
 			}
