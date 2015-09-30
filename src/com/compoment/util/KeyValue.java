@@ -39,6 +39,10 @@ public class KeyValue {
 	
 	public static void writeCache(String key,String value)
 	{
+		if(value==null || value.equals(""))
+		{
+			return;
+		}
 		String courseFile = null;
 		File directory = new File("");// 参数为空
 		try {

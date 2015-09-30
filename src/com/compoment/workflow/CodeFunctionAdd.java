@@ -122,23 +122,23 @@ public class CodeFunctionAdd extends JFrame {
 
 		setVisible(true);
 
-		if (KeyValue.readCache("compomentProjectAddress") == null
-				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-			KeyValue.writeCache("compomentProjectAddress", inputValue);
-		}else
-		{
-			
-			String projectPath=KeyValue.readCache("compomentProjectAddress");
-			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
-			{
-				
-			}else
-			{
-				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-				KeyValue.writeCache("compomentProjectAddress", inputValue);
-			}
-		}
+//		if (KeyValue.readCache("compomentProjectAddress") == null
+//				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+//			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+//			KeyValue.writeCache("compomentProjectAddress", inputValue);
+//		}else
+//		{
+//			
+//			String projectPath=KeyValue.readCache("compomentProjectAddress");
+//			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
+//			{
+//				
+//			}else
+//			{
+//				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+//				KeyValue.writeCache("compomentProjectAddress", inputValue);
+//			}
+//		}
 		
 
 	}
@@ -183,6 +183,27 @@ public class CodeFunctionAdd extends JFrame {
 								.toString();
 
 						if (value.equals("Android")) {
+							
+							
+							if (KeyValue.readCache("compomentProjectAddress") == null
+									|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+								String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+								
+								KeyValue.writeCache("compomentProjectAddress", inputValue);
+							}else
+							{
+								
+								String projectPath=KeyValue.readCache("compomentProjectAddress");
+								if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
+								{
+									
+								}else
+								{
+									String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+									KeyValue.writeCache("compomentProjectAddress", inputValue);
+								}
+							}
+							
 							androidData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel<Function>();
