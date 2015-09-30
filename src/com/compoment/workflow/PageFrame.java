@@ -51,7 +51,7 @@ public class PageFrame extends JFrame implements CutImgCallBack,CompomentDialogC
 		
 
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		String laf = UIManager.getSystemLookAndFeelClassName();
 		try {
 			UIManager.setLookAndFeel(laf);
