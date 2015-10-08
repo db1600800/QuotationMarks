@@ -22,10 +22,12 @@ public class ViewControllerM {
 	String closeKeyboardDeclare="";
 	String closeKeyboardImplement="";
 	ScrollViewCells scrollViewCells;
+	   boolean isChirldViewNotParentView=false;
 	CompomentDeclareImplement compomentDeclareImplement=new CompomentDeclareImplement();
 	
-	public ViewControllerM(String pageName, List<CompomentBean> oldBeans) {
+	public ViewControllerM(String pageName, List<CompomentBean> oldBeans,   boolean isChirldViewNotParentView) {
 		this.pageName = pageName;
+		this.isChirldViewNotParentView=isChirldViewNotParentView;
 		className = firstCharToUpperAndJavaName(pageName);
 		analyseRelativeForVertical(oldBeans);
 		System.out.println(i);
@@ -110,6 +112,18 @@ public class ViewControllerM {
 			i += scrollViewCells.scrollImplement + "\n\n";
 		}
 
+		
+		if(isChirldViewNotParentView)
+		{
+		i+="-(void) setUiValue:(NSMutableArray*)mdata  delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent{\n";
+	
+		 i+="   self.chirldViewCallBackDelegate=parent;\n";
+		 i+="   chirldViewData=mdata;\n";
+		
+		i+="}\n";
+		}
+		
+		
 		i += "\n@end//end viewController\n";
 
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "m", i);

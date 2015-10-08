@@ -31,8 +31,7 @@ import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
-import com.compoment.ui.ios.creater.ChirldViewControllerH;
-import com.compoment.ui.ios.creater.ChirldViewControllerM;
+
 import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
 
@@ -336,8 +335,8 @@ public class PageCreatePanel {
 			savePublicCompoment();
 
 			//ios
-			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans);
-			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans);
+			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,false);
+			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,false);
 			
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
@@ -362,8 +361,8 @@ public class PageCreatePanel {
 			savePublicCompoment();
 
 			//ios
-			ChirldViewControllerH viewControllerH=new ChirldViewControllerH(frame.pageName,frame.beans);
-			ChirldViewControllerM viewControllerM=new ChirldViewControllerM(frame.pageName,frame.beans);
+			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,true);
+			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,true);
 			
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			

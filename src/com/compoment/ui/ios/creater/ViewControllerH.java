@@ -19,8 +19,10 @@ public class ViewControllerH {
 		String initValue="";
 	    String pageName="";
 	    String className="";
-		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans) {
+	    boolean isChirldViewNotParentView=false;
+		public  ViewControllerH(String pageName,List<CompomentBean> oldBeans,boolean isChirldViewNotParentView) {
             this.pageName=pageName;
+            this.isChirldViewNotParentView=isChirldViewNotParentView;
             className=firstCharToUpperAndJavaName(pageName);
 			analyseRelativeForVertical(oldBeans);
 
@@ -69,6 +71,10 @@ public class ViewControllerH {
 			
 			
 			m+="#import <UIKit/UIKit.h>\n";
+			if(this.isChirldViewNotParentView)
+			{
+			m+="@protocol "+className+"ChirldViewCallBackDelegate;\n";
+			}
 			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
 			
 			
@@ -78,10 +84,39 @@ public class ViewControllerH {
 			parent(maxBean);
 			m+="\n{\n";
 			m+=initValue;
+			if(this.isChirldViewNotParentView)
+			{
+			m+="    NSMutableArray *chirldViewData;\n";
+			}
 			m+="\n}\n";
 			m+=propertyValue;
 			
+			if(this.isChirldViewNotParentView)
+			{
+			m+="@property (strong,nonatomic) id<"+className+"ChirldViewCallBackDelegate> chirldViewCallBackDelegate;\n";
+			m+="-(void) setChirldViewValue:(NSMutableArray*)mdata  delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent;\n";
+			}
+			
 			m+="@end\n";
+			
+			
+			if(this.isChirldViewNotParentView)
+			{
+	        m+="@protocol "+className+"ChirldViewCallBackDelegate <NSObject>\n";
+			
+			m+="-(void) chirldViewCallBack:(NSMutableArray*)mdata;\n";
+
+			m+="@end\n\n";
+			
+			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
+			m+="//1. "+className+"ChirldViewCallBackDelegate\n";
+			m+="//-(void) chirldViewCallBack:(NSString*)mtype  data:(NSMutableArray*)mdata;\n";
+			
+			m+="//2.在viewDidLoad中\n";
+			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
+		    m+="//chirldViewController.view.frame=CGRectMake(,,,);\n";
+		    m+="//[ self.view addSubview:chirldViewController.view];\n";
+			}
 			
 			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
 					"h", m);
