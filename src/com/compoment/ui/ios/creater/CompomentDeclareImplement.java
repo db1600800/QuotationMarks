@@ -34,6 +34,18 @@ public class CompomentDeclareImplement {
 
 			viewDidLoad_Declare += "//" + chirld.cnname + "\n";
 			viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n";
+			
+			if(chirld.isRunTimeHeightTextview)
+			{
+			viewDidLoad_Declare += "//start换行高度\n";
+			viewDidLoad_Declare += "   ["+selfString+chirld.enname+" setNumberOfLines:0];\n";
+			viewDidLoad_Declare += ""+selfString+chirld.enname+".lineBreakMode = NSLineBreakByWordWrapping;\n";
+			viewDidLoad_Declare += " CGSize   size"+chirld.enname+" = [ "+selfString+chirld.enname+"  sizeThatFits:CGSizeMake("+selfString+chirld.enname+".frame.size.width, MAXFLOAT)];\n";
+			viewDidLoad_Declare += " ["+selfString+chirld.enname+" setFrame:CGRectMake("+selfString+chirld.enname+".frame.origin.x \n";
+			viewDidLoad_Declare += "         , "+selfString+chirld.enname+".frame.origin.y, "+selfString+chirld.enname+".frame.size.width, size"+chirld.enname+".height)];\n";
+			viewDidLoad_Declare += "//end换行高度\n";
+			}
+			
 		}
 
 		if (chirld.type.equals("Button")) {

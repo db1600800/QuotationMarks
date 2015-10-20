@@ -75,7 +75,7 @@ public class CompomentDialog2 extends JDialog {
 	JList interfaceColumnList;
 	JList actionList;
 	JComboBox jumpToViewComboBox;
-	
+	JCheckBox isRunTimeHeight;
 	String compomentType;
 	ArrayList listDate = null;
 	JFrame frame;
@@ -190,6 +190,8 @@ public class CompomentDialog2 extends JDialog {
 		 	}
 		 });
 		
+		 isRunTimeHeight = new JCheckBox("是否动态高度");
+		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -213,14 +215,14 @@ public class CompomentDialog2 extends JDialog {
 										.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 										.addComponent(runTimeAddScrollView))
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 											.addGap(29)
 											.addComponent(colorEdit, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.UNRELATED)
 											.addComponent(gaveBgColor, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-										.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+										.addGroup(gl_contentPanel.createSequentialGroup()
 											.addComponent(circularCheckBox)
 											.addGap(46)
 											.addComponent(imgCacheCheckBox)))))
@@ -257,7 +259,9 @@ public class CompomentDialog2 extends JDialog {
 									.addGap(166))
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(28)
-									.addComponent(setPublicCheckBox))))
+									.addComponent(setPublicCheckBox)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(isRunTimeHeight))))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addGap(256)
 							.addComponent(ok)
@@ -307,7 +311,8 @@ public class CompomentDialog2 extends JDialog {
 						.addComponent(imgCacheCheckBox)
 						.addComponent(setPublicCheckBox)
 						.addComponent(circularCheckBox)
-						.addComponent(runTimeAddScrollView))
+						.addComponent(runTimeAddScrollView)
+						.addComponent(isRunTimeHeight))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cancel)
@@ -737,6 +742,8 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(true);
 					runTimeAddScrollView.setVisible(true);
+					isRunTimeHeight.setVisible(false);
+					
 				} else if (compomentType.contains("ImageView")) {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(false);
@@ -750,6 +757,7 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(true);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				} else if (compomentType.contains("ListView")||compomentType.contains("ScrollView")) {
 					colorEdit.setText("行间距颜色");
 					colorEdit.setVisible(true);
@@ -763,6 +771,7 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				} else if (
 						 compomentType.contains("EditText")) {
 					colorEdit.setText("文字颜色");
@@ -777,6 +786,7 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				}
 				else if (compomentType.contains("Button")
 						) {
@@ -792,11 +802,12 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				}
 				
 				
 				else if (compomentType.contains("CheckBox")
-						|| compomentType.contains("TextView")) {
+						) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(true);
 					bgColorEdit.setText("背景颜色");
@@ -809,7 +820,25 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
-				} else if (compomentType.equals("View")) {
+					isRunTimeHeight.setVisible(false);
+				} 
+				else if ( compomentType.contains("TextView")) {
+					colorEdit.setText("文字颜色");
+					colorEdit.setVisible(true);
+					bgColorEdit.setText("背景颜色");
+					bgColorEdit.setVisible(false);
+					textSizeEdit.setVisible(true);
+					cnNameEdit.setVisible(true);
+					enNameEdit.setVisible(true);
+					picNameEdit.setVisible(false);
+					circularCheckBox.setVisible(false);
+					imgCacheCheckBox.setVisible(false);
+					setPublicCheckBox.setVisible(false);
+					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(true);
+				}
+				
+				else if (compomentType.equals("View")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(false);
 					bgColorEdit.setText("背景颜色");
@@ -822,6 +851,7 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				} else {
 					colorEdit.setText("颜色");
 					colorEdit.setVisible(true);
@@ -835,6 +865,7 @@ public class CompomentDialog2 extends JDialog {
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
 					runTimeAddScrollView.setVisible(false);
+					isRunTimeHeight.setVisible(false);
 				}
 
                CompomentDialog2.this.setVisible(true);
