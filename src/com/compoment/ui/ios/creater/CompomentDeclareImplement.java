@@ -64,7 +64,7 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Implement += "int mId2 = btn.tag;\n//取绑定数据";
 
 			// ("跳到") ("单选") ("发请求") ("弹出")
-			if (chirld.actionString.equals("跳到")) {
+			if ("跳到".equals( chirld.actionString)) {
 				viewDidLoad_Implement += " self.hidesBottomBarWhenPushed=YES;\n";
 				viewDidLoad_Implement += firstCharToUpperAndJavaName(chirld.jumpToWhichPage)
 						+ "ViewController *" + chirld.jumpToWhichPage + "ViewController=[["
@@ -73,7 +73,7 @@ public class CompomentDeclareImplement {
 						+ firstCharToUpperAndJavaName(chirld.jumpToWhichPage) + "ViewController\" bundle:nil];\n";
 				viewDidLoad_Implement += "    [self.navigationController pushViewController:"
 						+ chirld.jumpToWhichPage + "ViewController animated:YES];\n";
-			} else if (chirld.actionString.equals("跳回到上几个")) {
+			} else if ("跳回到上几个".equals( chirld.actionString)) {
 				viewDidLoad_Implement += "//方法1.回到上几个页面\n";
 				viewDidLoad_Implement += " for (UIViewController *controller in self.navigationController.viewControllers) {\n";
 				viewDidLoad_Implement += "       if (![controller isKindOfClass:[FirstPageViewController class]]) {\n";
@@ -88,14 +88,14 @@ public class CompomentDeclareImplement {
 				viewDidLoad_Implement += "//方法3.回到上几个页面\n";
 				viewDidLoad_Implement += "  [self.navigationController popToRootViewControllerAnimated:YES];\n";
 
-			} else if (chirld.actionString.equals("跳回到上个")) {
+			} else if ("跳回到上个".equals( chirld.actionString)) {
 
 				viewDidLoad_Implement += "//方法3.回到上页面\n";
 				viewDidLoad_Implement += "  [self.navigationController popViewControllerAnimated:YES];\n";
 
-			} else if (chirld.actionString.equals("单选")) {
+			} else if ( "单选".equals( chirld.actionString)) {
 
-			} else if (chirld.actionString.equals("发请求")) {
+			} else if ( "发请求".equals( chirld.actionString)) {
 				viewDidLoad_Implement += " MsgReturn *msgReturn=[[MsgReturn alloc]init];\n";
 				viewDidLoad_Implement += " msgReturn.errorCode=@\"-1\";//-1显示自定义内容\n";
 				viewDidLoad_Implement += " msgReturn.errorType=@\"02\";\n";
@@ -103,7 +103,7 @@ public class CompomentDeclareImplement {
 				viewDidLoad_Implement += " [PromptError changeShowErrorMsg:msgReturn title:@\"\"  viewController:self block:^(BOOL OKCancel){}];\n\n";
 				viewDidLoad_Implement += "[self request" + chirld.interfaceId + "];\n";
 
-			} else if (chirld.actionString.equals("弹出")) {
+			} else if ("弹出".equals( chirld.actionString)) {
 
 				viewDidLoad_Implement += "if(menu==nil){";
 				viewDidLoad_Implement += "menu=[[" + firstCharToUpperAndJavaName(chirld.jumpToWhichPage)
