@@ -115,7 +115,9 @@ public class ViewControllerH {
 			m+="//2.在viewDidLoad中\n";
 			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
 		    m+="//chirldViewController.view.frame=CGRectMake(,,,);\n";
+		    m+="//[chirldViewController setChirldViewValue:nil delegate:self];\n";
 		    m+="//[ self.view addSubview:chirldViewController.view];\n";
+		    m+="// [chirldViewController.view setHidden:YES];\n";
 			}
 			
 			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",

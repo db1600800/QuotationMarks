@@ -115,7 +115,7 @@ public class ViewControllerM {
 		
 		if(isChirldViewNotParentView)
 		{
-		i+="-(void) setUiValue:(NSMutableArray*)mdata  delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent{\n";
+		i+="-(void) setChirldViewValue:(NSMutableArray*)mdata  delegate:(id<"+className+"ChirldViewCallBackDelegate>)parent{\n";
 	
 		 i+="   self.chirldViewCallBackDelegate=parent;\n";
 		 i+="   chirldViewData=mdata;\n";

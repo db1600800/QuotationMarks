@@ -339,7 +339,7 @@ public class IphoneViewControllerXib {
 
 		
 		
-		if (chirld.type.equals("Button")) {
+		if (chirld.type.equals("Button")||chirld.type.equals("CheckBox")) {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
