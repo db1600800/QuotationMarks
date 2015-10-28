@@ -154,6 +154,7 @@ public class ViewControllerM {
 					viewDidLoad_Declare+=compomentDeclareImplement.viewDidLoad_Declare;
 					viewDidLoad_Implement+=compomentDeclareImplement.viewDidLoad_Implement;
 					closeKeyboardDeclare+=compomentDeclareImplement.closeKeyboardDeclare;
+					closeKeyboardImplement+=compomentDeclareImplement.closeKeyboardImplement;
 					tablem+=compomentDeclareImplement.tablem;
 					i+=compomentDeclareImplement.i;
 					setvaluem+=compomentDeclareImplement.setvaluem;

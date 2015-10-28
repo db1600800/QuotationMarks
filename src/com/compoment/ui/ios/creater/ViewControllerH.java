@@ -110,7 +110,7 @@ public class ViewControllerH {
 			
 			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
 			m+="//1. "+className+"ChirldViewCallBackDelegate\n";
-			m+="//-(void) chirldViewCallBack:(NSString*)mtype  data:(NSMutableArray*)mdata;\n";
+			m+="//-(void) chirldViewCallBack:(NSMutableArray*)mdata;\n";
 			
 			m+="//2.在viewDidLoad中\n";
 			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";

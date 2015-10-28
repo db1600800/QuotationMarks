@@ -127,7 +127,7 @@ public class CompomentDeclareImplement {
 
 			}
 
-			viewDidLoad_Implement += "}\n\n";
+			viewDidLoad_Implement += "\n}\n\n";
 
 		}
 
@@ -168,14 +168,219 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Implement += "}\n\n";
 			
 			
+			viewDidLoad_Declare+="    UITapGestureRecognizer *"+chirld.enname+"TapGuest=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTextTapHandle:)];\n";
+			viewDidLoad_Declare+=chirld.enname+"    TapGuest.delegate = self;//头文件<UIGestureRecognizerDelegate>\n"; 
+			viewDidLoad_Declare+="    [ "+ selfString + chirld.enname+"  addGestureRecognizer:"+chirld.enname+"TapGuest];\n";
 			
-			closeKeyboardDeclare+= "\n UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboard)];\n";
-			closeKeyboardDeclare += "[self.scrollView addGestureRecognizer:closeKeyboardtap];\n";
+		
 			
-			closeKeyboardImplement += "-(void)closeKeyboard\n";
-			closeKeyboardImplement += "{\n";
-			closeKeyboardImplement += " [[[UIApplication sharedApplication] keyWindow] endEditing:YES];\n";
-			closeKeyboardImplement += "}\n\n";
+			if(closeKeyboardDeclare==null ||closeKeyboardDeclare.equals(""))
+			{
+				
+				
+			
+			
+			closeKeyboardDeclare+="    UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboardBlankPlaceTapHandle:)];\n";
+		
+			closeKeyboardDeclare+="    [self.view addGestureRecognizer:closeKeyboardtap];\n";
+		
+			closeKeyboardDeclare+="    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];\n";
+			closeKeyboardDeclare+="    \n";
+			closeKeyboardDeclare+="    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];\n";
+
+					
+					
+				
+			
+			
+			
+			closeKeyboardImplement+="//编辑框键盘顶起start\n";
+
+			closeKeyboardImplement+="   float touchy1;\n";
+			closeKeyboardImplement+="   int   movelength1;\n";
+			closeKeyboardImplement+="   int  keyboardHeight1;\n";
+			closeKeyboardImplement+="   bool keyboardOpen;\n\n";
+			
+			closeKeyboardImplement+="//注销键盘监听\n";
+			closeKeyboardImplement+="-(void)viewDidDisappear:(BOOL)animated\n";
+			closeKeyboardImplement+="{\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];\n";
+			closeKeyboardImplement+="    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="}\n\n";
+
+
+
+			closeKeyboardImplement+="//<UIGestureRecognizerDelegate>\n";
+			closeKeyboardImplement+="- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer\n";
+			closeKeyboardImplement+="{\n";
+			closeKeyboardImplement+="    return YES;\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="}\n\n";
+
+
+			closeKeyboardImplement+="//点空白区域键盘消失\n";
+			closeKeyboardImplement+="-(void)closeKeyboardBlankPlaceTapHandle:(UITapGestureRecognizer *)sender\n";
+
+			closeKeyboardImplement+="{\n";
+			closeKeyboardImplement+="  \n";
+			closeKeyboardImplement+="    if (keyboardOpen) {\n";
+			closeKeyboardImplement+="        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];\n";
+			closeKeyboardImplement+="    }\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="}\n\n";
+
+			closeKeyboardImplement+="//touchY 触摸位置\n";
+			closeKeyboardImplement+="-(void)editTextTapHandle:(UITapGestureRecognizer *)sender\n";
+
+			closeKeyboardImplement+="{\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="     if (keyboardOpen) {\n";
+			closeKeyboardImplement+="         return;\n";
+			closeKeyboardImplement+="     }\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    CGPoint point = [sender locationInView:self.view];\n";
+			closeKeyboardImplement+="    touchy1=point.y+15;\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    if(keyboardHeight1>0)\n";
+			closeKeyboardImplement+="    {\n";
+			closeKeyboardImplement+="        if(touchy1>keyboardHeight1)\n";
+			closeKeyboardImplement+="        {\n";
+			closeKeyboardImplement+="            movelength1=touchy1-keyboardHeight1;\n";
+			closeKeyboardImplement+="            [self MoveView:(-movelength1)];\n";
+			closeKeyboardImplement+="        }else\n";
+			closeKeyboardImplement+="        {\n";
+			closeKeyboardImplement+="            movelength1=0;\n";
+			closeKeyboardImplement+="            [self MoveView:(-movelength1)];\n";
+			closeKeyboardImplement+="        }\n";
+			closeKeyboardImplement+="    }\n";
+			closeKeyboardImplement+="    \n";
+
+			closeKeyboardImplement+="}\n\n";
+
+
+
+
+			closeKeyboardImplement+="//键盘打开监听回调\n";
+			closeKeyboardImplement+="- (void)keyboardWillShow:(NSNotification *)notification {\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    keyboardOpen=true;\n";
+			closeKeyboardImplement+="    /*\n";
+			closeKeyboardImplement+="     Reduce the size of the text view so that it's not obscured by the keyboard.\n";
+			closeKeyboardImplement+="     Animate the resize so that it's in sync with the appearance of the keyboard.\n";
+			closeKeyboardImplement+="     */\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    NSDictionary *userInfo = [notification userInfo];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    // Get the origin of the keyboard when it's displayed.\n";
+			closeKeyboardImplement+="    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    // Get the top of the keyboard as the y coordinate of its origin in self's view's coordinate system. The bottom of the text view's frame should align with the top of the keyboard's final position.\n";
+			closeKeyboardImplement+="    CGRect keyboardRect = [aValue CGRectValue];\n";
+			closeKeyboardImplement+="    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    float keyboardTop = keyboardRect.origin.y;\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    if(keyboardHeight1==0)\n";
+			closeKeyboardImplement+="    {\n";
+			closeKeyboardImplement+="        // Get the duration of the animation.\n";
+			closeKeyboardImplement+="        NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];\n";
+			closeKeyboardImplement+="        NSTimeInterval animationDuration;\n";
+			closeKeyboardImplement+="        [animationDurationValue getValue:&animationDuration];\n";
+			closeKeyboardImplement+="        //\n";
+			closeKeyboardImplement+="        //    // Animate the resize of the text view's frame in sync with the keyboard's appearance.\n";
+			closeKeyboardImplement+="        [UIView beginAnimations:nil context:NULL];\n";
+			closeKeyboardImplement+="        [UIView setAnimationDuration:animationDuration];\n";
+			closeKeyboardImplement+="        \n";
+			closeKeyboardImplement+="        keyboardHeight1=keyboardTop;\n";
+			closeKeyboardImplement+="        \n";
+			closeKeyboardImplement+="        if(touchy1>keyboardHeight1)\n";
+			closeKeyboardImplement+="        {\n";
+			closeKeyboardImplement+="            movelength1=touchy1-keyboardHeight1;\n";
+			closeKeyboardImplement+="            [self MoveView:(-movelength1)];\n";
+			closeKeyboardImplement+="        }else\n";
+			closeKeyboardImplement+="        {\n";
+			closeKeyboardImplement+="            movelength1=0;\n";
+			closeKeyboardImplement+="            [self MoveView:(-movelength1)];\n";
+			closeKeyboardImplement+="        }\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="        \n";
+			closeKeyboardImplement+="           [UIView commitAnimations];\n";
+			closeKeyboardImplement+="    }\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+=" \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="}\n\n";
+
+			closeKeyboardImplement+="//键盘关闭监听回调\n";
+			closeKeyboardImplement+="- (void)keyboardWillHide:(NSNotification *)notification {\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="      keyboardOpen=false;\n";
+			closeKeyboardImplement+="    NSDictionary* userInfo = [notification userInfo];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    /*\n";
+			closeKeyboardImplement+="     Restore the size of the text view (fill self's view).\n";
+			closeKeyboardImplement+="     Animate the resize so that it's in sync with the disappearance of the keyboard.\n";
+			closeKeyboardImplement+="     */\n";
+			closeKeyboardImplement+="    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];\n";
+			closeKeyboardImplement+="    NSTimeInterval animationDuration;\n";
+			closeKeyboardImplement+="    [animationDurationValue getValue:&animationDuration];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    [UIView beginAnimations:nil context:NULL];\n";
+			closeKeyboardImplement+="    [UIView setAnimationDuration:animationDuration];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    [self MoveView:(movelength1)];\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    [UIView commitAnimations];\n";
+			closeKeyboardImplement+="}\n\n";
+
+
+
+
+			closeKeyboardImplement+="-(void)MoveView:(int)h{\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    if (h<0) {\n";
+			closeKeyboardImplement+="        [UIView beginAnimations:nil context:nil];\n";
+			closeKeyboardImplement+="        [UIView setAnimationDuration:0.3];\n";
+			closeKeyboardImplement+="        [UIView setAnimationBeginsFromCurrentState: YES];\n";
+			closeKeyboardImplement+="        [self.contain setFrame: CGRectMake(self.contain.frame.origin.x, self.contain.frame.origin.y + h, self.contain.frame.size.width, self.contain.frame.size.height)];\n";
+			closeKeyboardImplement+="        [UIView commitAnimations];\n";
+			closeKeyboardImplement+="    }else\n";
+			closeKeyboardImplement+="    {\n";
+			closeKeyboardImplement+="        [UIView beginAnimations:nil context:nil];\n";
+			closeKeyboardImplement+="        [UIView setAnimationDuration:0.3];\n";
+			closeKeyboardImplement+="        [UIView setAnimationBeginsFromCurrentState: YES];\n";
+			closeKeyboardImplement+="        [self.contain setFrame: CGRectMake(self.contain.frame.origin.x, self.contain.frame.origin.y+h , self.contain.frame.size.width, self.contain.frame.size.height)];\n";
+			closeKeyboardImplement+="        [UIView commitAnimations];\n";
+			closeKeyboardImplement+="    }\n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="}\n";
+
+			closeKeyboardImplement+="//编辑框键盘顶起end\n\n";
+			
+		
+
+
+
+
+			
+			}
+			
 
 		}
 
