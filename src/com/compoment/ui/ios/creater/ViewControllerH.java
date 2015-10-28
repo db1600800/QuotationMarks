@@ -183,6 +183,10 @@ public class ViewControllerH {
 			
 				propertyValue+="//"+chirld.cnname+"\n";
 				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
+				
+				propertyValue+="//"+chirld.cnname+"Cover\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+"Cover;\n";
+				
 			}
 
 			if (chirld.type.equals("ListView")) {

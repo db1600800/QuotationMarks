@@ -369,7 +369,7 @@ public class IphoneViewControllerXib {
 
 		
 		
-		if (chirld.type.equals("Button")||chirld.type.equals("CheckBox")) {
+		if (chirld.type.equals("Button")) {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 			bodym += "                                <rect key=\"frame\" x=\""
@@ -410,6 +410,90 @@ public class IphoneViewControllerXib {
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
 
+		if (chirld.type.equals("CheckBox")) {
+			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+					+ chirld.id + "\">\n";
+			bodym += "                                <rect key=\"frame\" x=\""
+					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
+					+ "\"/>\n";
+			bodym += "                                <color key=\"backgroundColor\" red=\""
+					+ chirld.getR(chirld.bgRgb16ios)
+					+ "\" green=\""
+					+ chirld.getG(chirld.bgRgb16ios)
+					+ "\" blue=\""
+					+ chirld.getB(chirld.bgRgb16ios)
+					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += "                                <color key=\"tintColor\" red=\""
+					+ chirld.getR(chirld.rgb16)
+					+ "\" green=\""
+					+ chirld.getG(chirld.rgb16)
+					+ "\" blue=\""
+					+ chirld.getB(chirld.rgb16)
+					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			
+		    if(!chirld.picName.equals("图片名"))
+		    {
+			
+			bodym += "                                <state key=\"normal\" title=\""
+					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
+		    }else
+		    {
+		    	bodym += "                                <state key=\"normal\" title=\""
+						+ chirld.cnname + "\">\n";
+		    }
+			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
+			bodym += "                                </state>\n";
+	
+			bodym += "                            </button>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "Cover\" destination=\"" + chirld.id
+					+ "\" id=\"" + id() + "\"/>\n";
+			
+			
+			//透明覆盖层
+			
+			String coverLeverId=id();
+			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+					+ coverLeverId+ "\">\n";
+			bodym += "                                <rect key=\"frame\" x=\""
+					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
+					+ "\"/>\n";
+//			bodym += "                                <color key=\"backgroundColor\" red=\""
+//					+ chirld.getR(chirld.bgRgb16ios)
+//					+ "\" green=\""
+//					+ chirld.getG(chirld.bgRgb16ios)
+//					+ "\" blue=\""
+//					+ chirld.getB(chirld.bgRgb16ios)
+//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+//			bodym += "                                <color key=\"tintColor\" red=\""
+//					+ chirld.getR(chirld.rgb16)
+//					+ "\" green=\""
+//					+ chirld.getG(chirld.rgb16)
+//					+ "\" blue=\""
+//					+ chirld.getB(chirld.rgb16)
+//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+//			
+//		    if(!chirld.picName.equals("图片名"))
+//		    {
+//			
+//			bodym += "                                <state key=\"normal\" title=\""
+//					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
+//		    }else
+//		    {
+//		    	bodym += "                                <state key=\"normal\" title=\""
+//						+ chirld.cnname + "\">\n";
+//		    }
+//			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
+//			bodym += "                                </state>\n";
+	
+			bodym += "                            </button>\n";
+			connection += "                        <outlet property=\""
+					+ chirld.enname + "\" destination=\"" + coverLeverId
+					+ "\" id=\"" + id() + "\"/>\n";
+		}
+		
 		
 		if (chirld.type.equals("EditText")) {
 			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
