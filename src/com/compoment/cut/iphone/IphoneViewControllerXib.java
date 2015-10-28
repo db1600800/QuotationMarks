@@ -336,6 +336,36 @@ public class IphoneViewControllerXib {
 					+ chirld.enname + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
+		
+		if (chirld.type.equals("View")) {
+			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
+					
+					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+					+ chirld.id + "\">\n";
+			bodym += "                                        <rect key=\"frame\" x=\""
+					+ (chirld.x - parent.x)
+					+ "\" y=\""
+                 	+ (chirld.y - parent.y)
+					+ "\" width=\""
+					+ "320"
+					+ "\" height=\""
+					+ "1"
+					+ "\"/>\n";
+
+			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+
+			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
+			bodym += "                                        <color key=\"backgroundColor\" red=\""
+					+ chirld.getR(chirld.rgb16)
+					+ "\" green=\""
+					+ chirld.getG(chirld.rgb16)
+					+ "\" blue=\""
+					+ chirld.getB(chirld.rgb16)
+					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
+			bodym += "                                    </label>\n";
+			
+		}
 
 		
 		
