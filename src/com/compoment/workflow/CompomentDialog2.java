@@ -592,6 +592,12 @@ public class CompomentDialog2 extends JDialog {
 					bean.isRunTimeAddScrollView=true;	
 				}
 				
+				if(isRunTimeHeight.isSelected())
+				{
+					
+					bean.isRunTimeHeightTextview=true;
+				}
+				
 				circula(bean);
 				implementInterfaceFrame.compomentDialogCallBack(bean);
 				CompomentDialog2.this.setVisible(false);
