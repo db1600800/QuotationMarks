@@ -18,6 +18,12 @@ public class ScrollViewCells {
 			if (bean.type.equals("ScrollViewLayout")) {
 				// start
 				scrollDeclare += "-(void) scrollUI{\n";
+				
+				scrollDeclare += "   for (UIView *view in views) {\n";
+						scrollDeclare += "        [view removeFromSuperview];\n";
+						scrollDeclare += "}\n";
+								scrollDeclare += " [views removeAllObjects];\n";
+				
 				scrollDeclare += "int height=0;\n";
 				scrollDeclare += "int width=self."+bean.enname.replace("Layout", "")+".frame.size.width;\n";
 				scrollDeclare += "int x=0;\n";
@@ -53,6 +59,7 @@ public class ScrollViewCells {
 							scrollDeclare += " height+=" + chirld.enname + ".frame.size.height;\n";
 
 							scrollDeclare += " [self." + bean.enname.replace("Layout", "") + " addSubview:" + chirld.enname + "];\n\n";
+							scrollDeclare += " [views addObject:" + chirld.enname + "];\n\n";
 						} else
 
 						{

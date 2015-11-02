@@ -148,6 +148,9 @@ public class TableViewCellH {
 			n+="//"+chirld.cnname+"\n";
 			n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 			
+			n+="//"+chirld.cnname+"Cover\n";
+			n+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+"Cover;\n";
+			
 
 		}
 
