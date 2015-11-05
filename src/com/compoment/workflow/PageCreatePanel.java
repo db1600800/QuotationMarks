@@ -27,6 +27,7 @@ import com.compoment.cut.iphone.IphoneTableViewCellXib;
 
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
+import com.compoment.cut.web.WebJsp;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
@@ -444,6 +445,38 @@ public class PageCreatePanel {
 			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
 			
 		}
+		
+		
+		else if (frame.pageType.equals("ViewController-Web")) {
+			// 页面分析生成
+			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					frame.pageName, frame.beans);
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
+			savePublicCompoment();
+
+			//ios
+			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,false);
+			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,false);
+			
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
+			//android
+			CreateActivityView createView = new CreateActivityView(
+					frame.pageName);
+			createView.create();
+			
+		   //Web
+			WebJsp  webJsp = new WebJsp(frame.pageName,frame.beans);
+			
+			
+			
+			}
 		
 
 		frame.beans.clear();

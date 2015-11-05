@@ -49,6 +49,12 @@ public class PageTypePanel {
 		listDate.add("TableViewCell-IOS");
 		listDate.add("TableViewHeadCell-IOS");
 		listDate.add("CommonCell-IOS");
+		listDate.add("---Web---");
+		listDate.add("ChirldViewController-Web");
+		listDate.add("ViewController-Web");
+		listDate.add("TableViewCell-Web");
+		listDate.add("TableViewHeadCell-Web");
+		listDate.add("CommonCell-Web");
 	
 		pageTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

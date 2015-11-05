@@ -46,6 +46,7 @@ public class ProjectFrame2 extends JFrame {
 	private JList picListListView;
 	private JCheckBox androidCheckBox;
 	JCheckBox iphoneCheckBox;
+	JCheckBox webCheckBox;
 	
 	 ArrayList listDate = new ArrayList();
 	
@@ -92,7 +93,7 @@ public class ProjectFrame2 extends JFrame {
 		
 		JCheckBox swingCheckBox = new JCheckBox("Swing");
 		
-		JCheckBox webCheckBox = new JCheckBox("Web");
+		 webCheckBox = new JCheckBox("Web");
 		
 		swingPathValueEditText = new JTextField();
 		swingPathValueEditText.setColumns(10);
@@ -275,6 +276,28 @@ public class ProjectFrame2 extends JFrame {
 			}
 		});
 		
+	//Web
+		
+		webCheckBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				String s = webPathValueEditText.getText();
+		 		if(s==null || s.equals(""))
+		 		{
+		 		if(webCheckBox.isSelected())
+		 			 JOptionPane.showMessageDialog(null,"请输入web项目工程路径",null, JOptionPane.ERROR_MESSAGE);
+		 		webCheckBox.setSelected(false);
+		 			return;
+		 		}
+			 
+				searchPics(KeyValue.readCache("picPath"));
+			}
+		});
+		
+		
+		
+		
+		
+		//Iphone
 		if(projectpath!=null && !projectpath.equals(""))
 			iphonePathValueEditText.setText(projectpath);
 		
@@ -307,6 +330,43 @@ public class ProjectFrame2 extends JFrame {
 
 			}
 		});
+		
+		
+		
+		
+		//Web
+				if(projectpath!=null && !projectpath.equals(""))
+					webPathValueEditText.setText(projectpath);
+				
+				Document docWeb = webPathValueEditText.getDocument();
+
+				// 添加DocumentListener监听器
+				docWeb.addDocumentListener(new DocumentListener() {
+
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+
+						String s = webPathValueEditText.getText();
+						
+						KeyValue.writeCache("projectPath", s);
+						KeyValue.writeCache("picPath", s+"/pic");
+					
+						//searchPics(KeyValue.readCache("picPath"));
+					
+					}
+
+					@Override
+					public void removeUpdate(DocumentEvent arg0) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 		
 		
 		
