@@ -47,26 +47,318 @@ public class WebJsp {
 		String body = analyse(oldBeans);
 
 		String m = "";
-		m += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-		m += "<document type=\"com.apple.InterfaceBuilder3.CocoaTouch.XIB\" version=\"3.0\" toolsVersion=\"6751\" systemVersion=\"14D136\" targetRuntime=\"iOS.CocoaTouch\" propertyAccessControl=\"none\" useAutolayout=\"YES\" useTraitCollections=\"YES\">\n";
-		m += "    <dependencies>\n";
-		m += "        <deployment identifier=\"iOS\"/>\n";
-		m += "        <plugIn identifier=\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\" version=\"6736\"/>\n";
-		m += "    </dependencies>\n";
-		m += "    <objects>\n";
-		m += "        <placeholder placeholderIdentifier=\"IBFilesOwner\" id=\"-1\" userLabel=\"File's Owner\" customClass=\""
-				+ className + "ViewController\">\n";
-		m += "            <connections>\n";
-		m += connection;
-		m += "                <outlet property=\"view\" destination=\""
-				+ maxBean.id + "\" id=\"" + id() + "\"/>\n";
-		m += "            </connections>\n";
-		m += "        </placeholder>\n";
-		m += "        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
+		m+="<%@ page language=\"java\" import=\"java.util.*\" contentType=\"text/html;charset=UTF-8\" isELIgnored=\"false\" %>\n";
+		m+="<%@ taglib prefix=\"s\" uri=\"/struts-tags\" %>   \n";
+		m+="<%@page import=\"java.util.*\"%>\n";
 
-		m += body;
-		m += "</objects>\n";
-		m += "</document>\n";
+		m+="<!DOCTYPE HTML>\n";
+		m+="<html>\n";
+		m+="<head>\n";
+		m+="<meta charset='utf-8'>\n";
+		m+="<meta name=\"viewport\" content=\"width=device-width,initial-scale=1, maximum-scale=1, \">\n";
+		m+="<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n";
+		m+="<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n";
+		m+="<title>新增地址</title>\n";
+		m+="<link href=\"/chinapost/jiyouwx/css/css.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+		m+="<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jquery-1.10.1.min.js\"></script>\n";
+		m+="<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/swiper-2.1.min.js\"></script>\n";
+		
+		
+		
+		m+="<script>\n";
+
+		m+="	var click_once = true;\n";
+		
+		m+="	function save(){	\n";
+		m+="		  var name = $(\"#username\").val();\n";
+		m+="		  name = name.replace(/\s/ig,'');\n";
+		m+="		  if(name == \"\"){\n";
+		m+="			   auto_msg(\"请输入姓名！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  var phone = $(\"#phone\").val();\n";
+		m+="		  phone = phone.replace(/\s/ig,'');\n";
+		m+="		  if(phone == \"\"){\n";
+		m+="			   auto_msg(\"请输入手机号码！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  if(!/^1\d{10}$/g.test(phone) || phone.length != 11){\n";
+		m+="			    auto_msg(\"手机号码格式不正确!\");  \n";
+		m+="		       	return false;\n";
+		m+="	      }\n";
+
+		m+="		  var province = $(\"#province\").val();\n";
+		m+="		  if(province == \"-1\"){\n";
+		m+="			   auto_msg(\"请选择省！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  var city = $(\"#city\").val();\n";
+		m+="		  if(cityLength > 0 && city == \"-1\"){\n";
+		m+="			   auto_msg(\"请选择市！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  var count = $(\"#count\").val();\n";
+		m+="		  if(countLength >1 && count == \"-1\"){\n";
+		m+="			   auto_msg(\"请选择区/县！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  var address = $(\"#address\").val();\n";
+		m+="		  address = address.replace(/\s/ig,'');\n";
+		m+="		  if(address == \"\"){\n";
+		m+="			   auto_msg(\"请输入详细地址！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+
+		m+="		  var postcode = $(\"#postcode\").val();\n";
+		m+="		  postcode = postcode.replace(/\s/ig,'');\n";
+		m+="		  if(postcode == \"\"){\n";
+		m+="			   auto_msg(\"请输入邮编！\");\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+		m+="		  if(postcode != \"\" ){\n";
+		m+="			  if(postcode.length !=6 || !/\d{6}$/g.test(postcode) ){\n";
+		m+="				 auto_msg(\"邮政编码格式不正确！\");\n";
+		m+="			     return;\n";
+		m+="			  }\n";
+		m+="		  }\n";
+
+		m+="		  if(click_once == false){\n";
+		m+="			   return;\n";
+		m+="		  }\n";
+		m+="		  click_once = false;\n";
+
+		m+="		  var checked = \"\";\n";
+		m+="		  if(setAddr){\n";
+		m+="			  checked = \"0\";\n";
+		m+="		  }\n";
+		m+="	  var my_msg = show_hide_msg(\"数据提交中，请稍候...\");\n";
+		m+="		  var myform = document.forms[0]; \n";
+		m+="		  myform.action='/jiyou/wx/AddressAction!saveAddress.do?checked='+checked;  \n";
+		m+="		  myform.submit();\n";
+		m+="		my_msg = null;\n";
+		m+="	}\n";
+
+
+		m+="	var setAddr = false;\n";
+		m+="	function setDefaultAddr(){\n";
+		m+="		if(setAddr){\n";
+		m+="			setAddr = false;\n";
+		m+="			$(\"#defAddress\").attr(\"class\",\"check05\");\n";
+		m+="		}else{\n";
+		m+="			setAddr = true;\n";
+		m+="			$(\"#defAddress\").attr(\"class\",\"checked05\");\n";
+		m+="		}\n";
+		m+="	}\n";
+
+
+		m+="	var cityLength = 0;\n";
+		m+="	var countLength = 0;\n";
+		m+="	function selectArea(code){\n";
+		m+="		\n";
+		m+="		 var province = $(\"#province\").val();\n";
+		m+="		 var city = $(\"#city\").val();\n";
+		m+="		\n";
+		m+="	     var urlAddr = '';\n";
+		m+="	     if(code == \"city\"){\n";
+		m+="	    	 urlAddr = '/jiyou/wx/AddressAction!queryCity.do?province='+province;\n";
+		m+="	     }\n";
+		m+="	     \n";
+		m+="		 if((code == \"count\")){\n";
+		m+="	    	 urlAddr = \"/jiyou/wx/AddressAction!queryCount.do?city=\"+city;\n";
+		m+="	     }\n";
+		m+="		 \n";
+		m+="	     $.ajax({ \n";
+		m+="		    	url: urlAddr,\n";
+		m+="		        type: \"POST\",\n";
+		m+="		        async: false,\n";
+		m+="		        dataType:'json', //预期服务器返回的数据类型        \n";
+		m+="		        success:function (data) {\n";
+		m+="		 	        var index = 0;\n";
+		m+="		 	        var html = '<div style=\"position:fixed;top:30px;right:35px;z-index:10;\" onclick=\"close_tip_div();\"><img src=\"/chinapost/jiyouwx/images/close.jpg\" width=\"30\" height=\"30\"/></div>';\n";
+		m+="		 	        html += '<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"sorts\" ><tr>';\n";
+		m+="	 			 $.each(data,function (key, value) {\n";
+		m+="	    			 index = index + 1 ;\n";
+		m+="	    			 html += \"<td><a onclick='show(\\"\"+code+\"Pump\\");selectName(\\"\"+key+\"\\",\\"\" + code + \"\\",\\"\" + value + \"\\")'>\"+value+\"</a></td>\";\n";
+		m+="	    			 if(index % 2 == 0){\n";
+		m+="	    				 html += \"</tr><tr>\";\n";
+		m+="	    			 }\n";
+		m+="		    		 });\n";
+		m+="				\n";
+		m+="				 if(index % 2 == 0){\n";
+		m+="					 html += \"</tr></table>\";\n";
+		m+="				 }else{\n";
+		m+="					 html += \"<td>&nbsp;</td></tr></table>\"; \n";
+		m+="				 }\n";
+		m+="					 $(\"#\"+code+\"Pump\").append(html); \n";
+
+		m+="				 //更新省市县个数\n";
+		m+="				 if(code == \"city\"){\n";
+		m+="		        	 cityLength = index;\n";
+		m+="		         }\n";
+		m+="		         if(code == \"count\"){\n";
+		m+="		        	 countLength = index;\n";
+		m+="		        	 if(countLength > 0){\n";
+		m+="			        	 $(\"#countName\").show();\n";
+		m+="		        	 } else {\n";
+		m+="			        	 $(\"#countName\").hide();\n";
+		m+="		        	 }\n";
+		m+="		         }\n";
+		m+="				 \n";
+		m+="		        },\n";
+		m+="		        error:function () {\n";
+		m+="					alert_msg(\"系统出错了!\");  \n";
+		m+="		        }\n";
+		m+="			});\n";
+		m+="	    \n";
+		m+="	}\n";
+
+		m+="	function selectName(value,code,name){\n";
+		m+="	    $(\"#\"+code).val(value);\n";
+		m+="	    $(\"#\"+code+\"Name\").text(name);\n";
+		m+="	    if(code == \"province\"){\n";
+		m+="		    $(\"#cityPump\").html(\"\");\n";
+		m+="		    $(\"#city\").val(\"-1\");\n";
+		m+="		    $(\"#cityName\").text(\"请选择\");\n";
+		m+="		    cityLength = 0;\n";
+		m+="	    }\n";
+
+		m+="	    if(code == \"province\" || code == \"city\" ){\n";
+		m+="		    $(\"#countPump\").html(\"\");\n";
+		m+="		    $(\"#count\").val(\"-1\");\n";
+		m+="		    $(\"#countName\").text(\"请选择\");\n";
+		m+="		    countLength = 0;\n";
+		m+="	    }\n";
+
+		m+="	    if(code == \"province\"){\n";
+		m+="	   		selectArea('city');\n";
+		m+="	    	selectCity();\n";
+		m+="	    }\n";
+
+		m+="	    if(code == \"city\"){\n";
+		m+="	    	selectArea('count');\n";
+		m+="	    	selectCount();\n";
+		m+="	    }\n";
+		m+="	}\n";
+
+		m+="	function selectCity(){\n";
+		m+="		 var province = $(\"#province\").val();\n";
+		m+="		\n";
+		m+="		 //当未选择省时，先点击市\n";
+		m+="	     if(province == '-1'){\n";
+		m+="	    	 auto_msg(\"请先选择省\");\n";
+		m+="			 return;\n";
+		m+="	     }\n";
+		m+="	     if( cityLength > 0){\n";
+		m+="	    	 show('cityPump'); \n";
+		m+="	     }\n";
+		m+="	    \n";
+		m+="	}\n";
+
+		m+="	function selectCount(){\n";
+		m+="		 var province = $(\"#province\").val();\n";
+		m+="		 var city = $(\"#city\").val();\n";
+		m+="		\n";
+		m+="		 //当未选择省时，先点击市\n";
+		m+="	     if(province == '-1'){\n";
+		m+="	    	 auto_msg(\"请先选择省\");\n";
+		m+="			 return;\n";
+		m+="	     }\n";
+		m+="	     if(city == '-1'){\n";
+		m+="	    	 auto_msg(\"请先选择市\");\n";
+		m+="			 return;\n";
+		m+="	     }\n";
+		m+="	     if(countLength > 0){\n";
+		m+="	    	 show('countPump'); \n";
+		m+="	     }\n";
+		m+="	}\n";
+		m+="</script>\n";
+		m+="</head>\n";
+		m+="<body>\n";
+		m+="<form action=\"\" id=\"myform\"  method=\"post\">\n";
+		m+="<header><img src=\"/chinapost/jiyouwx/images/back.png\" onclick=\" history.go(-1);\" class=\"back\">添加地址</header>\n";
+		m+="<div class=\"h45\">&nbsp;</div>\n";
+		m+="	<ul class=\"box03 ul01 ul02\">\n";
+		m+="	<li><strong class=\"red\">*</strong>姓名：\n";
+		m+="	  <input type=\"text\" class=\"input01\" id=\"username\" name=\"username\" placeholder=\"请输入姓名\"></li>\n";
+		m+="	<li><strong class=\"red\">*</strong>手机：\n";
+		m+="	  <input type=\"text\" class=\"input01\" id=\"phone\" name=\"phone\" maxlength=\"11\" pattern=\"[0-9]\" placeholder=\"请输入手机号码\"></li>\n";
+		m+="	  \n";
+		m+="    <li class=\"area\"><strong class=\"red\">*</strong>地区：\n";
+		m+="	    <div class=\"areaBox\"> \n";
+		m+="      <span class=\"arrowBg02\" onClick=\"show('provincePump');\" id=\"provinceName\">请选择</span>\n";
+		m+="      <span class=\"arrowBg02\" onClick=\"selectCity();\" id=\"cityName\" >请选择</span>\n";
+		m+="      <span class=\"arrowBg02\" onClick=\"selectCount();\" id=\"countName\">请选择</span> \n";
+		m+="      \n";
+		m+="      <input type=\"hidden\" id=\"province\" name=\"province\" value='-1'>\n";
+		m+="      <input type=\"hidden\" id=\"city\" name=\"city\" value='-1'>\n";
+		m+="      <input type=\"hidden\" id=\"count\" name=\"count\" value='-1'>\n";
+		m+="    </div>\n";
+		m+="    </li>\n";
+		m+="    \n";
+		m+="	<li><strong class=\"red\">*</strong>地址：\n";
+		m+="	  <input type=\"text\" class=\"input01\" id=\"address\" name=\"address\" placeholder=\"请输入详细地址\">\n";
+		m+="	</li>\n";
+		m+="	<li><strong class=\"red\">*</strong>邮编：\n";
+		m+="	  <input type=\"text\" class=\"input01\" maxlength=\"6\" id=\"postcode\" name=\"postcode\"  pattern=\"[0-9]\" placeholder=\"请输入邮编\">\n";
+		m+="	</li>\n";
+		m+="	<li ><span id=\"defAddress\" class=\"check05\" onclick=\"setDefaultAddr()\">设为默认地址</span></li>	\n";
+		m+="</ul>\n";
+		m+="<a href=\"#\" class=\"btn02\" onclick=\"save()\" >保存</a>\n";
+		m+="<jsp:include page=\"/chinapost/jiyouwx/global_error.jsp\"></jsp:include>\n";
+
+		m+="  <div class=\"tipBox\">\n";
+		m+="  <div class=\"lightBox\" onclick=\"close_tip_div();\"></div>\n";
+		m+="  <div class=\"pump\" id=\"provincePump\">\n";
+		m+="  	<div style=\"position:fixed;top:30px;right:35px;z-index:10;\" onclick=\"close_tip_div();\"><img src=\"/chinapost/jiyouwx/images/close.jpg\" width=\"30\" height=\"30\"/></div>\n";
+		m+="    <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"sorts\">\n";
+		m+="      <s:iterator value=\"#request.province\" id=\"prov\" status = \"st\"> \n";
+		m+="        <s:if test=\"#st.index % 2 == 0\">\n";
+		m+="            <tr><td><a onclick='show(\"provincePump\");selectName(\"<s:property value=\"key\"/>\",\"province\",\"<s:property value=\"value\"/>\")'><s:property value=\"value\"/></a></td>\n";
+		m+="        </s:if>\n";
+		m+="        <s:else>\n";
+		m+="           <td><a onclick='show(\"provincePump\");selectName(\"<s:property value=\"key\"/>\",\"province\",\"<s:property value=\"value\"/>\")'><s:property value=\"value\"/></a></td></tr>\n";
+		m+="        </s:else>\n";
+		m+="	  </s:iterator>\n";
+		m+="   </table>\n";
+		m+="  </div>\n";
+		m+="   <div class=\"pump\" id=\"cityPump\">\n";
+		m+="  </div>\n";
+		m+="   <div class=\"pump\" id=\"countPump\">\n";
+		m+="  </div>\n";
+		m+="</div>\n";
+		m+="<script>\n";
+
+		m+="function show(tem){\n";
+		m+="	if($(\"#\"+tem).hasClass(\"block\")){\n";
+		m+="		$(\".pump\").removeClass(\"block\");\n";
+		m+="		$(\".lightBox\").removeClass(\"block\");\n";
+		m+="	} else{\n";
+		m+="		$(\".lightBox\").addClass(\"block\");\n";
+		m+="		$(\".pump\").removeClass(\"block\");\n";
+		m+="		$(\"#\"+tem).addClass(\"block\");\n";
+		m+="	}\n";
+		m+="		\n";
+		m+="	$(\"#lightBox\").height(window.screen.availHeight);\n";
+		m+="	\n";
+		m+="	$(document.body).toggleClass(\"html-body-overflow\");\n";
+		m+="}\n";
+
+
+		m+="function close_tip_div(){\n";
+		m+="	$(\".tipBox\").children(\"div\").removeClass(\"block\");\n";
+		m+="	$(document.body).toggleClass(\"html-body-overflow\");\n";
+		m+="}\n";
+		m+="</script>\n";
+		m+="<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
+		m+="</form>\n";
+		m+="</body>\n";
+		m+="</html>\n";
+
 		System.out.println(m);
 
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
