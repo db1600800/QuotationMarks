@@ -22,8 +22,8 @@ public class CompomentDeclareImplement {
 		viewDidLoad_Declare="";
 		viewDidLoad_Implement="";
 		 setvaluem="";
-		 closeKeyboardDeclare="";
-		 closeKeyboardImplement="";
+			closeKeyboardDeclare="";
+			closeKeyboardImplement="";
 		 tablem="";
 
 
@@ -139,13 +139,16 @@ public class CompomentDeclareImplement {
 			setvaluem += "//" + chirld.cnname + "\n";
 			setvaluem += "[" + chirld.enname + " setValue:]\n";
 
+			viewDidLoad_Declare += " \n" + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n\n";
+			
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
-					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n\n";
 
-			viewDidLoad_Declare += " " + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n";
+			
+			
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
-					+ chirld.enname + "DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
+					+ chirld.enname + "DidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];\n\n";
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "DidEndOnExit:(UITextField *)textField{\n";
 			viewDidLoad_Implement += " [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
@@ -154,10 +157,10 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Implement += "     orderform.invoiceMsg=textField.text;\n";
 			viewDidLoad_Implement += "}\n\n";
 
-			viewDidLoad_Declare += " " + selfString + chirld.enname + ".tag=i;\n";
+		
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
-					+ chirld.enname + "DidEnd:) forControlEvents:UIControlEventEditingDidEndOnExit];\n";
-			viewDidLoad_Declare += " " + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n";
+					+ chirld.enname + "DidEnd:) forControlEvents:UIControlEventEditingDidEnd];\n\n";
+		
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "DidEnd:(UITextField *)textField{\n";
 			viewDidLoad_Implement += " [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
@@ -169,14 +172,12 @@ public class CompomentDeclareImplement {
 			
 			
 			viewDidLoad_Declare+="    UITapGestureRecognizer *"+chirld.enname+"TapGuest=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTextTapHandle:)];\n";
-			viewDidLoad_Declare+=chirld.enname+"    TapGuest.delegate = self;//头文件<UIGestureRecognizerDelegate>\n"; 
-			viewDidLoad_Declare+="    [ "+ selfString + chirld.enname+"  addGestureRecognizer:"+chirld.enname+"TapGuest];\n";
+			viewDidLoad_Declare+=chirld.enname+"TapGuest.delegate = self;//头文件<UIGestureRecognizerDelegate>\n"; 
+			viewDidLoad_Declare+="    [ "+ selfString + chirld.enname+"  addGestureRecognizer:"+chirld.enname+"TapGuest];\n\n";
 			
 		
 			
-			if(closeKeyboardDeclare==null ||closeKeyboardDeclare.equals(""))
-			{
-				
+			
 				
 			
 			
@@ -378,8 +379,8 @@ public class CompomentDeclareImplement {
 
 
 
+		
 			
-			}
 			
 
 		}

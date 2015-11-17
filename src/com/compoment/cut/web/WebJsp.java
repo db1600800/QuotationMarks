@@ -69,6 +69,7 @@ public class WebJsp {
 
 		m+="	var click_once = true;\n";
 		
+		
 		m+="	function save(){	\n";
 		m+="		  var name = $(\"#username\").val();\n";
 		m+="		  name = name.replace(/\s/ig,'');\n";
@@ -279,6 +280,8 @@ public class WebJsp {
 		m+="</script>\n";
 		m+="</head>\n";
 		m+="<body>\n";
+		
+		
 		m+="<form action=\"\" id=\"myform\"  method=\"post\">\n";
 		m+="<header><img src=\"/chinapost/jiyouwx/images/back.png\" onclick=\" history.go(-1);\" class=\"back\">添加地址</header>\n";
 		m+="<div class=\"h45\">&nbsp;</div>\n";
@@ -405,26 +408,12 @@ public class WebJsp {
 			}
 		}
 
-		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
-				+ maxBean.id + "\">\n";
-		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\""+rootViewWidth+"\" height=\""+rootViewHeight+"\"/>\n";
-		bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-		bodym += "                        <subviews>\n";
-
+		
+		m+="  <div class=\"tipBox\">\n";
 		parent(maxBean);
 
-		bodym += "                        </subviews>\n";
-		bodym += "                        <color key=\"backgroundColor\" red=\""
-				+ maxBean.getR(maxBean.bgRgb16ios)
-				+ "\" green=\""
-				+ maxBean.getG(maxBean.bgRgb16ios)
-				+ "\" blue=\""
-				+ maxBean.getB(maxBean.bgRgb16ios)
-				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-
-		//bodym += constraint(maxBean);
-		bodym += "                    </view>\n";
 		
+		m+="  </div>\n";
 
 		return bodym;
 	}
