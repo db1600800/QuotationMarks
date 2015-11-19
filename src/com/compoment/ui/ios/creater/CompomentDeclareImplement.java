@@ -181,7 +181,7 @@ public class CompomentDeclareImplement {
 				
 			
 			
-			closeKeyboardDeclare+="    UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboardBlankPlaceTapHandle:)];\n";
+			closeKeyboardDeclare+=" \n//键盘顶起\n   UITapGestureRecognizer* closeKeyboardtap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboardBlankPlaceTapHandle:)];\n";
 		
 			closeKeyboardDeclare+="    [self.view addGestureRecognizer:closeKeyboardtap];\n";
 		

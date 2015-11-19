@@ -337,7 +337,7 @@ public class IphoneViewControllerXib {
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
 		
-		if (chirld.type.equals("View")) {
+		if (chirld.type.equals("Line")) {
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""

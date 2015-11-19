@@ -593,7 +593,7 @@ public class CompomentDialog {
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
 					setPublicCheckBox.setVisible(false);
-				} else if (compomentType.equals("View")) {
+				} else if (compomentType.equals("Line")) {
 					colorEdit.setText("文字颜色");
 					colorEdit.setVisible(false);
 					bgColorEdit.setText("背景颜色");

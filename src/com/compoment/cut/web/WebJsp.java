@@ -32,6 +32,8 @@ public class WebJsp {
 	String connection = "";
 	String pageName = "";
 	String className = "";
+	String formmStart="";
+	String formmEnd="";
 
     int rootViewWidth=320;
     int rootViewHeight=568;
@@ -408,12 +410,14 @@ public class WebJsp {
 			}
 		}
 
-		
-		m+="  <div class=\"tipBox\">\n";
+		bodym+="<body>";
+		bodym+="  <div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
+		bodym+=formmStart;
 		parent(maxBean);
 
-		
-		m+="  </div>\n";
+		bodym+=formmEnd;
+		bodym+="  </div>\n";
+		bodym+="</body>";
 
 		return bodym;
 	}
@@ -425,22 +429,7 @@ public class WebJsp {
 	}
 
 
-//	int parentTopSpace=20;
-//	int parentHeight=40;
-//	int chirldleftspace=30;
-//	int chirldleftspaceConstaraint=30;
-//	
-//	int textViewHeight=20;
-//	int buttonWidth=60;
-//	int buttonHeght=30;
-//
-//	int editTextWidht=100;
-//	int editTextHeight=30;
-//	
-//	int imageWidth=30;
-//	int imageHeight=30;
-//	int imageWidthConstraint=30;
-//	int imageHeightConstraint=30;
+
 	
 	public void parent(CompomentBean bean) {
 
@@ -457,10 +446,7 @@ public class WebJsp {
 			}else
 			{
 			
-//			int top=parentTopSpace;
-//			int martop=0;
-//			int chirldCount=0;
-//			int height=0;
+
 			for (CompomentBean chirld : bean.chirlds) {
 				
 				//这个儿子是容器 layout
@@ -510,27 +496,7 @@ public class WebJsp {
 						bodym += "                                </userDefinedRuntimeAttributes>\n";
 					}
 
-					// m+="                                <variation key=\"default\">\n";
-					// m+="                                    <mask key=\"subviews\">\n";
-					// m+="                                        <exclude reference=\"COT-hb-yaP\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                    <mask key=\"constraints\">\n";
-					// m+="                                        <exclude reference=\"Fc6-1K-XdQ\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                </variation>\n";
-
-					// m+="                                <variation key=\"widthClass=compact\">\n";
-					// m+="                                    <mask key=\"subviews\">\n";
-					// for(int i=0;i<bean.chirlds.size();i++)
-					// {
-					// m+="                                        <include reference=\""+bean.chirlds.get(i).id+"\"/>\n";
-					// }
-					// m+="                                    </mask>\n";
-
-					// m+="                                    <mask key=\"constraints\">\n";
-					// m+="                                        <include reference=\"lmb-pJ-JUc\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                </variation>\n";
+				
 					bodym += "                            </view>\n";
 
 				} else {//这个儿子是非容器 
@@ -548,7 +514,7 @@ public class WebJsp {
 	
 	public void chirld(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
 
-	   
+	
 	    // int left=chirldleftspace;
 //	     int marleft=0;
 //	     int width=0;
@@ -583,9 +549,9 @@ public class WebJsp {
 //	    	   
 //				   
 //	       }
-		 
-	
-		 
+		
+		
+		
 		if (chirld.type.equals("TextView")) {
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					+ chirld.cnname
@@ -618,7 +584,7 @@ public class WebJsp {
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
 		
-		if (chirld.type.equals("View")) {
+		if (chirld.type.equals("Line")) {
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
@@ -651,26 +617,7 @@ public class WebJsp {
 		
 		
 		if (chirld.type.equals("Button")) {
-			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
-			bodym += "                                <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16ios)
-					+ "\" green=\""
-					+ chirld.getG(chirld.bgRgb16ios)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16ios)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                <color key=\"tintColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			
 			
 		    if(!chirld.picName.equals("图片名"))
 		    {
@@ -679,16 +626,11 @@ public class WebJsp {
 					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
 		    }else
 		    {
-		    	bodym += "                                <state key=\"normal\" title=\""
-						+ chirld.cnname + "\">\n";
+		    
+		    	
+		    	bodym += "<img src= \"/images/back.png\" onclick=\" history.go(-1);\" styple=\" width: 12px; position: absolute; left: 10px; top:10px;\">\n";
 		    }
-			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
-			bodym += "                                </state>\n";
-	
-			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+
 		}
 
 		if (chirld.type.equals("CheckBox")) {
@@ -741,34 +683,7 @@ public class WebJsp {
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
 					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
-//			bodym += "                                <color key=\"backgroundColor\" red=\""
-//					+ chirld.getR(chirld.bgRgb16ios)
-//					+ "\" green=\""
-//					+ chirld.getG(chirld.bgRgb16ios)
-//					+ "\" blue=\""
-//					+ chirld.getB(chirld.bgRgb16ios)
-//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-//			bodym += "                                <color key=\"tintColor\" red=\""
-//					+ chirld.getR(chirld.rgb16)
-//					+ "\" green=\""
-//					+ chirld.getG(chirld.rgb16)
-//					+ "\" blue=\""
-//					+ chirld.getB(chirld.rgb16)
-//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-//			
-//		    if(!chirld.picName.equals("图片名"))
-//		    {
-//			
-//			bodym += "                                <state key=\"normal\" title=\""
-//					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
-//		    }else
-//		    {
-//		    	bodym += "                                <state key=\"normal\" title=\""
-//						+ chirld.cnname + "\">\n";
-//		    }
-//			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
-//			bodym += "                                </state>\n";
-	
+
 			bodym += "                            </button>\n";
 			connection += "                        <outlet property=\""
 					+ chirld.enname + "\" destination=\"" + coverLeverId
@@ -777,26 +692,15 @@ public class WebJsp {
 		
 		
 		if (chirld.type.equals("EditText")) {
-			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"100\" height=\"30\"/>\n";
-
-//			bodym += " <constraints>\n";
-//			bodym += " <constraint firstAttribute=\"height\" constant=\"30\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " <constraint firstAttribute=\"width\" constant=\"100\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " </constraints>\n";
-
-			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
-					+ chirld.textSize + "\"/>\n";
-			bodym += "                                        <textInputTraits key=\"textInputTraits\"/>\n";
-			bodym += "                                    </textField>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+			
+			if(formmStart.equals(""))
+			{
+			formmStart+="<form action=\"\" id=\"myform\"  method=\"post\">\n";
+			
+			formmEnd+="</form>\n";
+			}
+			
+			
 
 		}
 

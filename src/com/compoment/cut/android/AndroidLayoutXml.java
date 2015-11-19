@@ -478,7 +478,7 @@ public class AndroidLayoutXml {
 			m += "</ExpandableListView>\n";
 		}
 		
-		if (bean.type.equals("View")) {
+		if (bean.type.equals("Line")) {
 			m+=" <View android:layout_width=\"fill_parent\" android:layout_height=\"1dip\" android:background=\""+bean.bgRgb16+"\" />\n";
 
 		}
