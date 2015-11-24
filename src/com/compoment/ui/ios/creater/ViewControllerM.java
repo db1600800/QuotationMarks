@@ -14,7 +14,7 @@ public class ViewControllerM {
 	String i = "\n\n\n";
 	String tablem = "\n";
 	String scrollm = "\n";
-	String setvaluem = "\n";
+	
 	String viewDidLoad_Declare = "";
 	String viewDidLoad_Implement = "";
 	String pageName = "";
@@ -163,7 +163,7 @@ public class ViewControllerM {
 					
 					tablem+=compomentDeclareImplement.tablem;
 					i+=compomentDeclareImplement.i;
-					setvaluem+=compomentDeclareImplement.setvaluem;
+					
 				
 					
 					

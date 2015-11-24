@@ -8,7 +8,7 @@ public class CompomentDeclareImplement {
 	public String i="";
 	public String viewDidLoad_Declare="";
 	public String viewDidLoad_Implement="";
-	public String setvaluem="";
+
 	public String closeKeyboardDeclare="";
 	public String closeKeyboardImplement="";
 	public String tablem="";
@@ -21,7 +21,7 @@ public class CompomentDeclareImplement {
 		i="";
 		viewDidLoad_Declare="";
 		viewDidLoad_Implement="";
-		 setvaluem="";
+	
 			closeKeyboardDeclare="";
 			closeKeyboardImplement="";
 		 tablem="";
@@ -136,8 +136,7 @@ public class CompomentDeclareImplement {
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
-			setvaluem += "//" + chirld.cnname + "\n";
-			setvaluem += "[" + chirld.enname + " setValue:]\n";
+		
 
 			viewDidLoad_Declare += " \n" + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n\n";
 			
@@ -484,9 +483,9 @@ public class CompomentDeclareImplement {
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
-			setvaluem += "//" + chirld.cnname + "\n";
-			setvaluem += "[" + chirld.enname + " setImage:[UIImage imageNamed:@\"1.jpeg\"]]\n";
-			setvaluem += "[" + chirld.enname
+			viewDidLoad_Declare += "//" + chirld.cnname + "\n";
+			viewDidLoad_Declare += "[" + chirld.enname + " setImage:[UIImage imageNamed:@\"1.jpeg\"]]\n";
+			viewDidLoad_Declare += "[" + chirld.enname
 					+ " setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@\"default.jpg\"]];\n";
 
 		}
