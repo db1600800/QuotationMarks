@@ -60,6 +60,9 @@ public class CompomentBean implements Serializable {
 	 * android:layout_toLeftOf="@id/"
 	 * */
 	public String relative = "";
+	
+	public String relativeForWeb="";
+	
 	public String picName;
 	/**
 	 * 控件加入的时间
