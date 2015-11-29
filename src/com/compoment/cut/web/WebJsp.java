@@ -571,52 +571,10 @@ public class WebJsp {
 				//这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""							+ chirld.id + "\">\n";
-
-						bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
-							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-
-		
-					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-					bodym += "                                <subviews>\n";
-					parent(chirld);
-					bodym += "                                </subviews>\n";
-					bodym += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(chirld.bgRgb16ios)
-							+ "\" green=\""
-							+ bean.getG(chirld.bgRgb16ios)
-							+ "\" blue=\""
-							+ bean.getB(chirld.bgRgb16ios)
-							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-					// m+="                                <constraints>\n";
-					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
-					// m+="                                </constraints>\n";
-					//bodym += constraint(chirld);
-
-					if (bean.type.contains("Layout") && bean.rgb16 != null
-							&& bean.isFilletedCorner) {// 圆角边框颜色
-						bodym += "                                <userDefinedRuntimeAttributes>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.borderWidth\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"1\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"color\" keyPath=\"layer.borderColor\">\n";
-						bodym += "                                        <color key=\"value\" red=\""
-								+ bean.getR(bean.rgb16)
-								+ "\" green=\""
-								+ bean.getG(bean.rgb16)
-								+ "\" blue=\""
-								+ bean.getB(bean.rgb16)
-								+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.cornerRadius\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"10\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                </userDefinedRuntimeAttributes>\n";
-					}
-
-				
-					bodym += "                            </view>\n";
+					
+					bodym+="  <div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
+					
+					bodym+="  </div>\n";
 
 				} else {//这个儿子是非容器 
 					
@@ -635,35 +593,8 @@ public class WebJsp {
 		
 		
 		if (chirld.type.equals("TextView")) {
-			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
-					+ chirld.cnname
-					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
-					+ "\" width=\""
-					+ "80"
-					+ "\" height=\""
-					+ "15"
-					+ "\"/>\n";
-
-			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-
-			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
-			bodym += "                                        <color key=\"textColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
-			bodym += "                                    </label>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+		
+			bodym += " <span style=\""+chirld.relativeForWeb+" margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px; \"><font size=\""+chirld.textSize+"px\" color=\""+chirld.rgb16+"\">"+chirld.cnname+"</font></span>\n";
 		}
 		
 		if (chirld.type.equals("Line")) {

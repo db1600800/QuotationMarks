@@ -61,6 +61,7 @@ public class CompomentBean implements Serializable {
 	 * */
 	public String relative = "";
 	
+	/**float:left; float:right; float:center;  或者没有*/
 	public String relativeForWeb="";
 	
 	public String picName;
