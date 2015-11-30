@@ -368,7 +368,7 @@ public class EdgeDetector extends Component {
   		
   		
   			
-  			File f = new File("/Users/apple/Documents/workspace/test/pic/aa.png");
+  			File f = new File("/Users/admin/Documents/workspace/gg/pic/shoppingcarParentItem.jpg");
   		BufferedImage bi = null;
 		try {
 			bi = ImageIO.read(f);
@@ -389,7 +389,7 @@ public class EdgeDetector extends Component {
   		        Image edgeImage=edgeDetector.getEdgeImage();
   		        
   		      BufferedImage bi2;
-  		    File f2 = new File("/Users/apple/Documents/workspace/test/pic/test1.png");
+  		    File f2 = new File("/Users/admin/Documents/workspace/gg/pic/testCanny.png");
   		    try {
 				ImageIO.write(imageToBufferedImage(edgeImage), "png", f2);
 			} catch (IOException e) {

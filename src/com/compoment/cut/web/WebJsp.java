@@ -422,11 +422,11 @@ public class WebJsp {
 									CompomentBean chirld1 = bean.chirlds.get(0);
 									CompomentBean chirld2 = bean.chirlds.get(1);
 									if (chirld1.x < chirld2.x) {
-										chirld1.relativeForWeb += "float:left;";
-										chirld2.relativeForWeb += "float:right;";
+										chirld1.relativeForWeb += "float:left; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:0px; margin-right:0px; margin-bottom:0px; ";
+										chirld2.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px; ";
 									} else if (chirld1.x > chirld2.x) {
-										chirld2.relativeForWeb += "float:left;";
-										chirld1.relativeForWeb += "float:right;";
+										chirld2.relativeForWeb += "float:left; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
+										chirld1.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
 									}
 								} else if (bean.orientation.equals("vertical")) {
 //									CompomentBean chirld1 = bean.chirlds.get(0);
@@ -446,13 +446,13 @@ public class WebJsp {
 									int i = 0;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "float:left;";
+											chirld.relativeForWeb += "float:left; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
 
 										} else if (i == 1) {
-											chirld.relativeForWeb += "float:center;";
+											chirld.relativeForWeb += "float:center; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
 
 										} else if (i == 2) {
-											chirld.relativeForWeb += "float:right;";
+											chirld.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
 										}
 										i++;
 									}
@@ -594,7 +594,7 @@ public class WebJsp {
 		
 		if (chirld.type.equals("TextView")) {
 		
-			bodym += " <span style=\""+chirld.relativeForWeb+" margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px; \"><font size=\""+chirld.textSize+"px\" color=\""+chirld.rgb16+"\">"+chirld.cnname+"</font></span>\n";
+			bodym += " <span style=\""+chirld.relativeForWeb+" \"><font size=\""+chirld.textSize+"px\" color=\""+chirld.rgb16+"\">"+chirld.cnname+"</font></span>\n";
 		}
 		
 		if (chirld.type.equals("Line")) {
