@@ -409,16 +409,140 @@ public class WebJsp {
 				layouts.add(bean);
 			}
 		}
+		
+		
+		// RelativeLayout 儿子们的位置关系
+				for (CompomentBean bean : layouts) {
+					if (bean.type.equals("RelativeLayout")) {
+						if (bean.chirlds != null && bean.chirlds.size() > 1) {
 
-		bodym+="<body>";
+							if (bean.chirlds.size() == 2) {
+								if (bean.orientation.equals("horizontal")) {
+
+									CompomentBean chirld1 = bean.chirlds.get(0);
+									CompomentBean chirld2 = bean.chirlds.get(1);
+									if (chirld1.x < chirld2.x) {
+										chirld1.relativeForWeb += "float:left;";
+										chirld2.relativeForWeb += "float:right;";
+									} else if (chirld1.x > chirld2.x) {
+										chirld2.relativeForWeb += "float:left;";
+										chirld1.relativeForWeb += "float:right;";
+									}
+								} else if (bean.orientation.equals("vertical")) {
+//									CompomentBean chirld1 = bean.chirlds.get(0);
+//									CompomentBean chirld2 = bean.chirlds.get(1);
+//									if (chirld1.y < chirld2.y) {
+//									} else if (chirld1.y > chirld2.y) {
+//									}
+
+								}
+
+							} else if (bean.chirlds.size() == 3) {
+
+								if (bean.orientation.equals("horizontal")) {
+
+									Collections.sort(bean.chirlds, comparatorX);
+
+									int i = 0;
+									for (CompomentBean chirld : bean.chirlds) {
+										if (i == 0) {
+											chirld.relativeForWeb += "float:left;";
+
+										} else if (i == 1) {
+											chirld.relativeForWeb += "float:center;";
+
+										} else if (i == 2) {
+											chirld.relativeForWeb += "float:right;";
+										}
+										i++;
+									}
+
+									Collections.sort(bean.chirlds, comparatorDate);
+								} else if (bean.orientation.equals("vertical")) {
+//									Collections.sort(bean.chirlds, comparatorY);
+//
+//									int i = 0;
+//									for (CompomentBean chirld : bean.chirlds) {
+//										if (i == 0) {
+//											chirld.relative += " android:layout_alignParentTop=\"true\"  ";
+//
+//										} else if (i == 1) {
+//											chirld.relative += " android:layout_centerInParent=\"true\"  ";
+//
+//										} else if (i == 2) {
+//											chirld.relative += " android:layout_alignParentBottom=\"true\"  ";
+//										}
+//
+//										if (chirld.type.contains("Layout")) {
+//											chirld.relative += " android:layout_centerHorizontal=\"true\"";
+//										}
+//										i++;
+//									}
+//
+//									Collections.sort(bean.chirlds, comparatorDate);
+								}
+
+							} else if (bean.chirlds.size() > 3) {
+
+								if (bean.orientation.equals("horizontal")) {
+									Collections.sort(bean.chirlds, comparatorX);
+
+									int i = 0;
+									
+									for (CompomentBean chirld : bean.chirlds) {
+										if (i == 0) {
+											chirld.relativeForWeb += "float:left;";
+										
+										} else if (i == bean.chirlds.size() - 1) {
+											chirld.relativeForWeb += "float:right;";
+										} else {
+										
+										}
+										i++;
+									}
+
+									Collections.sort(bean.chirlds, comparatorDate);
+								} else if (bean.orientation.equals("vertical")) {
+//									Collections.sort(bean.chirlds, comparatorY);
+//									int i = 0;
+//									CompomentBean below = null;
+//									for (CompomentBean chirld : bean.chirlds) {
+//										if (i == 0) {
+//											chirld.relative += " android:layout_alignParentTop=\"true\" android:layout_centerHorizontal=\"true\" ";
+//											below = chirld;
+//										} else if (i == bean.chirlds.size() - 1) {
+//											chirld.relative += " android:layout_alignParentBottom=\"true\" android:layout_centerHorizontal=\"true\" ";
+//										} else {
+//											chirld.relative += " android:layout_below=\"@id/"
+//													+ below.enname
+//													+ "\" android:layout_centerHorizontal=\"true\" ";
+//
+//											below = chirld;
+//										}
+//										i++;
+//									}
+//
+//									Collections.sort(bean.chirlds, comparatorDate);
+								}
+							}
+
+						}
+					}
+				}
+
+		
+		
+		
+	    bodym+="<html>\n";
+		bodym+="<body>\n";
 		bodym+="  <div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
 		bodym+=formmStart;
 		parent(maxBean);
 
 		bodym+=formmEnd;
 		bodym+="  </div>\n";
-		bodym+="</body>";
-
+		bodym+="</body>\n";
+		bodym+="</html>\n";
 		return bodym;
 	}
 	
@@ -440,64 +564,17 @@ public class WebJsp {
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 			
 			
-			if (bean.type.equals("ScrollViewLayout")) {
-					
-               
-			}else
-			{
-			
+		
 
 			for (CompomentBean chirld : bean.chirlds) {
 				
 				//这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""							+ chirld.id + "\">\n";
-
-						bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
-							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-
-		
-					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-					bodym += "                                <subviews>\n";
-					parent(chirld);
-					bodym += "                                </subviews>\n";
-					bodym += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(chirld.bgRgb16ios)
-							+ "\" green=\""
-							+ bean.getG(chirld.bgRgb16ios)
-							+ "\" blue=\""
-							+ bean.getB(chirld.bgRgb16ios)
-							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-					// m+="                                <constraints>\n";
-					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
-					// m+="                                </constraints>\n";
-					//bodym += constraint(chirld);
-
-					if (bean.type.contains("Layout") && bean.rgb16 != null
-							&& bean.isFilletedCorner) {// 圆角边框颜色
-						bodym += "                                <userDefinedRuntimeAttributes>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.borderWidth\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"1\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"color\" keyPath=\"layer.borderColor\">\n";
-						bodym += "                                        <color key=\"value\" red=\""
-								+ bean.getR(bean.rgb16)
-								+ "\" green=\""
-								+ bean.getG(bean.rgb16)
-								+ "\" blue=\""
-								+ bean.getB(bean.rgb16)
-								+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.cornerRadius\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"10\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                </userDefinedRuntimeAttributes>\n";
-					}
-
-				
-					bodym += "                            </view>\n";
+					
+					bodym+="  <div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
+					
+					bodym+="  </div>\n";
 
 				} else {//这个儿子是非容器 
 					
@@ -506,82 +583,18 @@ public class WebJsp {
 			}
 
 		}
-		}
+		
 
 	}
 
 	
 	
 	public void chirld(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
-
-	
-	    // int left=chirldleftspace;
-//	     int marleft=0;
-//	     int width=0;
-//		 if( parent.orientation.equals("horizontal"))
-//	      {//这个儿子的父亲是水平方向
-//	    	 
-//			  for(int i=0;i<parent.chirlds.size();i++)
-//			  {
-//			
-//				  
-//				  if(chirld.enname.equals(parent.chirlds.get(i).enname))
-//				  {//这个儿子是老几
-//					
-//					  if(i==0)
-//					  {
-//						  marleft=left;
-//						 
-//					  }
-//					  else
-//					  {
-//					  marleft= width+left*(i+1);
-//					  
-//					  }
-//					  break;
-//				  }
-//				  width+= parent.chirlds.get(i).w;
-//				  
-//			  }
-//			 
-//	       }else if( parent.orientation.equals("vertical"))
-//	       {//这个儿子的父亲是垂直方向
-//	    	   
-//				   
-//	       }
-		
 		
 		
 		if (chirld.type.equals("TextView")) {
-			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
-					+ chirld.cnname
-					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
-					+ "\" width=\""
-					+ "80"
-					+ "\" height=\""
-					+ "15"
-					+ "\"/>\n";
-
-			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-
-			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
-			bodym += "                                        <color key=\"textColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
-			bodym += "                                    </label>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+		
+			bodym += " <span style=\""+chirld.relativeForWeb+" margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px; \"><font size=\""+chirld.textSize+"px\" color=\""+chirld.rgb16+"\">"+chirld.cnname+"</font></span>\n";
 		}
 		
 		if (chirld.type.equals("Line")) {
@@ -1000,9 +1013,29 @@ public class WebJsp {
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
-			// 先排年龄
+			// 按日期排
 			if (s1.time != s2.time) {
 				return (int) (s2.time - s1.time);
+			}
+			return 0;
+		}
+	};
+	
+	Comparator<CompomentBean> comparatorY = new Comparator<CompomentBean>() {
+		public int compare(CompomentBean s1, CompomentBean s2) {
+			// 按y排
+			if (s1.y != s2.y) {
+				return s1.y - s2.y;
+			}
+			return 0;
+		}
+	};
+	
+	Comparator<CompomentBean> comparatorX = new Comparator<CompomentBean>() {
+		public int compare(CompomentBean s1, CompomentBean s2) {
+			// 按X排
+			if (s1.x != s2.x) {
+				return s1.x - s2.x;
 			}
 			return 0;
 		}
