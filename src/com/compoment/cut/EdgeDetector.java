@@ -11,8 +11,9 @@ import com.compoment.creater.first.QuotationMarks;
  
 
 
-	
-
+	/**
+	 * canny算法  边缘图
+	 * */
 public class EdgeDetector extends Component {
  
         public EdgeDetector() {

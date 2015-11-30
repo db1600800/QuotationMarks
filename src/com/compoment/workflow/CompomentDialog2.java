@@ -32,7 +32,9 @@ import javax.swing.event.ListSelectionListener;
 
 import com.compoment.cut.ColorPanel;
 import com.compoment.cut.CompomentBean;
+import com.compoment.cut.EdgeDetector;
 import com.compoment.cut.CompomentDialog.CompomentDialogCallBack;
+import com.compoment.cut.EdgeDetector.EdgeDetectorException;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.*;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.util.FileUtil;
@@ -992,13 +994,42 @@ public class CompomentDialog2 extends JDialog {
 	}
 	
 	
-	
+	/**修正xyz值  边缘在哪 更准确的xyz值 */
 	public Map getNearXYZ(Image image,int x, int y, int w, int h) {
 		
-		BufferedImage bufImg = new BufferedImage(image.getWidth(null), image.getHeight(null),BufferedImage.TYPE_INT_RGB);   
-	     Graphics g = bufImg .createGraphics();   
+		
+		
+		  
+
+		//原图
+		BufferedImage bufImgOld = new BufferedImage(image.getWidth(null), image.getHeight(null),BufferedImage.TYPE_INT_RGB);   
+	     Graphics g = bufImgOld .createGraphics();   
         g.drawImage(image, 0, 0, null);   
         g.dispose(); 
+        
+        
+        //Canny算法 边缘
+        EdgeDetector edgeDetector=new EdgeDetector();
+        edgeDetector.setSourceImage(bufImgOld);
+        edgeDetector.setThreshold(128);
+        edgeDetector.setWidGaussianKernel(5);
+        try {
+            edgeDetector.process();
+        }
+        catch(EdgeDetectorException e) {
+            System.out.println(e.getMessage());
+        }
+        Image edgeImage=edgeDetector.getEdgeImage();
+        
+        
+        //边缘图
+    	BufferedImage bufImg = new BufferedImage(edgeImage.getWidth(null), edgeImage.getHeight(null),BufferedImage.TYPE_INT_RGB);   
+	    Graphics g2 = bufImg .createGraphics();   
+        g.drawImage(edgeImage, 0, 0, null);   
+        g.dispose(); 
+        
+        
+        
 		
 		int rgbs[] = new int[w * h];
 		rgbs =  bufImg.getRGB(0, 0, w, h, rgbs, 0, w);

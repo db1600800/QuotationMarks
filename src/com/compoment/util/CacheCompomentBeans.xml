@@ -1,118 +1,62 @@
 <list>
   <CompomentBean>
-    <rgb16>#F4F5F7</rgb16>
-    <rgb16ios>#F4F5F7</rgb16ios>
-    <bgRgb16>#F4F5F7</bgRgb16>
-    <bgRgb16ios>#F4F5F7</bgRgb16ios>
+    <rgb16>#FC5F28</rgb16>
+    <rgb16ios>#FC5F28</rgb16ios>
+    <bgRgb16>#FC5F28</bgRgb16>
+    <bgRgb16ios>#FC5F28</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>11</x>
-    <y>15</y>
-    <w>289</w>
-    <h>535</h>
+    <x>5</x>
+    <y>6</y>
+    <w>312</w>
+    <h>47</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1448508154371</cnname>
-    <enname>bg1448508154371LinearLayout</enname>
+    <cnname>bg1448853951327</cnname>
+    <enname>bg1448853951327LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Y6V-FX-eYN</id>
+    <id>vep-ML-ATz</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
+    <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448508156497</time>
+    <time>1448853954083</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#F5F5F5</rgb16>
-    <rgb16ios>#F5F5F5</rgb16ios>
-    <bgRgb16>#F5F5F5</bgRgb16>
-    <bgRgb16ios>#F5F5F5</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>17</x>
-    <y>61</y>
-    <w>277</w>
-    <h>484</h>
-    <actionDetailString></actionDetailString>
-    <cnname>bg1448508164680</cnname>
-    <enname>bg1448508164680ScrollViewLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>l0X-du-gY8</id>
-    <type>ScrollViewLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1448508168078</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#F5F5F5</rgb16>
-    <rgb16ios>#F5F5F5</rgb16ios>
-    <bgRgb16>#F5F5F5</bgRgb16>
-    <bgRgb16ios>#F5F5F5</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>25</x>
-    <y>69</y>
-    <w>258</w>
-    <h>466</h>
-    <actionDetailString></actionDetailString>
-    <cnname>nima</cnname>
-    <enname>nimaLinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>true</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>Bu1-wU-JZ6</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <picName>图片名</picName>
-    <time>1448508185102</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#878787</rgb16>
-    <rgb16ios>#878787</rgb16ios>
+    <rgb16>#FFF3E6</rgb16>
+    <rgb16ios>#FFF3E6</rgb16ios>
     <bgRgb16>#背景颜色</bgRgb16>
     <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>83</x>
-    <y>171</y>
-    <w>57</w>
-    <h>17</h>
+    <x>109</x>
+    <y>23</y>
+    <w>100</w>
+    <h>23</h>
     <actionDetailString></actionDetailString>
-    <cnname>靠靠</cnname>
-    <enname>dfdTextView</enname>
+    <cnname>aa</cnname>
+    <enname>bbTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>VKa-Oe-uIZ</id>
+    <id>jwV-JG-NYJ</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
+    <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448508204286</time>
+    <time>1448853974034</time>
   </CompomentBean>
 </list>
