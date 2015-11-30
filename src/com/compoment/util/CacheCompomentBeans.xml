@@ -1,5 +1,35 @@
 <list>
   <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>1</x>
+    <y>4</y>
+    <w>316</w>
+    <h>557</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1448866219201</cnname>
+    <enname>bg1448866219201LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>8ab-Jn-Xy4</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <picName>图片名</picName>
+    <time>1448866226291</time>
+  </CompomentBean>
+  <CompomentBean>
     <rgb16>#FC5F28</rgb16>
     <rgb16ios>#FC5F28</rgb16ios>
     <bgRgb16>#FC5F28</bgRgb16>
@@ -7,56 +37,56 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>5</x>
-    <y>6</y>
-    <w>312</w>
-    <h>47</h>
+    <x>8</x>
+    <y>13</y>
+    <w>305</w>
+    <h>39</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1448853951327</cnname>
-    <enname>bg1448853951327LinearLayout</enname>
+    <cnname>bg1448866262824</cnname>
+    <enname>bg1448866262824LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>vep-ML-ATz</id>
+    <id>rCw-uR-uYx</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448853954083</time>
+    <time>1448866265285</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFF3E6</rgb16>
-    <rgb16ios>#FFF3E6</rgb16ios>
+    <rgb16>#FFF6ED</rgb16>
+    <rgb16ios>#FFF6ED</rgb16ios>
     <bgRgb16>#背景颜色</bgRgb16>
     <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>109</x>
-    <y>23</y>
-    <w>100</w>
-    <h>23</h>
+    <x>117</x>
+    <y>28</y>
+    <w>86</w>
+    <h>11</h>
     <actionDetailString></actionDetailString>
-    <cnname>aa</cnname>
-    <enname>bbTextView</enname>
+    <cnname>新邮预定</cnname>
+    <enname>newTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>jwV-JG-NYJ</id>
+    <id>Kpx-VK-9XR</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448853974034</time>
+    <time>1448866324044</time>
   </CompomentBean>
 </list>

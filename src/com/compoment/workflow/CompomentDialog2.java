@@ -564,10 +564,10 @@ public class CompomentDialog2 extends JDialog {
 				
 				if(!compomentType.contains("Layout"))
 				{
-				bean.x = x+(Integer)xyzMap.get("xoffset");
-				bean.y = y+(Integer)xyzMap.get("yoffset");
-				bean.w = w-(Integer)xyzMap.get("woffset");
-				bean.h = h-(Integer)xyzMap.get("hoffset");
+				bean.x = x+(Integer)xyzMap.get("leftoffset");
+				bean.y = y+(Integer)xyzMap.get("topoffset");
+				bean.w = w-(Integer)xyzMap.get("rightoffset")-(Integer)xyzMap.get("leftoffset");
+				bean.h = h-(Integer)xyzMap.get("bottomoffset")-(Integer)xyzMap.get("topoffset");
 				}else
 				{
 					bean.x = x;
@@ -1057,10 +1057,10 @@ public class CompomentDialog2 extends JDialog {
 		
 		
 		
-		int xoffset=0;//偏移量
-		int yoffset=0;
-		int woffset=0;
-		int hoffset=0;
+		int leftoffset=0;//偏移量
+		int topoffset=0;
+		int rightoffset=0;
+		int bottomoffset=0;
 		
 		//x
 		boolean xok=false;
@@ -1075,7 +1075,7 @@ public class CompomentDialog2 extends JDialog {
 			}
 			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
 			{
-				xoffset=j;
+				leftoffset=j;
 				xok=true;
 				break;
 			}
@@ -1096,7 +1096,7 @@ public class CompomentDialog2 extends JDialog {
 			
 			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
 			{
-				woffset=(w-1)-j;
+				rightoffset=(w-1)-j;
 				wok=true;
 				break;
 			}
@@ -1118,7 +1118,7 @@ public class CompomentDialog2 extends JDialog {
 			
 			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
-				yoffset=j;
+				topoffset=j;
 				yok=true;
 				break;
 			}
@@ -1141,7 +1141,7 @@ public class CompomentDialog2 extends JDialog {
 			
 			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
-				hoffset=(h-1)-j;
+				bottomoffset=(h-1)-j;
 				hok=true;
 				break;
 			}
@@ -1150,10 +1150,10 @@ public class CompomentDialog2 extends JDialog {
 		
 		
 		HashMap temp=new HashMap();
-		temp.put("xoffset", xoffset);//left
-		temp.put("yoffset", yoffset);//top
-		temp.put("woffset", woffset);//right;
-		temp.put("hoffset", hoffset);//bottom
+		temp.put("leftoffset", leftoffset);//left
+		temp.put("topoffset", topoffset);//top
+		temp.put("rightoffset", rightoffset);//right;
+		temp.put("bottomoffset", bottomoffset);//bottom
 		
 	
 		
