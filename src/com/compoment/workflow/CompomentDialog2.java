@@ -2,8 +2,10 @@ package com.compoment.workflow;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -38,6 +40,7 @@ import com.compoment.cut.EdgeDetector.EdgeDetectorException;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.*;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.util.FileUtil;
+import com.compoment.util.ImageUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
 
@@ -1002,10 +1005,12 @@ public class CompomentDialog2 extends JDialog {
 		  
 
 		//原图
-		BufferedImage bufImgOld = new BufferedImage(image.getWidth(null), image.getHeight(null),BufferedImage.TYPE_INT_RGB);   
-	     Graphics g = bufImgOld .createGraphics();   
-        g.drawImage(image, 0, 0, null);   
-        g.dispose(); 
+		BufferedImage bufImgOld = ImageUtil.imageToBufferedImage(image);
+        
+        
+        int rgbsOld[] = new int[w * h];
+		rgbsOld =  bufImgOld.getRGB(0, 0, w, h, rgbsOld, 0, w);
+		
         
         
         //Canny算法 边缘
@@ -1023,16 +1028,24 @@ public class CompomentDialog2 extends JDialog {
         
         
         //边缘图
-    	BufferedImage bufImg = new BufferedImage(edgeImage.getWidth(null), edgeImage.getHeight(null),BufferedImage.TYPE_INT_RGB);   
-	    Graphics g2 = bufImg .createGraphics();   
-        g.drawImage(edgeImage, 0, 0, null);   
-        g.dispose(); 
+    	BufferedImage edgeBufImg = ImageUtil.imageToBufferedImage(edgeImage);
+	  
+        
+        
+        BufferedImage bi2;
+		    File f2 = new File("/Users/admin/Documents/workspace/gg/pic/testCanny.png");
+		    try {
+			ImageIO.write(edgeBufImg, "png", f2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
         
 		
 		int rgbs[] = new int[w * h];
-		rgbs =  bufImg.getRGB(0, 0, w, h, rgbs, 0, w);
+		rgbs =  edgeBufImg.getRGB(0, 0, w, h, rgbs, 0, w);
 		
 	
 		
@@ -1060,7 +1073,7 @@ public class CompomentDialog2 extends JDialog {
 			{
 				break;
 			}
-			if(bufImg.getRGB(j, i)!=max1keyvalue[0])
+			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
 			{
 				xoffset=j;
 				xok=true;
@@ -1081,7 +1094,7 @@ public class CompomentDialog2 extends JDialog {
 		for(int i=0;i<h;i++)
 		{
 			
-			if(bufImg.getRGB(j, i)!=max1keyvalue[0])
+			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
 			{
 				woffset=(w-1)-j;
 				wok=true;
@@ -1103,7 +1116,7 @@ public class CompomentDialog2 extends JDialog {
 			}
 			
 			
-			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
+			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
 				yoffset=j;
 				yok=true;
@@ -1126,7 +1139,7 @@ public class CompomentDialog2 extends JDialog {
 		for(int i=0;i<w-1;i++)
 		{
 			
-			if(bufImg.getRGB(i, j)!=max1keyvalue[0])
+			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
 			{
 				hoffset=(h-1)-j;
 				hok=true;
@@ -1137,15 +1150,15 @@ public class CompomentDialog2 extends JDialog {
 		
 		
 		HashMap temp=new HashMap();
-		temp.put("xoffset", xoffset);
-		temp.put("yoffset", yoffset);
-		temp.put("woffset", woffset);
-		temp.put("hoffset", hoffset);
+		temp.put("xoffset", xoffset);//left
+		temp.put("yoffset", yoffset);//top
+		temp.put("woffset", woffset);//right;
+		temp.put("hoffset", hoffset);//bottom
 		
 	
 		
 		
-		temp.put("textColor",rgbString16( maxOne(rgbs)));
+		temp.put("textColor",rgbString16( maxOne(rgbsOld)));
 		
 		return temp;
 		
@@ -1251,4 +1264,9 @@ public ArrayList searchPics(String root)
 
 		return temp;
 	}
+
+
+
+
+
 }
