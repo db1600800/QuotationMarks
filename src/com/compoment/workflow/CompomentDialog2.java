@@ -1027,19 +1027,19 @@ public class CompomentDialog2 extends JDialog {
         Image edgeImage=edgeDetector.getEdgeImage();
         
         
-        //边缘图
+        //边缘图  黑白图
     	BufferedImage edgeBufImg = ImageUtil.imageToBufferedImage(edgeImage);
 	  
         
         
-        BufferedImage bi2;
-		    File f2 = new File("/Users/admin/Documents/workspace/gg/pic/testCanny.png");
-		    try {
-			ImageIO.write(edgeBufImg, "png", f2);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        BufferedImage bi2;
+//		    File f2 = new File("/Users/admin/Documents/workspace/gg/pic/testCanny.png");
+//		    try {
+//			ImageIO.write(edgeBufImg, "png", f2);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
         
         
         
@@ -1049,11 +1049,11 @@ public class CompomentDialog2 extends JDialog {
 		
 	
 		
-		Map map=buildMap(rgbs);
+		//Map map=buildMap(rgbs);
 		
 		
 		
-		int max1keyvalue[]=getMax( map);
+		//int max1keyvalue[]=getMax( map);
 		
 		
 		
@@ -1073,8 +1073,9 @@ public class CompomentDialog2 extends JDialog {
 			{
 				break;
 			}
-			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
-			{
+			if(edgeBufImg.getRGB(j, i)!=-1)
+			{//-1 白色
+				
 				leftoffset=j;
 				xok=true;
 				break;
@@ -1094,8 +1095,8 @@ public class CompomentDialog2 extends JDialog {
 		for(int i=0;i<h;i++)
 		{
 			
-			if(edgeBufImg.getRGB(j, i)!=max1keyvalue[0])
-			{
+			if(edgeBufImg.getRGB(j, i)!=-1)
+			{//-1 白色
 				rightoffset=(w-1)-j;
 				wok=true;
 				break;
@@ -1116,8 +1117,8 @@ public class CompomentDialog2 extends JDialog {
 			}
 			
 			
-			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
-			{
+			if(edgeBufImg.getRGB(i, j)!=-1)
+			{//-1 白色
 				topoffset=j;
 				yok=true;
 				break;
@@ -1139,8 +1140,8 @@ public class CompomentDialog2 extends JDialog {
 		for(int i=0;i<w-1;i++)
 		{
 			
-			if(edgeBufImg.getRGB(i, j)!=max1keyvalue[0])
-			{
+			if(edgeBufImg.getRGB(i, j)!=-1)
+			{//-1 白色
 				bottomoffset=(h-1)-j;
 				hok=true;
 				break;
