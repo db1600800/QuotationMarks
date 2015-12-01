@@ -418,16 +418,20 @@ public class WebJsp {
 
 							if (bean.chirlds.size() == 2) {
 								if (bean.orientation.equals("horizontal")) {
-
+									bean.relativeForWeb+="vertical-align:middle;";
+									
 									CompomentBean chirld1 = bean.chirlds.get(0);
 									CompomentBean chirld2 = bean.chirlds.get(1);
 									if (chirld1.x < chirld2.x) {
-										chirld1.relativeForWeb += "float:left; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:0px; margin-right:0px; margin-bottom:0px; ";
-										chirld2.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px; ";
+										chirld1.relativeForWeb += "float:left; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:"+(chirld1.y-bean.y)+"px;  margin-bottom:"+(chirld1.x-bean.x)+"px; ";
+										chirld2.relativeForWeb += "float:right;  margin-top:"+(chirld2.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld2.x-chirld2.w)+"px; margin-bottom:"+(chirld2.x-bean.x)+"px; ";
 									} else if (chirld1.x > chirld2.x) {
-										chirld2.relativeForWeb += "float:left; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
-										chirld1.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
+										chirld2.relativeForWeb += "float:left; margin-left:"+(chirld2.x-bean.x)+"px;  margin-top:"+(chirld2.y-bean.y)+"px;  margin-bottom:"+(chirld2.x-bean.x)+"px; ";
+										chirld1.relativeForWeb += "float:right; margin-top:"+(chirld1.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld1.x-chirld1.w)+"px; margin-bottom:"+(chirld1.x-bean.x)+"px; ";
 									}
+									
+								
+									
 								} else if (bean.orientation.equals("vertical")) {
 //									CompomentBean chirld1 = bean.chirlds.get(0);
 //									CompomentBean chirld2 = bean.chirlds.get(1);
@@ -440,19 +444,20 @@ public class WebJsp {
 							} else if (bean.chirlds.size() == 3) {
 
 								if (bean.orientation.equals("horizontal")) {
-
+									bean.relativeForWeb+="vertical-align:middle;";
+									
 									Collections.sort(bean.chirlds, comparatorX);
 
 									int i = 0;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "float:left; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
+											chirld.relativeForWeb += "float:left;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(chirld.x-bean.x)+"px; ";
 
 										} else if (i == 1) {
-											chirld.relativeForWeb += "float:center; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
+											chirld.relativeForWeb += "float:center; ";
 
 										} else if (i == 2) {
-											chirld.relativeForWeb += "float:right; margin-left:0px;  margin-top:0px; margin-right:0px; margin-bottom:0px;";
+											chirld.relativeForWeb += "float:right;  margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(chirld.x-bean.x)+"px; ";
 										}
 										i++;
 									}
@@ -485,16 +490,18 @@ public class WebJsp {
 							} else if (bean.chirlds.size() > 3) {
 
 								if (bean.orientation.equals("horizontal")) {
+									bean.relativeForWeb+="vertical-align:middle;";
+									
 									Collections.sort(bean.chirlds, comparatorX);
 
 									int i = 0;
 									
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "float:left;";
+											chirld.relativeForWeb += "float:left;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(chirld.x-bean.x)+"px; ";
 										
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += "float:right;";
+											chirld.relativeForWeb += "float:right; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(chirld.x-bean.x)+"px;";
 										} else {
 										
 										}
@@ -527,6 +534,35 @@ public class WebJsp {
 							}
 
 						}
+					}else
+					{
+						if (bean.chirlds != null && bean.chirlds.size() > 1) {
+							
+							
+
+								if (bean.orientation.equals("horizontal")) {
+									bean.relativeForWeb+="vertical-align:middle;";
+									Collections.sort(bean.chirlds, comparatorX);
+
+									int i = 0;
+									
+									for (CompomentBean chirld : bean.chirlds) {
+										if (i == 0) {
+											chirld.relativeForWeb += "  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(chirld.x-bean.x)+"px; ";
+										
+										} else if (i == bean.chirlds.size() - 1) {
+											chirld.relativeForWeb += " margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(chirld.x-bean.x)+"px;";
+										} else {
+										
+										}
+										i++;
+									}
+
+									Collections.sort(bean.chirlds, comparatorDate);
+								}
+						}
+						
+						
 					}
 				}
 
