@@ -1,35 +1,5 @@
 <list>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>1</x>
-    <y>4</y>
-    <w>316</w>
-    <h>557</h>
-    <actionDetailString></actionDetailString>
-    <cnname>bg1448866219201</cnname>
-    <enname>bg1448866219201LinearLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>8ab-Jn-Xy4</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <picName>图片名</picName>
-    <time>1448866226291</time>
-  </CompomentBean>
-  <CompomentBean>
     <rgb16>#FC5F28</rgb16>
     <rgb16ios>#FC5F28</rgb16ios>
     <bgRgb16>#FC5F28</bgRgb16>
@@ -37,56 +7,86 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>8</x>
+    <x>5</x>
     <y>13</y>
-    <w>305</w>
-    <h>39</h>
+    <w>311</w>
+    <h>37</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1448866262824</cnname>
-    <enname>bg1448866262824LinearLayout</enname>
+    <cnname>bg1449046760461</cnname>
+    <enname>bg1449046760461LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>rCw-uR-uYx</id>
+    <id>fCN-za-R9B</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448866265285</time>
+    <time>1449046763524</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFF6ED</rgb16>
-    <rgb16ios>#FFF6ED</rgb16ios>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
     <bgRgb16>#背景颜色</bgRgb16>
     <bgRgb16ios>#背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>117</x>
-    <y>28</y>
-    <w>86</w>
-    <h>11</h>
+    <x>43</x>
+    <y>24</y>
+    <w>42</w>
+    <h>18</h>
     <actionDetailString></actionDetailString>
-    <cnname>新邮预定</cnname>
-    <enname>newTextView</enname>
+    <cnname>全部</cnname>
+    <enname>allTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Kpx-VK-9XR</id>
+    <id>vom-ur-9OR</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1448866324044</time>
+    <time>1449046786171</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFAEC</rgb16>
+    <rgb16ios>#FFFAEC</rgb16ios>
+    <bgRgb16>#背景颜色</bgRgb16>
+    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>117</x>
+    <y>32</y>
+    <w>83</w>
+    <h>5</h>
+    <actionDetailString></actionDetailString>
+    <cnname>新油品</cnname>
+    <enname>titleTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>u9Z-sL-ETb</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <picName>图片名</picName>
+    <time>1449046811192</time>
   </CompomentBean>
 </list>
