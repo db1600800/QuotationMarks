@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**代码转换成字符串形式String*/
 public class QuotationMarks {
 	
 	public QuotationMarks()
