@@ -180,7 +180,7 @@ public class cssToJsp {
 	/**
 	 *  a { positionk };
 	 * */
-	public String css2(String pathCss, String keyName) {
+	public String css2(String pathCss) {
 
 
 		FileReader frCss = null;
