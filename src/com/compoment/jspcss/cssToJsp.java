@@ -12,6 +12,14 @@ public class cssToJsp {
 
 	public cssToJsp() {
 
+
+	}
+
+	
+	public void commonCssToJsp()
+	{
+		
+
 		try {
 
 			String courseFile = null;
@@ -94,13 +102,13 @@ public class cssToJsp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-
+	
 	public static void main(String[] args) {
 
 		cssToJsp cssToJsp = new cssToJsp();
-
+		
+		cssToJsp.commonCssToJsp();
 	}
 
 
@@ -118,13 +126,13 @@ public class cssToJsp {
 			frCss = new FileReader(pathCss);
 
 			 brCss = new BufferedReader(frCss);
-			String cssLine = "";
+	
 
 			while (brCss.ready()) {
 
-				cssLine += brCss.readLine() + "\n";
+				
 
-				String txt = cssLine;// ".swiper { positionk }";
+				String txt = brCss.readLine();// ".swiper { positionk }";
 
 				String re1 = "(\\.)"; // Any Single Character 1
 				String re2 = "(" + keyName + ")"; // Word 1
@@ -176,76 +184,7 @@ public class cssToJsp {
 	
 	
 	
-	
-	/**
-	 *  a { positionk };
-	 * */
-	public String css2(String pathCss) {
 
-
-		FileReader frCss = null;
-		BufferedReader brCss=null;
-		try {
-
-			frCss = new FileReader(pathCss);
-
-			 brCss = new BufferedReader(frCss);
-			String cssLine = "";
-
-			while (brCss.ready()) {
-
-				cssLine += brCss.readLine() + "\n";
-
-				String txt = cssLine;// ".swiper { positionk }";
-
-				String re1 = "(\\.)"; // Any Single Character 1
-				String re2 = "()"; // Word 1
-				String re3 = "(\\s*)"; // White Space 1
-				String re4 = "(\\{)"; // Any Single Character 2
-				String re5 = "(\\s*)"; // White Space 2
-				String re6 = "(.*)"; // Variable Name 1
-				String re7 = "(\\s*)"; // White Space 3
-				String re8 = "(\\})"; // Any Single Character 3
-
-				Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8,
-						Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-				Matcher m = p.matcher(txt);
-				if (m.find()) {
-
-					String c1 = m.group(1);
-					String word1 = m.group(2);
-					String ws1 = m.group(3);
-					String c2 = m.group(4);
-					String ws2 = m.group(5);
-					String var1 = m.group(6);
-					String ws3 = m.group(7);
-					String c3 = m.group(8);
-//					System.out.println("(" + c1.toString() + ")" + "(" + word1.toString() + ")" + "(" + ws1.toString()
-//							+ ")" + "(" + c2.toString() + ")" + "(" + ws2.toString() + ")" + "(" + var1.toString() + ")"
-//							+ "(" + ws3.toString() + ")" + "(" + c3.toString() + ")" + "\n");
-					
-					brCss.close();
-					frCss.close();
-					
-					return var1;
-				}
-				
-			
-			}
-			
-			brCss.close();
-			frCss.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return "";
-	}
 	
 	
 
