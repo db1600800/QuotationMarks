@@ -199,7 +199,7 @@ public class cssToJsp {
 				String txt = cssLine;// ".swiper { positionk }";
 
 				String re1 = "(\\.)"; // Any Single Character 1
-				String re2 = "(" + keyName + ")"; // Word 1
+				String re2 = "()"; // Word 1
 				String re3 = "(\\s*)"; // White Space 1
 				String re4 = "(\\{)"; // Any Single Character 2
 				String re5 = "(\\s*)"; // White Space 2
