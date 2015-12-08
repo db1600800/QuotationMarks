@@ -1,6 +1,8 @@
 package com.compoment.ui.ios.creater;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 
 public class CompomentDeclareImplement {
 	
@@ -49,7 +51,9 @@ public class CompomentDeclareImplement {
 		}
 
 		if (chirld.type.equals("Button")) {
-
+			
+			uibuttonEnlarge();
+			
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
@@ -58,6 +62,12 @@ public class CompomentDeclareImplement {
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
 					+ chirld.enname + "Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			viewDidLoad_Declare += "[" + selfString + chirld.enname
+					+ " setBackgroundImage:[UIImage imageNamed:@\""+chirld.picName+"Select.png\"] forState:UIControlStateSelected];\n";
+			viewDidLoad_Declare += " [" + selfString + chirld.enname
+					+ " setBackgroundImage:[UIImage imageNamed:@\""+chirld.picName+".png\"] forState:UIControlStateNormal];\n";
+			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n";
+			
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Clicked:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
@@ -386,6 +396,8 @@ public class CompomentDeclareImplement {
 
 		if (chirld.type.equals("CheckBox")) {
 
+			uibuttonEnlarge();
+			
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
@@ -399,6 +411,7 @@ public class CompomentDeclareImplement {
 					+ " setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
 			viewDidLoad_Declare += " [" + selfString + chirld.enname
 					+ " setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
+			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n";
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Check:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
@@ -512,6 +525,77 @@ public class CompomentDeclareImplement {
 				temp += s.substring(0, 1).toUpperCase() + s.substring(1);
 		}
 		return temp;
+	}
+	
+	/**扩大点击区域*/
+	public void uibuttonEnlarge()
+	{
+		
+		
+		String m="";
+		m+="#import <Foundation/Foundation.h>\n";
+		m+="#import <UIKit/UIKit.h>\n";
+		m+="@interface UIButton(EnlargeTouchArea)\n";
+
+		m+="- (void)setEnlargeEdgeWithTop:(CGFloat) top right:(CGFloat) right bottom:(CGFloat) bottom left:(CGFloat) left;\n";
+		m+="@end\n";
+		
+		
+		
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", "UIButton+EnlargeTouchArea.",
+				"h", m);
+
+		m="";
+		m+="#import \"UIButton+EnlargeTouchArea.h\"\n";
+		m+="#import <objc/runtime.h>\n";
+
+		m+="@implementation  UIButton(EnlargeTouchArea)\n";
+
+
+
+
+		m+="- (void) setEnlargeEdgeWithTop:(CGFloat) top right:(CGFloat) right bottom:(CGFloat) bottom left:(CGFloat) left\n";
+		m+="{\n";
+		m+="    objc_setAssociatedObject(self, \"topNameKey\", [NSNumber numberWithFloat:top], OBJC_ASSOCIATION_COPY_NONATOMIC);\n";
+		m+="    objc_setAssociatedObject(self, \"rightNameKey\", [NSNumber numberWithFloat:right], OBJC_ASSOCIATION_COPY_NONATOMIC);\n";
+		m+="    objc_setAssociatedObject(self, \"bottomNameKey\", [NSNumber numberWithFloat:bottom], OBJC_ASSOCIATION_COPY_NONATOMIC);\n";
+		m+="    objc_setAssociatedObject(self, \"leftNameKey\", [NSNumber numberWithFloat:left], OBJC_ASSOCIATION_COPY_NONATOMIC);\n";
+		m+="}\n";
+
+		m+="- (CGRect) enlargedRect\n";
+		m+="{\n";
+		m+="    NSNumber* topEdge = objc_getAssociatedObject(self, \"topNameKey\");\n";
+		m+="    NSNumber* rightEdge = objc_getAssociatedObject(self, \"rightNameKey\");\n";
+		m+="    NSNumber* bottomEdge = objc_getAssociatedObject(self, \"bottomNameKey\");\n";
+		m+="    NSNumber* leftEdge = objc_getAssociatedObject(self, \"leftNameKey\");\n";
+		m+="    if (topEdge && rightEdge && bottomEdge && leftEdge)\n";
+		m+="    {\n";
+		m+="        return CGRectMake(self.bounds.origin.x - leftEdge.floatValue,\n";
+		m+="                          self.bounds.origin.y - topEdge.floatValue,\n";
+		m+="                          self.bounds.size.width + leftEdge.floatValue + rightEdge.floatValue,\n";
+		m+="                          self.bounds.size.height + topEdge.floatValue + bottomEdge.floatValue);\n";
+		m+="    }\n";
+		m+="    else\n";
+		m+="    {\n";
+		m+="        return self.bounds;\n";
+		m+="    }\n";
+		m+="}\n";
+
+		m+="- (UIView*) hitTest:(CGPoint) point withEvent:(UIEvent*) event\n";
+		m+="{\n";
+		m+="    CGRect rect = [self enlargedRect];\n";
+		m+="    if (CGRectEqualToRect(rect, self.bounds))\n";
+		m+="    {\n";
+		m+="        return [super hitTest:point withEvent:event];\n";
+		m+="    }\n";
+		m+="    return CGRectContainsPoint(rect, point) ? self : nil;\n";
+		m+="}\n";
+
+		m+="@end\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", "UIButton+EnlargeTouchArea.",
+				"m", m);
+		
 	}
 
 }

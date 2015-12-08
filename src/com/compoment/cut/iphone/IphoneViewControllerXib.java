@@ -268,40 +268,7 @@ public class IphoneViewControllerXib {
 	public void chirld(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
 
 	   
-	    // int left=chirldleftspace;
-//	     int marleft=0;
-//	     int width=0;
-//		 if( parent.orientation.equals("horizontal"))
-//	      {//这个儿子的父亲是水平方向
-//	    	 
-//			  for(int i=0;i<parent.chirlds.size();i++)
-//			  {
-//			
-//				  
-//				  if(chirld.enname.equals(parent.chirlds.get(i).enname))
-//				  {//这个儿子是老几
-//					
-//					  if(i==0)
-//					  {
-//						  marleft=left;
-//						 
-//					  }
-//					  else
-//					  {
-//					  marleft= width+left*(i+1);
-//					  
-//					  }
-//					  break;
-//				  }
-//				  width+= parent.chirlds.get(i).w;
-//				  
-//			  }
-//			 
-//	       }else if( parent.orientation.equals("vertical"))
-//	       {//这个儿子的父亲是垂直方向
-//	    	   
-//				   
-//	       }
+	   
 		 
 	
 		 
@@ -447,51 +414,51 @@ public class IphoneViewControllerXib {
 	
 			bodym += "                            </button>\n";
 			connection += "                        <outlet property=\""
-					+ chirld.enname + "Cover\" destination=\"" + chirld.id
+					+ chirld.enname + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
 			
 			
-			//透明覆盖层
-			
-			String coverLeverId=id();
-			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ coverLeverId+ "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
-//			bodym += "                                <color key=\"backgroundColor\" red=\""
-//					+ chirld.getR(chirld.bgRgb16ios)
-//					+ "\" green=\""
-//					+ chirld.getG(chirld.bgRgb16ios)
-//					+ "\" blue=\""
-//					+ chirld.getB(chirld.bgRgb16ios)
-//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-//			bodym += "                                <color key=\"tintColor\" red=\""
-//					+ chirld.getR(chirld.rgb16)
-//					+ "\" green=\""
-//					+ chirld.getG(chirld.rgb16)
-//					+ "\" blue=\""
-//					+ chirld.getB(chirld.rgb16)
-//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+//			//透明覆盖层
 //			
-//		    if(!chirld.picName.equals("图片名"))
-//		    {
-//			
-//			bodym += "                                <state key=\"normal\" title=\""
-//					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
-//		    }else
-//		    {
-//		    	bodym += "                                <state key=\"normal\" title=\""
-//						+ chirld.cnname + "\">\n";
-//		    }
-//			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
-//			bodym += "                                </state>\n";
-	
-			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + coverLeverId
-					+ "\" id=\"" + id() + "\"/>\n";
+//			String coverLeverId=id();
+//			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+//					+ coverLeverId+ "\">\n";
+//			bodym += "                                <rect key=\"frame\" x=\""
+//					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
+//					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
+//					+ "\"/>\n";
+////			bodym += "                                <color key=\"backgroundColor\" red=\""
+////					+ chirld.getR(chirld.bgRgb16ios)
+////					+ "\" green=\""
+////					+ chirld.getG(chirld.bgRgb16ios)
+////					+ "\" blue=\""
+////					+ chirld.getB(chirld.bgRgb16ios)
+////					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+////			bodym += "                                <color key=\"tintColor\" red=\""
+////					+ chirld.getR(chirld.rgb16)
+////					+ "\" green=\""
+////					+ chirld.getG(chirld.rgb16)
+////					+ "\" blue=\""
+////					+ chirld.getB(chirld.rgb16)
+////					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+////			
+////		    if(!chirld.picName.equals("图片名"))
+////		    {
+////			
+////			bodym += "                                <state key=\"normal\" title=\""
+////					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
+////		    }else
+////		    {
+////		    	bodym += "                                <state key=\"normal\" title=\""
+////						+ chirld.cnname + "\">\n";
+////		    }
+////			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
+////			bodym += "                                </state>\n";
+//	
+//			bodym += "                            </button>\n";
+//			connection += "                        <outlet property=\""
+//					+ chirld.enname + "\" destination=\"" + coverLeverId
+//					+ "\" id=\"" + id() + "\"/>\n";
 		}
 		
 		
