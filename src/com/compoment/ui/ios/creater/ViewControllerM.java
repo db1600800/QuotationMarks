@@ -73,6 +73,7 @@ public class ViewControllerM {
 		i += "#import <Foundation/Foundation.h>\n";
 		i += "#import <PublicFramework/JSONKit.h>\n";
 		i += "#import <objc/runtime.h>\n";
+		i+="#import \"UIButton+EnlargeTouchArea.h\"\n";
 		i += "@implementation " + className + "ViewController\n";
 
 		parent(maxBean);
