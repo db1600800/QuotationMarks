@@ -289,7 +289,7 @@ public class IphoneViewControllerXib {
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
-			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
+			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
 			bodym += "                                        <color key=\"textColor\" red=\""
 					+ chirld.getR(chirld.rgb16)
 					+ "\" green=\""
@@ -321,7 +321,7 @@ public class IphoneViewControllerXib {
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
-			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"17\"/>\n";
+			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
 			bodym += "                                        <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.rgb16)
 					+ "\" green=\""
