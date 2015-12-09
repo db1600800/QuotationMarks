@@ -248,10 +248,12 @@ public class WebJsp {
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
 					
-					bodym+="  <div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
+					bodym+="  <div style=\" width:100%; height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
 					
-					bodym+="  </div>\n";
+					
 
+					parent( chirld);
+					bodym+="  </div>\n";
 				} else {//这个儿子是非容器 
 					
 					chirld(chirld, bean);
