@@ -1,307 +1,90 @@
-<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8" isELIgnored="false" %>
+<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>   
 <%@page import="java.util.*"%>
+<%
+    response.setHeader("Cache-Control","no-cache");
+    response.setHeader("Pragma","no-cache");
+    response.setDateHeader ("Expires", -1);
+%>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset='utf-8'>
-<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, ">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>新增地址</title>
-<link href="/chinapost/jiyouwx/css/css.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="/chinapost/jiyouwx/js/swiper-2.1.min.js"></script>
-<script>
+	<meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, ">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<META Http-Equiv="Cache-Control" Content="no-cache"/>
+	<META Http-Equiv="Pragma" Content="no-cache"/>
+	<META Http-Equiv="Expires" Content="0"/>
+	<title>订单生成</title>
+	<link href="/chinapost/jiyouwx/css/css.css?v=1.1.1" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
+		<%-- 统一错误处理 --%>
+	<%@include file="/chinapost/jiyouwx/global_error.jsp"%>
+	<style type="text/css">
+	.checkbox_sty {
+		visibility:hidden;
+	}
+	</style>
+</head>
 
-	var click_once = true;
-	function save(){	
-		  var name = $("#username").val();
-		  name = name.replace(/\s/ig,'');
-		  if(name == ""){
-			   auto_msg("请输入姓名！");
-			   return;
-		  }
+<body>
+	<form action="" id="order_seccess_action_form" method="POST">
+	
+	<header>订单生成</header><div class="h45">&nbsp;</div>
+	
+	<s:iterator value="#request.RcvBodyJY0038_vo.orderNoNumList" var="c" status="st">
+		<div class="m20 f6">
+			订单号：<s:property value="#c.orderNo"/><br>
+			订单金额：￥<s:property value="#c.orderTotalAmount"/>元<br>
+			支付方式：在线支付
+			<input type="hidden" name="orderNo" value='<s:property value="#c.orderNo"/>' />			
+		</div>
+	</s:iterator>
+	<!--
+	<div class="m20 f6">订单总金额：￥<s:property value="#request.RcvBodyJY0038_vo.allAmount"/><br></div>
+	-->
+	
+	<s:if test="#request.RcvBodyJY0038_vo.payStatus == '02' ">
+		<a href="javascript:void(0);" onclick="pay_now();" class="btn02">去支付</a>
+		
+		<input type="hidden" name="payMode" value='01' />			
+		<input type="hidden" name="payType" value='62' />			
+	</s:if>
+	<s:else>
+		<div class="bw pd10 borderB mt20 color9">
+  			<p class="red">您的订单是摇号订单，中签后将通知您支付</p>
+  		</div>
+	</s:else>
+	<a href="/jiyou/wx/merchQryAction!index.do" class="btn02">返回首页</a>
+	<a href="/jiyou/wx/MemberAction!init.do" class="btn02">会员专区</a>
+	
+	
+	<!--猜您喜欢-->
+	<%@include file="/chinapost/jiyouwx/plugin/guess_you_like.jsp"%>
+	
+	<div class="blank50">&nbsp;</div>
 
-		  var phone = $("#phone").val();
-		  phone = phone.replace(/\s/ig,'');
-		  if(phone == ""){
-			   auto_msg("请输入手机号码！");
-			   return;
-		  }
-
-		  if(!/^1\d{10}$/g.test(phone) || phone.length != 11){
-			    auto_msg("手机号码格式不正确!");  
-		       	return false;
-	      }
-
-		  var province = $("#province").val();
-		  if(province == "-1"){
-			   auto_msg("请选择省！");
-			   return;
-		  }
-
-		  var city = $("#city").val();
-		  if(cityLength > 0 && city == "-1"){
-			   auto_msg("请选择市！");
-			   return;
-		  }
-
-		  var count = $("#count").val();
-		  if(countLength >1 && count == "-1"){
-			   auto_msg("请选择区/县！");
-			   return;
-		  }
-
-		  var address = $("#address").val();
-		  address = address.replace(/\s/ig,'');
-		  if(address == ""){
-			   auto_msg("请输入详细地址！");
-			   return;
-		  }
-
-		  var postcode = $("#postcode").val();
-		  postcode = postcode.replace(/\s/ig,'');
-		  if(postcode == ""){
-			   auto_msg("请输入邮编！");
-			   return;
-		  }
-		  if(postcode != "" ){
-			  if(postcode.length !=6 || !/\d{6}$/g.test(postcode) ){
-				 auto_msg("邮政编码格式不正确！");
-			     return;
-			  }
-		  }
-
-		  if(click_once == false){
-			   return;
-		  }
-		  click_once = false;
-
-		  var checked = "";
-		  if(setAddr){
-			  checked = "0";
-		  }
-	  var my_msg = show_hide_msg("数据提交中，请稍候...");
-		  var myform = document.forms[0]; 
-		  myform.action='/jiyou/wx/AddressAction!saveAddress.do?checked='+checked;  
-		  myform.submit();
+	
+	</form>
+		
+	<script type="text/javascript">
+	 	  
+	var only_one_sub_pay = true; //防重复提交
+	function pay_now(){
+		if(!only_one_sub_pay){
+			return;//防重复提交
+		}  
+		only_one_sub_pay = false;//防重复提交
+		
+		var my_msg = show_hide_msg("数据提交中，请稍候...");
+		var myform = $("#order_seccess_action_form"); 
+		$(myform).prop("action", "/jiyou/wx/orderCreateAction!makeOrderPaySeq.do?t_time=" + new Date().getTime());
+		$(myform).submit();
 		my_msg = null;
 	}
-
-
-	var setAddr = false;
-	function setDefaultAddr(){
-		if(setAddr){
-			setAddr = false;
-			$("#defAddress").attr("class","check05");
-		}else{
-			setAddr = true;
-			$("#defAddress").attr("class","checked05");
-		}
-	}
-
-
-	var cityLength = 0;
-	var countLength = 0;
-	function selectArea(code){
 		
-		 var province = $("#province").val();
-		 var city = $("#city").val();
-		
-	     var urlAddr = '';
-	     if(code == "city"){
-	    	 urlAddr = '/jiyou/wx/AddressAction!queryCity.do?province='+province;
-	     }
-	     
-		 if((code == "count")){
-	    	 urlAddr = "/jiyou/wx/AddressAction!queryCount.do?city="+city;
-	     }
-		 
-	     $.ajax({ 
-		    	url: urlAddr,
-		        type: "POST",
-		        async: false,
-		        dataType:'json', //预期服务器返回的数据类型        
-		        success:function (data) {
-		 	        var index = 0;
-		 	        var html = '<div style="position:fixed;top:30px;right:35px;z-index:10;" onclick="close_tip_div();"><img src="/chinapost/jiyouwx/images/close.jpg" width="30" height="30"/></div>';
-		 	        html += '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sorts" ><tr>';
-	 			 $.each(data,function (key, value) {
-	    			 index = index + 1 ;
-	    			 html += "<td><a onclick='show(\""+code+"Pump\");selectName(\""+key+"\",\"" + code + "\",\"" + value + "\")'>"+value+"</a></td>";
-	    			 if(index % 2 == 0){
-	    				 html += "</tr><tr>";
-	    			 }
-		    		 });
-				
-				 if(index % 2 == 0){
-					 html += "</tr></table>";
-				 }else{
-					 html += "<td>&nbsp;</td></tr></table>"; 
-				 }
-					 $("#"+code+"Pump").append(html); 
-
-				 //更新省市县个数
-				 if(code == "city"){
-		        	 cityLength = index;
-		         }
-		         if(code == "count"){
-		        	 countLength = index;
-		        	 if(countLength > 0){
-			        	 $("#countName").show();
-		        	 } else {
-			        	 $("#countName").hide();
-		        	 }
-		         }
-				 
-		        },
-		        error:function () {
-					alert_msg("系统出错了!");  
-		        }
-			});
-	    
-	}
-
-	function selectName(value,code,name){
-	    $("#"+code).val(value);
-	    $("#"+code+"Name").text(name);
-	    if(code == "province"){
-		    $("#cityPump").html("");
-		    $("#city").val("-1");
-		    $("#cityName").text("请选择");
-		    cityLength = 0;
-	    }
-
-	    if(code == "province" || code == "city" ){
-		    $("#countPump").html("");
-		    $("#count").val("-1");
-		    $("#countName").text("请选择");
-		    countLength = 0;
-	    }
-
-	    if(code == "province"){
-	   		selectArea('city');
-	    	selectCity();
-	    }
-
-	    if(code == "city"){
-	    	selectArea('count');
-	    	selectCount();
-	    }
-	}
-
-	function selectCity(){
-		 var province = $("#province").val();
-		
-		 //当未选择省时，先点击市
-	     if(province == '-1'){
-	    	 auto_msg("请先选择省");
-			 return;
-	     }
-	     if( cityLength > 0){
-	    	 show('cityPump'); 
-	     }
-	    
-	}
-
-	function selectCount(){
-		 var province = $("#province").val();
-		 var city = $("#city").val();
-		
-		 //当未选择省时，先点击市
-	     if(province == '-1'){
-	    	 auto_msg("请先选择省");
-			 return;
-	     }
-	     if(city == '-1'){
-	    	 auto_msg("请先选择市");
-			 return;
-	     }
-	     if(countLength > 0){
-	    	 show('countPump'); 
-	     }
-	}
-</script>
-</head>
-<body>
-<form action="" id="myform"  method="post">
-<div><img src="/chinapost/jiyouwx/images/back.png" onclick=" history.go(-1);" class="back">添加地址</div>
-<div class="h45">&nbsp;</div>
-	<ul class="box03 ul01 ul02">
-	<li><strong class="red">*</strong>姓名：
-	  <input type="text" class="input01" id="username" name="username" placeholder="请输入姓名"></li>
-	<li><strong class="red">*</strong>手机：
-	  <input type="text" class="input01" id="phone" name="phone" maxlength="11" pattern="[0-9]" placeholder="请输入手机号码"></li>
-	  
-    <li class="area"><strong class="red">*</strong>地区：
-	    <div class="areaBox"> 
-      <span class="arrowBg02" onClick="show('provincePump');" id="provinceName">请选择</span>
-      <span class="arrowBg02" onClick="selectCity();" id="cityName" >请选择</span>
-      <span class="arrowBg02" onClick="selectCount();" id="countName">请选择</span> 
-      
-      <input type="hidden" id="province" name="province" value='-1'>
-      <input type="hidden" id="city" name="city" value='-1'>
-      <input type="hidden" id="count" name="count" value='-1'>
-    </div>
-    </li>
-    
-	<li><strong class="red">*</strong>地址：
-	  <input type="text" class="input01" id="address" name="address" placeholder="请输入详细地址">
-	</li>
-	<li><strong class="red">*</strong>邮编：
-	  <input type="text" class="input01" maxlength="6" id="postcode" name="postcode"  pattern="[0-9]" placeholder="请输入邮编">
-	</li>
-	<li ><span id="defAddress" class="check05" onclick="setDefaultAddr()">设为默认地址</span></li>	
-</ul>
-<a href="#" class="btn02" onclick="save()" >保存</a>
-<jsp:include page="/chinapost/jiyouwx/global_error.jsp"></jsp:include>
-
-  <div class="tipBox">
-  <div class="lightBox" onclick="close_tip_div();"></div>
-  <div class="pump" id="provincePump">
-  	<div style="position:fixed;top:30px;right:35px;z-index:10;" onclick="close_tip_div();"><img src="/chinapost/jiyouwx/images/close.jpg" width="30" height="30"/></div>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sorts">
-      <s:iterator value="#request.province" id="prov" status = "st"> 
-        <s:if test="#st.index % 2 == 0">
-            <tr><td><a onclick='show("provincePump");selectName("<s:property value="key"/>","province","<s:property value="value"/>")'><s:property value="value"/></a></td>
-        </s:if>
-        <s:else>
-           <td><a onclick='show("provincePump");selectName("<s:property value="key"/>","province","<s:property value="value"/>")'><s:property value="value"/></a></td></tr>
-        </s:else>
-	  </s:iterator>
-   </table>
-  </div>
-   <div class="pump" id="cityPump">
-  </div>
-   <div class="pump" id="countPump">
-  </div>
-</div>
-<script>
-
-function show(tem){
-	if($("#"+tem).hasClass("block")){
-		$(".pump").removeClass("block");
-		$(".lightBox").removeClass("block");
-	} else{
-		$(".lightBox").addClass("block");
-		$(".pump").removeClass("block");
-		$("#"+tem).addClass("block");
-	}
-		
-	$("#lightBox").height(window.screen.availHeight);
-	
-	$(document.body).toggleClass("html-body-overflow");
-}
-
-
-function close_tip_div(){
-	$(".tipBox").children("div").removeClass("block");
-	$(document.body).toggleClass("html-body-overflow");
-}
-</script>
-<input type="hidden" id="flag" name="shoppingCar" value="<%=request.getAttribute("shoppingCar") %>">
-</form>
+	</script>
 </body>
 </html>

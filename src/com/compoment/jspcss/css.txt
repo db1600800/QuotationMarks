@@ -1040,3 +1040,12 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 .tab th,.tab td{ padding:10px 0}
 .detailImg{ padding:20px; text-align:center}
 .detailImg img{ width:95%}
+
+
+
+
+
+
+
+
+

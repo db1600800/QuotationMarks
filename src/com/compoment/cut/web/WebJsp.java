@@ -29,6 +29,30 @@ import com.compoment.util.KeyValue;
 
 public class WebJsp {
 
+	
+	//visibility:hidden;隐藏占位     display:none;  隐藏不占位
+	//height: 42px; line-height: 42px;   多行时行高,单行时垂直居中 
+	//background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
+	//text-align: center;文本居中
+	
+	
+	//float:left;right center
+	
+	//width: 100%; 
+	
+	//position: relative;  正常占位  
+	
+	//position: absolute;  相对父亲浮起来，不占位，父亲不指定position: relative则相对<body>浮起来
+	//z-index:1;  多个浮起来，数值大的在上面
+	
+	//position: fixed;     相对浏览器浮起来，不占位
+	// 后跟 top:0; left:0; bottom:0; right:0;
+	
+	
+	//overflow: scroll;滚动  auto自动处理  hidden隐藏
+	
+	
+	
 	String bodym = "\n\n\n";
 	String connection = "";
 	String pageName = "";
@@ -209,6 +233,33 @@ public class WebJsp {
 		
 		
 	    bodym+="<html>\n";
+	    
+	    
+	    bodym+="<head>\n";
+	    bodym+="	<meta charset='utf-8'>\n";
+	    bodym+="	<meta name=\"viewport\" content=\"width=device-width,initial-scale=1, maximum-scale=1, \">\n";
+	    bodym+="	<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n";
+	    bodym+="	<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n";
+	    bodym+="	<META Http-Equiv=\"Cache-Control\" Content=\"no-cache\"/>\n";
+	    bodym+="	<META Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
+	    bodym+="	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
+	    
+	    
+	    bodym+="<%--css <link href=\"/chinapost/jiyouwx/css/css.css?v=1.1.3\" rel=\"stylesheet\" type=\"text/css\">--%>\n";
+	    
+	    bodym+="	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jquery-1.10.1.min.js\"></script>\n";
+	    bodym+="	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\" charset='utf-8'></script>\n";
+	    bodym+="	<%-- 统一错误处理 --%>\n";
+	    bodym+="	<%@include file=\"/chinapost/jiyouwx/global_error.jsp\"%>\n";
+
+	    bodym+="	<style type=\"text/css\">\n";
+	    bodym+="	.checkbox_sty {\n";
+	    bodym+="		visibility:hidden;\n";
+	    bodym+="	}\n";
+	    bodym+="	</style>\n";
+	    bodym+="</head>\n";
+	    
+	    
 		bodym+="<body>\n";
 		bodym+="<div style=\" width:100%; height:"+maxBean.h+"px;  background-color:"+maxBean.bgRgb16+"; \">\n";
 		bodym+=formmStart;
@@ -247,12 +298,11 @@ public class WebJsp {
 				//这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					
+				//visibility:hidden; display:none;	height: 42px; line-height: 42px; background-color: #fd5f28; font-size: 18px; color: #fff; text-align: center; z-index: 2; position: relative; width: 100%; position:fixed; top:0; left:0 
 					bodym+="  <div style=\" width:100%; height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
 					
-					
-
 					parent( chirld);
+					
 					bodym+="  </div>\n";
 				} else {//这个儿子是非容器 
 					
