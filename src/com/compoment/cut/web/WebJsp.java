@@ -117,10 +117,13 @@ public class WebJsp {
 					maxBean = bean;
 				}
 
+				
 				layouts.add(bean);
 			}
 		}
 		
+		
+		Collections.sort(layouts, comparatorDate);
 		
 		// RelativeLayout 儿子们的位置关系
 				for (CompomentBean bean : layouts) {
@@ -129,16 +132,16 @@ public class WebJsp {
 
 							if (bean.chirlds.size() == 2) {
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="vertical-align:middle;";
+									bean.relativeForWeb+="position: relative;";
 									
 									CompomentBean chirld1 = bean.chirlds.get(0);
 									CompomentBean chirld2 = bean.chirlds.get(1);
 									if (chirld1.x < chirld2.x) {
-										chirld1.relativeForWeb += "float:left; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:"+(chirld1.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
-										chirld2.relativeForWeb += "float:right;  margin-top:"+(chirld2.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld2.x-chirld2.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
+										chirld1.relativeForWeb += "position: absolute;  left:0; top:25%; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:"+(chirld1.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
+										chirld2.relativeForWeb += "position: absolute;  right:0; top:25%;  margin-top:"+(chirld2.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld2.x-chirld2.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
 									} else if (chirld1.x > chirld2.x) {
-										chirld2.relativeForWeb += "float:left; margin-left:"+(chirld2.x-bean.x)+"px;  margin-top:"+(chirld2.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
-										chirld1.relativeForWeb += "float:right; margin-top:"+(chirld1.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld1.x-chirld1.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
+										chirld2.relativeForWeb += "position: absolute;  left:0; top:25%; margin-left:"+(chirld2.x-bean.x)+"px;  margin-top:"+(chirld2.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
+										chirld1.relativeForWeb += "position: absolute;  right:0; top:25%; margin-top:"+(chirld1.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld1.x-chirld1.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
 									}
 									
 								} else if (bean.orientation.equals("vertical")) {
@@ -148,19 +151,19 @@ public class WebJsp {
 							} else if (bean.chirlds.size() == 3) {
 
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="vertical-align:middle;";
+									bean.relativeForWeb+="position: relative;";
 									
 									Collections.sort(bean.chirlds, comparatorX);
 									int i = 0;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "float:left;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											chirld.relativeForWeb += "position: absolute;  left:0; top:25%;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 
 										} else if (i == 1) {
-											chirld.relativeForWeb += "float:center; ";
+											chirld.relativeForWeb += "position: absolute;  left:45%; top:25%; ";
 
 										} else if (i == 2) {
-											chirld.relativeForWeb += "float:right;  margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											chirld.relativeForWeb += "position: absolute;  right:0; top:25%; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 										}
 										i++;
 									}
@@ -173,7 +176,7 @@ public class WebJsp {
 							} else if (bean.chirlds.size() > 3) {
 
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="vertical-align:middle;";
+									bean.relativeForWeb+="position: relative;";
 									
 									Collections.sort(bean.chirlds, comparatorX);
 
@@ -181,10 +184,10 @@ public class WebJsp {
 									
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "float:left;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											chirld.relativeForWeb += "position: absolute;  left:0; top:25%;   margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 										
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += "float:right; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px;";
+											chirld.relativeForWeb += "position: absolute;  right:0; top:25%;  margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px;";
 										} else {
 										
 										}
@@ -202,20 +205,20 @@ public class WebJsp {
 						if (bean.chirlds != null && bean.chirlds.size() > 1) {
 							
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="vertical-align:middle;";
+									bean.relativeForWeb+="position: relative;";
 									Collections.sort(bean.chirlds, comparatorX);
 									
 									int i = 0;
 									CompomentBean beforeChirld = null;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											chirld.relativeForWeb += " position: absolute; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += " margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px;";
+											chirld.relativeForWeb += "position: absolute; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
 										} else {
 										
-											chirld.relativeForWeb += "  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											chirld.relativeForWeb += "position: absolute;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										}
 										i++;
@@ -245,18 +248,18 @@ public class WebJsp {
 	    bodym+="	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
 	    
 	    
-	    bodym+="<%--css <link href=\"/chinapost/jiyouwx/css/css.css?v=1.1.3\" rel=\"stylesheet\" type=\"text/css\">--%>\n";
+//	    bodym+="<%--css <link href=\"/chinapost/jiyouwx/css/css.css?v=1.1.3\" rel=\"stylesheet\" type=\"text/css\">--%>\n";
 	    
 	    bodym+="	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jquery-1.10.1.min.js\"></script>\n";
-	    bodym+="	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\" charset='utf-8'></script>\n";
-	    bodym+="	<%-- 统一错误处理 --%>\n";
-	    bodym+="	<%@include file=\"/chinapost/jiyouwx/global_error.jsp\"%>\n";
+//	    bodym+="	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\" charset='utf-8'></script>\n";
+//	    bodym+="	<%-- 统一错误处理 --%>\n";
+//	    bodym+="	<%@include file=\"/chinapost/jiyouwx/global_error.jsp\"%>\n";
 
-	    bodym+="	<style type=\"text/css\">\n";
-	    bodym+="	.checkbox_sty {\n";
-	    bodym+="		visibility:hidden;\n";
-	    bodym+="	}\n";
-	    bodym+="	</style>\n";
+//	    bodym+="	<style type=\"text/css\">\n";
+//	    bodym+="	.checkbox_sty {\n";
+//	    bodym+="		visibility:hidden;\n";
+//	    bodym+="	}\n";
+//	    bodym+="	</style>\n";
 	    bodym+="</head>\n";
 	    
 	    
@@ -299,7 +302,7 @@ public class WebJsp {
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
 				//visibility:hidden; display:none;	height: 42px; line-height: 42px; background-color: #fd5f28; font-size: 18px; color: #fff; text-align: center; z-index: 2; position: relative; width: 100%; position:fixed; top:0; left:0 
-					bodym+="  <div style=\" width:100%; height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
+					bodym+="  <div style=\" "+chirld.relativeForWeb+" width:100%; height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
 					
 					parent( chirld);
 					
@@ -322,7 +325,7 @@ public class WebJsp {
 		
 		if (chirld.type.equals("TextView")) {
 		
-			bodym += " <span style=\""+chirld.relativeForWeb+" \"><font size=\""+chirld.textSize+"px\" color=\""+chirld.rgb16+"\">"+chirld.cnname+"</font></span>\n";
+			bodym += " <span id=\""+chirld.enname+"\" name =\""+chirld.enname+"\" style=\""+chirld.relativeForWeb+"  font-size: "+chirld.textSize+"px; color: "+chirld.rgb16+";  \">"+chirld.cnname+"</span>\n";
 		}
 		
 		if (chirld.type.equals("Line")) {
@@ -330,80 +333,38 @@ public class WebJsp {
 			
 		}
 
+		if (chirld.type.equals("Spinner")) {
+			
+			// <span style="background:url(../images/next.png) no-repeat right center #fff; background-size:8px; line-height:20px; display:block; float:left; padding:3px 15px 3px 5px; margin-right:2px; margin-bottom:5px" onClick="selectCount();" id="count` `Name">请选择</span> 
+		     
+			bodym +="<div id=\""+chirld.enname+"\" name =\""+chirld.enname+"\" onclick=\""+chirld.actionString+"\" style=\" font-size: "+chirld.textSize+"px; color: "+chirld.rgb16+";"+chirld.relativeForWeb+" \">"
+					
+					+ ""+chirld.cnname+""
+							+ "<img  src= \"/images/"+chirld.picName+".png\"  style=\" width: 12px; \">"
+							+ "</div>\n";
+		}
 		
 		
 		if (chirld.type.equals("Button")) {
 			
 			
-		    if(!chirld.picName.equals("图片名"))
+		    if(chirld.picName.equals("图片名"))
 		    {
 			
-			bodym += " <state key=\"normal\" title=\""
-					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
+		    	bodym += "	<a href=\"#\" id=\""+chirld.enname+"\" name =\""+chirld.enname+"\"  onclick=\""+chirld.actionString+"\"  style=\"text-align: center; height:"+chirld.h+"px; line-height: "+chirld.h+"px; border-radius: 8px; color:"+chirld.rgb16+"; background-color:"+chirld.bgRgb16+";  font-size: "+chirld.textSize+"px "+chirld.relativeForWeb+"\" >"+chirld.cnname+"</a> \n";
+
+		
 		    }else
 		    {
 		    
 		    	
-		    	bodym += "<img src= \"/images/back.png\" onclick=\" history.go(-1);\" styple=\" width: 12px; position: absolute; left: 10px; top:10px;\">\n";
+		    	bodym += "<img id=\""+chirld.enname+"\" name =\""+chirld.enname+"\" src= \"/images/"+chirld.picName+".png\" onclick=\""+chirld.actionString+";\" style=\" width: 12px; "+chirld.relativeForWeb+" \">\n";
 		    }
 
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
-			bodym += "                                <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16ios)
-					+ "\" green=\""
-					+ chirld.getG(chirld.bgRgb16ios)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16ios)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                <color key=\"tintColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			
-		    if(!chirld.picName.equals("图片名"))
-		    {
-			
-			bodym += "                                <state key=\"normal\" title=\""
-					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
-		    }else
-		    {
-		    	bodym += "                                <state key=\"normal\" title=\""
-						+ chirld.cnname + "\">\n";
-		    }
-			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
-			bodym += "                                </state>\n";
-	
-			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "Cover\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
-			
-			
-			//透明覆盖层
-			
-			String coverLeverId=id();
-			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ coverLeverId+ "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
-
-			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + coverLeverId
-					+ "\" id=\"" + id() + "\"/>\n";
+		
 		}
 		
 		
