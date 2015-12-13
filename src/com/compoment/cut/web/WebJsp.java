@@ -212,10 +212,10 @@ public class WebJsp {
 									CompomentBean beforeChirld = null;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += " position: absolute; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											chirld.relativeForWeb += " position: absolute;left:0; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += "position: absolute; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
+											chirld.relativeForWeb += "position: absolute;right:0; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
 										} else {
 										
 											chirld.relativeForWeb += "position: absolute;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
@@ -351,7 +351,7 @@ public class WebJsp {
 		    if(chirld.picName.equals("图片名"))
 		    {
 			
-		    	bodym += "	<a href=\"#\" id=\""+chirld.enname+"\" name =\""+chirld.enname+"\"  onclick=\""+chirld.actionString+"\"  style=\"text-align: center; height:"+chirld.h+"px; line-height: "+chirld.h+"px; border-radius: 8px; color:"+chirld.rgb16+"; background-color:"+chirld.bgRgb16+";  font-size: "+chirld.textSize+"px "+chirld.relativeForWeb+"\" >"+chirld.cnname+"</a> \n";
+		    	bodym += "<a href=\"#\" id=\""+chirld.enname+"\" name =\""+chirld.enname+"\"  onclick=\""+chirld.actionString+"\"  style=\"text-align: center; height:"+chirld.h+"px; line-height: "+chirld.h+"px; border-radius: 8px; color:"+chirld.rgb16+"; background-color:"+chirld.bgRgb16+";  font-size: "+chirld.textSize+"px ;"+chirld.relativeForWeb+"\" >"+chirld.cnname+"</a> \n";
 
 		
 		    }else
@@ -679,7 +679,7 @@ public class WebJsp {
 		public int compare(CompomentBean s1, CompomentBean s2) {
 			// 按日期排
 			if (s1.time != s2.time) {
-				return (int) (s2.time - s1.time);
+				return (int) (s1.time-s2.time );
 			}
 			return 0;
 		}
