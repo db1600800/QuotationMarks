@@ -212,13 +212,13 @@ public class WebJsp {
 									CompomentBean beforeChirld = null;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += " position: absolute;left:0; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											chirld.relativeForWeb += " position: absolute; left:0 ; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += "position: absolute;right:0; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
+											chirld.relativeForWeb += " position: absolute; right:0 ; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
 										} else {
 										
-											chirld.relativeForWeb += "position: absolute;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											chirld.relativeForWeb += " position: absolute;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										}
 										i++;
