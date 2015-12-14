@@ -157,13 +157,16 @@ public class WebJsp {
 									int i = 0;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "position: absolute;  left:0; top:25%;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											chirld.relativeForWeb += "position: absolute;  left:"+leftvalue+"%; top:25%;  margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 
 										} else if (i == 1) {
-											chirld.relativeForWeb += "position: absolute;  left:45%; top:25%; ";
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											chirld.relativeForWeb += "position: absolute;  left:"+leftvalue+"%; top:25%; ";
 
 										} else if (i == 2) {
-											chirld.relativeForWeb += "position: absolute;  right:0; top:25%; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
+											chirld.relativeForWeb += "position: absolute;  right:"+rightvalue+"%; top:25%; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 										}
 										i++;
 									}
@@ -184,10 +187,13 @@ public class WebJsp {
 									
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += "position: absolute;  left:0; top:25%;   margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
+											
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											chirld.relativeForWeb += "position: absolute;  left:"+leftvalue+"%; top:25%;   margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px; ";
 										
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += "position: absolute;  right:0; top:25%;  margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px;";
+											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
+											chirld.relativeForWeb += "position: absolute;  right:"+rightvalue+"%; top:25%;  margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld.y-chirld.h)+"px;";
 										} else {
 										
 										}
@@ -212,13 +218,15 @@ public class WebJsp {
 									CompomentBean beforeChirld = null;
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
-											chirld.relativeForWeb += " position: absolute; left:0 ; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											chirld.relativeForWeb += " position: absolute; left: "+leftvalue+"%; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										} else if (i == bean.chirlds.size() - 1) {
-											chirld.relativeForWeb += " position: absolute; right:0 ; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
+											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
+											chirld.relativeForWeb += " position: absolute; right:"+rightvalue+"% ; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
 										} else {
-										
-											chirld.relativeForWeb += " position: absolute;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											chirld.relativeForWeb += " position: absolute; left:"+leftvalue+"%;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
 											beforeChirld=chirld;
 										}
 										i++;
