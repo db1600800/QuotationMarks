@@ -1,21 +1,285 @@
-<head>
-	<meta charset='utf-8'>
-	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, ">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<META Http-Equiv="Cache-Control" Content="no-cache"/>
-	<META Http-Equiv="Pragma" Content="no-cache"/>
-	<META Http-Equiv="Expires" Content="-1"/>
-	<title>购物车</title>
-	<link href="/chinapost/jiyouwx/css/css.css?v=1.1.3" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript" src="/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5" charset='utf-8'></script>
-	<%-- 统一错误处理 --%>
-	<%@include file="/chinapost/jiyouwx/global_error.jsp"%>
+<body onload="repage();">
+		<html:form action="/gd/sellermanaction.do?method=query"
+			styleId="SellerManActionForm" method="post">
+			<div id="container" class="container">
+				<div class="titleBar">
+					商家信息管理
+				</div>
 
-	<style type="text/css">
-	.checkbox_sty {
-		visibility:hidden;
-	}
-	</style>
-</head>
+
+				<div class="subTitleBar">
+					<a href="#" class="subTitle expandTitle">查询条件</a>
+				</div>
+				<div class="subContentBar">
+					<div class="formTable">
+						<table border="0" cellpadding="0" cellspacing="0" class="tab"
+							id="edittable">
+
+							<tr>
+
+								<th width="10%">
+									商家名称:
+								</th>
+								<td nowrap class="tab_td" width="20%">
+									<html:select name="SellerManActionForm"
+										property="d44_70_merchant_name">
+										<html:option value="">全部</html:option>
+										<html:optionsCollection name="SellerManActionForm"
+											property="d44_70_merchant_namelist" />
+									</html:select>
+
+								</td><!--
+
+								<th width="10%">
+									所属机构:
+								</th>
+								<td nowrap class="tab_td" width="20%">
+									<html:select name="SellerManActionForm"
+										property="d44_70_ywkbjsa">
+										<html:option value="">全部</html:option>
+										<html:optionsCollection name="SellerManActionForm"
+											property="d44_70_brch_namelist" />
+									</html:select>
+
+								</td>
+								
+								--><td >所属机构: </td>
+
+									<td id="<%="treetd"+"0"%>" nowrap class="tab_td"></td>
+
+							</tr>
+
+
+							<tr>
+
+
+
+
+								<th width="10%">
+									联系人：
+								</th>
+								<td class="tab_td" width="20%">
+									<html:text name="SellerManActionForm" size="30"
+										property="d44_70_linkman" maxlength="20"></html:text>
+								</td>
+
+								<th width="10%">
+									联系电话:
+								</th>
+								<td class="tab_td" width="20%">
+									<html:text name="SellerManActionForm"
+										property="d44_70_telephone" size="30" maxlength="40" />
+								</td>
+
+								<td colspan="2" class="tab_td"
+									style="text-align: center; width: 120px; padding-left: 15px; padding-right: 15px">
+									<input type="button" value="查询" name="btn"
+										onmouseover="this.style.cursor='hand'" class="btn"
+										onclick="query()">
+								</td>
+
+							</tr>
+
+						</table>
+						
+						<input type="hidden"  name="d44_70_dealbrchname" />
+										<input type="hidden"  name="d44_70_dealbrchno"/>
+					</div>
+				</div>
+
+
+
+				<div class="subBar">
+					<div class="subTitleBar">
+						<a href="#" class="subTitle expandTitle">查询结果</a>
+					</div>
+					<div class="subContentBar">
+						<div class="dataTable">
+							<table align="center" width="90%" border="0">
+								<tr
+									style="font-weight: bold; background: transparent; color: red; align: left;">
+									<td align="left"><%=(String) request.getAttribute("optret") == null
+						? ""
+						: (String) request.getAttribute("optret")%></td>
+									<td align="right"></td>
+								</tr>
+							</table>
+
+
+
+
+
+							<table id="newtable">
+
+								<thead class=trhead id="tblHeader">
+									<tr>
+										<th width="5%">
+											<input type="checkbox" id="checkall"
+												onclick="allcheck('todo')">
+											选择
+											<br>
+										</th>
+										<th width="8%">
+											商家代号
+										</th>
+										<th width="8%">
+											商家名称
+										</th>
+										<th width="10%">
+											联系人
+										</th>
+										<th width="10%">
+											联系人电话
+										</th>
+										<th width="8%">
+											所属机构
+										</th>
+										<th width="10%">
+											状态
+										</th>
+
+	<th width="6%" >
+						详情修改
+					</th>
+									</tr>
+								</thead>
+								<tbody id="records">
+									<logic:notEmpty name="SellerManActionForm" property="redo">
+										<logic:iterate name="SellerManActionForm" id="redo"
+											property="redo" type="SellerManSubVo" indexId="pc">
+											<tr class='<%=(pc.intValue() % 2 == 0)
+								? "even"
+								: "odd"%>'>
+
+												<td align="center">
+													<input type="checkbox" name="delete_d44_70_cstmanager"
+														value="" />
+												</td>
+												<td>
+													<a href="#" title="相关客户查询"
+														onclick="goCusInfo(<%=pc.intValue()%>)"><bean:write
+															name="redo" property="d44_70_merchant_id" />
+													</a>
+													<input type="hidden" name="d44_70_merchant_id"
+														onchange="getmode(<%=pc.intValue()%>)"
+														value="<bean:write name="redo"  property="d44_70_merchant_id" />" />
+
+												</td>
+												<td>
+													<bean:write name="redo" property="d44_70_merchant_name" />
+													<input type="hidden" name="d44_70_merchant_name"
+														value="<bean:write name="redo" property="d44_70_merchant_name"/>" />
+
+												</td>
+												<td>
+													<bean:write name="redo" property="d44_70_linkman" />
+													<input type="hidden" name="d44_70_linkman"
+														value="<bean:write name="redo" property="d44_70_linkman"/>" />
+
+
+												</td>
+												<td>
+													<bean:write name="redo" property="d44_70_telephone" />
+													<input type="hidden" name="d44_70_telephone"
+														value="<bean:write name="redo" property="d44_70_telephone"/>" />
+
+
+												</td>
+												<td>
+													<bean:write name="redo" property="d44_70_dealbrchname" />
+													<input type="hidden" name="d44_70_dealbrchname"
+														value="<bean:write name="redo" property="d44_70_dealbrchname"/>" />
+														
+														<input type="hidden" name="d44_70_dealbrchno"
+														value="<bean:write name="redo" property="d44_70_dealbrchno"/>" />
+												</td>
+
+												<td>
+													<bean:write name="redo" property="d44_70_longstatus_name" />
+													<input type="hidden" name="d44_70_longstatus"
+														value="<bean:write name="redo" property="d44_70_longstatus"/>" />
+														
+															<input type="hidden" name="d44_70_longstatus_name"
+														value="<bean:write name="redo" property="d44_70_longstatus_name"/>" />
+												
+															</td>
+												
+												<td align="center">
+							<a href="#" name="changeinfo" onclick="alterinfo(<%=pc.intValue()%>);">修改</a>
+						</td>
+
+											</tr>
+											
+										
+										</logic:iterate>
+									</logic:notEmpty>
+								</tbody>
+							</table>
+
+
+
+
+
+
+
+							<table id="mytable" align="center" style="margin-bottom: 5px"
+								width="90%">
+								<tr style="display: block">
+									<td colspan="14">
+										<div id="form1_pageset"></div>
+									</td>
+								</tr>
+								<tr align="center">
+									<td colspan="4">
+										<input type="button" value="增加" name="btn3"
+											onclick="addList()" class="btn"
+											onmouseover="this.style.cursor='hand'"
+											style="margin-right: 30px">
+										<input type="button" value="删除" name="btn2" onclick="del();"
+											class="btn" onmouseover="this.style.cursor='hand'"
+											style="margin-right: 30px" />
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="10">
+										<div id="form1_pageset"></div>
+									</td>
+								</tr>
+
+							</table>
+
+							<!-- 页码 -->
+							<html:hidden styleId="form1_curpage_no_submit"
+								property="b88_imp_num" />
+							<!-- 每页记录数 -->
+							<html:hidden styleId="form1_number_per_page_submit"
+								property="b88_unsend_num" />
+							<!-- 总记录数 -->
+							<html:hidden styleId="form1_totalnum" property="b88_mail_cnt" />
+							<script type="text/javascript"
+								src="/gdpost/javascript/pub/showtip.js"></script>
+
+
+
+							<%=(String) request.getAttribute("errmsg") == null
+						? ""
+						: "<script language ='JavaScript'>alert('"
+								+ (String) request.getAttribute("errmsg")
+								+ "');</script>"%>
+		</html:form>
+
+
+<script language="javascript">           
+			    var rowi = 0;
+		    	var tdid = "treetd"+rowi;
+		    	var treetd = document.getElementById(tdid);
+		    	var tree1 = new WebFXTree("Root");
+   				tree1.add(new WebFXLoadTreeItem("机构列表", "/gd/tree.do?method=getSubBrchNodes&treename="+rowi)); 
+   				tree1.showRootNode = false; 
+   				tree1.showRootLines = false; 
+				treetd.innerHTML = CreateTreeSelectHtml(rowi,tree1,"","",200);
+				setTreeSelValue(rowi);
+		</script>
+	</body>
+</html>
