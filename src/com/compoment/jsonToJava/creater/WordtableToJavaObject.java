@@ -115,7 +115,7 @@ public class WordtableToJavaObject {
 		public void setType(String type) {
 			this.type = type;
 		}
-		String remarks;
+		public String remarks;
 		
 		
 	}

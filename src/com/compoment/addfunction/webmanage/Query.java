@@ -1,8 +1,35 @@
 package com.compoment.addfunction.webmanage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.util.KeyValue;
+
 public class Query {
 
-	public void queryjspStruct1()
+	
+	public  Query(List<InterfaceBean> interfaceBeans) {
+		if (interfaceBeans == null)
+			return;
+
+		for (InterfaceBean interfaceBean : interfaceBeans) {
+			
+			queryjspStruct1(interfaceBean, "Respond");
+		}
+	}
+	
+	
+
+	public void queryjspStruct1(InterfaceBean interfaceBean,String type)
 	{
 		String m="";
 		m+="<%@ page contentType=\"text/html; charset=GBK\" pageEncoding=\"gb2312\"%>\n";
@@ -20,7 +47,7 @@ public class Query {
 		m+="<html>\n";
 		m+="	<head>\n";
 		m+="		<link href=\"/css/inside.css\" type=\"text/css\" rel=\"stylesheet\">\n";
-		m+="		<title></title>\n\n";
+		m+="		<title>"+interfaceBean.title+"</title>\n\n";
 		
 		m+="		<jsp:include flush=\"true\" page=\"/gdpost/common/newstyle.jsp\"></jsp:include>\n";
 		m+="		<!-- 树形菜单样式 -->\n";
@@ -94,22 +121,22 @@ public class Query {
 
 		
 		m+="<script>\n\n";
+		
 		m+="//查询\n";
 		m+="function query()\n";
 		m+="{\n";
 		m+="	\n";
 		m+="	var myform = document.forms[0];\n";
+		m+="	myform.action=\"/gd/sellermanaction.do?method=query\";\n";
 		m+="	myform.submit();\n";
 		m+="}\n\n";
 		
 		
 		m+="//新增 \n";
 		m+="function add(){\n";
-		m+="	var parm = \"add\";\n";
-		m+="	//var myform = document.forms(0);\n";
-		m+="	//myform.action = \"/gd/bankmtcaction.do?method=initadd\";\n";
-		m+="	//myform.submit();\n";
-		m+="	window.location.href=\"/gd/bankqueryaction.do?method=getList&parm=\"+parm;\n";
+		m+="	var myform = document.forms[0];\n";
+		m+="	myform.action=\"/gd/sellermanaction.do?method=add\";\n";
+		m+="	myform.submit();\n";
 		m+="}\n\n";
 
 		
@@ -129,24 +156,42 @@ public class Query {
 		m+="//修改 \n";	
 		m+="function update(i)\n";
 		m+="{\n";
-		m+="	var parm = document.getElementsByName('d44_70_merchant_id')[i].value+\"|\"+document.getElementsByName('d44_70_merchant_name')[i].value+\"|\"+document.getElementsByName('d44_70_linkman')[i].value+\"|\"+document.getElementsByName('d44_70_telephone')[i].value+\"|\"+document.getElementsByName('d44_70_dealbrchname')[i].value+\"|\"+document.getElementsByName('d44_70_dealbrchno')[i].value+\"|\"+document.getElementsByName('d44_70_longstatus')[i].value+\"|\";\n";
+		
+		String parm="";
+		List<Group> groups = interfaceBean.respondGroups;
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (!groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if (i == 0) {// 循环域开始
+					} else {
+						parm+="document.getElementsByName('"+row.enName+"_table_row')[i].value+\"|\"";
+					}
+					i++;
+				}
+			}
+
+		}
+		
+		m+="	var parm = "+parm+";\n";
 		m+="	var mform = document.forms[0];\n";
-		m+="	mform.action=\"/gd/sellermanaction.do?method=initAlt&parm=\"+parm;\n";
-		m+="	//mform.action = \"/gdpost/bank/bankinfoalt.jsp\";\n";
+		m+="	mform.action=\"/gd/sellermanaction.do?method=update&parm=\"+parm;\n";
 		m+="	mform.submit();\n";
 		m+="}\n\n";
 		
 
 		m+="//全选 \n";	
-		m+="function allcheck(checkname)\n";
+		m+="function allcheck()\n";
 		m+="{	\n";
-		m+="	var checkbox = document.getElementsByName('delete_d44_70_cstmanager');\n";
+		m+="	var checkbox = document.getElementsByName('checkbox_row_id');\n";
 		m+="	var checkall = document.getElementById(\"checkall\");\n";
 		m+="	for(var i = 0;i<checkbox.length;i++)\n";
 		m+="	{\n";
 		m+="		checkbox[i].checked = checkall.checked;\n";
 		m+="	}\n";
 		m+="}\n\n";
+		
 
 		m+="//选中 \n";
 		m+="function check() {\n";
@@ -156,24 +201,20 @@ public class Query {
 		m+="		alert(\"没有记录，请先查询！\");\n";
 		m+="		return 1;\n";
 		m+="	}	\n";
-		m+="	var checkbox = document.getElementsByName('delete_d44_70_cstmanager');\n";
+		m+="	var checkbox = document.getElementsByName('checkbox_row_id');\n";
 		m+="	var check = false;\n";
 		m+="	for(i=0;i<rowLength;i++){\n";
-		m+="		if (document.getElementsByName('delete_d44_70_cstmanager')[i].checked == true)\n";
+		m+="		if (document.getElementsByName('checkbox_row_id')[i].checked == true)\n";
 		m+="		{\n";
-		m+="			//document.getElementsByName('delete_d44_70_ywkbj')(i).value = newtable.rows(i+1).cells(1).innerText+\"|\"+newtable.rows(i+1).cells(2).innerText+\"|\"+newtable.rows(i+1).cells(3).innerText+\"|\"+document.getElementsByName('d44_70_paramid')(i).value+\"|\"+document.getElementsByName('d44_70_validflag')(i).value+\"|\"+document.getElementsByName('b60_dest_fee')(i).value;\n";
-		m+="			//document.getElementsByName('delete_i_busi_no')(i).value = newtable.rows(i+1).cells(2).innerText;\n";
-		m+="			var parm = document.getElementsByName('d44_70_merchant_id')[i].value+\"|\"+document.getElementsByName('d44_70_merchant_name')[i].value+\"|\"+document.getElementsByName('d44_70_linkman')[i].value+\"|\"+document.getElementsByName('d44_70_telephone')[i].value+\"|\"+document.getElementsByName('d44_70_dealbrchname')[i].value+\"|\"+document.getElementsByName('d44_70_dealbrchno')[i].value+\"|\"+document.getElementsByName('d44_70_longstatus')[i].value+\"|\";\n";
+		m+="			var parm = "+parm+";\n";
 		m+="			\n";
-		m+="			document.getElementsByName('delete_d44_70_cstmanager')[i].value =parm;\n";
-		m+="				//alert(newtable.rows(i+1).cells(6).innerText);\n";
-		m+="			//document.getElementsByName('delete_b05_bank_no')(i).value = newtable.rows(i+1).cells(3).innerText;\n";
+		m+="			document.getElementsByName('checkbox_row_id')[i].value =parm;\n";
 		m+="			check = true;\n";
 		m+="		}\n";
 		m+="	}\n";
 		m+="	if (check == false)	\n";
 		m+="	{\n";
-		m+="	alert(\"请选择要删除的记录！\");\n";
+		m+="	alert(\"请选择记录！\");\n";
 		m+="	return 1;\n";
 		m+="	}\n";
 		m+="	return 0;\n";
@@ -183,12 +224,13 @@ public class Query {
 		
 
 
-
-		m+="function goCusInfo(index){\n";
-		m+="	var parm = document.getElementsByName(\"d44_70_cstmanager\")[index].value;\n";
-		m+="	//alert(parm);\n";
-		m+="	window.location.href=\"/gd/sellermanagtaction.do?method=init&parm=\"+parm;\n";
-		m+="}\n";
+		m+="//详情 \n";
+		m+="function detail(index){\n";
+		m+="	var parm = "+parm+";\n";
+		m+="	var mform = document.forms[0];\n";
+		m+="	mform.action=\"/gd/sellermanagtaction.do?method=detail&parm=\"+parm;\n";
+		m+="	mform.submit();\n";
+		m+="}\n\n";
 
 	
 
@@ -205,7 +247,7 @@ public class Query {
 		m+="			styleId=\"SellerManActionForm\" method=\"post\">\n";
 		m+="			<div id=\"container\" class=\"container\">\n";
 		m+="				<div class=\"titleBar\">\n";
-		m+="					商家信息管理\n";
+		m+="					"+interfaceBean.title+"\n";
 		m+="				</div>\n";
 
 
@@ -219,60 +261,51 @@ public class Query {
 
 		m+="							<tr>\n";
 
-		m+="								<th width=\"10%\">\n";
-		m+="									商家名称:\n";
-		m+="								</th>\n";
-		m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-		m+="									<html:select name=\"SellerManActionForm\"\n";
-		m+="										property=\"d44_70_merchant_name\">\n";
-		m+="										<html:option value=\"\">全部</html:option>\n";
-		m+="										<html:optionsCollection name=\"SellerManActionForm\"\n";
-		m+="											property=\"d44_70_merchant_namelist\" />\n";
-		m+="									</html:select>\n";
+		
+		
+		
+		
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (!groupname.equals("CommonGroup")) {
+				int i = 0;
+				int columnCount=1;
+				for (Row row : group.rows) {
+					if (i == 0) {// 循环域开始
+					} else {
+						if(columnCount==3)
+						{
+							m+="							<tr>\n";
+						}
+						m+="								<th width=\"10%\">\n";
+						m+="									"+row.cnName+":\n";
+						m+="								</th>\n";
+						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
+						m+="									<html:select name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="										property=\""+row.enName+"\">\n";
+						m+="										<html:option value=\"\">全部</html:option>\n";
+						m+="										<html:optionsCollection name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="											property=\""+row.enName+"list\" />\n";
+						m+="									</html:select>\n";
 
-		m+="								</td><!--\n";
-
-		m+="								<th width=\"10%\">\n";
-		m+="									所属机构:\n";
-		m+="								</th>\n";
-		m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-		m+="									<html:select name=\"SellerManActionForm\"\n";
-		m+="										property=\"d44_70_ywkbjsa\">\n";
-		m+="										<html:option value=\"\">全部</html:option>\n";
-		m+="										<html:optionsCollection name=\"SellerManActionForm\"\n";
-		m+="											property=\"d44_70_brch_namelist\" />\n";
-		m+="									</html:select>\n";
-
-		m+="								</td>\n";
-		m+="								\n";
-		m+="								--><td >所属机构: </td>\n";
-
-		m+="									<td id=\"<%=\"treetd\"+\"0\"%>\" nowrap class=\"tab_td\"></td>\n";
-
-		m+="							</tr>\n";
-
-
+						m+="									<html:text name=\""+interfaceBean.id+"ActionForm\" size=\"30\"\n";
+						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
+						
+						m+="								</td>";
+					if(columnCount==3)
+					{
+						m+="							</tr>\n";
+						columnCount=0;
+					}
+					columnCount++;
+					}
+					i++;		
+				}
+			}
+		}
+		
+		
 		m+="							<tr>\n";
-
-
-
-
-		m+="								<th width=\"10%\">\n";
-		m+="									联系人：\n";
-		m+="								</th>\n";
-		m+="								<td class=\"tab_td\" width=\"20%\">\n";
-		m+="									<html:text name=\"SellerManActionForm\" size=\"30\"\n";
-		m+="										property=\"d44_70_linkman\" maxlength=\"20\"></html:text>\n";
-		m+="								</td>\n";
-
-		m+="								<th width=\"10%\">\n";
-		m+="									联系电话:\n";
-		m+="								</th>\n";
-		m+="								<td class=\"tab_td\" width=\"20%\">\n";
-		m+="									<html:text name=\"SellerManActionForm\"\n";
-		m+="										property=\"d44_70_telephone\" size=\"30\" maxlength=\"40\" />\n";
-		m+="								</td>\n";
-
 		m+="								<td colspan=\"2\" class=\"tab_td\"\n";
 		m+="									style=\"text-align: center; width: 120px; padding-left: 15px; padding-right: 15px\">\n";
 		m+="									<input type=\"button\" value=\"查询\" name=\"btn\"\n";
@@ -317,97 +350,70 @@ public class Query {
 		m+="									<tr>\n";
 		m+="										<th width=\"5%\">\n";
 		m+="											<input type=\"checkbox\" id=\"checkall\"\n";
-		m+="												onclick=\"allcheck('todo')\">\n";
+		m+="												onclick=\"allcheck()\">\n";
 		m+="											选择\n";
 		m+="											<br>\n";
 		m+="										</th>\n";
-		m+="										<th width=\"8%\">\n";
-		m+="											商家代号\n";
-		m+="										</th>\n";
-		m+="										<th width=\"8%\">\n";
-		m+="											商家名称\n";
-		m+="										</th>\n";
-		m+="										<th width=\"10%\">\n";
-		m+="											联系人\n";
-		m+="										</th>\n";
-		m+="										<th width=\"10%\">\n";
-		m+="											联系人电话\n";
-		m+="										</th>\n";
-		m+="										<th width=\"8%\">\n";
-		m+="											所属机构\n";
-		m+="										</th>\n";
-		m+="										<th width=\"10%\">\n";
-		m+="											状态\n";
-		m+="										</th>\n";
-
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (!groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if (i == 0) {// 循环域开始
+					} else {
+						m+="										<th width=\"8%\">\n";
+						m+="											"+row.cnName+"\n";
+						m+="										</th>\n";
+					}
+					i++;
+				}
+			}
+		}
 		m+="	<th width=\"6%\" >\n";
 		m+="						详情修改\n";
 		m+="					</th>\n";
 		m+="									</tr>\n";
 		m+="								</thead>\n";
+		
+		
+		
+		
+		
+		
 		m+="								<tbody id=\"records\">\n";
 		m+="									<logic:notEmpty name=\"SellerManActionForm\" property=\"redo\">\n";
-		m+="										<logic:iterate name=\"SellerManActionForm\" id=\"redo\"\n";
-		m+="											property=\"redo\" type=\"SellerManSubVo\" indexId=\"pc\">\n";
+		m+="										<logic:iterate name=\"SellerManActionForm\" id=\"bean\"\n";
+		m+="											property=\"redo\" type=\"SellerManActionForm\" indexId=\"pc\">\n";
 		m+="											<tr class='<%=(pc.intValue() % 2 == 0)\n";
 		m+="								? \"even\"\n";
 		m+="								: \"odd\"%>'>\n";
 
 		m+="												<td align=\"center\">\n";
-		m+="													<input type=\"checkbox\" name=\"delete_d44_70_cstmanager\"\n";
+		m+="													<input type=\"checkbox\" name=\"checkbox_row_id\"\n";
 		m+="														value=\"\" />\n";
 		m+="												</td>\n";
-		m+="												<td>\n";
-		m+="													<a href=\"#\" title=\"相关客户查询\"\n";
-		m+="														onclick=\"goCusInfo(<%=pc.intValue()%>)\"><bean:write\n";
-		m+="															name=\"redo\" property=\"d44_70_merchant_id\" />\n";
-		m+="													</a>\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_merchant_id\"\n";
-		m+="														onchange=\"getmode(<%=pc.intValue()%>)\"\n";
-		m+="														value=\"<bean:write name=\"redo\"  property=\"d44_70_merchant_id\" />\" />\n";
-
-		m+="												</td>\n";
-		m+="												<td>\n";
-		m+="													<bean:write name=\"redo\" property=\"d44_70_merchant_name\" />\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_merchant_name\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_merchant_name\"/>\" />\n";
-
-		m+="												</td>\n";
-		m+="												<td>\n";
-		m+="													<bean:write name=\"redo\" property=\"d44_70_linkman\" />\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_linkman\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_linkman\"/>\" />\n";
-
-
-		m+="												</td>\n";
-		m+="												<td>\n";
-		m+="													<bean:write name=\"redo\" property=\"d44_70_telephone\" />\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_telephone\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_telephone\"/>\" />\n";
-
-
-		m+="												</td>\n";
-		m+="												<td>\n";
-		m+="													<bean:write name=\"redo\" property=\"d44_70_dealbrchname\" />\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_dealbrchname\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_dealbrchname\"/>\" />\n";
-		m+="														\n";
-		m+="														<input type=\"hidden\" name=\"d44_70_dealbrchno\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_dealbrchno\"/>\" />\n";
-		m+="												</td>\n";
-
-		m+="												<td>\n";
-		m+="													<bean:write name=\"redo\" property=\"d44_70_longstatus_name\" />\n";
-		m+="													<input type=\"hidden\" name=\"d44_70_longstatus\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_longstatus\"/>\" />\n";
-		m+="														\n";
-		m+="															<input type=\"hidden\" name=\"d44_70_longstatus_name\"\n";
-		m+="														value=\"<bean:write name=\"redo\" property=\"d44_70_longstatus_name\"/>\" />\n";
-		m+="												\n";
-		m+="															</td>\n";
-		m+="												\n";
+		
+		
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (!groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if (i == 0) {// 循环域开始
+					} else {
+						m+="												<td>\n";
+						m+="													<bean:write name=\"bean\" property=\""+row.enName+"\" />\n";
+						m+="													<input type=\"hidden\" name=\""+row.enName+"_table_row\"\n";
+						m+="														value=\"<bean:write name=\"bean\" property=\""+row.enName+"\"/>\" />\n";
+						m+="												</td>\n";
+					}
+					i++;
+				}
+			}
+		}
+		
 		m+="												<td align=\"center\">\n";
-		m+="							<a href=\"#\" name=\"changeinfo\" onclick=\"alterinfo(<%=pc.intValue()%>);\">修改</a>\n";
+		m+="							<a href=\"#\" name=\"changeinfo\" onclick=\"update(<%=pc.intValue()%>);\">修改</a>\n";
 		m+="						</td>\n";
 
 		m+="											</tr>\n";
@@ -434,7 +440,7 @@ public class Query {
 		m+="								<tr align=\"center\">\n";
 		m+="									<td colspan=\"4\">\n";
 		m+="										<input type=\"button\" value=\"增加\" name=\"btn3\"\n";
-		m+="											onclick=\"addList()\" class=\"btn\"\n";
+		m+="											onclick=\"add()\" class=\"btn\"\n";
 		m+="											onmouseover=\"this.style.cursor='hand'\"\n";
 		m+="											style=\"margin-right: 30px\">\n";
 		m+="										<input type=\"button\" value=\"删除\" name=\"btn2\" onclick=\"del();\"\n";
@@ -487,6 +493,9 @@ public class Query {
 		m+="</html>\n";
 
 		
+		
+		makeFile( interfaceBean.id+"Jsp",m);
+		System.out.println(m);
 	}
 	
 	
@@ -500,4 +509,66 @@ public class Query {
 
 		
 	}
+	
+	
+	
+	public boolean isCommonType(String type) {
+		if (type.equals("String") || type.equals("int") || type.equals("long")||type.equals("float")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isNum(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		return pattern.matcher(str).matches();
+	}
+	
+	public void makeFile(String fileName,String s)
+	{
+		try {
+		String doc=KeyValue.readCache("docPath");
+		int p=doc.lastIndexOf("/");
+		if(p==-1)
+		{
+			 p=doc.lastIndexOf("\\");
+		}
+		
+		
+		      
+		    
+		
+		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".java");
+		  if(! tofile.exists()) {  
+	            makeDir(tofile.getParentFile());  
+	        }  
+	      
+		  tofile.createNewFile(); 
+		
+		FileWriter fw;
+		
+			fw = new FileWriter(tofile);
+			BufferedWriter buffw=new BufferedWriter(fw);
+			PrintWriter pw=new PrintWriter(buffw);
+		
+		
+
+	
+		pw.println(s);
+
+		pw.close();
+		buffw.close();
+		fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	  public  void makeDir(File dir) {  
+	        if(! dir.getParentFile().exists()) {  
+	            makeDir(dir.getParentFile());  
+	        }  
+	        dir.mkdir();  
+	    }  
 }
