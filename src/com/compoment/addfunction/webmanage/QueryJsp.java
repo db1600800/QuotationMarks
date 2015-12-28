@@ -14,10 +14,10 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.KeyValue;
 
-public class Query {
+public class QueryJsp {
 
 	
-	public  Query(List<InterfaceBean> interfaceBeans) {
+	public  QueryJsp(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
@@ -135,7 +135,7 @@ public class Query {
 		m+="//新增 \n";
 		m+="function add(){\n";
 		m+="	var myform = document.forms[0];\n";
-		m+="	myform.action=\"/gd/sellermanaction.do?method=add\";\n";
+		m+="	myform.action=\"/gd/sellermanaction.do?method=addJsp\";\n";
 		m+="	myform.submit();\n";
 		m+="}\n\n";
 
@@ -269,7 +269,7 @@ public class Query {
 			String groupname = group.name;
 			if (!groupname.equals("CommonGroup")) {
 				int i = 0;
-				int columnCount=1;
+				int columnCount=3;
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
 					} else {
@@ -281,12 +281,12 @@ public class Query {
 						m+="									"+row.cnName+":\n";
 						m+="								</th>\n";
 						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-						m+="									<html:select name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="									<!--<html:select name=\""+interfaceBean.id+"ActionForm\"\n";
 						m+="										property=\""+row.enName+"\">\n";
 						m+="										<html:option value=\"\">全部</html:option>\n";
 						m+="										<html:optionsCollection name=\""+interfaceBean.id+"ActionForm\"\n";
 						m+="											property=\""+row.enName+"list\" />\n";
-						m+="									</html:select>\n";
+						m+="									</html:select>-->\n";
 
 						m+="									<html:text name=\""+interfaceBean.id+"ActionForm\" size=\"30\"\n";
 						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
@@ -494,7 +494,7 @@ public class Query {
 
 		
 		
-		makeFile( interfaceBean.id+"Jsp",m);
+		makeFile( interfaceBean.id+"QueryJsp",m);
 		System.out.println(m);
 	}
 	

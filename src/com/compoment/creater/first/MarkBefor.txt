@@ -1,276 +1,227 @@
-<body onload="repage();">
-		<html:form action="/gd/sellermanaction.do?method=query"
-			styleId="SellerManActionForm" method="post">
-			<div id="container" class="container">
-				<div class="titleBar">
-					商家信息管理
-				</div>
+<%@ page contentType="text/html; charset=GBK" pageEncoding="gb2312"%>
+<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/tld/struts-bean.tld" prefix="bean"%>
+<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@page import="com.gdpost.cbp.basedata.sellerman.bm.SellerManSubVo"%>
+<%@ include file="/gdpost/common/taglibs.jsp"%>
+<%@ include file="/gdpost/common/meta.jsp"%>
+<%@ page import="org.apache.struts.util.LabelValueBean"%>
 
+<%
+/**
+*调用4451550主交易
+*/
+ %>
 
-				<div class="subTitleBar">
-					<a href="#" class="subTitle expandTitle">查询条件</a>
-				</div>
-				<div class="subContentBar">
-					<div class="formTable">
-						<table border="0" cellpadding="0" cellspacing="0" class="tab"
-							id="edittable">
+<html>
+	<head>
+		<link href="/css/inside.css" type="text/css" rel="stylesheet">
+		<title>新增商家理信息</title>
+		
+		<script type="text/javascript"
+			src="/gdpost/pub/combotree/js/xtree2.js"></script>
+		<script type="text/javascript"
+			src="/gdpost/pub/combotree/js/xloadtree2.js"></script>
+		<script type="text/javascript"
+			src="/gdpost/pub/combotree/js/treeselect.js"></script>
+		<link type="text/css" rel="stylesheet"
+			href="/gdpost/pub/combotree/css/xtree2.css" />
+		<link type="text/css" rel="stylesheet"
+			href="/gdpost/pub/combotree/css/treeselect.css" />
+		<script src="/js/validation.js"></script>
+		
+<script>
+function save()
+{
+	//var d44_70_cstmanager = document.getElementById("d44_70_cstmanagersa");
+	
+	var d44_70_merchant_name = document.getElementsByName("d44_70_merchant_name")[0].value;
+		var d44_70_longstatus = document.getElementsByName("d44_70_longstatus")[0].value;
 
-							<tr>
+	var d44_70_dealbrchno = document.getElementsByName("d44_70_dealbrchno")[0].value;
+	var d44_70_dealbrchname = document.getElementsByName("d44_70_dealbrchname")[0].value;
+	
+	var d44_70_mc_type_desc = document.getElementsByName("d44_70_mc_type_desc")[0].value;
+	
+	var d44_70_linkman = document.getElementsByName("d44_70_linkman")[0].value;
+	
+	var d44_70_telephone = document.getElementsByName("d44_70_telephone")[0].value; 
+	
+	
+	var d44_70_bx_insurant_address = document.getElementsByName("d44_70_bx_insurant_address")[0].value;
 
-								<th width="10%">
-									商家名称:
-								</th>
-								<td nowrap class="tab_td" width="20%">
-									<html:select name="SellerManActionForm"
-										property="d44_70_merchant_name">
-										<html:option value="">全部</html:option>
-										<html:optionsCollection name="SellerManActionForm"
-											property="d44_70_merchant_namelist" />
-									</html:select>
+	if(d44_70_merchant_name == "")
+	{
+		alert("商家名称不能为空！");
+		return;
+	}
+	else if(d44_70_longstatus == "")
+	{
+		alert("商家状态不能为空！");
+		return;
+	}else if(d44_70_dealbrchno == ""){
+		alert("所属机构不能为空！");
+		return;
+	}else if(d44_70_linkman == ""){
+		alert("联系人不能为空！");
+		return;
+	}else if(d44_70_telephone == ""){
+		alert("联系电话不能为空！");
+		return;
+	}
+	else
+	{
+	var parm =d44_70_merchant_name+"|"+d44_70_linkman+"|"+d44_70_telephone+"|"+d44_70_dealbrchno+"|"+d44_70_dealbrchname+"|"+d44_70_bx_insurant_address+"|"+d44_70_longstatus+"|"+d44_70_mc_type_desc+"|";
 
-								</td><!--
+	var mform = document.forms[0];
+	mform.action="/gd/sellermanaction.do?method=add&parm="+parm;
+	
+	mform.submit();
+	}
+}
+function mySubmit(){
 
-								<th width="10%">
-									所属机构:
-								</th>
-								<td nowrap class="tab_td" width="20%">
-									<html:select name="SellerManActionForm"
-										property="d44_70_ywkbjsa">
-										<html:option value="">全部</html:option>
-										<html:optionsCollection name="SellerManActionForm"
-											property="d44_70_brch_namelist" />
-									</html:select>
+}
 
+function createbrchtree(index)
+		{
+			var tree1 = new WebFXTree("Root");
+   			tree1.add(new WebFXLoadTreeItem("机构列表", "/gd/tree.do?method=getSubBrchNodes&treename="+index)); 
+   			tree1.showRootNode = false; 
+   			tree1.showRootLines = false; 
+			CreateTreeSelect(index,tree1,"","",200);
+		}
+		
+		//点击节点
+		function selNode(id,name,treename)
+		{ 
+			var vf=eval("document.all.ValueField_"+treename); 
+			var tf=eval("document.all.TextField_"+treename);
+			//alert(id);
+			//alert(treename);
+			//alert(document.getElementsByName('d44_70_citycoe')[treename]);
+			document.getElementsByName('d44_70_dealbrchno')[treename].value = id;
+			document.getElementsByName('d44_70_dealbrchname')[treename].value = name;
+			vf.value= id;
+			tf.value=name;
+ 			var tDiv=document.all["TreeDiv_"+treename];
+ 			tDiv.style.display='none'; 
+		}
+		
+		//设置默认选择的值
+		function setTreeSelValue(index)
+		{
+			var value = document.getElementsByName('d44_70_dealbrchno')[index].value;
+			var name = document.getElementsByName('d44_70_dealbrchname')[index].value;
+			setTreeSelectValue(index,value,name);
+		}
+		function changemode()
+		{
+			//var selects = document.getElementsByName("d44_70_cityorgan")(rowi);
+				var rowi = "0";
+		    	var tdid = "treetd"+rowi;
+		    	
+		    	var treetd = document.getElementById(tdid);
+		    	var tree1 = new WebFXTree("Root");
+   				tree1.add(new WebFXLoadTreeItem("机构列表", "/gd/tree.do?method=getSubBrchNodes&treename="+rowi)); 
+   				tree1.showRootNode = false; 
+   				tree1.showRootLines = false; 
+				treetd.innerHTML = CreateTreeSelectHtml(rowi,tree1,"","",200);
+				//setTreeSelValue(rowi);
+		    
+		}
+
+</script>
+	</head>
+	<body onload="">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="tit_info3">  
+					新增商家信息 
+				</td>
+			</tr>
+		</table>
+		<html:form action="/gd/sellermanaction.do?method=alt" styleId="SellerManActionForm" method="post" >
+		
+			<table align="center"  border="0" cellpadding="0" cellspacing="0" class="tab_mid" style="width:600px"  id="edittable">
+				<tr>
+					<td nowrap  class="tab_td2"  style="text-align:left">商家名称: </td>
+						<td nowrap class="tab_td" width="80px">
+									<html:text name="SellerManActionForm" property="d44_70_merchant_name" size="15" maxlength="12" />
 								</td>
 								
-								--><td >所属机构: </td>
+								<td nowrap  class="tab_td2"  style="text-align:left">商家状态: </td>
+								<td nowrap class="tab_td" width="80px">
+								
+								
+								<html:select name="SellerManActionForm"
+										property="d44_70_longstatus">
+									
+										<html:optionsCollection name="SellerManActionForm"
+											property="d44_70_longstatus_list" />
+								</html:select>
+							  </td>
+					</tr>
+					
+					<tr>
+					
+						
+					
+			
+				
+						
+								<td nowrap  class="tab_td2"  style="text-align:left">商家描述: </td>
+						<td nowrap class="tab_td" width="80px">
+							<html:text name="SellerManActionForm"   property="d44_70_mc_type_desc"   size="15" maxlength="12" />
+								</td>
+								
+									<td nowrap  class="tab_td2"  style="text-align:left">所属机构: </td>
 
 									<td id="<%="treetd"+"0"%>" nowrap class="tab_td"></td>
-
-							</tr>
-
-
-							<tr>
-
-
-
-
-								<th width="10%">
-									联系人：
-								</th>
-								<td class="tab_td" width="20%">
-									<html:text name="SellerManActionForm" size="30"
-										property="d44_70_linkman" maxlength="20"></html:text>
+								</tr>
+					
+						<tr>
+						<td nowrap  class="tab_td2"  style="text-align:left">联系人: </td>
+						<td nowrap class="tab_td" width="80px">
+									<html:text name="SellerManActionForm" property="d44_70_linkman"  size="15" maxlength="12" />
 								</td>
-
-								<th width="10%">
-									联系电话:
-								</th>
-								<td class="tab_td" width="20%">
-									<html:text name="SellerManActionForm"
-										property="d44_70_telephone" size="30" maxlength="40" />
+								<td nowrap  class="tab_td2"  style="text-align:left">联系电话: </td>
+						<td nowrap class="tab_td" width="80px">
+									<html:text  name="SellerManActionForm"   property="d44_70_telephone"   size="15" maxlength="12" />
+									
+									
 								</td>
-
-								<td colspan="2" class="tab_td"
-									style="text-align: center; width: 120px; padding-left: 15px; padding-right: 15px">
-									<input type="button" value="查询" name="btn"
-										onmouseover="this.style.cursor='hand'" class="btn"
-										onclick="query()">
-								</td>
-
-							</tr>
-
-						</table>
-						
-						<input type="hidden"  name="d44_70_dealbrchname" />
+								</tr>
+					
+					<tr>
+						<td nowrap  class="tab_td2"  style="text-align:left">联系地址: </td>
+						<td nowrap class="tab_td" width="180px"><br>
+						<html:text name="SellerManActionForm" property="d44_70_bx_insurant_address"  size="15" maxlength="120" />
+								<br></td>
+								
+								</tr>
+				
+					
+					<tr>
+							<td  colspan="4" class="tab_td" align="center" >
+							<input type="button" value="保存" name="btn" 
+								onmouseover="this.style.cursor='hand'" class="btn" 
+								onclick="save()" style="margin-right:50px"/>
+							<input class="btn" type="button" onmouseover="this.style.cursor='hand'"
+								onclick="history.go(-1)"
+								value="返回" style="margin-right:50px"/>
+							</td>
+					</tr>
+					
+					
+			</table>
+			
+				<input type="hidden"  name="d44_70_dealbrchname" />
 										<input type="hidden"  name="d44_70_dealbrchno"/>
-					</div>
-				</div>
-
-
-
-				<div class="subBar">
-					<div class="subTitleBar">
-						<a href="#" class="subTitle expandTitle">查询结果</a>
-					</div>
-					<div class="subContentBar">
-						<div class="dataTable">
-							<table align="center" width="90%" border="0">
-								<tr
-									style="font-weight: bold; background: transparent; color: red; align: left;">
-									<td align="left"><%=(String) request.getAttribute("optret") == null
-						? ""
-						: (String) request.getAttribute("optret")%></td>
-									<td align="right"></td>
-								</tr>
-							</table>
-
-
-
-
-
-							<table id="newtable">
-
-								<thead class=trhead id="tblHeader">
-									<tr>
-										<th width="5%">
-											<input type="checkbox" id="checkall"
-												onclick="allcheck('todo')">
-											选择
-											<br>
-										</th>
-										<th width="8%">
-											商家代号
-										</th>
-										<th width="8%">
-											商家名称
-										</th>
-										<th width="10%">
-											联系人
-										</th>
-										<th width="10%">
-											联系人电话
-										</th>
-										<th width="8%">
-											所属机构
-										</th>
-										<th width="10%">
-											状态
-										</th>
-
-	<th width="6%" >
-						详情修改
-					</th>
-									</tr>
-								</thead>
-								<tbody id="records">
-									<logic:notEmpty name="SellerManActionForm" property="redo">
-										<logic:iterate name="SellerManActionForm" id="redo"
-											property="redo" type="SellerManSubVo" indexId="pc">
-											<tr class='<%=(pc.intValue() % 2 == 0)
-								? "even"
-								: "odd"%>'>
-
-												<td align="center">
-													<input type="checkbox" name="delete_d44_70_cstmanager"
-														value="" />
-												</td>
-												<td>
-													<a href="#" title="相关客户查询"
-														onclick="goCusInfo(<%=pc.intValue()%>)"><bean:write
-															name="redo" property="d44_70_merchant_id" />
-													</a>
-													<input type="hidden" name="d44_70_merchant_id"
-														onchange="getmode(<%=pc.intValue()%>)"
-														value="<bean:write name="redo"  property="d44_70_merchant_id" />" />
-
-												</td>
-												<td>
-													<bean:write name="redo" property="d44_70_merchant_name" />
-													<input type="hidden" name="d44_70_merchant_name"
-														value="<bean:write name="redo" property="d44_70_merchant_name"/>" />
-
-												</td>
-												<td>
-													<bean:write name="redo" property="d44_70_linkman" />
-													<input type="hidden" name="d44_70_linkman"
-														value="<bean:write name="redo" property="d44_70_linkman"/>" />
-
-
-												</td>
-												<td>
-													<bean:write name="redo" property="d44_70_telephone" />
-													<input type="hidden" name="d44_70_telephone"
-														value="<bean:write name="redo" property="d44_70_telephone"/>" />
-
-
-												</td>
-												<td>
-													<bean:write name="redo" property="d44_70_dealbrchname" />
-													<input type="hidden" name="d44_70_dealbrchname"
-														value="<bean:write name="redo" property="d44_70_dealbrchname"/>" />
-														
-														<input type="hidden" name="d44_70_dealbrchno"
-														value="<bean:write name="redo" property="d44_70_dealbrchno"/>" />
-												</td>
-
-												<td>
-													<bean:write name="redo" property="d44_70_longstatus_name" />
-													<input type="hidden" name="d44_70_longstatus"
-														value="<bean:write name="redo" property="d44_70_longstatus"/>" />
-														
-															<input type="hidden" name="d44_70_longstatus_name"
-														value="<bean:write name="redo" property="d44_70_longstatus_name"/>" />
-												
-															</td>
-												
-												<td align="center">
-							<a href="#" name="changeinfo" onclick="alterinfo(<%=pc.intValue()%>);">修改</a>
-						</td>
-
-											</tr>
-											
-										
-										</logic:iterate>
-									</logic:notEmpty>
-								</tbody>
-							</table>
-
-
-
-
-
-
-
-							<table id="mytable" align="center" style="margin-bottom: 5px"
-								width="90%">
-								<tr style="display: block">
-									<td colspan="14">
-										<div id="form1_pageset"></div>
-									</td>
-								</tr>
-								<tr align="center">
-									<td colspan="4">
-										<input type="button" value="增加" name="btn3"
-											onclick="addList()" class="btn"
-											onmouseover="this.style.cursor='hand'"
-											style="margin-right: 30px">
-										<input type="button" value="删除" name="btn2" onclick="del();"
-											class="btn" onmouseover="this.style.cursor='hand'"
-											style="margin-right: 30px" />
-									</td>
-								</tr>
-
-								<tr>
-									<td colspan="10">
-										<div id="form1_pageset"></div>
-									</td>
-								</tr>
-
-							</table>
-
-							<!-- 页码 -->
-							<html:hidden styleId="form1_curpage_no_submit"
-								property="b88_imp_num" />
-							<!-- 每页记录数 -->
-							<html:hidden styleId="form1_number_per_page_submit"
-								property="b88_unsend_num" />
-							<!-- 总记录数 -->
-							<html:hidden styleId="form1_totalnum" property="b88_mail_cnt" />
-							<script type="text/javascript"
-								src="/gdpost/javascript/pub/showtip.js"></script>
-
-
-
-							<%=(String) request.getAttribute("errmsg") == null
-						? ""
-						: "<script language ='JavaScript'>alert('"
-								+ (String) request.getAttribute("errmsg")
-								+ "');</script>"%>
+							
+							
 		</html:form>
-
-
-<script language="javascript">           
+		<script language="javascript">           
 			    var rowi = 0;
 		    	var tdid = "treetd"+rowi;
 		    	var treetd = document.getElementById(tdid);
@@ -283,3 +234,4 @@
 		</script>
 	</body>
 </html>
+
