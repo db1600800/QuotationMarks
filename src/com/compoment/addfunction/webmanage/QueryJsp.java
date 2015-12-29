@@ -176,7 +176,7 @@ public class QueryJsp {
 		
 		m+="	var parm = "+parm+";\n";
 		m+="	var mform = document.forms[0];\n";
-		m+="	mform.action=\"/gd/sellermanaction.do?method=update&parm=\"+parm;\n";
+		m+="	mform.action=\"/gd/sellermanaction.do?method=updateJsp&parm=\"+parm;\n";
 		m+="	mform.submit();\n";
 		m+="}\n\n";
 		
@@ -381,9 +381,9 @@ public class QueryJsp {
 		
 		
 		m+="								<tbody id=\"records\">\n";
-		m+="									<logic:notEmpty name=\"SellerManActionForm\" property=\"redo\">\n";
-		m+="										<logic:iterate name=\"SellerManActionForm\" id=\"bean\"\n";
-		m+="											property=\"redo\" type=\"SellerManActionForm\" indexId=\"pc\">\n";
+		m+="									<logic:notEmpty name=\""+interfaceBean.id+"ActionForm\" property=\"redo\">\n";
+		m+="										<logic:iterate name=\""+interfaceBean.id+"ActionForm\" id=\"bean\"\n";
+		m+="											property=\"redo\" type=\""+interfaceBean.id+"ActionForm\" indexId=\"pc\">\n";
 		m+="											<tr class='<%=(pc.intValue() % 2 == 0)\n";
 		m+="								? \"even\"\n";
 		m+="								: \"odd\"%>'>\n";

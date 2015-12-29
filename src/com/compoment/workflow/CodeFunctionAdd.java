@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -23,6 +24,13 @@ import com.compoment.addfunction.android.Paging;
 import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
+import com.compoment.addfunction.webmanage.ActionForm;
+import com.compoment.addfunction.webmanage.AddJsp;
+import  com.compoment.addfunction.webmanage.Action;
+import com.compoment.addfunction.webmanage.QueryJsp;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 /**
@@ -172,6 +180,7 @@ public class CodeFunctionAdd extends JFrame {
 		listDate.add("Iphone");
 		listDate.add("Swing");
 		listDate.add("Web");
+		listDate.add("WebManage");
 		codeTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		codeTypeListListView.setListData(listDate.toArray());
@@ -225,6 +234,15 @@ public class CodeFunctionAdd extends JFrame {
 						}  
 						else	if (value.equals("Swing")) {
 							swingData();
+							// 设值
+							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							for (Function function : functionParents) {
+								functionModelList.addElement(function);
+							}
+							// 自定义对象加入模型列表
+							functionListListView.setModel(functionModelList);
+						} else	if (value.equals("WebManage")) {
+							WebManageData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel<Function>();
 							for (Function function : functionParents) {
@@ -458,12 +476,7 @@ public class CodeFunctionAdd extends JFrame {
 					
 					
 					String codeFile=(String) codeFileListListView.getSelectedValue();
-					if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
-					{
-						
-						JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
-						return;
-					}
+				
 					
 					Function function = (Function) functionListListView
 							.getSelectedValue();
@@ -473,9 +486,24 @@ public class CodeFunctionAdd extends JFrame {
 							.toString();
 
 					if (value.equals("Android")) {
+						if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
+						{
+							
+							JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
 						androidFunction(function);
 					}else 	if (value.equals("Iphone")) {
+						if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
+						{
+							
+							JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
 						iphoneFunction(function);
+					}
+					else 	if (value.equals("WebManage")) {
+						WebManageFunction(function);
 					}
 					
 				}
@@ -569,6 +597,9 @@ public class CodeFunctionAdd extends JFrame {
 					}else if(value.equals("Iphone"))
 					{
 						iphoneFunction(function);
+					}else if(value.equals("WebManage"))
+					{
+						WebManageFunction(function);
 					}
 					
 				}
@@ -896,6 +927,34 @@ public class CodeFunctionAdd extends JFrame {
     }
 	
 	
+	public void WebManageFunction(Function function) {
+		
+		if (function.id.equals("1")) {// 网络请求,响应,等待提示
+		
+
+			
+			InterfaceDoc projectDocPanel=new InterfaceDoc();
+			projectDocPanel.setModal(true);
+			projectDocPanel.setVisible(true);
+			
+			if(projectDocPanel.interfaceBeans!=null)
+			{
+				
+			
+				//接口列表
+				new QueryJsp(projectDocPanel.interfaceBeans);
+				
+				new AddJsp(projectDocPanel.interfaceBeans);
+				
+				new ActionForm(projectDocPanel.interfaceBeans);
+				
+				new Action(projectDocPanel.interfaceBeans);
+			}
+		
+		}
+    }
+	
+	
 	public void swingFunction(Function function) {
 		if (function.id.equals("41")) {// 系统对话框提示(单个按钮)
 			SystemDialog dialog = new SystemDialog();
@@ -1029,6 +1088,12 @@ public class CodeFunctionAdd extends JFrame {
 
 		
 
+	}
+	
+	
+	public void WebManageData(){
+		functionParents.clear();
+		functionParents.add(new Function("1", "查询新增修改"));
 	}
 
 	public void searchCodeFiles(String root) {

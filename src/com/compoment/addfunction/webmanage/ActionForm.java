@@ -35,9 +35,9 @@ import com.google.gson.Gson;
 /**
  * 查询 接收Bean 拥有新增，修改，删除，查询需要的所有变量
  * */
-public class RequestRespondParamBeanForStruct1 {
+public class ActionForm {
 
-	public void requestRespondParamBean(List<InterfaceBean> interfaceBeans) {
+	public  ActionForm(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
@@ -53,8 +53,9 @@ public class RequestRespondParamBeanForStruct1 {
 
 	
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "public class " + type + "Param" + interfaceBean.id + "{\n";
-
+		m += "public class "  + interfaceBean.id + "ActionForm{\n";
+		m += "public String checkbox_row_id[];\n";
+		m += "public List<"+interfaceBean.id+"ActionForm> redo;\n";
 		List<Group> groups = null;
 		if (type.equals("Request")) {
 			groups = interfaceBean.requestGroups;
@@ -150,7 +151,7 @@ public class RequestRespondParamBeanForStruct1 {
 		for (String cirldClassString : mChirldClass) {
 			m += cirldClassString + "\n\n";
 		}
-		makeFile( type + "Param" + interfaceBean.id,m);
+		makeFile(  interfaceBean.id+"ActionForm",m);
 		System.out.println(m);
 	}
 
