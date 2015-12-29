@@ -83,6 +83,15 @@ public class WordtableToJavaObject {
 		public String title;// 接口名称
 		public String detail;// 接口描述
 		public String id;// 接口id号
+		public String enName;
+		public String getEnName() {
+			return enName;
+		}
+
+		public void setEnName(String enName) {
+			this.enName = enName;
+		}
+
 		public List<Group> requestGroups ;// 循环域开始结束构成一个组 ，
 													// 自定义对象开始结束构成一个组，
 		// 其它的则构成一个通用组
@@ -152,7 +161,8 @@ public class WordtableToJavaObject {
 					
 				interfaceBean = new InterfaceBean();
 				interfaceBean.title = getInterfaceTitle(p.text());
-				interfaceBean.id = getInterfaceId(p.text());
+				interfaceBean.id = getInterfaceId(p.text())[0];
+				interfaceBean.enName=getInterfaceId(p.text()).length>1?"":getInterfaceId(p.text())[1];
 				interfaceBeans.add(interfaceBean);
 				
 			}else
@@ -222,7 +232,7 @@ public class WordtableToJavaObject {
 		return null;
 	}
 
-	public String getInterfaceId(String txt) {
+	public String[] getInterfaceId(String txt) {
 
 
 		int start = txt.indexOf("(");
@@ -233,29 +243,33 @@ public class WordtableToJavaObject {
 		if ((start != -1 || start2 != -1) && (end != -1 || end2 != -1)) {
 			if (start != -1 && end!=-1) {
 				String id = txt.subSequence(start + 1, end).toString();
+				String ids[]=id.split("|");
 				if (id != null) {
-					if (isNum(id)) {
-						return id;
+					if (isNum(ids[0])) {
+						return ids;
 					}
 				}
 			} else if(start2!=-1 && end2!=-1){
 				String id = txt.subSequence(start2 + 1, end2).toString();
+				String ids[]=id.split("|");
 				if (id != null) {
-					if (isNum(id)) {
-						return id;
+					if (isNum(ids[0])) {
+						return ids;
 					}
 				}
 			}else if(start!=-1 && end2!=-1){
 				String id = txt.subSequence(start + 1, end2).toString();
+				String ids[]=id.split("|");
 				if (id != null) {
-					if (isNum(id)) {
-						return id;
+					if (isNum(ids[0])) {
+						return ids;
 					}
 				}}else if(start2!=-1 && end!=-1){
 					String id = txt.subSequence(start2 + 1, end).toString();
+					String ids[]=id.split("|");
 					if (id != null) {
-						if (isNum(id)) {
-							return id;
+						if (isNum(ids[0])) {
+							return ids;
 						}
 					}}
 			

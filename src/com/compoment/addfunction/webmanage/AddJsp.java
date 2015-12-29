@@ -174,7 +174,7 @@ public class AddJsp {
 		m+="		</table>\n";
 		
 		
-		m+="		<html:form action=\"/gd/sellermanaction.do?method=add\" styleId=\""+interfaceBean.id+"ActionForm\" method=\"post\" >\n";
+		m+="		<html:form action=\"/gd/sellermanaction.do?method=add\" styleId=\""+interfaceBean.enName+"ActionForm\" method=\"post\" >\n";
 		m+="		\n";
 		m+="			<table align=\"center\"  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"tab_mid\" style=\"width:600px\"  id=\"edittable\">\n";
 		
@@ -196,14 +196,14 @@ public class AddJsp {
 						m+="									"+row.cnName+":\n";
 						m+="								</th>\n";
 						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-						m+="									<!--<html:select name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="									<!--<html:select name=\""+interfaceBean.enName+"ActionForm\"\n";
 						m+="										property=\""+row.enName+"\">\n";
 						m+="										<html:option value=\"\">全部</html:option>\n";
-						m+="										<html:optionsCollection name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="										<html:optionsCollection name=\""+interfaceBean.enName+"ActionForm\"\n";
 						m+="											property=\""+row.enName+"list\" />\n";
 						m+="									</html:select>-->\n";
 
-						m+="									<html:text name=\""+interfaceBean.id+"ActionForm\" size=\"30\"\n";
+						m+="									<html:text name=\""+interfaceBean.enName+"ActionForm\" size=\"30\"\n";
 						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
 						
 						m+="								</td>";
@@ -253,7 +253,7 @@ public class AddJsp {
 		m+="	</body>\n";
 		m+="</html>\n";
 
-		makeFile( interfaceBean.id+"AddJsp",m);
+		makeFile( interfaceBean.enName+"AddJsp",m);
 		System.out.println(m);
 		
 	}

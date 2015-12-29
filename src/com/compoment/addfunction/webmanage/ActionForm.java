@@ -52,10 +52,10 @@ public class ActionForm {
 		List<String> mChirldClass = new ArrayList();
 
 	
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "public class "  + interfaceBean.id + "ActionForm{\n";
+		m += "/**" + interfaceBean.title + interfaceBean.enName + "*/\n";
+		m += "public class "  + interfaceBean.enName + "ActionForm{\n";
 		m += "public String checkbox_row_id[];\n";
-		m += "public List<"+interfaceBean.id+"ActionForm> redo;\n";
+		m += "public List<"+interfaceBean.enName+"ActionForm> redo;\n";
 		List<Group> groups = null;
 		if (type.equals("Request")) {
 			groups = interfaceBean.requestGroups;
@@ -151,7 +151,7 @@ public class ActionForm {
 		for (String cirldClassString : mChirldClass) {
 			m += cirldClassString + "\n\n";
 		}
-		makeFile(  interfaceBean.id+"ActionForm",m);
+		makeFile(  interfaceBean.enName+"ActionForm",m);
 		System.out.println(m);
 	}
 

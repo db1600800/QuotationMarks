@@ -54,7 +54,7 @@ public class Action {
 
 	
 
-		m+="public class "+interfaceBean.id+"Action extends BaseAction {\n";
+		m+="public class "+interfaceBean.enName+"Action extends BaseAction {\n";
 		m+="	Logger log = Logger.getLogger(this.getClass());\n";
 		m+="	public static String msg;\n";
 		m+="	public static String err;\n\n\n";
@@ -74,7 +74,7 @@ public class Action {
 
 
 		
-		m+=""+interfaceBean.id+"ActionForm myform = ("+interfaceBean.id+"ActionForm) form;\n";
+		m+=""+interfaceBean.enName+"ActionForm myform = ("+interfaceBean.enName+"ActionForm) form;\n";
 		m+="		\n";
 		m+="		String st = request.getParameter(\"parm\") == null ? \" \" : request\n";
 		m+="				.getParameter(\"parm\").trim();\n";
@@ -146,7 +146,7 @@ public class Action {
 						m+="	int recodeNum=	(int)recmap.get(\""+row.enName+"\");\n";
 						m+="List list=new Array();\n";
 						m+="for(int i=0;i<recodeNum;i++){\n";
-						m+=""+interfaceBean.id+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
+						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
 					} else {
 					
 						
@@ -218,7 +218,7 @@ public class Action {
 		m+="/**更新交易*/\n";
 		m+="	public ActionForward update(ActionMapping mapping, ActionForm form,\n";
 		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
-		m+="		"+interfaceBean.id+"ActionForm sform = ("+interfaceBean.id+"ActionForm) form;\n";
+		m+="		"+interfaceBean.enName+"ActionForm sform = ("+interfaceBean.enName+"ActionForm) form;\n";
 		m+="		\n";
 		m+="		\n";
 		m+="		\n";
@@ -440,7 +440,7 @@ public class Action {
 		m+="/**新增*/\n";
 		m+="	public ActionForward add(ActionMapping mapping, ActionForm form,\n";
 		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
-		m+="		"+interfaceBean.id+"ActionForm sform = ("+interfaceBean.id+"ActionForm) form;\n";
+		m+="		"+interfaceBean.enName+"ActionForm sform = ("+interfaceBean.enName+"ActionForm) form;\n";
 		
 		m+="		\n";
 		m+="		String st = request.getParameter(\"parm\") == null ? \" \" : request\n";
@@ -616,7 +616,7 @@ public class Action {
 		m+="	public ActionForward query(ActionMapping mapping, ActionForm form,\n";
 		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
 		
-		m+="		"+interfaceBean.id+"ActionForm sform = ("+interfaceBean.id+"ActionForm) form;\n";
+		m+="		"+interfaceBean.enName+"ActionForm sform = ("+interfaceBean.enName+"ActionForm) form;\n";
 		
 		m+="		Map map = new HashMap();\n";
 		m+="		map.put(\"headmsg\", PackUtil.setPacketHead(request));\n";
@@ -680,7 +680,7 @@ public class Action {
 						m+="	int recodeNum=	(int)recmap.get(\""+row.enName+"\");\n";
 						m+="List list=new Array();\n";
 						m+="for(int i=0;i<recodeNum;i++){\n";
-						m+=""+interfaceBean.id+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
+						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
 					} else {
 					
 						
@@ -720,7 +720,7 @@ public class Action {
 		
 		
 		m+="}\n";
-		makeFile(  interfaceBean.id+"Action",m);
+		makeFile(  interfaceBean.enName+"Action",m);
 		System.out.println(m);
 	}
 	

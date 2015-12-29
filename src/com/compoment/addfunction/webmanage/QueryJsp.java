@@ -281,14 +281,14 @@ public class QueryJsp {
 						m+="									"+row.cnName+":\n";
 						m+="								</th>\n";
 						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-						m+="									<!--<html:select name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="									<!--<html:select name=\""+interfaceBean.enName+"ActionForm\"\n";
 						m+="										property=\""+row.enName+"\">\n";
 						m+="										<html:option value=\"\">全部</html:option>\n";
-						m+="										<html:optionsCollection name=\""+interfaceBean.id+"ActionForm\"\n";
+						m+="										<html:optionsCollection name=\""+interfaceBean.enName+"ActionForm\"\n";
 						m+="											property=\""+row.enName+"list\" />\n";
 						m+="									</html:select>-->\n";
 
-						m+="									<html:text name=\""+interfaceBean.id+"ActionForm\" size=\"30\"\n";
+						m+="									<html:text name=\""+interfaceBean.enName+"ActionForm\" size=\"30\"\n";
 						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
 						
 						m+="								</td>";
@@ -381,9 +381,9 @@ public class QueryJsp {
 		
 		
 		m+="								<tbody id=\"records\">\n";
-		m+="									<logic:notEmpty name=\""+interfaceBean.id+"ActionForm\" property=\"redo\">\n";
-		m+="										<logic:iterate name=\""+interfaceBean.id+"ActionForm\" id=\"bean\"\n";
-		m+="											property=\"redo\" type=\""+interfaceBean.id+"ActionForm\" indexId=\"pc\">\n";
+		m+="									<logic:notEmpty name=\""+interfaceBean.enName+"ActionForm\" property=\"redo\">\n";
+		m+="										<logic:iterate name=\""+interfaceBean.enName+"ActionForm\" id=\"bean\"\n";
+		m+="											property=\"redo\" type=\""+interfaceBean.enName+"ActionForm\" indexId=\"pc\">\n";
 		m+="											<tr class='<%=(pc.intValue() % 2 == 0)\n";
 		m+="								? \"even\"\n";
 		m+="								: \"odd\"%>'>\n";
@@ -494,7 +494,7 @@ public class QueryJsp {
 
 		
 		
-		makeFile( interfaceBean.id+"QueryJsp",m);
+		makeFile( interfaceBean.enName+"QueryJsp",m);
 		System.out.println(m);
 	}
 	
