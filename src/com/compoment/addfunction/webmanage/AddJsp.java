@@ -30,7 +30,7 @@ public class AddJsp {
 		
 		String m="";
 		
-		m+="<%@ page contentType=\"text/html; charset=GBK\" pageEncoding=\"gb2312\"%>\n";
+		m+="<%@ page contentType=\"text/html; charset=GBK\" pageEncoding=\"utf-8\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-logic.tld\" prefix=\"logic\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-bean.tld\" prefix=\"bean\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-html.tld\" prefix=\"html\"%>\n";
@@ -74,16 +74,16 @@ public class AddJsp {
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
 					} else {
-						m+="	var "+row.enName+" = document.getElementsByName(\""+row.enName+"\")[0].value;//"+row.cnName+"\n";
+						m+="	var "+row.enName.toLowerCase()+" = document.getElementsByName(\""+row.enName.toLowerCase()+"\")[0].value;//"+row.cnName+"\n";
 						
-						m+="	if("+row.enName+" == \"\")\n";
+						m+="	if("+row.enName.toLowerCase()+" == \"\")\n";
 						m+="	{\n";
 						m+="		alert(\""+row.cnName+"不能为空！\");\n";
 						m+="		return;\n";
 						m+="	}\n";
 						
 						
-						parm+=row.enName+"+\"|\"";
+						parm+=row.enName.toLowerCase()+"+\"|\"";
 					}
 					i++;
 				}
@@ -197,14 +197,14 @@ public class AddJsp {
 						m+="								</th>\n";
 						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
 						m+="									<!--<html:select name=\""+interfaceBean.enName+"ActionForm\"\n";
-						m+="										property=\""+row.enName+"\">\n";
+						m+="										property=\""+row.enName.toLowerCase()+"\">\n";
 						m+="										<html:option value=\"\">全部</html:option>\n";
 						m+="										<html:optionsCollection name=\""+interfaceBean.enName+"ActionForm\"\n";
-						m+="											property=\""+row.enName+"list\" />\n";
+						m+="											property=\""+row.enName.toLowerCase()+"list\" />\n";
 						m+="									</html:select>-->\n";
 
 						m+="									<html:text name=\""+interfaceBean.enName+"ActionForm\" size=\"30\"\n";
-						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
+						m+="										property=\""+row.enName.toLowerCase()+"\" maxlength=\"20\"></html:text>\n";
 						
 						m+="								</td>";
 					if(columnCount==3)
@@ -272,7 +272,7 @@ public class AddJsp {
 		      
 		    
 		
-		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".java");
+		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".jsp");
 		  if(! tofile.exists()) {  
 	            makeDir(tofile.getParentFile());  
 	        }  

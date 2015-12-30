@@ -157,12 +157,20 @@ public class WordtableToJavaObject {
 			// 从每一段落中获取文字,每一段是一个回车
 			Paragraph p = range.getParagraph(i);
 
-			if (getInterfaceId(p.text()) != null) {
+			String ids[]=getInterfaceId(p.text());
+			if (ids != null) {
 					
 				interfaceBean = new InterfaceBean();
 				interfaceBean.title = getInterfaceTitle(p.text());
-				interfaceBean.id = getInterfaceId(p.text())[0];
-				interfaceBean.enName=getInterfaceId(p.text()).length>1?"":getInterfaceId(p.text())[1];
+				interfaceBean.id = ids[0];
+				if(ids.length>1)
+				{
+					interfaceBean.enName=ids[1];
+				}else
+				{
+					interfaceBean.enName="";
+				}
+			
 				interfaceBeans.add(interfaceBean);
 				
 			}else
@@ -251,7 +259,7 @@ public class WordtableToJavaObject {
 				}
 			} else if(start2!=-1 && end2!=-1){
 				String id = txt.subSequence(start2 + 1, end2).toString();
-				String ids[]=id.split("|");
+				String ids[]=id.split(",");
 				if (id != null) {
 					if (isNum(ids[0])) {
 						return ids;

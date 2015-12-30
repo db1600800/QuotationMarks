@@ -97,7 +97,7 @@ public class Action {
 					} else {
 						
 						m+="String "+row.enName+" = rs["+columnCount+"].trim();//"+row.cnName+"\n";
-						m+="		ArrayList "+row.enName+"list = new ArrayList();\n";
+						m+="		List "+row.enName+"list = new ArrayList();\n";
 						m+="		"+row.enName+"list.add("+row.enName+" == null ? \" \" : "+row.enName+");\n";
 						m+="		map.put(\""+row.enName+"\", "+row.enName+"list);\n";
 						
@@ -126,7 +126,7 @@ public class Action {
 		m+="		\n";
 		m+="		String checkerror = packetmgr.checkErrorMsg(receivemsg);\n";
 		m+="		log.info(checkerror);\n";
-		m+="Map recmap ;\n";
+		m+="Map recmap=null ;\n";
 		m+="		if (checkerror == null || \"\".equals(checkerror)) {\n";
 		m+="			 recmap = packetmgr.getUnPacketData(receivemsg, \"MSG_4453329_OUT\");\n";
 		
@@ -143,14 +143,14 @@ public class Action {
 				int columnCount=0;
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
-						m+="	int recodeNum=	(int)recmap.get(\""+row.enName+"\");\n";
-						m+="List list=new Array();\n";
+						m+="	int recodeNum=	Integer.valueOf(recmap.get(\""+row.enName+"\").toString());\n";
+						m+="List list=new ArrayList();\n";
 						m+="for(int i=0;i<recodeNum;i++){\n";
-						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
+						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean.enName+"ActionForm();\n";
 					} else {
 					
 						
-						m+="	actionForm."+row.enName+"=	recmap.get(\""+row.enName+"\").toString();\n";
+						m+="	actionForm."+row.enName.toLowerCase()+"=	recmap.get(\""+row.enName+"\").toString();\n";
 						
 						columnCount++;
 					}
@@ -168,7 +168,7 @@ public class Action {
 		
 	
 	
-		m+="			sform.setRedo(list);\n";
+		m+="			myform.setRedo(list);\n";
 		m+="			\n";
 
 		m+="		} catch (Exception e) {\n";
@@ -189,9 +189,9 @@ public class Action {
 		
 	
 
-		m+="		String errmsg = null;\n";
+		
 		m+="		ActionForward af = null;\n";
-		m+="		Map map = new HashMap();\n";
+	
 		m+="		try {\n";
 		m+="			HttpSession session = request.getSession();\n";
 		
@@ -318,7 +318,7 @@ public class Action {
 		m+="	public ActionForward del(ActionMapping mapping, ActionForm form,\n";
 		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
 		m+="		String errmsg = null;\n";
-		m+="		SellerManActionForm myform = (SellerManActionForm) form;\n";
+		m+="		"+interfaceBean.enName+"ActionForm myform = ("+interfaceBean.enName+"ActionForm) form;\n";
 
 		m+="		try {\n";
 	
@@ -396,7 +396,8 @@ public class Action {
 	
 	
 		m+="		\n";
-		m+="		log.info(\"主交易\" + \"4453329\");\n";
+		m+="		log.info(\"主交易\" + \"\");\n";
+		m+="        PacketMgr packetmgr= PacketMgr.getInstance();\n";
 		m+="		//生成发送报文\n";
 		m+="		String sendmsg = packetmgr.getPacketData(packet, \"MSG_4453329_IN\");\n";
 		m+="		log.info(\"发送报文\" + sendmsg);\n";
@@ -630,8 +631,8 @@ public class Action {
 					if (i == 0) {// 循环域开始
 				
 					} else {
-						m+="		String "+row.enName+" = sform."+row.enName+".trim() == null ? \"\"\n";
-						m+="				: sform."+row.enName+".trim();//"+row.cnName+"\n";
+						m+="		String "+row.enName+" = sform."+row.enName.toLowerCase()+".trim() == null ? \"\"\n";
+						m+="				: sform."+row.enName.toLowerCase()+".trim();//"+row.cnName+"\n";
 						
 						m+="		map.put(\""+row.enName+"\", "+row.enName+");\n";
 						columnCount++;
@@ -660,7 +661,7 @@ public class Action {
 		m+="		\n";
 		m+="		String checkerror = packetmgr.checkErrorMsg(receivemsg);\n";
 		m+="		log.info(checkerror);\n";
-		m+="Map recmap ;\n";
+		m+="Map recmap=null ;\n";
 		m+="		if (checkerror == null || \"\".equals(checkerror)) {\n";
 		m+="			 recmap = packetmgr.getUnPacketData(receivemsg, \"MSG_4453329_OUT\");\n";
 		
@@ -677,14 +678,14 @@ public class Action {
 				int columnCount=0;
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
-						m+="	int recodeNum=	(int)recmap.get(\""+row.enName+"\");\n";
-						m+="List list=new Array();\n";
+						m+="	int recodeNum=	Integer.valueOf(recmap.get(\""+row.enName+"\").toString());\n";
+						m+="List list=new ArrayList();\n";
 						m+="for(int i=0;i<recodeNum;i++){\n";
-						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean+"ActionForm();\n";
+						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean.enName+"ActionForm();\n";
 					} else {
 					
 						
-						m+="	actionForm."+row.enName+"=	recmap.get(\""+row.enName+"\")["+columnCount+"].toString();\n";
+						m+="	actionForm."+row.enName.toLowerCase()+"=	((String[])recmap.get(\""+row.enName+"\"))["+columnCount+"].toString();//"+row.cnName+"\n";
 						
 						columnCount++;
 					}

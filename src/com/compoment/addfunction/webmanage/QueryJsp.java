@@ -32,8 +32,8 @@ public class QueryJsp {
 	public void queryjspStruct1(InterfaceBean interfaceBean,String type)
 	{
 		String m="";
-		m+="<%@ page contentType=\"text/html; charset=GBK\" pageEncoding=\"gb2312\"%>\n";
-		  //m+="<%@page import=\"com.自定义bean\"%>\n";
+		m+="<%@ page contentType=\"text/html; charset=GBK\" pageEncoding=\"utf-8\"%>\n";
+		//m+="<%@page import=\"com.gdpost.cbp.basedata.sellerman.bm.SellerManSubVo\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-logic.tld\" prefix=\"logic\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-bean.tld\" prefix=\"bean\"%>\n";
 		m+="<%@taglib uri=\"/WEB-INF/tld/struts-html.tld\" prefix=\"html\"%>\n";
@@ -127,7 +127,7 @@ public class QueryJsp {
 		m+="{\n";
 		m+="	\n";
 		m+="	var myform = document.forms[0];\n";
-		m+="	myform.action=\"/gd/sellermanaction.do?method=query\";\n";
+		m+="	myform.action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=query\";\n";
 		m+="	myform.submit();\n";
 		m+="}\n\n";
 		
@@ -135,7 +135,7 @@ public class QueryJsp {
 		m+="//新增 \n";
 		m+="function add(){\n";
 		m+="	var myform = document.forms[0];\n";
-		m+="	myform.action=\"/gd/sellermanaction.do?method=addJsp\";\n";
+		m+="	myform.action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=addJsp\";\n";
 		m+="	myform.submit();\n";
 		m+="}\n\n";
 
@@ -147,7 +147,7 @@ public class QueryJsp {
 		m+="	if (check()==1) return;\n";
 		m+="	if(confirm(\"确定删除吗?\")){\n";
 		m+="	var myform = document.forms[0];\n";
-		m+="	myform.action=\"/gd/sellermanaction.do?method=del\";\n";
+		m+="	myform.action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=del\";\n";
 		m+="	myform.submit();\n";
 		m+="	}\n";
 		m+="}\n\n";
@@ -166,17 +166,18 @@ public class QueryJsp {
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
 					} else {
-						parm+="document.getElementsByName('"+row.enName+"_table_row')[i].value+\"|\"";
+						parm+="document.getElementsByName('"+row.enName.toLowerCase()+"_table_row')[i].value+\"|\"+";
 					}
 					i++;
 				}
 			}
 
 		}
+		parm=parm.substring(0, parm.length()-1);
 		
 		m+="	var parm = "+parm+";\n";
 		m+="	var mform = document.forms[0];\n";
-		m+="	mform.action=\"/gd/sellermanaction.do?method=updateJsp&parm=\"+parm;\n";
+		m+="	mform.action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=updateJsp&parm=\"+parm;\n";
 		m+="	mform.submit();\n";
 		m+="}\n\n";
 		
@@ -228,7 +229,7 @@ public class QueryJsp {
 		m+="function detail(index){\n";
 		m+="	var parm = "+parm+";\n";
 		m+="	var mform = document.forms[0];\n";
-		m+="	mform.action=\"/gd/sellermanagtaction.do?method=detail&parm=\"+parm;\n";
+		m+="	mform.action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=detail&parm=\"+parm;\n";
 		m+="	mform.submit();\n";
 		m+="}\n\n";
 
@@ -243,7 +244,7 @@ public class QueryJsp {
 		
 		
 		m+="<body onload=\"repage();\">\n";
-		m+="		<html:form action=\"/gd/sellermanaction.do?method=query\"\n";
+		m+="		<html:form action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=query\"\n";
 		m+="			styleId=\"SellerManActionForm\" method=\"post\">\n";
 		m+="			<div id=\"container\" class=\"container\">\n";
 		m+="				<div class=\"titleBar\">\n";
@@ -276,23 +277,24 @@ public class QueryJsp {
 						if(columnCount==3)
 						{
 							m+="							<tr>\n";
+							columnCount=1;
 						}
 						m+="								<th width=\"10%\">\n";
 						m+="									"+row.cnName+":\n";
 						m+="								</th>\n";
 						m+="								<td nowrap class=\"tab_td\" width=\"20%\">\n";
-						m+="									<!--<html:select name=\""+interfaceBean.enName+"ActionForm\"\n";
-						m+="										property=\""+row.enName+"\">\n";
+						m+="									<%--<html:select name=\""+interfaceBean.enName+"ActionForm\"\n";
+						m+="										property=\""+row.enName.toLowerCase()+"\">\n";
 						m+="										<html:option value=\"\">全部</html:option>\n";
 						m+="										<html:optionsCollection name=\""+interfaceBean.enName+"ActionForm\"\n";
-						m+="											property=\""+row.enName+"list\" />\n";
-						m+="									</html:select>-->\n";
+						m+="											property=\""+row.enName.toLowerCase()+"list\" />\n";
+						m+="									</html:select>--%>\n";
 
 						m+="									<html:text name=\""+interfaceBean.enName+"ActionForm\" size=\"30\"\n";
-						m+="										property=\""+row.enName+"\" maxlength=\"20\"></html:text>\n";
+						m+="										property=\""+row.enName.toLowerCase()+"\" maxlength=\"20\"></html:text>\n";
 						
 						m+="								</td>";
-					if(columnCount==3)
+					if(columnCount==2)
 					{
 						m+="							</tr>\n";
 						columnCount=0;
@@ -382,8 +384,8 @@ public class QueryJsp {
 		
 		m+="								<tbody id=\"records\">\n";
 		m+="									<logic:notEmpty name=\""+interfaceBean.enName+"ActionForm\" property=\"redo\">\n";
-		m+="										<logic:iterate name=\""+interfaceBean.enName+"ActionForm\" id=\"bean\"\n";
-		m+="											property=\"redo\" type=\""+interfaceBean.enName+"ActionForm\" indexId=\"pc\">\n";
+		m+="										<logic:iterate name=\""+interfaceBean.enName+"ActionForm\" id=\"redo\"\n";
+		m+="											property=\"redo\" type=\""+interfaceBean.enName+"Bean\" indexId=\"pc\">\n";
 		m+="											<tr class='<%=(pc.intValue() % 2 == 0)\n";
 		m+="								? \"even\"\n";
 		m+="								: \"odd\"%>'>\n";
@@ -402,9 +404,9 @@ public class QueryJsp {
 					if (i == 0) {// 循环域开始
 					} else {
 						m+="												<td>\n";
-						m+="													<bean:write name=\"bean\" property=\""+row.enName+"\" />\n";
-						m+="													<input type=\"hidden\" name=\""+row.enName+"_table_row\"\n";
-						m+="														value=\"<bean:write name=\"bean\" property=\""+row.enName+"\"/>\" />\n";
+						m+="													<bean:write name=\"redo\" property=\""+row.enName.toLowerCase()+"\" />\n";
+						m+="													<input type=\"hidden\" name=\""+row.enName.toLowerCase().toLowerCase()+"_table_row\"\n";
+						m+="														value=\"<bean:write name=\"redo\" property=\""+row.enName.toLowerCase()+"\"/>\" />\n";
 						m+="												</td>\n";
 					}
 					i++;
@@ -539,7 +541,7 @@ public class QueryJsp {
 		      
 		    
 		
-		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".java");
+		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".jsp");
 		  if(! tofile.exists()) {  
 	            makeDir(tofile.getParentFile());  
 	        }  

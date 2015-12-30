@@ -53,9 +53,9 @@ public class ActionForm {
 
 	
 		m += "/**" + interfaceBean.title + interfaceBean.enName + "*/\n";
-		m += "public class "  + interfaceBean.enName + "ActionForm{\n";
+		m += "public class "  + interfaceBean.enName + "ActionForm extends ActionForm{\n";
 		m += "public String checkbox_row_id[];\n";
-		m += "public List<"+interfaceBean.enName+"ActionForm> redo;\n";
+		m += "public List<"+interfaceBean.enName+"Bean> redo;\n";
 		List<Group> groups = null;
 		if (type.equals("Request")) {
 			groups = interfaceBean.requestGroups;
@@ -70,17 +70,17 @@ public class ActionForm {
 					
 					m += "/** " + row.cnName + " 备注:" + row.remarks
 							+ "*/\n";
-					m += "public " + row.getType() + " " + row.enName
+					m += "public " + row.getType() + " " + row.enName.toLowerCase()
 							+ ";\n";
 					
 					m += "/** Array[]" + row.cnName + " 备注:" + row.remarks
 							+ "*/\n";
-					m += "public " + row.getType() + " " + row.enName
+					m += "public " + row.getType() + " " + row.enName.toLowerCase()
 							+ "s[];\n";
 					
 					m += "/** Collection" + row.cnName + " 备注:" + row.remarks
 							+ "*/\n";
-					m += "public Collection<" + row.getType() + ">  " + row.enName
+					m += "public Collection<" + row.getType() + ">  " + row.enName.toLowerCase()
 							+ "list;\n";
 				}
 			} else {
@@ -98,7 +98,7 @@ public class ActionForm {
 						} else {
 							m += "\n\n/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName.toLowerCase()
 									+ ";\n";
 							isCustomerClass = false;
 						}
@@ -110,24 +110,24 @@ public class ActionForm {
 							{
 								m += "/** " + row.cnName + " 备注:" + row.remarks
 										+ "*/\n";
-								m += "public " + row.getType() + " " + row.enName
+								m += "public " + row.getType() + " " + row.enName.toLowerCase()
 										+ "[];\n";
 							}
 							if(type.equals("Respond"))
 							{
 							m += "/** " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName.toLowerCase()
 									+ ";\n";
 							
 							m += "/** Array[]" + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName.toLowerCase()
 									+ "s[];\n";
 							
 							m += "/** Collection" + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
-							m += "public Collection<" + row.getType() + ">  " + row.enName
+							m += "public Collection<" + row.getType() + ">  " + row.enName.toLowerCase()
 									+ "list;\n";
 							
 				
@@ -136,7 +136,7 @@ public class ActionForm {
 							{
 							m += "/** " + row.cnName + " (数组)备注:" + row.remarks
 									+ "*/\n";
-							m += "public " + row.getType() + " " + row.enName
+							m += "public " + row.getType() + " " + row.enName.toLowerCase()
 									+ "[];\n";
 							}
 						}
@@ -164,7 +164,7 @@ public class ActionForm {
 						+ row.remarks + "*/\n";
 				n += "public class " + row.getType() + "{\n";
 			} else {
-				n += "public " + row.getType() + " " + row.enName + ";\n";
+				n += "public " + row.getType() + " " + row.enName.toLowerCase() + ";\n";
 			}
 			i++;
 		}
