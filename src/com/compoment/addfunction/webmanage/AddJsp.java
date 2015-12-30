@@ -191,6 +191,7 @@ public class AddJsp {
 						if(columnCount==3)
 						{
 							m+="							<tr>\n";
+							columnCount=1;
 						}
 						m+="								<th class=\"tab_td2\" width=\"10%\">\n";
 						m+="									"+row.cnName+":\n";
@@ -207,7 +208,7 @@ public class AddJsp {
 						m+="										property=\""+row.enName.toLowerCase()+"\" maxlength=\"20\"></html:text>\n";
 						
 						m+="								</td>";
-					if(columnCount==3)
+					if(columnCount==2)
 					{
 						m+="							</tr>\n";
 						columnCount=0;

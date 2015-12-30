@@ -118,7 +118,9 @@ public class QueryJsp {
 		m+="		}\n";
 		m+="	\n";
 		m+="</script>\n\n";
-
+		
+		m+="//起止日期\n";
+		m+="<script type=\"text/javascript\" src=\"/gdpost/javascript/setday.js\"></script>\n";
 		
 		m+="<script>\n\n";
 		
@@ -245,7 +247,7 @@ public class QueryJsp {
 		
 		m+="<body onload=\"repage();\">\n";
 		m+="		<html:form action=\"/gd/"+interfaceBean.enName.toLowerCase()+"action.do?method=query\"\n";
-		m+="			styleId=\"SellerManActionForm\" method=\"post\">\n";
+		m+="			styleId=\""+interfaceBean.enName+"ActionForm\" method=\"post\">\n";
 		m+="			<div id=\"container\" class=\"container\">\n";
 		m+="				<div class=\"titleBar\">\n";
 		m+="					"+interfaceBean.title+"\n";
@@ -260,7 +262,7 @@ public class QueryJsp {
 		m+="						<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"tab\"\n";
 		m+="							id=\"edittable\">\n";
 
-		m+="							<tr>\n";
+
 
 		
 		
@@ -288,16 +290,26 @@ public class QueryJsp {
 						m+="										<html:option value=\"\">全部</html:option>\n";
 						m+="										<html:optionsCollection name=\""+interfaceBean.enName+"ActionForm\"\n";
 						m+="											property=\""+row.enName.toLowerCase()+"list\" />\n";
-						m+="									</html:select>--%>\n";
+						m+="									</html:select>--%>\n\n";
 
+						
+						m+="<%--<html:text property=\"d44_70_begindate\" size=\"8\"\n";
+						m+="							maxlength=\"8\" onclick=\"setday(this)\"\n";
+						m+="							onkeypress=\"return event.keyCode>=48&&event.keyCode<=57\" />～\n";
+						m+="<html:text property=\"d44_70_enddate\" size=\"8\"\n";
+						m+="							maxlength=\"8\" onclick=\"setday(this)\"\n";
+						m+="							onkeypress=\"return event.keyCode>=48&&event.keyCode<=57\" />--%>\n\n";
+
+						
+						
 						m+="									<html:text name=\""+interfaceBean.enName+"ActionForm\" size=\"30\"\n";
 						m+="										property=\""+row.enName.toLowerCase()+"\" maxlength=\"20\"></html:text>\n";
 						
-						m+="								</td>";
+						m+="								</td>\n";
 					if(columnCount==2)
 					{
 						m+="							</tr>\n";
-						columnCount=0;
+					
 					}
 					columnCount++;
 					}

@@ -1,59 +1,6 @@
-SellerManActionForm myform = (SellerManActionForm) form;
-		
-		String st = request.getParameter("parm") == null ? " " : request
-				.getParameter("parm").trim();
-		String[] rs = Const.split(st);
-	
-		String d44_70_merchant_id = rs[0].trim();
-		String d44_70_merchant_name = rs[1].trim();
-		String d44_70_linkman = rs[2].trim();
-		String d44_70_telephone = rs[3].trim();
-		String d44_70_dealbrchname = rs[4].trim();
-		String d44_70_dealbrchno = rs[5].trim();
-		
-		String d44_70_longstatus = rs[6].trim();
-		
-		
-//		myform.setD44_70_merchant_id(d44_70_merchant_id);
-//		myform.setD44_70_merchant_name(d44_70_merchant_name);
-//		myform.setD44_70_linkman(d44_70_linkman);
-//		myform.setD44_70_telephone(d44_70_telephone);
-//		myform.setD44_70_brch_name(d44_70_dealbrchname);
-//		myform.setD44_70_dealbrchno(d44_70_dealbrchno);
-//		myform.setD44_70_longstatus(d44_70_longstatus);
-		
-		
-		
-		SellerManActionForm sform = (SellerManActionForm) form;
-		
-
-	
-		Map map = new HashMap();
-		map.put("D44_70_MERCHANT_ID", d44_70_merchant_id);
-				
-	
-		map.put("headmsg", PackUtil.setPacketHead(request));
-
-		String errmsg = null;
-		try {
-			Map orgsmap = SysConstant.getOrgsMap(request);
-			map.put("orgsmap", orgsmap);
-			SellerManFacade facade = new SellerManFacade();
-			List<SellerManSubVo> redo = facade.getSellerDetailVo(map);
-			
-			sform.setRedo(redo);
-			
-
-		} catch (Exception e) {
-
-			log.info(e.getMessage());
-			String msg = e.getMessage();
-			if (msg == null || "".equals(msg)) {
-				errmsg = "未知错误！";
-			} else {
-				errmsg = "服务器内部错误！";
-			}
-			request.setAttribute("errmsg", errmsg);
-			ActionForward af = mapping.findForward("errmsg");
-			return af;
-		}
+<html:text property="d44_70_begindate" size="8"
+							maxlength="8" onclick="setday(this)"
+							onkeypress="return event.keyCode>=48&&event.keyCode<=57" />～
+<html:text property="d44_70_enddate" size="8"
+							maxlength="8" onclick="setday(this)"
+							onkeypress="return event.keyCode>=48&&event.keyCode<=57" />
