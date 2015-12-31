@@ -489,6 +489,10 @@ public class QueryJsp {
 		m+="						: \"<script language ='JavaScript'>alert('\"\n";
 		m+="								+ (String) request.getAttribute(\"errmsg\")\n";
 		m+="								+ \"');</script>\"%>\n";
+		m+="  </div>\n";
+		m+="	</div>\n";
+		m+="	</div>\n";
+		m+="	</div>\n";
 		m+="		</html:form>\n";
 
 
