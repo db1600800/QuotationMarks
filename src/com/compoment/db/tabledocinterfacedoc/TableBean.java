@@ -13,4 +13,6 @@ public class TableBean {
 	public int width;
 	public int height;
 	
+	
+	
 }

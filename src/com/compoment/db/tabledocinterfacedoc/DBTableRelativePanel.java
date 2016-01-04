@@ -1,5 +1,6 @@
 package com.compoment.db.tabledocinterfacedoc;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -45,7 +46,15 @@ public class DBTableRelativePanel extends JPanel{
 						//right
 						g2.draw(new Line2D.Double(new Point2D.Double(column.x1,column.y), new Point2D.Double(column.x1,column.y1)));
 					
-						g2.drawString(column.columnCnName, x, y);
+						
+						 
+						    
+						g2.setFont(new Font("宋体",Font.BOLD,10));    //改变字体大小
+						g2.drawString(column.columnCnName, column.columnCnNameX, column.columnCnNameY);
+						g2.drawString(column.columnEnName, column.columnEnNameX, column.columnEnNameY);
+						g2.drawString(column.type, column.typeX, column.typeY);
+						g2.drawString(column.key, column.keyX, column.keyY);
+						
 					
 					}
 					
