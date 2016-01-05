@@ -85,7 +85,7 @@ public class DBTablesPanel extends JPanel{
 		int bottomspace=3;
 		
 		x=leftspace;
-		
+		y=topspace;
 		
 		for(InterfaceBean interfaceBean:interfaceBeans)
 		{
@@ -97,7 +97,10 @@ public class DBTablesPanel extends JPanel{
 			tableBean.id=interfaceBean.id;//表编号
 			tableBean.columns=new ArrayList();//列数组
 			
-			x=5;
+			x=leftspace;
+			tableBean.x=x-leftspace;
+			y=y+bottomspace+bottomspace;
+			tableBean.y=y-topspace;
 			
 			List<Group> groups = interfaceBean.requestGroups;
 			for (Group group : groups) {
@@ -108,18 +111,66 @@ public class DBTablesPanel extends JPanel{
 						//列
 						TableColumnBean tableColumnBean=new TableColumnBean();
 						
+						    tableColumnBean.y=y-topspace;
+						    
 							tableColumnBean.setColumnCnName(row.cnName);
-							tableColumnBean.setColumnEnName(row.enName);
-							tableColumnBean.setKey(row.remarks);
-							tableColumnBean.setType(row.type);
-							tableColumnBean.x=x;
+							tableColumnBean.columnCnNameX=x;
+							tableColumnBean.columnCnNameY=y;
 							
-							x=x+tableColumnBean.columnEnNameWidth+rightspace+leftspace;
+							
+							tableColumnBean.setColumnEnName(row.enName);
+							tableColumnBean.columnEnNameX=x;
+							y=y+tableColumnBean.columnCnNameHeight+bottomspace;
+							tableColumnBean.columnEnNameY=y;
+							
+							tableColumnBean.setKey(row.remarks);
+							tableColumnBean.keyX=x;
+							y=y+tableColumnBean.columnEnNameHeight+bottomspace;
+							tableColumnBean.keyY=y;
+							
+							
+							tableColumnBean.setType(row.type);
+							tableColumnBean.typeX=x;
+							y=y+tableColumnBean.keyHeight+bottomspace;
+							tableColumnBean.keyY=y;
+							
+							List<Integer> widths=new ArrayList();
+							widths.add(Integer.valueOf(tableColumnBean.columnCnNameWidth));
+							widths.add(Integer.valueOf(tableColumnBean.columnEnNameWidth));
+							widths.add(Integer.valueOf(tableColumnBean.keyWidth));
+							widths.add(Integer.valueOf(tableColumnBean.typeWidth));
+							
+							tableColumnBean.x=x-leftspace;
+							tableColumnBean.x1=x+maxWidth(widths)+rightspace;
+							tableColumnBean.y1=y+bottomspace;
+							
+							x=x+maxWidth(widths)+rightspace+leftspace;
 							tableBean.columns.add(tableColumnBean);
 					}
 				}
 			}
+			
+			tableBean.x1=x;
+			tableBean.y1=y+bottomspace;
+			tables.add(tableBean);
 		}
+		
+		this.repaint();
 	}
+	
+	
+	public int maxWidth(List<Integer> widths)
+	{
+		int maxone=0;
+		for(Integer temp:widths)
+		{
+			if(maxone<(int)temp)
+			{
+				maxone=temp;
+			}
+		}
+		return maxone;
+	}
+	
 	
 }
