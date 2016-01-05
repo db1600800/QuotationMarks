@@ -21,7 +21,7 @@ public class DBTablesPanel extends JPanel{
 	List<TableBean> tables;
 	
 	public DBTablesPanel(){
-		
+		tables=new ArrayList();
 	}
 	
 
@@ -75,43 +75,51 @@ public class DBTablesPanel extends JPanel{
 	public void setDBTables(List<InterfaceBean> interfaceBeans)
 	{
 		tables=new ArrayList();
+		
+		int x=0;
+		int y=0;
+		
+		int leftspace=3;
+		int rightspace=3;
+		int topspace=3;
+		int bottomspace=3;
+		
+		x=leftspace;
+		
+		
 		for(InterfaceBean interfaceBean:interfaceBeans)
 		{
+			//数据表
 			TableBean tableBean=new TableBean();
 			
-			tableBean.tableCnName=interfaceBean.title;
-			tableBean.tableEnName=interfaceBean.enName;
-			tableBean.id=interfaceBean.id;
+			tableBean.tableCnName=interfaceBean.title;//表中文名
+			tableBean.tableEnName=interfaceBean.enName;//表英文名
+			tableBean.id=interfaceBean.id;//表编号
+			tableBean.columns=new ArrayList();//列数组
 			
-			tableBean.columns=new ArrayList();
+			x=5;
 			
-			String parm="";
 			List<Group> groups = interfaceBean.requestGroups;
 			for (Group group : groups) {
 				String groupname = group.name;
 				if (groupname.equals("CommonGroup")) {
 				
 					for (Row row : group.rows) {
-						
+						//列
 						TableColumnBean tableColumnBean=new TableColumnBean();
 						
-							tableColumnBean.columnCnName=row.cnName;
-							tableColumnBean.columnEnName=row.enName;
-							tableColumnBean.key=row.remarks;
-							tableColumnBean.type=row.type;
+							tableColumnBean.setColumnCnName(row.cnName);
+							tableColumnBean.setColumnEnName(row.enName);
+							tableColumnBean.setKey(row.remarks);
+							tableColumnBean.setType(row.type);
+							tableColumnBean.x=x;
+							
+							x=x+tableColumnBean.columnEnNameWidth+rightspace+leftspace;
 							tableBean.columns.add(tableColumnBean);
-						
 					}
 				}
-
 			}
-			
-			
-			
 		}
-		
-		
-		
 	}
 	
 }
