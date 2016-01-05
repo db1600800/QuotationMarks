@@ -178,7 +178,7 @@ public class WordtableToJavaObject {
 				System.out.println("错误 没有Table id"+p.text());
 			}
 
-			if (p.text().contains("传入参数") || p.text().contains("输入参数")||p.text().contains("发送报文")) {
+			if (p.text().contains("传入参数") || p.text().contains("输入参数")||p.text().contains("发送报文")||p.text().contains("表字段")) {
 
 				// 判断该Paragraph是否在word的表格中
 				Paragraph nextP;

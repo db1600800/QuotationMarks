@@ -54,7 +54,7 @@ public class InterfaceDoc extends JDialog {
 	public ArrayList listDate = new ArrayList();
 	
 	/**word文档解析出来的接口对象*/
-	List<InterfaceBean> interfaceBeans;
+	public List<InterfaceBean> interfaceBeans;
 	
 	
 	/**
@@ -100,7 +100,7 @@ public class InterfaceDoc extends JDialog {
 		
 		JLabel lblindex_2 = new JLabel("变量类型Index    ");
 		
-		JLabel lblindex_3 = new JLabel("备注Index           ");
+		JLabel lblindex_3 = new JLabel("备注Index/primary key");
 		
 		JLabel lblRequestjson = new JLabel("RequestJson       ");
 		
