@@ -44,7 +44,7 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100,850, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,22 +61,20 @@ public class Main extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(214, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
-							.addGap(22))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addComponent(getDBTableBtn)
-							.addGap(32))))
+							.addGap(554))
+						.addComponent(dbTablesPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 822, GroupLayout.PREFERRED_SIZE)))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(getDBTableBtn)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(131, Short.MAX_VALUE))
+					.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(566, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

@@ -78,15 +78,17 @@ public class DBTablesPanel extends JPanel{
 		
 		int x=0;
 		int y=0;
+	
 		
 		int leftspace=3;
 		int rightspace=3;
 		int topspace=3;
 		int bottomspace=3;
 		
-		x=leftspace;
-		y=topspace;
 		
+	
+	 
+	     
 		for(InterfaceBean interfaceBean:interfaceBeans)
 		{
 			//数据表
@@ -97,42 +99,64 @@ public class DBTablesPanel extends JPanel{
 			tableBean.id=interfaceBean.id;//表编号
 			tableBean.columns=new ArrayList();//列数组
 			
-			x=leftspace;
-			tableBean.x=x-leftspace;
-			y=y+bottomspace+bottomspace;
-			tableBean.y=y-topspace;
+			
+			if(tables!=null && tables.size()>0)
+			{//已经有首个表（非首表）
+				
+				y=tables.get(tables.size()-1).y1+bottomspace;
+				x=tables.get(tables.size()-1).x;
+			}else
+			{//首表
+				y=0;
+				x=0;
+			}
+			tableBean.y=y;
+			tableBean.x=x;
 			
 			List<Group> groups = interfaceBean.requestGroups;
 			for (Group group : groups) {
 				String groupname = group.name;
 				if (groupname.equals("CommonGroup")) {
-				
+				    int rowCount=0;
 					for (Row row : group.rows) {
 						//列
+						
+						if(tableBean.columns!=null && tableBean.columns.size()>0)
+						{//已经有首列（非首列）
+							TableColumnBean firstColumnBean=tableBean.columns.get(0);
+							y=firstColumnBean.y;
+							x=tableBean.columns.get(tableBean.columns.size()-1).x1;
+						}else
+						{//首列
+							y=y;
+							x=x;
+						}
+						
 						TableColumnBean tableColumnBean=new TableColumnBean();
 						
-						    tableColumnBean.y=y-topspace;
+						    tableColumnBean.y=y;
+						    tableColumnBean.x=x;
 						    
 							tableColumnBean.setColumnCnName(row.cnName);
-							tableColumnBean.columnCnNameX=x;
-							tableColumnBean.columnCnNameY=y;
+							tableColumnBean.columnCnNameX=x+rightspace;
+							tableColumnBean.columnCnNameY=y+bottomspace;
 							
 							
 							tableColumnBean.setColumnEnName(row.enName);
-							tableColumnBean.columnEnNameX=x;
-							y=y+tableColumnBean.columnCnNameHeight+bottomspace;
+							tableColumnBean.columnEnNameX=x+rightspace;
+							y=tableColumnBean.columnCnNameY+tableColumnBean.columnCnNameHeight+bottomspace;
 							tableColumnBean.columnEnNameY=y;
 							
 							tableColumnBean.setKey(row.remarks);
-							tableColumnBean.keyX=x;
-							y=y+tableColumnBean.columnEnNameHeight+bottomspace;
+							tableColumnBean.keyX=x+rightspace;
+							y=tableColumnBean.columnEnNameY+tableColumnBean.columnEnNameHeight+bottomspace;
 							tableColumnBean.keyY=y;
 							
 							
 							tableColumnBean.setType(row.type);
-							tableColumnBean.typeX=x;
-							y=y+tableColumnBean.keyHeight+bottomspace;
-							tableColumnBean.keyY=y;
+							tableColumnBean.typeX=x+rightspace;
+							y=tableColumnBean.keyY+tableColumnBean.keyHeight+bottomspace;
+							tableColumnBean.typeY=y;
 							
 							List<Integer> widths=new ArrayList();
 							widths.add(Integer.valueOf(tableColumnBean.columnCnNameWidth));
@@ -140,18 +164,34 @@ public class DBTablesPanel extends JPanel{
 							widths.add(Integer.valueOf(tableColumnBean.keyWidth));
 							widths.add(Integer.valueOf(tableColumnBean.typeWidth));
 							
-							tableColumnBean.x=x-leftspace;
-							tableColumnBean.x1=x+maxWidth(widths)+rightspace;
-							tableColumnBean.y1=y+bottomspace;
 							
-							x=x+maxWidth(widths)+rightspace+leftspace;
+							tableColumnBean.x1=x+maxWidth(widths)+rightspace;
+							tableColumnBean.y1=tableColumnBean.typeY+tableColumnBean.typeHeight+bottomspace;
+							
+						
 							tableBean.columns.add(tableColumnBean);
+							
+
+							rowCount++;
 					}
 				}
 			}
 			
-			tableBean.x1=x;
-			tableBean.y1=y+bottomspace;
+			if(tableBean.columns!=null && tableBean.columns.size()>0)
+			{//（最后一列）
+				TableColumnBean lastColumnBean=tableBean.columns.get(tableBean.columns.size()-1);
+				
+				
+				tableBean.x1=lastColumnBean.x1;
+				tableBean.y1=lastColumnBean.y1;
+			}else
+			{
+				tableBean.x1=0;
+				tableBean.y1=0;
+			}
+			
+			
+			
 			tables.add(tableBean);
 		}
 		
