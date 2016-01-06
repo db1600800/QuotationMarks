@@ -1,4 +1,5 @@
 package com.compoment.db.tabledocinterfacedoc;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -71,6 +72,9 @@ public class DBTablesPanel extends JPanel{
 					g2.draw(new Line2D.Double(new Point2D.Double(table.x1,table.y), new Point2D.Double(table.x1,table.y1)));
 
 				}
+				
+				//if(tables!=null && tables.size()>0)
+				//this.setSize(tables.get(tables.size()-1).x1, tables.get(tables.size()-1).y1);
 	}
 	
 	
@@ -199,7 +203,11 @@ public class DBTablesPanel extends JPanel{
 			Collections.sort(tables, tableBeanDate);
 		}
 		
+		if(tables!=null && tables.size()>0)
+			this.setPreferredSize(new Dimension(tables.get(tables.size()-1).x1+20, tables.get(tables.size()-1).y1));
 		this.repaint();
+		
+		
 	}
 	
 	

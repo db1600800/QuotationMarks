@@ -1,6 +1,7 @@
 package com.compoment.db.tabledocinterfacedoc;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,10 +15,16 @@ import com.compoment.addfunction.webmanage.ActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.workflow.InterfaceDoc;
+
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JScrollPane;
+
+import java.awt.Color;
 
 public class Main extends JFrame {
 
@@ -49,33 +56,40 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		 dbTablesPanel = new DBTablesPanel();
-		
 		JButton getDBTableBtn = new JButton("DBTable");
 		getDBTableBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				getDBTables();
 			}
 		});
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
+					.addContainerGap(259, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 561, GroupLayout.PREFERRED_SIZE)
+							.addGap(26))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addComponent(getDBTableBtn)
-							.addGap(745))
-						.addComponent(dbTablesPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 822, GroupLayout.PREFERRED_SIZE)))
+							.addGap(55))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(getDBTableBtn)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(365, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(468, Short.MAX_VALUE))
 		);
+		
+		 dbTablesPanel = new DBTablesPanel();
+		 dbTablesPanel.setPreferredSize(new Dimension(1000,1000));
+		 dbTablesPanel.setBackground(Color.CYAN);
+		 scrollPane.setViewportView(dbTablesPanel);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
@@ -91,7 +105,7 @@ public class Main extends JFrame {
 		{		
 			//接口列表
 			dbTablesPanel.setDBTables(projectDocPanel.interfaceBeans);
-
+			
 		}
 	}
 }
