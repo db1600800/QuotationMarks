@@ -62,10 +62,10 @@ public class Main extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(getDBTableBtn)
-							.addGap(554))
+							.addGap(745))
 						.addComponent(dbTablesPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 822, GroupLayout.PREFERRED_SIZE)))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -73,8 +73,8 @@ public class Main extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(getDBTableBtn)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(566, Short.MAX_VALUE))
+					.addComponent(dbTablesPanel, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(365, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

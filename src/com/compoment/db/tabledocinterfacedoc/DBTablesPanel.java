@@ -139,7 +139,7 @@ public class DBTablesPanel extends JPanel{
 						    
 							tableColumnBean.setColumnCnName(row.cnName);
 							tableColumnBean.columnCnNameX=x+rightspace;
-							tableColumnBean.columnCnNameY=y+bottomspace;
+							tableColumnBean.columnCnNameY=y+tableColumnBean.columnCnNameHeight+bottomspace;
 							
 							
 							tableColumnBean.setColumnEnName(row.enName);
