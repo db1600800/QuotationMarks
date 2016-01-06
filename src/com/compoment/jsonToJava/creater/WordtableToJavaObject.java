@@ -85,7 +85,7 @@ public class WordtableToJavaObject {
 		public String id;// 接口id号
 		public String enName;
 		
-		public long time;
+		
 		
 	
 		public String getEnName() {
@@ -107,7 +107,7 @@ public class WordtableToJavaObject {
 		{requestGroups = new ArrayList();
 			
 			respondGroups = new ArrayList();
-			time=System.currentTimeMillis();
+		
 		}
 		
 	
@@ -367,10 +367,10 @@ public class WordtableToJavaObject {
 				sType = "float";
 			}}
 
-			if (sCnName.contains("开始")) {
+			if (sCnName.contains("开始") && sCnName.contains("循环")) {
 				isCommon = false;
 
-			} else if (sCnName.contains("结束")) {
+			} else if (sCnName.contains("结束") && sCnName.contains("循环")) {
 				isCommon = true;
 
 			}
@@ -475,7 +475,7 @@ public class WordtableToJavaObject {
 				}	
 			}
 
-			if (sCnName.contains("开始")) {
+			if (sCnName.contains("开始") && sCnName.contains("循环")) {
 				group = new Group();
 				group.name=sEnName+"Group";
 				if(!sType.matches("[a-zA-Z]+"))
@@ -484,7 +484,7 @@ public class WordtableToJavaObject {
 				}
 				isNotCommon = true;
 
-			} else if (sCnName.contains("结束")) {
+			} else if (sCnName.contains("结束") && sCnName.contains("循环")) {
 				if (type.equals("request")) {
 					interfaceBean.requestGroups.add(group);
 				} else {
