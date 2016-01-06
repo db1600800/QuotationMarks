@@ -14,6 +14,11 @@ public class TableBean {
 	public int width;
 	public int height;
 	
+	public long time;
 	
 	
+	public TableBean()
+	{
+		time=System.currentTimeMillis();
+	}
 }

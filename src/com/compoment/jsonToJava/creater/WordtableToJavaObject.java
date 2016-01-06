@@ -84,6 +84,10 @@ public class WordtableToJavaObject {
 		public String detail;// 接口描述
 		public String id;// 接口id号
 		public String enName;
+		
+		public long time;
+		
+	
 		public String getEnName() {
 			return enName;
 		}
@@ -103,7 +107,7 @@ public class WordtableToJavaObject {
 		{requestGroups = new ArrayList();
 			
 			respondGroups = new ArrayList();
-			
+			time=System.currentTimeMillis();
 		}
 		
 	
@@ -118,6 +122,13 @@ public class WordtableToJavaObject {
 		public String cnName;
 		public String enName;
 		public String type;
+		public long time;
+		public Row()
+		{
+			
+			time=System.currentTimeMillis();
+		}
+		
 		public String getType() {
 			return type.replaceAll("[^0-9a-zA-Z]","");
 		}

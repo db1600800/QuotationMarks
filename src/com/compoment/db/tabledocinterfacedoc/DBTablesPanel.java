@@ -6,10 +6,13 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JPanel;
 
+import com.compoment.cut.CompomentBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
@@ -118,6 +121,8 @@ public class DBTablesPanel extends JPanel{
 				String groupname = group.name;
 				if (groupname.equals("CommonGroup")) {
 				    int rowCount=0;
+				    
+				    Collections.sort(group.rows, rowDate);
 					for (Row row : group.rows) {
 						//列
 						
@@ -170,7 +175,7 @@ public class DBTablesPanel extends JPanel{
 							
 						
 							tableBean.columns.add(tableColumnBean);
-							
+							Collections.sort(tableBean.columns, tableColumnBeanDate);
 
 							rowCount++;
 					}
@@ -180,8 +185,6 @@ public class DBTablesPanel extends JPanel{
 			if(tableBean.columns!=null && tableBean.columns.size()>0)
 			{//（最后一列）
 				TableColumnBean lastColumnBean=tableBean.columns.get(tableBean.columns.size()-1);
-				
-				
 				tableBean.x1=lastColumnBean.x1;
 				tableBean.y1=lastColumnBean.y1;
 			}else
@@ -193,6 +196,7 @@ public class DBTablesPanel extends JPanel{
 			
 			
 			tables.add(tableBean);
+			Collections.sort(tables, tableBeanDate);
 		}
 		
 		this.repaint();
@@ -213,4 +217,34 @@ public class DBTablesPanel extends JPanel{
 	}
 	
 	
+	
+	Comparator<Row> rowDate = new Comparator<Row>() {
+		public int compare(Row s1, Row s2) {
+			// 按日期排
+			if (s1.time != s2.time) {
+				return (int) (s1.time-s2.time );
+			}
+			return 0;
+		}
+	};
+	
+	Comparator<TableBean> tableBeanDate = new Comparator<TableBean>() {
+		public int compare(TableBean s1, TableBean s2) {
+			// 按日期排
+			if (s1.time != s2.time) {
+				return (int) (s1.time-s2.time );
+			}
+			return 0;
+		}
+	};
+	
+	Comparator<TableColumnBean> tableColumnBeanDate = new Comparator<TableColumnBean>() {
+		public int compare(TableColumnBean s1, TableColumnBean s2) {
+			// 按日期排
+			if (s1.time != s2.time) {
+				return (int) (s1.time-s2.time );
+			}
+			return 0;
+		}
+	};
 }

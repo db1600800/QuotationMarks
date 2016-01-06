@@ -32,7 +32,11 @@ public class TableColumnBean {
 	public int x; 
 	public int y;
 	public int x1;
-
+	public long time;
+	public TableColumnBean()
+	{
+		time=System.currentTimeMillis();
+	}
 	
 	public String getColumnEnName() {
 		return columnEnName;
@@ -47,6 +51,7 @@ public class TableColumnBean {
 	     columnEnNameWidth= fm.stringWidth(columnEnName);  
 		
 		this.columnEnName = columnEnName;
+		
 	}
 	
 	public String getColumnCnName() {
