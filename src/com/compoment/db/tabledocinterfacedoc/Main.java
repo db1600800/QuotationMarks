@@ -88,7 +88,7 @@ public class Main extends JFrame {
 		
 		 dbTablesPanel = new DBTablesPanel();
 		 dbTablesPanel.setPreferredSize(new Dimension(1000,1000));
-		 dbTablesPanel.setBackground(Color.CYAN);
+		 dbTablesPanel.setBackground(Color.LIGHT_GRAY);
 		 scrollPane.setViewportView(dbTablesPanel);
 		contentPane.setLayout(gl_contentPane);
 	}

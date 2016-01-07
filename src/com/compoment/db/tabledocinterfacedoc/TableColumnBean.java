@@ -43,7 +43,7 @@ public class TableColumnBean {
 	}
 	public void setColumnEnName(String columnEnName) {
 		
-		 Font f = new Font("宋体", Font.BOLD, 10);  
+		 Font f = new Font("宋体", Font.BOLD, 11);  
 	     FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);
 		    // 高度
 	     columnEnNameHeight= fm.getHeight();
@@ -58,7 +58,7 @@ public class TableColumnBean {
 		return columnCnName;
 	}
 	public void setColumnCnName(String columnCnName) {
-		 Font f = new Font("宋体", Font.BOLD, 10);  
+		 Font f = new Font("宋体", Font.BOLD, 11);  
 	     FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);
 		    // 高度
 	     columnCnNameHeight= fm.getHeight();
@@ -70,7 +70,7 @@ public class TableColumnBean {
 		return type;
 	}
 	public void setType(String type) {
-		 Font f = new Font("宋体", Font.BOLD, 10);  
+		 Font f = new Font("宋体", Font.BOLD, 11);  
 	     FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);
 		    // 高度
 	     typeHeight= fm.getHeight();
@@ -83,7 +83,7 @@ public class TableColumnBean {
 		return key;
 	}
 	public void setKey(String key) {
-		 Font f = new Font("宋体", Font.BOLD, 10);  
+		 Font f = new Font("宋体", Font.BOLD, 11);  
 	     FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);
 		    // 高度
 	     keyHeight= fm.getHeight();

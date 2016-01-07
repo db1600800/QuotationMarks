@@ -5,6 +5,8 @@ import java.util.List;
 public class TableBean {
 	public String tableEnName;
 	public String tableCnName;
+	public int tableCnNameX;
+	public int tableCnNameY;
 	public String id;
 	public List<TableColumnBean> columns;
 	public int x;

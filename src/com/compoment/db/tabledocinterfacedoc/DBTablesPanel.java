@@ -27,9 +27,7 @@ public class DBTablesPanel extends JPanel{
 	public DBTablesPanel(){
 		tables=new ArrayList();
 	}
-	
 
-	
 	
 	@Override
 	public void paintComponent(Graphics pGraphics)
@@ -54,7 +52,7 @@ public class DBTablesPanel extends JPanel{
 						g2.draw(new Line2D.Double(new Point2D.Double(column.x1,column.y), new Point2D.Double(column.x1,column.y1)));
 					
 						
-						g2.setFont(new Font("宋体",Font.BOLD,10));    //改变字体大小
+						g2.setFont(new Font("宋体",Font.BOLD,11));    //改变字体大小
 						g2.drawString(column.columnCnName, column.columnCnNameX, column.columnCnNameY);
 						g2.drawString(column.columnEnName, column.columnEnNameX, column.columnEnNameY);
 						g2.drawString(column.type, column.typeX, column.typeY);
@@ -62,6 +60,8 @@ public class DBTablesPanel extends JPanel{
 						
 					}
 					
+					g2.setFont(new Font("宋体",Font.BOLD,11));    //改变字体大小
+					g2.drawString(table.tableCnName+"("+table.tableEnName+""+table.id+")", table.tableCnNameX, table.tableCnNameY);
 					//top
 					g2.draw(new Line2D.Double(new Point2D.Double(table.x,table.y), new Point2D.Double(table.x1,table.y)));
 					//bottom
@@ -73,8 +73,6 @@ public class DBTablesPanel extends JPanel{
 
 				}
 				
-				//if(tables!=null && tables.size()>0)
-				//this.setSize(tables.get(tables.size()-1).x1, tables.get(tables.size()-1).y1);
 	}
 	
 	
@@ -85,7 +83,7 @@ public class DBTablesPanel extends JPanel{
 		
 		int x=0;
 		int y=0;
-	
+	    int everyTableYModify=20;
 		
 		int leftspace=3;
 		int rightspace=3;
@@ -93,9 +91,6 @@ public class DBTablesPanel extends JPanel{
 		int bottomspace=3;
 		
 		
-	
-	 
-	     
 		for(InterfaceBean interfaceBean:interfaceBeans)
 		{
 			//数据表
@@ -110,15 +105,18 @@ public class DBTablesPanel extends JPanel{
 			if(tables!=null && tables.size()>0)
 			{//已经有首个表（非首表）
 				
-				y=tables.get(tables.size()-1).y1+bottomspace;
+				y=tables.get(tables.size()-1).y1+bottomspace+everyTableYModify;
 				x=tables.get(tables.size()-1).x;
 			}else
 			{//首表
-				y=0;
+				y=0+everyTableYModify;
 				x=0;
 			}
 			tableBean.y=y;
 			tableBean.x=x;
+			
+			tableBean.tableCnNameX=x;
+			tableBean.tableCnNameY=y-5;
 			
 			List<Group> groups = interfaceBean.requestGroups;
 			for (Group group : groups) {
