@@ -33,6 +33,10 @@ public class TableColumnBean {
 	public int y;
 	public int x1;
 	public long time;
+	
+	/**left right null*/
+	public String leftOrRightClickSelected=null;
+
 	public TableColumnBean()
 	{
 		time=System.currentTimeMillis();
