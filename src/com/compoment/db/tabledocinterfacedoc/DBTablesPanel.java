@@ -25,8 +25,8 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 
 public class DBTablesPanel extends JPanel implements MouseListener{
 
-	Graphics2D g2;
-	List<TableBean> tables;
+	public Graphics2D g2;
+	public List<TableBean> tables;
 	
 	public DBTablesPanel(){
 		tables=new ArrayList();
@@ -102,6 +102,15 @@ public class DBTablesPanel extends JPanel implements MouseListener{
 	}
 	
 	
+	public void cleanSelectTables()
+	{
+		
+		for(TableBean table:tables)
+		{
+			table.selected=false;
+		}
+		this.repaint();
+	}
 	
 	public void setDBTables(List<InterfaceBean> interfaceBeans)
 	{

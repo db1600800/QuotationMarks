@@ -27,11 +27,15 @@ import java.awt.event.MouseListener;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Main extends JFrame {
 
 	private JPanel contentPane;
 	DBTablesPanel dbTablesPanel;
+	DBTableRelativePanel dbTableRelativePanel;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +57,7 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100,850, 800);
+		setBounds(100, 100,1200, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -66,27 +70,96 @@ public class Main extends JFrame {
 		});
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		JPanel panel = new JPanel();
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		
+		JLabel lblNewLabel = new JLabel("数据表");
+		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 14));
+		
+		JLabel label = new JLabel("表关联");
+		label.setFont(new Font("宋体", Font.PLAIN, 14));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(259, Short.MAX_VALUE)
+					.addContainerGap(586, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(lblNewLabel)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(getDBTableBtn)
+								.addGap(55))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(scrollPane_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+									.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+									.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGap(26)))
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 561, GroupLayout.PREFERRED_SIZE)
-							.addGap(26))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(getDBTableBtn)
-							.addGap(55))))
+							.addComponent(label)
+							.addGap(542))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(getDBTableBtn)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(getDBTableBtn)
+						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(468, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 232, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(176, Short.MAX_VALUE))
 		);
+		
+	    dbTableRelativePanel = new DBTableRelativePanel();
+	    dbTableRelativePanel.setBackground(Color.LIGHT_GRAY);
+		dbTableRelativePanel.setPreferredSize(new Dimension(1000,1000));
+		scrollPane_1.setViewportView(dbTableRelativePanel);
+		
+		JButton addToRelateTablesView = new JButton("");
+		addToRelateTablesView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dbTableRelativePanel.setDBTables(dbTablesPanel.tables);
+				dbTablesPanel.cleanSelectTables();
+			}
+		});
+		addToRelateTablesView.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
+		
+		JButton removeFromRelateTablesView = new JButton("");
+		removeFromRelateTablesView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dbTableRelativePanel.cleanDBTables();
+			}
+		});
+		removeFromRelateTablesView.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(116)
+					.addComponent(addToRelateTablesView)
+					.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+					.addComponent(removeFromRelateTablesView)
+					.addGap(136))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(removeFromRelateTablesView)
+						.addComponent(addToRelateTablesView))
+					.addContainerGap(16, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
 		
 		 dbTablesPanel = new DBTablesPanel();
 		 dbTablesPanel.setPreferredSize(new Dimension(1000,1000));
@@ -98,7 +171,6 @@ public class Main extends JFrame {
 	
 	public void getDBTables()
 	{
-		
 		InterfaceDoc projectDocPanel=new InterfaceDoc();
 		projectDocPanel.setModal(true);
 		projectDocPanel.setVisible(true);
@@ -110,7 +182,4 @@ public class Main extends JFrame {
 			
 		}
 	}
-	
-
-
 }
