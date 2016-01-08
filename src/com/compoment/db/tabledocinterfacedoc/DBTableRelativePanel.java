@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -22,7 +23,7 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 
-public class DBTableRelativePanel extends JPanel implements MouseListener {
+public class DBTableRelativePanel extends JPanel implements MouseListener, MouseMotionListener  {
 
 	Graphics2D g2;
 	List<TableBean> tables;
@@ -30,6 +31,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener {
 	public DBTableRelativePanel() {
 		tables = new ArrayList();
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}
 
 	@Override
@@ -265,8 +267,11 @@ public class DBTableRelativePanel extends JPanel implements MouseListener {
 		}
 	};
 
+
+	
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
 		int c = e.getButton();// 得到按下的鼠标键
 		String mouseInfo = null;// 接收信息
 		if (c == MouseEvent.BUTTON1)// 判断是鼠标左键按下
@@ -363,12 +368,41 @@ public class DBTableRelativePanel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标按下.\n");
-		
+	
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标松开.\n");
+		
+	}
+
+
+	int count=0;
+	Point startPoint;
+	Point endPoint;
+	//鼠标移动事件
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(count==0)
+		{
+			startPoint = e.getPoint();
+		count++;
+		}else
+		{
+			endPoint=e.getPoint();
+			count=0;
+		}
+	
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+	
+		// 获得鼠标的位置
+		
 	}
 
 }
