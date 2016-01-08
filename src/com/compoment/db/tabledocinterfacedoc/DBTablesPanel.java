@@ -1,8 +1,12 @@
 package com.compoment.db.tabledocinterfacedoc;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -19,13 +23,14 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 
 
-public class DBTablesPanel extends JPanel{
+public class DBTablesPanel extends JPanel implements MouseListener{
 
 	Graphics2D g2;
 	List<TableBean> tables;
 	
 	public DBTablesPanel(){
 		tables=new ArrayList();
+		this.addMouseListener(this);
 	}
 
 	
@@ -42,6 +47,15 @@ public class DBTablesPanel extends JPanel{
 					
 					for(TableColumnBean column:table.columns)
 					{
+						//背景色
+						if(table.selected)
+						{
+						g2.setColor( Color.red);
+						
+						}else
+						{
+						g2.setColor( Color.black);
+						}
 						//top
 						g2.draw(new Line2D.Double(new Point2D.Double(column.x,column.y), new Point2D.Double(column.x1,column.y)));
 						//bottom
@@ -53,6 +67,7 @@ public class DBTablesPanel extends JPanel{
 					
 						
 						g2.setFont(new Font("宋体",Font.BOLD,11));    //改变字体大小
+						g2.setColor( Color.black);
 						g2.drawString(column.columnCnName, column.columnCnNameX, column.columnCnNameY);
 						g2.drawString(column.columnEnName, column.columnEnNameX, column.columnEnNameY);
 						g2.drawString(column.type, column.typeX, column.typeY);
@@ -62,6 +77,17 @@ public class DBTablesPanel extends JPanel{
 					
 					g2.setFont(new Font("宋体",Font.BOLD,11));    //改变字体大小
 					g2.drawString(table.tableCnName+"("+table.tableEnName+""+table.id+")", table.tableCnNameX, table.tableCnNameY);
+					
+					
+					if(table.selected)
+					{
+					g2.setColor( Color.red);
+					
+					}else
+					{
+					g2.setColor( Color.black);
+					}
+
 					//top
 					g2.draw(new Line2D.Double(new Point2D.Double(table.x,table.y), new Point2D.Double(table.x1,table.y)));
 					//bottom
@@ -253,4 +279,57 @@ public class DBTablesPanel extends JPanel{
 			return 0;
 		}
 	};
+	
+	
+
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int c = e.getButton();// 得到按下的鼠标键
+	    String mouseInfo = null;// 接收信息
+	    if (c == MouseEvent.BUTTON1)// 判断是鼠标左键按下
+	    {
+	     // mouseInfo = "左键";
+	    } else if (c == MouseEvent.BUTTON3) {// 判断是鼠标右键按下
+	      //mouseInfo = "右键";
+	    } else {
+	      //mouseInfo = "滚轴";
+	    }
+	
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		// text.append("鼠标进入组件.\n");
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 // text.append("鼠标退出组件.\n");
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		// text.append("鼠标按下.\n");
+		Point p=e.getPoint();
+		for(TableBean table:tables)
+		{
+			
+			if((p.x>=table.x && p.x<=table.x1) &&(p.y>=table.y && p.y<=table.y1))
+			{
+				if(table.selected==true)
+				{
+					table.selected=false;
+				}else
+				{
+					table.selected=true;
+				}
+				this.repaint();
+			}
+		}
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		  // text.append("鼠标松开.\n");
+	}
 }
