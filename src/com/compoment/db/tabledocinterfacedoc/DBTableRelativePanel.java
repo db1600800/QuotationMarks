@@ -114,9 +114,18 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
                 {
                 	for(TableColumnBean relateColumn:column.relateColumnBeans)
                 	{
-                	g2.draw(new Line2D.Double(new Point2D.Double(column.x+(column.x1-column.x)/2,
-    						column.y+(column.y1-column.y)/2), new Point2D.Double(relateColumn.x+(relateColumn.x1-relateColumn.x)/2,
-    								relateColumn.y+(relateColumn.y1-relateColumn.y)/2)));
+                		
+                		
+                	int currentX=column.x+(column.x1-column.x)/2;
+                	int currentY=column.y+(column.y1-column.y)/2;
+                	int startX=relateColumn.x+(relateColumn.x1-relateColumn.x)/2;
+                	int startY=relateColumn.y+(relateColumn.y1-relateColumn.y)/2;
+                	
+                	g2.draw(new Line2D.Double( new Point2D.Double(196,170),new Point2D.Double(196,62)));
+                	
+//                	g2.draw(new Line2D.Double(new Point2D.Double(column.x+(column.x1-column.x)/2,
+//    						column.y+(column.y1-column.y)/2), new Point2D.Double(relateColumn.x+(relateColumn.x1-relateColumn.x)/2,
+//    								relateColumn.y+(relateColumn.y1-relateColumn.y)/2)));
                 	}
                 }
 			}
