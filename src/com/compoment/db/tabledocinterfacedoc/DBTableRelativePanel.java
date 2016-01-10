@@ -43,13 +43,14 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 
 		for (TableBean table : tables) {
 			
+			//画Table名字
 			g2.setColor(Color.black);
 			g2.setFont(new Font("宋体", Font.BOLD, 11)); // 改变字体大小
 			g2.drawString(table.tableCnName + "(" + table.tableEnName + ""
 					+ table.id + ")", table.tableCnNameX, table.tableCnNameY);
 
 		
-
+            //画Table边框
 			// top
 			g2.draw(new Line2D.Double(new Point2D.Double(table.x, table.y),
 					new Point2D.Double(table.x1, table.y)));
@@ -80,6 +81,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 					
 				}
 				
+				//画Column边框
 				g2.setColor(Color.black);
 				// top
 				g2.draw(new Line2D.Double(
@@ -96,6 +98,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 				g2.draw(new Line2D.Double(new Point2D.Double(column.x1,
 						column.y), new Point2D.Double(column.x1, column.y1)));
 
+				//画文字
 				g2.setFont(new Font("宋体", Font.BOLD, 11)); // 改变字体大小
 				g2.setColor(Color.black);
 				g2.drawString(column.columnCnName, column.columnCnNameX,
@@ -104,7 +107,18 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 						column.columnEnNameY);
 				g2.drawString(column.type, column.typeX, column.typeY);
 				g2.drawString(column.key, column.keyX, column.keyY);
-
+				
+				
+				//画连线
+                if(column.relateColumnBeans!=null && column.relateColumnBeans.size()>0)
+                {
+                	for(TableColumnBean relateColumn:column.relateColumnBeans)
+                	{
+                	g2.draw(new Line2D.Double(new Point2D.Double(column.x+(column.x1-column.x)/2,
+    						column.y+(column.y1-column.y)/2), new Point2D.Double(relateColumn.x+(relateColumn.x1-relateColumn.x)/2,
+    								relateColumn.y+(relateColumn.y1-relateColumn.y)/2)));
+                	}
+                }
 			}
 
 			
@@ -272,6 +286,9 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+		if( startPoint.x!=endPoint.x||startPoint.y!=endPoint.y)
+			return;
+		
 		int c = e.getButton();// 得到按下的鼠标键
 		String mouseInfo = null;// 接收信息
 		if (c == MouseEvent.BUTTON1)// 判断是鼠标左键按下
@@ -368,33 +385,79 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标按下.\n");
-	
+		System.out.println("start"+e.getPoint().x+":"+e.getPoint().y);
+		startPoint = e.getPoint();
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标松开.\n");
+	
+		endPoint=e.getPoint();
 		
+		if( startPoint.x!=endPoint.x||startPoint.y!=endPoint.y)
+		{//滑动
+			System.out.println("start"+e.getPoint().x+":"+e.getPoint().y);
+			//起点
+			Point p = startPoint;
+			for (TableBean table : tables) {
+
+				for(TableColumnBean column:table.columns)
+				{
+					if ((p.x >= column.x && p.x <= column.x1)
+							&& (p.y >= column.y && p.y <= column.y1)) {
+						startColumnBean=column;
+
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+			//终点
+			 p = endPoint;
+			for (TableBean table : tables) {
+
+				for(TableColumnBean column:table.columns)
+				{
+					if ((p.x >= column.x && p.x <= column.x1)
+							&& (p.y >= column.y && p.y <= column.y1)) {
+						if(column.relateColumnBeans==null || column.relateColumnBeans.size()==0)
+						{
+							column.relateColumnBeans=new ArrayList();
+							column.relateColumnBeans.add(startColumnBean);
+						}else
+						{
+							
+							column.relateColumnBeans.add(startColumnBean);
+						}
+						
+
+					}
+				}
+			}
+			this.repaint();
+			
+			
+			
+		}
 	}
 
 
-	int count=0;
+
 	Point startPoint;
 	Point endPoint;
+	TableColumnBean startColumnBean;
+
 	//鼠标移动事件
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(count==0)
-		{
-			startPoint = e.getPoint();
-		count++;
-		}else
-		{
-			endPoint=e.getPoint();
-			count=0;
-		}
-	
+		
+		
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.compoment.db.tabledocinterfacedoc;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.util.List;
 
 public class TableColumnBean {
 	
@@ -33,6 +34,8 @@ public class TableColumnBean {
 	public int y;
 	public int x1;
 	public long time;
+	
+	public List<TableColumnBean>  relateColumnBeans;//与其连线的ColumnBean
 	
 	/**left right null*/
 	public String leftOrRightClickSelected=null;
