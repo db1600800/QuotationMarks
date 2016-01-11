@@ -23,7 +23,8 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 
-public class DBTableRelativePanel extends JPanel implements MouseListener, MouseMotionListener  {
+public class DBTableRelativePanel extends JPanel implements MouseListener,
+		MouseMotionListener {
 
 	Graphics2D g2;
 	List<TableBean> tables;
@@ -42,15 +43,14 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 		Rectangle2D bounds = getBounds();
 
 		for (TableBean table : tables) {
-			
-			//画Table名字
+
+			// 画Table名字
 			g2.setColor(Color.black);
 			g2.setFont(new Font("宋体", Font.BOLD, 11)); // 改变字体大小
 			g2.drawString(table.tableCnName + "(" + table.tableEnName + ""
 					+ table.id + ")", table.tableCnNameX, table.tableCnNameY);
 
-		
-            //画Table边框
+			// 画Table边框
 			// top
 			g2.draw(new Line2D.Double(new Point2D.Double(table.x, table.y),
 					new Point2D.Double(table.x1, table.y)));
@@ -66,22 +66,24 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 
 			for (TableColumnBean column : table.columns) {
 				// 背景色
-				if ("left".equals(column.leftOrRightClickSelected )) {
+				if ("left".equals(column.leftOrRightClickSelected)) {
 					g2.setColor(Color.red);
-					g2.fillRect(column.x, column.y, column.x1-column.x, column.y1-column.y);
-					
-				} else if ("right".equals(column.leftOrRightClickSelected )) {
+					g2.fillRect(column.x, column.y, column.x1 - column.x,
+							column.y1 - column.y);
+
+				} else if ("right".equals(column.leftOrRightClickSelected)) {
 					g2.setColor(Color.green);
-					g2.fillRect(column.x, column.y, column.x1-column.x, column.y1-column.y);
-					
-				}else
-				{
+					g2.fillRect(column.x, column.y, column.x1 - column.x,
+							column.y1 - column.y);
+
+				} else {
 					g2.setColor(Color.LIGHT_GRAY);
-					g2.fillRect(column.x, column.y, column.x1-column.x, column.y1-column.y);
-					
+					g2.fillRect(column.x, column.y, column.x1 - column.x,
+							column.y1 - column.y);
+
 				}
-				
-				//画Column边框
+
+				// 画Column边框
 				g2.setColor(Color.black);
 				// top
 				g2.draw(new Line2D.Double(
@@ -98,7 +100,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 				g2.draw(new Line2D.Double(new Point2D.Double(column.x1,
 						column.y), new Point2D.Double(column.x1, column.y1)));
 
-				//画文字
+				// 画文字
 				g2.setFont(new Font("宋体", Font.BOLD, 11)); // 改变字体大小
 				g2.setColor(Color.black);
 				g2.drawString(column.columnCnName, column.columnCnNameX,
@@ -107,31 +109,30 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 						column.columnEnNameY);
 				g2.drawString(column.type, column.typeX, column.typeY);
 				g2.drawString(column.key, column.keyX, column.keyY);
-				
-				
-				//画连线
-                if(column.relateColumnBeans!=null && column.relateColumnBeans.size()>0)
-                {
-                	for(TableColumnBean relateColumn:column.relateColumnBeans)
-                	{
-                		
-                		
-                	int currentX=column.x+(column.x1-column.x)/2;
-                	int currentY=column.y+(column.y1-column.y)/2;
-                	int startX=relateColumn.x+(relateColumn.x1-relateColumn.x)/2;
-                	int startY=relateColumn.y+(relateColumn.y1-relateColumn.y)/2;
-                	
-                	g2.draw(new Line2D.Double( new Point2D.Double(196,170),new Point2D.Double(196,62)));
-                	
-//                	g2.draw(new Line2D.Double(new Point2D.Double(column.x+(column.x1-column.x)/2,
-//    						column.y+(column.y1-column.y)/2), new Point2D.Double(relateColumn.x+(relateColumn.x1-relateColumn.x)/2,
-//    								relateColumn.y+(relateColumn.y1-relateColumn.y)/2)));
-                	}
-                }
+
 			}
 
-			
+		}
 
+		for (TableBean table : tables) {
+			for (TableColumnBean column : table.columns) {
+
+				// 画连线
+				if (column.relateColumnBeans != null
+						&& column.relateColumnBeans.size() > 0) {
+					for (TableColumnBean relateColumn : column.relateColumnBeans) {
+
+						g2.draw(new Line2D.Double(new Point2D.Double(column.x
+								+ (column.x1 - column.x) / 2, column.y
+								+ (column.y1 - column.y) / 2),
+								new Point2D.Double(relateColumn.x
+										+ (relateColumn.x1 - relateColumn.x)
+										/ 2, relateColumn.y
+										+ (relateColumn.y1 - relateColumn.y)
+										/ 2)));
+					}
+				}
+			}
 		}
 
 	}
@@ -290,21 +291,18 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 		}
 	};
 
-
-	
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		if( startPoint.x!=endPoint.x||startPoint.y!=endPoint.y)
+
+		if (startPoint.x != endPoint.x || startPoint.y != endPoint.y)
 			return;
-		
+
 		int c = e.getButton();// 得到按下的鼠标键
 		String mouseInfo = null;// 接收信息
 		if (c == MouseEvent.BUTTON1)// 判断是鼠标左键按下
 		{
 			// mouseInfo = "左键";
-			
-			
+
 			Point p = e.getPoint();
 			for (TableBean table : tables) {
 
@@ -317,20 +315,17 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 					}
 
 				}
-				
-				
-				
-				for(TableColumnBean column:table.columns)
-				{
+
+				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						if ("left".equals(column.leftOrRightClickSelected ) ) {
+						if ("left".equals(column.leftOrRightClickSelected)) {
 							column.leftOrRightClickSelected = null;
-						} else if ("right".equals(column.leftOrRightClickSelected ) ){
-							column.leftOrRightClickSelected  = "left";
-						}else
-						{
-							column.leftOrRightClickSelected  = "left";
+						} else if ("right"
+								.equals(column.leftOrRightClickSelected)) {
+							column.leftOrRightClickSelected = "left";
+						} else {
+							column.leftOrRightClickSelected = "left";
 						}
 
 					}
@@ -338,10 +333,10 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 			}
 
 			this.repaint();
-			
+
 		} else if (c == MouseEvent.BUTTON3) {// 判断是鼠标右键按下
 			// mouseInfo = "右键";
-			
+
 			Point p = e.getPoint();
 			for (TableBean table : tables) {
 
@@ -354,20 +349,17 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 					}
 
 				}
-				
-				
-				
-				for(TableColumnBean column:table.columns)
-				{
+
+				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						if ("left".equals(column.leftOrRightClickSelected ) ) {
+						if ("left".equals(column.leftOrRightClickSelected)) {
 							column.leftOrRightClickSelected = "right";
-						} else if ("right".equals(column.leftOrRightClickSelected ) ){
-							column.leftOrRightClickSelected  = null;
-						}else
-						{
-							column.leftOrRightClickSelected  = "right";
+						} else if ("right"
+								.equals(column.leftOrRightClickSelected)) {
+							column.leftOrRightClickSelected = null;
+						} else {
+							column.leftOrRightClickSelected = "right";
 						}
 
 					}
@@ -394,87 +386,72 @@ public class DBTableRelativePanel extends JPanel implements MouseListener, Mouse
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标按下.\n");
-		System.out.println("start"+e.getPoint().x+":"+e.getPoint().y);
+		System.out.println("start" + e.getPoint().x + ":" + e.getPoint().y);
 		startPoint = e.getPoint();
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标松开.\n");
-	
-		endPoint=e.getPoint();
-		
-		if( startPoint.x!=endPoint.x||startPoint.y!=endPoint.y)
-		{//滑动
-			System.out.println("start"+e.getPoint().x+":"+e.getPoint().y);
-			//起点
+
+		endPoint = e.getPoint();
+
+		if (startPoint.x != endPoint.x || startPoint.y != endPoint.y) {// 滑动
+			System.out.println("start" + e.getPoint().x + ":" + e.getPoint().y);
+			// 起点
 			Point p = startPoint;
 			for (TableBean table : tables) {
 
-				for(TableColumnBean column:table.columns)
-				{
+				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						startColumnBean=column;
+						startColumnBean = column;
 
 					}
 				}
 			}
-			
-			
-			
-			
-			
-			
-			//终点
-			 p = endPoint;
+
+			// 终点
+			p = endPoint;
 			for (TableBean table : tables) {
 
-				for(TableColumnBean column:table.columns)
-				{
+				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						if(column.relateColumnBeans==null || column.relateColumnBeans.size()==0)
-						{
-							column.relateColumnBeans=new ArrayList();
+						if (column.relateColumnBeans == null
+								|| column.relateColumnBeans.size() == 0) {
+							column.relateColumnBeans = new ArrayList();
 							column.relateColumnBeans.add(startColumnBean);
-						}else
-						{
-							
+						} else {
+
 							column.relateColumnBeans.add(startColumnBean);
 						}
-						
 
 					}
 				}
 			}
 			this.repaint();
-			
-			
-			
+
 		}
 	}
-
-
 
 	Point startPoint;
 	Point endPoint;
 	TableColumnBean startColumnBean;
 
-	//鼠标移动事件
+	// 鼠标移动事件
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-	
+
 		// 获得鼠标的位置
-		
+
 	}
 
 }
