@@ -134,6 +134,10 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 				}
 			}
 		}
+		
+		
+		
+		
 
 	}
 

@@ -126,6 +126,7 @@ public class Main extends JFrame {
 		JButton queryRelateButton = new JButton("查询");
 		queryRelateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		
