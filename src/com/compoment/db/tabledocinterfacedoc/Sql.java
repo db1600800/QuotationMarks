@@ -6,13 +6,55 @@ import java.util.List;
 
 public class Sql {
 	
-	
-	public void createQuerySql(	List<TableBean> tables)
+	public String createTableSql(List<TableBean> tables)
 	{
 		
-		String show = null;
-		String condition=null;
-		String relate=null;
+		String show = "";
+		String condition="";
+		String relate="";
+		
+		
+		for (TableBean table : tables) {
+			
+		
+			for (TableColumnBean column : table.columns) {
+
+				if("left".equals(column.leftOrRightClickSelected))
+				{
+					show+=" "+column.belongWhichTable.tableEnName+"."+column.columnEnName+",";
+					
+				}else if("right".equals(column.leftOrRightClickSelected))
+				{
+					condition+=" "+column.belongWhichTable.tableEnName+"."+column.columnEnName+"= ,and";
+				}else
+				{
+					
+				}
+				
+
+			}
+		}
+		
+		String sql="select "+show.substring(0, show.lastIndexOf(","))+" from "+relate+" where "+condition.substring(0, condition.lastIndexOf(",and"));
+		
+		System.out.println("建表:"+sql);
+		
+		return sql;
+		//select * from student ,course where student.ID=course.ID
+		
+		//select s.Name,C.Cname from student_course as sc left join student as s on s.Sno=sc.Sno left join course as c on c.Cno=sc.Cno
+	}
+	
+	
+	
+	
+	
+	public String createQuerySql(	List<TableBean> tables)
+	{
+		
+		String show = "";
+		String condition="";
+		String relate="";
 		
 		
 		for (TableBean table : tables) {
@@ -61,6 +103,9 @@ public class Sql {
 		
 		String sql="select "+show.substring(0, show.lastIndexOf(","))+" from "+relate+" where "+condition.substring(0, condition.lastIndexOf(",and"));
 		
+		System.out.println("查询:"+sql);
+		
+		return sql;
 		//select * from student ,course where student.ID=course.ID
 		
 		//select s.Name,C.Cname from student_course as sc left join student as s on s.Sno=sc.Sno left join course as c on c.Cno=sc.Cno

@@ -38,6 +38,11 @@ public class Main extends JFrame {
 	DBTablesPanel dbTablesPanel;
 	DBTableRelativePanel dbTableRelativePanel;
 	private JTextField sqlResultEditText;
+	
+	JButton addToRelateTablesView;
+	JButton removeFromRelateTablesView;
+	JButton queryRelateButton  ;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -123,12 +128,8 @@ public class Main extends JFrame {
 					.addContainerGap(90, Short.MAX_VALUE))
 		);
 		
-		JButton queryRelateButton = new JButton("查询");
-		queryRelateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		 queryRelateButton = new JButton("查询");
+	
 		
 		JButton deleteRelateButton = new JButton("删除");
 		
@@ -175,22 +176,17 @@ public class Main extends JFrame {
 		dbTableRelativePanel.setPreferredSize(new Dimension(1000,1000));
 		scrollPane_1.setViewportView(dbTableRelativePanel);
 		
-		JButton addToRelateTablesView = new JButton("");
-		addToRelateTablesView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dbTableRelativePanel.setDBTables(dbTablesPanel.tables);
-				dbTablesPanel.cleanSelectTables();
-			}
-		});
+		//选择到表关系页
+		addToRelateTablesView = new JButton("");
 		addToRelateTablesView.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
 		
-		JButton removeFromRelateTablesView = new JButton("");
-		removeFromRelateTablesView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dbTableRelativePanel.cleanDBTables();
-			}
-		});
+		
+		//从表关系页移除
+		 removeFromRelateTablesView = new JButton("");
 		removeFromRelateTablesView.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
+		
+		
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -216,8 +212,43 @@ public class Main extends JFrame {
 		 dbTablesPanel.setBackground(Color.LIGHT_GRAY);
 		 scrollPane.setViewportView(dbTablesPanel);
 		contentPane.setLayout(gl_contentPane);
+		
+		init();
 	}
 	
+	
+	
+	
+	public void init(){
+		
+	//选择到表关系
+	addToRelateTablesView.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			dbTableRelativePanel.setDBTables(dbTablesPanel.tables);
+			dbTablesPanel.cleanSelectTables();
+		}
+	});
+	
+	
+	//从表关系页移除
+			
+			removeFromRelateTablesView.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dbTableRelativePanel.cleanDBTables();
+				}
+			});
+	
+	//表关系查询
+	queryRelateButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			Sql sql=new Sql();
+			String query=sql.createQuerySql(dbTableRelativePanel.tables);
+			sqlResultEditText.setText(query);
+			
+		}
+	});
+	
+	}
 	
 	public void getDBTables()
 	{
