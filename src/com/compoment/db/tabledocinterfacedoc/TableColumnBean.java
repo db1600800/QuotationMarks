@@ -35,6 +35,8 @@ public class TableColumnBean {
 	public int x1;
 	public long time;
 	
+	public TableBean belongWhichTable;
+	
 	public List<TableColumnBean>  relateColumnBeans;//与其连线的ColumnBean
 	
 	/**left right null*/

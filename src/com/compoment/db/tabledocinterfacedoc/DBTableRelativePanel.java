@@ -65,6 +65,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 					new Point2D.Double(table.x1, table.y1)));
 
 			for (TableColumnBean column : table.columns) {
+				column.belongWhichTable=table;
 				// 背景色
 				if ("left".equals(column.leftOrRightClickSelected)) {
 					g2.setColor(Color.red);
@@ -410,7 +411,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
 						startColumnBean = column;
-
+						
 					}
 				}
 			}
