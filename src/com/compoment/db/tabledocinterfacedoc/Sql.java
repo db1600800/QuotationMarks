@@ -37,15 +37,19 @@ public class Sql {
 			
 				if (column.relateColumnBeans != null
 						&& column.relateColumnBeans.size() > 0) {
+					
+					relate+=column.belongWhichTable.tableEnName;
 					//关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
 
 						if(column.relateColumnBeans.size()==1)
 						{//两表
 							
+							relate+=" inner join "+relateColumn.belongWhichTable.tableEnName+" on "+column.belongWhichTable.tableEnName+"."+column.columnEnName+"="+relateColumn.belongWhichTable.tableEnName+"."+relateColumn.columnEnName;
 							
 						}else if(column.relateColumnBeans.size()>1)
 						{//三表或以上
+							relate+=" left join "+relateColumn.belongWhichTable.tableEnName+" on "+column.belongWhichTable.tableEnName+"."+column.columnEnName+"="+relateColumn.belongWhichTable.tableEnName+"."+relateColumn.columnEnName;
 							
 						}
 				
@@ -55,6 +59,7 @@ public class Sql {
 			}
 		}
 		
+		String sql="select "+show.substring(0, show.lastIndexOf(","))+" from "+relate+" where "+condition.substring(0, condition.lastIndexOf(",and"));
 		
 		//select * from student ,course where student.ID=course.ID
 		
