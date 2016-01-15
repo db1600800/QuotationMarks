@@ -225,6 +225,10 @@ public class Main extends JFrame {
 	addToRelateTablesView.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			dbTableRelativePanel.setDBTables(dbTablesPanel.tables);
+			
+			Sql sql=new Sql();
+			sql.createTableSql(dbTablesPanel.tables);
+			
 			dbTablesPanel.cleanSelectTables();
 		}
 	});
