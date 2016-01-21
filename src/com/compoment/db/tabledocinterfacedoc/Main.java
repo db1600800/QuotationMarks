@@ -42,6 +42,9 @@ public class Main extends JFrame {
 	JButton addToRelateTablesView;
 	JButton removeFromRelateTablesView;
 	JButton queryRelateButton  ;
+	JButton deleteRelateButton ;
+	JButton updateRelateButton ;
+	JButton addRelateButton ;
 	
 	/**
 	 * Launch the application.
@@ -131,11 +134,13 @@ public class Main extends JFrame {
 		 queryRelateButton = new JButton("查询");
 	
 		
-		JButton deleteRelateButton = new JButton("删除");
+		 deleteRelateButton = new JButton("删除");
 		
-		JButton updateRelateButton = new JButton("更新");
 		
-		JButton addRelateButton = new JButton("新增");
+		 updateRelateButton = new JButton("更新");
+		
+		
+		 addRelateButton = new JButton("新增");
 		
 		sqlResultEditText = new JTextField();
 		sqlResultEditText.setColumns(10);
@@ -251,6 +256,30 @@ public class Main extends JFrame {
 			
 		}
 	});
+	
+	//删除
+	 deleteRelateButton = new JButton("删除");
+	deleteRelateButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	});
+	
+	
+	 updateRelateButton = new JButton("更新");
+	updateRelateButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		}
+	});
+	
+	
+	
+	 addRelateButton = new JButton("新增");
+	addRelateButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		}
+	});
+	
 	
 	}
 	
