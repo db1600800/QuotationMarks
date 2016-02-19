@@ -135,12 +135,11 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 				}
 			}
 		}
-		
-		
-		
-		
-
 	}
+	
+	
+	
+	
 
 	public void cleanDBTables() {
 		tables.clear();

@@ -204,6 +204,110 @@ public class cssToJsp {
 	
 	
 	
+	
+	
+	
+	/**
+	 * .swiper { positionk };
+	 * */
+	
+	public String cssToObject(String pathCss, String keyName) {
+
+
+		FileReader frCss = null;
+		BufferedReader brCss=null;
+		try {
+
+			frCss = new FileReader(pathCss);
+
+			 brCss = new BufferedReader(frCss);
+	
+
+			while (brCss.ready()) {
+
+				
+
+				String txt = brCss.readLine();// ".swiper { positionk }";
+
+				//1.没有点 . (纯标签)
+				if(txt.indexOf(".")!=-1)
+				{
+					 String re1="(.*?)";	// Non-greedy match on filler
+					    String re2="(\\{)";	// Any Single Character 1
+					    String re3="(.*)";	// Variable Name 1
+					    String re4="(\\})";	// Any Single Character 2
+
+					    Pattern p = Pattern.compile(re1+re2+re3+re4,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+					    Matcher m = p.matcher(txt);
+					    if (m.find())
+					    {
+					        String c1=m.group(1);
+					        String var1=m.group(2);
+					        String c2=m.group(3);
+					        String c3=m.group(4);
+					       
+					        
+					       String cleanTag[]= c1.split(",");
+					       
+					       for(int i=0;i<cleanTag.length;i++)
+					       {
+					    	   
+					       CssNode cssNode=new CssNode();
+					       cssNode.name=cleanTag[i];
+					       
+					       }
+					    }
+					
+				}
+				
+				
+				
+				String re1 = "(\\.)"; // Any Single Character 1
+				String re2 = "(" + keyName + ")"; // Word 1
+				String re3 = "(\\s*)"; // White Space 1
+				String re4 = "(\\{)"; // Any Single Character 2
+				String re5 = "(\\s*)"; // White Space 2
+				String re6 = "(.*)"; // Variable Name 1
+				String re7 = "(\\s*)"; // White Space 3
+				String re8 = "(\\})"; // Any Single Character 3
+
+				Pattern p = Pattern.compile(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8,
+						Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+				Matcher m = p.matcher(txt);
+				if (m.find()) {
+
+					String c1 = m.group(1);
+					String word1 = m.group(2);
+					String ws1 = m.group(3);
+					String c2 = m.group(4);
+					String ws2 = m.group(5);
+					String var1 = m.group(6);
+					String ws3 = m.group(7);
+					String c3 = m.group(8);
+
+					brCss.close();
+					frCss.close();
+					
+					return var1;
+				}
+				
+			
+			}
+			
+			brCss.close();
+			frCss.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "";
+	}
+	
 	public class CssNode
 	{
 		String name;
@@ -211,6 +315,7 @@ public class cssToJsp {
 		String cssString;
 		List<CssNode> nodes; 	
 	}
+	
 	
 	
 	
