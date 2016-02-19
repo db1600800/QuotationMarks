@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +41,9 @@ public class cssToJsp {
 				jspline = brJsp.readLine();
 
 				if (jspline.length() >= 1 && jspline.contains("class=\"")) {
+					//img  a  ol  li  body  table  input  h1  h2  h3 h4  textarea  select  strong  span th  td  header  dd  dt
+				}
+				else if (jspline.length() >= 1 && jspline.contains("class=\"")) {
 
 					int startP = jspline.indexOf("class=\"");
 					String temp = jspline.substring(startP + 7);
@@ -197,4 +201,17 @@ public class cssToJsp {
 		}
 	}
 
+	
+	
+	
+	public class CssNode
+	{
+		String name;
+		boolean hasChirld;
+		String cssString;
+		List<CssNode> nodes; 	
+	}
+	
+	
+	
 }
