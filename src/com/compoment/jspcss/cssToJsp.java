@@ -272,7 +272,6 @@ public class cssToJsp {
 				    
 				    
 				    String txt=".showmenu a .menuwrap-df df{ a }";
-
 				    String re1="(\\.)";	// Any Single Character 1
 				    String re2="([\\w\\-]+\\s?\\w*)";	// Variable Name 1 
 
