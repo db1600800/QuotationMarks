@@ -96,10 +96,6 @@ public class cssToJsp {
 	public static void main(String[] args) {
 
 		cssToJsp cssToJsp = new cssToJsp();
-
-		
-		
-		
 		cssToJsp.cssToObject();
 	}
 
@@ -204,7 +200,7 @@ public class cssToJsp {
 			while (brCss.ready()) {
 				String txt = brCss.readLine();// ".swiper { positionk }";
 
-				// 1.没有点 . (纯标签)
+				// 1.没有点 . (纯标签)  a{} 
 				if (txt.indexOf(".") == -1) {
 					String re1 = "(.*?)"; // Non-greedy match on filler
 					String re2 = "(\\{)"; // Any Single Character 1
@@ -245,98 +241,100 @@ public class cssToJsp {
 						}
 					}
 
-				}
-				
-				
-				
-				
-//			    String txt=".showmenu a .menuwrap { a }";
-				//
-//				    String re1="(\\.)";	// Any Single Character 1
-//				    String re2="(.*)";	// Variable Name 1 
-//				    String re3="(\\.)";	// White Space 1
-				//
-//				    Pattern p = Pattern.compile(re1+re2+re3,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-//				    Matcher m = p.matcher(txt);
-//				    while (m.find())
-//				    {
-//				        String c1=m.group(1);
-//				        String var1=m.group(2);
-//				        String ws1=m.group(3);
-//				     
-//				       
-//				        System.out.print("("+c1.toString()+")"+"("+var1.toString()+")"+"("+ws1.toString()+")\n");
-//				    }
-				//    
-				    
-				    
-				    
-				    String txt=".showmenu a .menuwrap-df df{ a }";
+				}else
+				{
+					
+				// 2.只有点
+					
+					List keys=new ArrayList();
+					
+				//情况1 ".showmenu a .menuwrap { ddb }";
+					
+					
+					
 				    String re1="(\\.)";	// Any Single Character 1
-				    String re2="([\\w\\-]+\\s?\\w*)";	// Variable Name 1 
-
-				    String re3="(\\{)";	// White Space 1
+				    String re2="(.*)";	// Variable Name 1 
+				    String re3="(\\.)";	// White Space 1
+				
 				    
 				    Pattern p = Pattern.compile(re1+re2+re3,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 				    Matcher m = p.matcher(txt);
 				    while (m.find())
 				    {
-				        String c1=m.group(1);
-				        String var1=m.group(2);
-				        String ws1=m.group(3);
+				        String c1=m.group(2);
+				    
 				     
-				       
-				        System.out.print("("+c1.toString()+")"+"("+var1.toString()+")"+"("+ws1.toString()+")\n");
+				      
+						String names[]=c1.trim().split(" ");
+						String newname="";
+						if(names.length==1)
+						{
+							newname+=names[0];
+						}else
+						{
+						for(int j=0;j<names.length;j++)
+						{
+							
+							newname+=names[j]+"/";
+						}
+						}
+						
+						keys.add("."+newname);
+				    }
+				    
+				    
+				    
+				    //情况2 ".showmenu a .menuwrap-df df{ a }";
+				    
+				    String re11="(\\.)";	// Any Single Character 1
+				    String re21="([\\w\\-]+\\s?\\w*)";	// Variable Name 1 
+				    String re31="(\\{)";	// White Space 1
+					String re41 = "(.*)"; // Variable Name 1
+					String re51 = "(\\})"; // Any Single Character 2
+					
+				    Pattern p1 = Pattern.compile(re11+re21+re31+re41+re51,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+				    Matcher m1 = p1.matcher(txt);
+				    String cssvalue="";
+				    if (m1.find())
+				    {
+				        String c1=m1.group(2);
+				 
+				        cssvalue=m1.group(4);
+				     
+
+						String names[]=c1.trim().split(" ");
+						String newname="";
+						if(names.length==1)
+						{
+							newname+=names[0];
+						}else
+						{
+						for(int j=0;j<names.length;j++)
+						{
+							
+							newname+=names[j]+"/";
+						}
+						}
+						
+						keys.add("."+newname);
+				   
 				    }
 				    
 				    
 				
+				    for(int i=0;i<keys.size();i++)
+				    {
+				    	
+				    	CssNode cssNode = new CssNode();
+						cssNode.name =(String) keys.get(i);
+						cssNode.cssString = cssvalue;
+						csss.add(cssNode);
+				    }
 				
 				
-				// 2.只有点 . (纯标签)
-				if (txt.indexOf(".") == -1) {
-					String re1 = "(.*?)"; // Non-greedy match on filler
-					String re2 = "(\\{)"; // Any Single Character 1
-					String re3 = "(.*)"; // Variable Name 1
-					String re4 = "(\\})"; // Any Single Character 2
-
-					Pattern p = Pattern.compile(re1 + re2 + re3 + re4, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-					Matcher m = p.matcher(txt);
-					if (m.find()) {
-						String c1 = m.group(1);
-						String var1 = m.group(2);
-						String c2 = m.group(3);
-						String c3 = m.group(4);
-
-						String cleanTag[] = c1.split(",");
-
-						for (int i = 0; i < cleanTag.length; i++) {
-
-							CssNode cssNode = new CssNode();
-							cssNode.name = cleanTag[i].trim();
-							String names[]=cssNode.name.split(" ");
-							String newname="";
-							if(names.length==1)
-							{
-								newname+=names[0];
-							}else
-							{
-							for(int j=0;j<names.length;j++)
-							{
-								
-								newname+=names[j]+"/";
-							}
-							}
-							cssNode.name=newname;
-							cssNode.cssString = c2;
-							csss.add(cssNode);
-
-						}
-					}
-
+				
+				
 				}
-				
-				
 				
 				
 				
