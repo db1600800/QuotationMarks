@@ -258,7 +258,7 @@ public class cssToJsp {
 				
 				    
 				    Pattern p = Pattern.compile(re1+re2+re3,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-				    Matcher m = p.matcher(txt);
+				    Matcher m = p.matcher(txt.substring(0, txt.indexOf("{")));
 				    while (m.find())
 				    {
 				        String c1=m.group(2);
@@ -287,7 +287,7 @@ public class cssToJsp {
 				    //情况2 ".showmenu a .menuwrap-df df{ a }";
 				    
 				    String re11="(\\.)";	// Any Single Character 1
-				    String re21="([\\w\\-]+\\s?\\w*)";	// Variable Name 1 
+				    String re21="([\\w\\-]+\\s?\\w*\\s?\\w*\\s?)";	// Variable Name 1 
 				    String re31="(\\{)";	// White Space 1
 					String re41 = "(.*)"; // Variable Name 1
 					String re51 = "(\\})"; // Any Single Character 2
