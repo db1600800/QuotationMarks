@@ -16,16 +16,12 @@ public class cssToJsp {
 
 	}
 
-
-
 	public static void main(String[] args) {
 
 		cssToJsp cssToJsp = new cssToJsp();
 		cssToJsp.cssToObject();
 		cssToJsp.jsp();
 	}
-
-
 
 	public static boolean isinteger(String value) {
 		try {
@@ -36,12 +32,10 @@ public class cssToJsp {
 		}
 	}
 
-	// 第二种方法
-
 	List<CssNode> csss = new ArrayList();
 
 	/**
-	 * .swiper { positionk };
+	 * .swiper { positionk }; css文件变对象
 	 */
 	public String cssToObject() {
 
@@ -215,19 +209,57 @@ public class cssToJsp {
 			while (brJsp.ready()) {
 				jspline = brJsp.readLine();
 
-				//System.out.println(jspline);
+				newJsp += jspline + "\n";
+
+			}
+
+			brJsp.close();
+			frJsp.close();
+
+			//System.out.println(newJsp);
+			
+			String lines[] = newJsp.split("\n");
+			lines=jsp2(lines);
+			lines=jsp3(lines);
+			
+			for(String line:lines)
+			{
+				System.out.println(line);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	public String[] jsp3(String lines[]) {
+
+	
+		
+
+			
+			String jspline = "";
+			boolean start = false;
+			for (int i = 0; i < lines.length; i++)
+
+			{
+				jspline = lines[i];
+
+				// System.out.println(jspline);
 				// img a ol li body table input h1 h2 h3 h4 textarea select
 				// strong span th td header dd dt
 
 				// 没有点 （标签样式）
 				for (CssNode cssNode : csss) {
-					
-					
-					if (jspline.contains("<" + cssNode.name )) {// 没有点
-																		// （标签样式）
+
+					if (jspline.contains("<" + cssNode.name)) {// 没有点
+																// （标签样式）
 						if (!jspline.contains("style=\"")) {
 
-							jspline = jspline.replace("<" + cssNode.name ,
+							jspline = jspline.replace("<" + cssNode.name,
 									"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\"") + "\n";
 
 						} else {
@@ -250,7 +282,7 @@ public class cssToJsp {
 
 								if (!jspline.contains("style=\"")) {
 
-									jspline = jspline.replace("<" + cssNode.name ,
+									jspline = jspline.replace("<" + cssNode.name,
 											"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\" ") + "\n";
 
 								} else {
@@ -264,21 +296,75 @@ public class cssToJsp {
 					}
 				}
 
-				
-				
+			
+				lines[i]=jspline;
+			}
 
-				newJsp += jspline + "\n";
+		
+
+			
+         return lines;
+		
+	}
+
+	public String[] jsp2(String lines[]) {
+
+		for (CssNode cssNode : csss) {
+
+			if (cssNode.name.indexOf("/") != -1) {
+				String names[] = cssNode.name.split("/");
+
+				
+				String jspline = "";
+				boolean start = false;
+				for (int i = 0; i < lines.length; i++)
+
+				{
+					jspline = lines[i];
+
+					// System.out.println(jspline);
+					// img a ol li body table input h1 h2 h3 h4 textarea select
+					// strong span th td header dd dt
+
+					if (jspline.length() >= 1 && jspline.contains("class=\"")) {
+
+						String classStringStart = jspline.substring(jspline.indexOf("class=\"") + 7);
+
+						String classString = classStringStart.substring(0, classStringStart.indexOf("\""));
+
+						for (String classStringpart1 : classString.split(" ")) {
+							if (classStringpart1.equals(names[0].substring(1))) {
+								start = true;
+								continue;
+							}
+						}
+					}
+
+					if (jspline.contains("<" + names[names.length - 1])) {
+						// （标签样式）
+						if (!jspline.contains("style=\"")) {
+
+							jspline = jspline.replace("<" + cssNode.name,
+									"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\"") + "\n";
+
+						} else {
+							jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
+						}
+						
+						break;
+					}
+
+					
+					
+					 lines[i]=jspline;
+				}
 
 			}
 
-			brJsp.close();
-			frJsp.close();
-
-			System.out.println(newJsp);
-
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+
+		
+            return lines;
 	}
 
 	public class CssNode {
