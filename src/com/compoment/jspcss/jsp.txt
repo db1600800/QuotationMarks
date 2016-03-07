@@ -1,90 +1,105 @@
-<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>   
-<%@page import="java.util.*"%>
-<%
-    response.setHeader("Cache-Control","no-cache");
-    response.setHeader("Pragma","no-cache");
-    response.setDateHeader ("Expires", -1);
-%>
+<%@ page import="java.util.*"%>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset='utf-8'>
-	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, ">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<META Http-Equiv="Cache-Control" Content="no-cache"/>
-	<META Http-Equiv="Pragma" Content="no-cache"/>
-	<META Http-Equiv="Expires" Content="0"/>
-	<title>订单生成</title>
-	<link href="/chinapost/jiyouwx/css/css.css?v=1.1.1" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
-		<%-- 统一错误处理 --%>
-	<%@include file="/chinapost/jiyouwx/global_error.jsp"%>
-	<style type="text/css">
-	.checkbox_sty {
-		visibility:hidden;
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>修改密码</title>
+<link href="/chinapost/jiyouwx/css/css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+function onBridgeReady(){
+	 WeixinJSBridge.call('hideOptionMenu');
+}
+if (typeof WeixinJSBridge == "undefined"){
+   if( document.addEventListener ){
+       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+   }else if (document.attachEvent){
+       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+       document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+   }
+}else{
+   onBridgeReady();
+}
+</script>
+<script>
+var click_once = true;
+function save(){
+	if(click_once == false){
+		return; 
 	}
-	</style>
+
+	var oldPassword = $("#oldPassword").val();
+	oldPassword = oldPassword.replace(/\s/ig,'');
+	var newPassword = $("#newPassword").val();
+	newPassword = newPassword.replace(/\s/ig,'');
+	var newPassword2 = $("#newPassword2").val();
+	newPassword2 = newPassword2.replace(/\s/ig,'');
+
+	if(oldPassword == ""){
+		auto_msg("请输入原密码！");
+		return;
+	}
+
+	if(newPassword == "" ){
+		auto_msg("请输入新密码！");
+		return;
+	}
+
+	if(newPassword.length<6 ){
+		auto_msg("密码长度需大于等于6位！");
+		return;
+	}
+
+	if(newPassword2 == "" ){
+		auto_msg("请再次输入新密码！");
+		return;
+	}
+
+	if(newPassword2 != newPassword ){
+		auto_msg("两次输入的新密码不一致！");
+		return;
+	}
+
+	click_once = false;
+	var my_msg = show_hide_msg("数据提交中，请稍候...");
+	var myform = document.forms[0]; 
+   	myform.action='/jiyou/wx/MemberAction!changePassword.do?';  
+   	myform.submit();
+   	my_msg = null;
+}
+
+function changePwSuccess(){
+	var my_msg = show_hide_msg("页面跳转中，请稍候...");
+   window.location.href = "/jiyou/wx/MemberAction!init.do?";
+   my_msg = null;
+}
+</script>
 </head>
-
 <body>
-	<form action="" id="order_seccess_action_form" method="POST">
-	
-	<header>订单生成</header><div class="h45">&nbsp;</div>
-	
-	<s:iterator value="#request.RcvBodyJY0038_vo.orderNoNumList" var="c" status="st">
-		<div class="m20 f6">
-			订单号：<s:property value="#c.orderNo"/><br>
-			订单金额：￥<s:property value="#c.orderTotalAmount"/>元<br>
-			支付方式：在线支付
-			<input type="hidden" name="orderNo" value='<s:property value="#c.orderNo"/>' />			
-		</div>
-	</s:iterator>
-	<!--
-	<div class="m20 f6">订单总金额：￥<s:property value="#request.RcvBodyJY0038_vo.allAmount"/><br></div>
-	-->
-	
-	<s:if test="#request.RcvBodyJY0038_vo.payStatus == '02' ">
-		<a href="javascript:void(0);" onclick="pay_now();" class="btn02">去支付</a>
-		
-		<input type="hidden" name="payMode" value='01' />			
-		<input type="hidden" name="payType" value='62' />			
-	</s:if>
-	<s:else>
-		<div class="bw pd10 borderB mt20 color9">
-  			<p class="red">您的订单是摇号订单，中签后将通知您支付</p>
-  		</div>
-	</s:else>
-	<a href="/jiyou/wx/merchQryAction!index.do" class="btn02">返回首页</a>
-	<a href="/jiyou/wx/MemberAction!init.do" class="btn02">会员专区</a>
-	
-	
-	<!--猜您喜欢-->
-	<%@include file="/chinapost/jiyouwx/plugin/guess_you_like.jsp"%>
-	
-	<div class="blank50">&nbsp;</div>
+<form action="" id="changePw"  method="post">
+<header><img src="/chinapost/jiyouwx/images/back.png" onclick="window.location.href='/jiyou/wx/MemberAction!init.do';" class="back">修改密码</header>
+<div class="h45">&nbsp;</div>
+<ul class="box03 ul01 ul02">
+<li><strong class="red">*</strong>旧密码：
+  <input type="password" class="input01" id="oldPassword" name="oldPassword" maxlength="20" placeholder="请输入原密码"></li>
+<li><strong class="red">*</strong>新密码：
+  <input type="password" class="input01" id="newPassword" name="newPassword" maxlength="12" placeholder="请输入新密码">
+  </li>
+<li><strong class="red">*</strong>重复密码：
+  <input type="password" class="input01" id="newPassword2" maxlength="12" placeholder="请再次输入新密码">
+  </li>
 
-	
-	</form>
-		
-	<script type="text/javascript">
-	 	  
-	var only_one_sub_pay = true; //防重复提交
-	function pay_now(){
-		if(!only_one_sub_pay){
-			return;//防重复提交
-		}  
-		only_one_sub_pay = false;//防重复提交
-		
-		var my_msg = show_hide_msg("数据提交中，请稍候...");
-		var myform = $("#order_seccess_action_form"); 
-		$(myform).prop("action", "/jiyou/wx/orderCreateAction!makeOrderPaySeq.do?t_time=" + new Date().getTime());
-		$(myform).submit();
-		my_msg = null;
-	}
-		
-	</script>
+</ul>
+<a href="#" class="btn02" onclick="save()">保存</a>
+
+<jsp:include page="/chinapost/jiyouwx/global_error.jsp"></jsp:include>
+</form>
+
 </body>
 </html>

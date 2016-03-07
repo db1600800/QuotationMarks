@@ -209,6 +209,7 @@ public class cssToJsp {
 			while (brJsp.ready()) {
 				jspline = brJsp.readLine();
 
+				jspline=jspline.replace("><", ">\n<");
 				newJsp += jspline + "\n";
 
 			}
@@ -216,14 +217,13 @@ public class cssToJsp {
 			brJsp.close();
 			frJsp.close();
 
-			//System.out.println(newJsp);
-			
+			// System.out.println(newJsp);
+
 			String lines[] = newJsp.split("\n");
-			lines=jsp2(lines);
-			lines=jsp3(lines);
-			
-			for(String line:lines)
-			{
+			lines = jsp2(lines);
+			lines = jsp3(lines);
+
+			for (String line : lines) {
 				System.out.println(line);
 			}
 
@@ -231,80 +231,75 @@ public class cssToJsp {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
+
 	public String[] jsp3(String lines[]) {
 
-	
-		
+		String jspline = "";
+		boolean start = false;
+		for (int i = 0; i < lines.length; i++)
 
+		{
+			jspline = lines[i];
+
+			// System.out.println(jspline);
+			// img a ol li body table input h1 h2 h3 h4 textarea select
+			// strong span th td header dd dt
+
+			// 没有点 （标签样式）
+			for (CssNode cssNode : csss) {
+
+				if (jspline.contains("<" + cssNode.name)) {// 没有点
+															// （标签样式）
 			
-			String jspline = "";
-			boolean start = false;
-			for (int i = 0; i < lines.length; i++)
+					if (!jspline.contains("style=\"")) {
 
-			{
-				jspline = lines[i];
+						jspline = jspline.replace("<" + cssNode.name,
+								"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\"") + "\n";
 
-				// System.out.println(jspline);
-				// img a ol li body table input h1 h2 h3 h4 textarea select
-				// strong span th td header dd dt
-
-				// 没有点 （标签样式）
-				for (CssNode cssNode : csss) {
-
-					if (jspline.contains("<" + cssNode.name)) {// 没有点
-																// （标签样式）
-						if (!jspline.contains("style=\"")) {
-
-							jspline = jspline.replace("<" + cssNode.name,
-									"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\"") + "\n";
-
-						} else {
-							jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
-						}
-					}
-
-				}
-
-				// 有点
-				for (CssNode cssNode : csss) {
-					if (jspline.length() >= 1 && jspline.contains("class=\"")) {
-
-						String classStringStart = jspline.substring(jspline.indexOf("class=\"") + 7);
-
-						String classString = classStringStart.substring(0, classStringStart.indexOf("\""));
-
-						for (String classStringpart1 : classString.split(" ")) {
-							if (classStringpart1.equals(cssNode.name.substring(1))) {
-
-								if (!jspline.contains("style=\"")) {
-
-									jspline = jspline.replace("<" + cssNode.name,
-											"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\" ") + "\n";
-
-								} else {
-									jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
-								}
-							}
-						}
-
-						jspline = jspline.replace("class=\"" + classString + "\"", "");
-
+					} else {
+						jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
 					}
 				}
 
-			
-				lines[i]=jspline;
 			}
 
-		
+			// 有点
+			for (CssNode cssNode : csss) {
+				if (jspline.length() >= 1 && jspline.contains("class=\"")) {
 
-			
-         return lines;
-		
+					String classStringStart = jspline.substring(jspline.indexOf("class=\"") + 7);
+
+					String classString = classStringStart.substring(0, classStringStart.indexOf("\""));
+
+					for (String classStringpart1 : classString.split(" ")) {
+						
+					
+						if (classStringpart1.equals(cssNode.name.substring(1))) {
+
+							if (!jspline.contains("style=\"")) {
+								jspline = jspline.replace("class=\"" + classString + "\"", "style=\"" + cssNode.cssString + "\" ")+"\n";
+
+							} else {
+								jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
+								jspline = jspline.replace("class=\"" + classString + "\"", "");
+							}
+							
+							
+						}
+						
+						
+					}
+
+					
+
+				}
+			}
+
+			lines[i] = jspline;
+		}
+
+		return lines;
+
 	}
 
 	public String[] jsp2(String lines[]) {
@@ -314,9 +309,9 @@ public class cssToJsp {
 			if (cssNode.name.indexOf("/") != -1) {
 				String names[] = cssNode.name.split("/");
 
-				
 				String jspline = "";
 				boolean start = false;
+				String starttag = "";
 				for (int i = 0; i < lines.length; i++)
 
 				{
@@ -335,36 +330,42 @@ public class cssToJsp {
 						for (String classStringpart1 : classString.split(" ")) {
 							if (classStringpart1.equals(names[0].substring(1))) {
 								start = true;
-								continue;
+								starttag = jspline.split(" ")[0].replace("<", "</");
 							}
 						}
 					}
 
-					if (jspline.contains("<" + names[names.length - 1])) {
-						// （标签样式）
-						if (!jspline.contains("style=\"")) {
-
-							jspline = jspline.replace("<" + cssNode.name,
-									"<" + cssNode.name + " " + "style=\"" + cssNode.cssString + "\"") + "\n";
-
-						} else {
-							jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
+					if (start == true) {
+						if (jspline.contains(starttag)) {
+							start = false;
+							
+							break;
 						}
-						
-						break;
+
+						if (jspline.contains("<" + names[names.length - 1])) {
+
+							// （标签样式）
+							if (!jspline.contains("style=\"")) {
+
+								jspline = jspline.replace("<" + names[names.length - 1],
+										"<" + names[names.length - 1] + " " + "style=\"" + cssNode.cssString + "\"")
+										+ "\n";
+
+							} else {
+								jspline = jspline.replace("style=\"", "style=\"" + cssNode.cssString + ";") + "\n";
+							}
+
+						}
 					}
 
-					
-					
-					 lines[i]=jspline;
+					lines[i] = jspline;
 				}
 
 			}
 
 		}
 
-		
-            return lines;
+		return lines;
 	}
 
 	public class CssNode {
