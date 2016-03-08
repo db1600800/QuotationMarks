@@ -146,11 +146,11 @@ public class WebJsp {
 									CompomentBean chirld1 = bean.chirlds.get(0);
 									CompomentBean chirld2 = bean.chirlds.get(1);
 									if (chirld1.x < chirld2.x) {
-										chirld1.relativeForWeb += "position: absolute;  left:0; top:25%; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:"+(chirld1.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
-										chirld2.relativeForWeb += "position: absolute;   top:25%;   ";
+										chirld1.relativeForWeb += "position: absolute;  left:0;   margin-left:"+(chirld1.x-bean.x)+"px;";
+										chirld2.relativeForWeb += "position: absolute;     ";
 									} else if (chirld1.x > chirld2.x) {
-										chirld2.relativeForWeb += "position: absolute;  top:25%;  ";
-										chirld1.relativeForWeb += "position: absolute;  right:0; top:25%; margin-top:"+(chirld1.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld1.x-chirld1.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
+										chirld2.relativeForWeb += "position: absolute;  left:0;   margin-left:"+(chirld2.x-bean.x)+"px;";
+										chirld1.relativeForWeb += "position: absolute;    ";
 									}
 									
 								} else if (bean.orientation.equals("vertical")) {
