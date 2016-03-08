@@ -1,122 +1,62 @@
 <list>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
+    <rgb16>#CDCDCD</rgb16>
+    <rgb16ios>#CDCDCD</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>4</x>
-    <y>27</y>
-    <w>313</w>
-    <h>488</h>
+    <x>51</x>
+    <y>74</y>
+    <w>158</w>
+    <h>288</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1457406087608</cnname>
-    <enname>bg1457406087608LinearLayout</enname>
+    <cnname>bg1457427146095</cnname>
+    <enname>bg1457427146095LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Vvt-gI-JFI</id>
+    <id>mGc-Ny-E8X</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1457406097887</time>
+    <time>1457427147867</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFD</rgb16>
-    <rgb16ios>#FFFFFD</rgb16ios>
-    <bgRgb16>#FFFFFD</bgRgb16>
-    <bgRgb16ios>#FFFFFD</bgRgb16ios>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>11</x>
-    <y>31</y>
-    <w>299</w>
-    <h>31</h>
+    <x>103</x>
+    <y>144</y>
+    <w>28</w>
+    <h>126</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1457406119562</cnname>
-    <enname>bg1457406119562LinearLayout</enname>
+    <cnname>a</cnname>
+    <enname>aTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Nrt-OV-gnF</id>
-    <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <picName>图片名</picName>
-    <time>1457406169269</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFD</rgb16>
-    <rgb16ios>#FFFFFD</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>20</x>
-    <y>44</y>
-    <w>6</w>
-    <h>6</h>
-    <actionDetailString></actionDetailString>
-    <cnname>back</cnname>
-    <enname>backButton</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>Oyd-sO-mRc</id>
-    <type>Button</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <picName>back</picName>
-    <time>1457406190858</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#C36D4D</rgb16>
-    <rgb16ios>#C36D4D</rgb16ios>
-    <bgRgb16>#背景颜色</bgRgb16>
-    <bgRgb16ios>#背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>111</x>
-    <y>40</y>
-    <w>95</w>
-    <h>10</h>
-    <actionDetailString></actionDetailString>
-    <cnname>编辑会员资料</cnname>
-    <enname>titleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>09h-qF-dos</id>
+    <id>qt3-aP-fX9</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <picName>图片名</picName>
-    <time>1457406220351</time>
+    <time>1457427163666</time>
   </CompomentBean>
 </list>

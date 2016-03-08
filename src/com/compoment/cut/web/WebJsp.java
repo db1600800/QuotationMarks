@@ -132,15 +132,24 @@ public class WebJsp {
 
 							if (bean.chirlds.size() == 2) {
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="position: relative;";
+									bean.relativeForWeb+="height: "+bean.h+"px;";
+								    bean.relativeForWeb+="line-height: "+bean.h+"px; ";
+								    bean.relativeForWeb+=" background-color: #"+bean.bgRgb16+";"; 
+								  
+								  
+								    bean.relativeForWeb+=" text-align: center;";
+								    bean.relativeForWeb+=" width: 100%;";
+								    bean.relativeForWeb+=" position:fixed; ";
+								    bean.relativeForWeb+=" top:0;";
+								    bean.relativeForWeb+=" left:0;";
 									
 									CompomentBean chirld1 = bean.chirlds.get(0);
 									CompomentBean chirld2 = bean.chirlds.get(1);
 									if (chirld1.x < chirld2.x) {
 										chirld1.relativeForWeb += "position: absolute;  left:0; top:25%; margin-left:"+(chirld1.x-bean.x)+"px;  margin-top:"+(chirld1.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
-										chirld2.relativeForWeb += "position: absolute;  right:0; top:25%;  margin-top:"+(chirld2.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld2.x-chirld2.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
+										chirld2.relativeForWeb += "position: absolute;   top:25%;   ";
 									} else if (chirld1.x > chirld2.x) {
-										chirld2.relativeForWeb += "position: absolute;  left:0; top:25%; margin-left:"+(chirld2.x-bean.x)+"px;  margin-top:"+(chirld2.y-bean.y)+"px;  margin-bottom:"+(bean.y+bean.h-chirld2.y-chirld2.h)+"px; ";
+										chirld2.relativeForWeb += "position: absolute;  top:25%;  ";
 										chirld1.relativeForWeb += "position: absolute;  right:0; top:25%; margin-top:"+(chirld1.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld1.x-chirld1.w)+"px; margin-bottom:"+(bean.y+bean.h-chirld1.y-chirld1.h)+"px; ";
 									}
 									
@@ -151,7 +160,16 @@ public class WebJsp {
 							} else if (bean.chirlds.size() == 3) {
 
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="position: relative;";
+									bean.relativeForWeb+="height: "+bean.h+"px;";
+								    bean.relativeForWeb+="line-height: "+bean.h+"px; ";
+								    bean.relativeForWeb+=" background-color: #"+bean.bgRgb16+";"; 
+								   
+								   
+								    bean.relativeForWeb+=" text-align: center;";
+								    bean.relativeForWeb+=" width: 100%;";
+								    bean.relativeForWeb+=" position:fixed; ";
+								    bean.relativeForWeb+=" top:0;";
+								    bean.relativeForWeb+=" left:0;";
 									
 									Collections.sort(bean.chirlds, comparatorX);
 									int i = 0;
@@ -162,7 +180,7 @@ public class WebJsp {
 
 										} else if (i == 1) {
 											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
-											chirld.relativeForWeb += "position: absolute;  left:"+leftvalue+"%; top:25%; ";
+											chirld.relativeForWeb += "position: absolute;   top:25%; ";
 
 										} else if (i == 2) {
 											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
@@ -301,8 +319,6 @@ public class WebJsp {
 		//有	儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 			
-			
-		
 
 			for (CompomentBean chirld : bean.chirlds) {
 				
@@ -334,6 +350,7 @@ public class WebJsp {
 		if (chirld.type.equals("TextView")) {
 		
 			bodym += " <span id=\""+chirld.enname+"\" name =\""+chirld.enname+"\" style=\""+chirld.relativeForWeb+"  font-size: "+chirld.textSize+"px; color: "+chirld.rgb16+";  \">"+chirld.cnname+"</span>\n";
+			
 		}
 		
 		if (chirld.type.equals("Line")) {

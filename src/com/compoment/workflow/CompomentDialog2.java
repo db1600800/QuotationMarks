@@ -348,7 +348,7 @@ public class CompomentDialog2 extends JDialog {
 		colorLabel = new JLabel("颜色最大值");
 		
 		colorEdit = new JTextField();
-		colorEdit.setBackground(Color.WHITE);
+		colorEdit.setForeground(Color.WHITE);
 		colorEdit.setText("边框色");
 		colorEdit.setColumns(10);
 		
@@ -636,24 +636,24 @@ public class CompomentDialog2 extends JDialog {
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
 				bean.enname = (enNameEdit.getText().trim() + compomentType)
 						.replace(" ", "");
-				bean.rgb16 = "#" + colorEdit.getText().trim();
-				bean.bgRgb16 = "#" + bgColorEdit.getText().trim();
+				bean.rgb16 = "" + colorEdit.getText().trim();
+				bean.bgRgb16 = "" + bgColorEdit.getText().trim();
 				
-				bean.rgb16ios = "#" + colorEdit.getText().trim();
-				bean.bgRgb16ios = "#" + bgColorEdit.getText().trim();
+				bean.rgb16ios = "" + colorEdit.getText().trim();
+				bean.bgRgb16ios = "" + bgColorEdit.getText().trim();
 				
 			
 						
 								if(!colorEdit.getText().trim().contains("色"))
 								{
 									if(!KeyValue.readCache("recentUseColor").contains(colorEdit.getText().trim()+","))
-									KeyValue.writeCache("recentUseColor","#"+colorEdit.getText().trim()+","+KeyValue.readCache("recentUseColor"));
+									KeyValue.writeCache("recentUseColor",""+colorEdit.getText().trim()+","+KeyValue.readCache("recentUseColor"));
 								}
 								
 								if(!bgColorEdit.getText().trim().contains("色"))
 								{
 									if(!KeyValue.readCache("recentUseColor").contains(bgColorEdit.getText().trim()+","))
-									KeyValue.writeCache("recentUseColor", "#"+bgColorEdit.getText().trim()+","+KeyValue.readCache("recentUseColor"));
+									KeyValue.writeCache("recentUseColor", ""+bgColorEdit.getText().trim()+","+KeyValue.readCache("recentUseColor"));
 								}
 						
 			
@@ -738,12 +738,13 @@ public class CompomentDialog2 extends JDialog {
 		//colorEdit = new JTextField();
 		
 		colorEdit.setText((String)xyzMap.get("textColor"));
-		colorEdit.setBackground(new Color(Integer.parseInt(xyzMap.get("textColor").toString().substring(1), 16)));
+		//colorEdit.setBackground();
+		colorEdit.setForeground(new Color(Integer.parseInt(xyzMap.get("textColor").toString().substring(1), 16)));
 		
 		gaveBgColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				bgColorEdit.setText(colorEdit.getText());
-				bgColorEdit.setBackground(new Color(Integer.valueOf(colorEdit.getText().toString().substring(1), 16)));
+				bgColorEdit.setForeground(new Color(Integer.valueOf(bgColorEdit.getText().toString().substring(1), 16)));
 			}
 
 		});
@@ -1038,7 +1039,7 @@ public class CompomentDialog2 extends JDialog {
 				}
 				if(tempRecentUseColorsCount==3)
 				{
-					color3Btn.setBackground( new Color(Integer.parseInt(color.substring(1), 16)));
+					color3Btn.setForeground( new Color(Integer.parseInt(color.substring(1), 16)));
 					color3Btn.setText(color);
 					color3Btn.setVisible(true);
 				}
@@ -1070,14 +1071,15 @@ public class CompomentDialog2 extends JDialog {
 			color1Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color1Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color1Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color1Btn.getText().substring(1), 16)));
+				
 				}
 			});
 	
 			color2Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color2Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color2Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color2Btn.getText().substring(1), 16)));
 				}
 			});
 			
@@ -1085,7 +1087,7 @@ public class CompomentDialog2 extends JDialog {
 			color3Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color3Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color3Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color3Btn.getText().substring(1), 16)));
 				}
 			});
 			
@@ -1093,7 +1095,7 @@ public class CompomentDialog2 extends JDialog {
 			color4Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color4Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color4Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color4Btn.getText().substring(1), 16)));
 				}
 			});
 			
@@ -1101,7 +1103,7 @@ public class CompomentDialog2 extends JDialog {
 			color5Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color5Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color5Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color5Btn.getText().substring(1), 16)));
 				}
 			});
 			
@@ -1109,7 +1111,7 @@ public class CompomentDialog2 extends JDialog {
 			color6Btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					colorEdit.setText(color6Btn.getText());
-					colorEdit.setBackground(new Color(Integer.parseInt(color6Btn.getText().substring(1), 16)));
+					colorEdit.setForeground(new Color(Integer.parseInt(color6Btn.getText().substring(1), 16)));
 				}
 			});
 		
@@ -1119,11 +1121,15 @@ public class CompomentDialog2 extends JDialog {
 	}
 
 	public void setRgb(String rgb16) {
-		colorEdit.setText(rgb16);
+		colorEdit.setText("#"+rgb16);
+		colorEdit.setForeground(new Color(Integer.parseInt(colorEdit.getText().substring(1), 16)));
+		
 	}
 
 	public void setBgRgb(String bgrgb16) {
-		bgColorEdit.setText(bgrgb16);
+		bgColorEdit.setText("#"+bgrgb16);
+		bgColorEdit.setForeground(new Color(Integer.parseInt(bgColorEdit.getText().substring(1), 16)));
+		
 	}
 
 	public void savePic(Image iamge, String picName) {
@@ -1224,11 +1230,7 @@ public class CompomentDialog2 extends JDialog {
 	
 	/**修正xyz值  边缘在哪 更准确的xyz值 */
 	public Map getNearXYZ(Image image,int x, int y, int w, int h) {
-		
-		
-		
-		  
-
+	
 		//原图
 		BufferedImage bufImgOld = ImageUtil.imageToBufferedImage(image);
         
@@ -1384,7 +1386,7 @@ public class CompomentDialog2 extends JDialog {
 	
 		
 		
-		temp.put("textColor",rgbString16( maxOne(rgbsOld)));
+		temp.put("textColor","#"+rgbString16( maxOne(rgbsOld)));
 		
 		return temp;
 		
