@@ -1,4 +1,4 @@
-package com.compoment.cut.example;
+package com.compoment.main;
 
 
 
