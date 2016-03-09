@@ -318,8 +318,17 @@ public class WebJsp {
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
 				//visibility:hidden; display:none;	height: 42px; line-height: 42px; background-color: #fd5f28; font-size: 18px; color: #fff; text-align: center; z-index: 2; position: relative; width: 100%; position:fixed; top:0; left:0 
-					bodym+="  <div style=\" "+chirld.relativeForWeb+"  height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
 					
+					if(chirld.chirlds.size()>=3)
+					{
+						
+						bodym+="  <li style=\" "+chirld.relativeForWeb+"  height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; list-style: none  ; padding: 2px; border-bottom: 1px solid #f5f5f5;  \">\n";
+						
+					}else
+					{
+					
+					bodym+="  <div style=\" "+chirld.relativeForWeb+"  height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
+					}
 					parent( chirld);
 					
 					bodym+="  </div>\n";
