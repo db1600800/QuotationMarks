@@ -221,7 +221,7 @@ public class WebJsp {
 						if (bean.chirlds != null && bean.chirlds.size() > 1) {
 							
 								if (bean.orientation.equals("horizontal")) {
-									bean.relativeForWeb+="position: relative;";
+									bean.relativeForWeb+="";
 									Collections.sort(bean.chirlds, comparatorX);
 									
 									int i = 0;
@@ -229,14 +229,71 @@ public class WebJsp {
 									for (CompomentBean chirld : bean.chirlds) {
 										if (i == 0) {
 											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
-											chirld.relativeForWeb += " position: absolute; left: "+leftvalue+"%; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											
+											if(bean.compomentForWeb.equals("tr")  )
+											{
+											//chirld.relativeForWeb += "  style=\" width:10%; margin-left:"+(chirld.x-bean.x)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											chirld.compomentForWeb="td";
+											}
 											beforeChirld=chirld;
 										} else if (i == bean.chirlds.size() - 1) {
 											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
-											chirld.relativeForWeb += " position: absolute; right:"+rightvalue+"% ; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
+											if(bean.compomentForWeb.equals("tr")  )
+											{
+											//chirld.relativeForWeb += "  style=\" width:10%; margin-top:"+(chirld.y-bean.y)+"px; margin-right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px; ";
+											chirld.compomentForWeb="td";
+											}
 										} else {
 											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
-											chirld.relativeForWeb += " position: absolute; left:"+leftvalue+"%;  margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											if(bean.compomentForWeb.equals("tr") )
+											{
+											//chirld.relativeForWeb += "style=\" width:10%; margin-left:"+(chirld.x-beforeChirld.x-beforeChirld.w)+"px;  margin-top:"+(chirld.y-bean.y)+"px; ";
+											chirld.compomentForWeb="td";
+											}
+											beforeChirld=chirld;
+										}
+										i++;
+									}
+
+									Collections.sort(bean.chirlds, comparatorDate);
+								} else if (bean.orientation.equals("vertical"))
+								{
+									if(bean.compomentForWeb.equals(""))
+									{
+									bean.relativeForWeb+="  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center; background-color: "+bean.bgRgb16+";width:100%; height: "+bean.h+"px; line-height: "+bean.h+"px;  margin-bottom: 0px;  ";
+									bean.compomentForWeb="table";
+									}
+									
+									Collections.sort(bean.chirlds, comparatorY);
+									
+									int i = 0;
+									CompomentBean beforeChirld = null;
+									for (CompomentBean chirld : bean.chirlds) {
+										if (i == 0) {
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											
+											if((chirld.chirlds!=null &&chirld.chirlds.size()>0) &&chirld.compomentForWeb.equals(""))
+											{
+											chirld.relativeForWeb += " style=\"   ";
+											chirld.compomentForWeb="tr";
+											}
+											
+											beforeChirld=chirld;
+										} else if (i == bean.chirlds.size() - 1) {
+											
+											float rightvalue=(float)(bean.x+bean.w-chirld.x-chirld.w)/(float)320*100;
+											if((chirld.chirlds!=null &&chirld.chirlds.size()>0) &&chirld.compomentForWeb.equals(""))
+											{
+											chirld.relativeForWeb += " style=\"  ";
+											chirld.compomentForWeb="tr";
+											}
+										} else {
+											float leftvalue=(float)(chirld.x-bean.x)/(float)320*100;
+											if((chirld.chirlds!=null &&chirld.chirlds.size()>0) &&chirld.compomentForWeb.equals(""))
+											{
+											chirld.relativeForWeb += " style=\"  ";
+											chirld.compomentForWeb="tr";
+											}
 											beforeChirld=chirld;
 										}
 										i++;
@@ -319,22 +376,19 @@ public class WebJsp {
 
 				//visibility:hidden; display:none;	height: 42px; line-height: 42px; background-color: #fd5f28; font-size: 18px; color: #fff; text-align: center; z-index: 2; position: relative; width: 100%; position:fixed; top:0; left:0 
 					
-					if(chirld.chirlds.size()>=3)
-					{
-						
-						bodym+="  <li style=\" "+chirld.relativeForWeb+"  height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; list-style: none  ; padding: 2px; border-bottom: 1px solid #f5f5f5;  \">\n";
-						
-					}else
-					{
 					
-					bodym+="  <div style=\" "+chirld.relativeForWeb+"  height:"+chirld.h+"px;  background-color:"+chirld.bgRgb16+"; \">\n";
-					}
+					bodym+="  <"+chirld.compomentForWeb+" "+chirld.relativeForWeb+"\">\n";
+					
 					parent( chirld);
 					
-					bodym+="  </div>\n";
+					bodym+="  </"+chirld.compomentForWeb+">\n";
 				} else {//这个儿子是非容器 
 					
+					if(!chirld.compomentForWeb.equals(""))
+					bodym+="  <"+chirld.compomentForWeb+">\n";
 					chirld(chirld, bean);
+					if(!chirld.compomentForWeb.equals(""))
+					bodym+="  </"+chirld.compomentForWeb+">\n";
 				}
 			}
 

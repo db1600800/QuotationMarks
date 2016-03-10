@@ -1,122 +1,312 @@
 <list>
   <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <rgb16ios>#000000</rgb16ios>
-    <bgRgb16>#000000</bgRgb16>
-    <bgRgb16ios>#000000</bgRgb16ios>
+    <rgb16>#FFFFFD</rgb16>
+    <rgb16ios>#FFFFFD</rgb16ios>
+    <bgRgb16>#FFFFFD</bgRgb16>
+    <bgRgb16ios>#FFFFFD</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>5</x>
-    <y>29</y>
-    <w>310</w>
-    <h>494</h>
+    <x>4</x>
+    <y>28</y>
+    <w>309</w>
+    <h>488</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1457427991151</cnname>
-    <enname>bg1457427991151LinearLayout</enname>
+    <cnname>bg1457581445831</cnname>
+    <enname>bg1457581445831LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Byv-GY-N5H</id>
+    <id>D5v-DA-SKc</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1457428001844</time>
+    <time>1457581448720</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#C36D4D</rgb16>
-    <rgb16ios>#C36D4D</rgb16ios>
-    <bgRgb16>#C36D4D</bgRgb16>
-    <bgRgb16ios>#C36D4D</bgRgb16ios>
+    <rgb16>#FFFFFD</rgb16>
+    <rgb16ios>#FFFFFD</rgb16ios>
+    <bgRgb16>#FFFFFD</bgRgb16>
+    <bgRgb16ios>#FFFFFD</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>14</x>
-    <y>38</y>
-    <w>291</w>
-    <h>35</h>
+    <x>16</x>
+    <y>80</y>
+    <w>289</w>
+    <h>33</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1457428042819</cnname>
-    <enname>bg1457428042819RelativeLayout</enname>
+    <cnname>bg1457581464172</cnname>
+    <enname>bg1457581464172LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>CUe-mA-R02</id>
-    <type>RelativeLayout</type>
+    <id>M3c-BA-ZZj</id>
+    <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1457428068172</time>
+    <time>1457581468451</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFD</rgb16>
-    <rgb16ios>#FFFFFD</rgb16ios>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>28</x>
-    <y>61</y>
-    <w>22</w>
-    <h>1</h>
+    <x>27</x>
+    <y>93</y>
+    <w>31</w>
+    <h>6</h>
     <actionDetailString></actionDetailString>
-    <cnname>left</cnname>
-    <enname>leftTextView</enname>
+    <cnname>aa</cnname>
+    <enname>aaTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>fMB-o8-8Fr</id>
+    <id>ySo-0F-XRf</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1457428086974</time>
+    <time>1457581487821</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFD</rgb16>
-    <rgb16ios>#FFFFFD</rgb16ios>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>126</x>
-    <y>61</y>
-    <w>57</w>
-    <h>1</h>
+    <x>217</x>
+    <y>94</y>
+    <w>69</w>
+    <h>5</h>
     <actionDetailString></actionDetailString>
-    <cnname>center</cnname>
-    <enname>centerTextView</enname>
+    <cnname>aaa</cnname>
+    <enname>aaaTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>byT-oi-9P8</id>
+    <id>lxS-70-t6n</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1457428104175</time>
+    <time>1457581501896</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFFFD</rgb16>
+    <rgb16ios>#FFFFFD</rgb16ios>
+    <bgRgb16>#FFFFFD</bgRgb16>
+    <bgRgb16ios>#FFFFFD</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>17</x>
+    <y>119</y>
+    <w>288</w>
+    <h>33</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457581511325</cnname>
+    <enname>bg1457581511325LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>84e-Xg-4Cd</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581514561</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>29</x>
+    <y>131</y>
+    <w>33</w>
+    <h>9</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bb</cnname>
+    <enname>bbTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>6Ux-zx-9UC</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581525182</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#F8A081</rgb16>
+    <rgb16ios>#F8A081</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>218</x>
+    <y>133</y>
+    <w>64</w>
+    <h>4</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bbb</cnname>
+    <enname>bbbTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>5ml-17-VjK</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581538714</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>20</x>
+    <y>159</y>
+    <w>286</w>
+    <h>28</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457581546861</cnname>
+    <enname>bg1457581546861LinearLayout</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>UQA-3d-QPB</id>
+    <type>LinearLayout</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581559255</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>32</x>
+    <y>169</y>
+    <w>32</w>
+    <h>5</h>
+    <actionDetailString></actionDetailString>
+    <cnname>cc</cnname>
+    <enname>cccTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>YLp-Pr-Aah</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581571227</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>262</x>
+    <y>170</y>
+    <w>18</w>
+    <h>3</h>
+    <actionDetailString></actionDetailString>
+    <cnname>cccc</cnname>
+    <enname>ccccTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>Ukh-MS-of9</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457581581593</time>
   </CompomentBean>
 </list>
