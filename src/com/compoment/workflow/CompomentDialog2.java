@@ -76,6 +76,7 @@ public class CompomentDialog2 extends JDialog {
 	JCheckBox circularCheckBox;
 	JButton cancel;
 	JList baseListListView;
+	JList webCompomentListView;
 	JButton gaveBgColor;
 	JScrollPane basePicScrollPane;
 	JButton interfaceBtn;
@@ -85,6 +86,7 @@ public class CompomentDialog2 extends JDialog {
 	JComboBox jumpToViewComboBox;
 	JCheckBox isRunTimeHeight;
 	String compomentType;
+	String webCompomentType="";
 	ArrayList listDate = null;
 	JFrame frame;
 	
@@ -105,6 +107,8 @@ public class CompomentDialog2 extends JDialog {
 	JButton color4Btn;
 	JButton color5Btn;
 	JButton color6Btn;
+	private JPanel panel_2;
+	private JLabel lblWeb;
 	
 	
 	/**
@@ -126,7 +130,7 @@ public class CompomentDialog2 extends JDialog {
 	 * Create the dialog.
 	 */
 	public CompomentDialog2() {
-		setBounds(100, 100, 1100, 600);
+		setBounds(100, 100, 1100, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.LIGHT_GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -147,32 +151,6 @@ public class CompomentDialog2 extends JDialog {
 		
 		 actionList = new JList();
 		
-		cnNameEdit = new JTextField();
-		cnNameEdit.setText("中文名");
-		cnNameEdit.setColumns(10);
-		
-		enNameEdit = new JTextField();
-		enNameEdit.setText("英文名");
-		enNameEdit.setColumns(10);
-		
-		 circularCheckBox = new JCheckBox("是否圆角");
-		
-		picNameEdit = new JTextField();
-		picNameEdit.setText("图片名");
-		picNameEdit.setColumns(10);
-		
-		textSizeEdit = new JTextField();
-		textSizeEdit.setText("字体大小");
-		textSizeEdit.setColumns(10);
-		
-		 imgCacheCheckBox = new JCheckBox("是否二级缓存");
-		
-		 setPublicCheckBox = new JCheckBox("是否公共组件");
-		
-		 ok = new JButton("ok");
-		
-		 cancel = new JButton("cancel");
-		
 		 interfaceBtn = new JButton("接口");
 		 interfaceColumnList = new JList();
 		
@@ -186,96 +164,56 @@ public class CompomentDialog2 extends JDialog {
 		
 		JLabel label = new JLabel("页面");
 		
-		 runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView");
-		 runTimeAddScrollView.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		if(runTimeAddScrollView.isSelected())
-		 		{
-		 			cnNameEdit.setText("中文名");
-		 			enNameEdit.setText("英文名");	
-		 		}
-		 	}
-		 });
-		
-		 isRunTimeHeight = new JCheckBox("是否动态高度");
-		
 		JPanel panel = new JPanel();
 		panel.setForeground(Color.LIGHT_GRAY);
+		
+		JPanel panel_1 = new JPanel();
+		
+		panel_2 = new JPanel();
 		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(baseTitleTextView)
 								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addContainerGap()
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+										.addComponent(baseListListView, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addComponent(baseListListView, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-												.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-										.addComponent(baseTitleTextView)))
-								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addGap(45)
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addComponent(runTimeAddScrollView)
-											.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-											.addComponent(circularCheckBox)
-											.addGap(46))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-											.addGap(12)
-											.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(imgCacheCheckBox)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(18)
-											.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))))
+										.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 							.addGap(12)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addComponent(interfaceBtn)
-											.addGap(151)
-											.addComponent(label_1)
-											.addGap(81))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(48)
-											.addComponent(label_2))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(12)
-											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-												.addComponent(actionDetail)
-												.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(label))))
-									.addGap(166))
+									.addComponent(interfaceBtn)
+									.addGap(151)
+									.addComponent(label_1)
+									.addGap(81))
 								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addGap(28)
-									.addComponent(setPublicCheckBox)
+									.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(isRunTimeHeight))))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(256)
-							.addComponent(ok)
-							.addGap(84)
-							.addComponent(cancel)))
-					.addContainerGap())
+									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)))
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPanel.createSequentialGroup()
+									.addGap(48)
+									.addComponent(label_2))
+								.addGroup(gl_contentPanel.createSequentialGroup()
+									.addGap(12)
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+										.addComponent(actionDetail)
+										.addComponent(label)
+										.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1016, Short.MAX_VALUE))
+					.addGap(68))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -290,43 +228,149 @@ public class CompomentDialog2 extends JDialog {
 								.addComponent(label_2))
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
 					.addGap(19)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(interfaceList, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+							.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 								.addGap(5)
 								.addComponent(actionDetail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addGap(3)
 								.addComponent(label)
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(4)))
-						.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
-							.addComponent(basePicScrollPane, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)))
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(1)
+								.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_contentPanel.createSequentialGroup()
+								.addComponent(basePicScrollPane, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(61))
+		);
+		
+		lblWeb = new JLabel("web组件");
+		
+		 webCompomentListView = new JList();
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+						.addComponent(lblWeb))
+					.addContainerGap())
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblWeb)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		panel_2.setLayout(gl_panel_2);
+		
+		cnNameEdit = new JTextField();
+		cnNameEdit.setText("中文名");
+		cnNameEdit.setColumns(10);
+		
+		enNameEdit = new JTextField();
+		enNameEdit.setText("英文名");
+		enNameEdit.setColumns(10);
+		
+		picNameEdit = new JTextField();
+		picNameEdit.setText("图片名");
+		picNameEdit.setColumns(10);
+		
+		textSizeEdit = new JTextField();
+		textSizeEdit.setText("字体大小");
+		textSizeEdit.setColumns(10);
+		
+		 runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView");
+		 runTimeAddScrollView.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		if(runTimeAddScrollView.isSelected())
+		 		{
+		 			cnNameEdit.setText("中文名");
+		 			enNameEdit.setText("英文名");	
+		 		}
+		 	}
+		 });
+		
+		 circularCheckBox = new JCheckBox("是否圆角");
+		
+		 imgCacheCheckBox = new JCheckBox("是否二级缓存");
+		
+		 setPublicCheckBox = new JCheckBox("是否公共组件");
+		
+		 isRunTimeHeight = new JCheckBox("是否动态高度");
+		
+		 ok = new JButton("ok");
+		
+		 cancel = new JButton("cancel");
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(runTimeAddScrollView)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(circularCheckBox)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(imgCacheCheckBox)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+										.addComponent(cancel)
+										.addGroup(gl_panel_1.createSequentialGroup()
+											.addComponent(setPublicCheckBox)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(isRunTimeHeight))))))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(234)
+							.addComponent(ok)))
+					.addContainerGap(111, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(runTimeAddScrollView)
+						.addComponent(circularCheckBox)
 						.addComponent(imgCacheCheckBox)
 						.addComponent(setPublicCheckBox)
-						.addComponent(circularCheckBox)
-						.addComponent(runTimeAddScrollView)
 						.addComponent(isRunTimeHeight))
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cancel)
-						.addComponent(ok))
-					.addGap(65))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(ok)
+						.addComponent(cancel)))
 		);
+		panel_1.setLayout(gl_panel_1);
 		
 		 color1Btn = new JButton("");
 		 color1Btn.setVisible(false);
@@ -642,6 +686,7 @@ public class CompomentDialog2 extends JDialog {
 				bean.rgb16ios = "" + colorEdit.getText().trim();
 				bean.bgRgb16ios = "" + bgColorEdit.getText().trim();
 				
+				bean.compomentForWeb=webCompomentType;
 			
 						
 								if(!colorEdit.getText().trim().contains("色"))
@@ -836,6 +881,26 @@ public class CompomentDialog2 extends JDialog {
 		//textSizeEdit = new JTextField();
 		textSizeEdit.setText("16");
 
+		ArrayList webCompomentString=new ArrayList();
+		webCompomentString.add("table");
+		webCompomentString.add("tr");
+		webCompomentString.add("ul");
+		webCompomentString.add("li");
+		webCompomentString.add("div");
+		webCompomentListView.setListData(webCompomentString.toArray());
+		webCompomentListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		webCompomentListView.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent even) {
+				// TODO Auto-generated method stub
+				
+				
+				String value = webCompomentListView.getSelectedValue().toString();
+				webCompomentType = value;
+				}
+			});
 		
 		final JList list = baseListListView;
 
