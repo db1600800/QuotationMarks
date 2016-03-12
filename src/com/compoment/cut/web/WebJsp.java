@@ -355,7 +355,7 @@ public class WebJsp {
 					String start = "";
 					String end = "";
 					if (chirld.compomentForWeb.equals("table")) {
-						start = "  <" + chirld.compomentForWeb+">\n";
+						start = "  <" + chirld.compomentForWeb+" style=\"width:100%;\">\n";
 
 						end = "  </" + chirld.compomentForWeb + ">\n";
 					} else if (chirld.compomentForWeb.equals("tr")) {
@@ -385,7 +385,7 @@ public class WebJsp {
 				} else {// 这个儿子是非容器
 
 					if (bean.compomentForWeb.equals("tr")) {
-						bodym += "  <td >\n";
+						bodym += "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
 					}
 
 					chirld(chirld, bean);
