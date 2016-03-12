@@ -176,7 +176,7 @@ public class WebJsp {
 					} else if (bean.chirlds.size() > 3) {
 
 						if (bean.orientation.equals("horizontal")) {
-							bean.relativeForWeb += "position: relative;";
+							bean.relativeForWeb += "";
 
 							Collections.sort(bean.chirlds, comparatorX);
 
@@ -186,12 +186,12 @@ public class WebJsp {
 								if (i == 0) {
 
 									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += "";
+									chirld.relativeForWeb += "position: absolute;left:"+chirld.x+";";
 
 								} else if (i == bean.chirlds.size() - 1) {
 									float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320
 											* 100;
-									chirld.relativeForWeb += "";
+									chirld.relativeForWeb += "position: absolute;right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px;";
 								} else {
 
 								}
@@ -371,7 +371,7 @@ public class WebJsp {
 
 						end = "  </" + chirld.compomentForWeb + ">\n";
 					} else {
-						start = "<div style=\" height:"+chirld.h+"px; line-height: " + chirld.h + "px; text-align: center;left:0;\" >\n";
+						start = "<div style=\" height:"+chirld.h+"px; line-height: " + chirld.h + "px; text-align: center; left:0; background-color:" + chirld.bgRgb16+"\" >\n";
 
 
 						end = "  </div>\n";
