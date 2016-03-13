@@ -47,6 +47,8 @@ public class WebJsp {
 	// 后跟 top:0; left:0; bottom:0; right:0;
 
 	// overflow: scroll;滚动 auto自动处理 hidden隐藏
+	
+	//margin-top:3px;
 
 	String bodym = "\n\n\n";
 	String connection = "";
@@ -444,7 +446,7 @@ public class WebJsp {
 
 				bodym += "<img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
 						+ chirld.picName + ".png\" onclick=\"" + chirld.actionString + ";\" style=\" width: 12px; "
-						+ chirld.relativeForWeb + " \">\n";
+						+ chirld.relativeForWeb + "\">\n";
 			}
 
 		}
