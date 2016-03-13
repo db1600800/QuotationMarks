@@ -365,11 +365,11 @@ public class WebJsp {
 
 						end = "  </" + chirld.compomentForWeb + ">\n";
 					} else if (chirld.compomentForWeb.equals("ul")) {
-						start = "  <" + chirld.compomentForWeb + ">\n";
+						start = "  <" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">\n";
 
 						end = "  </" + chirld.compomentForWeb + ">\n";
 					} else if (chirld.compomentForWeb.equals("li")) {
-						start = "  <" + chirld.compomentForWeb + ">\n";
+						start = "  <" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >\n";
 
 						end = "  </" + chirld.compomentForWeb + ">\n";
 					} else {
@@ -440,7 +440,8 @@ public class WebJsp {
 						+ chirld.actionString + "\"  style=\"text-align: center; height:" + chirld.h
 						+ "px; line-height: " + chirld.h + "px; border-radius: 8px; color:" + chirld.rgb16
 						+ "; background-color:" + chirld.bgRgb16 + ";  font-size: " + chirld.textSize + "px ;"
-						+ chirld.relativeForWeb + "\" >" + chirld.cnname + "</a> \n";
+						+ chirld.relativeForWeb + " margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a> \n";
+				
 
 			} else {
 

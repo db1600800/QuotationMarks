@@ -107,7 +107,7 @@ public class CompomentDialog2 extends JDialog {
 	JButton color4Btn;
 	JButton color5Btn;
 	JButton color6Btn;
-	private JPanel panel_2;
+	private JPanel webCompomentPanel;
 	private JLabel lblWeb;
 	
 	
@@ -169,7 +169,7 @@ public class CompomentDialog2 extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		
-		panel_2 = new JPanel();
+		webCompomentPanel = new JPanel();
 		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
@@ -215,7 +215,7 @@ public class CompomentDialog2 extends JDialog {
 								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1016, Short.MAX_VALUE))
 							.addGap(68))
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(948, Short.MAX_VALUE))))
 		);
 		gl_contentPanel.setVerticalGroup(
@@ -250,7 +250,7 @@ public class CompomentDialog2 extends JDialog {
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(61))
@@ -259,26 +259,26 @@ public class CompomentDialog2 extends JDialog {
 		lblWeb = new JLabel("web组件");
 		
 		 webCompomentListView = new JList();
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		GroupLayout gl_webCompomentPanel = new GroupLayout(webCompomentPanel);
+		gl_webCompomentPanel.setHorizontalGroup(
+			gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_webCompomentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
 						.addComponent(lblWeb))
 					.addContainerGap())
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		gl_webCompomentPanel.setVerticalGroup(
+			gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_webCompomentPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblWeb)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
 					.addContainerGap())
 		);
-		panel_2.setLayout(gl_panel_2);
+		webCompomentPanel.setLayout(gl_webCompomentPanel);
 		
 		cnNameEdit = new JTextField();
 		cnNameEdit.setText("中文名");
@@ -918,9 +918,9 @@ public class CompomentDialog2 extends JDialog {
 				
 				String value = list.getSelectedValue().toString();
 				compomentType = value;
-
+				webCompomentPanel.setVisible(false);
 				if (compomentType.contains("Layout")) {
-
+					webCompomentPanel.setVisible(true);
 					long id = System.currentTimeMillis();
 					cnNameEdit.setText("bg" + id);
 					enNameEdit.setText("bg" + id);
