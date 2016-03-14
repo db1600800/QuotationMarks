@@ -7,6 +7,7 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>3</x>
     <y>4</y>
     <w>313</w>
@@ -14,13 +15,26 @@
     <actionDetailString></actionDetailString>
     <cnname>bg1457750264654</cnname>
     <enname>bg1457750264654LinearLayout</enname>
+=======
+    <x>2</x>
+    <y>23</y>
+    <w>315</w>
+    <h>473</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457680504502</cnname>
+    <enname>bg1457680504502LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>oO6-hc-vYl</id>
+=======
+    <id>ZWM-5P-1D4</id>
+>>>>>>> Stashed changes
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -28,6 +42,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>div</compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750286033</time>
   </CompomentBean>
   <CompomentBean>
@@ -35,35 +50,63 @@
     <rgb16ios>#FC5F2B</rgb16ios>
     <bgRgb16>#FC5F2B</bgRgb16>
     <bgRgb16ios>#FC5F2B</bgRgb16ios>
+=======
+    <time>1457680508894</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+>>>>>>> Stashed changes
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
     <x>7</x>
+<<<<<<< Updated upstream
     <y>10</y>
     <w>305</w>
     <h>39</h>
     <actionDetailString></actionDetailString>
     <cnname>bg1457750301617</cnname>
     <enname>bg1457750301617RelativeLayout</enname>
+=======
+    <y>29</y>
+    <w>306</w>
+    <h>32</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457680520040</cnname>
+    <enname>bg1457680520040LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>v49-Li-0i9</id>
     <type>RelativeLayout</type>
+=======
+    <id>yod-wo-GQF</id>
+    <type>LinearLayout</type>
+>>>>>>> Stashed changes
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>div</compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750324849</time>
+=======
+    <time>1457680534943</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <rgb16ios>#FFFFFF</rgb16ios>
+<<<<<<< Updated upstream
     <bgRgb16>#F65F2B</bgRgb16>
     <bgRgb16ios>#F65F2B</bgRgb16ios>
     <r>0.0</r>
@@ -76,30 +119,59 @@
     <actionDetailString></actionDetailString>
     <cnname>back</cnname>
     <enname>backButton</enname>
+=======
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>17</x>
+    <y>37</y>
+    <w>8</w>
+    <h>12</h>
+    <actionDetailString></actionDetailString>
+    <cnname>back</cnname>
+    <enname>backTextView</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>41Z-9A-rLr</id>
     <type>Button</type>
+=======
+    <id>Yta-Up-2x7</id>
+    <type>TextView</type>
+>>>>>>> Stashed changes
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
+<<<<<<< Updated upstream
     <picName>back</picName>
     <time>1457750376112</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
     <rgb16ios>#FFFFFF</rgb16ios>
+=======
+    <picName>图片名</picName>
+    <time>1457680554940</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#C36D4D</rgb16>
+    <rgb16ios>#C36D4D</rgb16ios>
+>>>>>>> Stashed changes
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>119</x>
     <y>28</y>
     <w>79</w>
@@ -108,12 +180,26 @@
     <cnname>新邮预订</cnname>
     <enname>titleTextView</enname>
     <textSize>18</textSize>
+=======
+    <x>114</x>
+    <y>40</y>
+    <w>93</w>
+    <h>8</h>
+    <actionDetailString></actionDetailString>
+    <cnname>编辑会员</cnname>
+    <enname>titleTextView</enname>
+    <textSize>16</textSize>
+>>>>>>> Stashed changes
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>8nC-Vh-oJK</id>
+=======
+    <id>vbn-9R-msx</id>
+>>>>>>> Stashed changes
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -121,6 +207,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750428274</time>
   </CompomentBean>
   <CompomentBean>
@@ -153,6 +240,9 @@
     <compomentForWeb></compomentForWeb>
     <picName>down</picName>
     <time>1457750456387</time>
+=======
+    <time>1457680586989</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
     <rgb16>#F6E4DA</rgb16>
@@ -162,6 +252,7 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>282</x>
     <y>31</y>
     <w>9</w>
@@ -169,18 +260,33 @@
     <actionDetailString></actionDetailString>
     <cnname>query</cnname>
     <enname>queryButton</enname>
+=======
+    <x>9</x>
+    <y>78</y>
+    <w>303</w>
+    <h>275</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457680597083</cnname>
+    <enname>bg1457680597083LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>3P0-za-DxN</id>
     <type>Button</type>
+=======
+    <id>3H4-D6-r02</id>
+    <type>LinearLayout</type>
+>>>>>>> Stashed changes
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+<<<<<<< Updated upstream
     <compomentForWeb></compomentForWeb>
     <picName>query</picName>
     <time>1457750502633</time>
@@ -200,30 +306,62 @@
     <actionDetailString></actionDetailString>
     <cnname>bg1457750518380</cnname>
     <enname>bg1457750518380LinearLayout</enname>
+=======
+    <compomentForWeb>table</compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457680605829</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#1A1D1C</rgb16>
+    <rgb16ios>#1A1D1C</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>18</x>
+    <y>86</y>
+    <w>284</w>
+    <h>24</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457680623893</cnname>
+    <enname>bg1457680623893LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>Wj7-9e-XeW</id>
+=======
+    <id>gSk-N9-tzw</id>
+>>>>>>> Stashed changes
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
+<<<<<<< Updated upstream
     <compomentForWeb>table</compomentForWeb>
     <picName>图片名</picName>
     <time>1457750547076</time>
+=======
+    <compomentForWeb>tr</compomentForWeb>
+    <picName>图片名</picName>
+    <time>1457680631679</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#1A1D1C</rgb16>
+    <rgb16ios>#1A1D1C</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>15</x>
     <y>61</y>
     <w>294</w>
@@ -231,30 +369,49 @@
     <actionDetailString></actionDetailString>
     <cnname>bg1457750569209</cnname>
     <enname>bg1457750569209LinearLayout</enname>
+=======
+    <x>28</x>
+    <y>93</y>
+    <w>30</w>
+    <h>8</h>
+    <actionDetailString></actionDetailString>
+    <cnname>a</cnname>
+    <enname>aaTextView</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>Ub1-78-eTX</id>
     <type>LinearLayout</type>
+=======
+    <id>HIA-JT-Ea9</id>
+    <type>TextView</type>
+>>>>>>> Stashed changes
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>tr</compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750577545</time>
+=======
+    <time>1457680645875</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <rgb16ios>#000000</rgb16ios>
+    <rgb16>#262626</rgb16>
+    <rgb16ios>#262626</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>62</x>
     <y>69</y>
     <w>29</w>
@@ -262,30 +419,49 @@
     <actionDetailString></actionDetailString>
     <cnname>近三个月</cnname>
     <enname>nearThreeTextView</enname>
+=======
+    <x>19</x>
+    <y>116</y>
+    <w>286</w>
+    <h>33</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457680655032</cnname>
+    <enname>bg1457680655032LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>Q0C-XB-Vif</id>
     <type>TextView</type>
+=======
+    <id>XRc-FN-cRf</id>
+    <type>LinearLayout</type>
+>>>>>>> Stashed changes
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
+    <compomentForWeb>tr</compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750608949</time>
+=======
+    <time>1457680660065</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <rgb16ios>#000000</rgb16ios>
+    <rgb16>#262626</rgb16>
+    <rgb16ios>#262626</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
+<<<<<<< Updated upstream
     <x>139</x>
     <y>65</y>
     <w>47</w>
@@ -324,13 +500,26 @@
     <actionDetailString></actionDetailString>
     <cnname>全部</cnname>
     <enname>allTextView</enname>
+=======
+    <x>34</x>
+    <y>129</y>
+    <w>23</w>
+    <h>6</h>
+    <actionDetailString></actionDetailString>
+    <cnname>手机号码</cnname>
+    <enname>nameTitleTextView</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
+<<<<<<< Updated upstream
     <id>te8-ad-UBR</id>
+=======
+    <id>Yb6-7n-YKJ</id>
+>>>>>>> Stashed changes
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -338,6 +527,10 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
     <time>1457750656611</time>
+=======
+    <time>1457680678315</time>
+>>>>>>> Stashed changes
   </CompomentBean>
 </list>

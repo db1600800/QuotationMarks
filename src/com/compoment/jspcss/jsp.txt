@@ -1,307 +1,307 @@
 <%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>   
 <%@page import="java.util.*"%>
+<%@page import="com.chinapost.weixin.util.Const"%>
+
 
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset='utf-8'>
-<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, ">
+<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<title>新增地址</title>
+<title>订单列表</title>
 <link href="/chinapost/jiyouwx/css/css.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/chinapost/jiyouwx/js/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="/chinapost/jiyouwx/js/swiper-2.1.min.js"></script>
-<script>
-
-	var click_once = true;
-	function save(){	
-		  var name = $("#username").val();
-		  name = name.replace(/\s/ig,'');
-		  if(name == ""){
-			   auto_msg("请输入姓名！");
-			   return;
-		  }
-
-		  var phone = $("#phone").val();
-		  phone = phone.replace(/\s/ig,'');
-		  if(phone == ""){
-			   auto_msg("请输入手机号码！");
-			   return;
-		  }
-
-		  if(!/^1\d{10}$/g.test(phone) || phone.length != 11){
-			    auto_msg("手机号码格式不正确!");  
-		       	return false;
-	      }
-
-		  var province = $("#province").val();
-		  if(province == "-1"){
-			   auto_msg("请选择省！");
-			   return;
-		  }
-
-		  var city = $("#city").val();
-		  if(cityLength > 0 && city == "-1"){
-			   auto_msg("请选择市！");
-			   return;
-		  }
-
-		  var count = $("#count").val();
-		  if(countLength >1 && count == "-1"){
-			   auto_msg("请选择区/县！");
-			   return;
-		  }
-
-		  var address = $("#address").val();
-		  address = address.replace(/\s/ig,'');
-		  if(address == ""){
-			   auto_msg("请输入详细地址！");
-			   return;
-		  }
-
-		  var postcode = $("#postcode").val();
-		  postcode = postcode.replace(/\s/ig,'');
-		  if(postcode == ""){
-			   auto_msg("请输入邮编！");
-			   return;
-		  }
-		  if(postcode != "" ){
-			  if(postcode.length !=6 || !/\d{6}$/g.test(postcode) ){
-				 auto_msg("邮政编码格式不正确！");
-			     return;
-			  }
-		  }
-
-		  if(click_once == false){
-			   return;
-		  }
-		  click_once = false;
-
-		  var checked = "";
-		  if(setAddr){
-			  checked = "0";
-		  }
-	  var my_msg = show_hide_msg("数据提交中，请稍候...");
-		  var myform = document.forms[0]; 
-		  myform.action='/jiyou/wx/AddressAction!saveAddress.do?checked='+checked;  
-		  myform.submit();
-		my_msg = null;
-	}
-
-
-	var setAddr = false;
-	function setDefaultAddr(){
-		if(setAddr){
-			setAddr = false;
-			$("#defAddress").attr("class","check05");
-		}else{
-			setAddr = true;
-			$("#defAddress").attr("class","checked05");
-		}
-	}
-
-
-	var cityLength = 0;
-	var countLength = 0;
-	function selectArea(code){
-		
-		 var province = $("#province").val();
-		 var city = $("#city").val();
-		
-	     var urlAddr = '';
-	     if(code == "city"){
-	    	 urlAddr = '/jiyou/wx/AddressAction!queryCity.do?province='+province;
-	     }
-	     
-		 if((code == "count")){
-	    	 urlAddr = "/jiyou/wx/AddressAction!queryCount.do?city="+city;
-	     }
-		 
-	     $.ajax({ 
-		    	url: urlAddr,
-		        type: "POST",
-		        async: false,
-		        dataType:'json', //预期服务器返回的数据类型        
-		        success:function (data) {
-		 	        var index = 0;
-		 	        var html = '<div style="position:fixed;top:30px;right:35px;z-index:10;" onclick="close_tip_div();"><img src="/chinapost/jiyouwx/images/close.jpg" width="30" height="30"/></div>';
-		 	        html += '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sorts" ><tr>';
-	 			 $.each(data,function (key, value) {
-	    			 index = index + 1 ;
-	    			 html += "<td><a onclick='show(\""+code+"Pump\");selectName(\""+key+"\",\"" + code + "\",\"" + value + "\")'>"+value+"</a></td>";
-	    			 if(index % 2 == 0){
-	    				 html += "</tr><tr>";
-	    			 }
-		    		 });
-				
-				 if(index % 2 == 0){
-					 html += "</tr></table>";
-				 }else{
-					 html += "<td>&nbsp;</td></tr></table>"; 
-				 }
-					 $("#"+code+"Pump").append(html); 
-
-				 //更新省市县个数
-				 if(code == "city"){
-		        	 cityLength = index;
-		         }
-		         if(code == "count"){
-		        	 countLength = index;
-		        	 if(countLength > 0){
-			        	 $("#countName").show();
-		        	 } else {
-			        	 $("#countName").hide();
-		        	 }
-		         }
-				 
-		        },
-		        error:function () {
-					alert_msg("系统出错了!");  
-		        }
-			});
-	    
-	}
-
-	function selectName(value,code,name){
-	    $("#"+code).val(value);
-	    $("#"+code+"Name").text(name);
-	    if(code == "province"){
-		    $("#cityPump").html("");
-		    $("#city").val("-1");
-		    $("#cityName").text("请选择");
-		    cityLength = 0;
-	    }
-
-	    if(code == "province" || code == "city" ){
-		    $("#countPump").html("");
-		    $("#count").val("-1");
-		    $("#countName").text("请选择");
-		    countLength = 0;
-	    }
-
-	    if(code == "province"){
-	   		selectArea('city');
-	    	selectCity();
-	    }
-
-	    if(code == "city"){
-	    	selectArea('count');
-	    	selectCount();
-	    }
-	}
-
-	function selectCity(){
-		 var province = $("#province").val();
-		
-		 //当未选择省时，先点击市
-	     if(province == '-1'){
-	    	 auto_msg("请先选择省");
-			 return;
-	     }
-	     if( cityLength > 0){
-	    	 show('cityPump'); 
-	     }
-	    
-	}
-
-	function selectCount(){
-		 var province = $("#province").val();
-		 var city = $("#city").val();
-		
-		 //当未选择省时，先点击市
-	     if(province == '-1'){
-	    	 auto_msg("请先选择省");
-			 return;
-	     }
-	     if(city == '-1'){
-	    	 auto_msg("请先选择市");
-			 return;
-	     }
-	     if(countLength > 0){
-	    	 show('countPump'); 
-	     }
-	}
-</script>
+<%-- 统一错误处理 --%>
+	<%@include file="/chinapost/jiyouwx/global_error.jsp"%>
+	<style type="text/css">
+		.order_sorts { z-index: 4; position: relative; background-color: #fff; padding-bottom: 30px }
+		.order_sorts td { background-color: #fff; text-align: center; padding: 10px 10px 0; width: 33.33% }
+		.order_sorts a { padding: 10px; border: 1px solid #ddd; border-radius: 5px; display: block; color: #666 }
+		.order_sorts .sorts_a_red{ padding: 10px; border: 1px solid #ddd; border-radius: 5px; display: block; color: #fd5f28; }
+	</style>
 </head>
 <body>
-<form action="" id="myform"  method="post">
-<header><img src="/chinapost/jiyouwx/images/back.png" onclick=" history.go(-1);" class="back">添加地址</header>
+<form action="" id="orderListForm" method="POST">
+<header><img src="/chinapost/jiyouwx/images/back.png" onclick="window.location.href='/jiyou/wx/MemberAction!init.do';" class="back"/>
+	<span onClick="hideTip('status_div');show('searchOrder');"><span id="tit_span_id"><%=request.getParameter("businessName") %></span>订单</span>
+	<img src="/chinapost/jiyouwx/images/moreTitle.png" class="moreTitle" onClick="show('searchOrder')"/>
+	<img src="/chinapost/jiyouwx/images/search.png" class="search_img" onClick="show('searchOrder',this)"/>
+</header>
 <div class="h45">&nbsp;</div>
-	<ul class="box03 ul01 ul02">
-	<li><strong class="red">*</strong>姓名：
-	  <input type="text" class="input01" id="username" name="username" placeholder="请输入姓名"></li>
-	<li><strong class="red">*</strong>手机：
-	  <input type="text" class="input01" id="phone" name="phone" maxlength="11" pattern="[0-9]" placeholder="请输入手机号码"></li>
-	  
-    <li class="area"><strong class="red">*</strong>地区：
-	    <div class="areaBox"> 
-      <span class="arrowBg02" onClick="show('provincePump');" id="provinceName">请选择</span>
-      <span class="arrowBg02" onClick="selectCity();" id="cityName" >请选择</span>
-      <span class="arrowBg02" onClick="selectCount();" id="countName">请选择</span> 
-      
-      <input type="hidden" id="province" name="province" value='-1'>
-      <input type="hidden" id="city" name="city" value='-1'>
-      <input type="hidden" id="count" name="count" value='-1'>
-    </div>
-    </li>
-    
-	<li><strong class="red">*</strong>地址：
-	  <input type="text" class="input01" id="address" name="address" placeholder="请输入详细地址">
-	</li>
-	<li><strong class="red">*</strong>邮编：
-	  <input type="text" class="input01" maxlength="6" id="postcode" name="postcode"  pattern="[0-9]" placeholder="请输入邮编">
-	</li>
-	<li ><span id="defAddress" class="check05" onclick="setDefaultAddr()">设为默认地址</span></li>	
-</ul>
-<a href="#" class="btn02" onclick="save()" >保存</a>
+
+<div class="sort" id="searchOrder">
+	<table  id="serach_order_tb" width="100%" border="0" cellspacing="0" cellpadding="0" class="order_sorts">
+	</table>
+</div>
+
+<div class="sort" id="status_div">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="order_sorts">
+		<tbody id="merch_query_type_list_tb"></tbody>
+		<tr>
+	    <td >订单号：</td>
+	    <td style="text-align:left;" colspan="2"><input type="text" id="orderNo" class="input01" placeholder="请输入订单号"/></td>
+	  </tr>
+	</table>
+	<a href="javascript:void(0)" class="btn01" onClick="searchOrder()">查询订单</a>
+</div>
+	
+<table width="100%" id="query_time_tb" border="0" cellspacing="0" cellpadding="0" class="table02">
+  <tr >
+    <td id="all" class="chosen" onclick="check_time_btn('全部', this);">全部</td>
+    <td id="month"  onclick="check_time_btn('本月', this);">本月</td>
+    <td id="year" onclick="check_time_btn('本年', this);">本年</td>
+    <td onClick="show('status_div');">状态<img src="/chinapost/jiyouwx/images/down.png" class="down"></td>
+  </tr>
+</table>
+<div id="form1_pageset"></div>
+<div id="noMsg"></div>
+
+<div class="tipBox">
+	<div class="lightBox02" onclick="hideTip('searchOrder');hideTip('status_div');">&nbsp;</div>
+</div>
+
+<input type="hidden"  name="check_time" id="check_time" value="" />
+<input type="hidden"  name="page_code" id="page_code" value="1" />
+<input type="hidden"  name="choose_time" id="choose_time" value='<%=request.getAttribute("time") %>' />
+<input type="hidden"  name="business" id="business" value='<%=request.getParameter("business") %>' />
+<input type="hidden"  name="status" id="status" value='<%=request.getParameter("status") %>' />
+
 <jsp:include page="/chinapost/jiyouwx/global_error.jsp"></jsp:include>
 
-  <div class="tipBox">
-  <div class="lightBox" onclick="close_tip_div();"></div>
-  <div class="pump" id="provincePump">
-  	<div style="position:fixed;top:30px;right:35px;z-index:10;" onclick="close_tip_div();"><img src="/chinapost/jiyouwx/images/close.jpg" width="30" height="30"/></div>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sorts">
-      <s:iterator value="#request.province" id="prov" status = "st"> 
-        <s:if test="#st.index % 2 == 0">
-            <tr><td><a onclick='show("provincePump");selectName("<s:property value="key"/>","province","<s:property value="value"/>")'><s:property value="value"/></a></td>
-        </s:if>
-        <s:else>
-           <td><a onclick='show("provincePump");selectName("<s:property value="key"/>","province","<s:property value="value"/>")'><s:property value="value"/></a></td></tr>
-        </s:else>
-	  </s:iterator>
-   </table>
-  </div>
-   <div class="pump" id="cityPump">
-  </div>
-   <div class="pump" id="countPump">
-  </div>
-</div>
+</form>
 <script>
 
-function show(tem){
-	if($("#"+tem).hasClass("block")){
-		$(".pump").removeClass("block");
-		$(".lightBox").removeClass("block");
-	} else{
-		$(".lightBox").addClass("block");
-		$(".pump").removeClass("block");
-		$("#"+tem).addClass("block");
-	}
-		
-	$("#lightBox").height(window.screen.availHeight);
-	
+function show(tem,tem02){
+	$(".lightBox").toggleClass("block");
+	$(".lightBox02").toggleClass("block");
+	$("#"+tem).toggleClass("block");
+	$("#lightBox").height($(document).height());
+	$("#lightBox02").height($(document).height());
+	$(".content").height($(".tip").height()-50);
+	$('body').css('overflow', 'hidden');
 	$(document.body).toggleClass("html-body-overflow");
 }
 
 
-function close_tip_div(){
-	$(".tipBox").children("div").removeClass("block");
-	$(document.body).toggleClass("html-body-overflow");
+function hideTip(tem,tem02){
+	if($("#"+tem).hasClass("block")){
+		$(".lightBox").removeClass("block");
+		$(".lightBox02").removeClass("block");
+		$("#"+tem).removeClass("block");
+		$("#lightBox").height($(document).height());
+		$("#lightBox02").height($(document).height());
+		$(".content").height($(".tip").height()-50);
+		$('body').css('overflow', 'hidden');
+		$(document.body).toggleClass("html-body-overflow");
+	} 
+}
+function showTip(tem,tem02){
+	if($("#"+tem).hasClass("block")){
+	} else {
+		$(".lightBox").addClass("block");
+		$(".lightBox02").addClass("block");
+		$("#"+tem).addClass("block");
+		$("#lightBox").height($(document).height());
+		$("#lightBox02").height($(document).height());
+		$(".content").height($(".tip").height()-50);
+		$('body').css('overflow', 'hidden');
+		$(document.body).toggleClass("html-body-overflow");
+	}
+}
+
+</script>
+
+<script>
+
+var stop=false;
+$(window).scroll(function(){
+    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+    if($(document).height() <= totalheight){
+        if(stop==true){
+            stop=false;
+            query_ajx(1);
+        }
+    }
+});
+
+function selectOrderStatus(status, name){
+	$("#merch_query_type_list_tb a").each(function(){
+		if($(this).text() == name){
+			$(this).prop("class","sorts_a_red");
+		} else {
+			$(this).prop("class","");
+		}
+	});
+	$("#status").val(status);
+	query_ajx(0);
+	show('status_div');
+}
+
+var myList = <%=net.sf.json.JSONArray.fromObject(Const.getParamCollection("SELECTORDERSTATUS",1,2))%>;
+var businessList = <%=net.sf.json.JSONArray.fromObject(Const.getParamCollection("BUSINESS",1,2))%>;
+
+$(document).ready(function() {
+	var status = $("#status").val();
+	
+	$("#check_time").val("全部"); 
+
+	//获取用户可选择的订单状态信息
+	var htm = "";
+	var opt = '<tr>';
+	for(var i=0;i<myList.length;i++){
+		var name = myList[i].label;  
+		var value = myList[i].value;	
+
+		if(i != 0 && i % 3 == 0 ){
+			opt += '</tr><tr>';
+		}
+		var oStatusNameClass = "";
+		if(value == status){
+			oStatusNameClass = 'class="sorts_a_red"';
+		}
+		opt += '<td><a '+oStatusNameClass+' href="javascript:void(0)" onclick="selectOrderStatus(\'' + value+ '\',\'' + name+ '\')">'+ name +'</a></td>';
+	}
+	opt += '</tr>';
+	$("#merch_query_type_list_tb").append(opt);
+
+	//取业务代号
+	var biz_htm = "";
+	for(var i=0;i<businessList.length;i++){
+		var name = businessList[i].label;  
+		var value = businessList[i].value;	
+		var oStatusNameClass = "";
+		if(value == $("#business").val()){
+			oStatusNameClass = 'class="sorts_a_red"';
+		}
+		biz_htm += '<tr><td><a '+oStatusNameClass+' href="javascript:void(0)" onclick="selectBusiNo(\'' + value+ '\',\'' + name+ '\')">'+ name +'</a></td></tr>';
+		
+	}
+	$("#serach_order_tb").append(biz_htm);
+
+	//查询订单列表
+	query_ajx(0);
+});
+
+function selectBusiNo(bizNo, bizName){
+	$("#serach_order_tb a").each(function(){
+		if($(this).text() == bizName){
+			$(this).prop("class","sorts_a_red");
+		} else {
+			$(this).prop("class","");
+		}
+	});
+	$("#business").val(bizNo);
+	$("#tit_span_id").text(bizName);
+	query_ajx(0);
+	show('searchOrder');
+}
+
+function check_status_btn(obj){
+	$("#query_time_tb tr").each(function(trindex,tritem){
+		$(tritem).find("td").each(function(tdindex,tditem){
+			$(tditem).removeClass("chosen");
+		});
+	});
+	$(obj).addClass("chosen");
+	show('searchOrder');
+}
+function check_time_btn(time, obj){
+	$("#check_time").val(time);
+    $("#choose_time").val(time);
+	$("#query_time_tb tr").each(function(trindex,tritem){
+		$(tritem).find("td").each(function(tdindex,tditem){
+			$(tditem).removeClass("chosen");
+		});
+	});
+	$(obj).addClass("chosen");
+	query_ajx(0);
+}
+
+var only_one_sub = true; //防重复提交
+function query_ajx(flg){ 
+    var orderNo = $("#orderNo").val();
+    orderNo = orderNo.replace(/\s/ig,'');
+    if(!only_one_sub){
+        return;//防重复提交
+    }  
+    only_one_sub = false;//防重复提交
+   
+    if(flg == 0){//按查询时
+    	$("#page_code").val(1);			    	
+    }		    
+    var my_msg = show_hide_msg("页面加载中...");
+    $.ajax({  
+        url:'/jiyou/wx/OrderAction!queryOrderList.do?',  
+        data: { "page_code": $("#page_code").val(), "check_time": $("#check_time").val(), "status": $("#status").val(), 
+            "business":$("#business").val(),"orderNo":orderNo,"queryTypeFlag":"","fundFlag":""} ,  
+        type:"POST",
+        cache:false, 
+        dataType:'json', //预期服务器返回的数据类型  
+        error: function() {
+        	only_one_sub = true;  ////防重复提交
+   			alert_msg("查询出错了!!!"); 
+   			$("#form1_pageset").html(""); 
+   			$("#noMsg").html("");
+   		    my_msg.close();
+        },  
+        success:function(data){
+        	$("#noMsg").html("");
+        	 my_msg.close();
+        	if (data != null){
+        		var msg = data.result;
+     		    if(msg == "success"){
+     		    	$("#orderNo").val("");
+         		    var rlt = data.rltdata.redo;
+	        		if(flg == 0){//按查询时
+	        			 $("#form1_pageset").html("");				    	
+	     		    }
+	            	var opt = "";
+					for(var i=0;i<rlt.length;i++){
+						opt += '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table04" onclick="queryOrderDetail(\''+ rlt[i].orderNo+'\')">';
+						opt += '<tr><td><span class="f6">订单号：</span>'+rlt[i].orderNo+'</td>';
+						opt += '<td><span class="f6">金额：</span>￥'+rlt[i].orderAmt+'</td>';
+						opt += '<td rowspan="2" class="td01"><img src="/chinapost/jiyouwx/images/next.png" class="nextP"></td></tr>';
+						opt += '<tr><td><span class="f6">日期：</span>'+rlt[i].bookDateName+'</td>';
+						opt += '<td><span class="f6">状态：</span><span class="red">'+rlt[i].dealStatusName+'</span></td>';
+						opt += '</tr></table>';
+					}
+								
+					$("#page_code").val(Number($("#page_code").val()) + 1);		
+	
+					if(rlt.length >= 10){
+		        		stop = true;//到底部时加载判断
+		        	}
+	        		if(rlt.length == 0){
+	        			$("#noMsg").html('<br><br><br><br><div style="text-align:center;">暂无订单信息</div>');
+	            	}
+	        		$(opt).appendTo($("#form1_pageset"));
+			   		only_one_sub = true;  ////防重复提交
+	        	}else{
+	        		only_one_sub = true;  ////防重复提交
+	        		alert_msg(msg); 
+	       			$("#form1_pageset").html("");
+	       			$("#noMsg").html("");  
+	        	}
+        	}
+        }  
+    });
+}
+
+var order_status= $("#status").val();
+function searchOrder(){
+	order_status = "";
+	query_ajx(0);
+	show('status_div');
+}
+
+function queryOrderDetail(param){
+	var my_msg = show_hide_msg("页面跳转中，请稍候...");
+	 window.location.href="/jiyou/wx/OrderAction!queryOrderDetail.do?orderNo=" + param;	
+	 my_msg = null;
 }
 </script>
-<input type="hidden" id="flag" name="shoppingCar" value="<%=request.getAttribute("shoppingCar") %>">
-</form>
 </body>
 </html>
