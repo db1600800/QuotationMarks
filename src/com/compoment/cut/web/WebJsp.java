@@ -454,15 +454,30 @@ public class WebJsp {
 
 		if (chirld.type.equals("CheckBox")) {
 
+			
+			bodym += "var setAddr = false;\n";
+			bodym += "function setDefaultAddr(){\n";
+			bodym += "	if(setAddr){\n";
+			bodym += "	setAddr = false;\n";
+			bodym += "	$(\"#\").attr(\"style\",\"check05\");\n";
+			bodym += "}else{\n";
+			bodym += "	setAddr = true;\n";
+			bodym += "	$(\"#defAddress\").attr(\"style\",\"checked05\");\n";
+			bodym += "}\n";
+			bodym += "}\n";
+
+			
+			bodym += "<span id=\""+chirld.enname+"\" style=\" background: url(/images/check.png) no-repeat 10px center; background-size: 20px; padding-left: 40px; display:inline-block; padding-top:5px; padding-bottom:5px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
+
+			
 		}
 
 		if (chirld.type.equals("EditText")) {
 
-			if (formmStart.equals("")) {
-				formmStart += "<form action=\"\" id=\"myform\"  method=\"post\">\n";
+			
+			bodym += " <input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\">";
 
-				formmEnd += "</form>\n";
-			}
+			
 
 		}
 
