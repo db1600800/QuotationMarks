@@ -8,6 +8,7 @@
     <g>0.0</g>
     <b>0.0</b>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <x>3</x>
     <y>4</y>
     <w>313</w>
@@ -24,6 +25,15 @@
     <cnname>bg1457680504502</cnname>
     <enname>bg1457680504502LinearLayout</enname>
 >>>>>>> Stashed changes
+=======
+    <x>8</x>
+    <y>16</y>
+    <w>283</w>
+    <h>302</h>
+    <actionDetailString></actionDetailString>
+    <cnname>bg1457871900218</cnname>
+    <enname>bg1457871900218LinearLayout</enname>
+>>>>>>> Stashed changes
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -31,9 +41,13 @@
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <id>oO6-hc-vYl</id>
 =======
     <id>ZWM-5P-1D4</id>
+>>>>>>> Stashed changes
+=======
+    <id>2XH-tC-zA1</id>
 >>>>>>> Stashed changes
     <type>LinearLayout</type>
     <orientation></orientation>
@@ -42,6 +56,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>div</compomentForWeb>
     <picName>图片名</picName>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <time>1457750286033</time>
   </CompomentBean>
@@ -209,6 +224,9 @@
     <picName>图片名</picName>
 <<<<<<< Updated upstream
     <time>1457750428274</time>
+=======
+    <time>1457871906747</time>
+>>>>>>> Stashed changes
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
@@ -218,26 +236,27 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>214</x>
-    <y>32</y>
-    <w>7</w>
-    <h>4</h>
+    <x>49</x>
+    <y>111</y>
+    <w>202</w>
+    <h>20</h>
     <actionDetailString></actionDetailString>
-    <cnname>down</cnname>
-    <enname>downButton</enname>
+    <cnname>aa</cnname>
+    <enname>aaButton</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>bGG-A3-r8e</id>
+    <id>yYA-Nh-CMG</id>
     <type>Button</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
+<<<<<<< Updated upstream
     <picName>down</picName>
     <time>1457750456387</time>
 =======
@@ -531,6 +550,10 @@
     <time>1457750656611</time>
 =======
     <time>1457680678315</time>
+>>>>>>> Stashed changes
+=======
+    <picName>图片名</picName>
+    <time>1457871919470</time>
 >>>>>>> Stashed changes
   </CompomentBean>
 </list>
