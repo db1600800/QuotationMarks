@@ -51,6 +51,7 @@ public class WebJsp {
 	//margin-top:3px;
 
 	String bodym = "\n\n\n";
+	String js="";
 	String connection = "";
 	String pageName = "";
 	String className = "";
@@ -304,6 +305,9 @@ public class WebJsp {
 		// rel=\"stylesheet\" type=\"text/css\">--%>\n";
 
 		bodym += "	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jquery-1.10.1.min.js\"></script>\n";
+		bodym+="<script>\n";
+		bodym+=js+"\n";
+		bodym+="</script>\n";
 		// bodym+=" <script type=\"text/javascript\"
 		// src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\"
 		// charset='utf-8'></script>\n";
@@ -454,17 +458,17 @@ public class WebJsp {
 
 		if (chirld.type.equals("CheckBox")) {
 
-			
-			bodym += "var setAddr = false;\n";
-			bodym += "function setDefaultAddr(){\n";
-			bodym += "	if(setAddr){\n";
-			bodym += "	setAddr = false;\n";
-			bodym += "	$(\"#\").attr(\"style\",\"check05\");\n";
-			bodym += "}else{\n";
-			bodym += "	setAddr = true;\n";
-			bodym += "	$(\"#defAddress\").attr(\"style\",\"checked05\");\n";
-			bodym += "}\n";
-			bodym += "}\n";
+			js +="//checkbox \n";
+			js += "var setAddr = false;\n";
+			js += "function setDefaultAddr(){\n";
+			js += "	if(setAddr){\n";
+			js += "	setAddr = false;\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\"background: url(/images/check.png) no-repeat 10px center; background-size: 20px; padding-left: 40px; display:inline-block; padding-top:5px; padding-bottom:5px;\");\n";
+			js += "}else{\n";
+			js += "	setAddr = true;\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(/images/checked.png) no-repeat 10px center; background-size: 20px; padding-left: 35px; display:inline-block; padding-top:5px; padding-bottom:5px;\");\n";
+			js += "}\n";
+			js += "}\n\n";
 
 			
 			bodym += "<span id=\""+chirld.enname+"\" style=\" background: url(/images/check.png) no-repeat 10px center; background-size: 20px; padding-left: 40px; display:inline-block; padding-top:5px; padding-bottom:5px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
