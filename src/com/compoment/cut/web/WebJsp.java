@@ -305,8 +305,8 @@ public class WebJsp {
 		// rel=\"stylesheet\" type=\"text/css\">--%>\n";
 
 		bodym += "	<script type=\"text/javascript\" src=\"/chinapost/jiyouwx/js/jquery-1.10.1.min.js\"></script>\n";
-		bodym+="<script>\n";
-		bodym+=js+"\n";
+		bodym+="<script type=\"text/javascript\">\n";
+		bodym+="//appendjs\n";
 		bodym+="</script>\n";
 		// bodym+=" <script type=\"text/javascript\"
 		// src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\"
@@ -332,7 +332,10 @@ public class WebJsp {
 
 		bodym += "  </div>\n";
 		bodym += "</body>\n";
+	
 		bodym += "</html>\n";
+		
+		bodym=bodym.replace("//appendjs", js);
 		return bodym;
 	}
 
@@ -463,15 +466,15 @@ public class WebJsp {
 			js += "function setDefaultAddr(){\n";
 			js += "	if(setAddr){\n";
 			js += "	setAddr = false;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\"background: url(/images/check.png) no-repeat 10px center; background-size: 20px; padding-left: 40px; display:inline-block; padding-top:5px; padding-bottom:5px;\");\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\"background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}else{\n";
 			js += "	setAddr = true;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(/images/checked.png) no-repeat 10px center; background-size: 20px; padding-left: 35px; display:inline-block; padding-top:5px; padding-bottom:5px;\");\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(images/checked.png) no-repeat 2px center;  padding-left: 35px; padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}\n";
 			js += "}\n\n";
 
 			
-			bodym += "<span id=\""+chirld.enname+"\" style=\" background: url(/images/check.png) no-repeat 10px center; background-size: 20px; padding-left: 40px; display:inline-block; padding-top:5px; padding-bottom:5px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
+			bodym += "<span id=\""+chirld.enname+"\" style=\" "+ chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
 
 			
 		}
