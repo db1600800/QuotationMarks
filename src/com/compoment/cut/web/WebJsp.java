@@ -507,6 +507,116 @@ public class WebJsp {
 			bodym += "  </tableView>\n";
 			connection += "                        <outlet property=\"" + "tableView" + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
+			
+			
+			
+//			var stop=false;
+//			$(window).scroll(function(){
+//			    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+//			    if($(document).height() <= totalheight){
+//			        if(stop==true){
+//			            stop=false;
+//			            query_ajx(1);
+//			        }
+//			    }
+//			});
+//
+//			$(document).ready(function() {
+//				//查询订单列表
+//				query_ajx(0);
+//			});
+//
+//			var curr_addr = 0; //当前地址的数量
+//			var only_one_sub = true; //防重复提交
+//			function query_ajx(flg){ 
+//				  
+//			    if(!only_one_sub){
+//			        return;//防重复提交
+//			    }  
+//			    only_one_sub = false;//防重复提交
+//			   
+//			    if(flg == 0){//按查询时
+//			    	$("#page_code").val(1);			    	
+//			    }		    
+//			   
+//			    curr_addr = 0;
+//
+//			    var flag = $("#flag").val();
+//			    var my_msg = show_hide_msg("页面加载中...");
+//			    $("#noMsg").html("");
+//			    $.ajax({  
+//			        url:'/jiyou/wx/AddressAction!queryAddressList.do?',  
+//			        data: { "page_code": $("#page_code").val()} ,  
+//			        type:"POST",
+//			        cache:false, 
+//			        dataType:'json', //预期服务器返回的数据类型  
+//			        error: function() {
+//			        	only_one_sub = true;  ////防重复提交
+//			        	alert_msg("查询出错了!!!"); 
+//			   			$("#form1_pageset").html(""); 
+//			   			$("#noMsg").html("");
+//			   			my_msg.close();
+//			   			curr_addr = 0;
+//			        },  
+//			        success:function(data){
+//			          my_msg.close();
+//			        	if (data != null){
+//			        		var msg = data.result;
+//			     		    if(msg == "success"){
+//			     		    	
+//			         		    var rlt = data.rltdata.redo;
+//			         		    curr_addr = rlt.length;
+//
+//				        		if(flg == 0){//按查询时
+//				        			 $("#form1_pageset").html("");				    	
+//				     		    }
+//				            	var opt = "";
+//								for(var i=0;i<rlt.length;i++){
+//									opt += '<div class="box05"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="cfTable"><tr class="tr01">';
+//									if(flag == "1"){//表示从购物车页面进入
+//										var param = "recvName="+rlt[i].recvName+"&provCode="+rlt[i].provCode+"&cityCode="+rlt[i].cityCode+"&countCode="+rlt[i].countCode+
+//										"&detailAddress="+rlt[i].detailAddress+"&mobileNo="+rlt[i].mobileNo+"&postCode="+rlt[i].postCode+"&addressID="+rlt[i].addressID;
+//
+//										if(rlt[i].isDefaultAddress == '0' ){
+//											opt += '<td><dd onclick="selectAddress(this, \''+ param+'\')" class="checked04"><input type="checkbox" name="addressID_box" class="checkbox_sty" value="'+ rlt[i].addressID +'" checked="checked"/>默认地址</dd></td>';
+//										}else{
+//											opt += '<td><dd onclick="selectAddress(this, \''+ param+'\')" class="check04"><input type="checkbox" name="addressID_box" class="checkbox_sty" value="'+ rlt[i].addressID +'" />选择该地址</dd></td>';
+//										}
+//									}else{ //表明从会员首页点击"我的地址"进入
+//										if(rlt[i].isDefaultAddress == '0' ){
+//											opt += '<td >默认地址</td>';
+//										}else{
+//											opt += '<td ></td>';
+//										}
+//										
+//									}
+//									opt += '<td width="60"><a  href="#" class="del02" onclick="deleteAddress(\''+rlt[i].addressID+'\')">删除</a></td>';
+//									opt += ' </tr><tr><td><p class="p01">收货人：'+rlt[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+rlt[i].mobileNo+'</p>';
+//									opt += '<p class="p02">'+rlt[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+rlt[i].postCode+'</p></td>';
+//									opt += '</tr></table></div>';
+//								}
+//
+//								$("#page_code").val(Number($("#page_code").val()) + 1);		
+//				
+//								if(rlt.length >= 10){
+//					        		stop = true;//到底部时加载判断
+//					        	} 
+//					        	if(rlt.length == 0){
+//			          				$("#noMsg").html('<br><br><br><br><div style="text-align:center;">暂无地址信息</div>');
+//				            	}
+//					        	$(opt).appendTo($("#form1_pageset"));
+//				        		
+//						   		only_one_sub = true;  ////防重复提交
+//				        	}else{
+//				        		only_one_sub = true;  ////防重复提交
+//				       			$("#form1_pageset").html("");  
+//				       			alert_msg(msg);
+//				       			$("#noMsg").html("");
+//				        	}
+//			        	}
+//			        }  
+//			    });
+//			}
 		}
 
 		if (chirld.type.equals("ImageView")) {
