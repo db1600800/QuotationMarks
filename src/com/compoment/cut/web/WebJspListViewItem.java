@@ -29,26 +29,6 @@ import com.compoment.util.KeyValue;
 
 public class WebJspListViewItem {
 
-	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
-	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
-	// background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
-	// text-align: center;文本居中
-
-	// float:left;right center
-
-	// width: 100%;
-
-	// position: relative; 正常占位
-
-	// position: absolute; 相对父亲浮起来，不占位，父亲不指定position: relative则相对<body>浮起来
-	// z-index:1; 多个浮起来，数值大的在上面
-
-	// position: fixed; 相对浏览器浮起来，不占位
-	// 后跟 top:0; left:0; bottom:0; right:0;
-
-	// overflow: scroll;滚动 auto自动处理 hidden隐藏
-	
-	//margin-top:3px;
 
 	String bodym = "\n\n\n";
 	String js="";
@@ -58,21 +38,15 @@ public class WebJspListViewItem {
 	String formmStart = "";
 	String formmEnd = "";
 
-	int rootViewWidth = 320;
-	int rootViewHeight = 568;
 
-	public WebJspListViewItem(int cellWidth, int cellHeight) {
-		rootViewWidth = cellWidth;
-		rootViewHeight = cellHeight;
-	}
 
-	public WebJspListViewItem(String pageName, List<CompomentBean> oldBeans) {
+	public String listViewItemString(String pageName, CompomentBean maxBean) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
-		String body = analyse(oldBeans);
+		parent(maxBean);
 
-		System.out.println(bodym);
+		return bodym;
 
 		// FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
 		// + "ViewController", "xib", m);
@@ -90,211 +64,8 @@ public class WebJspListViewItem {
 		return temp;
 	}
 
-	CompomentBean maxBean = null;
 
-	public String analyse(List<CompomentBean> oldBeans) {
-		// Collections.sort(oldBeans, comparatorDate);
 
-		int maxW = 0;
-		int maxH = 0;
-		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
-
-		// 找出容器
-		for (CompomentBean bean : oldBeans) {
-			if (bean.type.contains("Layout")) {
-				if (bean.w >= maxW) {
-					maxW = bean.w;
-					maxBean = bean;
-				}
-
-				if (bean.h >= maxH) {
-					maxH = bean.h;
-					maxBean = bean;
-				}
-
-				layouts.add(bean);
-			}
-		}
-
-		Collections.sort(layouts, comparatorDate);
-
-		// RelativeLayout 儿子们的位置关系
-		for (CompomentBean bean : layouts) {
-			if (bean.type.equals("RelativeLayout")) {
-				if (bean.chirlds != null && bean.chirlds.size() > 1) {
-
-					if (bean.chirlds.size() == 2) {
-						if (bean.orientation.equals("horizontal")) {
-
-							bean.relativeForWeb += " position:fixed; ";
-							
-
-							CompomentBean chirld1 = bean.chirlds.get(0);
-							CompomentBean chirld2 = bean.chirlds.get(1);
-							if (chirld1.x < chirld2.x) {
-								chirld1.relativeForWeb += "position: absolute; left:"+chirld1.x+"px;";
-								chirld2.relativeForWeb += "position: absolute;     ";
-							} else if (chirld1.x > chirld2.x) {
-								chirld2.relativeForWeb += "position: absolute;  left:"+chirld2.x+"px;  ";
-								chirld1.relativeForWeb += "position: absolute;    ";
-							}
-
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-
-					} else if (bean.chirlds.size() == 3) {
-
-						if (bean.orientation.equals("horizontal")) {
-
-						
-							bean.relativeForWeb += " position:fixed; ";
-							
-						
-
-							Collections.sort(bean.chirlds, comparatorX);
-							int i = 0;
-							for (CompomentBean chirld : bean.chirlds) {
-								if (i == 0) {
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += "position: absolute;left:"+chirld.x+";";
-
-								} else if (i == 1) {
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += " ";
-
-								} else if (i == 2) {
-									float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320
-											* 100;
-									chirld.relativeForWeb += "position: absolute;right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px;";
-								}
-								i++;
-							}
-
-							Collections.sort(bean.chirlds, comparatorDate);
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-
-					} else if (bean.chirlds.size() > 3) {
-
-						if (bean.orientation.equals("horizontal")) {
-							bean.relativeForWeb += "";
-
-							Collections.sort(bean.chirlds, comparatorX);
-
-							int i = 0;
-
-							for (CompomentBean chirld : bean.chirlds) {
-								if (i == 0) {
-
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += "position: absolute;left:"+chirld.x+";";
-
-								} else if (i == bean.chirlds.size() - 1) {
-									float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320
-											* 100;
-									chirld.relativeForWeb += "position: absolute;right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px;";
-								} else {
-
-								}
-								i++;
-							}
-
-							Collections.sort(bean.chirlds, comparatorDate);
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-					}
-				}
-			} else if (bean.type.equals("LinearLayout")) {
-				if (bean.chirlds != null && bean.chirlds.size() > 1) {
-
-					if (bean.orientation.equals("horizontal")) {
-						bean.relativeForWeb += "";
-						Collections.sort(bean.chirlds, comparatorX);
-
-						int i = 0;
-						CompomentBean beforeChirld = null;
-						for (CompomentBean chirld : bean.chirlds) {
-							if (i == 0) {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								
-							
-									chirld.relativeForWeb = "";
-								
-								
-
-								beforeChirld = chirld;
-							} else if (i == bean.chirlds.size() - 1) {
-								float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320 * 100;
-							
-									chirld.relativeForWeb = "";
-								
-							} else {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								
-									chirld.relativeForWeb = "";
-								
-								beforeChirld = chirld;
-							}
-							i++;
-						}
-
-						Collections.sort(bean.chirlds, comparatorDate);
-					} else if (bean.orientation.equals("vertical")) {
-						
-							bean.relativeForWeb += "   ";
-
-						Collections.sort(bean.chirlds, comparatorY);
-
-						int i = 0;
-						CompomentBean beforeChirld = null;
-						for (CompomentBean chirld : bean.chirlds) {
-							if (i == 0) {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-
-								beforeChirld = chirld;
-							} else if (i == bean.chirlds.size() - 1) {
-
-								float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320 * 100;
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-							} else {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-								beforeChirld = chirld;
-							}
-							i++;
-						}
-
-						Collections.sort(bean.chirlds, comparatorDate);
-					}
-				}
-
-			}
-		}
-
-		
-	
-		parent(maxBean);
-
-		
-		return bodym;
-	}
 
 	public String getConnection() {
 		return connection;
