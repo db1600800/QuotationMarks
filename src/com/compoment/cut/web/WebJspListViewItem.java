@@ -32,25 +32,63 @@ public class WebJspListViewItem {
 
 	String bodym = "\n\n\n";
 	String js="";
-	String connection = "";
+
 	String pageName = "";
 	String className = "";
-	String formmStart = "";
-	String formmEnd = "";
+	
 
 
 
-	public String listViewItemString(String pageName, CompomentBean maxBean) {
+	public  WebJspListViewItem(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
+		  analyse(oldBeans);
+
+	
+
+	}
+	
+	
+public void analyse(List<CompomentBean> oldBeans) {
+		
+	
+
+		
+		int maxW = 0;
+		int maxH = 0;
+		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
+		CompomentBean maxBean = null;
+		// 找出容器
+		for (CompomentBean bean : oldBeans) {
+			if (bean.type.contains("Layout")) {
+				if (bean.w >= maxW) {
+					maxW = bean.w;
+					maxBean = bean;
+				}
+
+				if (bean.h >= maxH) {
+					maxH = bean.h;
+					maxBean = bean;
+				}
+
+				layouts.add(bean);
+			}
+		}
+		
+		
 		parent(maxBean);
-
-		return bodym;
-
-		// FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
-		// + "ViewController", "xib", m);
-
+	
+		
+  
+		 jsString();
+		
+		String lines = FileUtil.fileContent(KeyValue.readCache("picPath")+"/src/jsp/"+className+"Jsp.jsp");
+		lines=lines.replace("</script>", js+"\n</script>\n");
+		
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/Jsp", className + "Jsp", "jsp", lines);
+		
+		System.out.println(lines);
 	}
 
 	public static String firstCharToUpperAndJavaName(String string) {
@@ -67,9 +105,7 @@ public class WebJspListViewItem {
 
 
 
-	public String getConnection() {
-		return connection;
-	}
+
 
 	public void parent(CompomentBean bean) {
 
@@ -90,10 +126,7 @@ public class WebJspListViewItem {
 					// left:0
 					
 					
-					if(bean.type.equals("ListView"))
-					{
-						
-					}
+					
 
 					String start = "";
 					String end = "";
@@ -260,8 +293,7 @@ public class WebJspListViewItem {
 			// + id() + "\"/>\n";
 			// bodym += " </constraints>\n";
 			bodym += " </imageView>\n";
-			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
-					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
+		
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
@@ -271,7 +303,7 @@ public class WebJspListViewItem {
 	
 	
 	
-	public void listViewItem(CompomentBean listViewItemBean)
+	public void jsString()
 	{
 		
 		js+="\n\n//列表 \n";
@@ -329,39 +361,39 @@ public class WebJspListViewItem {
 		js+="			        		var msg = data.result;\n";
 		js+="			     		    if(msg == \"success\"){\n";
 		js+="			     		    	\n";
-		js+="			         		    var listData = data.rltdata.redo;\n";
+		js+="			         		    var listData = data;\n";
 		js+="			         		    currentCount = listData.length;\n";
 
 		js+="				        		if(flg == 0){//按查询时\n";
 		js+="				        			 $(\"#listSpace\").html(\"\");				    	\n";
 		js+="				     		    }\n";
-		js+="				            	var opt = \"\";\n";
+		js+="				            	var html = \"\";\n";
 		js+="								for(var i=0;i<listData.length;i++){\n";
+		js+="html+='"+bodym+"';\n";
 		
 		
-		
-		js+="									opt += '<div class=\"box05\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"cfTable\"><tr class=\"tr01\">';\n";
-		js+="									if(flag == \"1\"){//表示从购物车页面进入\n";
-		js+="										var param = \"recvName=\"+listData[i].recvName+\"&provCode=\"+listData[i].provCode+\"&cityCode=\"+listData[i].cityCode+\"&countCode=\"+listData[i].countCode+\n";
-		js+="										\"&detailAddress=\"+listData[i].detailAddress+\"&mobileNo=\"+listData[i].mobileNo+\"&postCode=\"+listData[i].postCode+\"&addressID=\"+listData[i].addressID;\n";
-
-		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"checked04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" checked=\"checked\"/>默认地址</dd></td>';\n";
-		js+="										}else{\n";
-		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"check04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" />选择该地址</dd></td>';\n";
-		js+="										}\n";
-		js+="									}else{ //表明从会员首页点击\"我的地址\"进入\n";
-		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-		js+="											opt += '<td >默认地址</td>';\n";
-		js+="										}else{\n";
-		js+="											opt += '<td ></td>';\n";
-		js+="										}\n";
-		js+="										\n";
-		js+="									}\n";
-		js+="									opt += '<td width=\"60\"><a  href=\"#\" class=\"del02\" onclick=\"deleteAddress(\''+listData[i].addressID+'\')\">删除</a></td>';\n";
-		js+="									opt += ' </tr><tr><td><p class=\"p01\">收货人：'+listData[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].mobileNo+'</p>';\n";
-		js+="									opt += '<p class=\"p02\">'+listData[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].postCode+'</p></td>';\n";
-		js+="									opt += '</tr></table></div>';\n";
+//		js+="									opt += '<div class=\"box05\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"cfTable\"><tr class=\"tr01\">';\n";
+//		js+="									if(flag == \"1\"){//表示从购物车页面进入\n";
+//		js+="										var param = \"recvName=\"+listData[i].recvName+\"&provCode=\"+listData[i].provCode+\"&cityCode=\"+listData[i].cityCode+\"&countCode=\"+listData[i].countCode+\n";
+//		js+="										\"&detailAddress=\"+listData[i].detailAddress+\"&mobileNo=\"+listData[i].mobileNo+\"&postCode=\"+listData[i].postCode+\"&addressID=\"+listData[i].addressID;\n";
+//
+//		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
+//		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"checked04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" checked=\"checked\"/>默认地址</dd></td>';\n";
+//		js+="										}else{\n";
+//		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"check04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" />选择该地址</dd></td>';\n";
+//		js+="										}\n";
+//		js+="									}else{ //表明从会员首页点击\"我的地址\"进入\n";
+//		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
+//		js+="											opt += '<td >默认地址</td>';\n";
+//		js+="										}else{\n";
+//		js+="											opt += '<td ></td>';\n";
+//		js+="										}\n";
+//		js+="										\n";
+//		js+="									}\n";
+//		js+="									opt += '<td width=\"60\"><a  href=\"#\" class=\"del02\" onclick=\"deleteAddress(\''+listData[i].addressID+'\')\">删除</a></td>';\n";
+//		js+="									opt += ' </tr><tr><td><p class=\"p01\">收货人：'+listData[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].mobileNo+'</p>';\n";
+//		js+="									opt += '<p class=\"p02\">'+listData[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].postCode+'</p></td>';\n";
+//		js+="									opt += '</tr></table></div>';\n";
 		
 		
 		
@@ -377,7 +409,7 @@ public class WebJspListViewItem {
 		js+="					        	if(listData.length == 0){\n";
 		js+="			          				$(\"#emptyOrErrorMsg\").html('<br><br><br><br><div style=\"text-align:center;\">暂无地址信息</div>');\n";
 		js+="				            	}\n";
-		js+="					        	$(opt).appendTo($(\"#listSpace\"));\n";
+		js+="					        	$(html).appendTo($(\"#listSpace\"));\n";
 		js+="				        		\n";
 		js+="						   		only_one_sub = true;  ////防重复提交\n";
 		js+="				        	}else{\n";

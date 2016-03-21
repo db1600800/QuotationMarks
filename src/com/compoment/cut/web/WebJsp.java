@@ -72,6 +72,8 @@ public class WebJsp {
 
 		String body = analyse(oldBeans);
 
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/Jsp", className + "Jsp", "jsp", bodym);
+		
 		System.out.println(bodym);
 
 		// FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
@@ -336,6 +338,8 @@ public class WebJsp {
 		bodym += "</html>\n";
 		
 		bodym=bodym.replace("//appendjs", js);
+		
+		
 		return bodym;
 	}
 
@@ -362,10 +366,7 @@ public class WebJsp {
 					// left:0
 					
 					
-					if(bean.type.equals("ListView"))
-					{
-						
-					}
+					
 
 					String start = "";
 					String end = "";
@@ -507,10 +508,14 @@ public class WebJsp {
 			bodym += "<div id=\"listSpace\"></div>\n";
 			bodym += "<input type=\"hidden\"  name=\"page_code\" id=\"page_code\" value=\"1\" />\n";
 			bodym += "<input type=\"hidden\"  name=\"page_num\" id=\"page_num\" value=\"10\" />\n";
-			bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
+//			bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
 
 			
-		
+			
+				//WebJspListViewItem webJspListViewItem=new WebJspListViewItem();
+			//	js+=webJspListViewItem.listViewItemString(chirld);	
+			
+			
 
 		
 		
@@ -543,126 +548,7 @@ public class WebJsp {
 	
 	
 	
-	public void listViewItem(CompomentBean listViewItemBean)
-	{
-		
-		js+="\n\n//列表 \n";
-		js+="			var stop=false;\n";
-		js+="			$(window).scroll(function(){\n";
-		js+="			    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());\n";
-		js+="			    if($(document).height() <= totalheight){\n";
-		js+="			        if(stop==true){\n";
-		js+="			            stop=false;\n";
-		js+="			            query_ajx(1);//下一页\n";
-		js+="			        }\n";
-		js+="			    }\n";
-		js+="			});\n";
-
-		js+="			$(document).ready(function() {\n";
-		js+="				//查询\n";
-		js+="				query_ajx(0);//首页\n";
-		js+="			});\n";
-
-		js+="			var currentCount = 0; //当前页数量\n";
-		js+="			var only_one_sub = true; //防重复提交\n";
-		js+="			function query_ajx(flg){//0首页  1下一页 \n";
-		js+="				  \n";
-		js+="			    if(!only_one_sub){\n";
-		js+="			        return;//防重复提交\n";
-		js+="			    }  \n";
-		js+="			    only_one_sub = false;//防重复提交\n";
-		js+="			   \n";
-		js+="			    if(flg == 0){//按查询时\n";
-		js+="			    	$(\"#page_code\").val(1);			    	\n";
-		js+="			    }		    \n";
-		js+="			   \n";
-		js+="			    currentCount = 0;\n";
-
-		js+="			    var flag = $(\"#flag\").val();\n";
-		js+="			    var my_msg = show_hide_msg(\"页面加载中...\");\n";
-		js+="			    $(\"#emptyOrErrorMsg\").html(\"\");\n";
-		js+="			    $.ajax({  \n";
-		js+="			        url:'/jiyou/wx/AddressAction!queryAddressList.do?',  \n";
-		js+="			        data: { \"page_code\": $(\"#page_code\").val()} ,  \n";
-		js+="			        type:\"POST\",\n";
-		js+="			        cache:false, \n";
-		js+="			        dataType:'json', //预期服务器返回的数据类型  \n";
-		js+="			        error: function() {\n";
-		js+="			        	only_one_sub = true;  ////防重复提交\n";
-		js+="			        	alert_msg(\"查询出错了!!!\"); \n";
-		js+="			   			$(\"#listSpace\").html(\"\"); \n";
-		js+="			   			$(\"#emptyOrErrorMsg\").html(\"\");\n";
-		js+="			   			my_msg.close();\n";
-		js+="			   			currentCount = 0;\n";
-		js+="			        },  \n";
-		js+="			        success:function(data){\n";
-		js+="			          my_msg.close();\n";
-		js+="			        	if (data != null){\n";
-		js+="			        		var msg = data.result;\n";
-		js+="			     		    if(msg == \"success\"){\n";
-		js+="			     		    	\n";
-		js+="			         		    var listData = data.rltdata.redo;\n";
-		js+="			         		    currentCount = listData.length;\n";
-
-		js+="				        		if(flg == 0){//按查询时\n";
-		js+="				        			 $(\"#listSpace\").html(\"\");				    	\n";
-		js+="				     		    }\n";
-		js+="				            	var opt = \"\";\n";
-		js+="								for(var i=0;i<listData.length;i++){\n";
-		
-		
-		
-		js+="									opt += '<div class=\"box05\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"cfTable\"><tr class=\"tr01\">';\n";
-		js+="									if(flag == \"1\"){//表示从购物车页面进入\n";
-		js+="										var param = \"recvName=\"+listData[i].recvName+\"&provCode=\"+listData[i].provCode+\"&cityCode=\"+listData[i].cityCode+\"&countCode=\"+listData[i].countCode+\n";
-		js+="										\"&detailAddress=\"+listData[i].detailAddress+\"&mobileNo=\"+listData[i].mobileNo+\"&postCode=\"+listData[i].postCode+\"&addressID=\"+listData[i].addressID;\n";
-
-		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"checked04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" checked=\"checked\"/>默认地址</dd></td>';\n";
-		js+="										}else{\n";
-		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"check04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" />选择该地址</dd></td>';\n";
-		js+="										}\n";
-		js+="									}else{ //表明从会员首页点击\"我的地址\"进入\n";
-		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-		js+="											opt += '<td >默认地址</td>';\n";
-		js+="										}else{\n";
-		js+="											opt += '<td ></td>';\n";
-		js+="										}\n";
-		js+="										\n";
-		js+="									}\n";
-		js+="									opt += '<td width=\"60\"><a  href=\"#\" class=\"del02\" onclick=\"deleteAddress(\''+listData[i].addressID+'\')\">删除</a></td>';\n";
-		js+="									opt += ' </tr><tr><td><p class=\"p01\">收货人：'+listData[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].mobileNo+'</p>';\n";
-		js+="									opt += '<p class=\"p02\">'+listData[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].postCode+'</p></td>';\n";
-		js+="									opt += '</tr></table></div>';\n";
-		
-		
-		
-		
-		
-		js+="								}\n";
-
-		js+="								$(\"#page_code\").val(Number($(\"#page_code\").val()) + 1);		\n";
-		js+="				\n";
-		js+="								if(listData.length >= 10){\n";
-		js+="					        		stop = true;//到底部时加载判断\n";
-		js+="					        	} \n";
-		js+="					        	if(listData.length == 0){\n";
-		js+="			          				$(\"#emptyOrErrorMsg\").html('<br><br><br><br><div style=\"text-align:center;\">暂无地址信息</div>');\n";
-		js+="				            	}\n";
-		js+="					        	$(opt).appendTo($(\"#listSpace\"));\n";
-		js+="				        		\n";
-		js+="						   		only_one_sub = true;  ////防重复提交\n";
-		js+="				        	}else{\n";
-		js+="				        		only_one_sub = true;  ////防重复提交\n";
-		js+="				       			$(\"#listSpace\").html(\"\");  \n";
-		js+="				       			alert_msg(msg);\n";
-		js+="				       			$(\"#emptyOrErrorMsg\").html(\"\");\n";
-		js+="				        	}\n";
-		js+="			        	}\n";
-		js+="			        }  \n";
-		js+="			    });\n";
-		js+="			}\n";
-	}
+	
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {

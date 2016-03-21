@@ -22,20 +22,17 @@ import com.compoment.cut.CompomentBean;
 import com.compoment.cut.CompomentDialog;
 import com.compoment.cut.CutCompomentsTypeImg;
 import com.compoment.cut.android.AndroidLayoutXml;
-
 import com.compoment.cut.iphone.IphoneTableViewCellXib;
-
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.cut.web.WebJsp;
+import com.compoment.cut.web.WebJspListViewItem;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
-
 import com.compoment.ui.ios.creater.TableViewCellAddViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
-
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
@@ -477,6 +474,21 @@ public class PageCreatePanel {
 			
 			
 			}
+		else if (frame.pageType.equals("TableViewCell-Web")) {
+			// 页面分析生成
+						AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+						String xmlFileName = androidLayoutXml.analyseRelative(
+								frame.pageName, frame.beans);
+						  if(xmlFileName.equals("no have layout"))
+				            {
+				            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+				    					JOptionPane.INFORMATION_MESSAGE);
+				            	return;
+				            }
+						savePublicCompoment();
+						
+			WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(frame.pageName,frame.beans); 
+		}
 		
 
 		frame.beans.clear();

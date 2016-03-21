@@ -7,28 +7,28 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>2</x>
-    <y>28</y>
-    <w>315</w>
-    <h>482</h>
+    <x>10</x>
+    <y>94</y>
+    <w>299</w>
+    <h>58</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458109238022</cnname>
-    <enname>bg1458109238022LinearLayout</enname>
+    <cnname>bg1458565503880</cnname>
+    <enname>bg1458565503880LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>zdk-ZJ-fWq</id>
+    <id>Pua-8n-hhx</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
-    <compomentForWeb>div</compomentForWeb>
+    <compomentForWeb>table</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458109245359</time>
+    <time>1458565514951</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
@@ -38,82 +38,51 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>10</x>
-    <y>81</y>
-    <w>292</w>
-    <h>30</h>
+    <x>15</x>
+    <y>101</y>
+    <w>276</w>
+    <h>18</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458109283301</cnname>
-    <enname>bg1458109283301RelativeLayout</enname>
+    <cnname>bg1458565523481</cnname>
+    <enname>bg1458565523481LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>iek-45-Rt2</id>
-    <type>RelativeLayout</type>
+    <id>IQ3-MR-CX9</id>
+    <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
+    <compomentForWeb>tr</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458109287360</time>
+    <time>1458565530331</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#1A1D1C</rgb16>
-    <rgb16ios>#1A1D1C</rgb16ios>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>25</x>
-    <y>91</y>
-    <w>33</w>
-    <h>8</h>
+    <x>24</x>
+    <y>110</y>
+    <w>30</w>
+    <h>1</h>
     <actionDetailString></actionDetailString>
-    <cnname>用户名</cnname>
-    <enname>mingCheckBox</enname>
+    <cnname>订单号</cnname>
+    <enname>orderformTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>JLT-LW-6RF</id>
-    <type>CheckBox</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1458109340203</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>219</x>
-    <y>93</y>
-    <w>67</w>
-    <h>5</h>
-    <actionDetailString></actionDetailString>
-    <cnname>1343</cnname>
-    <enname>33434TextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>jfF-lC-OcX</id>
+    <id>nRI-zu-8ny</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -121,6 +90,37 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1458109353570</time>
+    <time>1458565571852</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#000000</rgb16>
+    <rgb16ios>#000000</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>69</x>
+    <y>107</y>
+    <w>63</w>
+    <h>5</h>
+    <actionDetailString></actionDetailString>
+    <cnname>ddfd</cnname>
+    <enname>dfdfTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>1JB-VX-ci6</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1458565586851</time>
   </CompomentBean>
 </list>
