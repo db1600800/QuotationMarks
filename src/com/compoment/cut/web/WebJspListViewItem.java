@@ -27,7 +27,7 @@ import com.compoment.ui.ios.creater.ScrollViewCells;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class WebJsp {
+public class WebJspListViewItem {
 
 	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
 	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
@@ -61,12 +61,12 @@ public class WebJsp {
 	int rootViewWidth = 320;
 	int rootViewHeight = 568;
 
-	public WebJsp(int cellWidth, int cellHeight) {
+	public WebJspListViewItem(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
 		rootViewHeight = cellHeight;
 	}
 
-	public WebJsp(String pageName, List<CompomentBean> oldBeans) {
+	public WebJspListViewItem(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
@@ -288,54 +288,11 @@ public class WebJsp {
 			}
 		}
 
-		bodym += "<html>\n";
-
-		bodym += "<head>\n";
-		bodym += "	<meta charset='utf-8'>\n";
-		bodym += "	<meta name=\"viewport\" content=\"width=device-width,initial-scale=1, maximum-scale=1\">\n";
-		bodym += "	<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n";
-		bodym += "	<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n";
-		bodym += "	<META Http-Equiv=\"Cache-Control\" Content=\"no-cache\"/>\n";
-		bodym += "	<META Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
-		bodym += "	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
-
-		// bodym+="<%--css <link href=\"/chinapost/jiyouwx/css/css.css?v=1.1.3\"
-		// rel=\"stylesheet\" type=\"text/css\">--%>\n";
-
-		bodym += "	<script type=\"text/javascript\" src=\"js/jquery-1.10.1.min.js\"></script>\n";
-		bodym+="<script type=\"text/javascript\">\n";
-		bodym+="//appendjs\n";
-		bodym+="</script>\n";
-		// bodym+=" <script type=\"text/javascript\"
-		// src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\"
-		// charset='utf-8'></script>\n";
-		// bodym+=" <%-- 统一错误处理 --%>\n";
-		// bodym+=" <%@include
-		// file=\"/chinapost/jiyouwx/global_error.jsp\"%>\n";
-
-		// bodym+=" <style type=\"text/css\">\n";
-		// bodym+=" .checkbox_sty {\n";
-		// bodym+=" visibility:hidden;\n";
-		// bodym+=" }\n";
-		// bodym+=" </style>\n";
-		bodym += "</head>\n";
-
-		bodym += "<body>\n";
-		bodym += "<div style=\" width:100%; height:" + maxBean.h + "px;  background-color:" + maxBean.bgRgb16
-				+ "; \">\n";
-		bodym += "<div id=\"emptyOrErrorMsg\"></div>";
 		
-		bodym += formmStart;
+	
 		parent(maxBean);
 
-		bodym += formmEnd;
-
-		bodym += "  </div>\n";
-		bodym += "</body>\n";
-	
-		bodym += "</html>\n";
 		
-		bodym=bodym.replace("//appendjs", js);
 		return bodym;
 	}
 
