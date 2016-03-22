@@ -1,26 +1,26 @@
 <list>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#F6E4DA</rgb16>
+    <rgb16ios>#F6E4DA</rgb16ios>
+    <bgRgb16>#F6E4DA</bgRgb16>
+    <bgRgb16ios>#F6E4DA</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>9</x>
-    <y>78</y>
-    <w>297</w>
-    <h>116</h>
+    <x>21</x>
+    <y>94</y>
+    <w>280</w>
+    <h>68</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458638175393</cnname>
-    <enname>bg1458638175393LinearLayout</enname>
+    <cnname>bg1458656702944</cnname>
+    <enname>bg1458656702944LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>uBU-5C-5oU</id>
+    <id>EZs-r2-KVA</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -28,30 +28,30 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>table</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458638182900</time>
+    <time>1458656708336</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#F6E4DA</rgb16>
+    <rgb16ios>#F6E4DA</rgb16ios>
+    <bgRgb16>#F6E4DA</bgRgb16>
+    <bgRgb16ios>#F6E4DA</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>16</x>
-    <y>82</y>
-    <w>284</w>
+    <x>27</x>
+    <y>103</y>
+    <w>257</w>
     <h>32</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458638191155</cnname>
-    <enname>bg1458638191155LinearLayout</enname>
+    <cnname>bg1458656714087</cnname>
+    <enname>bg1458656714087LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>WWL-Qt-zHm</id>
+    <id>PZz-cX-kQY</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -59,30 +59,30 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>tr</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458638201464</time>
+    <time>1458656720502</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#1A1D1C</rgb16>
-    <rgb16ios>#1A1D1C</rgb16ios>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>27</x>
-    <y>92</y>
-    <w>31</w>
-    <h>8</h>
+    <x>46</x>
+    <y>111</y>
+    <w>67</w>
+    <h>17</h>
     <actionDetailString></actionDetailString>
-    <cnname>用户名</cnname>
-    <enname>nameTextView</enname>
+    <cnname>adf</cnname>
+    <enname>dfdTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>jcd-Ve-6Pv</id>
+    <id>DzK-Pp-HZH</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -90,6 +90,6 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1458638218122</time>
+    <time>1458656740309</time>
   </CompomentBean>
 </list>

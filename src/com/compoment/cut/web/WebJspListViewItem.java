@@ -334,7 +334,7 @@ public void analyse(List<CompomentBean> oldBeans) {
 		js+="				     		    }\n";
 		js+="				            	var html = \"\";\n";
 		js+="								for(var i=0;i<listData.length;i++){\n";
-		js+="html+='"+bodym+"';\n";
+		js+=bodym+";\n";
 		
 		
 //		js+="									opt += '<div class=\"box05\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"cfTable\"><tr class=\"tr01\">';\n";
