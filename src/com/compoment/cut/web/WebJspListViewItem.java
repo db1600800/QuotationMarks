@@ -131,26 +131,26 @@ public void analyse(List<CompomentBean> oldBeans) {
 					String start = "";
 					String end = "";
 					if (chirld.compomentForWeb.equals("table")) {
-						start = "  <" + chirld.compomentForWeb+" style=\"width:100%;\">\n";
+						start = "  html+='<" + chirld.compomentForWeb+" style=\"width:100%;\">'\n";
 
-						end = "  </" + chirld.compomentForWeb + ">\n";
+						end = "  html+='</" + chirld.compomentForWeb + ">'\n";
 					} else if (chirld.compomentForWeb.equals("tr")) {
-						start = "  <" + chirld.compomentForWeb + ">\n";
+						start = "  html+='<" + chirld.compomentForWeb + ">'\n";
 
-						end = "  </" + chirld.compomentForWeb + ">\n";
+						end = " html+='</" + chirld.compomentForWeb + ">'\n";
 					} else if (chirld.compomentForWeb.equals("ul")) {
-						start = "  <" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">\n";
+						start = "  html+='<" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">'\n";
 
-						end = "  </" + chirld.compomentForWeb + ">\n";
+						end = "  html+='</" + chirld.compomentForWeb + ">'\n";
 					} else if (chirld.compomentForWeb.equals("li")) {
-						start = "  <" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >\n";
+						start = "  html+='<" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >'\n";
 
-						end = "  </" + chirld.compomentForWeb + ">\n";
+						end = "  html+='</" + chirld.compomentForWeb + ">'\n";
 					} else {
-						start = "<div style=\" height:"+chirld.h+"px; line-height: " + chirld.h + "px; text-align: center; left:0; background-color:" + chirld.bgRgb16+"\" >\n";
+						start = "html+='<div style=\" height:"+chirld.h+"px; line-height: " + chirld.h + "px; text-align: center; left:0; background-color:" + chirld.bgRgb16+"\" >'\n";
 
 
-						end = "  </div>\n";
+						end = "  html+='</div>'\n";
 					}
 
 					bodym += start;
@@ -161,13 +161,13 @@ public void analyse(List<CompomentBean> oldBeans) {
 				} else {// 这个儿子是非容器
 
 					if (bean.compomentForWeb.equals("tr")) {
-						bodym += "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
+						bodym += "  html+='<td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">'\n";
 					}
 
 					chirld(chirld, bean);
 
 					if (bean.compomentForWeb.equals("tr")) {
-						bodym += "  </td>\n";
+						bodym += "  html+='</td>'\n";
 					}
 				}
 			}
@@ -180,9 +180,9 @@ public void analyse(List<CompomentBean> oldBeans) {
 
 		if (chirld.type.equals("TextView")) {
 
-			bodym += " <span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""
+			bodym += " html+='<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""
 					+ chirld.relativeForWeb + "  font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
-					+ ";  \">" + chirld.cnname + "</span>\n";
+					+ ";  \">" + chirld.cnname + "</span>'\n";
 
 		}
 
@@ -198,30 +198,30 @@ public void analyse(List<CompomentBean> oldBeans) {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym += "<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" onclick=\""
+			bodym += "html+='<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" onclick=\""
 					+ chirld.actionString + "\" style=\" font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
 					+ ";" + chirld.relativeForWeb + " \">"
 
 					+ "" + chirld.cnname + "" + "<img  src= \"/images/" + chirld.picName
-					+ ".png\"  style=\" width: 12px; \">" + "</div>\n";
+					+ ".png\"  style=\" width: 12px; \">" + "</div>'\n";
 		}
 
 		if (chirld.type.equals("Button")) {
 
 			if (chirld.picName.equals("图片名")) {
 
-				bodym += "<a href=\"#\" id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\"  onclick=\""
+				bodym += "html+='<a href=\"#\" id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\"  onclick=\""
 						+ chirld.actionString + "\"  style=\"text-align: center; height:" + chirld.h
 						+ "px; line-height: " + chirld.h + "px; border-radius: 8px; color:" + chirld.rgb16
 						+ "; background-color:" + chirld.bgRgb16 + ";  font-size: " + chirld.textSize + "px ;"
-						+ chirld.relativeForWeb + " margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a> \n";
+						+ chirld.relativeForWeb + " margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a>' \n";
 				
 
 			} else {
 
-				bodym += "<img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
+				bodym += "html+='<img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
 						+ chirld.picName + ".png\" onclick=\"" + chirld.actionString + ";\" style=\" width: 12px; "
-						+ chirld.relativeForWeb + "\">\n";
+						+ chirld.relativeForWeb + "\">'\n";
 			}
 
 		}
@@ -241,7 +241,7 @@ public void analyse(List<CompomentBean> oldBeans) {
 			js += "}\n\n";
 
 			
-			bodym += "<span id=\""+chirld.enname+"\" style=\" "+ chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
+			bodym += "html+='<span id=\""+chirld.enname+"\" style=\" "+ chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>'\n";
 
 			
 		}
@@ -249,50 +249,15 @@ public void analyse(List<CompomentBean> oldBeans) {
 		if (chirld.type.equals("EditText")) {
 
 			
-			bodym += " <input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\">";
+			bodym += " html+='<input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\">'\n";
 
 			
 
-		}
-
-		if (chirld.type.equals("CheckBox")) {
-			// m += "/**" + chirld.cnname + "*/\n";
-			// m += " " + chirld.enname + " = new JCheckBox(\""
-			// + chirld.cnname + "\");\n";
-			// m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
-
-		}
-
-		if (chirld.type.equals("ListView")) {
-		
-			bodym += "<div id=\"listSpace\"></div>\n";
-			bodym += "<input type=\"hidden\"  name=\"page_code\" id=\"page_code\" value=\"1\" />\n";
-			bodym += "<input type=\"hidden\"  name=\"page_num\" id=\"page_num\" value=\"10\" />\n";
-			//bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
-
-			
-		
-
-		
-		
 		}
 
 		if (chirld.type.equals("ImageView")) {
 
-			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""
-					+ chirld.picName + ".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\"" + chirld.id
-					+ "\">\n";
-			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-			// bodym += " <constraints>\n";
-			// bodym += " <constraint firstAttribute=\"height\"
-			// constant=\""+imageHeightConstraint+"\" id=\""
-			// + id() + "\"/>\n";
-			// bodym += " <constraint firstAttribute=\"width\"
-			// constant=\""+imageWidthConstraint+"\" id=\""
-			// + id() + "\"/>\n";
-			// bodym += " </constraints>\n";
-			bodym += " </imageView>\n";
+			
 		
 		}
 

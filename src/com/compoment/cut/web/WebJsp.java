@@ -495,29 +495,13 @@ public class WebJsp {
 
 		}
 
-		if (chirld.type.equals("CheckBox")) {
-			// m += "/**" + chirld.cnname + "*/\n";
-			// m += " " + chirld.enname + " = new JCheckBox(\""
-			// + chirld.cnname + "\");\n";
-			// m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
-
-		}
-
+	
 		if (chirld.type.equals("ListView")) {
 		
 			bodym += "<div id=\"listSpace\"></div>\n";
 			bodym += "<input type=\"hidden\"  name=\"page_code\" id=\"page_code\" value=\"1\" />\n";
 			bodym += "<input type=\"hidden\"  name=\"page_num\" id=\"page_num\" value=\"10\" />\n";
 //			bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
-
-			
-			
-				//WebJspListViewItem webJspListViewItem=new WebJspListViewItem();
-			//	js+=webJspListViewItem.listViewItemString(chirld);	
-			
-			
-
-		
 		
 		}
 
