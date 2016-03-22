@@ -7,20 +7,20 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>10</x>
-    <y>94</y>
-    <w>299</w>
-    <h>58</h>
+    <x>9</x>
+    <y>78</y>
+    <w>297</w>
+    <h>116</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458565503880</cnname>
-    <enname>bg1458565503880LinearLayout</enname>
+    <cnname>bg1458638175393</cnname>
+    <enname>bg1458638175393LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Pua-8n-hhx</id>
+    <id>uBU-5C-5oU</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -28,7 +28,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>table</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458565514951</time>
+    <time>1458638182900</time>
   </CompomentBean>
   <CompomentBean>
     <rgb16>#FFFFFF</rgb16>
@@ -38,20 +38,20 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>15</x>
-    <y>101</y>
-    <w>276</w>
-    <h>18</h>
+    <x>16</x>
+    <y>82</y>
+    <w>284</w>
+    <h>32</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1458565523481</cnname>
-    <enname>bg1458565523481LinearLayout</enname>
+    <cnname>bg1458638191155</cnname>
+    <enname>bg1458638191155LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>IQ3-MR-CX9</id>
+    <id>WWL-Qt-zHm</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -59,30 +59,30 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb>tr</compomentForWeb>
     <picName>图片名</picName>
-    <time>1458565530331</time>
+    <time>1458638201464</time>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <rgb16ios>#000000</rgb16ios>
+    <rgb16>#1A1D1C</rgb16>
+    <rgb16ios>#1A1D1C</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>24</x>
-    <y>110</y>
-    <w>30</w>
-    <h>1</h>
+    <x>27</x>
+    <y>92</y>
+    <w>31</w>
+    <h>8</h>
     <actionDetailString></actionDetailString>
-    <cnname>订单号</cnname>
-    <enname>orderformTextView</enname>
+    <cnname>用户名</cnname>
+    <enname>nameTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>nRI-zu-8ny</id>
+    <id>jcd-Ve-6Pv</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -90,37 +90,6 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1458565571852</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#000000</rgb16>
-    <rgb16ios>#000000</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>69</x>
-    <y>107</y>
-    <w>63</w>
-    <h>5</h>
-    <actionDetailString></actionDetailString>
-    <cnname>ddfd</cnname>
-    <enname>dfdfTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>1JB-VX-ci6</id>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1458565586851</time>
+    <time>1458638218122</time>
   </CompomentBean>
 </list>

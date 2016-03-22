@@ -904,8 +904,11 @@ public class CompomentDialog2 extends JDialog {
 				}
 			});
 		
+		
+		
+		
+		webCompomentPanel.setVisible(false);
 		final JList list = baseListListView;
-
 		list.setListData(this.listDate.toArray());
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -918,7 +921,7 @@ public class CompomentDialog2 extends JDialog {
 				
 				String value = list.getSelectedValue().toString();
 				compomentType = value;
-				webCompomentPanel.setVisible(false);
+				
 				if (compomentType.contains("Layout")) {
 					webCompomentPanel.setVisible(true);
 					long id = System.currentTimeMillis();

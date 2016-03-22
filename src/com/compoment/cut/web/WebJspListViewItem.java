@@ -84,7 +84,7 @@ public void analyse(List<CompomentBean> oldBeans) {
 		 jsString();
 		
 		String lines = FileUtil.fileContent(KeyValue.readCache("picPath")+"/src/jsp/"+className+"Jsp.jsp");
-		lines=lines.replace("</script>", js+"\n</script>\n");
+		lines=lines.replace("<script type=\"text/javascript\"  id=\"myJs\">\n", "<script type=\"text/javascript\"  id=\"myJs\">\n"+js+"\n\n");
 		
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/Jsp", className + "Jsp", "jsp", lines);
 		
@@ -268,7 +268,7 @@ public void analyse(List<CompomentBean> oldBeans) {
 			bodym += "<div id=\"listSpace\"></div>\n";
 			bodym += "<input type=\"hidden\"  name=\"page_code\" id=\"page_code\" value=\"1\" />\n";
 			bodym += "<input type=\"hidden\"  name=\"page_num\" id=\"page_num\" value=\"10\" />\n";
-			bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
+			//bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
 
 			
 		

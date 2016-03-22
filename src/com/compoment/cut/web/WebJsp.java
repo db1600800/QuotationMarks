@@ -305,7 +305,7 @@ public class WebJsp {
 		// rel=\"stylesheet\" type=\"text/css\">--%>\n";
 
 		bodym += "	<script type=\"text/javascript\" src=\"js/jquery-1.10.1.min.js\"></script>\n";
-		bodym+="<script type=\"text/javascript\">\n";
+		bodym+="<script type=\"text/javascript\"  id=\"myJs\">\n";
 		bodym+="//appendjs\n";
 		bodym+="</script>\n";
 		// bodym+=" <script type=\"text/javascript\"
