@@ -251,8 +251,6 @@ public void analyse(List<CompomentBean> oldBeans) {
 			
 			bodym += " html+='<input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\">'\n";
 
-			
-
 		}
 
 		if (chirld.type.equals("ImageView")) {
