@@ -1,107 +1,309 @@
-			var stop=false;
-			$(window).scroll(function(){
-			    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
-			    if($(document).height() <= totalheight){
-			        if(stop==true){
-			            stop=false;
-			            query_ajx(1);
-			        }
-			    }
-			});
+package com.chinapost.jiyouwx.action;
 
-			$(document).ready(function() {
-				//查询订单列表
-				query_ajx(0);
-			});
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-			var curr_addr = 0; //当前地址的数量
-			var only_one_sub = true; //防重复提交
-			function query_ajx(flg){ 
-				  
-			    if(!only_one_sub){
-			        return;//防重复提交
-			    }  
-			    only_one_sub = false;//防重复提交
-			   
-			    if(flg == 0){//按查询时
-			    	$("#page_code").val(1);			    	
-			    }		    
-			   
-			    curr_addr = 0;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-			    var flag = $("#flag").val();
-			    var my_msg = show_hide_msg("页面加载中...");
-			    $("#noMsg").html("");
-			    $.ajax({  
-			        url:'/jiyou/wx/AddressAction!queryAddressList.do?',  
-			        data: { "page_code": $("#page_code").val()} ,  
-			        type:"POST",
-			        cache:false, 
-			        dataType:'json', //预期服务器返回的数据类型  
-			        error: function() {
-			        	only_one_sub = true;  ////防重复提交
-			        	alert_msg("查询出错了!!!"); 
-			   			$("#form1_pageset").html(""); 
-			   			$("#noMsg").html("");
-			   			my_msg.close();
-			   			curr_addr = 0;
-			        },  
-			        success:function(data){
-			          my_msg.close();
-			        	if (data != null){
-			        		var msg = data.result;
-			     		    if(msg == "success"){
-			     		    	
-			         		    var rlt = data.rltdata.redo;
-			         		    curr_addr = rlt.length;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-				        		if(flg == 0){//按查询时
-				        			 $("#form1_pageset").html("");				    	
-				     		    }
-				            	var opt = "";
-								for(var i=0;i<rlt.length;i++){
-									opt += '<div class="box05"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="cfTable"><tr class="tr01">';
-									if(flag == "1"){//表示从购物车页面进入
-										var param = "recvName="+rlt[i].recvName+"&provCode="+rlt[i].provCode+"&cityCode="+rlt[i].cityCode+"&countCode="+rlt[i].countCode+
-										"&detailAddress="+rlt[i].detailAddress+"&mobileNo="+rlt[i].mobileNo+"&postCode="+rlt[i].postCode+"&addressID="+rlt[i].addressID;
+import com.chinapost.jiyouwx.common.JiYouSessionKey;
+import com.chinapost.jiyouwx.model.AddressInfoVo;
+import com.chinapost.jiyouwx.model.rtn.RcvBodyJY0037sub;
+import com.chinapost.jiyouwx.msg.CstmMsg;
+import com.chinapost.jiyouwx.msg.ErrorMsg;
+import com.chinapost.jiyouwx.msg.MsgReturn;
+import com.chinapost.jiyouwx.msg.OrderMsg;
+import com.chinapost.jiyouwx.service.AddressActionImpl;
+import com.chinapost.jiyouwx.util.DealErrMsg;
+import com.chinapost.service.Server;
+import com.chinapost.weixin.util.Const;
+import com.forgon.tools.StrutsParamUtils;
+import com.gdpost.tuxedo.PackUtil;
+import com.google.gson.Gson;
+import com.opensymphony.xwork2.ActionSupport;
 
-										if(rlt[i].isDefaultAddress == '0' ){
-											opt += '<td><dd onclick="selectAddress(this, \''+ param+'\')" class="checked04"><input type="checkbox" name="addressID_box" class="checkbox_sty" value="'+ rlt[i].addressID +'" checked="checked"/>默认地址</dd></td>';
-										}else{
-											opt += '<td><dd onclick="selectAddress(this, \''+ param+'\')" class="check04"><input type="checkbox" name="addressID_box" class="checkbox_sty" value="'+ rlt[i].addressID +'" />选择该地址</dd></td>';
-										}
-									}else{ //表明从会员首页点击"我的地址"进入
-										if(rlt[i].isDefaultAddress == '0' ){
-											opt += '<td >默认地址</td>';
-										}else{
-											opt += '<td ></td>';
-										}
-										
-									}
-									opt += '<td width="60"><a  href="#" class="del02" onclick="deleteAddress(\''+rlt[i].addressID+'\')">删除</a></td>';
-									opt += ' </tr><tr><td><p class="p01">收货人：'+rlt[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+rlt[i].mobileNo+'</p>';
-									opt += '<p class="p02">'+rlt[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+rlt[i].postCode+'</p></td>';
-									opt += '</tr></table></div>';
-								}
+@SuppressWarnings("unchecked")
+@ParentPackage(value = "default")
+@Namespace(value = "/jiyou/wx")
+@Action(value = "AddressAction" ,results = { 
+		@Result(name = "index", location = "/chinapost/jiyouwx/address/addressManage.jsp"),
+		@Result(name = "member_index", location = "/chinapost/jiyouwx/member/member_index.jsp"),
+		@Result(name = "add", location = "/chinapost/jiyouwx/address/addressAdd.jsp")
+})
 
-								$("#page_code").val(Number($("#page_code").val()) + 1);		
+public class AddressAction {
+	private static final Logger log = LoggerFactory.getLogger(AddressAction.class);
+
+	@Resource
+	private Server server;
+	public void setServer(Server server) {
+		this.server = server;
+	}
+	
+	public String init(){
+		StrutsParamUtils.getRequest().setAttribute("shoppingCar", StrutsParamUtils.getPraramValue("shoppingCar", ""));
+		return "index";
+	}
+		
+	//地址管理首页
+	  public String queryAddressList() throws Exception{ 
+		  HttpServletRequest request = StrutsParamUtils.getRequest();
+		  HttpSession session = request.getSession();
+	      CstmMsg cstmMsg = session.getAttribute(JiYouSessionKey.CSTMMSG.toString()) == null ? new CstmMsg()
+			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); 
+	      Map sendData = new HashMap();			
+	      Map tranBody = new HashMap();
+			
+		 String tranNo = "JY0011";
+		 tranBody.put("cstmNo", cstmMsg.getCstmNo() );
+		 tranBody.put("isDefaultAddress", "0" );
+		 tranBody.put("pageCode", "1" );
+		 tranBody.put("pageNum", "10" );
+		 sendData.put("tranhead", PackUtil.setPacketHead(tranNo));
+		 sendData.put("tranBody", tranBody);
+		
+		 //组装接口需要的报文Map		
+		 Map allParam = PackUtil.setBizReqMap(sendData);
+		 String rtn = server.invokeNew(allParam);
+		 //将Json串转成交易报文Map
+		 MsgReturn msgReturn = PackUtil.setBizRespMapNew(rtn);
+		 
+		 String msg = "success";
+ 		 Map result = new HashMap();
+		 if(msgReturn != null && msgReturn.getmErrorMsg().getErrorCode().equals("0000")){
+			 Map rltMap = msgReturn.getMap();
+			 AddressActionImpl impl = new AddressActionImpl();
+			 AddressInfoVo info = impl.queryAddress(rltMap);
+			 
+			 result.put("result", msg);
+			 result.put("rltdata", info);
+			 
+		 }
+		if(msgReturn != null && !msgReturn.getmErrorMsg().getErrorCode().equals("0000")){
+			 ErrorMsg error = msgReturn.getmErrorMsg();
+			 error = DealErrMsg.getErrorMsg(error, "", null);
+			 
+			 msg = error.getErrorDesc().toString();
+			 result.put("result", msg);
+		 }
+		 
+		 log.info(new Gson().toJson(result));
+		 StrutsParamUtils.getResponse().setCharacterEncoding("UTF-8");
+		 StrutsParamUtils.getResponse().getWriter().write(new Gson().toJson(result));
+		 return ActionSupport.NONE;
+	  } 
+	  
+	 //删除地址
+	  public String deleteAddress() throws Exception{ 
+		  HttpServletRequest request = StrutsParamUtils.getRequest();
+		  HttpSession session = request.getSession();
+	      CstmMsg cstmMsg = session.getAttribute(JiYouSessionKey.CSTMMSG.toString()) == null ? new CstmMsg()
+			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); 
+	      String id = request.getParameter("id");
+	      
+	      Map sendData = new HashMap();			
+	      Map tranBody = new HashMap();
+			
+		 String tranNo = "JY0013";
+		 tranBody.put("cstmNo", cstmMsg.getCstmNo() );
+		 tranBody.put("addressID", id );
+		 sendData.put("tranhead", PackUtil.setPacketHead(tranNo));
+		 sendData.put("tranBody", tranBody);
+		
+		 //组装接口需要的报文Map		
+		 Map allParam = PackUtil.setBizReqMap(sendData);
+		 String rtn = server.invokeNew(allParam);
+		 //将Json串转成交易报文Map
+		 MsgReturn msgReturn = PackUtil.setBizRespMapNew(rtn);
+		 
+		 if(msgReturn != null && !msgReturn.getmErrorMsg().getErrorCode().equals("0000")){	
+			 ErrorMsg error = msgReturn.getmErrorMsg();
+			 DealErrMsg.getErrorMsg(error, "", null);
+		 }
+		 request.setAttribute("shoppingCar", StrutsParamUtils.getPraramValue("shoppingCar", ""));
+		 return "index";
+	  }
+	  
+	  //新增地址
+	  public String addAddress() throws Exception{ 
+		 HttpServletRequest request = StrutsParamUtils.getRequest(); 
+		 Map province = Const.getParamMap("AREACD",1,"2", 2, 3);
+		 Map city = Const.getParamMap("AREACD",1,"3", 2, 3);
+		 Map count = Const.getParamMap("AREACD",1,"4", 2, 3);
+		 
+		 request.setAttribute("province", province);
+		 request.setAttribute("city", city);
+		 request.setAttribute("count", count);
+		 request.setAttribute("shoppingCar", StrutsParamUtils.getPraramValue("shoppingCar", ""));
+		 return "add";
+	  }
+	  
+	  //保存新增地址
+	  public String saveAddress() throws Exception{ 
+		  HttpServletRequest request = StrutsParamUtils.getRequest();
+		  String name = StrutsParamUtils.getPraramValue("username","");
+		  String phone = request.getParameter("phone");
+		  String province = request.getParameter("province");
+		  String city = request.getParameter("city");
+		  String town = request.getParameter("count");
+		  String address = request.getParameter("address");
+		  String postcode = request.getParameter("postcode");
+		  String defaultAddr = request.getParameter("checked");
+		  HttpSession session = request.getSession();
+		  request.setAttribute("shoppingCar", StrutsParamUtils.getPraramValue("shoppingCar", ""));
+	      CstmMsg cstmMsg = session.getAttribute(JiYouSessionKey.CSTMMSG.toString()) == null ? new CstmMsg()
+			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); 
+	      
+	      //判断是否是直辖市MUNICIPALITY_CITY
+	      Map muniCity = Const.getParamMap("MUNICIPALITY_CITY", 1, 2);
+	      if(muniCity.containsKey(province)){
+	    	  town = city;
+	    	  city = province;
+	    	  province = city.substring(0, 2) + "0000";
+	      }
+	      
+	      Map sendData = new HashMap();			
+	      Map tranBody = new HashMap();
+			
+		 String tranNo = "JY0012";
+		 tranBody.put("cstmNo", cstmMsg.getCstmNo() );
+		 tranBody.put("recvName", name );
+		 tranBody.put("provCode", province == "-1"?"":province );
+		 tranBody.put("cityCode", city == "-1"?"":city);
+		 tranBody.put("countCode", town == "-1"?"":town);
+		 tranBody.put("detailAddress", address );
+		 tranBody.put("mobileNo", phone );
+		 tranBody.put("postCode", postcode );
+		 tranBody.put("isDefaultAddress", defaultAddr );
+		 sendData.put("tranhead", PackUtil.setPacketHead(tranNo));
+		 sendData.put("tranBody", tranBody);
+		log.debug("saveAddress() tranBody=" + tranBody);
+		 //组装接口需要的报文Map		
+		 Map allParam = PackUtil.setBizReqMap(sendData);
+		 String rtn = server.invokeNew(allParam);
+		 //将Json串转成交易报文Map
+		 MsgReturn msgReturn = PackUtil.setBizRespMapNew(rtn);
+		 if(msgReturn != null && msgReturn.getmErrorMsg().getErrorCode().equals("0000")){
+			 //添加地址之后重新查询地址
+			 Map sendData1 = new HashMap();			
+		     Map tranBody1 = new HashMap();
 				
-								if(rlt.length >= 10){
-					        		stop = true;//到底部时加载判断
-					        	} 
-					        	if(rlt.length == 0){
-			          				$("#noMsg").html('<br><br><br><br><div style="text-align:center;">暂无地址信息</div>');
-				            	}
-					        	$(opt).appendTo($("#form1_pageset"));
-				        		
-						   		only_one_sub = true;  ////防重复提交
-				        	}else{
-				        		only_one_sub = true;  ////防重复提交
-				       			$("#form1_pageset").html("");  
-				       			alert_msg(msg);
-				       			$("#noMsg").html("");
-				        	}
-			        	}
-			        }  
-			    });
-			}
+			 tranNo = "JY0011";
+			 tranBody1.put("cstmNo", cstmMsg.getCstmNo() );
+			 tranBody1.put("isDefaultAddress", "0" );
+			 tranBody1.put("pageCode", "1" );
+			 tranBody1.put("pageNum", "10" );
+			 sendData1.put("tranhead", PackUtil.setPacketHead(tranNo));
+			 sendData1.put("tranBody", tranBody1);
+			
+			 //组装接口需要的报文Map		
+			 allParam = PackUtil.setBizReqMap(sendData1);
+			 rtn = server.invokeNew(allParam);
+			 //将Json串转成交易报文Map
+			 MsgReturn msg = PackUtil.setBizRespMapNew(rtn);
+			 if(msg != null && msg.getmErrorMsg().getErrorCode().equals("0000")){
+				 Map rltMap = msg.getMap();
+				 AddressActionImpl impl = new AddressActionImpl();
+				 AddressInfoVo info = impl.queryAddress(rltMap);
+				 request.setAttribute("address_info", info);
+				 return "index";
+			 }
+		 }
+		 ErrorMsg error = msgReturn.getmErrorMsg();
+		 DealErrMsg.getErrorMsg(error, "", null);
+		 
+		 return "add";
+	  }
+	  
+	  //根据省代号查询市
+	  public String queryCity() { 
+		  HttpServletRequest request = StrutsParamUtils.getRequest();
+		  Map city = Const.getParamMap("AREACD",1,"3", 2, 3);
+		  HttpSession session = request.getSession();
+		  OrderMsg orderMsg = session.getAttribute(JiYouSessionKey.USER_ORDER_MSG.toString()) == null ? new OrderMsg()
+		  	  : (OrderMsg) session.getAttribute(JiYouSessionKey.USER_ORDER_MSG.toString()); 
+		  String prepNumber = StrutsParamUtils.getPraramValue("prepNumber", "")  ;//预处理带过来的预处理单编号
+		  
+		  log.debug("queryCity() prepNumber=" + prepNumber);
+		  //2015/8/30新增：
+		  if(orderMsg.getOrderProcessingMsg() != null && orderMsg.getOrderProcessingMsg().getPreOrderNumList().size() > 0 ){
+			  List<RcvBodyJY0037sub> preOrderNumList = orderMsg.getOrderProcessingMsg().getPreOrderNumList();
+			  for (RcvBodyJY0037sub jy0037sub : preOrderNumList) {
+				//2015-8-30如果jy0037sub.getSinceCityComp()不为空就只下发此市
+				if(StringUtils.equals(prepNumber, jy0037sub.getPrepNumber())){
+					String sinceCityComp = jy0037sub.getSinceCityComp();
+					log.debug("queryCity() sinceCityComp=" + sinceCityComp);
+					if(StringUtils.isNotBlank(sinceCityComp)){
+						String[] citys = StringUtils.split(sinceCityComp, ",");
+						Map rltCityMap  = new LinkedHashMap();
+						for (String string : citys) {
+							if(city.containsKey(string)){
+								rltCityMap.put(string, city.get(string));
+							}
+						}
+						log.debug("queryCity() rltCityMap=" + rltCityMap);
+						if(!rltCityMap.isEmpty()){
+							StrutsParamUtils.writeStr(new Gson().toJson(rltCityMap));
+							return ActionSupport.NONE;
+						}
+					} 
+				}
+			  }
+		  }
+		
+		  String province = request.getParameter("province");
+		  Map rltMap = new HashMap();
+		
+		  //省与市前2位相同
+		  String subProv = province.substring(0,2);
+		  
+		  Set keySet = city.entrySet();
+		  Iterator i = keySet.iterator();
+		  while(i.hasNext()) {
+			  Map.Entry map = (Map.Entry)i.next();
+			  if(map.getKey().toString().substring(0,2).equals(subProv)){
+				  rltMap.put(map.getKey(), map.getValue());
+			  }
+		  }
+		  
+		  StrutsParamUtils.writeStr(new Gson().toJson(rltMap));
+		  return ActionSupport.NONE;
+	  }
+	  
+	//根据市代号查询县
+	  public String queryCount() throws Exception{ 
+		  HttpServletRequest request = StrutsParamUtils.getRequest();
+		  String city = request.getParameter("city");
+		  Map count = Const.getParamMap("AREACD",1,"4", 2, 3);
+		  Map rltMap = new HashMap();
+		 
+		  //市与县前4位相同
+		  String subCity = city.substring(0,4);
+		  Set keySet = count.entrySet();
+		  Iterator i = keySet.iterator();
+		  while(i.hasNext()) {
+			  Map.Entry map = (Map.Entry)i.next();
+			  if(map.getKey().toString().substring(0,4).equals(subCity)){
+				  rltMap.put(map.getKey(), map.getValue());
+			  }
+		  }
+		  
+		  StrutsParamUtils.getResponse().setCharacterEncoding("UTF-8");
+		  StrutsParamUtils.getResponse().getWriter().write(new Gson().toJson(rltMap));
+		  return ActionSupport.NONE;
+	  }
+			
+}
