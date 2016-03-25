@@ -1,9 +1,18 @@
 package com.compoment.cut.web;
 
+import java.util.List;
+
+import com.compoment.cut.CompomentBean;
+
 public class WebStruct2 {
 	
-	public WebStruct2()
-	{
+	String pageName;
+	String className;
+	
+	public WebStruct2(String pageName, List<CompomentBean> oldBeans) {
+		pageName = pageName;
+		className = firstCharToUpperAndJavaName(pageName);
+		
 		String m="";
 		m+="package com.chinapost.jiyouwx.action;\n";
 
@@ -51,8 +60,8 @@ public class WebStruct2 {
 		m+="		@Result(name = \"add\", location = \"/chinapost/jiyouwx/address/addressAdd.jsp\")\n";
 		m+="})\n";
 
-		m+="public class AddressAction {\n";
-		m+="	private static final Logger log = LoggerFactory.getLogger(AddressAction.class);\n";
+		m+="public class "+className+"Action {\n";
+		m+="	private static final Logger log = LoggerFactory.getLogger("+className+"Action.class);\n";
 
 		m+="	@Resource\n";
 		m+="	private Server server;\n";
@@ -317,4 +326,16 @@ public class WebStruct2 {
 
 	}
 
+	
+	
+	public static String firstCharToUpperAndJavaName(String string) {
+		// buy_typelist
+		String[] ss = string.split("_");
+		String temp = "";
+		for (String s : ss) {
+			if (!s.equals("item"))
+				temp += s.substring(0, 1).toUpperCase() + s.substring(1);
+		}
+		return temp;
+	}
 }
