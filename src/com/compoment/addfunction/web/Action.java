@@ -76,169 +76,17 @@ public class Action {
 		
 
 		m+="public class "+className+"Action  {\n";
-		m+="	Logger log = Logger.getLogger(this.getClass());\n";
-		m+="	public static String msg;\n";
-		m+="	public static String err;\n\n\n";
-
-		m+="	public ActionForward init(ActionMapping mapping, ActionForm form,\n";
-		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
-		m+="		return mapping.findForward(\"queryJsp\");\n";
-		m+="	}\n\n\n";
-
-		
-		
-		
-		m+="/**跳到更新页面*/\n";
-		m+="	public ActionForward updateJsp(ActionMapping mapping, ActionForm form,\n";
-		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
-
-
-
-		
-		m+=""+interfaceBean.enName+"ActionForm myform = ("+interfaceBean.enName+"ActionForm) form;\n";
-		m+="		\n";
-		m+="		String st = request.getParameter(\"parm\") == null ? \" \" : request\n";
-		m+="				.getParameter(\"parm\").trim();\n";
-		m+="		String[] rs = Const.split(st);\n";
-		m+="	\n";
-		
-		m+="		String errmsg = null;\n";
-		m+="		Map map = new HashMap();\n";
-		m+="		map.put(\"headmsg\", PackUtil.setPacketHead(request));\n";
-		
-		List<Group> groups = interfaceBean.respondGroups;
-		for (Group group : groups) {
-			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
-				int i = 0;
-				int columnCount=0;
-				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-						m+="		map.put(\""+row.enName+"\", 1);\n";
-					} else {
-						
-						m+="String "+row.enName+" = rs["+columnCount+"].trim();//"+row.cnName+"\n";
-						m+="		List "+row.enName+"list = new ArrayList();\n";
-						m+="		"+row.enName+"list.add("+row.enName+" == null ? \" \" : "+row.enName+");\n";
-						m+="		map.put(\""+row.enName+"\", "+row.enName+"list);\n";
-						
-						columnCount++;
-					}
-					i++;
-				}
-			}
-
-		}
-		
 	
 
-	
-	
-		m+="		try {\n";
-	
-		m+="log.info(\"主交易\" + \"4453329\");\n";
-		m+="        PacketMgr packetmgr= PacketMgr.getInstance();\n";
-		m+="		//生成发送报文\n";
-		m+="		String sendmsg = packetmgr.getPacketData(map, \"MSG_4453329_IN\");\n";
-		m+="		log.info(\"发送报文\" + sendmsg);\n";
-		m+="		//接收报文\n";
-		m+="		String receivemsg = TuxedoMgr.runTuxedoService(\"4453329\", sendmsg);\n";
-		m+="		log.info(\"接收报文\"+receivemsg);\n";
-		m+="		\n";
-		m+="		String checkerror = packetmgr.checkErrorMsg(receivemsg);\n";
-		m+="		log.info(checkerror);\n";
-		m+="Map recmap=null ;\n";
-		m+="		if (checkerror == null || \"\".equals(checkerror)) {\n";
-		m+="			 recmap = packetmgr.getUnPacketData(receivemsg, \"MSG_4453329_OUT\");\n";
+		m+="/**"+interfaceBean.title+"*/\n";
+		m+="	public String  "+interfaceBean.enName+"()throws Exception{\n";
 		
-		m+="		} else {\n";
-	
-		m+="		}\n";
+		m+="		  HttpServletRequest request = StrutsParamUtils.getRequest();\n";
+		m+="		  HttpSession session = request.getSession();\n";
+		m+="	      CstmMsg cstmMsg = session.getAttribute(JiYouSessionKey.CSTMMSG.toString()) == null ? new CstmMsg()\n";
+		m+="			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); \n";
 		
 		
-		
-		for (Group group : groups) {
-			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
-				int i = 0;
-				int columnCount=0;
-				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-						m+="	int recodeNum=	Integer.valueOf(recmap.get(\""+row.enName+"\").toString());\n";
-						m+="List list=new ArrayList();\n";
-						m+="for(int i=0;i<recodeNum;i++){\n";
-						m+=""+interfaceBean.enName+"ActionForm actionForm=new "+interfaceBean.enName+"ActionForm();\n";
-					} else {
-					
-						
-						m+="	actionForm."+row.enName.toLowerCase()+"=	recmap.get(\""+row.enName+"\").toString();\n";
-						
-						columnCount++;
-					}
-					i++;
-				}
-			}
-		}
-		
-		m+="list.add(actionForm);\n";
-	
-		m+="}\n";
-		
-		
-
-		
-	
-	
-		m+="			myform.setRedo(list);\n";
-		m+="			\n";
-
-		m+="		} catch (Exception e) {\n";
-
-		m+="			log.info(e.getMessage());\n";
-		m+="			String msg = e.getMessage();\n";
-		m+="			if (msg == null || \"\".equals(msg)) {\n";
-		m+="				errmsg = \"未知错误！\";\n";
-		m+="			} else {\n";
-		m+="				errmsg = \"服务器内部错误！\";\n";
-		m+="			}\n";
-		m+="			request.setAttribute(\"errmsg\", errmsg);\n";
-		m+="			ActionForward af = mapping.findForward(\"errmsg\");\n";
-		m+="			return af;\n";
-		m+="		}\n";
-
-		
-		
-	
-
-		
-		m+="		ActionForward af = null;\n";
-	
-		m+="		try {\n";
-		m+="			HttpSession session = request.getSession();\n";
-		
-		m+="			af = mapping.findForward(\"updateJsp\");\n";
-		m+="			return af;\n";
-
-		m+="			\n";
-		m+="		} catch (Exception e) {\n";
-		m+="			e.printStackTrace();\n";
-		m+="			String msg = e.getMessage();\n";
-		m+="			if (msg == null || \"\".equals(msg)) {\n";
-		m+="				errmsg = \"错误！\";\n";
-		m+="			} else {\n";
-		m+="				errmsg = \"服务器内部错误！\";\n";
-		m+="			}\n";
-		m+="			request.setAttribute(\"errmsg\", errmsg);\n";
-		m+="			af = mapping.findForward(\"errmsg\");\n";
-		m+="			return af;\n";
-		m+="		}\n";
-		
-		m+="	}\n";
-
-
-		m+="/**更新交易*/\n";
-		m+="	public ActionForward update(ActionMapping mapping, ActionForm form,\n";
-		m+="			HttpServletRequest request, HttpServletResponse response) {\n";
 		m+="		"+interfaceBean.enName+"ActionForm sform = ("+interfaceBean.enName+"ActionForm) form;\n";
 		m+="		\n";
 		m+="		\n";
