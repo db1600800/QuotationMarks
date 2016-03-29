@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
@@ -87,97 +88,159 @@ public class Action {
 		m+="			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); \n";
 		
 		
-		m+="		"+interfaceBean.enName+"ActionForm sform = ("+interfaceBean.enName+"ActionForm) form;\n";
-		m+="		\n";
-		m+="		\n";
-		m+="		\n";
-		m+="		String st = request.getParameter(\"parm\") == null ? \" \" : request\n";
-		m+="				.getParameter(\"parm\").trim();\n";
-		m+="		\n";
-		m+="		\n";
-		m+="		\n";
-		m+="		\n";
-		m+="		System.out.println(st);\n";
-		m+="		String[] rs = st.split(\"|\");\n";
-		m+="	\n";
 		
-		m+="		Map map = new HashMap();\n";
-		m+="		map.put(\"headmsg\", PackUtil.setPacketHead(request));\n";
+		String m = "\n\n\n";
+		List<String> mChirldClass = new ArrayList();
+		String className="RequestParam" + interfaceBean.id ;	
 		
+	
 		
+		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m+="int n"+interfaceBean.id+"="+interfaceBean.id +";\n";
+		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "public void request"+interfaceBean.id+"(){\n";
+		
+		 m+=className+" bean"+"=new "+className+"();\n";
+		 
+		List<Group> groups = interfaceBean.requestGroups;
+		int groupCount=0;
 		for (Group group : groups) {
+		
 			String groupname = group.name;
 			if (!groupname.equals("CommonGroup")) {
+
 				int i = 0;
-				int columnCount=0;
+				boolean isCustomerClass = false;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-						m+="		map.put(\""+row.enName+"\", 1);\n";
+					
+					if (i == 0) {
+						// 循环域开始
+						if (row.type != null && !isCommonType(row.type)) {//自定义对象
+							
+							isCustomerClass = true;
+						} else {//非自定义对象
+							m += "/** " + row.cnName + " 备注:" + row.remarks
+									+ "*/\n";
+						    m+="bean."+row.enName+"=\"\";\n";
+							
+							isCustomerClass = false;
+						}
 					} else {
+						if (isCustomerClass) {
+
+						} else {
+							m += "/** " + row.cnName + " 备注:" + row.remarks
+									+ "*/\n";
+							m+="List<String> "+row.enName+"List=new ArrayList();\n";
+							m += "bean."+row.enName+"="+row.enName+ "List.toArray();\n";
 						
-						m+="String "+row.enName+" = rs["+columnCount+"].trim();//"+row.cnName+"\n";
-						m+="		ArrayList "+row.enName+"list = new ArrayList();\n";
-						m+="		"+row.enName+"list.add("+row.enName+" == null ? \" \" : "+row.enName+");\n";
-						m+="		map.put(\""+row.enName+"\", "+row.enName+"list);\n";
-						
-						columnCount++;
+						}
 					}
 					i++;
+				}
+			
+				m+="}\n\n";
+				
+			} else {
+				
+				for (Row row : group.rows) {
+					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					m +=  "bean."+row.enName+"=\"\";\n";
+
 				}
 			}
 
 		}
 		
 		
+		m+="Gson gson = new Gson();\n";
+		m+= "String s  = gson.toJson(bean);\n";
+		
+		
+		m+="Intent intent = new Intent();\n";
+		m+="intent.setClass(.this,WaitActivity.class);\n";
+		m+="Bundle bundle = new Bundle();\n";
+		m+="bundle.putString(\"url\",WaitActivity.urlbase+\"/Serverlet"+interfaceBean.id+"?parameter=s\");\n";
+		m+="intent.putExtras(bundle);\n";
+		m+="startActivityForResult(intent,n"+interfaceBean.id+");\n";
+		m += "}\n\n";
+		
+	
+		
+		
+		
+		
+		
+		
+		String m = "\n\n\n";
+		List<String> mChirldClass = new ArrayList();
+		String className="RespondParam" + interfaceBean.id ;	
+		String classNameForCache="CacheRespondParam" + interfaceBean.id ;
+		m+="List<"+className+"> listData=new ArrayList();\n";
+		
+		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
+		m += "if (requestCode == n"+interfaceBean.id +"){\n";
 
-		m+="		String errmsg = null;\n";
-		m+="		try {\n";
-		m+="log.info(\"主交易\" + \"4453329\");\n";
-		m+="        PacketMgr packetmgr= PacketMgr.getInstance();\n";
-		m+="		//生成发送报文\n";
-		m+="		String sendmsg = packetmgr.getPacketData(map, \"MSG_4453329_IN\");\n";
-		m+="		log.info(\"发送报文\" + sendmsg);\n";
-		m+="		//接收报文\n";
-		m+="		String receivemsg = TuxedoMgr.runTuxedoService(\"4453329\", sendmsg);\n";
-		m+="		log.info(\"接收报文\"+receivemsg);\n";
-		m+="		\n";
-		m+="		String checkerror = packetmgr.checkErrorMsg(receivemsg);\n";
-		m+="		log.info(checkerror);\n";
-		m+="		if (checkerror == null || \"\".equals(checkerror)) {\n";
-		m+="			Map recmap = packetmgr.getUnPacketData(receivemsg, \"MSG_4453329_OUT\");\n";
-		
-		m+="		} else {\n";
+		m+="Gson gson = new Gson();\n";
 	
-		m+="		}\n";
+		m+= classNameForCache+" bean = gson.fromJson(body, "+classNameForCache+".class);\n";
+		
+		List<Group> groups = interfaceBean.respondGroups;
+		
+
+		int groupCount=0;
+		for (Group group : groups) {
+		
+			String groupname = group.name;
+			if (!groupname.equals("CommonGroup")) {
+
+				int i = 0;
+				boolean isCustomerClass = false;
+				for (Row row : group.rows) {
+					
+					if (i == 0) {
+						// 循环域开始
+						if (row.type != null && !isCommonType(row.type)) {//自定义对象
+							
+							isCustomerClass = true;
+						} else {//非自定义对象
+							m += "/** " + row.cnName + " 备注:" + row.remarks
+									+ "*/\n";
+						  
+							m+="for(int i=0;i<bean."+row.enName+";i++)\n{\n";
+							  m+=className+" item"+groupCount+"=new "+className+"();\n";
+							isCustomerClass = false;
+						}
+					} else {
+						if (isCustomerClass) {
+
+						} else {
+							m += "/** " + row.cnName + " 备注:" + row.remarks
+									+ "*/\n";
+							m += "item"+groupCount+"."+row.enName+"=bean." + row.enName
+									+ "[i];\n";
+						
+						}
+					}
+					i++;
+				}
+			
+				m+="}\n\n";
+				
+			} else {
+				 m+=className+" commonItem"+"=new "+className+"();\n";
+				for (Row row : group.rows) {
+					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					m +=  "commonItem." + row.enName + "=bean."+row.enName+";\n";
+
+				}
+			}
+groupCount++;
+		}
+		m += "}\n\n";
+
 		
 		
-		m+="			String[] rs1 = Const.split(receivemsg);\n";
-		m+="			String err = rs1[0];\n";
-		m+="			if (\"000000\".equals(err)) {\n";
-		m+="				errmsg = \"更新成功！\";\n";
-		m+="				request.setAttribute(\"optret\", errmsg);\n";
-		m+="				return this.queryJsp(mapping, form, request, response);\n";
-		
-		m+="			} else {\n";
-		m+="				errmsg = rs1[1];\n";
-		m+="				request.setAttribute(\"optret\", errmsg);\n";
-		
-		m+="				return this.queryJsp(mapping, form, request, response);\n";
-		m+="			}\n";
-	
-		m+="		} catch (Exception e) {\n";
-		m+="			log.info(e.getMessage());\n";
-		m+="			String msgg = e.getMessage();\n";
-		m+="			if (msgg == null || \"\".equals(msgg)) {\n";
-		m+="				errmsg = \"更新失败！\";\n";
-		m+="			} else {\n";
-		m+="				errmsg = \"服务器内部错误！\";\n";
-		m+="			}\n";
-		m+="			e.printStackTrace();\n";
-		m+="			request.setAttribute(\"errmsg\", errmsg);\n";
-		m+="			ActionForward af = mapping.findForward(\"msgb\");\n";
-		m+="			return af;\n";
-		m+="		}\n";
 		m+="	}\n\n\n";
 
 		
