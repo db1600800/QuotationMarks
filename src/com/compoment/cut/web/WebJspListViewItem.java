@@ -51,10 +51,6 @@ public class WebJspListViewItem {
 	
 	
 public void analyse(List<CompomentBean> oldBeans) {
-		
-	
-
-		
 		int maxW = 0;
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
