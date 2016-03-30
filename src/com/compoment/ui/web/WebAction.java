@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web;
+package com.compoment.ui.web;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,13 +13,13 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.KeyValue;
 
-public class Action {
+public class WebAction {
 
 	String className;
 
 	String m = "";
 
-	public Action(String pageName, List<InterfaceBean> interfaceBeans) {
+	public WebAction(String pageName, List<InterfaceBean> interfaceBeans) {
 
 		className = firstCharToUpperAndJavaName(pageName);
 
@@ -135,6 +135,8 @@ public class Action {
 		m += "String s  = gson.toJson(bean);\n";
 		m += "String body=http(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n";
 
+		
+		
 		// Respond
 		String className2 = "RespondParam" + interfaceBean.id;
 		String classNameForCache = "CacheRespondParam" + interfaceBean.id;

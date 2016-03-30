@@ -1,4 +1,4 @@
-package com.compoment.cut.web;
+package com.compoment.ui.web;
 
 import java.util.List;
 

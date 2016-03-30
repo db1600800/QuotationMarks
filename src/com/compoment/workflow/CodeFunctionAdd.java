@@ -24,6 +24,7 @@ import com.compoment.addfunction.android.Paging;
 import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
+import com.compoment.addfunction.web.WebAction;
 import com.compoment.addfunction.webmanage.ActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import  com.compoment.addfunction.webmanage.Action;
@@ -68,6 +69,8 @@ public class CodeFunctionAdd extends JFrame {
     String backupBeforeModify="";
     
      JList codeTypeListListView ;
+     String fileName;
+     
 	public CodeFunctionAdd() {
 
 		super("");
@@ -250,6 +253,15 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
+						} else	if (value.equals("Web")) {
+							WebData();
+							// 设值
+							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							for (Function function : functionParents) {
+								functionModelList.addElement(function);
+							}
+							// 自定义对象加入模型列表
+							functionListListView.setModel(functionModelList);
 						} 
 						
 						
@@ -324,7 +336,7 @@ public class CodeFunctionAdd extends JFrame {
 
 					public void valueChanged(ListSelectionEvent even) {
 						backupBeforeModify="";
-						String fileName = codeFileListListView
+						 fileName = codeFileListListView
 								.getSelectedValue().toString();
 						currentCodeFileFullPath = codePathValueEditText
 								.getText() + "/" + fileName;
@@ -506,6 +518,10 @@ public class CodeFunctionAdd extends JFrame {
 						WebManageFunction(function);
 					}
 					
+					else 	if (value.equals("Web")) {
+						WebFunction(function);
+					}
+					
 				}
 			}
 		});
@@ -600,6 +616,10 @@ public class CodeFunctionAdd extends JFrame {
 					}else if(value.equals("WebManage"))
 					{
 						WebManageFunction(function);
+					}
+					else if(value.equals("Web"))
+					{
+						WebFunction(function);
 					}
 					
 				}
@@ -955,6 +975,24 @@ public class CodeFunctionAdd extends JFrame {
     }
 	
 	
+public void WebFunction(Function function) {
+		
+		if (function.id.equals("1")) {// 网络请求,响应,等待提示
+			
+			InterfaceDoc projectDocPanel=new InterfaceDoc();
+			projectDocPanel.setModal(true);
+			projectDocPanel.setVisible(true);
+			
+			if(projectDocPanel.interfaceBeans!=null)
+			{
+				//接口列表
+				new WebAction(fileName,projectDocPanel.interfaceBeans);
+			}
+		
+		}
+    }
+	
+	
 	public void swingFunction(Function function) {
 		if (function.id.equals("41")) {// 系统对话框提示(单个按钮)
 			SystemDialog dialog = new SystemDialog();
@@ -1094,6 +1132,12 @@ public class CodeFunctionAdd extends JFrame {
 	public void WebManageData(){
 		functionParents.clear();
 		functionParents.add(new Function("1", "查询新增修改"));
+	}
+	
+	
+	public void WebData(){
+		functionParents.clear();
+		functionParents.add(new Function("1", "网络请求,响应"));
 	}
 
 	public void searchCodeFiles(String root) {
