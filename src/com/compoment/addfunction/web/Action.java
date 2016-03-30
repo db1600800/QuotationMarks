@@ -17,6 +17,8 @@ public class Action {
 
 
 	 String className;
+	 
+	 String m="";
 	
 	public Action(String pageName,List<InterfaceBean> interfaceBeans) {
 		
@@ -24,20 +26,8 @@ public class Action {
 		
 		if (interfaceBeans == null)
 			return;
-
-		for (InterfaceBean interfaceBean : interfaceBeans) {
-			
-			action(interfaceBean, "Respond");
-		}
-	}
-	
-	
-
-	
-	public void action(InterfaceBean interfaceBean ,String type)
-	{
 		
-		String m="";
+		
 		m+="import java.util.HashMap;\n";
 		m+="import java.util.Iterator;\n";
 		m+="import java.util.LinkedHashMap;\n";
@@ -69,6 +59,24 @@ public class Action {
 
 		m+="public class "+className+"Action  {\n";
 	
+
+		for (InterfaceBean interfaceBean : interfaceBeans) {
+			
+			action(interfaceBean, "Respond");
+		}
+		
+		net();
+		m+="	}\n\n\n";
+	}
+	
+	
+
+	
+	public void action(InterfaceBean interfaceBean ,String type)
+	{
+		
+		
+		
 
 		m+="/**"+interfaceBean.title+"*/\n";
 		m+="	public String  "+interfaceBean.enName+"()throws Exception{\n";
@@ -214,11 +222,6 @@ public class Action {
               groupCount2++;
 		}
 		m += "}\n\n";
-
-		
-		
-		m+="	}\n\n\n";
-
 		
 	}
 		
