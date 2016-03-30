@@ -29,7 +29,7 @@ public class WebRequestRespond {
 		this.pageInterfaceDocPanel = pageInterfaceDocPanel;
 
 		add();
-
+		net();
 	}
 
 	public void add() {
@@ -159,7 +159,7 @@ public class WebRequestRespond {
 
 		m += "Gson gson = new Gson();\n";
 		m += "String s  = gson.toJson(bean);\n";
-		m += "Wait wait=new Wait();\n";
+		m += "WebWait wait=new WebWait();\n";
 		m += "String body=wait.html(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n";
 
 		// Respond
@@ -229,7 +229,7 @@ public class WebRequestRespond {
 
 	public String net() {
 
-		String m = "public class Wait{\n";
+		String m = "public class WebWait{\n";
 		m += "// 发起请求\n";
 		m += "public String http(String url){\n";
 		m += "				HttpClientManager httpClientManager = new HttpClientManager();\n";
@@ -295,9 +295,11 @@ public class WebRequestRespond {
 		m += "				\n";
 		m += "				}\n";
 		m += "}\n";
-		
-		
+
 		m += "}\n";
+
+		int p = waitByModifyFileName.lastIndexOf("/");
+		String filename = FileUtil.makeFile(waitByModifyFileName.substring(0, p) + "/WebWait.java", m);
 		return m;
 	}
 
