@@ -55,7 +55,7 @@ public class WebAction {
 
 		m += "public class " + className + "Action  {\n";
 
-
+		m+="//注入网络请求,响应,等待提示\n";
 		m += "	}\n\n\n";
 	}
 

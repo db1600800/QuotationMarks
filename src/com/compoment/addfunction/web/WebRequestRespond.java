@@ -11,60 +11,86 @@ import java.util.List;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.RegexUtil;
+import com.compoment.workflow.PageInterfaceDocPanel;
 
 public class WebRequestRespond {
 
-	String className;
+	String waitByModifyFileName;
 
 	String m = "";
+	PageInterfaceDocPanel pageInterfaceDocPanel;
 
-	public WebRequestRespond(String pageName, List<InterfaceBean> interfaceBeans) {
+	public WebRequestRespond(String waitByModifyFileName, PageInterfaceDocPanel pageInterfaceDocPanel) {
 
-		className = firstCharToUpperAndJavaName(pageName);
+		this.waitByModifyFileName = waitByModifyFileName;
+		this.pageInterfaceDocPanel = pageInterfaceDocPanel;
 
-		if (interfaceBeans == null)
-			return;
+		add();
 
-		m += "import java.util.HashMap;\n";
-		m += "import java.util.Iterator;\n";
-		m += "import java.util.LinkedHashMap;\n";
-		m += "import java.util.List;\n";
-		m += "import java.util.Map;\n";
-		m += "import java.util.Set;\n";
-
-		m += "import javax.annotation.Resource;\n";
-		m += "import javax.servlet.http.HttpServletRequest;\n";
-		m += "import javax.servlet.http.HttpSession;\n";
-
-		m += "import org.apache.commons.lang.StringUtils;\n";
-		m += "import org.apache.struts2.convention.annotation.Action;\n";
-		m += "import org.apache.struts2.convention.annotation.Namespace;\n";
-		m += "import org.apache.struts2.convention.annotation.ParentPackage;\n";
-		m += "import org.apache.struts2.convention.annotation.Result;\n";
-		m += "import com.google.gson.Gson;\n";
-		m += "import com.opensymphony.xwork2.ActionSupport;\n";
-
-		m += "@SuppressWarnings(\"unchecked\")\n";
-		m += "@ParentPackage(value = \"default\")\n";
-		m += "@Namespace(value = \"/companyname/projectname/modulename\")//url里用的路径头(Action路径)\n";
-		m += "@Action(value = \"" + className + "Action\" ,results = { \n";
-		m += "		@Result(name = \"index\", location = \"/companyname/projectname/modulename/" + className
-				+ ".jsp\"),\n";
-		m += "})\n";
-
-		m += "public class " + className + "Action  {\n";
-
-		for (InterfaceBean interfaceBean : interfaceBeans) {
-
-			action(interfaceBean, "Respond");
-		}
-
-		net();
-		m += "	}\n\n\n";
 	}
 
-	public void action(InterfaceBean interfaceBean, String type) {
+	public void add() {
+
+		List addedLines = new ArrayList();
+
+		RegexUtil regex = new RegexUtil();
+
+		List<String> lines = FileUtil.fileContentToArrayList(waitByModifyFileName);
+
+		String className = "";
+
+		// 是否已注入过此功能
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if (line != null && line.contains("//注入网络请求,响应,等待提示")) {
+				return;
+			}
+		}
+
+		boolean findViewByIdFirst = true;
+
+		//
+		String content = "";
+		content += "//注入网络请求,响应,等待提示\n";
+		for (int i = 0; i < lines.size(); i++) {
+			String line = "";
+			if (lines.get(i) == null) {
+				line = "";
+			} else {
+				line = lines.get(i).toString();
+			}
+
+			content += line + "\n";
+
+			if (line.contains("注入网络请求,响应,等待提示")) {
+				// 类结尾位置
+				String m = "";
+				for (Object select : pageInterfaceDocPanel.selects) {
+					String id = select.toString().split(":")[0];
+					String cn = select.toString().split(":")[1];
+
+					m += requestRespond(id);
+					pageInterfaceDocPanel.serverlet(id);
+				}
+				content += m;
+			}
+
+		}
+
+		String filename = FileUtil.makeFile(waitByModifyFileName, content);
+	}
+
+	public String requestRespond(String id) {
+		String m = "";
+		InterfaceBean interfaceBean = null;
+		for (InterfaceBean bean : pageInterfaceDocPanel.interfaceBeans) {
+			if (bean.id.equals(id)) {
+				interfaceBean = bean;
+			}
+		}
 
 		m += "/**" + interfaceBean.title + "*/\n";
 		m += "	public String  " + interfaceBean.enName + "()throws Exception{\n";
@@ -133,10 +159,9 @@ public class WebRequestRespond {
 
 		m += "Gson gson = new Gson();\n";
 		m += "String s  = gson.toJson(bean);\n";
-		m += "String body=http(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n";
+		m += "Wait wait=new Wait();\n";
+		m += "String body=wait.html(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n";
 
-		
-		
 		// Respond
 		String className2 = "RespondParam" + interfaceBean.id;
 		String classNameForCache = "CacheRespondParam" + interfaceBean.id;
@@ -199,11 +224,12 @@ public class WebRequestRespond {
 		}
 		m += "}\n\n";
 
+		return m;
 	}
 
-	public void net() {
+	public String net() {
 
-		String m = "";
+		String m = "public class Wait{\n";
 		m += "// 发起请求\n";
 		m += "public String http(String url){\n";
 		m += "				HttpClientManager httpClientManager = new HttpClientManager();\n";
@@ -269,7 +295,10 @@ public class WebRequestRespond {
 		m += "				\n";
 		m += "				}\n";
 		m += "}\n";
-
+		
+		
+		m += "}\n";
+		return m;
 	}
 
 	public boolean isCommonType(String type) {

@@ -59,7 +59,7 @@ public class PageInterfaceDocPanel {
 	public JTextField respondJsonDetailValueEditText;
 	
 	/**word文档解析出来的接口对象*/
-	List<InterfaceBean> interfaceBeans;
+	public List<InterfaceBean> interfaceBeans;
 	
 	/**
 	 * 接口列表多选的值   (f.id + "" + f.title);
