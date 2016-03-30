@@ -55,12 +55,7 @@ public class WebAction {
 
 		m += "public class " + className + "Action  {\n";
 
-		for (InterfaceBean interfaceBean : interfaceBeans) {
 
-			action(interfaceBean, "Respond");
-		}
-
-		net();
 		m += "	}\n\n\n";
 	}
 

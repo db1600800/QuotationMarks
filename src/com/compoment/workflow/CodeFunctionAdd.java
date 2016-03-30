@@ -24,7 +24,7 @@ import com.compoment.addfunction.android.Paging;
 import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
-import com.compoment.addfunction.web.WebAction;
+import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.ActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import  com.compoment.addfunction.webmanage.Action;
@@ -986,7 +986,7 @@ public void WebFunction(Function function) {
 			if(projectDocPanel.interfaceBeans!=null)
 			{
 				//接口列表
-				new WebAction(fileName,projectDocPanel.interfaceBeans);
+				new WebRequestRespond(fileName,projectDocPanel.interfaceBeans);
 			}
 		
 		}

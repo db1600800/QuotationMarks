@@ -13,13 +13,13 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.KeyValue;
 
-public class WebAction {
+public class WebRequestRespond {
 
 	String className;
 
 	String m = "";
 
-	public WebAction(String pageName, List<InterfaceBean> interfaceBeans) {
+	public WebRequestRespond(String pageName, List<InterfaceBean> interfaceBeans) {
 
 		className = firstCharToUpperAndJavaName(pageName);
 
