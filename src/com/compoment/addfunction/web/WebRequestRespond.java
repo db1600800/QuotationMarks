@@ -45,16 +45,15 @@ public class WebRequestRespond {
 		// 是否已注入过此功能
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
-			if (line != null && line.contains("//注入网络请求,响应,等待提示")) {
+			if (line != null && line.contains("已注入网络请求,响应,等待提示")) {
 				return;
 			}
 		}
 
 		boolean findViewByIdFirst = true;
 
-		//
+		
 		String content = "";
-		content += "//注入网络请求,响应,等待提示\n";
 		for (int i = 0; i < lines.size(); i++) {
 			String line = "";
 			if (lines.get(i) == null) {
@@ -63,9 +62,10 @@ public class WebRequestRespond {
 				line = lines.get(i).toString();
 			}
 
-			content += line + "\n";
+			
 
 			if (line.contains("注入网络请求,响应,等待提示")) {
+				line=line.replace("注入网络请求,响应,等待提示", "已注入网络请求,响应,等待提示");
 				// 类结尾位置
 				String m = "";
 				for (Object select : pageInterfaceDocPanel.selects) {
@@ -76,7 +76,10 @@ public class WebRequestRespond {
 					pageInterfaceDocPanel.serverlet(id);
 				}
 				content += m;
+			
 			}
+			content += line + "\n";
+			
 
 		}
 
@@ -95,17 +98,17 @@ public class WebRequestRespond {
 		m += "/**" + interfaceBean.title + "*/\n";
 		m += "	public String  " + interfaceBean.enName + "()throws Exception{\n";
 
-		m += "		  HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m += "		  HttpSession session = request.getSession();\n";
-		m += "	      CstmMsg cstmMsg = session.getAttribute(JiYouSessionKey.CSTMMSG.toString()) == null ? new CstmMsg()\n";
-		m += "			: (CstmMsg) session.getAttribute(JiYouSessionKey.CSTMMSG.toString()); \n";
+		m += "		  HttpServletRequest request = ServletActionContext.getRequest();\n";
+		m += "		  HttpSession session = request.getSession();\n\n";
+		m += "	      Object sessionAttObject = session.getAttribute(\"key\");//容器内参数传递\n";
+		m += "	      Object requestAttObject = request.getAttribute(\"key\");//容器内参数传递\n";
+		m += "	      Object requestParObject = request.getParameter(\"key\");//url参数传递\n\n";
 
 		List<String> mChirldClass = new ArrayList();
 		String className = "RequestParam" + interfaceBean.id;
 
 		// Request
-		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "int n" + interfaceBean.id + "=" + interfaceBean.id + ";\n";
+		m+="//Request\n";
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += className + " bean" + "=new " + className + "();\n";
 
@@ -144,8 +147,6 @@ public class WebRequestRespond {
 					i++;
 				}
 
-				m += "}\n\n";
-
 			} else {
 
 				for (Row row : group.rows) {
@@ -157,18 +158,18 @@ public class WebRequestRespond {
 
 		}
 
-		m += "Gson gson = new Gson();\n";
+		m += "\nGson gson = new Gson();\n";
 		m += "String s  = gson.toJson(bean);\n";
 		m += "WebWait wait=new WebWait();\n";
-		m += "String body=wait.html(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n";
+		m += "String body=wait.html(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n\n";
 
 		// Respond
+		m+="//Respond\n";
 		String className2 = "RespondParam" + interfaceBean.id;
 		String classNameForCache = "CacheRespondParam" + interfaceBean.id;
 		m += "List<" + className2 + "> listData=new ArrayList();\n";
 
 		m += "/**" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "if (requestCode == n" + interfaceBean.id + "){\n";
 
 		m += "Gson gson = new Gson();\n";
 
@@ -209,8 +210,6 @@ public class WebRequestRespond {
 					}
 					i++;
 				}
-
-				m += "}\n\n";
 
 			} else {
 				m += className2 + " commonItem" + "=new " + className2 + "();\n";

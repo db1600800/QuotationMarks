@@ -36,6 +36,7 @@ import com.compoment.ui.ios.creater.TableViewCellH;
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
+import com.compoment.ui.web.WebAction;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
@@ -471,7 +472,7 @@ public class PageCreatePanel {
 		   //Web
 			WebJsp  webJsp = new WebJsp(frame.pageName,frame.beans);
 			
-			
+			WebAction webaction=new WebAction(frame.pageName);
 			
 			}
 		else if (frame.pageType.equals("TableViewCell-Web")) {
