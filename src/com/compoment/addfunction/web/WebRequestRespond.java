@@ -100,9 +100,9 @@ public class WebRequestRespond {
 
 		m += "		  HttpServletRequest request = ServletActionContext.getRequest();\n";
 		m += "		  HttpSession session = request.getSession();\n\n";
-		m += "	      Object sessionAttObject = session.getAttribute(\"key\");//容器内参数传递\n";
-		m += "	      Object requestAttObject = request.getAttribute(\"key\");//容器内参数传递\n";
-		m += "	      Object requestParObject = request.getParameter(\"key\");//url参数传递\n\n";
+		m += "	     //Object sessionAttObject = session.getAttribute(\"key\");//容器内参数传递\n";
+		m += "	     //Object requestAttObject = request.getAttribute(\"key\");//容器内参数传递\n";
+		m += "	     // String requestParObject = request.getParameter(\"key\");//url参数传递\n\n";
 
 		List<String> mChirldClass = new ArrayList();
 		String className = "RequestParam" + interfaceBean.id;
@@ -130,7 +130,7 @@ public class WebRequestRespond {
 							isCustomerClass = true;
 						} else {// 非自定义对象
 							m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-							m += "bean." + row.enName + "=\"\";\n";
+							m += "bean." + row.enName + "=request.getParameter(\""+row.enName+"\");\n";
 
 							isCustomerClass = false;
 						}
@@ -146,19 +146,19 @@ public class WebRequestRespond {
 					}
 					i++;
 				}
-
+				
 			} else {
 
 				for (Row row : group.rows) {
 					m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-					m += "bean." + row.enName + "=\"\";\n";
+					m += "bean." + row.enName + "=request.getParameter(\""+row.enName+"\");\n";
 
 				}
 			}
 
 		}
 
-		m += "\nGson gson = new Gson();\n";
+		m += "\n Gson gson = new Gson();\n";
 		m += "String s  = gson.toJson(bean);\n";
 		m += "WebWait wait=new WebWait();\n";
 		m += "String body=wait.html(Urlbase+\"/Serverlet" + interfaceBean.id + "?parameter=s\");\n\n";
@@ -174,7 +174,9 @@ public class WebRequestRespond {
 		m += "Gson gson = new Gson();\n";
 
 		m += classNameForCache + " bean = gson.fromJson(body, " + classNameForCache + ".class);\n";
-
+        m+="Map map = new HashMap();\n";
+		m+="map.put(\"errorMsg\",\"\");\n";
+		
 		List<Group> groups2 = interfaceBean.respondGroups;
 
 		int groupCount2 = 0;
@@ -194,7 +196,7 @@ public class WebRequestRespond {
 							isCustomerClass = true;
 						} else {// 非自定义对象
 							m += "/** " + row.cnName + " 备注:" + row.remarks + "*/\n";
-
+                            m+="List "+groupCount2+"List=new ArrayList();\n";
 							m += "for(int i=0;i<bean." + row.enName + ";i++)\n{\n";
 							m += className2 + " item" + groupCount2 + "=new " + className2 + "();\n";
 							isCustomerClass = false;
@@ -210,7 +212,9 @@ public class WebRequestRespond {
 					}
 					i++;
 				}
-
+				m+=""+groupCount2+"List.add(item"+groupCount2+");\n";
+				m+="}\n\n";
+				m+="map.put(\""+groupCount2+"List\","+groupCount2+"List);\n";
 			} else {
 				m += className2 + " commonItem" + "=new " + className2 + "();\n";
 				for (Row row : group.rows) {
@@ -218,9 +222,17 @@ public class WebRequestRespond {
 					m += "commonItem." + row.enName + "=bean." + row.enName + ";\n";
 
 				}
+				
+				m+="map.put(\"commonItem\",commonItem);\n";
 			}
 			groupCount2++;
 		}
+		
+		
+		m+="ServletActionContext.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+		m+="ServletActionContext.getResponse().getWriter().write(new Gson().toJson(map));\n";
+		m+="return ActionSupport.NONE;\n";
+		
 		m += "}\n\n";
 
 		return m;
