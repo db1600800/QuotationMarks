@@ -301,25 +301,18 @@ public class WebJsp {
 		bodym += "	<META Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
 		bodym += "	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
 
-		// bodym+="<%--css <link href=\"/chinapost/jiyouwx/css/css.css?v=1.1.3\"
-		// rel=\"stylesheet\" type=\"text/css\">--%>\n";
+	
+		
 
 		bodym += "	<script type=\"text/javascript\" src=\"js/jquery-1.10.1.min.js\"></script>\n";
-		bodym+="<script type=\"text/javascript\"  id=\"myJs\">\n";
+		bodym+="<script type=\"text/javascript\"  id=\"myJs\">\n\n";
+		bodym+="//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
+		bodym+="//html取request值  <input type=\"hidden\"  name=\"busiNo\" id=\"busiNo\" value=\"<s:property value=\"#request.busiNo\"/>\" />\n\n";
+	
 		bodym+="//appendjs\n";
 		bodym+="</script>\n";
-		// bodym+=" <script type=\"text/javascript\"
-		// src=\"/chinapost/jiyouwx/js/jy/shopcart.js?v=1.1.5\"
-		// charset='utf-8'></script>\n";
-		// bodym+=" <%-- 统一错误处理 --%>\n";
-		// bodym+=" <%@include
-		// file=\"/chinapost/jiyouwx/global_error.jsp\"%>\n";
 
-		// bodym+=" <style type=\"text/css\">\n";
-		// bodym+=" .checkbox_sty {\n";
-		// bodym+=" visibility:hidden;\n";
-		// bodym+=" }\n";
-		// bodym+=" </style>\n";
+		
 		bodym += "</head>\n";
 
 		bodym += "<body>\n";
@@ -581,28 +574,25 @@ public class WebJsp {
 		return genID(3) + "-" + genID(2) + "-" + genID(3);
 	}
 
-	//
-	// <html>
-	// <body>
-	// <div style=" width:100%;height:100%;position:absolute; left:0; top:0; " >
-	//
-	// <div style=" width:100%; height:37px; background-color:#FC5F28; ">
-	//
-	// <span style=" margin-left:38px; " >新油品</span>
-	//
-	//
-	//
-	// </div>
-	//
-	// <div style=" width:100%; height:37px; background-color:#FC5F28; ">
-	//
-	// <span style=" margin-left:38px; " >新油品</span>
-	//
-	//
-	//
-	// </div>
-	//
-	// </div>
-	// </body>
-	// </html>
+//	function select_invoice(obj){//obj==this
+//		var invoiceTypeVal = $(obj).find("input[name='invoiceType']").val();
+//		var invoiceTypeVals = invoiceTypeVal.split("#", 2);
+//		var dw = invoiceTypeVals[1];
+//		
+//		$(obj).find("input[name='invoiceType']").prop("checked", true);
+//		$(obj).prop("class","checked04");
+//		$(obj).parent().find("input[name='invoiceType']").each(function () {
+//			if($(this).val() != invoiceTypeVal){
+//				ck_or_no_class(this, false);
+//			}
+//		});
+//		if(dw == "2"){
+//			$(obj).parent().parent().find("li[name='invoice_title_li']").show();
+//		} else {
+//			$(obj).parent().parent().find("li[name='invoice_title_li']").hide();
+//		}
+//	}
+	
+	
+	
 }

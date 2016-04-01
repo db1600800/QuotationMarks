@@ -214,7 +214,7 @@ public class WebRequestRespond {
 				}
 				m+=""+groupCount2+"List.add(item"+groupCount2+");\n";
 				m+="}\n\n";
-				m+="map.put(\""+groupCount2+"List\","+groupCount2+"List);\n";
+				m+="map.put(\"dataList\","+groupCount2+"List);\n";
 			} else {
 				m += className2 + " commonItem" + "=new " + className2 + "();\n";
 				for (Row row : group.rows) {

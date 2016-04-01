@@ -225,13 +225,13 @@ public void analyse(List<CompomentBean> oldBeans) {
 		if (chirld.type.equals("CheckBox")) {
 
 			js +="//checkbox \n";
-			js += "var setAddr = false;\n";
-			js += "function setDefaultAddr(){\n";
-			js += "	if(setAddr){\n";
-			js += "	setAddr = false;\n";
+			js += "var "+chirld.enname+"Bool = false;\n";
+			js += "function set"+chirld.enname+"Bool(){\n";
+			js += "	if("+chirld.enname+"Bool){\n";
+			js += "	"+chirld.enname+"Bool = false;\n";
 			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\""+chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}else{\n";
-			js += "	setAddr = true;\n";
+			js += "	"+chirld.enname+"Bool = true;\n";
 			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" "+ chirld.relativeForWeb +" background: url(images/checked.png) no-repeat 2px center;  padding-left: 35px; padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}\n";
 			js += "}\n\n";
@@ -291,7 +291,7 @@ public void analyse(List<CompomentBean> oldBeans) {
 		js+="			    }  \n";
 		js+="			    only_one_sub = false;//防重复提交\n";
 		js+="			   \n";
-		js+="			    if(flg == 0){//按查询时\n";
+		js+="			    if(flg == 0){//0首页  1下一页 \n";
 		js+="			    	$(\"#page_code\").val(1);			    	\n";
 		js+="			    }		    \n";
 		js+="			   \n";
@@ -301,8 +301,8 @@ public void analyse(List<CompomentBean> oldBeans) {
 		js+="			    var my_msg = show_hide_msg(\"页面加载中...\");\n";
 		js+="			    $(\"#emptyOrErrorMsg\").html(\"\");\n";
 		js+="			    $.ajax({  \n";
-		js+="			        url:'/jiyou/wx/AddressAction!queryAddressList.do?',  \n";
-		js+="			        data: { \"page_code\": $(\"#page_code\").val()} ,  \n";
+		js+="			        url:'/companyname/projectname/"+className+"Action!queryAddressList.do?',  \n";
+		js+="			        data: { \"page_code\": $(\"#page_code\").val()} , //请求参数 \n";
 		js+="			        type:\"POST\",\n";
 		js+="			        cache:false, \n";
 		js+="			        dataType:'json', //预期服务器返回的数据类型  \n";
@@ -317,13 +317,13 @@ public void analyse(List<CompomentBean> oldBeans) {
 		js+="			        success:function(data){\n";
 		js+="			          my_msg.close();\n";
 		js+="			        	if (data != null){\n";
-		js+="			        		var msg = data.result;\n";
+		js+="			        		var msg = data.errorMsg;//data为map  errorMsg为key\n";
 		js+="			     		    if(msg == \"success\"){\n";
 		js+="			     		    	\n";
-		js+="			         		    var listData = data;\n";
-		js+="			         		    currentCount = listData.length;\n";
+		js+="			         		    var dataList = data.dataList;\n";
+		js+="			         		    currentCount = dataList.length;\n";
 
-		js+="				        		if(flg == 0){//按查询时\n";
+		js+="				        		if(flg == 0){//0首页  1下一页 \n";
 		js+="				        			 $(\"#listSpace\").html(\"\");				    	\n";
 		js+="				     		    }\n";
 		js+="				            	var html = \"\";\n";
@@ -331,41 +331,15 @@ public void analyse(List<CompomentBean> oldBeans) {
 		js+=bodym+";\n";
 		
 		
-//		js+="									opt += '<div class=\"box05\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"cfTable\"><tr class=\"tr01\">';\n";
-//		js+="									if(flag == \"1\"){//表示从购物车页面进入\n";
-//		js+="										var param = \"recvName=\"+listData[i].recvName+\"&provCode=\"+listData[i].provCode+\"&cityCode=\"+listData[i].cityCode+\"&countCode=\"+listData[i].countCode+\n";
-//		js+="										\"&detailAddress=\"+listData[i].detailAddress+\"&mobileNo=\"+listData[i].mobileNo+\"&postCode=\"+listData[i].postCode+\"&addressID=\"+listData[i].addressID;\n";
-//
-//		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-//		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"checked04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" checked=\"checked\"/>默认地址</dd></td>';\n";
-//		js+="										}else{\n";
-//		js+="											opt += '<td><dd onclick=\"selectAddress(this, \''+ param+'\')\" class=\"check04\"><input type=\"checkbox\" name=\"addressID_box\" class=\"checkbox_sty\" value=\"'+ listData[i].addressID +'\" />选择该地址</dd></td>';\n";
-//		js+="										}\n";
-//		js+="									}else{ //表明从会员首页点击\"我的地址\"进入\n";
-//		js+="										if(listData[i].isDefaultAddress == '0' ){\n";
-//		js+="											opt += '<td >默认地址</td>';\n";
-//		js+="										}else{\n";
-//		js+="											opt += '<td ></td>';\n";
-//		js+="										}\n";
-//		js+="										\n";
-//		js+="									}\n";
-//		js+="									opt += '<td width=\"60\"><a  href=\"#\" class=\"del02\" onclick=\"deleteAddress(\''+listData[i].addressID+'\')\">删除</a></td>';\n";
-//		js+="									opt += ' </tr><tr><td><p class=\"p01\">收货人：'+listData[i].recvName+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].mobileNo+'</p>';\n";
-//		js+="									opt += '<p class=\"p02\">'+listData[i].totalAddress+'&nbsp;&nbsp;&nbsp;&nbsp;'+listData[i].postCode+'</p></td>';\n";
-//		js+="									opt += '</tr></table></div>';\n";
-		
-		
-		
-		
 		
 		js+="								}\n";
 
 		js+="								$(\"#page_code\").val(Number($(\"#page_code\").val()) + 1);		\n";
 		js+="				\n";
-		js+="								if(listData.length >= 10){\n";
+		js+="								if(dataList.length >= 10){\n";
 		js+="					        		stop = true;//到底部时加载判断\n";
 		js+="					        	} \n";
-		js+="					        	if(listData.length == 0){\n";
+		js+="					        	if(dataList.length == 0){\n";
 		js+="			          				$(\"#emptyOrErrorMsg\").html('<br><br><br><br><div style=\"text-align:center;\">暂无地址信息</div>');\n";
 		js+="				            	}\n";
 		js+="					        	$(html).appendTo($(\"#listSpace\"));\n";
