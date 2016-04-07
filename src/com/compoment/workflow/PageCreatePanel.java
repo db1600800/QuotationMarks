@@ -366,9 +366,9 @@ public class PageCreatePanel {
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
 			//android
-			CreateActivityView createView = new CreateActivityView(
+			com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
 					frame.pageName);
-			createView.create();
+			createrAdapter.create();
 			
 			}
 		
@@ -443,8 +443,30 @@ public class PageCreatePanel {
 			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
 			
 		}
-		
-		
+		else if (frame.pageType.equals("ChirldViewController-Web")) {
+			// 页面分析生成
+						AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
+						String xmlFileName = androidLayoutXml.analyseRelative(
+								frame.pageName, frame.beans);
+						  if(xmlFileName.equals("no have layout"))
+				            {
+				            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
+				    					JOptionPane.INFORMATION_MESSAGE);
+				            	return;
+				            }
+						savePublicCompoment();
+
+						//ios
+						ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,true);
+						ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,true);
+						
+						IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+						
+						//android
+						com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
+								frame.pageName);
+						createrAdapter.create();
+		}
 		else if (frame.pageType.equals("ViewController-Web")) {
 			// 页面分析生成
 			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
