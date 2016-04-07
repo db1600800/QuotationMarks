@@ -218,7 +218,7 @@ public class CodeFunctionAdd extends JFrame {
 							
 							androidData();
 							// 设值
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 							for (Function function : functionParents) {
 								functionModelList.addElement(function);
 							}
@@ -228,7 +228,7 @@ public class CodeFunctionAdd extends JFrame {
 						} else	if (value.equals("Iphone")) {
 							iphoneData();
 							// 设值
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 							for (Function function : functionParents) {
 								functionModelList.addElement(function);
 							}
@@ -238,7 +238,7 @@ public class CodeFunctionAdd extends JFrame {
 						else	if (value.equals("Swing")) {
 							swingData();
 							// 设值
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 							for (Function function : functionParents) {
 								functionModelList.addElement(function);
 							}
@@ -247,7 +247,7 @@ public class CodeFunctionAdd extends JFrame {
 						} else	if (value.equals("WebManage")) {
 							WebManageData();
 							// 设值
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 							for (Function function : functionParents) {
 								functionModelList.addElement(function);
 							}
@@ -256,7 +256,7 @@ public class CodeFunctionAdd extends JFrame {
 						} else	if (value.equals("Web")) {
 							WebData();
 							// 设值
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 							for (Function function : functionParents) {
 								functionModelList.addElement(function);
 							}
@@ -266,7 +266,7 @@ public class CodeFunctionAdd extends JFrame {
 						
 						
 						else {
-							DefaultListModel functionModelList = new DefaultListModel<Function>();
+							DefaultListModel functionModelList = new DefaultListModel();
 
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
@@ -545,7 +545,7 @@ public class CodeFunctionAdd extends JFrame {
 						if (functionChirlds == null)
 							return;
 						// 设值
-						DefaultListModel functionModelList2 = new DefaultListModel<Function>();
+						DefaultListModel functionModelList2 = new DefaultListModel();
 						for (Function function2 : functionChirlds) {
 
 							functionModelList2.addElement(function2);
@@ -687,14 +687,15 @@ public class CodeFunctionAdd extends JFrame {
 	/**
 	 * 定制swing里面dblist的cell单元格如何显示
 	 * */
-	class FunctionListCell extends JLabel implements ListCellRenderer<Function> {
+	class FunctionListCell extends JLabel implements ListCellRenderer {
+
+	
 
 		@Override
-		public Component getListCellRendererComponent(
-				JList<? extends Function> list, Function value, int index,
-				boolean isSelected, boolean cellHasFocus) {
-
-			setText(value.name);
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			// TODO Auto-generated method stub
+			Function fun=(Function)value;
+			setText(fun.name);
 
 			// 判断是否选中
 			if (isSelected) {

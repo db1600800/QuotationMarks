@@ -7,58 +7,58 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>5</x>
-    <y>31</y>
-    <w>312</w>
-    <h>468</h>
+    <x>31</x>
+    <y>118</y>
+    <w>271</w>
+    <h>33</h>
     <actionDetailString></actionDetailString>
-    <cnname>bg1459395414658</cnname>
-    <enname>bg1459395414658LinearLayout</enname>
+    <cnname>bg1459907805993</cnname>
+    <enname>bg1459907805993LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>3KX-wy-aGw</id>
+    <id>Lku-CB-iVC</id>
     <type>LinearLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb>div</compomentForWeb>
-    <picName>图片名</picName>
-    <time>1459395420142</time>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFD</rgb16>
-    <rgb16ios>#FFFFFD</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>23</x>
-    <y>90</y>
-    <w>269</w>
-    <h>333</h>
-    <actionDetailString></actionDetailString>
-    <cnname>a</cnname>
-    <enname>aListView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>bLt-nh-zS6</id>
-    <type>ListView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1459395432528</time>
+    <time>1459907809479</time>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#262626</rgb16>
+    <rgb16ios>#262626</rgb16ios>
+    <bgRgb16>#FFFFFD</bgRgb16>
+    <bgRgb16ios>#FFFFFD</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>212</x>
+    <y>131</y>
+    <w>50</w>
+    <h>7</h>
+    <actionDetailString></actionDetailString>
+    <cnname>身份证</cnname>
+    <enname>typeTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>MqS-Ll-J7L</id>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1459907858500</time>
   </CompomentBean>
 </list>
