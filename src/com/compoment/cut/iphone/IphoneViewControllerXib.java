@@ -176,15 +176,14 @@ public class IphoneViewControllerXib {
 			}else
 			{
 			
-//			int top=parentTopSpace;
-//			int martop=0;
-//			int chirldCount=0;
-//			int height=0;
+//		
 			for (CompomentBean chirld : bean.chirlds) {
 				
 				//这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
+					if(chirld.layoutNoUseForIos!=true)
+					{
 					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""							+ chirld.id + "\">\n";
 
 						bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
@@ -194,7 +193,12 @@ public class IphoneViewControllerXib {
 		
 					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 					bodym += "                                <subviews>\n";
+					}
+					
 					parent(chirld);
+					
+					if(chirld.layoutNoUseForIos!=true)
+					{
 					bodym += "                                </subviews>\n";
 					bodym += "                                <color key=\"backgroundColor\" red=\""
 							+ bean.getR(chirld.bgRgb16ios)
@@ -203,10 +207,7 @@ public class IphoneViewControllerXib {
 							+ "\" blue=\""
 							+ bean.getB(chirld.bgRgb16ios)
 							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-					// m+="                                <constraints>\n";
-					// m+="                                    <constraint firstItem=\"COT-hb-yaP\" firstAttribute=\"centerY\" secondItem=\"itq-au-h9W\" secondAttribute=\"centerY\" constant=\"-0.75\" id=\"4dZ-Um-rQ1\"/>\n";
-					// m+="                                </constraints>\n";
-					//bodym += constraint(chirld);
+				
 
 					if (bean.type.contains("Layout") && bean.rgb16 != null
 							&& bean.isFilletedCorner) {// 圆角边框颜色
@@ -229,28 +230,8 @@ public class IphoneViewControllerXib {
 						bodym += "                                </userDefinedRuntimeAttributes>\n";
 					}
 
-					// m+="                                <variation key=\"default\">\n";
-					// m+="                                    <mask key=\"subviews\">\n";
-					// m+="                                        <exclude reference=\"COT-hb-yaP\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                    <mask key=\"constraints\">\n";
-					// m+="                                        <exclude reference=\"Fc6-1K-XdQ\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                </variation>\n";
-
-					// m+="                                <variation key=\"widthClass=compact\">\n";
-					// m+="                                    <mask key=\"subviews\">\n";
-					// for(int i=0;i<bean.chirlds.size();i++)
-					// {
-					// m+="                                        <include reference=\""+bean.chirlds.get(i).id+"\"/>\n";
-					// }
-					// m+="                                    </mask>\n";
-
-					// m+="                                    <mask key=\"constraints\">\n";
-					// m+="                                        <include reference=\"lmb-pJ-JUc\"/>\n";
-					// m+="                                    </mask>\n";
-					// m+="                                </variation>\n";
 					bodym += "                            </view>\n";
+					}
 
 				} else {//这个儿子是非容器 
 					
@@ -418,47 +399,7 @@ public class IphoneViewControllerXib {
 					+ "\" id=\"" + id() + "\"/>\n";
 			
 			
-//			//透明覆盖层
-//			
-//			String coverLeverId=id();
-//			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-//					+ coverLeverId+ "\">\n";
-//			bodym += "                                <rect key=\"frame\" x=\""
-//					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-//					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-//					+ "\"/>\n";
-////			bodym += "                                <color key=\"backgroundColor\" red=\""
-////					+ chirld.getR(chirld.bgRgb16ios)
-////					+ "\" green=\""
-////					+ chirld.getG(chirld.bgRgb16ios)
-////					+ "\" blue=\""
-////					+ chirld.getB(chirld.bgRgb16ios)
-////					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-////			bodym += "                                <color key=\"tintColor\" red=\""
-////					+ chirld.getR(chirld.rgb16)
-////					+ "\" green=\""
-////					+ chirld.getG(chirld.rgb16)
-////					+ "\" blue=\""
-////					+ chirld.getB(chirld.rgb16)
-////					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-////			
-////		    if(!chirld.picName.equals("图片名"))
-////		    {
-////			
-////			bodym += "                                <state key=\"normal\" title=\""
-////					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
-////		    }else
-////		    {
-////		    	bodym += "                                <state key=\"normal\" title=\""
-////						+ chirld.cnname + "\">\n";
-////		    }
-////			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
-////			bodym += "                                </state>\n";
-//	
-//			bodym += "                            </button>\n";
-//			connection += "                        <outlet property=\""
-//					+ chirld.enname + "\" destination=\"" + coverLeverId
-//					+ "\" id=\"" + id() + "\"/>\n";
+
 		}
 		
 		
@@ -469,12 +410,7 @@ public class IphoneViewControllerXib {
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
 					+ "\" width=\"100\" height=\"30\"/>\n";
 
-//			bodym += " <constraints>\n";
-//			bodym += " <constraint firstAttribute=\"height\" constant=\"30\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " <constraint firstAttribute=\"width\" constant=\"100\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " </constraints>\n";
+
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
@@ -538,247 +474,7 @@ public class IphoneViewControllerXib {
 		}
 	}
 
-//	public String constraint(CompomentBean bean) {
-////一组里边的约束条件
-//		
-//		String m = "<constraints>\n";
-//		String n = " <variation key=\"widthClass=compact\">\n";
-//		n += " <mask key=\"constraints\">\n";
-//
-//		CompomentBean leftfirst = null;
-//		
-//		
-//	
-//
-//		for (CompomentBean chirld1 : bean.chirlds) {
-//			
-//			boolean left = false;
-//			int leftvalue = 0;
-//			boolean right = false;
-//		
-//			boolean top = false;
-//			int topvalue = 0;
-//			boolean bottom = false;
-//		
-//
-//			for (CompomentBean chirld2 : bean.chirlds) {
-//				if (!chirld1.enname.equals(chirld2.enname)) {
-//					if (chirld1.x > (chirld2.x + chirld2.w)) {// 有人在你(chirld1)左边
-//
-//						if (left == true) {
-//							if (leftvalue > chirld1.x - (chirld2.x + chirld2.w)) {// 上一个距离远
-//																					// 换现在这个近的
-//
-//								String id = id();
-//								leftvalue = chirld1.x - (chirld2.x + chirld2.w);
-//								String newString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"leading\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"trailing\" constant=\""
-//										+ (leftvalue) + "\" id=\"" + id
-//										+ "\"/>\n";
-//								;
-//
-//								String newStringn = " <include reference=\""
-//										+ id + "\"/>\n";
-//
-//								String rows[] = m.split("\n");
-//								String lastrow = rows[rows.length - 1];
-//
-//								m = m.replace(lastrow, newString);
-//
-//								String rowsn[] = n.split("\n");
-//								String lastrown = rowsn[rowsn.length - 1];
-//
-//								n = n.replace(lastrown, newStringn);
-//
-//							}
-//						} else {
-//							leftvalue = chirld1.x - (chirld2.x + chirld2.w);
-//							String id = id();
-//							m += "<constraint firstItem=\""
-//									+ chirld1.id
-//									+ "\" firstAttribute=\"leading\" secondItem=\""
-//									+ chirld2.id
-//									+ "\" secondAttribute=\"trailing\" constant=\""
-//									+ chirldleftspace + "\" id=\"" + id + "\"/>\n";
-//							n += " <include reference=\"" + id + "\"/>\n";
-//
-//							left = true;
-//						}
-//
-//					}
-//
-//					if ((chirld1.x + chirld1.w) < chirld2.x) {// 有人在你(chirld1)右边
-//
-//						if (right == true) {
-//							
-//						} else {
-//							
-//							right = true;
-//						}
-//					}
-//
-//					if (chirld1.y > (chirld2.y + chirld2.h)) {// 有人在你(chirld1)上边
-//
-//						if (top == true) {
-//							if (topvalue > chirld1.y - (chirld2.y + chirld2.h)) {// 上一个距离远
-//																					// 换现在这个近的
-//
-//								String id = id();
-//
-//								topvalue = chirld1.y - (chirld2.y + chirld2.h);
-//								String newString = "<constraint firstItem=\""
-//										+ chirld1.id
-//										+ "\" firstAttribute=\"top\" secondItem=\""
-//										+ chirld2.id
-//										+ "\" secondAttribute=\"bottom\" constant=\""
-//										+ (topvalue) + "\"  id=\"" + id
-//										+ "\"/>\n";
-//
-//								String newStringn = " <include reference=\""
-//										+ id + "\"/>\n";
-//
-//								String rows[] = m.split("\n");
-//								String lastrow = rows[rows.length - 1];
-//
-//								m = m.replace(lastrow, newString);
-//
-//								String rowsn[] = n.split("\n");
-//								String lastrown = rowsn[rowsn.length - 1];
-//
-//								n = n.replace(lastrown, newStringn);
-//
-//							}
-//						} else {
-//							topvalue = chirld1.y - (chirld2.y + chirld2.h);
-//							String id = id();
-//							m += "<constraint firstItem=\""
-//									+ chirld1.id
-//									+ "\" firstAttribute=\"top\" secondItem=\""
-//									+ chirld2.id
-//									+ "\" secondAttribute=\"bottom\" constant=\""
-//									+ (topvalue) + "\" id=\"" + id + "\"/>\n";
-//							n += " <include reference=\"" + id + "\"/>\n";
-//							top = true;
-//						}
-//					}
-//
-//					if ((chirld1.y + chirld1.h) < chirld2.y) {// 有人在你(chirld1)下边
-//
-//						if (bottom == true) {
-//							
-//						} else {
-//							
-//							bottom = true;
-//						}
-//					}
-//
-//				}
-//
-//			}
-//
-//
-//			
-//			
-//
-//				
-//				
-//				// 没其他孩子在这孩子的上方
-//				if (top == false) {
-//					if(chirld1.type.contains("Layout"))
-//					{
-//						m += "<constraint firstItem=\"" + chirld1.id
-//								+ "\" firstAttribute=\"top\" secondItem=\""
-//								+ bean.id
-//								+ "\" secondAttribute=\"top\" constant=\"0\" id=\"" + id()
-//								+ "\"/>\n";
-//					}else
-//					{
-//						if(left==false)
-//						{//左边第一个
-//							leftfirst=chirld1;
-//							m += "<constraint firstItem=\"" + chirld1.id
-//									+ "\" firstAttribute=\"top\" secondItem=\""
-//									+ bean.id
-//									+ "\" secondAttribute=\"top\" constant=\"9\" id=\"" + id()
-//									+ "\"/>\n";
-//						}else
-//						{
-//							
-//							 m+="<constraint firstItem=\""+leftfirst.id+"\" firstAttribute=\"centerY\" secondItem=\""+chirld1.id+"\" secondAttribute=\"centerY\" id=\""+id()+"\"/>\n";
-//
-//						}
-//					}
-//
-//				}
-//
-//				// 没其他孩子在这孩子的下方
-//				if (bottom == false) {
-//					if(chirld1.type.contains("Layout"))
-//					{
-//						
-//						
-//					}else
-//					{
-//						if(left==false)
-//						{//左边第一个
-//							m += "<constraint firstItem=\"" + chirld1.id
-//									+ "\" firstAttribute=\"bottom\" secondItem=\""
-//									+ bean.id
-//									+ "\" secondAttribute=\"bottom\" constant=\"9\" id=\"" + id() + "\"/>\n";
-//						}
-//					
-//					}
-//
-//				}
-//			
-//
-//			// 没其他孩子在这孩子的左方
-//			if (left == false) {
-//				if(chirld1.type.contains("Layout"))
-//				{
-//					m += "<constraint firstItem=\"" + chirld1.id
-//							+ "\" firstAttribute=\"leading\" secondItem=\""
-//							+ bean.id
-//							+ "\" secondAttribute=\"leading\" constant=\"0\" id=\"" + id() + "\"/>\n";
-//				}else
-//				{
-//				m += "<constraint firstItem=\"" + chirld1.id
-//						+ "\" firstAttribute=\"leading\" secondItem=\""
-//						+ bean.id
-//						+ "\" secondAttribute=\"leading\" constant=\""+chirldleftspaceConstaraint+"\" id=\"" + id() + "\"/>\n";
-//				}
-//
-//			}
-//
-//			// 没其他孩子在这孩子的右方
-//			if (right == false) {
-//				if(chirld1.type.contains("Layout"))
-//				{
-//					m += "<constraint firstItem=\"" + chirld1.id
-//							+ "\" firstAttribute=\"trailing\" secondItem=\""
-//							+ bean.id
-//							+ "\" secondAttribute=\"trailing\" constant=\"0\" id=\"" + id() + "\"/>\n";
-//				}else
-//				{
-//				m += "<constraint firstItem=\"" + chirld1.id
-//						+ "\" firstAttribute=\"trailing\" secondItem=\""
-//						+ bean.id
-//						+ "\" secondAttribute=\"trailing\" constant=\"20\" id=\"" + id() + "\"/>\n";
-//				}
-//			}
-//
-//		}
-//
-//		n += " </mask>\n";
-//		n += " </variation>\n";
-//		m += "</constraints>\n";
-//		//m += n;添加小屏幕限制
-//
-//		return m;
-//	}
+
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {

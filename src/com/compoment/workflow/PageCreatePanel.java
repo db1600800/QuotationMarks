@@ -479,7 +479,7 @@ public class PageCreatePanel {
 			// 页面分析生成
 						AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
 						String xmlFileName = androidLayoutXml.analyseRelative(
-								frame.pageName, frame.beans);
+								frame.pageName + "_item", frame.beans);
 						  if(xmlFileName.equals("no have layout"))
 				            {
 				            	JOptionPane.showMessageDialog(frame, "请添加父布局", "",
@@ -488,6 +488,24 @@ public class PageCreatePanel {
 				            }
 						savePublicCompoment();
 						
+						//Ios
+						TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans,"TableViewCell");
+						TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans,"TableViewCell");
+						
+						IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewCell");
+						
+						String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
+								+ "." + "m";
+						TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
+						
+						//android
+						
+							com.compoment.ui.CreaterAdapter createrAdapter = new CreaterAdapter(
+									frame.pageName + "_item", frame.beans);
+							createrAdapter.create();
+
+			
+						//web
 			WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(frame.pageName,frame.beans); 
 		}
 		

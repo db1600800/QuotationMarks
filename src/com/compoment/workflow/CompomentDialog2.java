@@ -109,7 +109,7 @@ public class CompomentDialog2 extends JDialog {
 	JButton color6Btn;
 	private JPanel webCompomentPanel;
 	private JLabel lblWeb;
-	
+	JCheckBox layoutNoUseBool;
 	
 	/**
 	 * Launch the application.
@@ -318,6 +318,8 @@ public class CompomentDialog2 extends JDialog {
 		 ok = new JButton("ok");
 		
 		 cancel = new JButton("cancel");
+		
+		 layoutNoUseBool = new JCheckBox("使布局无效ForIos");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -348,7 +350,8 @@ public class CompomentDialog2 extends JDialog {
 							.addGap(234)
 							.addComponent(ok)
 							.addGap(181)
-							.addComponent(cancel)))
+							.addComponent(cancel))
+						.addComponent(layoutNoUseBool, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(398, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -367,10 +370,16 @@ public class CompomentDialog2 extends JDialog {
 						.addComponent(imgCacheCheckBox)
 						.addComponent(setPublicCheckBox)
 						.addComponent(isRunTimeHeight))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(ok)
-						.addComponent(cancel)))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(ok)
+								.addComponent(cancel)))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(layoutNoUseBool)
+							.addContainerGap())))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -689,7 +698,7 @@ public class CompomentDialog2 extends JDialog {
 				bean.bgRgb16ios = "" + bgColorEdit.getText().trim();
 				
 				bean.compomentForWeb=webCompomentType;
-			
+			    bean.layoutNoUseForIos=layoutNoUseBool.isSelected();
 						
 								if(!colorEdit.getText().trim().contains("色"))
 								{

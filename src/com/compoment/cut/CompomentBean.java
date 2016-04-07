@@ -72,6 +72,10 @@ public class CompomentBean implements Serializable {
 	public long time;
 	public List<CompomentBean> chirlds;
 	
+	
+	
+	public boolean layoutNoUseForIos;
+	
 	public CompomentBean() {
         id=genID(3)+"-"+genID(2)+"-"+genID(3);
 	}

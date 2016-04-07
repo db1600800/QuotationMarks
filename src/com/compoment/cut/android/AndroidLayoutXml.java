@@ -30,6 +30,12 @@ public class AndroidLayoutXml {
 		// 找出容器
 		for (CompomentBean bean : beans) {
 			if (bean.type.contains("Layout")) {
+				if(bean.type.equals("ScrollViewLayout"))
+				{
+					bean.type="LinearLayout";
+					
+				}
+				
 				if (bean.w >= maxW) {
 					maxW = bean.w;
 					maxBean = bean;
