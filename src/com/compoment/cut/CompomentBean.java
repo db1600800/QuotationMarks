@@ -80,6 +80,11 @@ public class CompomentBean implements Serializable {
         id=genID(3)+"-"+genID(2)+"-"+genID(3);
 	}
 	
+	public String newId()
+	{
+		return genID(3)+"-"+genID(2)+"-"+genID(3);
+	}
+	
 	public float getR(String rgb)
 	{
 	        if(!rgb.contains("#") || StringUtil.isContainChinese(rgb))

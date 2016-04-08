@@ -258,6 +258,19 @@ public class IphoneViewControllerXib {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
+			if(parent.layoutNoUseForIos==true)
+			{
+				bodym += "                                        <rect key=\"frame\" x=\""
+						+ (chirld.x )
+						+ "\" y=\""
+	                 	+ (chirld.y )
+						+ "\" width=\""
+						+ "80"
+						+ "\" height=\""
+						+ "15"
+						+ "\"/>\n";
+			}else
+			{
 			bodym += "                                        <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x)
 					+ "\" y=\""
@@ -267,6 +280,7 @@ public class IphoneViewControllerXib {
 					+ "\" height=\""
 					+ "15"
 					+ "\"/>\n";
+			}
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
@@ -290,6 +304,20 @@ public class IphoneViewControllerXib {
 					
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
+			
+			if(parent.layoutNoUseForIos==true)
+			{
+				bodym += "                                        <rect key=\"frame\" x=\""
+						+ (chirld.x )
+						+ "\" y=\""
+	                 	+ (chirld.y)
+						+ "\" width=\""
+						+ "320"
+						+ "\" height=\""
+						+ "1"
+						+ "\"/>\n";
+			}else
+			{
 			bodym += "                                        <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x)
 					+ "\" y=\""
@@ -299,6 +327,7 @@ public class IphoneViewControllerXib {
 					+ "\" height=\""
 					+ "1"
 					+ "\"/>\n";
+			}
 
 			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
@@ -320,10 +349,20 @@ public class IphoneViewControllerXib {
 		if (chirld.type.equals("Button")) {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
+			
+			if(parent.layoutNoUseForIos==true)
+			{
+				bodym += "                                <rect key=\"frame\" x=\""
+						+ (chirld.x ) + "\" y=\"" + (chirld.y )
+						+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
+						+ "\"/>\n";
+			}else
+			{
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
 					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
+			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16ios)
 					+ "\" green=\""
@@ -359,12 +398,24 @@ public class IphoneViewControllerXib {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
+			
+			//图片部分
+			
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
+			
+			if(parent.layoutNoUseForIos==true)
+			{
+				bodym += "                                <rect key=\"frame\" x=\""
+						+ (chirld.x ) + "\" y=\"" + (chirld.y )
+						+ "\" width=\"20\" height=\"20\"/>\n";
+			}else
+			{
 			bodym += "                                <rect key=\"frame\" x=\""
 					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
 					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
 					+ "\"/>\n";
+			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16ios)
 					+ "\" green=\""
@@ -372,23 +423,22 @@ public class IphoneViewControllerXib {
 					+ "\" blue=\""
 					+ chirld.getB(chirld.bgRgb16ios)
 					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                <color key=\"tintColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			
+			
+
+			bodym += "   <color key=\"tintColor\" white=\"0.0\" alpha=\"0.0\" colorSpace=\"calibratedWhite\"/>\n";
 			
 		    if(!chirld.picName.equals("图片名"))
 		    {
 			
-			bodym += "                                <state key=\"normal\" title=\""
-					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
+			bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\""+chirld.picName+".png\">\n";
 		    }else
 		    {
-		    	bodym += "                                <state key=\"normal\" title=\""
-						+ chirld.cnname + "\">\n";
+//		    	bodym += "                                <state key=\"normal\" title=\""
+//						+ chirld.cnname + "\">\n";
+		    	
+		    	
+		    	bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\"check.png\">\n";
 		    }
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";
@@ -399,6 +449,51 @@ public class IphoneViewControllerXib {
 					+ "\" id=\"" + id() + "\"/>\n";
 			
 			
+			
+			//文字部分
+			
+			
+			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
+					+ chirld.cnname
+					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+					+ chirld.newId() + "\">\n";
+			if(parent.layoutNoUseForIos==true)
+			{
+				bodym += "                                        <rect key=\"frame\" x=\""
+						+ (chirld.x+22 )
+						+ "\" y=\""
+	                 	+ (chirld.y )
+						+ "\" width=\""
+						+ ""+(chirld.w-20) +""
+						+ "\" height=\""
+						+ ""+chirld.h+""
+						+ "\"/>\n";
+			}else
+			{
+			bodym += "                                        <rect key=\"frame\" x=\""
+					+ (chirld.x - parent.x+22)
+					+ "\" y=\""
+                 	+ (chirld.y - parent.y)
+					+ "\" width=\""
+					+ ""+(chirld.w-20)+""
+					+ "\" height=\""
+					+ ""+chirld.h+""
+					+ "\"/>\n";
+			}
+
+			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+
+			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
+			bodym += "                                        <color key=\"textColor\" red=\""
+					+ chirld.getR(chirld.rgb16)
+					+ "\" green=\""
+					+ chirld.getG(chirld.rgb16)
+					+ "\" blue=\""
+					+ chirld.getB(chirld.rgb16)
+					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
+			bodym += "                                    </label>\n";
+		
 
 		}
 		
@@ -422,13 +517,7 @@ public class IphoneViewControllerXib {
 
 		}
 
-		if (chirld.type.equals("CheckBox")) {
-			// m += "/**" + chirld.cnname + "*/\n";
-			// m += " " + chirld.enname + " = new JCheckBox(\""
-			// + chirld.cnname + "\");\n";
-			// m += parent.enname + ".addComponent(" + chirld.enname + ");\n\n";
 
-		}
 
 		if (chirld.type.equals("ListView")) {
 			bodym += " <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""

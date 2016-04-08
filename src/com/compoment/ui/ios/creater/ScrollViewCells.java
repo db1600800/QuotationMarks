@@ -14,6 +14,7 @@ public class ScrollViewCells {
 	String closeKeyboardDeclare="";
 	String closeKeyboardImplement="";
 	
+	String isRunTimeAddScrollView_LayoutName="";
 	CompomentDeclareImplement compomentDeclareImplement=new CompomentDeclareImplement();
 	public void parent(CompomentBean bean) {// bean.type==ScrollViewLayout
 
@@ -42,7 +43,8 @@ public class ScrollViewCells {
 					if (bean.type.equals("ScrollViewLayout")) {
 
 						if (chirld.isRunTimeAddScrollView) {
-						
+							isRunTimeAddScrollView_LayoutName=chirld.enname;
+							
 							List maxbean=new ArrayList();
 							maxbean.add(chirld);
 
@@ -78,9 +80,9 @@ public class ScrollViewCells {
 
 				} else {
 					String selfString = "self.";
-					if (bean.isRunTimeAddScrollView) {
-						selfString = bean.enname+".";
-					}
+					//if (bean.isRunTimeAddScrollView) {
+						selfString = isRunTimeAddScrollView_LayoutName+".";
+					//}
 					compomentDeclareImplement.chirld(chirld, bean,selfString);
 				
 					compomentDeclareImplement.chirld(chirld, bean, selfString);

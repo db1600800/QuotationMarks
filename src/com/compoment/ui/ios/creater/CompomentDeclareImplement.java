@@ -45,7 +45,7 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += " CGSize   size"+chirld.enname+" = [ "+selfString+chirld.enname+"  sizeThatFits:CGSizeMake("+selfString+chirld.enname+".frame.size.width, MAXFLOAT)];\n";
 			viewDidLoad_Declare += " ["+selfString+chirld.enname+" setFrame:CGRectMake("+selfString+chirld.enname+".frame.origin.x \n";
 			viewDidLoad_Declare += "         , "+selfString+chirld.enname+".frame.origin.y, "+selfString+chirld.enname+".frame.size.width, size"+chirld.enname+".height)];\n";
-			viewDidLoad_Declare += "//end换行高度\n";
+			viewDidLoad_Declare += "//end换行高度\n\n";
 			}
 			
 		}
@@ -57,17 +57,21 @@ public class CompomentDeclareImplement {
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
+			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
 			viewDidLoad_Declare += selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
 					+ chirld.enname + "Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
+			
+			if(!chirld.picName.equals("图片名"))
+			{
 			viewDidLoad_Declare += "[" + selfString + chirld.enname
 					+ " setBackgroundImage:[UIImage imageNamed:@\""+chirld.picName+"Select.png\"] forState:UIControlStateSelected];\n";
 			viewDidLoad_Declare += " [" + selfString + chirld.enname
 					+ " setBackgroundImage:[UIImage imageNamed:@\""+chirld.picName+".png\"] forState:UIControlStateNormal];\n";
-			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n";
-			
+			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n\n";
+			}
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Clicked:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
@@ -147,12 +151,12 @@ public class CompomentDeclareImplement {
 			i += "@synthesize " + chirld.enname + ";\n";
 
 		
-
+			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
 			viewDidLoad_Declare += " \n" + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n\n";
 			
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
-					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n\n";
+					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 
 			
 			
@@ -401,6 +405,8 @@ public class CompomentDeclareImplement {
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
 
+			
+			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
@@ -411,7 +417,7 @@ public class CompomentDeclareImplement {
 					+ " setBackgroundImage:[UIImage imageNamed:@\"check.png\"] forState:UIControlStateSelected];\n";
 			viewDidLoad_Declare += " [" + selfString + chirld.enname
 					+ " setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
-			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n";
+			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n\n";
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Check:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";

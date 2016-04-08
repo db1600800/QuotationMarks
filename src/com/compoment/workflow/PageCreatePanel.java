@@ -486,15 +486,18 @@ public class PageCreatePanel {
 			
 			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 			
-			//android
-			CreateActivityView createView = new CreateActivityView(
-					frame.pageName);
-			createView.create();
+			
 			
 		   //Web
 			WebJsp  webJsp = new WebJsp(frame.pageName,frame.beans);
 			
 			WebAction webaction=new WebAction(frame.pageName);
+			
+			
+			//android
+			CreateActivityView createView = new CreateActivityView(
+					frame.pageName);
+			createView.create();
 			
 			}
 		else if (frame.pageType.equals("TableViewCell-Web")) {
