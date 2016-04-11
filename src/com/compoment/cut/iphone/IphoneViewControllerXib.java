@@ -2,6 +2,7 @@ package com.compoment.cut.iphone;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +24,7 @@ import org.apache.poi.poifs.property.Child;
 
 import com.compoment.cut.CompomentBean;
 import com.compoment.ui.ios.creater.ScrollViewCells;
+import com.compoment.util.DeepCopy;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -35,6 +37,9 @@ public class IphoneViewControllerXib {
 
     int rootViewWidth=320;
     int rootViewHeight=568;
+    
+    
+    List<CompomentBean> deepCopyCompomentBeans;
 	public IphoneViewControllerXib(int cellWidth,int cellHeight) {
 		rootViewWidth=cellWidth;
 		rootViewHeight=cellHeight;
@@ -90,14 +95,27 @@ public class IphoneViewControllerXib {
 	 CompomentBean maxBean = null;
 
 	public  String analyse(List<CompomentBean> oldBeans) {
-		// Collections.sort(oldBeans, comparatorDate);
+		
+		 Collections.sort(oldBeans, comparatorDate);
 
+		 
+		 try {
+			deepCopyCompomentBeans=DeepCopy.deepCopy(oldBeans);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		 
+		 
+		 
 		int maxW = 0;
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
 
-		// 找出容器
-		for (CompomentBean bean : oldBeans) {
+		// 找出容器及maxbean
+		for (CompomentBean bean : deepCopyCompomentBeans) {
 			if (bean.type.contains("Layout")) {
 				if (bean.w >= maxW) {
 					maxW = bean.w;
@@ -112,6 +130,39 @@ public class IphoneViewControllerXib {
 				layouts.add(bean);
 			}
 		}
+		if(maxBean.h>500 &&maxBean.h<569)
+		{
+			rootViewHeight= 568;
+		}
+		
+		else if(maxBean.h>35 && maxBean.h<41)
+		{
+			rootViewHeight= 40;
+		}else
+		{
+			rootViewHeight=maxBean.h;
+		}
+		
+		
+		
+		//修正定位
+		for (CompomentBean bean : deepCopyCompomentBeans) {
+			if (bean.type.contains("Layout")) {
+				if (bean.w >= maxW) {
+					maxW = bean.w;
+					maxBean = bean;
+				}
+
+				if (bean.h >= maxH) {
+					maxH = bean.h;
+					maxBean = bean;
+				}
+
+				layouts.add(bean);
+			}
+		}
+		
+		
 
 		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
@@ -172,6 +223,21 @@ public class IphoneViewControllerXib {
 			
 			if (bean.type.equals("ScrollViewLayout")) {
 					
+				String newId=bean.newId();
+				bodym += " <scrollView contentMode=\"scaleToFill\"  clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\"   translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+ newId + "\">\n";
+
+				bodym += "<rect key=\"frame\" x=\"" + ( bean.x)
+					+ "\" y=\"" + (bean.y) + "\" width=\""
+					+ bean.w + "\" height=\"" + bean.h + "\"/>\n";
+
+
+			bodym += "<autoresizingMask key=\"autoresizingMask\" widthSizable=\"YES\" heightSizable=\"YES\"/>\n";
+		
+			bodym += "  </scrollView>\n";
+			
+			connection += "      <outlet property=\""
+					+ bean.enname + "\" destination=\"" + newId
+					+ "\" id=\"" + id() + "\"/>\n";
                
 			}else
 			{
