@@ -194,6 +194,52 @@ public class IphoneViewControllerXib {
 		return connection;
 	}
 
+	
+	public void parentModifyPoint(CompomentBean bean) {
+
+
+        Collections.sort(bean.chirlds, comparatorDate);
+    
+	//有	儿子
+	if (bean.chirlds != null && bean.chirlds.size() > 0) {
+		
+		
+		if (bean.type.equals("ScrollViewLayout")) {
+			
+		}else
+		{
+		
+		for (CompomentBean chirld : bean.chirlds) {
+			
+			//这个儿子是容器 layout
+			if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+
+			
+				
+				parentModifyPoint(chirld);
+				
+				if(chirld.layoutNoUseForIos!=true)
+				{
+					
+				}
+
+			} else {//这个儿子是非容器 
+				
+				chirldModifyPoint(chirld, bean);
+			}
+		}
+
+	}
+	}
+
+}
+
+
+
+public void chirldModifyPoint(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
+
+}
+	
 
 //	int parentTopSpace=20;
 //	int parentHeight=40;
