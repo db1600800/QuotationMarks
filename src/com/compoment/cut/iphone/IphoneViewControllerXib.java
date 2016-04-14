@@ -145,20 +145,14 @@ public class IphoneViewControllerXib {
 		
 		
 		
+		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
 		//修正定位
 		for (CompomentBean bean : deepCopyCompomentBeans) {
 			if (bean.type.contains("Layout")) {
-				if (bean.w >= maxW) {
-					maxW = bean.w;
-					maxBean = bean;
+				if(bean.layoutNoUseForIos==false)
+				{
+					layoutUseForIosS.add(bean);
 				}
-
-				if (bean.h >= maxH) {
-					maxH = bean.h;
-					maxBean = bean;
-				}
-
-				layouts.add(bean);
 			}
 		}
 		
@@ -195,9 +189,24 @@ public class IphoneViewControllerXib {
 	}
 
 	
-	public void parentModifyPoint(CompomentBean bean) {
+	
+	
+	/**修正定位*/
+	public void modifyPoint() {
+		
+		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
+		//修正定位
+		for (CompomentBean bean : deepCopyCompomentBeans) {
+			if (bean.type.contains("Layout")) {
+				if(bean.layoutNoUseForIos==false)
+				{
+					layoutUseForIosS.add(bean);
+				}
+			}
+		}
 
-
+		
+		
         Collections.sort(bean.chirlds, comparatorDate);
     
 	//有	儿子
