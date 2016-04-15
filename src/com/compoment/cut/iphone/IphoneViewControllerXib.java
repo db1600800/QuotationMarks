@@ -145,17 +145,17 @@ public class IphoneViewControllerXib {
 		
 		
 		
-		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
-		//修正定位
-		for (CompomentBean bean : deepCopyCompomentBeans) {
-			if (bean.type.contains("Layout")) {
-				if(bean.layoutNoUseForIos==false)
-				{
-					layoutUseForIosS.add(bean);
-				}
-			}
-		}
-		
+//		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
+//		//修正定位
+//		for (CompomentBean bean : deepCopyCompomentBeans) {
+//			if (bean.type.contains("Layout")) {
+//				if(bean.layoutNoUseForIos==false)
+//				{
+//					layoutUseForIosS.add(bean);
+//				}
+//			}
+//		}
+		modifyPoint();
 		
 
 		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
