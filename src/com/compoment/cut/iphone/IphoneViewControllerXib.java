@@ -45,6 +45,7 @@ public class IphoneViewControllerXib {
 		rootViewHeight=cellHeight;
 	}
 	
+	
 	public IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
