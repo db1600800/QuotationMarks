@@ -145,16 +145,9 @@ public class IphoneViewControllerXib {
 		
 		
 		
-//		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
-//		//修正定位
-//		for (CompomentBean bean : deepCopyCompomentBeans) {
-//			if (bean.type.contains("Layout")) {
-//				if(bean.layoutNoUseForIos==false)
-//				{
-//					layoutUseForIosS.add(bean);
-//				}
-//			}
-//		}
+
+		//修正定位
+
 		modifyPoint();
 		
 
@@ -205,49 +198,119 @@ public class IphoneViewControllerXib {
 			}
 		}
 
+		List<CompomentBean> column1=new ArrayList<CompomentBean>();
+		List<CompomentBean> column2=new ArrayList<CompomentBean>();
+		List<CompomentBean> column3=new ArrayList<CompomentBean>();
+		List<CompomentBean> column4=new ArrayList<CompomentBean>();
 		
-		
-        Collections.sort(bean.chirlds, comparatorDate);
-    
-	//有	儿子
-	if (bean.chirlds != null && bean.chirlds.size() > 0) {
-		
-		
-		if (bean.type.equals("ScrollViewLayout")) {
+   for(int i=0;i<layoutUseForIosS.size();i++)
+   {
+	   
+	   CompomentBean layoutUseForIos=layoutUseForIosS.get(i);
+	   
+	  
+	   
+	 //有 儿子
+		if (layoutUseForIos.chirlds != null && layoutUseForIos.chirlds.size() > 0) {
 			
-		}else
-		{
-		
-		for (CompomentBean chirld : bean.chirlds) {
 			
-			//这个儿子是容器 layout
-			if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-
-			
+			for (CompomentBean chirld : layoutUseForIos.chirlds) {
 				
-				parentModifyPoint(chirld);
-				
-				if(chirld.layoutNoUseForIos!=true)
+				//这个儿子是容器 layout
+				if (chirld.chirlds != null && chirld.chirlds.size() > 0 )
 				{
 					
 				}
+				else if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos==true) {
 
-			} else {//这个儿子是非容器 
-				
-				chirldModifyPoint(chirld, bean);
+                      for(int j=0;j<chirld.chirlds.size();j++)
+                      {
+                    	  if(j==0)
+                    	  {
+                    		  if(chirld.chirlds.size()>0)
+                    		  column1.add(chirld.chirlds.get(j));
+                    	  }else if(j==1)
+                    	  {
+                    		  if(chirld.chirlds.size()>1)
+                        		  column2.add(chirld.chirlds.get(j));
+                    		  
+                    	  }else if(j==2)
+                    	  {
+                    		  if(chirld.chirlds.size()>2)
+                        		  column3.add(chirld.chirlds.get(j));
+                    		  
+                    	  }else if(j==3)
+                    	  {
+                    		  if(chirld.chirlds.size()>3)
+                        		  column4.add(chirld.chirlds.get(j));
+                    	  }
+                    	  
+                      }
+					
+				} else {//这个儿子是非容器 
+					
+					column1.add(chirld);
+				}
 			}
+
 		}
-
-	}
-	}
+   }
+   
+   
+   //column1
+   int total=0;
+   for(CompomentBean bean : column1)
+   {
+	   total+=bean.x;
+   }
+   
+   for(CompomentBean bean : column1)
+   {
+	   bean.x=total/column1.size();
+   }
+   
+   //column2
+   for(CompomentBean bean : column2)
+   {
+	   total+=bean.x;
+   }
+   
+   for(CompomentBean bean : column2)
+   {
+	   bean.x=total/column2.size();
+   }
+    
+   
+   //column3
+   for(CompomentBean bean : column3)
+   {
+	   total+=bean.x;
+   }
+   
+   for(CompomentBean bean : column3)
+   {
+	   bean.x=total/column3.size();
+   }
+  
+   
+   //column4
+   for(CompomentBean bean : column4)
+   {
+	   total+=bean.x;
+   }
+   
+   for(CompomentBean bean : column4)
+   {
+	   bean.x=total/column4.size();
+   }
+	
+	
 
 }
 
 
 
-public void chirldModifyPoint(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
 
-}
 	
 
 //	int parentTopSpace=20;
