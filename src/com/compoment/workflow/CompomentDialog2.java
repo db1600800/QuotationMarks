@@ -499,9 +499,13 @@ public class CompomentDialog2 extends JDialog {
 		
 		for(int i=0;i<picnames.size();i++)
 		{
+			if(i==0)
+			{
+				jumpToWhichPage=(String) picnames.get(i);
+			}
 		jumpToViewComboBox.addItem(picnames.get(i));
 		}
-		
+	
 		jumpToViewComboBox.addActionListener( new ActionListener(){   
 	            public void actionPerformed( ActionEvent e){   
 	             
@@ -697,6 +701,14 @@ public class CompomentDialog2 extends JDialog {
 				bean.actionDetailString=actionDetail.getText();
 				bean.interfaceId=interfaceid;
 				bean.interfaceColumnEnName=interfaceColumnEnName;
+				
+				
+				if("跳到".equals(actionString) && jumpToWhichPage==null)
+				{
+					JOptionPane.showMessageDialog(null, "请选择跳到哪个页面", "",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
 				bean.jumpToWhichPage=jumpToWhichPage;
 				
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
