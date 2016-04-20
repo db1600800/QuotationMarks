@@ -35,17 +35,16 @@ public class IphoneViewControllerXib {
 	String pageName = "";
 	String className = "";
 
-    int rootViewWidth=320;
-    int rootViewHeight=568;
-    
-    
-    List<CompomentBean> deepCopyCompomentBeans;
-	public IphoneViewControllerXib(int cellWidth,int cellHeight) {
-		rootViewWidth=cellWidth;
-		rootViewHeight=cellHeight;
+	int rootViewWidth = 320;
+	int rootViewHeight = 568;
+
+	List<CompomentBean> deepCopyCompomentBeans;
+
+	public IphoneViewControllerXib(int cellWidth, int cellHeight) {
+		rootViewWidth = cellWidth;
+		rootViewHeight = cellHeight;
 	}
-	
-	
+
 	public IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
@@ -64,8 +63,7 @@ public class IphoneViewControllerXib {
 				+ className + "ViewController\">\n";
 		m += "            <connections>\n";
 		m += connection;
-		m += "                <outlet property=\"view\" destination=\""
-				+ maxBean.id + "\" id=\"" + id() + "\"/>\n";
+		m += "                <outlet property=\"view\" destination=\"" + maxBean.id + "\" id=\"" + id() + "\"/>\n";
 		m += "            </connections>\n";
 		m += "        </placeholder>\n";
 		m += "        <placeholder placeholderIdentifier=\"IBFirstResponder\" id=\"-2\" customClass=\"UIResponder\"/>\n";
@@ -75,12 +73,9 @@ public class IphoneViewControllerXib {
 		m += "</document>\n";
 		System.out.println(m);
 
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
-				+ "ViewController", "xib", m);
+		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
 
 	}
-	
-	
 
 	public static String firstCharToUpperAndJavaName(String string) {
 		// buy_typelist
@@ -93,24 +88,22 @@ public class IphoneViewControllerXib {
 		return temp;
 	}
 
-	 CompomentBean maxBean = null;
+	CompomentBean maxBean = null;
 
-	public  String analyse(List<CompomentBean> oldBeans) {
-		
-		 Collections.sort(oldBeans, comparatorDate);
+	public String analyse(List<CompomentBean> oldBeans) {
 
-		 
-		 try {
-			deepCopyCompomentBeans=DeepCopy.deepCopy(oldBeans);
+		Collections.sort(oldBeans, comparatorDate);
+
+		try {
+			deepCopyCompomentBeans = DeepCopy.deepCopy(oldBeans);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		 
-		 
-		 
+		}
+
 		int maxW = 0;
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
@@ -131,624 +124,502 @@ public class IphoneViewControllerXib {
 				layouts.add(bean);
 			}
 		}
-		if(maxBean.h>500 &&maxBean.h<569)
-		{
-			rootViewHeight= 568;
+		if (maxBean.h > 500 && maxBean.h < 569) {
+			rootViewHeight = 568;
 		}
-		
-		else if(maxBean.h>35 && maxBean.h<41)
-		{
-			rootViewHeight= 40;
-		}else
-		{
-			rootViewHeight=maxBean.h;
-		}
-		
-		
-		
 
-		//修正定位
+		else if (maxBean.h > 35 && maxBean.h < 41) {
+			rootViewHeight = 40;
+		} else {
+			rootViewHeight = maxBean.h;
+		}
+
+		// 修正定位
 
 		modifyPoint();
-		
 
 		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
 				+ maxBean.id + "\">\n";
-		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\""+rootViewWidth+"\" height=\""+rootViewHeight+"\"/>\n";
+		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"" + rootViewWidth + "\" height=\"" + rootViewHeight
+				+ "\"/>\n";
 		bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
 		bodym += "                        <subviews>\n";
 
 		parent(maxBean);
 
 		bodym += "                        </subviews>\n";
-		bodym += "                        <color key=\"backgroundColor\" red=\""
-				+ maxBean.getR(maxBean.bgRgb16ios)
-				+ "\" green=\""
-				+ maxBean.getG(maxBean.bgRgb16ios)
-				+ "\" blue=\""
-				+ maxBean.getB(maxBean.bgRgb16ios)
+		bodym += "                        <color key=\"backgroundColor\" red=\"" + maxBean.getR(maxBean.bgRgb16ios)
+				+ "\" green=\"" + maxBean.getG(maxBean.bgRgb16ios) + "\" blue=\"" + maxBean.getB(maxBean.bgRgb16ios)
 				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
-		//bodym += constraint(maxBean);
+		// bodym += constraint(maxBean);
 		bodym += "                    </view>\n";
-		
 
 		return bodym;
 	}
-	
-	
-	public String  getConnection()
-	{
+
+	public String getConnection() {
 		return connection;
 	}
 
-	
-	
-	
-	/**修正定位*/
+	/** 修正定位 */
 	public void modifyPoint() {
-		
+
 		List<CompomentBean> layoutUseForIosS = new ArrayList<CompomentBean>();
-		//修正定位
+		// 修正定位
 		for (CompomentBean bean : deepCopyCompomentBeans) {
 			if (bean.type.contains("Layout")) {
-				if(bean.layoutNoUseForIos==false)
-				{
+				if (bean.layoutNoUseForIos == false) {
+					System.out.println("2:" + bean.cnname);
 					layoutUseForIosS.add(bean);
 				}
 			}
 		}
 
-		List<CompomentBean> column1=new ArrayList<CompomentBean>();
-		List<CompomentBean> column2=new ArrayList<CompomentBean>();
-		List<CompomentBean> column3=new ArrayList<CompomentBean>();
-		List<CompomentBean> column4=new ArrayList<CompomentBean>();
+		List<CompomentBean> column1 = new ArrayList<CompomentBean>();
+		List<CompomentBean> column2 = new ArrayList<CompomentBean>();
+		List<CompomentBean> column3 = new ArrayList<CompomentBean>();
+		List<CompomentBean> column4 = new ArrayList<CompomentBean>();
+		List<CompomentBean> column5 = new ArrayList<CompomentBean>();
 		
-   for(int i=0;i<layoutUseForIosS.size();i++)
-   {
-	   
-	   CompomentBean layoutUseForIos=layoutUseForIosS.get(i);
-	   
-	  
-	   
-	 //有 儿子
-		if (layoutUseForIos.chirlds != null && layoutUseForIos.chirlds.size() > 0) {
-			
-			
-			for (CompomentBean chirld : layoutUseForIos.chirlds) {
-				
-				//这个儿子是容器 layout
-				if (chirld.chirlds != null && chirld.chirlds.size() > 0 )
-				{
-					
-				}
-				else if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos==true) {
+		for (int i = 0; i < layoutUseForIosS.size(); i++) {
 
-                      for(int j=0;j<chirld.chirlds.size();j++)
-                      {
-                    	  if(j==0)
-                    	  {
-                    		  if(chirld.chirlds.size()>0)
-                    		  column1.add(chirld.chirlds.get(j));
-                    	  }else if(j==1)
-                    	  {
-                    		  if(chirld.chirlds.size()>1)
-                        		  column2.add(chirld.chirlds.get(j));
-                    		  
-                    	  }else if(j==2)
-                    	  {
-                    		  if(chirld.chirlds.size()>2)
-                        		  column3.add(chirld.chirlds.get(j));
-                    		  
-                    	  }else if(j==3)
-                    	  {
-                    		  if(chirld.chirlds.size()>3)
-                        		  column4.add(chirld.chirlds.get(j));
-                    	  }
-                    	  
-                      }
-					
-				} else {//这个儿子是非容器 
-					
-					column1.add(chirld);
+			CompomentBean layoutUseForIos = layoutUseForIosS.get(i);
+
+			// 有 儿子
+			if (layoutUseForIos.chirlds != null && layoutUseForIos.chirlds.size() > 0) {
+
+				for (CompomentBean chirld : layoutUseForIos.chirlds) {
+
+					// 这个儿子是容器 layout
+					if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos == false) {
+
+					} else if (chirld.chirlds != null && chirld.chirlds.size() > 0
+							&& chirld.layoutNoUseForIos == true) {
+						// "隐藏布局"的水平方向
+						int totaly = 0;
+						for (int j = 0; j < chirld.chirlds.size(); j++) {
+							totaly += chirld.chirlds.get(j).y;
+						}
+
+						for (int j = 0; j < chirld.chirlds.size(); j++) {
+							chirld.chirlds.get(j).y = totaly / chirld.chirlds.size();
+						}
+
+						// 所有"隐藏布局"的垂直方向
+						for (int j = 0; j < chirld.chirlds.size(); j++) {
+							if (j == 0) {
+								System.out.println("0:" + chirld.chirlds.get(j).cnname);
+								column1.add(chirld.chirlds.get(j));
+							} else if (j == 1) {
+								System.out.println("1:" + chirld.chirlds.get(j).cnname);
+								column2.add(chirld.chirlds.get(j));
+
+							} else if (j == 2) {
+								System.out.println("2:" + chirld.chirlds.get(j).cnname);
+
+								column3.add(chirld.chirlds.get(j));
+
+							} else if (j == 3) {
+								System.out.println("3:" + chirld.chirlds.get(j).cnname);
+								column4.add(chirld.chirlds.get(j));
+							}
+							else if (j == 4) {
+								System.out.println("4:" + chirld.chirlds.get(j).cnname);
+								column5.add(chirld.chirlds.get(j));
+							}
+
+						}
+
+					} else {// 这个儿子是非容器
+
+					}
 				}
+
 			}
+		}
+
+		// column1
+		int totalX = 0;
+
+		for (CompomentBean bean : column1) {
+			totalX += bean.x;
 
 		}
-   }
-   
-   
-   //column1
-   int total=0;
-   for(CompomentBean bean : column1)
-   {
-	   total+=bean.x;
-   }
-   
-   for(CompomentBean bean : column1)
-   {
-	   bean.x=total/column1.size();
-   }
-   
-   //column2
-   for(CompomentBean bean : column2)
-   {
-	   total+=bean.x;
-   }
-   
-   for(CompomentBean bean : column2)
-   {
-	   bean.x=total/column2.size();
-   }
-    
-   
-   //column3
-   for(CompomentBean bean : column3)
-   {
-	   total+=bean.x;
-   }
-   
-   for(CompomentBean bean : column3)
-   {
-	   bean.x=total/column3.size();
-   }
-  
-   
-   //column4
-   for(CompomentBean bean : column4)
-   {
-	   total+=bean.x;
-   }
-   
-   for(CompomentBean bean : column4)
-   {
-	   bean.x=total/column4.size();
-   }
-	
-	
 
-}
-
-
-
-
-	
-
-//	int parentTopSpace=20;
-//	int parentHeight=40;
-//	int chirldleftspace=30;
-//	int chirldleftspaceConstaraint=30;
-//	
-//	int textViewHeight=20;
-//	int buttonWidth=60;
-//	int buttonHeght=30;
-//
-//	int editTextWidht=100;
-//	int editTextHeight=30;
-//	
-//	int imageWidth=30;
-//	int imageHeight=30;
-//	int imageWidthConstraint=30;
-//	int imageHeightConstraint=30;
-	
-	public void parent(CompomentBean bean) {
-
-
-	        Collections.sort(bean.chirlds, comparatorDate);
-	    
-		//有	儿子
-		if (bean.chirlds != null && bean.chirlds.size() > 0) {
-			
-			
-			if (bean.type.equals("ScrollViewLayout")) {
-					
-				String newId=bean.newId();
-				bodym += " <scrollView contentMode=\"scaleToFill\"  clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\"   translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""+ newId + "\">\n";
-
-				bodym += "<rect key=\"frame\" x=\"" + ( bean.x)
-					+ "\" y=\"" + (bean.y) + "\" width=\""
-					+ bean.w + "\" height=\"" + bean.h + "\"/>\n";
-
-
-			bodym += "<autoresizingMask key=\"autoresizingMask\" widthSizable=\"YES\" heightSizable=\"YES\"/>\n";
-		
-			bodym += "  </scrollView>\n";
-			
-			connection += "      <outlet property=\""
-					+ bean.enname + "\" destination=\"" + newId
-					+ "\" id=\"" + id() + "\"/>\n";
-               
-			}else
-			{
-			
-//		
-			for (CompomentBean chirld : bean.chirlds) {
-				
-				//这个儿子是容器 layout
-				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-
-					if(chirld.layoutNoUseForIos!=true)
-					{
-					bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""							+ chirld.id + "\">\n";
-
-						bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x)
-							+ "\" y=\"" + (chirld.y - bean.y) + "\" width=\""
-							+ chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-
-		
-					bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-					bodym += "                                <subviews>\n";
-					}
-					
-					parent(chirld);
-					
-					if(chirld.layoutNoUseForIos!=true)
-					{
-					bodym += "                                </subviews>\n";
-					bodym += "                                <color key=\"backgroundColor\" red=\""
-							+ bean.getR(chirld.bgRgb16ios)
-							+ "\" green=\""
-							+ bean.getG(chirld.bgRgb16ios)
-							+ "\" blue=\""
-							+ bean.getB(chirld.bgRgb16ios)
-							+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-				
-
-					if (bean.type.contains("Layout") && bean.rgb16 != null
-							&& bean.isFilletedCorner) {// 圆角边框颜色
-						bodym += "                                <userDefinedRuntimeAttributes>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.borderWidth\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"1\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"color\" keyPath=\"layer.borderColor\">\n";
-						bodym += "                                        <color key=\"value\" red=\""
-								+ bean.getR(bean.rgb16)
-								+ "\" green=\""
-								+ bean.getG(bean.rgb16)
-								+ "\" blue=\""
-								+ bean.getB(bean.rgb16)
-								+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.cornerRadius\">\n";
-						bodym += "                                        <integer key=\"value\" value=\"10\"/>\n";
-						bodym += "                                    </userDefinedRuntimeAttribute>\n";
-						bodym += "                                </userDefinedRuntimeAttributes>\n";
-					}
-
-					bodym += "                            </view>\n";
-					}
-
-				} else {//这个儿子是非容器 
-					
-					chirld(chirld, bean);
-				}
-			}
+		for (CompomentBean bean : column1) {
+			bean.x = totalX / column1.size();
 
 		}
+
+		// column2
+		totalX = 0;
+
+		for (CompomentBean bean : column2) {
+			totalX += bean.x;
+
+		}
+
+		for (CompomentBean bean : column2) {
+			bean.x = totalX / column2.size();
+
+		}
+
+		// column3
+		totalX = 0;
+
+		for (CompomentBean bean : column3) {
+			totalX += bean.x;
+
+		}
+
+		for (CompomentBean bean : column3) {
+			bean.x = totalX / column3.size();
+
+		}
+
+		// column4
+		totalX = 0;
+
+		for (CompomentBean bean : column4) {
+			totalX += bean.x;
+
+		}
+
+		for (CompomentBean bean : column4) {
+			bean.x = totalX / column4.size();
+
+		}
+		
+		
+		// column5
+		totalX = 0;
+
+		for (CompomentBean bean : column5) {
+			totalX += bean.x;
+
+		}
+
+		for (CompomentBean bean : column5) {
+			bean.x = totalX / column5.size();
+
 		}
 
 	}
 
-	
-	
-	public void chirld(CompomentBean chirld, CompomentBean parent) {//这个儿子是非容器
+	// int parentTopSpace=20;
+	// int parentHeight=40;
+	// int chirldleftspace=30;
+	// int chirldleftspaceConstaraint=30;
+	//
+	// int textViewHeight=20;
+	// int buttonWidth=60;
+	// int buttonHeght=30;
+	//
+	// int editTextWidht=100;
+	// int editTextHeight=30;
+	//
+	// int imageWidth=30;
+	// int imageHeight=30;
+	// int imageWidthConstraint=30;
+	// int imageHeightConstraint=30;
 
-	   
-	   
-		 
-	
-		 
+	public void parent(CompomentBean bean) {
+
+		Collections.sort(bean.chirlds, comparatorDate);
+
+		// 有 儿子
+		if (bean.chirlds != null && bean.chirlds.size() > 0) {
+
+			if (bean.type.equals("ScrollViewLayout")) {
+
+				String newId = bean.newId();
+				bodym += " <scrollView contentMode=\"scaleToFill\"  clipsSubviews=\"YES\" multipleTouchEnabled=\"YES\"   translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+						+ newId + "\">\n";
+
+				bodym += "<rect key=\"frame\" x=\"" + (bean.x) + "\" y=\"" + (bean.y) + "\" width=\"" + bean.w
+						+ "\" height=\"" + bean.h + "\"/>\n";
+
+				bodym += "<autoresizingMask key=\"autoresizingMask\" widthSizable=\"YES\" heightSizable=\"YES\"/>\n";
+
+				bodym += "  </scrollView>\n";
+
+				connection += "      <outlet property=\"" + bean.enname + "\" destination=\"" + newId + "\" id=\""
+						+ id() + "\"/>\n";
+
+			} else {
+
+				//
+				for (CompomentBean chirld : bean.chirlds) {
+
+					// 这个儿子是容器 layout
+					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+
+						if (chirld.layoutNoUseForIos != true) {
+							bodym += " <view contentMode=\"scaleToFill\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+									+ chirld.id + "\">\n";
+
+							bodym += "<rect key=\"frame\" x=\"" + (chirld.x - bean.x) + "\" y=\"" + (chirld.y - bean.y)
+									+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+
+							bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
+							bodym += "                                <subviews>\n";
+						}
+
+						parent(chirld);
+
+						if (chirld.layoutNoUseForIos != true) {
+							bodym += "                                </subviews>\n";
+							bodym += "                                <color key=\"backgroundColor\" red=\""
+									+ bean.getR(chirld.bgRgb16ios) + "\" green=\"" + bean.getG(chirld.bgRgb16ios)
+									+ "\" blue=\"" + bean.getB(chirld.bgRgb16ios)
+									+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+
+							if (bean.type.contains("Layout") && bean.rgb16 != null && bean.isFilletedCorner) {// 圆角边框颜色
+								bodym += "                                <userDefinedRuntimeAttributes>\n";
+								bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.borderWidth\">\n";
+								bodym += "                                        <integer key=\"value\" value=\"1\"/>\n";
+								bodym += "                                    </userDefinedRuntimeAttribute>\n";
+								bodym += "                                    <userDefinedRuntimeAttribute type=\"color\" keyPath=\"layer.borderColor\">\n";
+								bodym += "                                        <color key=\"value\" red=\""
+										+ bean.getR(bean.rgb16) + "\" green=\"" + bean.getG(bean.rgb16) + "\" blue=\""
+										+ bean.getB(bean.rgb16) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+								bodym += "                                    </userDefinedRuntimeAttribute>\n";
+								bodym += "                                    <userDefinedRuntimeAttribute type=\"number\" keyPath=\"layer.cornerRadius\">\n";
+								bodym += "                                        <integer key=\"value\" value=\"10\"/>\n";
+								bodym += "                                    </userDefinedRuntimeAttribute>\n";
+								bodym += "                                </userDefinedRuntimeAttributes>\n";
+							}
+
+							bodym += "                            </view>\n";
+						}
+
+					} else {// 这个儿子是非容器
+
+						chirld(chirld, bean);
+					}
+				}
+
+			}
+		}
+
+	}
+
+	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
+
 		if (chirld.type.equals("TextView")) {
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			if(parent.layoutNoUseForIos==true)
-			{
-				bodym += "                                        <rect key=\"frame\" x=\""
-						+ (chirld.x )
-						+ "\" y=\""
-	                 	+ (chirld.y )
-						+ "\" width=\""
-						+ "80"
-						+ "\" height=\""
-						+ "15"
-						+ "\"/>\n";
-			}else
-			{
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
-					+ "\" width=\""
-					+ "80"
-					+ "\" height=\""
-					+ "15"
-					+ "\"/>\n";
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+						+ (chirld.y) + "\" width=\"" + "80" + "\" height=\"" + "15" + "\"/>\n";
+			} else {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
+						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "80" + "\" height=\"" + "15" + "\"/>\n";
 			}
 
-			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			// bodym+="<color key=\"backgroundColor\"
+			// red=\""+chirld.getR(chirld.bgRgb16ios)+"\"
+			// green=\""+chirld.getG(chirld.bgRgb16ios)+"\"
+			// blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\"
+			// colorSpace=\"calibratedRGB\"/>\n";
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
 			bodym += "                                        <color key=\"textColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+					+ chirld.getR(chirld.rgb16) + "\" green=\"" + chirld.getG(chirld.rgb16) + "\" blue=\""
+					+ chirld.getB(chirld.rgb16) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
 			bodym += "                                    </label>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
+					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
 		}
-		
+
 		if (chirld.type.equals("Line")) {
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
-					
+
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			
-			if(parent.layoutNoUseForIos==true)
-			{
-				bodym += "                                        <rect key=\"frame\" x=\""
-						+ (chirld.x )
-						+ "\" y=\""
-	                 	+ (chirld.y)
-						+ "\" width=\""
-						+ "320"
-						+ "\" height=\""
-						+ "1"
-						+ "\"/>\n";
-			}else
-			{
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
-					+ "\" width=\""
-					+ "320"
-					+ "\" height=\""
-					+ "1"
-					+ "\"/>\n";
+
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+						+ (chirld.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
+			} else {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
+						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
 			}
 
-			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			// bodym+="<color key=\"backgroundColor\"
+			// red=\""+chirld.getR(chirld.bgRgb16ios)+"\"
+			// green=\""+chirld.getG(chirld.bgRgb16ios)+"\"
+			// blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\"
+			// colorSpace=\"calibratedRGB\"/>\n";
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
 			bodym += "                                        <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+					+ chirld.getR(chirld.rgb16) + "\" green=\"" + chirld.getG(chirld.rgb16) + "\" blue=\""
+					+ chirld.getB(chirld.rgb16) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
 			bodym += "                                    </label>\n";
-			
+
 		}
 
-		
-		
 		if (chirld.type.equals("Button")) {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			
-			if(parent.layoutNoUseForIos==true)
-			{
-				bodym += "                                <rect key=\"frame\" x=\""
-						+ (chirld.x ) + "\" y=\"" + (chirld.y )
-						+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-						+ "\"/>\n";
-			}else
-			{
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
+
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+						+ (chirld.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+			} else {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
+						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16ios)
-					+ "\" green=\""
-					+ chirld.getG(chirld.bgRgb16ios)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16ios)
+					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\"" + chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
+					+ chirld.getB(chirld.bgRgb16ios) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += "                                <color key=\"tintColor\" red=\"" + chirld.getR(chirld.rgb16)
+					+ "\" green=\"" + chirld.getG(chirld.rgb16) + "\" blue=\"" + chirld.getB(chirld.rgb16)
 					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			bodym += "                                <color key=\"tintColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			
-		    if(!chirld.picName.equals("图片名"))
-		    {
-			
-			bodym += "                                <state key=\"normal\" title=\""
-					+ chirld.cnname + "\"  backgroundImage=\""+chirld.picName+".png\">\n";
-		    }else
-		    {
-		    	bodym += "                                <state key=\"normal\" title=\""
-						+ chirld.cnname + "\">\n";
-		    }
+
+			if (!chirld.picName.equals("图片名")) {
+
+				bodym += "                                <state key=\"normal\" title=\"" + chirld.cnname
+						+ "\"  backgroundImage=\"" + chirld.picName + ".png\">\n";
+			} else {
+				bodym += "                                <state key=\"normal\" title=\"" + chirld.cnname + "\">\n";
+			}
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";
-	
+
 			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
+					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			
-			//图片部分
-			
+
+			// 图片部分
+
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			
-			if(parent.layoutNoUseForIos==true)
-			{
-				bodym += "                                <rect key=\"frame\" x=\""
-						+ (chirld.x ) + "\" y=\"" + (chirld.y )
-						+ "\" width=\"20\" height=\"20\"/>\n";
-			}else
-			{
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + chirld.w + "\" height=\"" + chirld.h
-					+ "\"/>\n";
+
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+						+ (chirld.y) + "\" width=\"20\" height=\"20\"/>\n";
+			} else {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
+						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
-					+ chirld.getR(chirld.bgRgb16ios)
-					+ "\" green=\""
-					+ chirld.getG(chirld.bgRgb16ios)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.bgRgb16ios)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-			
-			
+					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\"" + chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
+					+ chirld.getB(chirld.bgRgb16ios) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 
 			bodym += "   <color key=\"tintColor\" white=\"0.0\" alpha=\"0.0\" colorSpace=\"calibratedWhite\"/>\n";
-			
-		    if(!chirld.picName.equals("图片名"))
-		    {
-			
-			bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\""+chirld.picName+".png\">\n";
-		    }else
-		    {
-//		    	bodym += "                                <state key=\"normal\" title=\""
-//						+ chirld.cnname + "\">\n";
-		    	
-		    	
-		    	bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\"check.png\">\n";
-		    }
+
+			if (!chirld.picName.equals("图片名")) {
+
+				bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\""
+						+ chirld.picName + ".png\">\n";
+			} else {
+				// bodym += " <state key=\"normal\" title=\""
+				// + chirld.cnname + "\">\n";
+
+				bodym += "                                <state key=\"normal\" title=\"\"  backgroundImage=\"check.png\">\n";
+			}
 			bodym += "                                    <color key=\"titleShadowColor\" white=\"0.5\" alpha=\"1\" colorSpace=\"calibratedWhite\"/>\n";
 			bodym += "                                </state>\n";
-	
+
 			bodym += "                            </button>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
-			
-			
-			
-			//文字部分
-			
-			
+			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
+					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
+
+			// 文字部分
+
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.newId() + "\">\n";
-			if(parent.layoutNoUseForIos==true)
-			{
-				bodym += "                                        <rect key=\"frame\" x=\""
-						+ (chirld.x+22 )
-						+ "\" y=\""
-	                 	+ (chirld.y )
-						+ "\" width=\""
-						+ ""+(chirld.w-20) +""
-						+ "\" height=\""
-						+ ""+chirld.h+""
-						+ "\"/>\n";
-			}else
-			{
-			bodym += "                                        <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x+22)
-					+ "\" y=\""
-                 	+ (chirld.y - parent.y)
-					+ "\" width=\""
-					+ ""+(chirld.w-20)+""
-					+ "\" height=\""
-					+ ""+chirld.h+""
-					+ "\"/>\n";
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x + 22)
+						+ "\" y=\"" + (chirld.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
+						+ chirld.h + "" + "\"/>\n";
+			} else {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x + 22)
+						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\""
+						+ "" + chirld.h + "" + "\"/>\n";
 			}
 
-			// bodym+="<color key=\"backgroundColor\" red=\""+chirld.getR(chirld.bgRgb16ios)+"\" green=\""+chirld.getG(chirld.bgRgb16ios)+"\" blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			// bodym+="<color key=\"backgroundColor\"
+			// red=\""+chirld.getR(chirld.bgRgb16ios)+"\"
+			// green=\""+chirld.getG(chirld.bgRgb16ios)+"\"
+			// blue=\""+chirld.getB(chirld.bgRgb16ios)+"\" alpha=\"1\"
+			// colorSpace=\"calibratedRGB\"/>\n";
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\"14\"/>\n";
 			bodym += "                                        <color key=\"textColor\" red=\""
-					+ chirld.getR(chirld.rgb16)
-					+ "\" green=\""
-					+ chirld.getG(chirld.rgb16)
-					+ "\" blue=\""
-					+ chirld.getB(chirld.rgb16)
-					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+					+ chirld.getR(chirld.rgb16) + "\" green=\"" + chirld.getG(chirld.rgb16) + "\" blue=\""
+					+ chirld.getB(chirld.rgb16) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
 			bodym += "                                    </label>\n";
-		
 
 		}
-		
-		
+
 		if (chirld.type.equals("EditText")) {
 			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += "                                <rect key=\"frame\" x=\""
-					+ (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"100\" height=\"30\"/>\n";
-
-
+			bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
+					+ (chirld.y - parent.y) + "\" width=\"100\" height=\"30\"/>\n";
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
 			bodym += "                                        <textInputTraits key=\"textInputTraits\"/>\n";
 			bodym += "                                    </textField>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
+					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
 
 		}
-
-
 
 		if (chirld.type.equals("ListView")) {
 			bodym += " <tableView clipsSubviews=\"YES\" contentMode=\"scaleToFill\" alwaysBounceVertical=\"YES\" style=\"plain\" separatorStyle=\"default\" rowHeight=\"44\" sectionHeaderHeight=\"22\" sectionFooterHeight=\"22\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
-					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-//			bodym += " <color key=\"backgroundColor\" red=\""
-//					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\""
-//					+ chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
-//					+ chirld.getB(chirld.bgRgb16ios)
-//					+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
+			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			// bodym += " <color key=\"backgroundColor\" red=\""
+			// + chirld.getR(chirld.bgRgb16ios) + "\" green=\""
+			// + chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
+			// + chirld.getB(chirld.bgRgb16ios)
+			// + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "  </tableView>\n";
-			connection += "                        <outlet property=\""
-					+ "tableView" + "\" destination=\"" + chirld.id
+			connection += "                        <outlet property=\"" + "tableView" + "\" destination=\"" + chirld.id
 					+ "\" id=\"" + id() + "\"/>\n";
 		}
-
 
 		if (chirld.type.equals("ImageView")) {
 
-			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""+chirld.picName+".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.id + "\">\n";
-			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
-					+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\""
-					+ (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-//			bodym += " <constraints>\n";
-//			bodym += " <constraint firstAttribute=\"height\" constant=\""+imageHeightConstraint+"\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " <constraint firstAttribute=\"width\" constant=\""+imageWidthConstraint+"\" id=\""
-//					+ id() + "\"/>\n";
-//			bodym += " </constraints>\n";
+			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""
+					+ chirld.picName + ".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\"" + chirld.id
+					+ "\">\n";
+			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
+					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			// bodym += " <constraints>\n";
+			// bodym += " <constraint firstAttribute=\"height\"
+			// constant=\""+imageHeightConstraint+"\" id=\""
+			// + id() + "\"/>\n";
+			// bodym += " <constraint firstAttribute=\"width\"
+			// constant=\""+imageWidthConstraint+"\" id=\""
+			// + id() + "\"/>\n";
+			// bodym += " </constraints>\n";
 			bodym += " </imageView>\n";
-			connection += "                        <outlet property=\""
-					+ chirld.enname + "\" destination=\"" + chirld.id
-					+ "\" id=\"" + id() + "\"/>\n";
+			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
+					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
 		}
-		
-	
 
 		if (chirld.type.equals("ExpandableListView")) {
 
 		}
 	}
-
-
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {

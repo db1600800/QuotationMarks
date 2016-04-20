@@ -334,10 +334,13 @@ public class PageCreatePanel {
 			savePublicCompoment();
 
 			//ios
+			
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,false);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,false);
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
@@ -360,10 +363,13 @@ public class PageCreatePanel {
 			savePublicCompoment();
 
 			//ios
+			
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,true);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,true);
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			
 			//android
 			com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
@@ -457,10 +463,13 @@ public class PageCreatePanel {
 						savePublicCompoment();
 
 						//ios
+						
+						IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+						
+						
 						ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,true);
 						ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,true);
 						
-						IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
 						
 						//android
 						com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
@@ -481,10 +490,13 @@ public class PageCreatePanel {
 			savePublicCompoment();
 
 			//ios
+			
+			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			ViewControllerH viewControllerH=new ViewControllerH(frame.pageName,frame.beans,false);
 			ViewControllerM viewControllerM=new ViewControllerM(frame.pageName,frame.beans,false);
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(frame.pageName,frame.beans);
+			
 			
 			
 			
@@ -514,10 +526,13 @@ public class PageCreatePanel {
 						savePublicCompoment();
 						
 						//Ios
+						
+						IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewCell");
+						
+						
 						TableViewCellH tableViewCellH=new TableViewCellH(frame.pageName,frame.beans,"TableViewCell");
 						TableViewCellM tableViewCellM=new TableViewCellM(frame.pageName,frame.beans,"TableViewCell");
 						
-						IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(frame.pageName,frame.beans,"TableViewCell");
 						
 						String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 								+ "." + "m";
