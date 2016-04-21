@@ -1,5 +1,7 @@
 package com.compoment.cut.iphone;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -189,13 +191,16 @@ public class IphoneViewControllerXib {
 			// 有 儿子
 			if (layoutUseForIos.chirlds != null && layoutUseForIos.chirlds.size() > 0) {
 
+				int k=0;
 				for (CompomentBean chirld : layoutUseForIos.chirlds) {
 
 					// 这个儿子是容器 layout
-					if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos == false) {
-
-					} else if (chirld.chirlds != null && chirld.chirlds.size() > 0
-							&& chirld.layoutNoUseForIos == true) {
+//					if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos == false) {
+//
+//					} else 
+						
+						if (chirld.chirlds != null && chirld.chirlds.size() > 0
+							) {
 						// "隐藏布局"的水平方向
 						int totaly = 0;
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
@@ -232,6 +237,28 @@ public class IphoneViewControllerXib {
 						}
 
 					} else {// 这个儿子是非容器
+						
+//						if (k == 0) {
+//							
+//							column1.add(chirld);
+//						} else if (k == 1) {
+//							
+//							column2.add(chirld);
+//
+//						} else if (k == 2) {
+//							
+//
+//							column3.add(chirld);
+//
+//						} else if (k == 3) {
+//						
+//							column4.add(chirld);
+//						}
+//						else if (k == 4) {
+//							
+//							column5.add(chirld);
+//						}
+						k++;
 
 					}
 				}
@@ -414,10 +441,10 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\">\n";
 			if (parent.layoutNoUseForIos == true) {
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-						+ (chirld.y) + "\" width=\"" + "80" + "\" height=\"" + "15" + "\"/>\n";
+						+ (chirld.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
 			} else {
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
-						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "80" + "\" height=\"" + "15" + "\"/>\n";
+						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
 			}
 
 			// bodym+="<color key=\"backgroundColor\"
@@ -646,5 +673,42 @@ public class IphoneViewControllerXib {
 	public static String id() {
 
 		return genID(3) + "-" + genID(2) + "-" + genID(3);
+	}
+	
+	
+	
+	public int fontWidth(String s)
+	{
+		
+		 Font f = new Font("宋体", Font.BOLD, 12);  
+
+		    FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);  
+
+		    // 高度  
+
+		    System.out.println(fm.getHeight());  
+
+		    // 单个字符宽度  
+
+		    System.out.println(fm.charWidth('A'));  
+
+		    // 整个字符串的宽度  
+
+		   return fm.stringWidth(s);  
+	}
+	
+	
+	public int fontHeight(String s)
+	{
+		
+		 Font f = new Font("宋体", Font.BOLD, 12);  
+
+		    FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);  
+
+		    // 高度  
+
+		    return fm.getHeight();  
+
+		   
 	}
 }

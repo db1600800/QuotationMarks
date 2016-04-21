@@ -1,27 +1,27 @@
 <list>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#3A3A3A</rgb16>
+    <rgb16ios>#3A3A3A</rgb16ios>
+    <bgRgb16>#3A3A3A</bgRgb16>
+    <bgRgb16ios>#3A3A3A</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>27</x>
-    <y>127</y>
-    <w>259</w>
-    <h>40</h>
+    <x>33</x>
+    <y>42</y>
+    <w>271</w>
+    <h>47</h>
     <actionDetailString></actionDetailString>
-    <jumpToWhichPage>addCarOrMyCarDetail</jumpToWhichPage>
-    <cnname>bg1461154713722</cnname>
-    <enname>bg1461154713722LinearLayout</enname>
+    <jumpToWhichPage>a</jumpToWhichPage>
+    <cnname>bg1461205910417</cnname>
+    <enname>bg1461205910417LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>qOH-Bl-32l</id>
+    <id>Ey7-Ck-xMH</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -29,40 +29,73 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1461154717813</time>
+    <time>1461205922782</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#3A3A3A</rgb16>
-    <rgb16ios>#3A3A3A</rgb16ios>
+    <rgb16>#372F24</rgb16>
+    <rgb16ios>#372F24</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>52</x>
-    <y>143</y>
-    <w>13</w>
-    <h>9</h>
+    <x>126</x>
+    <y>56</y>
+    <w>9</w>
+    <h>6</h>
     <actionDetailString></actionDetailString>
-    <jumpToWhichPage>addCarOrMyCarDetail</jumpToWhichPage>
-    <cnname>中国人寿</cnname>
-    <enname>insurancenameCheckBox</enname>
+    <jumpToWhichPage>a</jumpToWhichPage>
+    <cnname>orderform</cnname>
+    <enname>orderformImageView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>a7S-hc-Zh5</id>
-    <type>CheckBox</type>
+    <id>5YE-JL-rZM</id>
+    <type>ImageView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>orderform</picName>
+    <time>1461205959103</time>
+    <layoutNoUseForIos>false</layoutNoUseForIos>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#2B342D</rgb16>
+    <rgb16ios>#2B342D</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>160</x>
+    <y>59</y>
+    <w>53</w>
+    <h>1</h>
+    <actionDetailString></actionDetailString>
+    <jumpToWhichPage>a</jumpToWhichPage>
+    <cnname>0088998</cnname>
+    <enname>askIdTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>uF9-IF-Rwk</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1461154758681</time>
+    <time>1461205993797</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -73,29 +106,29 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>184</x>
-    <y>140</y>
-    <w>33</w>
-    <h>17</h>
+    <x>133</x>
+    <y>72</y>
+    <w>128</w>
+    <h>8</h>
     <actionDetailString></actionDetailString>
-    <jumpToWhichPage>addCarOrMyCarDetail</jumpToWhichPage>
-    <cnname>人寿</cnname>
-    <enname>insurancePicImageView</enname>
+    <jumpToWhichPage>a</jumpToWhichPage>
+    <cnname>2016年</cnname>
+    <enname>askTimeTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>F6K-6w-hSQ</id>
-    <type>ImageView</type>
+    <id>FAR-BH-OP2</id>
+    <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
-    <picName>insuancepic</picName>
-    <time>1461154800414</time>
+    <picName>图片名</picName>
+    <time>1461206029160</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
 </list>

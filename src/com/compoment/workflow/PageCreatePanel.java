@@ -87,7 +87,7 @@ public class PageCreatePanel {
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				SerializeToFile serializeToFile = new SerializeToFile();
-				serializeToFile.serializeToXml(frame.beans);
+				serializeToFile.serializeToXml(frame.beans,frame.pageName+"_"+frame.pageType);
 				createPageCode();
 			}
 
@@ -592,7 +592,7 @@ public class PageCreatePanel {
 
 		String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
 				"publiccompoment", fileName, "xml", "");
-		serializeToFile.serializeToXml(temps, xmlFileName);
+		serializeToFile.serializeToXmlForPublicCompoment(temps, xmlFileName);
 	}
 
 }

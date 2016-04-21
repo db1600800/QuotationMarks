@@ -33,12 +33,12 @@ public class SerializeToFile {
 		list.add(myPersons);
 
 		SerializeToFile serializeToFile = new SerializeToFile();
-		serializeToFile.serializeToXml(list);
+		serializeToFile.serializeToXml(list,"");
 		serializeToFile.deSerializeFromXml();
 		
 	}
 
-	public static void serializeToXml(List<CompomentBean> myPersons) {
+	public static void serializeToXml(List<CompomentBean> myPersons,String pageName) {
 
 		String courseFile = null;
 		File directory = new File("");// 参数为空
@@ -53,13 +53,23 @@ public class SerializeToFile {
 
 			FileOutputStream foStream = new FileOutputStream(path);
 			xStream.toXML(myPersons, foStream);
+			
+			
+			if(!"".equals( pageName))
+			{
+			String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
+					"src/CacheCompomentBeans", "CacheCompomentBeans_"+pageName, "xml", "");
+			FileOutputStream outStream = new FileOutputStream(xmlFileName);
+			xStream.toXML(myPersons, outStream);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	
-	public static void serializeToXml(List<CompomentBean> myPersons,String path) {
+	public static void serializeToXmlForPublicCompoment(List<CompomentBean> myPersons,String path) {
 
 	
 		try {
