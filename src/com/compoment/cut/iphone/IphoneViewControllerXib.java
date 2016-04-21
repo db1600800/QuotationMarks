@@ -41,6 +41,7 @@ public class IphoneViewControllerXib {
 	int rootViewHeight = 568;
 
 	List<CompomentBean> deepCopyCompomentBeans;
+	CompomentBean newParent;
 
 	public IphoneViewControllerXib(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
@@ -110,7 +111,7 @@ public class IphoneViewControllerXib {
 		int maxH = 0;
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
 
-		// 找出容器及maxbean
+		//1. 找出容器及maxbean
 		for (CompomentBean bean : deepCopyCompomentBeans) {
 			if (bean.type.contains("Layout")) {
 				if (bean.w >= maxW) {
@@ -136,8 +137,12 @@ public class IphoneViewControllerXib {
 			rootViewHeight = maxBean.h;
 		}
 
-		// 修正定位
-
+		//2.修正属于哪个父亲
+		 newParent=maxBean;
+		 parentModifyParent(maxBean); 
+		
+		
+		// 3.修正定位
 		modifyPoint();
 
 		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
@@ -203,22 +208,14 @@ public class IphoneViewControllerXib {
 						int totaly = 0;
 						int count=0;
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
-							
 							totaly += chirld.chirlds.get(j).y;
 							count++;
-							
 						}
 
 						
 						
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
-							
-						
-								
 									chirld.chirlds.get(j).y = totaly / count;
-								
-							
-							
 						}
 
 						// 所有"隐藏布局"的垂直方向
@@ -344,6 +341,9 @@ public class IphoneViewControllerXib {
 		}
 
 	}
+	
+	
+	
 
 	// int parentTopSpace=20;
 	// int parentHeight=40;
@@ -361,6 +361,52 @@ public class IphoneViewControllerXib {
 	// int imageHeight=30;
 	// int imageWidthConstraint=30;
 	// int imageHeightConstraint=30;
+	
+	
+	
+	public void parentModifyParent(CompomentBean bean) {
+
+		Collections.sort(bean.chirlds, comparatorDate);
+
+		// 有 儿子
+		if (bean.chirlds != null && bean.chirlds.size() > 0) {
+
+			if (bean.type.equals("ScrollViewLayout")) {
+
+
+			} else {
+
+				//
+				for (CompomentBean chirld : bean.chirlds) {
+
+					// 这个儿子是容器 layout
+					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+
+						if (chirld.layoutNoUseForIos == true) {//隐藏   
+							newParent=bean;
+						}else
+						{
+							newParent=chirld;
+						}
+
+						parentModifyParent(chirld);
+
+					
+
+						
+
+					} else {// 这个儿子是非容器
+
+						chirld.parent=newParent;
+					}
+				}
+
+			}
+		}
+
+}
+	
+	
 
 	public void parent(CompomentBean bean) {
 
@@ -450,10 +496,10 @@ public class IphoneViewControllerXib {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-//			if (parent.layoutNoUseForIos == true) {
-//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-//						+ (chirld.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
-//			} else
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\""
+						+ (chirld.y - chirld.parent.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
+			} else
 			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
@@ -481,11 +527,11 @@ public class IphoneViewControllerXib {
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-//			if (parent.layoutNoUseForIos == true) {
-//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-//						+ (chirld.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
-//			} else 
-//			
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x -chirld.parent.x) + "\" y=\""
+						+ (chirld.y - chirld.parent.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
+			} else 
+			
 			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
@@ -510,10 +556,10 @@ public class IphoneViewControllerXib {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-//			if (parent.layoutNoUseForIos == true) {
-//				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-//						+ (chirld.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-//			} else 
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\""
+						+ (chirld.y - chirld.parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+			} else 
 			
 			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
@@ -548,10 +594,10 @@ public class IphoneViewControllerXib {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-//			if (parent.layoutNoUseForIos == true) {
-//				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-//						+ (chirld.y) + "\" width=\"20\" height=\"20\"/>\n";
-//			} else 
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\""
+						+ (chirld.y - chirld.parent.y) + "\" width=\"20\" height=\"20\"/>\n";
+			} else 
 			
 			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
@@ -586,11 +632,11 @@ public class IphoneViewControllerXib {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.newId() + "\">\n";
-//			if (parent.layoutNoUseForIos == true) {
-//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x + 22)
-//						+ "\" y=\"" + (chirld.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
-//						+ chirld.h + "" + "\"/>\n";
-//			} else 
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x + 22)
+						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
+						+ chirld.h + "" + "\"/>\n";
+			} else 
 			
 			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x + 22)
@@ -616,8 +662,16 @@ public class IphoneViewControllerXib {
 		if (chirld.type.equals("EditText")) {
 			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
+			
+			if (parent.layoutNoUseForIos == true) {
+				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x )
+						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"100\"" + "\" height=\"" + ""
+						 + "30\"/>\n";
+			} else
+			{
 			bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
 					+ (chirld.y - parent.y) + "\" width=\"100\" height=\"30\"/>\n";
+			}
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
 					+ chirld.textSize + "\"/>\n";
@@ -648,8 +702,15 @@ public class IphoneViewControllerXib {
 			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""
 					+ chirld.picName + ".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\"" + chirld.id
 					+ "\">\n";
+			
+			if (parent.layoutNoUseForIos == true) {
+				bodym += " <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\"" + (chirld.y - chirld.parent.y)
+						+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			} else
+			{
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
 					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+			}
 			// bodym += " <constraints>\n";
 			// bodym += " <constraint firstAttribute=\"height\"
 			// constant=\""+imageHeightConstraint+"\" id=\""

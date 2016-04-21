@@ -45,6 +45,8 @@ public class CompomentBean implements Serializable {
 	public boolean isRunTimeHeightTextview=false;
 	public boolean isFilletedCorner=false;//是否是圆角
 	public String id;// for iPhone id=jyV-Pf-zRb
+	
+	
 
 	/**
 	 * 控件类型 Button List TextView LinearLayout
@@ -71,7 +73,7 @@ public class CompomentBean implements Serializable {
 	 * */
 	public long time;
 	public List<CompomentBean> chirlds;
-	
+	public CompomentBean parent;
 	
 	
 	public boolean layoutNoUseForIos;
