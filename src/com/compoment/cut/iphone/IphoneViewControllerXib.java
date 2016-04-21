@@ -172,7 +172,7 @@ public class IphoneViewControllerXib {
 		for (CompomentBean bean : deepCopyCompomentBeans) {
 			if (bean.type.contains("Layout")) {
 				if (bean.layoutNoUseForIos == false) {
-					System.out.println("2:" + bean.cnname);
+					
 					layoutUseForIosS.add(bean);
 				}
 			}
@@ -188,49 +188,60 @@ public class IphoneViewControllerXib {
 
 			CompomentBean layoutUseForIos = layoutUseForIosS.get(i);
 
-			// 有 儿子
+			// 显示布局  有 儿子
 			if (layoutUseForIos.chirlds != null && layoutUseForIos.chirlds.size() > 0) {
 
 				int k=0;
 				for (CompomentBean chirld : layoutUseForIos.chirlds) {
 
-					// 这个儿子是容器 layout
-//					if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos == false) {
-//
-//					} else 
-						
-						if (chirld.chirlds != null && chirld.chirlds.size() > 0
-							) {
+					// 这个儿子是容器 layout  显示布局
+					if (chirld.chirlds != null && chirld.chirlds.size() > 0 && chirld.layoutNoUseForIos == false) {
+
+					} else  if (chirld.chirlds != null && chirld.chirlds.size() > 0
+								&& chirld.layoutNoUseForIos == true) {
 						// "隐藏布局"的水平方向
 						int totaly = 0;
+						int count=0;
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
+							
 							totaly += chirld.chirlds.get(j).y;
+							count++;
+							
 						}
 
+						
+						
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
-							chirld.chirlds.get(j).y = totaly / chirld.chirlds.size();
+							
+						
+								
+									chirld.chirlds.get(j).y = totaly / count;
+								
+							
+							
 						}
 
 						// 所有"隐藏布局"的垂直方向
 						for (int j = 0; j < chirld.chirlds.size(); j++) {
+						
 							if (j == 0) {
-								System.out.println("0:" + chirld.chirlds.get(j).cnname);
+								
 								column1.add(chirld.chirlds.get(j));
 							} else if (j == 1) {
-								System.out.println("1:" + chirld.chirlds.get(j).cnname);
+							
 								column2.add(chirld.chirlds.get(j));
 
 							} else if (j == 2) {
-								System.out.println("2:" + chirld.chirlds.get(j).cnname);
+								
 
 								column3.add(chirld.chirlds.get(j));
 
 							} else if (j == 3) {
-								System.out.println("3:" + chirld.chirlds.get(j).cnname);
+								
 								column4.add(chirld.chirlds.get(j));
 							}
 							else if (j == 4) {
-								System.out.println("4:" + chirld.chirlds.get(j).cnname);
+								
 								column5.add(chirld.chirlds.get(j));
 							}
 
@@ -238,26 +249,26 @@ public class IphoneViewControllerXib {
 
 					} else {// 这个儿子是非容器
 						
-//						if (k == 0) {
-//							
-//							column1.add(chirld);
-//						} else if (k == 1) {
-//							
-//							column2.add(chirld);
-//
-//						} else if (k == 2) {
-//							
-//
-//							column3.add(chirld);
-//
-//						} else if (k == 3) {
-//						
-//							column4.add(chirld);
-//						}
-//						else if (k == 4) {
-//							
-//							column5.add(chirld);
-//						}
+						if (k == 0) {
+							
+							column1.add(chirld);
+						} else if (k == 1) {
+							
+							column2.add(chirld);
+
+						} else if (k == 2) {
+							
+
+							column3.add(chirld);
+
+						} else if (k == 3) {
+						
+							column4.add(chirld);
+						}
+						else if (k == 4) {
+							
+							column5.add(chirld);
+						}
 						k++;
 
 					}
@@ -439,10 +450,11 @@ public class IphoneViewControllerXib {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
-			if (parent.layoutNoUseForIos == true) {
-				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-						+ (chirld.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
-			} else {
+//			if (parent.layoutNoUseForIos == true) {
+//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+//						+ (chirld.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
+//			} else
+			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + fontWidth(chirld.cnname) + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
 			}
@@ -469,10 +481,12 @@ public class IphoneViewControllerXib {
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-			if (parent.layoutNoUseForIos == true) {
-				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-						+ (chirld.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
-			} else {
+//			if (parent.layoutNoUseForIos == true) {
+//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+//						+ (chirld.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
+//			} else 
+//			
+			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x)
 						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "320" + "\" height=\"" + "1" + "\"/>\n";
 			}
@@ -496,10 +510,12 @@ public class IphoneViewControllerXib {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-			if (parent.layoutNoUseForIos == true) {
-				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-						+ (chirld.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
-			} else {
+//			if (parent.layoutNoUseForIos == true) {
+//				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+//						+ (chirld.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+//			} else 
+			
+			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
 						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 			}
@@ -532,10 +548,12 @@ public class IphoneViewControllerXib {
 			bodym += "                            <button opaque=\"NO\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"center\" contentVerticalAlignment=\"center\" buttonType=\"roundedRect\" lineBreakMode=\"middleTruncation\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.id + "\">\n";
 
-			if (parent.layoutNoUseForIos == true) {
-				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
-						+ (chirld.y) + "\" width=\"20\" height=\"20\"/>\n";
-			} else {
+//			if (parent.layoutNoUseForIos == true) {
+//				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x) + "\" y=\""
+//						+ (chirld.y) + "\" width=\"20\" height=\"20\"/>\n";
+//			} else 
+			
+			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
 						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
 			}
@@ -568,11 +586,13 @@ public class IphoneViewControllerXib {
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
 					+ chirld.newId() + "\">\n";
-			if (parent.layoutNoUseForIos == true) {
-				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x + 22)
-						+ "\" y=\"" + (chirld.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
-						+ chirld.h + "" + "\"/>\n";
-			} else {
+//			if (parent.layoutNoUseForIos == true) {
+//				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x + 22)
+//						+ "\" y=\"" + (chirld.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
+//						+ chirld.h + "" + "\"/>\n";
+//			} else 
+			
+			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x + 22)
 						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\""
 						+ "" + chirld.h + "" + "\"/>\n";
@@ -680,17 +700,16 @@ public class IphoneViewControllerXib {
 	public int fontWidth(String s)
 	{
 		
-		 Font f = new Font("宋体", Font.BOLD, 12);  
+		 Font f = new Font("宋体", Font.BOLD, 16);  
 
 		    FontMetrics fm = sun.font.FontDesignMetrics.getMetrics(f);  
 
 		    // 高度  
 
-		    System.out.println(fm.getHeight());  
+		  
 
 		    // 单个字符宽度  
 
-		    System.out.println(fm.charWidth('A'));  
 
 		    // 整个字符串的宽度  
 
