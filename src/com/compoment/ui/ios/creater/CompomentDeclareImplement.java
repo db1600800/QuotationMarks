@@ -18,7 +18,7 @@ public class CompomentDeclareImplement {
 
 	
 
-	public void chirld(CompomentBean chirld, CompomentBean parent,String selfString  ) {
+	public void chirld(CompomentBean chirld, CompomentBean parent,String selfString ,String comeFromWhere ) {
 
 		i="";
 		viewDidLoad_Declare="";
@@ -58,9 +58,12 @@ public class CompomentDeclareImplement {
 			i += "@synthesize " + chirld.enname + ";\n";
 
 			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
+			if(!comeFromWhere.equals("ViewController_viewdidload"))
+			{
 			viewDidLoad_Declare += selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			}
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
 					+ chirld.enname + "Clicked:) forControlEvents:UIControlEventTouchUpInside];\n";
 			
@@ -154,10 +157,12 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
 			viewDidLoad_Declare += " \n" + selfString + chirld.enname + ".returnKeyType=UIReturnKeyDone;\n\n";
 			
+			if(!comeFromWhere.equals("ViewController_viewdidload"))
+			{
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
-
+			}
 			
 			
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
@@ -407,9 +412,13 @@ public class CompomentDeclareImplement {
 
 			
 			viewDidLoad_Declare += "\n//" + chirld.cnname + "\n";
+			
+			if(!comeFromWhere.equals("ViewController_viewdidload"))
+			{
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
+			}
 
 			viewDidLoad_Declare += "\n[" + selfString + chirld.enname + " addTarget:self action:@selector("
 					+ chirld.enname + "Check:) forControlEvents:UIControlEventTouchUpInside];\n";

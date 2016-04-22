@@ -212,7 +212,7 @@ public class TableViewCellAddViewController {
 				{
 					String m="\n";
 					
-					
+					m+="\n//分页Start(可注调)\n";
 					m+=" if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
 				       m+=" if( currentRowCount<totalRowCount)\n";
 					   m+=" {\n";
@@ -230,7 +230,7 @@ public class TableViewCellAddViewController {
 				  m+="{\n";
 							 m+="return [[UITableViewCell alloc] init ];\n";
 				  m+=" }\n";
-				  m+=" else\n";
+				  m+=" else //分页End\n\n";
 				  m+=" {\n";
 					
 					m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
@@ -258,7 +258,7 @@ public class TableViewCellAddViewController {
 				    
 				    
 				    
-				    
+					m+="\n//分页Start(可注调)\n";
 				    m+="if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
 				        
 				      m+="if( currentRowCount<totalRowCount)\n";
@@ -271,7 +271,7 @@ public class TableViewCellAddViewController {
 				   m+="}else  if([indexPath row] == ([rows count])  && [rows count]==0) {\n";
 				    			m+="   return 0;\n";
 				   m+="}\n";
-				   m+=" else\n";
+				   m+=" else  //分页End\n\n";
 				   m+=" {\n";
 				 
 				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
@@ -286,6 +286,8 @@ public class TableViewCellAddViewController {
 String m="";
 
 m+="-(void) request9999:(BOOL)ismore{\n";
+
+    m+="\n//分页Start\n";
 	m+="if(ismore)\n";
     m+="{\n";
     	m+="if (requestUnComplete==false) {\n";
@@ -294,7 +296,7 @@ m+="-(void) request9999:(BOOL)ismore{\n";
         	m+="{\n";
         	m+="return;\n";
             m+="}\n";
-    m+="}else\n";
+    m+="}else //分页End \n\n";
     	 m+="{\n";
          m+="totalRowCount=0;\n";
          m+="currentRowCount=0;\n";
@@ -309,13 +311,13 @@ m+="-(void) request9999:(BOOL)ismore{\n";
        
          m+=" [ allIndexpaths  removeAllObjects];\n\n";
          
-    m+="}\n";
+    m+="}\n\n";
     
-    m+="....";   
+    m+="....(请求内容)\n";   
  m+="}\n\n";
 
 
-m+="//九宫图列表数据\n";
+m+="\n//九宫图列表数据(九宫图列表用到)Start\n";
 m+="@interface Section : NSObject\n";
 m+="@property (strong,nonatomic) NSString *title;\n";
 m+="@property (strong,nonatomic) NSString *sectionId;\n";
@@ -337,10 +339,15 @@ m+="@property (strong,nonatomic) NSString *picPrice;\n";
 m+="@property (strong,nonatomic) NSString *productId;\n";
 m+="@end\n\n";
 
+m+="//九宫图列表数据(九宫图列表用到)End\n\n";
+
 m+="-(void) respond9999{\n";
+
+m+="....(返回数据)\n";
+
 m+="requestUnComplete=false;//避免重复请求 一个发完下一个再发\n";
 
-m+="//九宫图列表数据\n";
+m+="//九宫图列表数据Start\n";
 m+="Row *sectionRow;\n";
 m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
 m+="			    for (int i=0; i<[mdata count]; i++) {\n";
@@ -364,8 +371,11 @@ m+="			        //chirld add\n";
 m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
 m+="			        \n";
 m+="			        \n";
-m+="			    }\n\n";
+m+="			    }\n";
+m+="//九宫图列表数据End\n\n";
 
+
+m+="//分页Start\n";
 m+="totalRowCount=commonItem.totalNum;\n";
 m+="currentRowCount+=commonItem.recordNum;\n";
 
@@ -377,8 +387,8 @@ m+="    }\n";
 m+="}else if(commonItem.recordNum==0)\n";
 m+="{\n";
 m+="// 暂无数据\n";
-m+="}\n\n";
-
+m+="}\n";
+m+="//分页End\n\n";
 
 
 m+="NSMutableArray *insertIndexPaths = [[NSMutableArray alloc]init];\n";
@@ -446,9 +456,7 @@ content += m;
 					parent(chirld);
 				} else {
 					 	String selfString = "cell.";
-					compomentDeclareImplement.chirld(chirld, bean, selfString);
-				
-					compomentDeclareImplement.chirld(chirld, bean, selfString);
+					compomentDeclareImplement.chirld(chirld, bean, selfString,"TableViewCell");
 					controllers+=compomentDeclareImplement.viewDidLoad_Declare;
 					viewDidLoad_Implement+=compomentDeclareImplement.viewDidLoad_Implement;
 					closeKeyboardDeclare+=compomentDeclareImplement.closeKeyboardDeclare;

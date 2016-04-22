@@ -74,11 +74,11 @@ public class ViewControllerM {
 		i += "#import <PublicFramework/JSONKit.h>\n";
 		i += "#import <objc/runtime.h>\n";
 		i+="#import \"UIButton+EnlargeTouchArea.h\"\n";
-		i += "@implementation " + className + "ViewController\n";
+		i += "\n@implementation " + className + "ViewController\n\n";
 
 		parent(maxBean);
 
-		i += "- (void)viewDidLoad\n";
+		i += "\n- (void)viewDidLoad\n";
 		i += "{\n";
 		i += "    [super viewDidLoad];\n";
 
@@ -150,8 +150,9 @@ public class ViewControllerM {
 					parent(chirld);
 
 				} else {
+				
 					String selfString = "self.";
-					compomentDeclareImplement.chirld(chirld, bean, selfString);
+					compomentDeclareImplement.chirld(chirld, bean, selfString,"ViewController_viewdidload");
 					viewDidLoad_Declare+=compomentDeclareImplement.viewDidLoad_Declare;
 					viewDidLoad_Implement+=compomentDeclareImplement.viewDidLoad_Implement;
 					

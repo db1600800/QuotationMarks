@@ -83,9 +83,8 @@ public class ScrollViewCells {
 					//if (bean.isRunTimeAddScrollView) {
 						selfString = isRunTimeAddScrollView_LayoutName+".";
 					//}
-					compomentDeclareImplement.chirld(chirld, bean,selfString);
+					compomentDeclareImplement.chirld(chirld, bean,selfString,"ScrollViewCell");
 				
-					compomentDeclareImplement.chirld(chirld, bean, selfString);
 					scrollDeclare+=compomentDeclareImplement.viewDidLoad_Declare;
 					
 					if(closeKeyboardDeclare==null ||closeKeyboardDeclare.equals(""))
