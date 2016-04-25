@@ -558,12 +558,12 @@ public class IphoneViewControllerXib {
 
 			if (parent.layoutNoUseForIos == true) {
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\""
-						+ (chirld.y - chirld.parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+						+ (chirld.y - chirld.parent.y) + "\" width=\"" + fontWidth(chirld.cnname)  + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
 			} else 
 			
 			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
-						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+						+ (chirld.y - parent.y) + "\" width=\"" + fontWidth(chirld.cnname)  + "\" height=\"" + fontHeight(chirld.cnname) + "\"/>\n";
 			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\"" + chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
@@ -601,7 +601,7 @@ public class IphoneViewControllerXib {
 			
 			{
 				bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
-						+ (chirld.y - parent.y) + "\" width=\"" + chirld.w + "\" height=\"" + chirld.h + "\"/>\n";
+						+ (chirld.y - parent.y) + "\" width=\"" + "20" + "\" height=\"" + "20" + "\"/>\n";
 			}
 			bodym += "                                <color key=\"backgroundColor\" red=\""
 					+ chirld.getR(chirld.bgRgb16ios) + "\" green=\"" + chirld.getG(chirld.bgRgb16ios) + "\" blue=\""
@@ -634,14 +634,14 @@ public class IphoneViewControllerXib {
 					+ chirld.newId() + "\">\n";
 			if (parent.layoutNoUseForIos == true) {
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x + 22)
-						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\"" + ""
-						+ chirld.h + "" + "\"/>\n";
+						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"" + "" + (fontWidth(chirld.cnname) ) + "" + "\" height=\"" + ""
+						+ fontHeight(chirld.cnname) + "" + "\"/>\n";
 			} else 
 			
 			{
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - parent.x + 22)
-						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "" + (chirld.w - 20) + "" + "\" height=\""
-						+ "" + chirld.h + "" + "\"/>\n";
+						+ "\" y=\"" + (chirld.y - parent.y) + "\" width=\"" + "" + (fontWidth(chirld.cnname)  ) + "" + "\" height=\""
+						+ "" + fontHeight(chirld.cnname)+ "" + "\"/>\n";
 			}
 
 			// bodym+="<color key=\"backgroundColor\"
@@ -660,17 +660,17 @@ public class IphoneViewControllerXib {
 		}
 
 		if (chirld.type.equals("EditText")) {
-			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" borderStyle=\"roundedRect\" minimumFontSize=\"17\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
+			bodym += "                         <textField opaque=\"NO\" clipsSubviews=\"YES\" contentMode=\"scaleToFill\" contentHorizontalAlignment=\"left\" contentVerticalAlignment=\"center\" placeholder=\""+chirld.cnname+"\"  minimumFontSize=\"17\"  id=\""
 					+ chirld.id + "\">\n";
 			
 			if (parent.layoutNoUseForIos == true) {
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x )
-						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"100\"" + "\" height=\"" + ""
+						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\""+(fontWidth(chirld.cnname)+30)+"\"" + "\" height=\"" + ""
 						 + "30\"/>\n";
 			} else
 			{
 			bodym += "                                <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\""
-					+ (chirld.y - parent.y) + "\" width=\"100\" height=\"30\"/>\n";
+					+ (chirld.y - parent.y) + "\" width=\""+(fontWidth(chirld.cnname)+30)+"\" height=\"30\"/>\n";
 			}
 
 			bodym += "                                        <fontDescription key=\"fontDescription\" type=\"system\" pointSize=\""
@@ -705,11 +705,11 @@ public class IphoneViewControllerXib {
 			
 			if (parent.layoutNoUseForIos == true) {
 				bodym += " <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x) + "\" y=\"" + (chirld.y - chirld.parent.y)
-						+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+						+ "\" width=\"" + "10" + "\" height=\"" + "13"+ "\"/>\n";
 			} else
 			{
 			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
+					+ "\" width=\"" + "10" + "\" height=\"" + "13" + "\"/>\n";
 			}
 			// bodym += " <constraints>\n";
 			// bodym += " <constraint firstAttribute=\"height\"
