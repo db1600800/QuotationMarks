@@ -112,7 +112,7 @@ public class ViewControllerH {
 			m+="//\n1. "+className+"ChirldViewCallBackDelegate\n";
 			m+="//-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata;\n";
 			
-			m+="//\n\n2.在viewDidLoad中\n\n";
+			m+="//\n\n2.在viewDidLoad中\n";
 			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
 		    m+="//chirldViewController.view.frame=CGRectMake(,,,);\n";
 		    m+="//[chirldViewController setChirldViewValue:nil delegate:self];\n";
@@ -185,7 +185,7 @@ public class ViewControllerH {
 				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+";\n";
 				
 				propertyValue+="//"+chirld.cnname+"Cover\n";
-				propertyValue+="@property (weak, nonatomic) IBOutlet UIButton *"+chirld.enname+"Cover;\n";
+				propertyValue+="@property (weak, nonatomic) IBOutlet UILabel *"+chirld.enname+"Cover;\n";
 				
 			}
 

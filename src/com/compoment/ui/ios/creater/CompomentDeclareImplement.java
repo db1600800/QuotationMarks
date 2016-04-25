@@ -428,6 +428,8 @@ public class CompomentDeclareImplement {
 					+ " setBackgroundImage:[UIImage imageNamed:@\"uncheck.png\"] forState:UIControlStateNormal];\n";
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n\n";
 
+			viewDidLoad_Declare += "\n\n[" + selfString + chirld.enname + "Cover setText:nil ];\n";
+			
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Check:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 			viewDidLoad_Implement += "int mId2 = btn.tag;\n//取绑定数据";

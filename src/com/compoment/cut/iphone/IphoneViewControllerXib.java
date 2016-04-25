@@ -627,11 +627,11 @@ public class IphoneViewControllerXib {
 					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
 
 			// 文字部分
-
+            String labelId=chirld.newId();
 			bodym += "                                    <label opaque=\"NO\" userInteractionEnabled=\"NO\" contentMode=\"left\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" text=\""
 					+ chirld.cnname
 					+ "\" lineBreakMode=\"tailTruncation\" baselineAdjustment=\"alignBaselines\" adjustsFontSizeToFit=\"NO\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\""
-					+ chirld.newId() + "\">\n";
+					+ labelId+ "\">\n";
 			if (parent.layoutNoUseForIos == true) {
 				bodym += "                                        <rect key=\"frame\" x=\"" + (chirld.x - chirld.parent.x + 22)
 						+ "\" y=\"" + (chirld.y - chirld.parent.y) + "\" width=\"" + "" + (fontWidth(chirld.cnname) ) + "" + "\" height=\"" + ""
@@ -656,6 +656,9 @@ public class IphoneViewControllerXib {
 					+ chirld.getB(chirld.rgb16) + "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
 			bodym += "                                        <nil key=\"highlightedColor\"/>\n";
 			bodym += "                                    </label>\n";
+			connection += "                        <outlet property=\"" + chirld.enname + "Cover\" destination=\""
+					+ labelId + "\" id=\"" + id() + "\"/>\n";
+			
 
 		}
 

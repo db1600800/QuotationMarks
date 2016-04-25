@@ -120,7 +120,7 @@ public class ViewControllerM {
 	
 		 i+="   self.chirldViewCallBackDelegate=parent;\n";
 		 i+="   chirldViewData=mdata;\n";
-		
+		 i+="   [tableView reloadData];\n";
 		i+="}\n";
 		}
 		
