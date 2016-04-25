@@ -109,10 +109,10 @@ public class ViewControllerH {
 			m+="@end\n\n";
 			
 			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
-			m+="//1. "+className+"ChirldViewCallBackDelegate\n";
+			m+="//\n1. "+className+"ChirldViewCallBackDelegate\n";
 			m+="//-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata;\n";
 			
-			m+="//2.在viewDidLoad中\n";
+			m+="//\n\n2.在viewDidLoad中\n\n";
 			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
 		    m+="//chirldViewController.view.frame=CGRectMake(,,,);\n";
 		    m+="//[chirldViewController setChirldViewValue:nil delegate:self];\n";
