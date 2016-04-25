@@ -104,13 +104,13 @@ public class ViewControllerH {
 			{
 	        m+="@protocol "+className+"ChirldViewCallBackDelegate <NSObject>\n";
 			
-			m+="-(void) chirldViewCallBack:(NSMutableArray*)mdata;\n";
+			m+="-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata;\n";
 
 			m+="@end\n\n";
 			
 			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
 			m+="//1. "+className+"ChirldViewCallBackDelegate\n";
-			m+="//-(void) chirldViewCallBack:(NSMutableArray*)mdata;\n";
+			m+="//-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata;\n";
 			
 			m+="//2.在viewDidLoad中\n";
 			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
