@@ -95,7 +95,7 @@ public class RequestRespondParamBeanForIphone {
 							m += "\n\n/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 							
-							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
+							m+="@property ( nonatomic) "+iosType(row.getType())+row.enName+";\n";
 							
 						    n += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 						    n+="@synthesize "+row.enName+";\n";

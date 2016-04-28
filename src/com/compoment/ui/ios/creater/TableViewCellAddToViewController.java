@@ -8,6 +8,7 @@ import java.util.List;
 import com.compoment.addfunction.android.FileBean;
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
+import com.compoment.util.ImportString;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
 import com.compoment.util.RegexUtil.ControllerBean;
@@ -16,7 +17,7 @@ import com.compoment.util.RegexUtil.ControllerBean;
 /***
  * TableViewCell
  * */
-public class TableViewCellAddViewController {
+public class TableViewCellAddToViewController {
 
 
 	
@@ -38,7 +39,7 @@ public class TableViewCellAddViewController {
     boolean isHeadCell=false;
 
         
-	public TableViewCellAddViewController(String pageName,List<CompomentBean> oldBeans,String waitByModifyFileName,boolean isHeadCell) {
+	public TableViewCellAddToViewController(String pageName,List<CompomentBean> oldBeans,String waitByModifyFileName,boolean isHeadCell) {
 		this.isHeadCell=isHeadCell;
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageName=pageName;
@@ -407,6 +408,7 @@ content += m;
 
 		}
 
+		content=ImportString.autoAddImportInMFileHead(content);
 	 String filename=FileUtil.makeFile(waitByModifyFileName, content);
 	}
 

@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import com.compoment.addfunction.android.FileBean;
 import com.compoment.util.FileUtil;
+import com.compoment.util.ImportString;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
 import com.compoment.util.RegexUtil.ControllerBean;
@@ -98,6 +99,7 @@ public class Request {
 					content += line + "\n";
 				}
 
+				content=ImportString.autoAddImportInMFileHead(content);
 				String filename = FileUtil.makeFile(destinationAddress
 						+ bean.destinationPath, null, bean.name, bean.type,
 						content);

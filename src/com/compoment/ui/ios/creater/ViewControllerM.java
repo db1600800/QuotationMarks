@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
+import com.compoment.util.ImportString;
 import com.compoment.util.KeyValue;
 
 public class ViewControllerM {
@@ -127,6 +128,7 @@ public class ViewControllerM {
 		
 		i += "\n@end//end viewController\n";
 
+		i=ImportString.autoAddImportInMFileHead(i);
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "m", i);
 	}
 
@@ -188,5 +190,9 @@ public class ViewControllerM {
 			return 0;
 		}
 	};
+	
+	
+	
+
 
 }

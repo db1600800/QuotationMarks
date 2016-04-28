@@ -109,36 +109,11 @@ public class RequestRespondForIphone {
 			}
 		}
 
-		m+=" [serviceInvoker callWebservice:businessparam formName:n"+interfaceBean.id+" ];\n";
 		
-		m+="    NSString *baseUrl=@\"http://localhost:8080/Serlet/Serverlet"+interfaceBean.id+"?parameter=\";\n";
-		m+="    NSString *fullUrl = [baseUrl stringByAppendingString:[businessparam JSONString]];\n";
-		m+="    NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];\n";
-
-		m+="    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];\n";
-		m+="    [request setHTTPMethod:@\"GET\"];\n";
-		m+="    [request setTimeoutInterval:30.0];\n";
-		m+="    \n";
-		m+="    NSOperationQueue *queue = [[NSOperationQueue alloc]init];\n";
-		m+="    [NSURLConnection sendAsynchronousRequest:request\n";
-		m+="                                       queue:queue\n";
-		m+="                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){\n";
-		m+="                               if (error) {\n";
-		m+="                                   NSLog(@\"Httperror:%@%d\", error.localizedDescription,error.code);\n";
-		m+="                               }else{\n";
-		m+="                                   \n";
-		m+="                                   NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];\n";
-		m+="                                   \n";
-		m+="                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];\n";
-		m+="                                   \n";
-		m+="                                   NSLog(@\"HttpResponseCode:%d\", responseCode);\n";
-		m+="                                   NSLog(@\"HttpResponseBody %@\",responseString);\n";
+		m+=" ServiceInvoker *serviceInvoker=[ServiceInvoker sharedInstance ];\n";
+		m+=" [serviceInvoker callWebservice:businessparam otherParam:array  delegate:self  formName:n"+interfaceBean.id+" ];\n";
 		
-		m+="   dispatch_async(dispatch_get_main_queue(), ^{\n";
-        m+="       [self.tableView reloadData];\n";
-        m+="   });\n";
-		m+="                               }\n";
-		m+="                           }];\n";
+		
 
 		m += "}\n\n";
 
@@ -278,5 +253,14 @@ public class RequestRespondForIphone {
 	public boolean isNum(String str) {
 		Pattern pattern = Pattern.compile("[0-9]*");
 		return pattern.matcher(str).matches();
+	}
+	
+	
+	
+	public void serviceInvoker()
+	{
+		
+		
+		
 	}
 }

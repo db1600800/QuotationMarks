@@ -31,7 +31,7 @@ import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
 import com.compoment.ui.CreaterExpandAdapter;
-import com.compoment.ui.ios.creater.TableViewCellAddViewController;
+import com.compoment.ui.ios.creater.TableViewCellAddToViewController;
 import com.compoment.ui.ios.creater.TableViewCellH;
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
@@ -400,7 +400,7 @@ public class PageCreatePanel {
 			
 			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 					+ "." + "m";
-			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,true);
+			TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(frame.pageName,frame.beans,fileName,true);
 			
 			}
 		else if (frame.pageType.contains("CommonCell-IOS")) {
@@ -446,7 +446,7 @@ public class PageCreatePanel {
 			
 			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 					+ "." + "m";
-			TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
+			TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(frame.pageName,frame.beans,fileName,false);
 			
 		}
 		else if (frame.pageType.equals("ChirldViewController-Web")) {
@@ -536,7 +536,7 @@ public class PageCreatePanel {
 						
 						String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(frame.pageName)+"ViewController"
 								+ "." + "m";
-						TableViewCellAddViewController TableViewCellAddViewController=new TableViewCellAddViewController(frame.pageName,frame.beans,fileName,false);
+						TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(frame.pageName,frame.beans,fileName,false);
 						
 						//android
 						
