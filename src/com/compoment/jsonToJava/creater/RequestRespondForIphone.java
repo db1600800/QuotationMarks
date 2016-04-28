@@ -128,7 +128,7 @@ public class RequestRespondForIphone {
 		String className="RespondParam" + interfaceBean.id ;	
 		
 		
-		m+="NSMutableArray *listData=[[NSMutableArray alloc]init];\n";
+		m+="NSMutableArray *listData"+interfaceBean.id+"=[[NSMutableArray alloc]init];\n";
 		
 //		m+="NSMutableArray *sectionAZDicArray=[[NSMutableArray alloc]init];\n";
 //		
@@ -217,7 +217,7 @@ public class RequestRespondForIphone {
 					}
 					i++;
 				}
-				m+="[listData addObject:item"+groupCount+"];\n";
+				m+="[listData"+interfaceBean.id+" addObject:item"+groupCount+"];\n";
 				m+="}\n\n";
 				
 			} else {
