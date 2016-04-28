@@ -359,7 +359,11 @@ public class WordtableToJavaObject {
 
 			Paragraph paralType = tdType.getParagraph(0);
 			 sType = paralType.text();
-			if (sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
+			 if(sType==null ||"".equals(sType)||sType.length()==1)
+			 {
+				 sType = "String";
+			 }
+			 else if (sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
 				sType = "String";
 			} else if (sType.contains("整数") || sType.contains("整型")||sType.contains("Integer")||sType.contains("long")||sType.contains("Long")) {
 				sType = "int";
@@ -466,7 +470,11 @@ public class WordtableToJavaObject {
 
 			Paragraph paralType = tdType.getParagraph(0);
 			 sType = paralType.text().replaceAll("", "");
-				if (sType.contains("String")||sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
+			 if(sType==null || "".equals(sType)||sType.length()==1)
+			 {
+				 sType = "String";
+			 }
+			 else if (sType.contains("String")||sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
 					sType = "String";
 				} else if (sType.contains("int")||sType.contains("整数") || sType.contains("整型")||sType.contains("Integer")||sType.contains("long")||sType.contains("Long")) {
 					sType = "int";
