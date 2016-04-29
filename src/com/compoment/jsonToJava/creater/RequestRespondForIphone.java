@@ -130,46 +130,6 @@ public class RequestRespondForIphone {
 		
 		m+="NSMutableArray *listData"+interfaceBean.id+"=[[NSMutableArray alloc]init];\n";
 		
-//		m+="NSMutableArray *sectionAZDicArray=[[NSMutableArray alloc]init];\n";
-//		
-//		NSMutableDictionary *sectionParentDic = [NSMutableDictionary dictionary];
-//		
-//		//chirlds
-//		m+="NSMutableArray *sectionChirldsArray=[[NSMutableArray alloc]init];\n";
-//		//chirldA
-//		m+="NSMutableDictionary *sectionAChirldADic = [NSMutableDictionary dictionary];\n";
-//		m+="[sectionAChirldADic setValue:@\"\" forKey:@\"\"];";
-//		
-//		
-//		NSMutableDictionary *sectionADic = [NSMutableDictionary dictionary];
-//		[sectionADic setValue:@"SectionParent" forKey:@"SectionParent"];
-//		[sectionADic setValue:sectionChirldsArray forKey:@"SectionChirlds"];
-//		[sectionAZDicArray addObject:sectionADic];
-		
-		
-
-
-		
-		
-//	    NSMutableString *businessParam= [map objectForKey:@"businessParam"];
-	//    
-//	    NSDictionary *paramdic=[self jsonString2Dic:[businessParam dataUsingEncoding:NSUTF8StringEncoding] ];
-	//    
-//	       bool success= [paramdic objectForKey:@"success"];
-//	     NSMutableString *data= [paramdic objectForKey:@"data"];
-//	       NSDictionary *datadic=[self jsonString2Dic:[data dataUsingEncoding:NSUTF8StringEncoding] ];
-	//    
-//	     NSDictionary *kk= [datadic objectForKey:@"kk"];
-	//    
-//	     NSDictionary *returnData= [kk objectForKey:@"returnData"];
-//	     NSArray *D4496_MAIL_STATUS= [returnData objectForKey:@"D4496_MAIL_STATUS"];
-//	     NSString *t2t=[D4496_MAIL_STATUS objectAtIndex:0];
-//	        NSArray *D44_70_TRAN_TIME= [returnData objectForKey:@"D44_70_TRAN_TIME"];
-	//    
-//	    NSString *tt=[D44_70_TRAN_TIME objectAtIndex:0];
-	//    
-//	     NSString *D44_70_RECORDNUM1= [returnDataBody objectForKey:@"D44_70_RECORDNUM1"];
-	    
 	
 		
 		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";

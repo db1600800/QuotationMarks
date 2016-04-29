@@ -486,7 +486,7 @@ public class WordtableToJavaObject {
 			if (sCnName.contains("开始") && sCnName.contains("循环")) {
 				group = new Group();
 				group.name=sEnName+"Group";
-				if(!sType.matches("[a-zA-Z]+"))
+				if(!sType.matches("[a-zA-Z]+") || !sType.equals("int") )
 				{
 					sType="int";
 				}
