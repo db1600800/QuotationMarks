@@ -114,13 +114,17 @@ public class RequestRespondParamBeanForIphone {
 //							}
 							if(type.equals("Respond"))
 							{
+							
+								if(row.enName!=null &&  !"".equals(row.enName))
+								{
 							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
 						
-							m+="@property (strong, nonatomic) "+iosType(row.getType())+row.enName+";\n";
+							m+="@property ( nonatomic) "+iosType(row.getType())+row.enName+";\n";
 							
 						    n += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 						    n+="@synthesize "+row.enName+";\n";
+								}
 							}
 //							if(type.equals("CacheRespond"))
 //							{

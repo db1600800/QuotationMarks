@@ -171,8 +171,18 @@ public class RequestRespondForIphone {
 						} else {
 							m += "/* " + row.cnName + " 备注:" + row.remarks
 									+ "*/\n";
+							if(row.type.toLowerCase().equals("int"))
+							{
+								m += "item"+groupCount+"."+row.enName+"=[[[returnDataBody objectForKey:@\""+row.enName+"\"] objectAtIndex:i]intValue];\n";
+								
+							}else if(row.type.toLowerCase().equals("float"))
+							{
+								m += "item"+groupCount+"."+row.enName+"=[[[returnDataBody objectForKey:@\""+row.enName+"\"] objectAtIndex:i]floatValue];\n";
+								
+							}else
+							{
 							m += "item"+groupCount+"."+row.enName+"=[[returnDataBody objectForKey:@\""+row.enName+"\"] objectAtIndex:i];\n";
-						
+							}
 						}
 					}
 					i++;
@@ -184,7 +194,18 @@ public class RequestRespondForIphone {
 				 m+=className+" *commonItem"+"=[["+className+" alloc]init];\n";
 				for (Row row : group.rows) {
 					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
+					if(row.type.toLowerCase().equals("int"))
+					{
+						m +=  "commonItem." + row.enName + "=[[returnDataBody objectForKey:@\""+row.enName+"\"]intValue];\n";
+						
+					}else if(row.type.toLowerCase().equals("float"))
+					{
+						m +=  "commonItem." + row.enName + "=[[returnDataBody objectForKey:@\""+row.enName+"\"]floatValue];\n";
+					}else
+					{
+					
 					m +=  "commonItem." + row.enName + "=[returnDataBody objectForKey:@\""+row.enName+"\"];\n";
+					}
 					
 				}
 			}
