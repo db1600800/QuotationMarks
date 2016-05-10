@@ -355,7 +355,7 @@ m+="			    for (int i=0; i<[mdata count]; i++) {\n";
 m+="			        RespondParam0027 *commonItem2=mdata[i];\n";
 m+="			        \n";
 m+="			        \n";
-m+="			        if (i==0 || i/3) {\n";
+m+="			        if (i==0 || i%3==0) {//每行3个\n";
 m+="			            sectionRow=[[Row alloc ] init];\n";
 m+="			            sectionRow.rowChirlds=[[NSMutableArray alloc]init];\n";
 m+="			            [thisPageRows addObject:sectionRow];\n";
