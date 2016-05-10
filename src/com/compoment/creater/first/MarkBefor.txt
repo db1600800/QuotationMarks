@@ -1689,3 +1689,128 @@ static ServiceInvoker *objName = nil;
                            }];
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //时期选择Start
+      
+      -(void)diyTimeValueButtonClicked:(UIButton *)btn{
+          id mId = objc_getAssociatedObject(btn, "mId");
+          //取绑定数据int mId2 = btn.tag;
+          //取绑定数据
+          
+          
+          UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+          datePicker.tag = 101;
+          datePicker.datePickerMode = UIDatePickerModeDate;
+          
+          // 设置区域为中国简体中文
+          datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+          
+          // 设置picker的显示模式：只显示日期
+          datePicker.datePickerMode = UIDatePickerModeDate;
+          
+          [datePicker setDate:[NSDate date] animated:YES];    // 设置日期控件值
+          
+          [datePicker addTarget:self
+                         action:@selector(dateValueChange:)
+               forControlEvents:UIControlEventValueChanged];  // 时间改变时触发此事件
+          
+          
+          
+#ifdef __IPHONE_7_0
+          NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @"\n\n\n\n\n\n\n\n\n" : @"\n\n\n\n\n\n\n\n\n\n\n\n";
+          
+          UIActionSheet* startsheet = [[UIActionSheet alloc] initWithTitle:title
+                                                                  delegate:self
+                                                         cancelButtonTitle:@"确定"
+                                                    destructiveButtonTitle:nil
+                                                         otherButtonTitles:nil,
+                                       nil];
+          startsheet.tag = 333;
+          [startsheet addSubview:datePicker];
+          [startsheet showInView:self.view];
+          
+          
+          
+#else
+          
+          
+          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n\n" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];
+          
+          [alert.view addSubview:datePicker];
+          
+          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+              
+              NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+              
+              //实例化一个NSDateFormatter对象
+              
+              [dateFormat setDateFormat:@"yyyy-MM-dd"];//设定时间格式
+              
+              NSString *dateString = [dateFormat stringFromDate:datePicker.date];
+              
+              //求出当天的时间字符串
+              [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];
+                 diyTime=timestamp;
+              
+          }];
+          
+          
+          UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+              
+              　 }];
+          
+          [alert addAction:ok];
+          
+          [alert addAction:cancel];
+          
+          [self presentViewController:alert animated:YES completion:^{ }];
+          
+          
+#endif
+          
+          
+      }
+      
+      
+      
+      
+      -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+          UIDatePicker *datePicker = (UIDatePicker *)[actionSheet viewWithTag:101];
+          NSDateFormatter *formattor = [[NSDateFormatter alloc] init];
+          
+          
+          formattor.dateFormat = @"yyyy-MM-dd";
+          
+          NSString *timestamp = [formattor stringFromDate:datePicker.date];
+          
+          
+          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];
+             diyTime=timestamp;
+      }
+      
+      -(void)dateValueChange:(UIDatePicker*)datepick
+      {
+          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+          [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+          NSString *timestamp =  [dateFormatter stringFromDate: [datepick date]];
+          
+          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];
+          diyTime=timestamp;
+      }
+      
+      
+      //时期选择End
+

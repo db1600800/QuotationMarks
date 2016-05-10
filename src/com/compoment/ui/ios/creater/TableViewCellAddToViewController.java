@@ -372,7 +372,12 @@ m+="			        //chirld add\n";
 m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
 m+="			        \n";
 m+="			        \n";
-m+="			    }\n";
+m+="			    }\n\n";
+
+m+="//在函数中-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  添加使用九宫图结果\n";
+m+="Row *row=thisPageRows[indexPath.row];\n";
+m+="if ([row.rowChirlds count]>0) {//第一列 }else{[cell.pic1Button.titleLabel setText:@\"\"]; }\n"; 
+m+="if ([row.rowChirlds count]>1) {//第二列 } \n\n";
 m+="//九宫图列表数据End\n\n";
 
 
