@@ -10,6 +10,7 @@ public class CompomentDeclareImplement {
 	public String i="";
 	public String viewDidLoad_Declare="";
 	public String viewDidLoad_Implement="";
+	public String editTextCheck;
 
 	public String closeKeyboardDeclare="";
 	public String closeKeyboardImplement="";
@@ -23,6 +24,7 @@ public class CompomentDeclareImplement {
 		i="";
 		viewDidLoad_Declare="";
 		viewDidLoad_Implement="";
+		editTextCheck="";
 	
 			closeKeyboardDeclare="";
 			closeKeyboardImplement="";
@@ -61,7 +63,7 @@ public class CompomentDeclareImplement {
 			if(!comeFromWhere.equals("ViewController_viewdidload"))
 			{
 			viewDidLoad_Declare += selfString + chirld.enname + ".tag=;\n";
-			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
+			viewDidLoad_Declare += "// objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			}
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " addTarget:self action:@selector("
@@ -77,7 +79,7 @@ public class CompomentDeclareImplement {
 			}
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Clicked:(UIButton *)btn{\n";
-			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
+			viewDidLoad_Implement += "//id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 			viewDidLoad_Implement += "int mId2 = btn.tag;\n//取绑定数据";
 
 			// ("跳到") ("单选") ("发请求") ("弹出")
@@ -149,6 +151,8 @@ public class CompomentDeclareImplement {
 		}
 
 		if (chirld.type.equals("EditText")) {
+			
+			
 
 			i += "//" + chirld.cnname + "\n";
 			i += "@synthesize " + chirld.enname + ";\n";
@@ -160,7 +164,7 @@ public class CompomentDeclareImplement {
 			if(!comeFromWhere.equals("ViewController_viewdidload"))
 			{
 			viewDidLoad_Declare += "" + selfString + chirld.enname + ".tag=;\n";
-			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
+			viewDidLoad_Declare += "// objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			}
 			
@@ -182,12 +186,20 @@ public class CompomentDeclareImplement {
 
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "DidEnd:(UITextField *)textField{\n";
 			viewDidLoad_Implement += " [self.view becomeFirstResponder];//把焦点给别人 键盘消失\n";
-			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
+			viewDidLoad_Implement += "//id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 			viewDidLoad_Implement += " int  orderFormIndex= textField.tag;\n";
 			viewDidLoad_Implement += "     OrderForm *orderform=orderForms[orderFormIndex ];\n";
 			viewDidLoad_Implement += "     orderform.invoiceMsg=textField.text;\n";
 			viewDidLoad_Implement += "}\n\n";
 			
+			
+			viewDidLoad_Declare+="[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector("+chirld.enname+"DidValueChanged:) name:UITextFieldTextDidChangeNotification object:"+selfString+"."+chirld.enname+"];\n";
+			
+			viewDidLoad_Implement += "-(void)"+chirld.enname+"DidValueChanged:(NSNotification *)notification\n";
+			viewDidLoad_Implement += "{\n";
+			viewDidLoad_Implement += "   UITextField *textfield=[notification object];\n";
+			viewDidLoad_Implement += "   NSString *text=textfield.text;\n";
+			viewDidLoad_Implement += "}\n\n";
 			
 			viewDidLoad_Declare+="    UITapGestureRecognizer *"+chirld.enname+"TapGuest=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTextTapHandle:)];\n";
 			viewDidLoad_Declare+=chirld.enname+"TapGuest.delegate = self;//头文件<UIGestureRecognizerDelegate>\n"; 
@@ -399,6 +411,17 @@ public class CompomentDeclareImplement {
 
 		
 			
+			editTextCheck=" \n if("+selfString +"."+ chirld.enname +".text==nil || ["+selfString+"."+chirld.enname+".text isEqualToString:@\"\"])\n";
+			editTextCheck=" {\n";
+			editTextCheck="   MsgReturn *msgReturn=[[MsgReturn alloc]init];\n";
+		    editTextCheck="   msgReturn.errorDesc=@\"请输入"+chirld.cnname+"\";//不能为空\n";
+			editTextCheck="   msgReturn.errorType=@\"02\";//自动消失提示\n";
+			editTextCheck="   msgReturn.errorCode=@\"-3\";\n";
+			editTextCheck="   msgReturn.errorPic=true;//图片为X \n";
+			editTextCheck="     [PromptError changeShowErrorMsg:msgReturn title:@\"\" viewController:self block:^(BOOL OKCancel){} ];\n";
+			editTextCheck="       return false;\n";
+			editTextCheck="     }\n";
+		    editTextCheck="    bean"+chirld.interfaceId+"."+chirld.interfaceColumnEnName+"="+selfString +"."+ chirld.enname +".text;\n\n";
 			
 
 		}
@@ -431,8 +454,8 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += "\n\n[" + selfString + chirld.enname + "Cover setText:nil ];\n";
 			
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Check:(UIButton *)btn{\n";
-			viewDidLoad_Implement += "id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
-			viewDidLoad_Implement += "int mId2 = btn.tag;\n//取绑定数据";
+			viewDidLoad_Implement += "//id mId = objc_getAssociatedObject(btn, \"mId\");//取绑定数据\n";
+			viewDidLoad_Implement += "int mId2 = btn.tag;//取绑定数据\n";
 			viewDidLoad_Implement += "  btn.selected = !btn.selected ;//用与button做checkBox\n";
 			viewDidLoad_Implement += " OrderForm *orderform=datas[mId];\n";
 			viewDidLoad_Implement += " if (orderform.invoiceCheck ) {//选中\n";

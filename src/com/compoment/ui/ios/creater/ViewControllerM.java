@@ -18,6 +18,7 @@ public class ViewControllerM {
 	
 	String viewDidLoad_Declare = "";
 	String viewDidLoad_Implement = "";
+	String editTextCheck="";
 	String pageName = "";
 	String className = "";
 	String closeKeyboardDeclare="";
@@ -100,6 +101,7 @@ public class ViewControllerM {
 	
 
 		i += viewDidLoad_Implement;
+		i+="-(bool)checkInput{\n"+editTextCheck+"\nreturn true;\n}\n";
 		i+=closeKeyboardImplement;
 		
 		i += tablem;
@@ -112,6 +114,7 @@ public class ViewControllerM {
 			i += scrollViewCells.scrollDeclare + "\n\n";
 
 			i += scrollViewCells.scrollImplement + "\n\n";
+			i+="\n-(bool) checkInput{\n"+scrollViewCells.scrollEditTextCheck+"\nreturn true;\n}\n";
 		}
 
 		
@@ -157,6 +160,7 @@ public class ViewControllerM {
 					compomentDeclareImplement.chirld(chirld, bean, selfString,"ViewController_viewdidload");
 					viewDidLoad_Declare+=compomentDeclareImplement.viewDidLoad_Declare;
 					viewDidLoad_Implement+=compomentDeclareImplement.viewDidLoad_Implement;
+					editTextCheck+=compomentDeclareImplement.editTextCheck;
 					
 					if(closeKeyboardDeclare==null ||closeKeyboardDeclare.equals(""))
 					{

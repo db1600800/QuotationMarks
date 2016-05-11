@@ -108,16 +108,23 @@ public class ViewControllerH {
 
 			m+="@end\n\n";
 			
-			m+="//父亲ViewController实现接口  "+className+"ChirldViewCallBackDelegate>\n";
-			m+="//\n1. "+className+"ChirldViewCallBackDelegate\n";
-			m+="//-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata;\n";
+			m+="//1.父亲ViewController .h中声明要实现的接口  <"+className+"ChirldViewCallBackDelegate>\n\n";
 			
-			m+="//\n\n2.在viewDidLoad中\n";
-			m+="//chirldViewController=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
-		    m+="//chirldViewController.view.frame=CGRectMake(,,,);\n";
-		    m+="//[chirldViewController setChirldViewValue:nil delegate:self];\n";
-		    m+="//[ self.view addSubview:chirldViewController.view];\n";
-		    m+="// [chirldViewController.view setHidden:YES];\n";
+		    m+="//2.  .m添加方法\n";
+			m+="//-(void) chirldViewCallBack_"+className+":(NSMutableArray*)mdata{\n}\n";
+			
+			m+="\n//3.在viewDidLoad中\n";
+			m+="//if (chirldViewController_"+className+"==nil) {\n";
+			m+="//chirldViewController_"+className+"=[["+className+"ViewController alloc ] initWithNibName:@\""+className+"ViewController\" bundle:nil];\n";
+		    m+="//chirldViewController_"+className+".view.frame=CGRectMake(,,,);\n";
+		    m+="//[chirldViewController_"+className+" setChirldViewValue:nil delegate:self];\n";
+		    m+="//[ self.view addSubview:chirldViewController_"+className+".view];\n";
+		    m+="// [chirldViewController_"+className+".view setHidden:NO];\n";
+			m+="// }else\n";
+			m+="//{\n";
+			m+="//[chirldViewController_"+className+".view setHidden:NO];\n";
+			m+=" //}\n";
+		    
 			}
 			
 			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",

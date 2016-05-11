@@ -428,7 +428,7 @@ public class IphoneViewControllerXib {
 
 				bodym += "  </scrollView>\n";
 
-				connection += "      <outlet property=\"" + bean.enname + "\" destination=\"" + newId + "\" id=\""
+				connection += "      <outlet property=\"" + bean.enname.replace("Layout", "") + "\" destination=\"" + newId + "\" id=\""
 						+ id() + "\"/>\n";
 
 			} else {

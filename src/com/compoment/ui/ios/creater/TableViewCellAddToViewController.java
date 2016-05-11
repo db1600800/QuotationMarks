@@ -26,6 +26,7 @@ public class TableViewCellAddToViewController {
 	String waitByModifyFileName;
     String className="";
     String viewDidLoad_Implement="";
+    String editTextCheck="";
 	String closeKeyboardDeclare="";
 	String closeKeyboardImplement="";
 	CompomentDeclareImplement compomentDeclareImplement=new CompomentDeclareImplement();
@@ -376,7 +377,7 @@ m+="			    }\n\n";
 
 m+="//在函数中-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  添加使用九宫图结果\n";
 m+="Row *row=thisPageRows[indexPath.row];\n";
-m+="if ([row.rowChirlds count]>0) {//第一列 }else{[cell.pic1Button.titleLabel setText:@\"\"]; }\n"; 
+m+="if ([row.rowChirlds count]>0) {//第一列 \n}\nelse{\n [cell.picButton setTitle:@\"\" forState:UIControlStateNormal ];\n[cell.picButton setTitle:@\"\" forState:UIControlStateSelected ];\n }\n"; 
 m+="if ([row.rowChirlds count]>1) {//第二列 } \n\n";
 m+="//九宫图列表数据End\n\n";
 
@@ -466,6 +467,7 @@ content += m;
 					compomentDeclareImplement.chirld(chirld, bean, selfString,"TableViewCell");
 					controllers+=compomentDeclareImplement.viewDidLoad_Declare;
 					viewDidLoad_Implement+=compomentDeclareImplement.viewDidLoad_Implement;
+					editTextCheck+=compomentDeclareImplement.editTextCheck;
 					closeKeyboardDeclare+=compomentDeclareImplement.closeKeyboardDeclare;
 					
 				}

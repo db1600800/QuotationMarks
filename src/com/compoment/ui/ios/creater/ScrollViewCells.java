@@ -10,6 +10,7 @@ public class ScrollViewCells {
 
 	String scrollDeclare="";
 	String scrollImplement="";
+	String scrollEditTextCheck="";
 	
 	String closeKeyboardDeclare="";
 	String closeKeyboardImplement="";
@@ -94,6 +95,7 @@ public class ScrollViewCells {
 					}
 					
 					scrollImplement+=compomentDeclareImplement.viewDidLoad_Implement;
+					scrollEditTextCheck+=compomentDeclareImplement.editTextCheck;
 					
 
 				}
