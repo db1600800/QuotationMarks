@@ -1,5 +1,8 @@
 package com.compoment.addfunction.iphone;
 
+/**
+ * 定位当前城市 选择当前城市
+ * */
 public class CurrentAddressUseBaiduMap {
 	
 	public void currentAddress()
@@ -1711,116 +1714,6 @@ public class CurrentAddressUseBaiduMap {
 
 
 
-		m+="  //时期选择Start\n";
-		m+="      \n";
-		m+="      -(void)diyTimeValueButtonClicked:(UIButton *)btn{\n";
-		m+="          id mId = objc_getAssociatedObject(btn, \"mId\");\n";
-		m+="          //取绑定数据int mId2 = btn.tag;\n";
-		m+="          //取绑定数据\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          UIDatePicker *datePicker = [[UIDatePicker alloc] init];\n";
-		m+="          datePicker.tag = 101;\n";
-		m+="          datePicker.datePickerMode = UIDatePickerModeDate;\n";
-		m+="          \n";
-		m+="          // 设置区域为中国简体中文\n";
-		m+="          datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@\"zh_CN\"];\n";
-		m+="          \n";
-		m+="          // 设置picker的显示模式：只显示日期\n";
-		m+="          datePicker.datePickerMode = UIDatePickerModeDate;\n";
-		m+="          \n";
-		m+="          [datePicker setDate:[NSDate date] animated:YES];    // 设置日期控件值\n";
-		m+="          \n";
-		m+="          [datePicker addTarget:self\n";
-		m+="                         action:@selector(dateValueChange:)\n";
-		m+="               forControlEvents:UIControlEventValueChanged];  // 时间改变时触发此事件\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          \n";
-		m+="#ifdef __IPHONE_7_0\n";
-		m+="          NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @\"\n\n\n\n\n\n\n\n\n\" : @\"\n\n\n\n\n\n\n\n\n\n\n\n\";\n";
-		m+="          \n";
-		m+="          UIActionSheet* startsheet = [[UIActionSheet alloc] initWithTitle:title\n";
-		m+="                                                                  delegate:self\n";
-		m+="                                                         cancelButtonTitle:@\"确定\"\n";
-		m+="                                                    destructiveButtonTitle:nil\n";
-		m+="                                                         otherButtonTitles:nil,\n";
-		m+="                                       nil];\n";
-		m+="          startsheet.tag = 333;\n";
-		m+="          [startsheet addSubview:datePicker];\n";
-		m+="          [startsheet showInView:self.view];\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          \n";
-		m+="#else\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@\"\n\n\n\n\n\n\n\n\n\n\n\n\" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];\n";
-		m+="          \n";
-		m+="          [alert.view addSubview:datePicker];\n";
-		m+="          \n";
-		m+="          UIAlertAction *ok = [UIAlertAction actionWithTitle:@\"确定\" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {\n";
-		m+="              \n";
-		m+="              NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];\n";
-		m+="              \n";
-		m+="              //实例化一个NSDateFormatter对象\n";
-		m+="              \n";
-		m+="              [dateFormat setDateFormat:@\"yyyy-MM-dd\"];//设定时间格式\n";
-		m+="              \n";
-		m+="              NSString *dateString = [dateFormat stringFromDate:datePicker.date];\n";
-		m+="              \n";
-		m+="              //求出当天的时间字符串\n";
-		m+="              [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="                 diyTime=timestamp;\n";
-		m+="              \n";
-		m+="          }];\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          UIAlertAction *cancel = [UIAlertAction actionWithTitle:@\"取消\" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {\n";
-		m+="              \n";
-		m+="              　 }];\n";
-		m+="          \n";
-		m+="          [alert addAction:ok];\n";
-		m+="          \n";
-		m+="          [alert addAction:cancel];\n";
-		m+="          \n";
-		m+="          [self presentViewController:alert animated:YES completion:^{ }];\n";
-		m+="          \n";
-		m+="          \n";
-		m+="#endif\n";
-		m+="          \n";
-		m+="          \n";
-		m+="      }\n";
-		m+="      \n";
-		m+="      \n";
-		m+="      \n";
-		m+="      \n";
-		m+="      -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{\n";
-		m+="          UIDatePicker *datePicker = (UIDatePicker *)[actionSheet viewWithTag:101];\n";
-		m+="          NSDateFormatter *formattor = [[NSDateFormatter alloc] init];\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          formattor.dateFormat = @\"yyyy-MM-dd\";\n";
-		m+="          \n";
-		m+="          NSString *timestamp = [formattor stringFromDate:datePicker.date];\n";
-		m+="          \n";
-		m+="          \n";
-		m+="          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="             diyTime=timestamp;\n";
-		m+="      }\n";
-		m+="      \n";
-		m+="      -(void)dateValueChange:(UIDatePicker*)datepick\n";
-		m+="      {\n";
-		m+="          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];\n";
-		m+="          [dateFormatter setDateFormat:@\"yyyy-MM-dd\"];\n";
-		m+="          NSString *timestamp =  [dateFormatter stringFromDate: [datepick date]];\n";
-		m+="          \n";
-		m+="          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="          diyTime=timestamp;\n";
-		m+="      }\n";
-		m+="      \n";
-		m+="      \n";
-		m+="      //时期选择End\n";
 
 
 		

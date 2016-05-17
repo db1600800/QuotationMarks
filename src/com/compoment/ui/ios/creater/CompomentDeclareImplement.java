@@ -442,7 +442,7 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += " objc_setAssociatedObject(" + selfString + chirld.enname
 					+ ", \"mId\", productId, OBJC_ASSOCIATION_RETAIN_NONATOMIC);//控件与数据绑定\n";
 			}
-
+			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setSelected:];\n";
 			viewDidLoad_Declare += "\n[" + selfString + chirld.enname + " addTarget:self action:@selector("
 					+ chirld.enname + "Check:) forControlEvents:UIControlEventTouchUpInside];\n";
 			viewDidLoad_Declare += "[" + selfString + chirld.enname
@@ -465,6 +465,7 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Implement += "   orderform.invoiceCheck=true;\n";
 			viewDidLoad_Implement += "}\n";
 			viewDidLoad_Implement += "[self refreshUi];\n";
+			viewDidLoad_Implement += "//[tableView reloadData];\n";
 			viewDidLoad_Implement += "}\n\n";
 
 		}
