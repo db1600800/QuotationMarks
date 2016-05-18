@@ -144,7 +144,7 @@ public class Request {
 				line = lines.get(i).toString();
 			}
 
-			if (line.contains("@end//end viewController")) {
+			if (line.contains("-(void) ReturnError:(MsgReturn*)msgReturn")) {
 				// 类结尾位置
 				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)
@@ -159,9 +159,8 @@ public class Request {
 			}
 				
 
-			content += line + "\n";
-
-			if(line.contains("@end//end viewController"))
+			
+			if(line.contains("}//end ReturnData"))
 			{
 				String m="";
 				for(Object select:pageInterfaceDocPanel.selects)
@@ -174,6 +173,10 @@ public class Request {
 				}
 				content += m;
 			}
+			
+			content += line + "\n";
+
+			
 
 		}
 

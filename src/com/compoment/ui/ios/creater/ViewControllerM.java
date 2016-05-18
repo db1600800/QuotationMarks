@@ -129,6 +129,14 @@ public class ViewControllerM {
 		}
 		
 		
+		i+=" -(void) ReturnError:(MsgReturn*)msgReturn\n";
+	    i+=" {\n";
+	    i+=" }//end ReturnError\n";
+	      
+	    i+="  -(void) ReturnData:(MsgReturn*)msgReturn\n";
+	    i+="  {\n";
+	    i+="  }//end ReturnData\n";
+		
 		i += "\n@end//end viewController\n";
 
 		i=ImportString.autoAddImportInMFileHead(i);

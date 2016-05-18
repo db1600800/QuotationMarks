@@ -111,7 +111,7 @@ public class RequestRespondForIphone {
 
 		
 		m+=" ServiceInvoker *serviceInvoker=[ServiceInvoker sharedInstance ];\n";
-		m+=" [serviceInvoker callWebservice:businessparam otherParam:array  delegate:self  formName:n"+interfaceBean.id+" ];\n";
+		m+=" [serviceInvoker callWebservice:businessparam otherParam:nil  delegate:self  formName:n"+interfaceBean.id+" ];\n";
 		
 		
 

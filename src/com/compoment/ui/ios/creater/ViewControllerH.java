@@ -71,11 +71,12 @@ public class ViewControllerH {
 			
 			
 			m+="#import <UIKit/UIKit.h>\n";
+			m+="#import \"ServiceInvoker.h\"\n";
 			if(this.isChirldViewNotParentView)
 			{
 			m+="@protocol "+className+"ChirldViewCallBackDelegate;\n";
 			}
-			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>\n";
+			m+="@interface "+className+"ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,ServiceInvokerDelegate>\n";
 			
 			
 			

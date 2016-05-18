@@ -8,8 +8,9 @@ public class DateTimeSelect {
 	{
 		String m="";
 
-		m+="  //时期选择Start\n";
-		m+="      #pragma mark -时期选择 \n";
+		m+="  //日期选择Start\n";
+		m+="UIButton *selectDateTimeBtn=nil;\n";
+		m+="      #pragma mark -日期选择 \n";
 		m+="      -(void) selectDateTimeButtonClicked:(UIButton *)btn{\n";
 		m+="          UIDatePicker *datePicker = [[UIDatePicker alloc] init];\n";
 		m+="          datePicker.tag = 101;\n";
@@ -54,9 +55,8 @@ public class DateTimeSelect {
 		m+="              \n";
 		m+="              NSString *timestamp = [dateFormat stringFromDate:datePicker.date];\n";
 		m+="              \n";
-		m+="              //当天时间字符串\n";
-		m+="              [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="                 diyTime=timestamp;\n";
+		m+="    [selectDateTimeBtn setTitle:timestamp forState:UIControlStateNormal];\n";
+		m+="      [selectDateTimeBtn setTitle:timestamp forState:UIControlStateSelected];\n";
 		m+="              \n";
 		m+="          }];\n";
 		m+="          \n";
@@ -90,8 +90,10 @@ public class DateTimeSelect {
 		m+="          NSString *timestamp = [formattor stringFromDate:datePicker.date];\n";
 		m+="          \n";
 		m+="          \n";
-		m+="          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="             diyTime=timestamp;\n";
+		
+		m+="    [selectDateTimeBtn setTitle:timestamp forState:UIControlStateNormal];\n";
+		m+="      [selectDateTimeBtn setTitle:timestamp forState:UIControlStateSelected];\n";
+	
 		m+="      }\n\n";
 		
 		m+="      // 时间改变时触发此事件\n";
@@ -101,12 +103,12 @@ public class DateTimeSelect {
 		m+="          [dateFormatter setDateFormat:@\"yyyy-MM-dd\"];\n";
 		m+="          NSString *timestamp =  [dateFormatter stringFromDate: [datepick date]];\n";
 		m+="          \n";
-		m+="          [insureBaseTimeLinearLayout.diyTimeValueButton.titleLabel setText:timestamp];\n";
-		m+="          diyTime=timestamp;\n";
+		m+="    [selectDateTimeBtn setTitle:timestamp forState:UIControlStateNormal];\n";
+		m+="      [selectDateTimeBtn setTitle:timestamp forState:UIControlStateSelected];\n";
 		m+="      }\n";
 		m+="      \n";
 		m+="      \n";
-		m+="      //时期选择End\n";
+		m+="      //日期选择End\n";
 	}
 
 }
