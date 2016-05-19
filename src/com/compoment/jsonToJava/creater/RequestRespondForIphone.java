@@ -133,7 +133,7 @@ public class RequestRespondForIphone {
 	
 		
 		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "if ([requestCode isEqualToString:n"+interfaceBean.id +"]){\n";
+		m += "if ([msgReturn.formName isEqualToString:n"+interfaceBean.id +"]){\n";
 
 		JsonToIosBeanForSimple jsonToIosBeanForSimple=new JsonToIosBeanForSimple(baseJson);
 		m+=jsonToIosBeanForSimple.getJaveBeanClass();

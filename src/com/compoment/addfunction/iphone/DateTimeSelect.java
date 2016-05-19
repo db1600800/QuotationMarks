@@ -24,7 +24,7 @@ public class DateTimeSelect {
 		m+="          \n";
 		m+="          \n";
 		m+="          \n";
-		m+="#ifdef __IPHONE_7_0\n";
+		m+="  if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0) {\n";
 		m+="          NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @\"\n\n\n\n\n\n\n\n\n\" : @\"\n\n\n\n\n\n\n\n\n\n\n\n\";\n";
 		m+="          \n";
 		m+="          UIActionSheet* startsheet = [[UIActionSheet alloc] initWithTitle:title\n";
@@ -38,7 +38,7 @@ public class DateTimeSelect {
 		m+="          \n";
 		m+="          \n";
 		m+="          \n";
-		m+="#else\n";
+		m+="}else{\n";
 		m+="          \n";
 		m+="          \n";
 		m+="          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@\"\n\n\n\n\n\n\n\n\n\n\n\n\" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];\n";
@@ -72,7 +72,7 @@ public class DateTimeSelect {
 		m+="          [self presentViewController:alert animated:YES completion:^{ }];\n";
 		m+="          \n";
 		m+="          \n";
-		m+="#endif\n";
+		m+="}\n";
 		m+="          \n";
 		m+="          \n";
 		m+="      }\n";

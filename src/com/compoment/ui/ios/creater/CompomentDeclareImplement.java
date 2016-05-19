@@ -193,21 +193,30 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Implement += "}\n\n";
 			
 			
-			viewDidLoad_Declare+="[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector("+chirld.enname+"DidValueChanged:) name:UITextFieldTextDidChangeNotification object:"+selfString+"."+chirld.enname+"];\n";
+//			viewDidLoad_Declare+="[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector("+chirld.enname+"DidValueChanged:) name:UITextFieldTextDidChangeNotification object:"+selfString+"."+chirld.enname+"];\n";
+//			
+//			viewDidLoad_Implement += "-(void)"+chirld.enname+"DidValueChanged:(NSNotification *)notification\n";
+//			viewDidLoad_Implement += "{\n";
+//			viewDidLoad_Implement += "   UITextField *textfield=[notification object];\n";
+//			viewDidLoad_Implement += "   NSString *text=textfield.text;\n";
+//			viewDidLoad_Implement += "}\n\n";
 			
-			viewDidLoad_Implement += "-(void)"+chirld.enname+"DidValueChanged:(NSNotification *)notification\n";
+			
+			viewDidLoad_Declare+="[  self."+chirld.enname+"  addTarget:self action:@selector(textFieldDidChange_"+chirld.enname+":) forControlEvents:UIControlEventEditingChanged];\n";
+			
+			viewDidLoad_Implement += "- (void)textFieldDidChange_"+chirld.enname+":(UITextField *)textField\n";
 			viewDidLoad_Implement += "{\n";
-			viewDidLoad_Implement += "   UITextField *textfield=[notification object];\n";
-			viewDidLoad_Implement += "   NSString *text=textfield.text;\n";
-			viewDidLoad_Implement += "}\n\n";
+			viewDidLoad_Implement += "  if (textField.text.length > 7) {\n";
+            viewDidLoad_Implement += "   textField.text = [textField.text substringToIndex:7];\n";
+			viewDidLoad_Implement += " }\n";
+		    viewDidLoad_Implement += "}\n";
 			
 			viewDidLoad_Declare+="    UITapGestureRecognizer *"+chirld.enname+"TapGuest=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTextTapHandle:)];\n";
 			viewDidLoad_Declare+=chirld.enname+"TapGuest.delegate = self;//头文件<UIGestureRecognizerDelegate>\n"; 
 			viewDidLoad_Declare+="    [ "+ selfString + chirld.enname+"  addGestureRecognizer:"+chirld.enname+"TapGuest];\n\n";
 			
 		
-			
-			
+	
 				
 			
 			
