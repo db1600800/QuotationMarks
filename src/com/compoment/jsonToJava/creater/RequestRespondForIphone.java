@@ -110,8 +110,9 @@ public class RequestRespondForIphone {
 		}
 
 		
-		m+=" ServiceInvoker *serviceInvoker=[ServiceInvoker sharedInstance ];\n";
-		m+=" [serviceInvoker callWebservice:businessparam otherParam:nil  delegate:self  formName:n"+interfaceBean.id+" ];\n";
+		m+=" ServiceInvoker *serviceInvoker=[[ServiceInvoker alloc ]init];\n";
+		
+		m+=" [serviceInvoker callWebservice:businessparam otherParam:nil  formName:n"+interfaceBean.id+"  delegate:self   viewController:self];\n";
 		
 		
 
