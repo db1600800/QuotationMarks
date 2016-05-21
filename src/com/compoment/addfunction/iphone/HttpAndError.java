@@ -17,6 +17,7 @@ public class HttpAndError {
 	  m+="{\n";
 	  m+="bool isContinueOpenLoading;//不关闭Loading\n";
 	  m+="bool isNoHasLoading;//没有Loading\n";
+	  m+="NSString *formName;//交易号 接口号\n";
 	  m+="}\n";
 	  
 	  m+="@property (strong, nonatomic) id<ServiceInvokerDelegate>  delegate;\n";
@@ -54,6 +55,7 @@ public class HttpAndError {
 	 
 
 	  m+="@implementation ServiceInvoker\n";
+	  
 
 	  m+="NSTimer *timmer;\n";
 
@@ -63,6 +65,7 @@ public class HttpAndError {
 	  m+="    isNoHasLoading=[otherParam objectForKey:@\"isNoHasLoading\"] ;\n";
 	  m+="    self.viewController=viewController;\n";
 	  m+="    self.delegate=delegate;\n";
+	  m+="    self.formName=formName;\n";
 	  m+="    \n";
 
 	  m+="     dispatch_async(dispatch_get_main_queue(), ^{\n";
@@ -71,7 +74,7 @@ public class HttpAndError {
 	  m+="             \n";
 	  m+="         }else\n";
 	  m+="         {\n";
-	  m+="             if (sysBaseInfo.isNoHasLoading==true) {\n";
+	  m+="             if (isNoHasLoading==true) {\n";
 	  m+="                 \n";
 	  m+="             }else\n";
 	  m+="             {\n";
@@ -82,62 +85,12 @@ public class HttpAndError {
 
 
 	  m+="    \n";
-	  m+="    NSMutableDictionary *tranBodyDic=[[NSMutableDictionary alloc] init];\n";
-	  m+="    tranBodyDic=business;\n";
+	  m+="    NSMutableDictionary *sendDataDic=[[NSMutableDictionary alloc] init];\n";
+	  m+="    [sendDataDic setValue:tranheadDic forKey:@\"Head\"];\n";
+	  m+="    [sendDataDic setValue:businessparam forKey:@\"Body\"];\n";
+	
+	
 
-	  m+="   \n";
-	  m+="//    headMap.put(SendMsgHead.H_BRCH_NO, \"000000\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_SFILE_NUM, \"0000\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_CHANNEL_TRACE, \"\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_CHANNEL_NO, DeviceInfo.channelNo);\n";
-	  m+="//    headMap.put(SendMsgHead.H_IP_ADDR, DeviceInfo.deviceIP);\n";
-	  m+="//    headMap.put(SendMsgHead.H_TTY, CarServiceAgentApplication.appServiceInvoker.mLogicID);\n";
-	  m+="//    headMap.put(SendMsgHead.H_SEQ_NO, \"\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_AUTH_OPER_NO, \"\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_OPER_NO, \"00\");\n";
-	  m+="//    headMap.put(SendMsgHead.H_OPER_NO_NEW, OperatorMsg.oprID);\n";
-	  m+="//    headMap.put(SendMsgHead.H_BRCH_NO_NEW, OperatorMsg.organID);\n";
-	  m+="    \n";
-	  m+="    DeviceInfo *deviceInfo=[DeviceInfo sharedInstance];\n";
-	  m+="    \n";
-	  m+="    NSMutableDictionary *tranheadDic=[[NSMutableDictionary alloc] init];\n";
-	  m+="    // 1	局号(包头使用)	H_BRCH_NO	字符	7\n";
-	  m+="    [tranheadDic setValue:@\"0000000\" forKey:@\"H_BRCH_NO\"];\n";
-	  m+="    // 2	柜员号(包头使用)	H_OPER_NO	字符	2\n";
-	  m+="    [tranheadDic setValue:@\"00\" forKey:@\"H_OPER_NO\"];\n";
-	  m+="    // 3	交易流水号	H_SEQ_NO	数字\n";
-	  m+="    [tranheadDic setValue:@\"\" forKey:@\"H_SEQ_NO\"];\n";
-	  m+="    //  4	IP地址	H_IP_ADDR	字符	15\n";
-	  m+="    [tranheadDic setValue:deviceInfo.H_IP_ADDR forKey:@\"H_IP_ADDR\"];\n";
-	  m+="    //5	终端号(不带/dev/tty)	H_TTY	字符	100\n";
-	  m+="    [tranheadDic setValue:deviceInfo.LogicDeviceNo forKey:@\"H_TTY\"];\n";
-	  m+="    // 6	授权柜员号	H_AUTH_OPER_NO	字符	4\n";
-	  m+="    [tranheadDic setValue:@\"\" forKey:@\"H_AUTH_OPER_NO\"];\n";
-	  m+="    //7	渠道流水号	H_CHANNEL_TRACE	字符	12\n";
-	  m+="    [tranheadDic setValue:@\"\" forKey:@\"H_CHANNEL_TRACE\"];\n";
-	  m+="    //  8	渠道标识	H_CHANNEL_NO	字符	2\n";
-	  m+="    [tranheadDic setValue:@\"06\" forKey:@\"H_CHANNEL_NO\"];\n";
-	  m+="    //  9	综合服务平台支局号	H_BRCH_NO_NEW	字符	8\n";
-	  m+="    [tranheadDic setValue:deviceInfo.H_BRCH_NO_NEW forKey:@\"H_BRCH_NO_NEW\"];\n";
-	  m+="    // 10	综合服务平台柜员号码	H_OPER_NO_NEW	字符	4\n";
-	  m+="    [tranheadDic setValue:deviceInfo.H_OPER_NO_NEW forKey:@\"H_OPER_NO_NEW\"];\n";
-	  m+="    // 11	上送文件数量循环域开始	H_SFILE_NUM	数字\n";
-	  m+="    [tranheadDic setValue:@\"0000\" forKey:@\"H_SFILE_NUM\"];\n";
-	  m+="    // 12	不带路径上送文件名	H_SEND_FILE	字符	60\n";
-	  m+="   // [tranheadDic setValue:@\"440000004509\" forKey:@\"H_SEND_FILE\"];\n";
-	  m+="    \n";
-	  m+="    \n";
-	  m+="    \n";
-	  m+="   // NSMutableDictionary *sendDataDic=[[NSMutableDictionary alloc] init];\n";
-	  m+="    [tranBodyDic setValue:tranheadDic forKey:@\"SNDMSG_HEAD\"];\n";
-	  m+="//      [sendDataDic setValue:tranBodyDic forKey:@\"tranBody\"];\n";
-	  m+="//    \n";
-	  m+="//    NSMutableDictionary *fullDic=[[NSMutableDictionary alloc] init];\n";
-	  m+="//    [fullDic setValue:sendDataDic forKey:@\"sendData\"];\n";
-	  m+="    \n";
-	  m+="    \n";
-	  m+="    \n";
-	  m+="   \n";
 	  m+="  \n";
 	  m+="          serviceInvoker=[[ServiceInvoker alloc]init];\n";
 
@@ -151,6 +104,49 @@ public class HttpAndError {
 	  m+="    timmer  = [NSTimer scheduledTimerWithTimeInterval:35 target:self selector:@selector(timeFire) userInfo:nil repeats:NO];\n";
 
 	  m+="}\n";
+	  
+	  
+	  
+	  
+		m+="//app注册 （ 告诉服务器appId appVersion  app公钥 ）\n";
+		m+="-(void) appRegist\n";
+		m+="{\n";
+		m+="    self.formName=@\"appRegist\";\n\n";
+		
+		m+="    RSAUtil *rsaUtil = [RSAUtil shareInstance];\n";
+		m+="    \n";
+		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
+		m+="    NSMutableDictionary *jsonBusinessParam =  [[NSMutableDictionary alloc ] init];\n";
+		
+		m+="    [rootParam setValue:@\"appSignIn\" forKey:@\"action\"];\n";
+		m+="    [jsonBusinessParam setValue:appID forKey:@\"appId\"];// Appid\n";
+		m+="    [jsonBusinessParam setValue:appVersion forKey:@\"appVer\"];// App版本\n";
+		m+="    [jsonBusinessParam setValue:publicKeyStringX509ServerVer forKey:@\"keyVer\"];\n";
+		m+="    \n\n";
+		
+		m+="    NSMutableDictionary *message =  [[NSMutableDictionary alloc ] init];\n";
+		m+="    [message setValue:publicKeyStringX509 forKey:@\"appKey\"];\n";
+		m+="    \n";
+	
+
+		m+="    \n";
+		m+="    //Rsa只含公钥对象\n";
+		m+="    RSA *publicRSA=[rsaUtil string2PublickeyFormartX509:publicKeyStringX509Server ];\n";
+		m+="    //用服务器公钥加密app公钥字符串,再传输\n";
+		m+="    NSData *encryptData = [rsaUtil encryptLongString:KeyTypePublic rsa:publicRSA paddingType:RSA_PADDING_TYPE_PKCS1 plainText:[self dic2jsonString:message ] usingEncoding:NSUTF8StringEncoding];\n";
+		m+="    NSString *encryptString =[encryptData base64EncodedString];\n";
+		m+="    \n";
+		m+="    \n";
+		m+="    [jsonBusinessParam setValue:encryptString forKey:@\"message\"];\n";
+		m+="    \n";
+		m+="    [rootParam setValue:jsonBusinessParam forKey:@\"param\"];\n";
+		m+="    \n";
+		m+="    [[GSNetService sharedInstance] sendMsg:rootParam toServerOnFormName:@\"appSignIn\" withDelegate:self];\n";
+		m+="    \n";
+		m+="}\n";
+	  
+	  
+	  
 
 	  m+="-(void)timeFire\n";
 	  m+="{\n";
