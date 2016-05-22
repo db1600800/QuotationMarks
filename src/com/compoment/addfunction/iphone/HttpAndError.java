@@ -86,18 +86,11 @@ public class HttpAndError {
 
 	  m+="    \n";
 	  m+="    NSMutableDictionary *sendDataDic=[[NSMutableDictionary alloc] init];\n";
-	  m+="    [sendDataDic setValue:tranheadDic forKey:@\"Head\"];\n";
+	  m+="    NSMutableDictionary *headDic=[[NSMutableDictionary alloc] init];\n";
+	  m+="    [sendDataDic setValue:headDic forKey:@\"Head\"];\n";
 	  m+="    [sendDataDic setValue:businessparam forKey:@\"Body\"];\n";
 	
-	
-
-	  m+="  \n";
-	  m+="          serviceInvoker=[[ServiceInvoker alloc]init];\n";
-
-	  m+="  \n";
-	  m+="    [serviceInvoker  setDelegate:self];\n";
-
-	  m+="     NSLog(@\"hobby request %@ %@\",formName,tranBodyDic);\n";
+	  m+="     NSLog(@\"hobby request %@ %@\",formName,sendDataDic);\n";
 	  m+="    [serviceInvoker callWebservice:tranBodyDic formName:formName delegate:self];\n";
 
 	  m+="    \n";
@@ -108,7 +101,34 @@ public class HttpAndError {
 	  
 	  
 	  
-		m+="//app注册 （ 告诉服务器appId appVersion  app公钥 ）\n";
+	    m+="/**\n";
+		m+=" * 取服务器RSA公钥\n";
+		m+=" */\n";
+		m+="-(void) rsaPublicKey:(NSString*)appId appVersion:(NSString*)appVersion {\n";
+		m+="    \n";
+		m+="    self.formName=@\"rsaPublicKey\";\n";
+		m+="    \n";
+
+		m+="    NSString *appID=appId;\n";
+		m+="    NSString *appVersion=appVersion;\n";
+		m+="    \n";
+		m+="    \n";
+		m+="    // 获取服务器RSA公钥报文组装\n";
+		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
+		m+="    NSMutableDictionary *jsonBusinessParam =  [[NSMutableDictionary alloc ] init];\n";
+		m+="    [rootParam setValue:@\"rsaPublicKeyDeepProc\" forKey:@\"action\"];//rsaPublicKeyDeepProc   rsaPublicKey\n";
+		m+="    [jsonBusinessParam setValue:appID forKey:@\"appId\"];// Appid\n";
+		m+="    [jsonBusinessParam setValue:appVersion forKey:@\"appVer\"];// App版本\n";
+		m+="    \n";
+		m+="    [rootParam setValue:jsonBusinessParam forKey:@\"param\"];\n";
+		m+="    \n";
+		m+="    [[GSNetService sharedInstance] sendMsg:rootParam toServerOnFormName:@\"rsaPublicKey\" withDelegate:self];\n";
+		m+="    \n";
+		m+="}\n\n";
+		
+		
+	  
+		m+="//app注册 （ 告诉服务器appId appVersion  appRsa公钥 ）\n";
 		m+="-(void) appRegist\n";
 		m+="{\n";
 		m+="    self.formName=@\"appRegist\";\n\n";
@@ -142,6 +162,46 @@ public class HttpAndError {
 		m+="    [rootParam setValue:jsonBusinessParam forKey:@\"param\"];\n";
 		m+="    \n";
 		m+="    [[GSNetService sharedInstance] sendMsg:rootParam toServerOnFormName:@\"appSignIn\" withDelegate:self];\n";
+		m+="    \n";
+		m+="}\n";
+		
+		
+		m+="-(void) checkUpdates:(NSString*)appId appVersion:(NSString*)appVersion{\n";
+		m+="    \n";
+		m+="    Sql *sql=[[Sql alloc ]init];\n";
+		m+="    \n";
+		m+="    NSString *oldConfigFileVersion=[sql selectPM_SIGNSERVICE_CONFIGVERSION];\n";
+		m+="    \n";
+		m+="    if(oldConfigFileVersion==nil || [oldConfigFileVersion isEqualToString:@\"\"])\n";
+		m+="    {\n";
+		m+="        oldConfigFileVersion=@\"19000101.0.1\";\n";
+		m+="    }\n";
+		m+="    \n";
+		m+="    self.formName=@\"checkUpdates\";\n";
+		m+="    \n";
+		m+="    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];\n";
+		m+="    [userDefault setObject:appId forKey:@\"appId\"];\n";
+		m+="    [userDefault setObject:appVersion forKey:@\"appVer\"];\n";
+		m+="    \n";
+		m+="    NSString *appID=appId;//[userDefault objectForKey:@\"appId\"];\n";
+		m+="    NSString *appVer=appVersion;//[userDefault objectForKey:@\"appVer\"];\n";
+		m+="    \n";
+		m+="    // 获取接入平台RSA公钥报文组装\n";
+		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
+		m+="    \n";
+		m+="    [rootParam setValue:@\"startup\" forKey:@\"action\"];\n";
+		m+="    [rootParam setValue:appID forKey:@\"appId\"];// Appid\n";
+		m+="    [rootParam setValue:appVer forKey:@\"appVersion\"];// App版本\n";
+		m+="    [rootParam setValue:oldConfigFileVersion forKey:@\"appConfigVersion\"];// App版本\n";
+		m+="    [rootParam setValue:@\"\" forKey:@\"deviceId\"];// App版本\n";
+		m+="    \n";
+		m+="    NSLog(@\"checkupdates request :%@\",rootParam);\n";
+		m+="    \n";
+		m+="    [[GSNetService sharedInstance] sendMsg:rootParam toServerOnFormName:@\"checkUpdates\" withDelegate:self];\n";
+		m+="    \n";
+		m+="    \n";
+		m+="    //http://202.105.44.4:8001/services/ChinaPostService?wsdl\n";
+		m+="    \n";
 		m+="    \n";
 		m+="}\n";
 	  
