@@ -379,9 +379,9 @@ public class CompomentDeclareImplement {
 			closeKeyboardImplement+="    [UIView beginAnimations:nil context:NULL];\n";
 			closeKeyboardImplement+="    [UIView setAnimationDuration:animationDuration];\n";
 			closeKeyboardImplement+="    \n";
-			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    if(movelength1!=0){\n";
 			closeKeyboardImplement+="    [self MoveView:(movelength1)];\n";
-			closeKeyboardImplement+="    \n";
+			closeKeyboardImplement+="    movelength1=0;\n}\n";
 			closeKeyboardImplement+="    \n";
 			closeKeyboardImplement+="    [UIView commitAnimations];\n";
 			closeKeyboardImplement+="}\n\n";

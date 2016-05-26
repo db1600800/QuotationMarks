@@ -283,6 +283,7 @@ public class HttpAndError {
 	  m+="    \n";
 	  m+="}\n";
 
+	  
 	  m+="//业务请求返回数据\n";
 	  m+="-(void)serviceInvokerReturnData:(MsgReturn*)msgReturn\n";
 	  m+="{\n";
@@ -396,40 +397,8 @@ public class HttpAndError {
 
 
 
-	  m+="//实现一个创建单例对象的类方法\n";
 
-
-
-
-	  m+="//这是单例对象遵循<NSCopying>协议时需要实现的方法\n";
-	  m+="-(id) copyWithZone: (struct _NSZone *)zone{\n";
-	  m+="    return self;\n";
-	  m+="}\n";
-
-
-	  m+="//- (NSString *)localIPAddress\n";
-	  m+="//{\n";
-	  m+="//    NSString *localIP = nil;\n";
-	  m+="//    struct ifaddrs *addrs;\n";
-	  m+="//    if (getifaddrs(&addrs)==0) {\n";
-	  m+="//        const struct ifaddrs *cursor = addrs;\n";
-	  m+="//        while (cursor != NULL) {\n";
-	  m+="//            if (cursor->ifa_addr->sa_family == AF_INET && (cursor->ifa_flags & IFF_LOOPBACK) == 0)\n";
-	  m+="//            {\n";
-	  m+="//                //NSString *name = [NSString stringWithUTF8String:cursor->ifa_name];\n";
-	  m+="//                //if ([name isEqualToString:@\"en0\"]) // Wi-Fi adapter\n";
-	  m+="//                {\n";
-	  m+="//                    localIP = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)cursor->ifa_addr)->sin_addr)];\n";
-	  m+="//                    break;\n";
-	  m+="//                }\n";
-	  m+="//            }\n";
-	  m+="//            cursor = cursor->ifa_next;\n";
-	  m+="//        }\n";
-	  m+="//        freeifaddrs(addrs);\n";
-	  m+="//    }\n";
-	  m+="//    return localIP;\n";
-	  m+="//}\n";
-
+	
 
 	  m+="@end\n";
 
