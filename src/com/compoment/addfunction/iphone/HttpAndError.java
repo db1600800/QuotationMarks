@@ -116,7 +116,7 @@ public class HttpAndError {
 		m+="    // 获取服务器RSA公钥报文组装\n";
 		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
 		m+="    NSMutableDictionary *jsonBusinessParam =  [[NSMutableDictionary alloc ] init];\n";
-		m+="    [rootParam setValue:@\"rsaPublicKeyDeepProc\" forKey:@\"action\"];//rsaPublicKeyDeepProc   rsaPublicKey\n";
+		m+="    [rootParam setValue:@\"rsaPublicKeyService\" forKey:@\"action\"];//rsaPublicKeyDeepProc   rsaPublicKey\n";
 		m+="    [jsonBusinessParam setValue:appID forKey:@\"appId\"];// Appid\n";
 		m+="    [jsonBusinessParam setValue:appVersion forKey:@\"appVer\"];// App版本\n";
 		m+="    \n";
@@ -138,14 +138,14 @@ public class HttpAndError {
 		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
 		m+="    NSMutableDictionary *jsonBusinessParam =  [[NSMutableDictionary alloc ] init];\n";
 		
-		m+="    [rootParam setValue:@\"appSignIn\" forKey:@\"action\"];\n";
+		m+="    [rootParam setValue:@\"appRegist\" forKey:@\"action\"];\n";
 		m+="    [jsonBusinessParam setValue:appID forKey:@\"appId\"];// Appid\n";
 		m+="    [jsonBusinessParam setValue:appVersion forKey:@\"appVer\"];// App版本\n";
-		m+="    [jsonBusinessParam setValue:publicKeyStringX509ServerVer forKey:@\"keyVer\"];\n";
+		m+="    [jsonBusinessParam setValue:publicKeyStringX509ServerVersion forKey:@\"publicKeyServerVersion\"];\n";
 		m+="    \n\n";
 		
 		m+="    NSMutableDictionary *message =  [[NSMutableDictionary alloc ] init];\n";
-		m+="    [message setValue:publicKeyStringX509 forKey:@\"appKey\"];\n";
+		m+="    [message setValue:publicKeyStringX509App forKey:@\"appKey\"];\n";
 		m+="    \n";
 	
 
@@ -189,7 +189,7 @@ public class HttpAndError {
 		m+="    // 获取接入平台RSA公钥报文组装\n";
 		m+="    NSMutableDictionary *rootParam = [[NSMutableDictionary alloc ] init];\n";
 		m+="    \n";
-		m+="    [rootParam setValue:@\"startup\" forKey:@\"action\"];\n";
+		m+="    [rootParam setValue:@\"checkUpdates\" forKey:@\"action\"];\n";
 		m+="    [rootParam setValue:appID forKey:@\"appId\"];// Appid\n";
 		m+="    [rootParam setValue:appVer forKey:@\"appVersion\"];// App版本\n";
 		m+="    [rootParam setValue:oldConfigFileVersion forKey:@\"appConfigVersion\"];// App版本\n";
@@ -210,7 +210,7 @@ public class HttpAndError {
 
 	  m+="-(void)timeFire\n";
 	  m+="{\n";
-	  m+="       [SVProgressHUD dismiss];\n";
+	  m+="       [SVProgressHUD dism iss];\n";
 	  m+="    \n";
 	  m+="//    MsgReturn *msgReturn= [[MsgReturn alloc]init ];\n";
 	  m+="//    msgReturn.errorCode=ERROR_TIMEOUT_ERROR ;\n";
