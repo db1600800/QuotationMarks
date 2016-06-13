@@ -771,7 +771,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 			
-			InterfaceDoc projectDocPanel=new InterfaceDoc();
+			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
 			
@@ -915,7 +915,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 				
-				InterfaceDoc projectDocPanel=new InterfaceDoc();
+				InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 			
@@ -952,7 +952,7 @@ public class CodeFunctionAdd extends JFrame {
 		
 
 			
-			InterfaceDoc projectDocPanel=new InterfaceDoc();
+			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
 			
@@ -987,7 +987,7 @@ public void WebFunction(Function function) {
 						if (response == 0) {
 //					
 						
-						InterfaceDoc projectDocPanel=new InterfaceDoc();
+						InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 						projectDocPanel.setModal(true);
 						projectDocPanel.setVisible(true);
 						

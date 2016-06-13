@@ -37,7 +37,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class InterfaceDoc extends JDialog {
+public class InterfaceDocDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField pathValueEditText;
@@ -70,7 +70,7 @@ public class InterfaceDoc extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			InterfaceDoc dialog = new InterfaceDoc();
+			InterfaceDocDialog dialog = new InterfaceDocDialog();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class InterfaceDoc extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InterfaceDoc() {
+	public InterfaceDocDialog() {
 		setBounds(100, 100, 500, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

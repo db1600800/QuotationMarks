@@ -544,7 +544,7 @@ public class CompomentDialog2 extends JDialog {
 		 interfaceBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				InterfaceDoc projectDocPanel=new InterfaceDoc();
+				InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 				

@@ -14,7 +14,7 @@ import com.compoment.addfunction.webmanage.Action;
 import com.compoment.addfunction.webmanage.ActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
-import com.compoment.workflow.InterfaceDoc;
+import com.compoment.workflow.InterfaceDocDialog;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -285,7 +285,7 @@ public class Main extends JFrame {
 	
 	public void getDBTables()
 	{
-		InterfaceDoc projectDocPanel=new InterfaceDoc();
+		InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
 		projectDocPanel.setModal(true);
 		projectDocPanel.setVisible(true);
 		

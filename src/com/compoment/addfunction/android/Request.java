@@ -17,7 +17,7 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
 import com.compoment.util.RegexUtil.ControllerBean;
-import com.compoment.workflow.InterfaceDoc;
+import com.compoment.workflow.InterfaceDocDialog;
 import com.compoment.workflow.PageInterfaceDocPanel;
 
 /***
@@ -28,13 +28,13 @@ public class Request {
 	String sourceAddress = KeyValue.readCache("compomentProjectAddress");// "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
 	String waitByModifyFileName;
-	InterfaceDoc pageInterfaceDocPanel;
+	InterfaceDocDialog pageInterfaceDocPanel;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Paging("");
 	}
 
-	public Request(String waitByModifyFileName,InterfaceDoc pageInterfaceDocPanel) {
+	public Request(String waitByModifyFileName,InterfaceDocDialog pageInterfaceDocPanel) {
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageInterfaceDocPanel=pageInterfaceDocPanel;
 		copyFile();
