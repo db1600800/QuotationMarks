@@ -472,7 +472,7 @@ public class InterfaceDoc extends JDialog {
 		  
 		}
 		
-		InterfaceDoc.this.setVisible(false);
+		//InterfaceDoc.this.setVisible(false);
 
 	}
 	

@@ -19,6 +19,7 @@ import com.compoment.util.ImportString;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
 import com.compoment.util.RegexUtil.ControllerBean;
+import com.compoment.workflow.InterfaceDoc;
 import com.compoment.workflow.PageInterfaceDocPanel;
 
 /***
@@ -29,13 +30,13 @@ public class Request {
 	String sourceAddress = KeyValue.readCache("compomentProjectAddress");// "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
 	String waitByModifyFileName;
-	PageInterfaceDocPanel pageInterfaceDocPanel;
+	InterfaceDoc pageInterfaceDocPanel;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
 	}
 
-	public Request(String waitByModifyFileName,PageInterfaceDocPanel pageInterfaceDocPanel) {
+	public Request(String waitByModifyFileName,InterfaceDoc pageInterfaceDocPanel) {
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageInterfaceDocPanel=pageInterfaceDocPanel;
 		//copyFile();

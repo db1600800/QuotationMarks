@@ -12,9 +12,9 @@ public class DateTimeSelect {
 		m+="UIButton *selectDateTimeBtn=nil;\n";
 		m+="      #pragma mark -日期选择 \n";
 		m+="      -(void) selectDateTimeButtonClicked:(UIButton *)btn{\n";
+		m+="selectDateTimeBtn=btn;\n";
 		m+="          UIDatePicker *datePicker = [[UIDatePicker alloc] init];\n";
 		m+="          datePicker.tag = 101;\n";
-		m+="          datePicker.datePickerMode = UIDatePickerModeDate;\n";
 		m+="          datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@\"zh_CN\"];// 设置区域为中国简体中文\n";
 		m+="          datePicker.datePickerMode = UIDatePickerModeDate; // 设置picker的显示模式：只显示日期\n";
 		m+="          [datePicker setDate:[NSDate date] animated:YES]; // 设置日期控件值\n";
@@ -25,7 +25,7 @@ public class DateTimeSelect {
 		m+="          \n";
 		m+="          \n";
 		m+="  if ([[[UIDevice currentDevice] systemVersion] floatValue] <= 7.0) {\n";
-		m+="          NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @\"\n\n\n\n\n\n\n\n\n\" : @\"\n\n\n\n\n\n\n\n\n\n\n\n\";\n";
+		m+="          NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\" : @\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\";\n";
 		m+="          \n";
 		m+="          UIActionSheet* startsheet = [[UIActionSheet alloc] initWithTitle:title\n";
 		m+="                                                                  delegate:self\n";
@@ -41,7 +41,7 @@ public class DateTimeSelect {
 		m+="}else{\n";
 		m+="          \n";
 		m+="          \n";
-		m+="          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@\"\n\n\n\n\n\n\n\n\n\n\n\n\" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];\n";
+		m+="          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];\n";
 		m+="          \n";
 		m+="          [alert.view addSubview:datePicker];\n";
 		m+="          \n";
@@ -109,6 +109,14 @@ public class DateTimeSelect {
 		m+="      \n";
 		m+="      \n";
 		m+="      //日期选择End\n";
+		
+		
+		System.out.println(m);
 	}
 
+	
+	public static void main(String[] args) {
+		DateTimeSelect dateTimeSelect=new DateTimeSelect();
+		dateTimeSelect.time();
+	}
 }

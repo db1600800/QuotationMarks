@@ -14,6 +14,7 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;
+import com.compoment.workflow.InterfaceDoc;
 import com.compoment.workflow.PageInterfaceDocPanel;
 
 public class WebRequestRespond {
@@ -21,9 +22,9 @@ public class WebRequestRespond {
 	String waitByModifyFileName;
 
 	String m = "";
-	PageInterfaceDocPanel pageInterfaceDocPanel;
+	InterfaceDoc pageInterfaceDocPanel;
 
-	public WebRequestRespond(String waitByModifyFileName, PageInterfaceDocPanel pageInterfaceDocPanel) {
+	public WebRequestRespond(String waitByModifyFileName, InterfaceDoc pageInterfaceDocPanel) {
 
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageInterfaceDocPanel = pageInterfaceDocPanel;

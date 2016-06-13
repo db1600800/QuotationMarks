@@ -769,13 +769,13 @@ public class CodeFunctionAdd extends JFrame {
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-			PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
-			JPanel docsPanel = projectDocPanel.create();
-			JDialog jdialog = new JDialog(this, "", true);
-			jdialog.setSize(800, 400);
-			jdialog.setLocationRelativeTo(null);
-			jdialog.add(docsPanel);
-			jdialog.setVisible(true);
+
+			
+			InterfaceDoc projectDocPanel=new InterfaceDoc();
+			projectDocPanel.setModal(true);
+			projectDocPanel.setVisible(true);
+			
+			
 			
 			if(projectDocPanel.selects==null)
 			{
@@ -913,13 +913,11 @@ public class CodeFunctionAdd extends JFrame {
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-			PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
-			JPanel docsPanel = projectDocPanel.create();
-			JDialog jdialog = new JDialog(this, "", true);
-			jdialog.setSize(800, 400);
-			jdialog.setLocationRelativeTo(null);
-			jdialog.add(docsPanel);
-			jdialog.setVisible(true);
+
+				
+				InterfaceDoc projectDocPanel=new InterfaceDoc();
+				projectDocPanel.setModal(true);
+				projectDocPanel.setVisible(true);
 			
 			if(projectDocPanel.selects==null)
 			{
@@ -987,13 +985,11 @@ public void WebFunction(Function function) {
 								JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 								options, options[0]);
 						if (response == 0) {
-						PageInterfaceDocPanel projectDocPanel=new PageInterfaceDocPanel(this);
-						JPanel docsPanel = projectDocPanel.create();
-						JDialog jdialog = new JDialog(this, "", true);
-						jdialog.setSize(800, 400);
-						jdialog.setLocationRelativeTo(null);
-						jdialog.add(docsPanel);
-						jdialog.setVisible(true);
+//					
+						
+						InterfaceDoc projectDocPanel=new InterfaceDoc();
+						projectDocPanel.setModal(true);
+						projectDocPanel.setVisible(true);
 						
 						if(projectDocPanel.selects==null)
 						{
