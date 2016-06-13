@@ -11,6 +11,11 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -23,6 +28,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -51,7 +57,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 //工程设置
-public class ProjectFrame2 extends JFrame implements ClipboardOwner {
+public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetListener {
 
 	private JPanel contentPane;
 	private JTextField androidPathValueEditText;
@@ -606,5 +612,54 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner {
 
 		};
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(trans, null);
+	}
+	
+	
+	
+   //拖放文件
+	@Override
+	public void dragEnter(DropTargetDragEvent dtde) {
+		// TODO Auto-generated method stub
+		
+		 DataFlavor[] dataFlavors = dtde.getCurrentDataFlavors();  
+	        if(dataFlavors[0].match(DataFlavor.javaFileListFlavor)){  
+	            try {  
+	                Transferable tr = dtde.getTransferable();  
+	                Object obj = tr.getTransferData(DataFlavor.javaFileListFlavor);  
+	                List<File> files = (List<File>)obj;  
+	                for(int i = 0; i < files.size(); i++){  
+	                    append(files.get(i).getAbsolutePath()+"/r/n");  
+	                }  
+	            } catch (UnsupportedFlavorException ex) {  
+	  
+	            } catch (IOException ex) {  
+	  
+	            }  
+	        }  
+		
+	}
+
+	@Override
+	public void dragExit(DropTargetEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragOver(DropTargetDragEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drop(DropTargetDropEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropActionChanged(DropTargetDragEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
