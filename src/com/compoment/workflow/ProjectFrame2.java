@@ -476,12 +476,14 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner {
 								JOptionPane.INFORMATION_MESSAGE);
 						if (fileName.indexOf(".png") == -1) {
 							fileName = fileName + ".png";
-
 						}
 
 						Image image = (Image) clipTf.getTransferData(DataFlavor.imageFlavor);
 
 						File file = new File(KeyValue.readCache("picPath") + "/" + fileName);
+						if(!file.exists()){
+							
+							
 						// 转成jpg
 						// BufferedImage bufferedImage = new
 						// BufferedImage(image.getWidth(null),
@@ -496,12 +498,32 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner {
 						ImageIO.write((RenderedImage) bufferedImage, "png", file);
 
 						searchPics(KeyValue.readCache("picPath"));
+						}else
+						{
+							
+							 JOptionPane.showMessageDialog(null, "文件已存在");
+							 
+						}
+						
+						String str = "";// 设置字符串
+						StringSelection selection = new StringSelection(str);// 构建String数据类型
+						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+
+						clipboard.setContents(clipboard.getContents(null), this);
+					
 						break;
 					} else {
 						// 在此可以判断剪贴板的其它类型，如果不是复制的rtf只在弹出提示框显示；
 						System.out.println("剪贴板内容类型：" + data.getSubType());
+						
+						JOptionPane.showMessageDialog(null, "剪贴板内容类型不是图片," + data.getSubType());
 
-						// JOptionPane.showMessageDialog(null, ret);
+						String str = "";// 设置字符串
+						StringSelection selection = new StringSelection(str);// 构建String数据类型
+						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+
+						clipboard.setContents(clipboard.getContents(null), this);
+						
 						break;
 					}
 				}
@@ -514,11 +536,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner {
 			e.printStackTrace();
 		}
 
-		String str = "";// 设置字符串
-		StringSelection selection = new StringSelection(str);// 构建String数据类型
-		clipboard.setContents(selection, selection);// 添加文本到系统剪切板
-
-		clipboard.setContents(clipboard.getContents(null), this);
+	
 
 	}
 
