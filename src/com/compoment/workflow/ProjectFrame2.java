@@ -12,6 +12,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
@@ -28,10 +29,12 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
@@ -50,6 +53,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -68,12 +72,17 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	private JCheckBox androidCheckBox;
 	JCheckBox iphoneCheckBox;
 	JCheckBox webCheckBox;
+	JPopupMenu popupMenu;
+	
+	Object rightBtnSelectedName;
 
 	ArrayList listDate = new ArrayList();
 
 	String path;
 
 	private Clipboard clipboard;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -102,8 +111,11 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		String str = "";// 设置字符串
 		StringSelection selection = new StringSelection(str);// 构建String数据类型
 		clipboard.setContents(selection, selection);// 添加文本到系统剪切板
-
 		clipboard.setContents(clipboard.getContents(null), this);
+		
+	
+		
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
@@ -134,60 +146,91 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		webPathValueEditText.setColumns(10);
 
 		JLabel lblNewLabel_5 = new JLabel("原型图片");
-
-		picListListView = new JList();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		popupMenu = new JPopupMenu();
+		JMenuItem menuitem=new JMenuItem("删除");
+		popupMenu.add(menuitem); //添加菜单项Open
+		menuitem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				FileUtil.deleteFile(sPath)
+				rightBtnSelectedName
+				
+			}});
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-												.addComponent(lblNewLabel).addGap(149))
-								.addComponent(swingPathValueEditText, GroupLayout.PREFERRED_SIZE, 201,
-										GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-										.addComponent(swingCheckBox))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(webPathValueEditText, GroupLayout.PREFERRED_SIZE, 201,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-										.addComponent(iphoneCheckBox).addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-										.addComponent(webCheckBox).addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(androidPathValueEditText, Alignment.LEADING)
-												.addComponent(iphonePathValueEditText, Alignment.LEADING,
-														GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.RELATED)))
-						.addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(androidCheckBox)
-								.addPreferredGap(ComponentPlacement.RELATED)))
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(108).addComponent(lblNewLabel_5))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(97).addComponent(picListListView,
-								GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(15, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_5))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addComponent(androidCheckBox)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(androidPathValueEditText, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(iphoneCheckBox).addGap(5)
-								.addComponent(iphonePathValueEditText, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(12).addComponent(swingCheckBox).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(swingPathValueEditText, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(webCheckBox)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(webPathValueEditText,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(picListListView, GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)).addGap(65)));
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel))
+						.addComponent(swingPathValueEditText, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(swingCheckBox))
+						.addComponent(webPathValueEditText, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(iphoneCheckBox))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(webCheckBox))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(androidPathValueEditText, Alignment.LEADING)
+							.addComponent(iphonePathValueEditText, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(androidCheckBox)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(114)
+							.addComponent(lblNewLabel_5))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(93)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(lblNewLabel_5))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(androidCheckBox)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(androidPathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(iphoneCheckBox)
+							.addGap(5)
+							.addComponent(iphonePathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addComponent(swingCheckBox)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(swingPathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(webCheckBox)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(webPathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(9)
+							.addComponent(scrollPane)))
+					.addContainerGap(71, Short.MAX_VALUE))
+		);
+		
+				
+				
+				picListListView = new JList();
+				scrollPane.setViewportView(picListListView);
 		contentPane.setLayout(gl_contentPane);
 
 		init();
@@ -398,8 +441,16 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 					String fileName = picListListView.getSelectedValue().toString();
 					new PageFrame(path + "/" + fileName);
 				}
+				
+				maybeShowPopup(me);
 			}
 		});
+		
+		
+		//注册DropTarget，并将它与组件相连，处理哪个组件的相连    
+        //即连通组件（第一个this）和Listener(第二个this)    
+       new DropTarget(this,DnDConstants.ACTION_COPY_OR_MOVE, this, true);    
+		
 
 	}
 
@@ -452,12 +503,39 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	
 	
 	
+	
+	
+	 //右键弹出菜单
+    private void maybeShowPopup(MouseEvent e) {
+    	
+           if ( e.getButton() == MouseEvent.BUTTON3 ) {
+        	   int index = picListListView.locationToIndex(e.getPoint());  
+               picListListView.setSelectedIndex(index); 
+        	   
+            //获取选择项的值
+             rightBtnSelectedName = picListListView.getModel().getElementAt(picListListView.getSelectedIndex());
+            System.out.println(rightBtnSelectedName);
+            popupMenu.show(e.getComponent(),e.getX(), e.getY());
+           
+          
+           }
+      }
+	
+	
+	
 
 	// 系统黏贴板变化
 	@Override
 	public void lostOwnership(Clipboard arg0, Transferable arg1) {
 		// TODO Auto-generated method stub
 
+		if (!webCheckBox.isSelected())
+		{
+			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
+	
+		return ;
+		}
+	
 		try {
 
 			// 如果不暂停一下，经常会抛出IllegalStateException
@@ -621,21 +699,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	public void dragEnter(DropTargetDragEvent dtde) {
 		// TODO Auto-generated method stub
 		
-		 DataFlavor[] dataFlavors = dtde.getCurrentDataFlavors();  
-	        if(dataFlavors[0].match(DataFlavor.javaFileListFlavor)){  
-	            try {  
-	                Transferable tr = dtde.getTransferable();  
-	                Object obj = tr.getTransferData(DataFlavor.javaFileListFlavor);  
-	                List<File> files = (List<File>)obj;  
-	                for(int i = 0; i < files.size(); i++){  
-	                    append(files.get(i).getAbsolutePath()+"/r/n");  
-	                }  
-	            } catch (UnsupportedFlavorException ex) {  
-	  
-	            } catch (IOException ex) {  
-	  
-	            }  
-	        }  
+		
 		
 	}
 
@@ -652,9 +716,51 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	}
 
 	@Override
-	public void drop(DropTargetDropEvent arg0) {
+	public void drop(DropTargetDropEvent dtde) {
 		// TODO Auto-generated method stub
 		
+		if (!webCheckBox.isSelected())
+		{
+			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
+	
+		return ;
+		}
+       
+		 try {
+             Transferable tr = dtde.getTransferable();
+
+             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                 dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+                 System.out.println("file cp");
+                 List list = (List) (dtde.getTransferable()
+                         .getTransferData(DataFlavor.javaFileListFlavor));
+                 Iterator iterator = list.iterator();
+                 while (iterator.hasNext()) {
+                     File f = (File) iterator.next();
+                  
+                     
+                     if(f.getAbsolutePath().toLowerCase().contains(".png")||f.getAbsolutePath().toLowerCase().contains(".jpg"))
+             		{
+						FileUtil.MoveFolderAndFileWithSelf(f.getAbsolutePath(),KeyValue.readCache("picPath"));
+						
+             		}
+                 }
+             	searchPics(KeyValue.readCache("picPath"));
+                 dtde.dropComplete(true);
+                 
+             }else {
+                 dtde.rejectDrop();
+             }
+         } catch (IOException ioe) {
+             ioe.printStackTrace();
+         } catch (UnsupportedFlavorException ufe) {
+             ufe.printStackTrace();
+         } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 
 	@Override
