@@ -105,18 +105,6 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	 */
 	public ProjectFrame2() {
 
-		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		// 将剪贴板中内容的ClipboardOwner设置为自己
-		// 这样当其中内容变化时，就会触发lostOwnership事件
-		String str = "";// 设置字符串
-		StringSelection selection = new StringSelection(str);// 构建String数据类型
-		clipboard.setContents(selection, selection);// 添加文本到系统剪切板
-		clipboard.setContents(clipboard.getContents(null), this);
-		
-	
-		
-		
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
@@ -235,6 +223,15 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 				scrollPane.setViewportView(picListListView);
 		contentPane.setLayout(gl_contentPane);
 
+		
+		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		// 将剪贴板中内容的ClipboardOwner设置为自己
+		// 这样当其中内容变化时，就会触发lostOwnership事件
+		String str = "";// 设置字符串
+		StringSelection selection = new StringSelection(str);// 构建String数据类型
+		clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+		clipboard.setContents(clipboard.getContents(null), this);
+		
 		init();
 
 	}
@@ -441,7 +438,8 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			public void mouseReleased(MouseEvent me) {
 				if (checkClickTime()) {
 					String fileName = picListListView.getSelectedValue().toString();
-					new PageFrame(path + "/" + fileName);
+					PageFrame2 pageFrame2=new PageFrame2(path + "/" + fileName);
+					pageFrame2.setVisible(true);
 				}
 				
 				maybeShowPopup(me);
@@ -531,7 +529,8 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	public void lostOwnership(Clipboard arg0, Transferable arg1) {
 		// TODO Auto-generated method stub
 
-		if (!webCheckBox.isSelected())
+
+		if (!webCheckBox.isSelected() )
 		{
 			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
 	

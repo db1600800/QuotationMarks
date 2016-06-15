@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
 
 public class InterfaceDocDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	public final JPanel contentPanel = new JPanel();
 	private JTextField pathValueEditText;
 	private JTextField cnNameValueEditText;
 	private JTextField enNameValueEditText;

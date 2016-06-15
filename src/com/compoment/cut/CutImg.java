@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.compoment.workflow.PageFrame;
+import com.compoment.workflow.PageFrame2;
 
 
 /**
@@ -42,14 +43,14 @@ public class CutImg extends JPanel {
 	int x1, y1, x2, y2;
 
 	CutImgCallBack implementInterfaceFrame;
-	PageFrame parentView;
+	PageFrame2 parentView;
 	/**
 	 * 显示图片，提供截取功能
 	 * */
 	public CutImg(final CutImgCallBack implementInterfaceFrame,File file) {
 		super();
 		this.implementInterfaceFrame=implementInterfaceFrame;
-		parentView=(PageFrame)implementInterfaceFrame;
+		parentView=(PageFrame2)implementInterfaceFrame;
 		
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
