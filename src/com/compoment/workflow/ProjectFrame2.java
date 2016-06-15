@@ -156,8 +156,10 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				FileUtil.deleteFile(sPath)
-				rightBtnSelectedName
+				FileUtil.deleteFile(KeyValue.readCache("picPath")+"/"+rightBtnSelectedName);
+				
+				
+				searchPics(KeyValue.readCache("picPath"));
 				
 			}});
 		
@@ -731,7 +733,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
              if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                  dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-                 System.out.println("file cp");
+              
                  List list = (List) (dtde.getTransferable()
                          .getTransferData(DataFlavor.javaFileListFlavor));
                  Iterator iterator = list.iterator();
