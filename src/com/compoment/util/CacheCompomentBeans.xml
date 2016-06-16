@@ -7,21 +7,21 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>5</x>
-    <y>50</y>
-    <w>290</w>
-    <h>486</h>
+    <x>8</x>
+    <y>4</y>
+    <w>307</w>
+    <h>550</h>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>a</jumpToWhichPage>
-    <cnname>bg1465787758303</cnname>
-    <enname>bg1465787758303LinearLayout</enname>
+    <cnname>bg1466038358934</cnname>
+    <enname>bg1466038358934LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>chl-U2-pDF</id>
+    <id>pfv-Nw-end</id>
     <type>LinearLayout</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -29,7 +29,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1465787759964</time>
+    <time>1466038360741</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -40,21 +40,21 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>57</x>
-    <y>117</y>
-    <w>185</w>
-    <h>307</h>
+    <x>58</x>
+    <y>66</y>
+    <w>138</w>
+    <h>358</h>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>a</jumpToWhichPage>
-    <cnname>af</cnname>
-    <enname>afTextView</enname>
+    <cnname>a</cnname>
+    <enname>aTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>l4P-xB-hAl</id>
+    <id>0kN-Hy-GDz</id>
     <type>TextView</type>
     <orientation></orientation>
     <gravity></gravity>
@@ -62,7 +62,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1465787767821</time>
+    <time>1466038368260</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
 </list>

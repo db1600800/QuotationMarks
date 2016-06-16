@@ -31,7 +31,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.compoment.workflow.PageFrame;
+
 import com.compoment.workflow.PageFrame2;
 
 
@@ -69,7 +69,7 @@ public class CutImg extends JPanel {
 				int h = (y1 > y2 ? y1 : y2) - y;
 				
 				Image image = CutImg.this.getImageByClip(x, y, w, h);
-				setClipboardImage2(image);
+				//setClipboardImage2(image);
 				
 				implementInterfaceFrame.cutImgCallBack(image, x, y, w, h);
 				
