@@ -114,7 +114,7 @@ public class ColorPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.drawImage(image, 0, 0, this);
-		System.out.println("(" + x1 + "," + y1 + ")(" + x2 + "," + y2 + ")");
+		//System.out.println("(" + x1 + "," + y1 + ")(" + x2 + "," + y2 + ")");
 		if (x1 == 0 && y1 == 0 && x2 == 0 && y2 == 0)
 			return;
 

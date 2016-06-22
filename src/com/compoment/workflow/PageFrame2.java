@@ -70,6 +70,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 	public String pagePath;
 	public String pageName;
 	ArrayList components = new ArrayList();
+	InterfaceDocDialog projectDocPanel;
 
 	/**
 	 * Launch the application.
@@ -165,7 +166,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					.addContainerGap())
 		);
 		
-		InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
+		 projectDocPanel=new InterfaceDocDialog();
 		JPanel interfaceDocPanel = projectDocPanel.contentPanel;
 		scrollPane_1.setViewportView(interfaceDocPanel);
 		
@@ -885,7 +886,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		//dialog = new CompomentDialog(this,this, image, x, y, w, h,components);
 		
 		
-		CompomentDialog2 jdialog = new CompomentDialog2();
+		
+		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.interfaceBeans);
 		//jdialog.setSize(1000, 800);
 		jdialog.init(this,this, image, x, y, w, h,components);
 	
