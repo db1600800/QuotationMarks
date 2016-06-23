@@ -46,6 +46,8 @@ public class CompomentBean implements Serializable {
 	public boolean isFilletedCorner=false;//是否是圆角
 	public String id;// for iPhone id=jyV-Pf-zRb
 	
+	public boolean isSameGroupWihtBeforCompoment;//与上个控件一组   Title Value
+	
 	
 
 	/**

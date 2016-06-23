@@ -110,6 +110,8 @@ public class CompomentDialog2 extends JDialog {
 	private JLabel lblWeb;
 	JCheckBox layoutNoUseBool;
 	List<InterfaceBean> interfaceBeans;
+	
+	JCheckBox sameGroupWithBeforCompomentCheckbox;
 
 	/**
 	 * Launch the application.
@@ -318,61 +320,77 @@ public class CompomentDialog2 extends JDialog {
 
 		layoutNoUseBool = new JCheckBox("使布局无效ForIos(隐藏布局留里边子控件)");
 		layoutNoUseBool.setVisible(false);
+		
+		 sameGroupWithBeforCompomentCheckbox = new JCheckBox("同上一组");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_1.createSequentialGroup().addContainerGap()
-										.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_panel_1.createSequentialGroup()
-														.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, 107,
-																GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, 106,
-																GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96,
-												GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(
-										gl_panel_1.createSequentialGroup().addComponent(runTimeAddScrollView)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-														.addGroup(gl_panel_1.createSequentialGroup().addGap(29)
-																.addComponent(ok))
-														.addGroup(gl_panel_1.createSequentialGroup()
-																.addComponent(circularCheckBox)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addComponent(imgCacheCheckBox)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addComponent(setPublicCheckBox)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addComponent(isRunTimeHeight))))))
-						.addGroup(gl_panel_1.createSequentialGroup().addGap(490).addComponent(cancel))
-						.addComponent(layoutNoUseBool)).addContainerGap(201, Short.MAX_VALUE)));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-						.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE).addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(runTimeAddScrollView)
-						.addComponent(circularCheckBox).addComponent(imgCacheCheckBox).addComponent(setPublicCheckBox)
-						.addComponent(isRunTimeHeight)).addGroup(
-								gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(sameGroupWithBeforCompomentCheckbox)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(runTimeAddScrollView)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel_1.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addComponent(cancel))
-						.addGroup(gl_panel_1.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(ok).addContainerGap())))
-				.addGroup(gl_panel_1.createSequentialGroup().addGap(69).addComponent(layoutNoUseBool).addGap(6)));
+											.addGap(29)
+											.addComponent(ok))
+										.addGroup(gl_panel_1.createSequentialGroup()
+											.addComponent(circularCheckBox)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(imgCacheCheckBox)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(setPublicCheckBox)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(isRunTimeHeight))))))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(490)
+							.addComponent(cancel))
+						.addComponent(layoutNoUseBool))
+					.addContainerGap(310, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(cnNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(enNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(picNameEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(sameGroupWithBeforCompomentCheckbox))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(runTimeAddScrollView)
+						.addComponent(circularCheckBox)
+						.addComponent(imgCacheCheckBox)
+						.addComponent(setPublicCheckBox)
+						.addComponent(isRunTimeHeight))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+							.addComponent(cancel))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(ok)
+							.addContainerGap())))
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(69)
+					.addComponent(layoutNoUseBool)
+					.addGap(6))
+		);
 		panel_1.setLayout(gl_panel_1);
 
 		color1Btn = new JButton("");
@@ -615,6 +633,7 @@ public class CompomentDialog2 extends JDialog {
 				}
 				bean.jumpToWhichPage = jumpToWhichPage;
 
+				bean.isSameGroupWihtBeforCompoment=sameGroupWithBeforCompomentCheckbox.isSelected();
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
 				bean.enname = (enNameEdit.getText().trim() + compomentType).replace(" ", "");
 				bean.rgb16 = "" + colorEdit.getText().trim();
