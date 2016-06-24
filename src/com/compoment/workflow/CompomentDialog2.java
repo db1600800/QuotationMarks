@@ -112,13 +112,16 @@ public class CompomentDialog2 extends JDialog {
 	List<InterfaceBean> interfaceBeans;
 	
 	JCheckBox sameGroupWithBeforCompomentCheckbox;
+	
+	List<CompomentBean> allCompoments;
+	CompomentBean bean = new CompomentBean();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CompomentDialog2 dialog = new CompomentDialog2(null);
+			CompomentDialog2 dialog = new CompomentDialog2(null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -129,9 +132,10 @@ public class CompomentDialog2 extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CompomentDialog2(List<InterfaceBean> interfaceBeans) {
+	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments) {
 		this.interfaceBeans = interfaceBeans;
-		setBounds(100, 100, 1170, 600);
+		this.allCompoments=allCompoments;
+		setBounds(100, 100, 1170, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.LIGHT_GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -473,6 +477,62 @@ public class CompomentDialog2 extends JDialog {
 	public void setView(final CompomentDialogCallBack implementInterfaceFrame, JFrame frame, final Image image,
 			final int x, final int y, final int w, final int h, ArrayList listDate) {
 
+		
+		sameGroupWithBeforCompomentCheckbox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+			if(sameGroupWithBeforCompomentCheckbox.isSelected()){//chekbox声明为final型才能在内部使用
+				if(allCompoments!=null &&allCompoments.size()>0)
+				{
+					CompomentBean before=allCompoments.get(allCompoments.size()-1);
+					enNameEdit.setText(before.enname+"Value");
+					bean.interfaceColumnEnName=before.interfaceColumnEnName;
+					before.interfaceColumnEnName=null;
+					
+					
+					boolean isOkRequest=false;
+					int i=0;
+					for (Group group : interfaceBeans.get(0).requestGroups) {
+
+						for (Row row : group.rows) {
+							
+							String column = row.enName + ":" + row.cnName;
+							if(row.enName.contains(bean.interfaceColumnEnName)||bean.interfaceColumnEnName.contains(row.enName))
+							{
+								
+								isOkRequest=true;
+								interfaceList.setSelectedIndex(i);
+							}
+							i++;
+						}
+
+					}
+					boolean isOkRespond=false;
+					int j=0;
+					for (Group group : interfaceBeans.get(0).respondGroups) {
+
+						for (Row row : group.rows) {
+							String column = row.enName + ":" + row.cnName;
+							if(row.enName.contains(bean.interfaceColumnEnName)||bean.interfaceColumnEnName.contains(row.enName))
+							{
+								
+								isOkRespond=true;
+								interfaceColumnList.setSelectedIndex(j);
+								j++;
+							}
+						}
+
+					}
+					
+				}else
+				{
+				enNameEdit.setText("英文名");
+				}
+			}
+			}
+			});
+		
+	
+		
 		List picnames = searchPics(KeyValue.readCache("picPath"));
 
 		for (int i = 0; i < picnames.size(); i++) {
@@ -621,7 +681,7 @@ public class CompomentDialog2 extends JDialog {
 					return;
 				}
 
-				CompomentBean bean = new CompomentBean();
+				
 				bean.actionString = actionString;
 				bean.actionDetailString = actionDetail.getText();
 				bean.interfaceId = interfaceid;
@@ -792,6 +852,9 @@ public class CompomentDialog2 extends JDialog {
                 try {
 					String s = doc.getText(0, doc.getLength());
 					
+					if(CompomentDialog2.this.sameGroupWithBeforCompomentCheckbox.isSelected())
+						return;
+					
 					boolean isOkRequest=false;
 					int i=0;
 					for (Group group : interfaceBeans.get(0).requestGroups) {
@@ -799,7 +862,7 @@ public class CompomentDialog2 extends JDialog {
 						for (Row row : group.rows) {
 							
 							String column = row.enName + ":" + row.cnName;
-							if(row.cnName.contains(s)||s.contains(row.cnName))
+							if(row.cnName.contains(s))
 							{
 								
 								isOkRequest=true;
@@ -809,21 +872,37 @@ public class CompomentDialog2 extends JDialog {
 						}
 
 					}
+					
+					if(!isOkRequest)
+					{
+						interfaceList.setSelectedIndex(9999);
+						
+					}
+					
 					boolean isOkRespond=false;
 					int j=0;
 					for (Group group : interfaceBeans.get(0).respondGroups) {
 
 						for (Row row : group.rows) {
 							String column = row.enName + ":" + row.cnName;
-							if(row.cnName.contains(s)||s.contains(row.cnName))
+							if(row.cnName.contains(s))
 							{
 								
 								isOkRespond=true;
 								interfaceColumnList.setSelectedIndex(j);
-								j++;
+								
 							}
+							
+							j++;
 						}
 
+					}
+					
+					if(!isOkRespond)
+					{
+						interfaceColumnList.setSelectedIndex(9999);
+						interfaceColumnList.setse
+						
 					}
 					
 				} catch (BadLocationException e1) {
@@ -859,7 +938,9 @@ public class CompomentDialog2 extends JDialog {
 		});
 
 		// enNameEdit = new JTextField();
+		
 		enNameEdit.setText("英文名");
+		
 		enNameEdit.addFocusListener(new FocusAdapter() {
 
 			@Override
