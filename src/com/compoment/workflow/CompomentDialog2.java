@@ -875,7 +875,7 @@ public class CompomentDialog2 extends JDialog {
 					
 					if(!isOkRequest)
 					{
-						interfaceList.setSelectedIndex(9999);
+						interfaceList.clearSelection();
 						
 					}
 					
@@ -900,8 +900,8 @@ public class CompomentDialog2 extends JDialog {
 					
 					if(!isOkRespond)
 					{
-						interfaceColumnList.setSelectedIndex(9999);
-						interfaceColumnList.setse
+						
+						interfaceColumnList.clearSelection();
 						
 					}
 					

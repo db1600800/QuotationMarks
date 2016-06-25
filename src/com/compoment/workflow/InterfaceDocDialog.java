@@ -1,9 +1,12 @@
 package com.compoment.workflow;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +85,7 @@ public class InterfaceDocDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public InterfaceDocDialog() {
-		setBounds(100, 100, 450, 500);
+		setBounds(100, 100, 470, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -93,6 +96,20 @@ public class InterfaceDocDialog extends JDialog {
 		
 		pathValueEditText = new JTextField();
 		pathValueEditText.setColumns(10);
+		
+		String classDir = "";
+		File directory = new File("");// 参数为空
+		try {
+			classDir = directory.getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+	   final String	sourceFile = classDir + "/src/com/compoment/jsonToJava/creater/"
+				+ "wordTableToJaveObject.doc"; 
+	   final String	sourceFileexample = classDir + "/src/com/compoment/jsonToJava/creater/"
+				+ "wordTableToJaveObject_example.doc"; 
+	   KeyValue.writeCache("interfaceDocPath",sourceFile);
 		
 		JLabel lblindex = new JLabel("中文名Index       ");
 		
@@ -130,6 +147,34 @@ public class InterfaceDocDialog extends JDialog {
 		respondJsonDetailValueEditText.setColumns(10);
 		
 		JPanel panel = new JPanel();
+		
+		JButton btnNewButton = new JButton("打开");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Desktop desktop=Desktop.getDesktop();
+				
+				try {
+					desktop.open(new File(sourceFile));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		JButton btnNewButton_2 = new JButton("例子");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+Desktop desktop=Desktop.getDesktop();
+				
+				try {
+					desktop.open(new File(sourceFileexample));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -138,19 +183,11 @@ public class InterfaceDocDialog extends JDialog {
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel)
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(pathValueEditText, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblindex)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(cnNameValueEditText, 303, 303, 303))
-						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(lblRequestjson)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(requestJsonValueEditText, 300, 300, 300))
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 432, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
 							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(lblindex_3)
 								.addPreferredGap(ComponentPlacement.RELATED)
@@ -159,20 +196,32 @@ public class InterfaceDocDialog extends JDialog {
 								.addComponent(lblindex_1)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(enNameValueEditText))
-							.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(lblindex_2)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(typeValueEditText, 302, 302, 302)))
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
 							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(lblRespondjson_1)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(respondJsonDetailValueEditText))
-							.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(lblRespondjson)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(respondJsonValueEditText, 298, 298, 298))))
-					.addContainerGap(40, Short.MAX_VALUE))
+								.addComponent(respondJsonValueEditText, 298, 298, 298)))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(pathValueEditText, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton_2))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(lblindex)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(cnNameValueEditText, 303, 303, 303)))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -182,7 +231,9 @@ public class InterfaceDocDialog extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
-						.addComponent(pathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(pathValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton)
+						.addComponent(btnNewButton_2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblindex)
@@ -212,7 +263,7 @@ public class InterfaceDocDialog extends JDialog {
 						.addComponent(lblRespondjson_1)
 						.addComponent(respondJsonDetailValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -249,7 +300,7 @@ public class InterfaceDocDialog extends JDialog {
 	public void init()
 	{
 		//接口文档路径
-		pathValueEditText.setText(KeyValue.readCache("interfaceDocPath"));
+	
 		Document doc = pathValueEditText.getDocument();
 
 		// 添加DocumentListener监听器
@@ -275,17 +326,7 @@ public class InterfaceDocDialog extends JDialog {
 			}
 		});
 		
-		//中文名index
-		cnNameValueEditText.setText("0");
 		
-		//变量index
-		enNameValueEditText.setText("1");
-		
-		//变量类型index
-		typeValueEditText.setText("2");
-		
-		//备注index
-		remarksValueEditText.setText("4");
 		
 		read();
 		
@@ -349,32 +390,57 @@ public class InterfaceDocDialog extends JDialog {
 	
 	
 	public void read() {
-		pathValueEditText.setText(KeyValue.readCache("docPath"));
+		pathValueEditText.setText(KeyValue.readCache("interfaceDocPath"));
 		
 		String cn=KeyValue.readCache("中文名");
 		if(cn!=null && !cn.equals(""))
 		{
 			cnNameValueEditText.setText(cn);
+		}else
+		{
+			//中文名index
+			cnNameValueEditText.setText("0");
 		}
+		
 	
 		
         String value=KeyValue.readCache("变量名");
         if(value!=null && !value.equals(""))
+        {
 		enNameValueEditText.setText(value);
+        }else
+        {
+        	//变量index
+			enNameValueEditText.setText("1");	
+        }
         
         String type=KeyValue.readCache("类型");
         if(type!=null && !type.equals(""))
+        {
 		typeValueEditText.setText(type);
+        }else
+        {
+        	
+			//变量类型index
+			typeValueEditText.setText("2");
+        }
 
         String remark=KeyValue.readCache("备注");
         if(remark!=null && !remark.equals(""))
+        {
 		remarksValueEditText.setText(remark);
+        }else
+        {
+        	
+			//备注index
+			remarksValueEditText.setText("4");
+        }
         
         
 	}
 	
 	public void write() {
-		KeyValue.writeCache("docPath", pathValueEditText.getText().toString());
+		KeyValue.writeCache("interfaceDocPath", pathValueEditText.getText().toString());
 		KeyValue.writeCache("中文名", cnNameValueEditText.getText().toString());// 中文注解在表格的哪一列
 		KeyValue.writeCache("变量名", enNameValueEditText.getText().toString());
 		KeyValue.writeCache("类型", typeValueEditText.getText().toString());// 类型在表格的哪一列
@@ -556,7 +622,4 @@ public class InterfaceDocDialog extends JDialog {
 		}
 		return "";
 	}
-	
-	
-	
 }
