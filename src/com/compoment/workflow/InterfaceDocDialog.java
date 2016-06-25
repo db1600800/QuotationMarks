@@ -109,7 +109,7 @@ public class InterfaceDocDialog extends JDialog {
 				+ "wordTableToJaveObject.doc"; 
 	   final String	sourceFileexample = classDir + "/src/com/compoment/jsonToJava/creater/"
 				+ "wordTableToJaveObject_example.doc"; 
-	   KeyValue.writeCache("interfaceDocPath",sourceFile);
+	   KeyValue.writeCache("docPath",sourceFile);
 		
 		JLabel lblindex = new JLabel("中文名Index       ");
 		
@@ -315,7 +315,7 @@ Desktop desktop=Desktop.getDesktop();
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 
-				KeyValue.writeCache("interfaceDocPath", pathValueEditText.getText());
+				KeyValue.writeCache("docPath", pathValueEditText.getText());
 				
 			}
 
@@ -390,7 +390,7 @@ Desktop desktop=Desktop.getDesktop();
 	
 	
 	public void read() {
-		pathValueEditText.setText(KeyValue.readCache("interfaceDocPath"));
+		pathValueEditText.setText(KeyValue.readCache("docPath"));
 		
 		String cn=KeyValue.readCache("中文名");
 		if(cn!=null && !cn.equals(""))
@@ -440,7 +440,7 @@ Desktop desktop=Desktop.getDesktop();
 	}
 	
 	public void write() {
-		KeyValue.writeCache("interfaceDocPath", pathValueEditText.getText().toString());
+		KeyValue.writeCache("docPath", pathValueEditText.getText().toString());
 		KeyValue.writeCache("中文名", cnNameValueEditText.getText().toString());// 中文注解在表格的哪一列
 		KeyValue.writeCache("变量名", enNameValueEditText.getText().toString());
 		KeyValue.writeCache("类型", typeValueEditText.getText().toString());// 类型在表格的哪一列

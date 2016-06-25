@@ -1,4 +1,4 @@
-package com.compoment.workflow;
+ package com.compoment.workflow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -486,8 +486,9 @@ public class CompomentDialog2 extends JDialog {
 					CompomentBean before=allCompoments.get(allCompoments.size()-1);
 					enNameEdit.setText(before.enname+"Value");
 					bean.interfaceColumnEnName=before.interfaceColumnEnName;
+					bean.interfaceId=before.interfaceId;
 					before.interfaceColumnEnName=null;
-					
+					before.interfaceId=null;
 					
 					boolean isOkRequest=false;
 					int i=0;
@@ -587,12 +588,14 @@ public class CompomentDialog2 extends JDialog {
 				@Override
 				public void valueChanged(ListSelectionEvent even) {
 					// TODO Auto-generated method stub
-
+					interfaceColumnList.clearSelection();
 					if (interfaceList.getSelectedValue() == null)
 						return;
 
 					String value = interfaceList.getSelectedValue().toString();
 					String id = value.split(":")[0];
+					bean.interfaceColumnEnName=id;
+					bean.interfaceId=interfaceBeans.get(0).id;
 
 				}
 			});
@@ -618,14 +621,14 @@ public class CompomentDialog2 extends JDialog {
 				@Override
 				public void valueChanged(ListSelectionEvent even) {
 					// TODO Auto-generated method stub
-
+					interfaceList.clearSelection();
 					if (interfaceColumnList.getSelectedValue() == null)
 						return;
 
 					String value = interfaceColumnList.getSelectedValue().toString();
 					String id = value.split(":")[0];
-					// interfaceColumnEnName=enname;
-
+					bean.interfaceColumnEnName=id;
+					bean.interfaceId=interfaceBeans.get(0).id;
 				}
 			});
 
@@ -693,7 +696,7 @@ public class CompomentDialog2 extends JDialog {
 				}
 				bean.jumpToWhichPage = jumpToWhichPage;
 
-				bean.isSameGroupWihtBeforCompoment=sameGroupWithBeforCompomentCheckbox.isSelected();
+				
 				bean.cnname = cnNameEdit.getText().trim().replace(" ", "");
 				bean.enname = (enNameEdit.getText().trim() + compomentType).replace(" ", "");
 				bean.rgb16 = "" + colorEdit.getText().trim();

@@ -173,10 +173,10 @@ public class WordtableToJavaObject {
 					
 				interfaceBean = new InterfaceBean();
 				interfaceBean.title = getInterfaceTitle(p.text());
-				interfaceBean.id = ids[0];
+				interfaceBean.id = ids[0].trim();
 				if(ids.length>1)
 				{
-					interfaceBean.enName=ids[1];
+					interfaceBean.enName=ids[1].trim();
 				}else
 				{
 					interfaceBean.enName="";
