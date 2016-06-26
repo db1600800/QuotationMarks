@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -583,22 +584,35 @@ public class CompomentDialog2 extends JDialog {
 
 			interfaceList.setListData(tempinputs.toArray());
 			interfaceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			interfaceList.addListSelectionListener(new ListSelectionListener() {
+			
+			interfaceList.addMouseListener(new MouseAdapter(){  
+			    public void mouseClicked(MouseEvent e){  
+			        if(e.getClickCount()==2){ 
+			        	
+			
+							interfaceList.clearSelection();
+							bean.interfaceColumnEnName=null;
+							bean.interfaceId=null;
+						
 
-				@Override
-				public void valueChanged(ListSelectionEvent even) {
-					// TODO Auto-generated method stub
-					interfaceColumnList.clearSelection();
-					if (interfaceList.getSelectedValue() == null)
-						return;
+			        }else
+			        {
+			        	interfaceColumnList.clearSelection();
+						if (interfaceList.getSelectedValue() == null)
+							return;
 
-					String value = interfaceList.getSelectedValue().toString();
-					String id = value.split(":")[0];
-					bean.interfaceColumnEnName=id;
-					bean.interfaceId=interfaceBeans.get(0).id;
+						String value = interfaceList.getSelectedValue().toString();
+						String id = value.split(":")[0];
+					
+						
+						bean.interfaceColumnEnName=id;
+						bean.interfaceId=interfaceBeans.get(0).id;
+						
 
-				}
-			});
+			        }
+			        
+			    }});
+		
 
 			for (Group group : interfaceBeans.get(0).requestGroups) {
 
@@ -616,21 +630,34 @@ public class CompomentDialog2 extends JDialog {
 
 			interfaceColumnList.setListData(tempoutputs.toArray());
 			interfaceColumnList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			interfaceColumnList.addListSelectionListener(new ListSelectionListener() {
+			
+			interfaceColumnList.addMouseListener(new MouseAdapter(){  
+			    public void mouseClicked(MouseEvent e){  
+			        if(e.getClickCount()==2){   //When double click JList  
+			  
+							interfaceColumnList.clearSelection();
+							bean.interfaceColumnEnName=null;
+							bean.interfaceId=null;
+						
+			        }else
+			        {
+			        	interfaceList.clearSelection();
+						if (interfaceColumnList.getSelectedValue() == null)
+							return;
 
-				@Override
-				public void valueChanged(ListSelectionEvent even) {
-					// TODO Auto-generated method stub
-					interfaceList.clearSelection();
-					if (interfaceColumnList.getSelectedValue() == null)
-						return;
+						String value = interfaceColumnList.getSelectedValue().toString();
+						String id = value.split(":")[0];
+						
+						
+						bean.interfaceColumnEnName=id;
+						bean.interfaceId=interfaceBeans.get(0).id;
+						
+			        }
+			        
+			    }  
+			});  
 
-					String value = interfaceColumnList.getSelectedValue().toString();
-					String id = value.split(":")[0];
-					bean.interfaceColumnEnName=id;
-					bean.interfaceId=interfaceBeans.get(0).id;
-				}
-			});
+
 
 			for (Group group : interfaceBeans.get(0).respondGroups) {
 
