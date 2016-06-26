@@ -24,13 +24,13 @@ public class KeyValue {
 		String courseFile = null;
 		File directory = new File("");// 参数为空
 		try {
-			courseFile = directory.getCanonicalPath();
+			courseFile =directory.getCanonicalPath();
 		
 
-		String path = courseFile + "/src/com/compoment/util/cache.txt";
+		String path = courseFile + "/res/cache.txt";
 		
 		return readValue(path,key);
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -46,13 +46,13 @@ public class KeyValue {
 		String courseFile = null;
 		File directory = new File("");// 参数为空
 		try {
-			courseFile = directory.getCanonicalPath();
+			courseFile =directory.getCanonicalPath();
 		
 
-		String path = courseFile + "/src/com/compoment/util/cache.txt";
+		String path = courseFile + "/res/cache.txt";
 		
 		writeProperties(path,key,value);
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -64,6 +64,7 @@ public class KeyValue {
 	  Properties props = new Properties();
 	        try {
 	         InputStream in = new BufferedInputStream (new FileInputStream(filePath));
+	        // InputStream in= KeyValue.class.getResourceAsStream(filePath);//读取jar包内部文件( src内的)
 	         props.load(in);
 	         String value = props.getProperty (key);
 	         if(value==null)
@@ -80,7 +81,8 @@ public class KeyValue {
 	    public static void readProperties(String filePath) {
 	     Properties props = new Properties();
 	        try {
-	         InputStream in = new BufferedInputStream (new FileInputStream(filePath));
+	        InputStream in = new BufferedInputStream (new FileInputStream(filePath));
+	         //InputStream in= KeyValue.class.getResourceAsStream(filePath);
 	         props.load(in);
 	            Enumeration en = props.propertyNames();
 	             while (en.hasMoreElements()) {
@@ -97,7 +99,8 @@ public class KeyValue {
 	    public static void writeProperties(String filePath,String parameterName,String parameterValue) {
 	     Properties prop = new Properties();
 	     try {
-	      InputStream fis = new FileInputStream(filePath);
+	     InputStream fis = new FileInputStream(filePath);
+	    	// InputStream fis= KeyValue.class.getResourceAsStream(filePath);
 	            //从输入流中读取属性列表（键和元素对）
 	            prop.load(fis);
 	            //调用 Hashtable 的方法 put。使用 getProperty 方法提供并行性。
