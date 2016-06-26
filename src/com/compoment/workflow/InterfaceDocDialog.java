@@ -105,9 +105,9 @@ public class InterfaceDocDialog extends JDialog {
 			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
-	   final String	sourceFile = classDir + "/src/com/compoment/jsonToJava/creater/"
+	   final String	sourceFile = classDir + "/res/"
 				+ "wordTableToJaveObject.doc"; 
-	   final String	sourceFileexample = classDir + "/src/com/compoment/jsonToJava/creater/"
+	   final String	sourceFileexample = classDir + "/res/"
 				+ "wordTableToJaveObject_example.doc"; 
 	   KeyValue.writeCache("docPath",sourceFile);
 		

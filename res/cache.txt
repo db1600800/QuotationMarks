@@ -1,0 +1,4 @@
+#Update 'picPath' value
+#Sun Jun 26 22:11:32 CST 2016
+projectPath=sdfasdfoooo1
+picPath=sdfasdfoooo1/pic
