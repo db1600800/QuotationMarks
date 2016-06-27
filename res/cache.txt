@@ -1,4 +1,5 @@
-#Update 'picPath' value
-#Sun Jun 26 22:11:32 CST 2016
-projectPath=sdfasdfoooo1
-picPath=sdfasdfoooo1/pic
+#Update 'docPath' value
+#Mon Jun 27 09:54:12 GMT+08:00 2016
+docPath=/Users/admin/Documents/hobby/QuotationMarks/res/interfaceDoc/wordTableToJaveObject.doc
+projectPath=/Users/admin/Documents/hobby/QuotationMarks/res
+picPath=/Users/admin/Documents/hobby/QuotationMarks/res/pic

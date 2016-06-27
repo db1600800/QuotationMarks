@@ -234,6 +234,18 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		
 		init();
 
+		
+		String classDir = "";
+		File directory = new File("");// 参数为空
+		try {
+			classDir = directory.getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+	  this.webPathValueEditText.setText(classDir + "/res");
+	  
+	   
 	}
 
 	public void init() {
@@ -288,8 +300,9 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 				String s = androidPathValueEditText.getText();
 				KeyValue.writeCache("projectPath", s);
-
+				FileUtil.makeDir(new File(s));
 				KeyValue.writeCache("picPath", s + "/pic");
+				FileUtil.makeDir(new File(s+"/pic"));
 				// searchPics(KeyValue.readCache("picPath"));
 
 			}
@@ -354,7 +367,9 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 				String s = iphonePathValueEditText.getText();
 
 				KeyValue.writeCache("projectPath", s);
+				FileUtil.makeDir(new File(s));
 				KeyValue.writeCache("picPath", s + "/pic");
+				FileUtil.makeDir(new File(s+"/pic"));
 
 				// searchPics(KeyValue.readCache("picPath"));
 
@@ -387,8 +402,11 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 				String s = webPathValueEditText.getText();
 
+				
 				KeyValue.writeCache("projectPath", s);
+				FileUtil.makeDir(new File(s));
 				KeyValue.writeCache("picPath", s + "/pic");
+				FileUtil.makeDir(new File(s+"/pic"));
 
 				// searchPics(KeyValue.readCache("picPath"));
 
@@ -418,6 +436,11 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 				String s = swingPathValueEditText.getText();
 
+				KeyValue.writeCache("projectPath", s);
+				FileUtil.makeDir(new File(s));
+				KeyValue.writeCache("picPath", s + "/pic");
+				FileUtil.makeDir(new File(s+"/pic"));
+				
 				// searchPics(KeyValue.readCache("picPath"));
 
 			}
@@ -533,6 +556,12 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		if (!webCheckBox.isSelected() )
 		{
 			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
+			
+			//重置
+			String str = "";// 设置字符串
+			StringSelection selection = new StringSelection(str);// 构建String数据类型
+			clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+			clipboard.setContents(clipboard.getContents(null), this);
 	
 		return ;
 		}
@@ -559,6 +588,16 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 					if (data.getSubType().equals("x-java-image")) {
 						String fileName = JOptionPane.showInputDialog(null, "请输入图片名", "粘贴图片",
 								JOptionPane.INFORMATION_MESSAGE);
+						
+						if(fileName==null)
+						{
+							//重置
+							String str = "";// 设置字符串
+							StringSelection selection = new StringSelection(str);// 构建String数据类型
+							clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+							clipboard.setContents(clipboard.getContents(null), this);
+							break;
+						}
 						if (fileName.indexOf(".png") == -1) {
 							fileName = fileName + ".png";
 						}
@@ -590,10 +629,11 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 							 
 						}
 						
+						
+						//重置
 						String str = "";// 设置字符串
 						StringSelection selection = new StringSelection(str);// 构建String数据类型
 						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
-
 						clipboard.setContents(clipboard.getContents(null), this);
 					
 						break;
@@ -723,6 +763,8 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		if (!webCheckBox.isSelected())
 		{
 			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
+			
+		
 	
 		return ;
 		}
