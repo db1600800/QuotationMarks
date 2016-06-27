@@ -65,7 +65,7 @@ public class InterfaceDocDialog extends JDialog {
 	 * */
 	public Object[] selects;
 	
-	
+	boolean isSingleSelect;
 	
 	
 	/**
@@ -73,7 +73,7 @@ public class InterfaceDocDialog extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			InterfaceDocDialog dialog = new InterfaceDocDialog();
+			InterfaceDocDialog dialog = new InterfaceDocDialog(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -84,7 +84,8 @@ public class InterfaceDocDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InterfaceDocDialog() {
+	public InterfaceDocDialog(boolean isSingleSelect) {
+		this.isSingleSelect=isSingleSelect;
 		setBounds(100, 100, 470, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -369,7 +370,17 @@ Desktop desktop=Desktop.getDesktop();
 		
 		
 		//listview
-		listListView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		if(isSingleSelect)
+		{
+			
+			listListView.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+			
+		}else
+		{
+			listListView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			
+		}
+		
 		listListView.setListData(listDate.toArray());
 		listListView.addListSelectionListener(new ListSelectionListener() {
 

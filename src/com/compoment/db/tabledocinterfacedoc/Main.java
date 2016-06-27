@@ -285,7 +285,7 @@ public class Main extends JFrame {
 	
 	public void getDBTables()
 	{
-		InterfaceDocDialog projectDocPanel=new InterfaceDocDialog();
+		InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false);
 		projectDocPanel.setModal(true);
 		projectDocPanel.setVisible(true);
 		
