@@ -321,8 +321,7 @@ public class AndroidLayoutXml {
 
 		String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
 				"xml", filename, "xml", m);
-		FileUtil.makeFile(KeyValue.readCache("projectPath")+"/res", "layout", filename,
-				"xml", m);
+		//FileUtil.makeFile(KeyValue.readCache("projectPath")+"/res", "layout", filename,"xml", m);
 		System.out.println(m);
 		
 		

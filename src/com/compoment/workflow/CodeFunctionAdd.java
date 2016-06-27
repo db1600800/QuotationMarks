@@ -70,6 +70,7 @@ public class CodeFunctionAdd extends JFrame {
     
      JList codeTypeListListView ;
      String fileName;
+     JTextField codePathValueEditText;
      
 	public CodeFunctionAdd() {
 
@@ -225,6 +226,9 @@ public class CodeFunctionAdd extends JFrame {
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
 
+							String projectPath=KeyValue.readCache("projectPath");
+							codePathValueEditText.setText(projectPath+"/pic/src/android");
+							
 						} else	if (value.equals("Iphone")) {
 							iphoneData();
 							// 设值
@@ -234,6 +238,9 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
+							
+							String projectPath=KeyValue.readCache("projectPath");
+							codePathValueEditText.setText(projectPath+"/pic/src/ios");
 						}  
 						else	if (value.equals("Swing")) {
 							swingData();
@@ -262,6 +269,9 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
+							
+							String projectPath=KeyValue.readCache("projectPath");
+							codePathValueEditText.setText(projectPath+"/pic/src/jsp");
 						} 
 						
 						
@@ -285,7 +295,7 @@ public class CodeFunctionAdd extends JFrame {
 		bg1422276614897LinearLayout.addComponent(codePathTitleTextView);
 
 		/** path */
-		final JTextField codePathValueEditText = new JTextField();
+		 codePathValueEditText = new JTextField();
 		bg1422276614897LinearLayout.addComponent(codePathValueEditText);
 
 		// 添加DocumentListener监听器
