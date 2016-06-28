@@ -1,354 +1,294 @@
-//
-//  StampTranCallForNoSingleton.m
-//  Philately
-//
-//  Created by gdpost on 15/6/17.
-//  Copyright (c) 2015年 gdpost. All rights reserved.
-//
-
-#import "StampTranCallForNoSingleton.h"
-#import "SysBaseInfo.h"
-#import <OperatorMsg.h>
-#import "SVProgressHUD.h"
-#import "PromptError.h"
-#import "JSONKit.h"
-
-#include <arpa/inet.h>
-#include <net/if.h>
-#include <ifaddrs.h>
-#import "SVProgressHUD.h"
-#import "DeviceInfo.h"
-
-@implementation StampTranCallForNoSingleton
+//注入网络请求,响应,等待提示
 
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-  NSTimer *timmer;
-bool isContinueOpenLoading;
 
+#import "SelectInsuranceDialogViewController.h"
+#import "UIImageView+WebCache.h"
+#import <Foundation/Foundation.h>
+#import <JSONKit.h>
+#import <objc/runtime.h>
+#import "UIButton+EnlargeTouchArea.h"
+#import "SelectInsuranceDialogTableViewCell.h"
+#import "RespondParam8056110.h"
 
--(void)jyTranCall:(SysBaseInfo *) sysBaseInfo  cstmMsg:(CstmMsg*)cstmMsg formName:(NSString*)formName business:(NSDictionary*)business delegate:(id<StampTranCallForNoSingletonDelegate>)delegate viewController:(UIViewController*)viewController
+//注入table功能
+ NSString *SelectInsuranceDialogCellIdentifier = @"SelectInsuranceDialogTableViewCell";
+ NSString *SelectInsuranceDialogCellHeadIdentifier = @"SelectInsuranceDialogTableViewCellHead";
+
+@implementation SelectInsuranceDialogViewController
+@synthesize citycode;
+@synthesize cacheCells;
+//back
+@synthesize backButton;
+//list
+@synthesize tableView;
+//选择保险公司
+@synthesize selecInsuranceButton;
+- (void)viewDidLoad
 {
-    isContinueOpenLoading=sysBaseInfo.isOpenLoading;
-    sysBaseInfo.isOpenLoading=false;
-    self.viewController=viewController;
-    self.delegate=delegate;
-    
+    [super viewDidLoad];
 
-     dispatch_async(dispatch_get_main_queue(), ^{
-       
-         if ([SVProgressHUD isVisible]==true) {
-             
-         }else
-         {
-             if (sysBaseInfo.isNoHasLoading==true) {
-                 
-             }else
-             {
-             [SVProgressHUD showWithStatus:@"努力加载中..." maskType:SVProgressHUDMaskTypeClear];
-             }
-         }
-     });
+//start  TableView 
+totalRowCount=0;
+currentRowCount=0;
+page=1;
+
+allIndexpaths=[[NSMutableArray alloc] init];
+ rows=[[NSMutableArray alloc] init];
+    [self.tableView setDelegate:self];//tableview委托
+    [self.tableView setDataSource:self];//tableview数据委托
+    self.tableView.tableFooterView=[[UIView alloc]init];//tableview去除多余的分隔线
+    //使用自定义的Cell,需要向UITableView进行注册
+    UINib *cellNib = [UINib nibWithNibName:@"SelectInsuranceDialogTableViewCell" bundle:nil];
+    [tableView registerNib:cellNib forCellReuseIdentifier:SelectInsuranceDialogCellIdentifier];
+     cacheCells = [NSMutableDictionary dictionary];
+//end TableView 
 
 
-    
-    NSMutableDictionary *tranBodyDic=[[NSMutableDictionary alloc] init];
-    tranBodyDic=business;
+//back
+[self.backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+[self.backButton setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域
 
-   
-//    headMap.put(SendMsgHead.H_BRCH_NO, "000000");
-//    headMap.put(SendMsgHead.H_SFILE_NUM, "0000");
-//    headMap.put(SendMsgHead.H_CHANNEL_TRACE, "");
-//    headMap.put(SendMsgHead.H_CHANNEL_NO, DeviceInfo.channelNo);
-//    headMap.put(SendMsgHead.H_IP_ADDR, DeviceInfo.deviceIP);
-//    headMap.put(SendMsgHead.H_TTY, CarServiceAgentApplication.appServiceInvoker.mLogicID);
-//    headMap.put(SendMsgHead.H_SEQ_NO, "");
-//    headMap.put(SendMsgHead.H_AUTH_OPER_NO, "");
-//    headMap.put(SendMsgHead.H_OPER_NO, "00");
-//    headMap.put(SendMsgHead.H_OPER_NO_NEW, OperatorMsg.oprID);
-//    headMap.put(SendMsgHead.H_BRCH_NO_NEW, OperatorMsg.organID);
-    
-    DeviceInfo *deviceInfo=[DeviceInfo sharedInstance];
-    
-    NSMutableDictionary *tranheadDic=[[NSMutableDictionary alloc] init];
-    // 1	局号(包头使用)	H_BRCH_NO	字符	7
-    [tranheadDic setValue:@"0000000" forKey:@"H_BRCH_NO"];
-    // 2	柜员号(包头使用)	H_OPER_NO	字符	2
-    [tranheadDic setValue:@"00" forKey:@"H_OPER_NO"];
-    // 3	交易流水号	H_SEQ_NO	数字
-    [tranheadDic setValue:@"" forKey:@"H_SEQ_NO"];
-    //  4	IP地址	H_IP_ADDR	字符	15
-    [tranheadDic setValue:deviceInfo.H_IP_ADDR forKey:@"H_IP_ADDR"];
-    //5	终端号(不带/dev/tty)	H_TTY	字符	100
-    [tranheadDic setValue:deviceInfo.LogicDeviceNo forKey:@"H_TTY"];
-    // 6	授权柜员号	H_AUTH_OPER_NO	字符	4
-    [tranheadDic setValue:@"" forKey:@"H_AUTH_OPER_NO"];
-    //7	渠道流水号	H_CHANNEL_TRACE	字符	12
-    [tranheadDic setValue:@"" forKey:@"H_CHANNEL_TRACE"];
-    //  8	渠道标识	H_CHANNEL_NO	字符	2
-    [tranheadDic setValue:@"06" forKey:@"H_CHANNEL_NO"];
-    //  9	综合服务平台支局号	H_BRCH_NO_NEW	字符	8
-    [tranheadDic setValue:deviceInfo.H_BRCH_NO_NEW forKey:@"H_BRCH_NO_NEW"];
-    // 10	综合服务平台柜员号码	H_OPER_NO_NEW	字符	4
-    [tranheadDic setValue:deviceInfo.H_OPER_NO_NEW forKey:@"H_OPER_NO_NEW"];
-    // 11	上送文件数量循环域开始	H_SFILE_NUM	数字
-    [tranheadDic setValue:@"0000" forKey:@"H_SFILE_NUM"];
-    // 12	不带路径上送文件名	H_SEND_FILE	字符	60
-   // [tranheadDic setValue:@"440000004509" forKey:@"H_SEND_FILE"];
-    
-    
-    
-   // NSMutableDictionary *sendDataDic=[[NSMutableDictionary alloc] init];
-    [tranBodyDic setValue:tranheadDic forKey:@"SNDMSG_HEAD"];
-//      [sendDataDic setValue:tranBodyDic forKey:@"tranBody"];
-//    
-//    NSMutableDictionary *fullDic=[[NSMutableDictionary alloc] init];
-//    [fullDic setValue:sendDataDic forKey:@"sendData"];
-    
-    
+
+//选择保险公司
+
+[self.selecInsuranceButton addTarget:self action:@selector(selecInsuranceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
    
-  
-          serviceInvoker=[[ServiceInvoker alloc]init];
-
-  
-    [serviceInvoker  setDelegate:self];
-
-     NSLog(@"hobby request %@ %@",formName,tranBodyDic);
-    [serviceInvoker callWebservice:tranBodyDic formName:formName delegate:self];
-
-    
-    timmer  = [NSTimer scheduledTimerWithTimeInterval:35 target:self selector:@selector(timeFire) userInfo:nil repeats:NO];
-
 }
 
--(void)timeFire
+-(void) viewWillAppear:(BOOL)animated{
+     [super viewWillAppear:animated];
+//table
+[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
+    // [self  request8056110];
+}
+
+-(void)backButtonClicked:(UIButton *)btn{
+id mId = objc_getAssociatedObject(btn, "mId");
+//取绑定数据int mId2 = btn.tag;
+//取绑定数据//方法3.回到上页面
+ // [self.navigationController popViewControllerAnimated:YES];
+[self.view setHidden:YES];
+}
+
+-(void)selecInsuranceButtonClicked:(UIButton *)btn{
+id mId = objc_getAssociatedObject(btn, "mId");
+//取绑定数据int mId2 = btn.tag;
+//取绑定数据//方法3.回到上页面
+  //[self.navigationController popViewControllerAnimated:YES];
+    [self.view setHidden:YES];
+    
+    [self.chirldViewCallBackDelegate chirldViewCallBack_selectCompany:rows];
+}
+
+
+-(void)viewWillLayoutSubviews
 {
-       [SVProgressHUD dismiss];
+//int startY=self.headView.frame.origin.y+self.headView.frame.size.height;
+// [self.tableView setFrame:CGRectMake(0, startY, self.tableView.frame.size.width, self.view.frame.size.height-startY )];
+}
+
+//指定有多少个分区(Section)，默认为1
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-//    MsgReturn *msgReturn= [[MsgReturn alloc]init ];
-//    msgReturn.errorCode=ERROR_TIMEOUT_ERROR ;
-//    msgReturn.errorDesc=ERROR_TIMEOUT;
-//    msgReturn.errorType=@"01";
-//    [PromptError changeShowErrorMsg:msgReturn title:@""  viewController:self block:^(BOOL OKCancel)
-//     {
-//         if (OKCancel) {
-//             
-//         }else
-//         {
-//             
-//         }
-//         return ;
-//     }
-//     ];
+    return 1;//返回标题数组中元素的个数来确定分区的个数   return [sections count];
+}
+
+//指定每个分区中有多少行，默认为1
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+     return  [rows count];
+    
+}
+
+//绘制Cell
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+
+ {
+ SelectInsuranceDialogTableViewCell *cell = (SelectInsuranceDialogTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:SelectInsuranceDialogCellIdentifier];
+    if (!cell)
+    {
+       cell = [[[NSBundle mainBundle] loadNibNamed:@"SelectInsuranceDialogTableViewCell" owner:self options:nil] lastObject];
+    }
+     
+     
+     RespondParam8056110 *row=rows[indexPath.row];
+
+//中国人寿
+cell.insurancenameCheckBox.tag=indexPath.row;
+     [cell.insurancenameCheckBox setSelected:row.isSelect];
+[cell.insurancenameCheckBox addTarget:self action:@selector(insurancenameCheckBoxCheck:) forControlEvents:UIControlEventTouchUpInside];
+[cell.insurancenameCheckBox setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateSelected];
+ [cell.insurancenameCheckBox setBackgroundImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+[cell.insurancenameCheckBox setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域
+     
+     
+     //名称
+    [ cell.insurancenameCheckBoxCover setText:row.D44_70_BX_COMPANY];
+
+//人寿
+
+[cell.insurancePicImageView setImageWithURL:[NSURL URLWithString:row.D44_70_PICID ] placeholderImage:[UIImage imageNamed:@"default.jpg"]];
+return cell;
+ }
+    
+}
+
+//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+NSString *reuseIdentifier = SelectInsuranceDialogCellIdentifier;
+SelectInsuranceDialogTableViewCell *cell= [self.cacheCells objectForKey:reuseIdentifier];
+if (!cell) {
+  cell=[self.tableView dequeueReusableCellWithIdentifier:SelectInsuranceDialogCellIdentifier];
+  [self.cacheCells setObject:cell forKey:reuseIdentifier];
+}
+
+
+
  
+   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   
+return height+1;
+ 
+}
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 88;
+}
+
+//点击后，过段时间cell自动取消选中
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    RespondParam8056110 *row=rows[indexPath.row];
+    row.isSelect=!row.isSelect;
+    [tableView reloadData];
+    //消除cell选择痕迹
+    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];
+}
+- (void)deselect
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+-(void) setChirldViewValue:(NSMutableArray*)mdata  delegate:(id<SelectInsuranceDialogChirldViewCallBackDelegate>)parent{
+   self.chirldViewCallBackDelegate=parent;
+   rows=mdata;
+    [tableView reloadData];
+}
+
+-(void)insurancenameCheckBoxCheck:(UIButton *)btn{
+//id mId = objc_getAssociatedObject(btn, "mId");
+int mId2 = btn.tag;
+//取绑定数据  btn.selected = !btn.selected ;//用与button做checkBox
+    
+     RespondParam8056110 *row=rows[mId2];
+    row.isSelect=!row.isSelect;
+
+[tableView reloadData];
 }
 
 
-//业务请求返回错误
--(void)serviceInvokerError:(MsgReturn*)msgReturn
-{
-    if (msgReturn==nil ) {
+
+
+/*保险公司信息查询8056110*/
+NSString  *n8056110=@"8056110";
+/*保险公司信息查询8056110*/
+-(void) request8056110{
+    
+    if (oldCityCode!=nil && citycode!=nil && [oldCityCode isEqualToString:citycode]) {
+        
         return;
     }
     
-       [timmer invalidate];
-     timmer=nil;
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [SVProgressHUD dismiss];
-      });
-  
-  
+NSMutableDictionary *businessparam=[[NSMutableDictionary alloc] init];
+/* 保险公司ID号 备注:*/
+[businessparam setValue:@"" forKey:@"D44_70_BX_COMPANYID"];
+/* 保险公司名称 备注:*/
+[businessparam setValue:@"" forKey:@"D44_70_BX_COMPANY"];
+/* 状态标志 备注: HYPERLINK  \l "_保险公司状态" 见附录“保险公司状态”*/
+[businessparam setValue:@"" forKey:@"D44_70_STATUS"];
+/* 保险公司类型 备注: HYPERLINK  \l "_保险公司类别" 见附录“保险公司类型”*/
+[businessparam setValue:@"" forKey:@"D44_70_DATATYPE"];
+/* 城市代号 备注:*/
+[businessparam setValue:citycode forKey:@"D44_03_CITY_CODE"];
+/* 险种类型 备注:*/
+[businessparam setValue:@"" forKey:@"D44_70_BX_XZLX"];
+/* 保险险种ID 备注:*/
+[businessparam setValue:@"" forKey:@"D44_70_BX_XZID"];
+    SysBaseInfo *_sysBaseInfo=[SysBaseInfo sharedInstance];
     
-   if(msgReturn.formName!=nil && [msgReturn.errorCode isEqualToString:ERROR_FAILED])
-    {//交易失败
-        
-        
-    }
+    StampTranCall *stampTranCall=[StampTranCall sharedInstance ];
+      CstmMsg *cstmMsg=[CstmMsg sharedInstance ];
     
-    else
-    {
-        //网络错误 服务器错误  传输格式错误
-        if([msgReturn.errorCode isEqualToString:ERROR_DATA_FORMAT_ERROR] || [msgReturn.errorCode isEqualToString:ERROR_SERVICE_IN_ERROR] || [msgReturn.errorCode isEqualToString:ERROR_NOT_NET])
-            
-        {
-           
-            
-          
-            [PromptError changeShowErrorMsg:msgReturn title:@""  viewController:self block:^(BOOL OKCancel)
+    [stampTranCall jyTranCall:_sysBaseInfo cstmMsg:cstmMsg formName:n8056110 business:businessparam delegate:self viewController:self];
+
+}
+
+ 
+ 
+ -(void) ReturnError:(MsgReturn*)msgReturn
+     {
+     }
+ 
+ -(void) ReturnData:(MsgReturn*)msgReturn
+     {
+         
+         
+         
+    
+         
+         NSMutableArray *listData=[[NSMutableArray alloc]init];
+     /*保险公司信息查询8056110*/
+         if ([ msgReturn.formName isEqualToString:n8056110]){
+             
+             NSDictionary *returnData=[msgReturn.map objectForKey:@"returnData"];
+             NSDictionary *returnHead=[returnData objectForKey:@"returnHead"];
+             NSString *respDesc=[returnHead objectForKey:@"respDesc"];
+             NSString *respCode=[returnHead objectForKey:@"respCode"];
+             NSDictionary *returnDataBody=[returnData objectForKey:@"returnBody"];
+             
+             oldCityCode=citycode;
+             
+             RespondParam8056110 *commonItem=[[RespondParam8056110 alloc]init];
+             /* 循环域开始 备注:*/
+             int D44_70_RECORDNUM= [[returnDataBody objectForKey:@"D44_70_RECORDNUM"]intValue];
+             for(int i=0;i<D44_70_RECORDNUM;i++)
              {
-                 if (OKCancel) {
-                     
-                 }else
-                 {
-                     
-                 }
-                 return ;
+                 RespondParam8056110 *item1=[[RespondParam8056110 alloc]init];
+                 /* 保险公司ID号 备注:*/
+                 item1.D44_70_BX_COMPANYID=[[returnDataBody objectForKey:@"D44_70_BX_COMPANYID"] objectAtIndex:i];
+                 /* 保险公司名称 备注:*/
+                 item1.D44_70_BX_COMPANY=[[returnDataBody objectForKey:@"D44_70_BX_COMPANY"] objectAtIndex:i];
+                 /* 保险公司简介 备注:*/
+                 item1.D44_70_ACT_INTRO=[[returnDataBody objectForKey:@"D44_70_ACT_INTRO"] objectAtIndex:i];
+                 /* 图片ID 备注:*/
+                 item1.D44_70_PICID=[[returnDataBody objectForKey:@"D44_70_PICID"] objectAtIndex:i];
+                 /* 询价模式 备注: HYPERLINK  \l "_询价单状态" 见附录“询价模式”*/
+                 item1.D44_70_INQUERY_MODE=[[returnDataBody objectForKey:@"D44_70_INQUERY_MODE"] objectAtIndex:i];
+                 /* 状态标志 备注: HYPERLINK  \l "_保险公司类型" 见附录“保险公司状态”*/
+                 item1.D44_70_STATUS=[[returnDataBody objectForKey:@"D44_70_STATUS"] objectAtIndex:i];
+                 /* 保险公司类型 备注: HYPERLINK  \l "_保险公司类别" 见附录“保险公司类型”*/
+                 item1.D44_70_DATATYPE=[[returnDataBody objectForKey:@"D44_70_DATATYPE"] objectAtIndex:i];
+                 /* 业务开办局 备注:*/
+                 item1.D44_70_YWKBJ=[[returnDataBody objectForKey:@"D44_70_YWKBJ"] objectAtIndex:i];
+                 /* 业务开办局名称 备注:*/
+                 item1.D44_70_BRCH_NAME1=[[returnDataBody objectForKey:@"D44_70_BRCH_NAME1"] objectAtIndex:i];
+                 /* 备注 备注:*/
+                 item1.D44_70_REMARK=[[returnDataBody objectForKey:@"D44_70_REMARK"] objectAtIndex:i];
+                 [rows addObject:item1];
              }
-             ];
 
-        }
-    }
-       [self.delegate ReturnError:msgReturn];
-    
-    NSLog(@"%@ %@",msgReturn.formName,msgReturn.errorDesc);
-    
-}
-
-//业务请求返回数据
--(void)serviceInvokerReturnData:(MsgReturn*)msgReturn
-{
-    [timmer invalidate];
-    timmer=nil;
-    
-    if([msgReturn.errorCode isEqualToString:ERROR_SUCCESS])
-    {//callWebservice成功
-        
-        if ([msgReturn.formName isEqual:@"JY0052"]||[msgReturn.formName isEqual:@"JY0049"]) {
-            
-        }
-        else
-        {
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  if (isContinueOpenLoading) {//true开着
-                      
-                  }else
-                  {//false 关闭
-                  [SVProgressHUD dismiss];
-                  }
-               
-              });
-      
-        }
-        
-        
-        
-        NSMutableDictionary* map=msgReturn.map;
-        NSString *businessParamString=[map objectForKey:@"businessParam"];
-        NSDictionary *businessParamDic=[businessParamString objectFromJSONString];
-        NSString *tempdata=[businessParamDic objectForKey:@"data"];
-        NSDictionary *kk=[tempdata objectFromJSONString];
-        NSDictionary  *data=[kk objectForKey:@"kk"];
-        
-       
-      
-        
-       
-        NSMutableDictionary *returnDataDic=[data  objectForKey:@"returnData"];
-        
-         NSMutableDictionary *tempData=[NSMutableDictionary dictionaryWithDictionary:returnDataDic];
-        
-        [tempData setObject:returnDataDic forKey:@"returnBody"];
-        
-         NSMutableDictionary *tempData2=[[NSMutableDictionary alloc] init];
-        
-        [tempData2 setObject:tempData forKey:@"returnData"];
-         msgReturn.map=tempData2 ;
-        
-        NSMutableDictionary *returnHeadDic=[returnDataDic objectForKey:@"RCVMSG_HEAD"];
-        NSString *respCode=[returnHeadDic objectForKey:@"HOST_RET_ERR"];
-        NSString *respDesc=[returnHeadDic objectForKey:@"HOST_RET_MSG"];
-        
-        NSMutableDictionary *returnBodyDic=[returnDataDic objectForKey:@"returnBody"];
-    
-        
-        if (respCode!=nil && ![respCode isEqualToString:@""] &&![respCode isEqualToString:@"000000"]) {
-            
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            
-        });
-        
-            
-            MsgReturn *msgReturn=[[MsgReturn alloc] init];
-            msgReturn.errorCode=respCode;
-            msgReturn.errorDesc=respDesc;
-            msgReturn.errorType=@"02";
-        //NSLog(@"%@ %@",msgReturn.errorCode,msgReturn.errorDesc);
-        
-        
-        
-        [PromptError changeShowErrorMsg:msgReturn title:nil viewController:self.viewController block:^(BOOL OKCancel){
-            if (OKCancel) {
-                //[self.delegate ReturnError:msgReturn];
-            }
-            
-        } ];
-            
-            [SVProgressHUD dismiss];
-            
-            
-            return;
-        }
+             
+         }
      
-        [self.delegate ReturnData:msgReturn];
-        
-        
-    }else{//错误码 非0000
-    
-           dispatch_async(dispatch_get_main_queue(), ^{
-                              [SVProgressHUD dismiss];
-               
-           });
-        
-        NSLog(@"%@ %@",msgReturn.errorCode,msgReturn.errorDesc);
-        
-  
-  
-        [PromptError changeShowErrorMsg:msgReturn title:nil viewController:self.viewController block:^(BOOL OKCancel){
-            if (OKCancel) {
-                      [self.delegate ReturnError:msgReturn];
-            }
-        
-        } ];
-    }
-    
-}
-
-
-
-//实现一个创建单例对象的类方法
+     }
+ 
+ 
+@end//end viewController
 
 
 
 
-//这是单例对象遵循<NSCopying>协议时需要实现的方法
--(id) copyWithZone: (struct _NSZone *)zone{
-    return self;
-}
 
-
-//- (NSString *)localIPAddress
-//{
-//    NSString *localIP = nil;
-//    struct ifaddrs *addrs;
-//    if (getifaddrs(&addrs)==0) {
-//        const struct ifaddrs *cursor = addrs;
-//        while (cursor != NULL) {
-//            if (cursor->ifa_addr->sa_family == AF_INET && (cursor->ifa_flags & IFF_LOOPBACK) == 0)
-//            {
-//                //NSString *name = [NSString stringWithUTF8String:cursor->ifa_name];
-//                //if ([name isEqualToString:@"en0"]) // Wi-Fi adapter
-//                {
-//                    localIP = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)cursor->ifa_addr)->sin_addr)];
-//                    break;
-//                }
-//            }
-//            cursor = cursor->ifa_next;
-//        }
-//        freeifaddrs(addrs);
-//    }
-//    return localIP;
-//}
-
-
-@end
