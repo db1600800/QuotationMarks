@@ -4,14 +4,14 @@ package com.compoment.addfunction.iphone;
 public class DateTimeSelect {
 	
 	
-	public void time()
+	public String dateSelect(String clickName)
 	{
 		String m="";
 
-		m+="  //日期选择Start\n";
+		m+="  //----日期选择Start----\n";
 		m+="UIButton *selectDateTimeBtn=nil;\n";
 		m+="      #pragma mark -日期选择 \n";
-		m+="      -(void) selectDateTimeButtonClicked:(UIButton *)btn{\n";
+		m+="      -(void) "+clickName+"SelectDateTime:(UIButton *)btn{\n";
 		m+="selectDateTimeBtn=btn;\n";
 		m+="          UIDatePicker *datePicker = [[UIDatePicker alloc] init];\n";
 		m+="          datePicker.tag = 101;\n";
@@ -36,10 +36,9 @@ public class DateTimeSelect {
 		m+="          [startsheet addSubview:datePicker];\n";
 		m+="          [startsheet showInView:self.view];\n";
 		m+="          \n";
-		m+="          \n";
-		m+="          \n";
+	
 		m+="}else{\n";
-		m+="          \n";
+	
 		m+="          \n";
 		m+="          UIAlertController *alert = [UIAlertController alertControllerWithTitle:@\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\" message:nil 　　preferredStyle:UIAlertControllerStyleActionSheet];\n";
 		m+="          \n";
@@ -77,15 +76,14 @@ public class DateTimeSelect {
 		m+="          \n";
 		m+="      }\n";
 		m+="      \n";
-		m+="      \n";
-		m+="      \n";
+	
 		m+="      //点选择按钮时触发此事件\n";
 		m+="      -(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{\n";
 		m+="          UIDatePicker *datePicker = (UIDatePicker *)[actionSheet viewWithTag:101];\n";
 		m+="          NSDateFormatter *formattor = [[NSDateFormatter alloc] init];\n";
 		m+="          \n";
 		m+="          \n";
-		m+="          formattor.dateFormat = @\"yyyy-MM-dd\";\n";
+		m+="          formattor.dateFormat = @\"yyyy年MM月dd日\";\n";
 		m+="          \n";
 		m+="          NSString *timestamp = [formattor stringFromDate:datePicker.date];\n";
 		m+="          \n";
@@ -100,7 +98,7 @@ public class DateTimeSelect {
 		m+="      -(void)dateTimeValueChange:(UIDatePicker*)datepick\n";
 		m+="      {\n";
 		m+="          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];\n";
-		m+="          [dateFormatter setDateFormat:@\"yyyy-MM-dd\"];\n";
+		m+="          [dateFormatter setDateFormat:@\"yyyy年MM月dd日\"];\n";
 		m+="          NSString *timestamp =  [dateFormatter stringFromDate: [datepick date]];\n";
 		m+="          \n";
 		m+="    [selectDateTimeBtn setTitle:timestamp forState:UIControlStateNormal];\n";
@@ -108,15 +106,15 @@ public class DateTimeSelect {
 		m+="      }\n";
 		m+="      \n";
 		m+="      \n";
-		m+="      //日期选择End\n";
+		m+="      //----日期选择End----\n";
 		
 		
-		System.out.println(m);
+		return m;
 	}
 
 	
 	public static void main(String[] args) {
 		DateTimeSelect dateTimeSelect=new DateTimeSelect();
-		dateTimeSelect.time();
+		dateTimeSelect.dateSelect("");
 	}
 }

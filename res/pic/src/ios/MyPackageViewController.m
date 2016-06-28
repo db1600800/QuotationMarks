@@ -1,14 +1,12 @@
+//注入网络请求,响应,等待提示
 #import "MyPackageViewController .h"
 #import "MsgReturn .h"
 #import "MsgReturn .h"
 #import "MsgReturn .h"
 #import "MoreTableViewCell.h"
 #import "MyPackageTableViewCell.h"
-#import "ServiceInvoker .h"
-#import "RespondParam8075600 .h"
 #import "Row .h"
 #import "Chirld .h"
-//注入网络请求,响应,等待提示
 #import "MyPackageViewController .h"
 #import "MsgReturn .h"
 #import "MsgReturn .h"
@@ -203,17 +201,17 @@ return [[UITableViewCell alloc] init ];
        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyPackageTableViewCell" owner:self options:nil] lastObject];
     }
 //未启用
-[cell.packageStatusTextView setText:null];
-//2013秋冬自驾游
-[cell.packageNameTextView setText:null];
-//有效日期:
-[cell.dateTitleTextView setText:null];
-//2013111
-[cell.startDateTextView setText:null];
+[cell.packageStatusTextView setText:D44_70_NEW_STATUS];
+//2013秋冬
+[cell.packageNameTextView setText:D44_70_PACKETNAME];
+//有效期:
+[cell.dateTextView setText:null];
+//2013
+[cell.startDateTextView setText:D44_70_BEGINDATE];
 //-
-[cell.lineTextView setText:null];
+[cell.hengTextView setText:null];
 //2014
-[cell.endDateTextView setText:null];
+[cell.endDateTextView setText:D44_70_ENDDATE];
 //right
 [rightImageView setImage:[UIImage imageNamed:@"1.jpeg"]]
 [rightImageView setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@"default.jpg"]];
@@ -233,17 +231,17 @@ if (!cell) {
 }
 
 //未启用
-[cell.packageStatusTextView setText:null];
-//2013秋冬自驾游
-[cell.packageNameTextView setText:null];
-//有效日期:
-[cell.dateTitleTextView setText:null];
-//2013111
-[cell.startDateTextView setText:null];
+[cell.packageStatusTextView setText:D44_70_NEW_STATUS];
+//2013秋冬
+[cell.packageNameTextView setText:D44_70_PACKETNAME];
+//有效期:
+[cell.dateTextView setText:null];
+//2013
+[cell.startDateTextView setText:D44_70_BEGINDATE];
 //-
-[cell.lineTextView setText:null];
+[cell.hengTextView setText:null];
 //2014
-[cell.endDateTextView setText:null];
+[cell.endDateTextView setText:D44_70_ENDDATE];
 //right
 [rightImageView setImage:[UIImage imageNamed:@"1.jpeg"]]
 [rightImageView setImageWithURL:[NSURL URLWithString:  placeholderImage:[UIImage imageNamed:@"default.jpg"]];
@@ -296,10 +294,7 @@ NSString  *n8075600=@"8075600";
 NSMutableDictionary *businessparam=[[NSMutableDictionary alloc] init];
 /* 会员号 备注:*/
 [businessparam setValue:@"" forKey:@"D44_70_CUSTMNUM"];
-/* 查询范围 备注:0：有效套餐
-1:过期套餐
-2：未启用套餐
-3：所有套餐*/
+/* 查询范围 备注:0：有效套餐1:过期套餐2：未启用套餐3：所有套餐*/
 [businessparam setValue:@"" forKey:@"D44_70_VALID"];
 /* 页码 备注:*/
 [businessparam setValue:@"" forKey:@"D44_70_PAGENUM"];

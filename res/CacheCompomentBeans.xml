@@ -7,21 +7,21 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>5</x>
-    <y>107</y>
-    <w>306</w>
+    <x>7</x>
+    <y>110</y>
+    <w>304</w>
     <h>61</h>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
-    <cnname>bg1467019902780</cnname>
-    <enname>bg1467019902780LinearLayout</enname>
+    <cnname>bg1467075626725</cnname>
+    <enname>bg1467075626725LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>Erc-81-hSR</id>
+    <id>Wpu-R0-wh2</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>LinearLayout</type>
     <orientation></orientation>
@@ -30,7 +30,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467019908606</time>
+    <time>1467075646878</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -41,10 +41,11 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>25</x>
-    <y>126</y>
-    <w>24</w>
-    <h>3</h>
+    <x>22</x>
+    <y>125</y>
+    <w>27</w>
+    <h>5</h>
+    <interfaceColumnEnName>D44_70_NEW_STATUS</interfaceColumnEnName>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
     <cnname>未启用</cnname>
@@ -55,7 +56,7 @@
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>jQu-FW-BqV</id>
+    <id>KMP-PL-F8s</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -64,7 +65,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467019977409</time>
+    <time>1467075821707</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -76,12 +77,13 @@
     <g>0.0</g>
     <b>0.0</b>
     <x>69</x>
-    <y>123</y>
-    <w>111</w>
-    <h>6</h>
+    <y>124</y>
+    <w>101</w>
+    <h>5</h>
+    <interfaceColumnEnName>D44_70_PACKETNAME</interfaceColumnEnName>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
-    <cnname>2013秋冬自驾游</cnname>
+    <cnname>2013秋冬</cnname>
     <enname>packageNameTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
@@ -89,7 +91,7 @@
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>U0Q-B4-0a1</id>
+    <id>FMK-Qu-LUV</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -98,7 +100,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467020021568</time>
+    <time>1467075879876</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -109,55 +111,21 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>23</x>
+    <x>25</x>
     <y>148</y>
-    <w>17</w>
-    <h>3</h>
-    <actionDetailString></actionDetailString>
-    <jumpToWhichPage>myPackage</jumpToWhichPage>
-    <cnname>有效日期:</cnname>
-    <enname>dateTitleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <id>pm4-tP-dwj</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1467020060647</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#1D1D1D</rgb16>
-    <rgb16ios>#1D1D1D</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>69</x>
-    <y>148</y>
-    <w>36</w>
+    <w>15</w>
     <h>1</h>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
-    <cnname>2013111</cnname>
-    <enname>startDateTextView</enname>
+    <cnname>有效期:</cnname>
+    <enname>dateTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>OwM-f5-pJq</id>
+    <id>hEx-sb-zCj</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -166,7 +134,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467020105724</time>
+    <time>1467075920209</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -177,21 +145,22 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>119</x>
-    <y>142</y>
-    <w>7</w>
-    <h>11</h>
+    <x>67</x>
+    <y>148</y>
+    <w>38</w>
+    <h>2</h>
+    <interfaceColumnEnName>D44_70_BEGINDATE</interfaceColumnEnName>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
-    <cnname>-</cnname>
-    <enname>lineTextView</enname>
+    <cnname>2013</cnname>
+    <enname>startDateTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>9BO-aw-ohc</id>
+    <id>uRA-sg-SCY</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -200,7 +169,41 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467020145003</time>
+    <time>1467075963582</time>
+    <layoutNoUseForIos>false</layoutNoUseForIos>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#575757</rgb16>
+    <rgb16ios>#575757</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>116</x>
+    <y>143</y>
+    <w>11</w>
+    <h>12</h>
+    <actionDetailString></actionDetailString>
+    <jumpToWhichPage>myPackage</jumpToWhichPage>
+    <cnname>-</cnname>
+    <enname>hengTextView</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <id>TPe-58-KKU</id>
+    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
+    <type>TextView</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1467075989364</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -212,9 +215,10 @@
     <g>0.0</g>
     <b>0.0</b>
     <x>142</x>
-    <y>147</y>
+    <y>148</y>
     <w>29</w>
-    <h>3</h>
+    <h>1</h>
+    <interfaceColumnEnName>D44_70_ENDDATE</interfaceColumnEnName>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
     <cnname>2014</cnname>
@@ -225,7 +229,7 @@
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>HjV-rv-zAa</id>
+    <id>ExC-BO-6XD</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -234,7 +238,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467020167790</time>
+    <time>1467076023542</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -245,10 +249,10 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>294</x>
+    <x>295</x>
     <y>134</y>
-    <w>2</w>
-    <h>9</h>
+    <w>5</w>
+    <h>11</h>
     <actionDetailString></actionDetailString>
     <jumpToWhichPage>myPackage</jumpToWhichPage>
     <cnname>right</cnname>
@@ -259,7 +263,7 @@
     <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
     <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
     <isFilletedCorner>false</isFilletedCorner>
-    <id>l52-zb-I4b</id>
+    <id>1vS-54-icg</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>ImageView</type>
     <orientation></orientation>
@@ -268,7 +272,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>right</picName>
-    <time>1467020199647</time>
+    <time>1467076059625</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
 </list>

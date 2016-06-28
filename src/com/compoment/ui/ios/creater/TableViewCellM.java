@@ -70,7 +70,7 @@ public class TableViewCellM {
 	public void analyse(List<CompomentBean> oldBeans) {
 		
 		n+="#import <Foundation/Foundation.h>\n";
-		n+="#import \""+className+type+".h\"\n";
+		n+="#import \""+className.trim()+type.trim()+".h\"\n";
 		n+="@implementation "+className+type+"\n";
 
 		

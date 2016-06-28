@@ -351,8 +351,7 @@ public class CreaterAdapter {
 		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", className
 				+ "Adapter", "java", m);
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
-				"java", m);
+		//FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter","java", m);
 		// stringToFile("d:\\" + className + "Adapter.java", m);
 	}
 

@@ -2,14 +2,14 @@
 @interface MyPackageTableViewCell :UITableViewCell
 //未启用
 @property (weak, nonatomic) IBOutlet UILabel *packageStatusTextView;
-//2013秋冬自驾游
+//2013秋冬
 @property (weak, nonatomic) IBOutlet UILabel *packageNameTextView;
-//有效日期:
-@property (weak, nonatomic) IBOutlet UILabel *dateTitleTextView;
-//2013111
+//有效期:
+@property (weak, nonatomic) IBOutlet UILabel *dateTextView;
+//2013
 @property (weak, nonatomic) IBOutlet UILabel *startDateTextView;
 //-
-@property (weak, nonatomic) IBOutlet UILabel *lineTextView;
+@property (weak, nonatomic) IBOutlet UILabel *hengTextView;
 //2014
 @property (weak, nonatomic) IBOutlet UILabel *endDateTextView;
 //right

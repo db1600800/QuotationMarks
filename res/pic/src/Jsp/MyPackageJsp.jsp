@@ -77,10 +77,10 @@
 
 
  html+='<span id="packageStatusTextView" name ="packageStatusTextView" style="  font-size: 16px; color: #3E91C3;  ">未启用</span>'
- html+='<span id="packageNameTextView" name ="packageNameTextView" style="  font-size: 16px; color: #1D1D1D;  ">2013秋冬自驾游</span>'
- html+='<span id="dateTitleTextView" name ="dateTitleTextView" style="  font-size: 16px; color: #A8A8A8;  ">有效日期:</span>'
- html+='<span id="startDateTextView" name ="startDateTextView" style="  font-size: 16px; color: #1D1D1D;  ">2013111</span>'
- html+='<span id="lineTextView" name ="lineTextView" style="  font-size: 16px; color: #575757;  ">-</span>'
+ html+='<span id="packageNameTextView" name ="packageNameTextView" style="  font-size: 16px; color: #1D1D1D;  ">2013秋冬</span>'
+ html+='<span id="dateTextView" name ="dateTextView" style="  font-size: 16px; color: #A8A8A8;  ">有效期:</span>'
+ html+='<span id="startDateTextView" name ="startDateTextView" style="  font-size: 16px; color: #575757;  ">2013</span>'
+ html+='<span id="hengTextView" name ="hengTextView" style="  font-size: 16px; color: #575757;  ">-</span>'
  html+='<span id="endDateTextView" name ="endDateTextView" style="  font-size: 16px; color: #575757;  ">2014</span>'
 ;
 								}

@@ -1,5 +1,6 @@
 package com.compoment.ui.ios.creater;
 
+import com.compoment.addfunction.iphone.DateTimeSelect;
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -37,7 +38,46 @@ public class CompomentDeclareImplement {
 			i += "@synthesize " + chirld.enname + ";\n";
 
 			viewDidLoad_Declare += "//" + chirld.cnname + "\n";
-			viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n";
+			
+            if ("数字转义成汉字".equals( chirld.actionString)) {
+				
+				viewDidLoad_Declare += "SqlApp *sqlApp=[[SqlApp alloc ]init ];\n";
+				viewDidLoad_Declare += "NSString *"+chirld.interfaceColumnEnName+"Cn=[sqlApp selectTransferredMeaningByCode:"+chirld.interfaceColumnEnName+"];\n";
+				viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"[%@]\","+chirld.interfaceColumnEnName+"Cn]];\n";
+            }else if("时间格式化".equals(chirld.actionString))
+            {
+            	
+            	viewDidLoad_Declare += "{\n";
+            	viewDidLoad_Declare += "NSDateFormatter* sourceDateFormat = [[NSDateFormatter alloc] init];\n";
+               
+            	viewDidLoad_Declare += "[sourceDateFormat setDateFormat:@\"yyyyMMddHHmmss\"];\n";
+         
+            	viewDidLoad_Declare += "NSDate *date=[sourceDateFormat dateFromString:[NSString stringWithFormat:@\"%@\","+chirld.interfaceColumnEnName+"]];\n";
+                
+                
+            	viewDidLoad_Declare += "NSDateFormatter* desDateFormat = [[NSDateFormatter alloc] init];\n";
+         
+                
+            	viewDidLoad_Declare += "[desDateFormat setDateFormat:@\"yyyy年MM月dd日HH:mm:ss\"];//设定时间格式\n";
+                
+            	viewDidLoad_Declare += "NSString *"+chirld.interfaceColumnEnName+"Time=[desDateFormat stringFromDate:date];\n";
+            	
+            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥[%@]元\","+chirld.interfaceColumnEnName+"Time]];\n";
+            	
+            	viewDidLoad_Declare += "}\n";
+            	
+            }else if("金额格式化".equals(chirld.actionString))
+            {
+            	
+            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥[%.2f]元\","+chirld.interfaceColumnEnName+"]];\n";
+                
+            }
+            else
+			{
+				
+				viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:"+chirld.interfaceColumnEnName+"];\n";
+			}
+			
 			
 			if(chirld.isRunTimeHeightTextview)
 			{
@@ -49,6 +89,9 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += "         , "+selfString+chirld.enname+".frame.origin.y, "+selfString+chirld.enname+".frame.size.width, size"+chirld.enname+".height)];\n";
 			viewDidLoad_Declare += "//end换行高度\n\n";
 			}
+			
+			
+			
 			
 		}
 
@@ -144,7 +187,13 @@ public class CompomentDeclareImplement {
 				viewDidLoad_Implement += "    menu.view.hidden=YES;\n";
 				viewDidLoad_Implement += "}\n";
 
+			}else if("日期选择器".equals( chirld.actionString))
+			{
+				
+				DateTimeSelect dateTimeSelect=new DateTimeSelect();
+				viewDidLoad_Implement+=dateTimeSelect.dateSelect(chirld.enname + "Clicked");
 			}
+			
 
 			viewDidLoad_Implement += "\n}\n\n";
 

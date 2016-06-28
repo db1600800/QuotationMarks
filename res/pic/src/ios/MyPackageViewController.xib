@@ -7,14 +7,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPackageViewController">
             <connections>
-                        <outlet property="tableView" destination="YcP-Bm-0hG" id="Fbl-62-yST"/>
-                        <outlet property="unuseButton" destination="n39-YV-7O2" id="DHb-lh-NM1"/>
-                        <outlet property="useButton" destination="k19-2q-27d" id="2gs-1m-HWL"/>
-                        <outlet property="allButton" destination="ioN-co-Eyq" id="XoF-kR-wY7"/>
-                        <outlet property="addPackageButton" destination="G1n-DM-AcZ" id="g5D-wc-aMx"/>
-                        <outlet property="titleTextView" destination="BSN-fx-UEX" id="FPj-A9-4X9"/>
-                        <outlet property="backButton" destination="ZYs-Tr-fWe" id="21x-VZ-8iY"/>
-                <outlet property="view" destination="vqi-69-ylN" id="cZx-qB-APi"/>
+                        <outlet property="tableView" destination="YcP-Bm-0hG" id="PCV-PK-Kci"/>
+                        <outlet property="unuseButton" destination="n39-YV-7O2" id="lSX-Qn-kar"/>
+                        <outlet property="useButton" destination="k19-2q-27d" id="VTR-Bj-0pO"/>
+                        <outlet property="allButton" destination="ioN-co-Eyq" id="Pht-3V-KjH"/>
+                        <outlet property="addPackageButton" destination="G1n-DM-AcZ" id="5qO-Qh-JY0"/>
+                        <outlet property="titleTextView" destination="BSN-fx-UEX" id="nGf-h0-0VR"/>
+                        <outlet property="backButton" destination="ZYs-Tr-fWe" id="WT8-oJ-7Lv"/>
+                <outlet property="view" destination="vqi-69-ylN" id="6ZF-43-x58"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

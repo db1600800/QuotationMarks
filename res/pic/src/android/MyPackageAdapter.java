@@ -40,14 +40,14 @@ public class MyPackageAdapter extends BaseAdapter {
 			viewHolder = new ViewHolder();
 //未启用
 			viewHolder.packageStatusTextView = (TextView) convertView.findViewById(R.id.packageStatusTextView);
-//2013秋冬自驾游
+//2013秋冬
 			viewHolder.packageNameTextView = (TextView) convertView.findViewById(R.id.packageNameTextView);
-//有效日期:
-			viewHolder.dateTitleTextView = (TextView) convertView.findViewById(R.id.dateTitleTextView);
-//2013111
+//有效期:
+			viewHolder.dateTextView = (TextView) convertView.findViewById(R.id.dateTextView);
+//2013
 			viewHolder.startDateTextView = (TextView) convertView.findViewById(R.id.startDateTextView);
 //-
-			viewHolder.lineTextView = (TextView) convertView.findViewById(R.id.lineTextView);
+			viewHolder.hengTextView = (TextView) convertView.findViewById(R.id.hengTextView);
 //2014
 			viewHolder.endDateTextView = (TextView) convertView.findViewById(R.id.endDateTextView);
 //
@@ -62,14 +62,14 @@ public class MyPackageAdapter extends BaseAdapter {
 		if (adapterbean != null) {
 //未启用
 viewHolder.packageStatusTextView.setText(adapterbean.packageStatusTextViewValue);
-//2013秋冬自驾游
+//2013秋冬
 viewHolder.packageNameTextView.setText(adapterbean.packageNameTextViewValue);
-//有效日期:
-viewHolder.dateTitleTextView.setText(adapterbean.dateTitleTextViewValue);
-//2013111
+//有效期:
+viewHolder.dateTextView.setText(adapterbean.dateTextViewValue);
+//2013
 viewHolder.startDateTextView.setText(adapterbean.startDateTextViewValue);
 //-
-viewHolder.lineTextView.setText(adapterbean.lineTextViewValue);
+viewHolder.hengTextView.setText(adapterbean.hengTextViewValue);
 //2014
 viewHolder.endDateTextView.setText(adapterbean.endDateTextViewValue);
 //
@@ -79,14 +79,14 @@ viewHolder.endDateTextView.setText(adapterbean.endDateTextViewValue);
 	static class ViewHolder {
 /**未启用*/
 TextView packageStatusTextView;
-/**2013秋冬自驾游*/
+/**2013秋冬*/
 TextView packageNameTextView;
-/**有效日期:*/
-TextView dateTitleTextView;
-/**2013111*/
+/**有效期:*/
+TextView dateTextView;
+/**2013*/
 TextView startDateTextView;
 /**-*/
-TextView lineTextView;
+TextView hengTextView;
 /**2014*/
 TextView endDateTextView;
 /***/
@@ -96,14 +96,14 @@ public	static class MyPackageAdapterBean {
 public String id;
 /**未启用*/
 		public String packageStatusTextViewValue;
-/**2013秋冬自驾游*/
+/**2013秋冬*/
 		public String packageNameTextViewValue;
-/**有效日期:*/
-		public String dateTitleTextViewValue;
-/**2013111*/
+/**有效期:*/
+		public String dateTextViewValue;
+/**2013*/
 		public String startDateTextViewValue;
 /**-*/
-		public String lineTextViewValue;
+		public String hengTextViewValue;
 /**2014*/
 		public String endDateTextViewValue;
 /***/

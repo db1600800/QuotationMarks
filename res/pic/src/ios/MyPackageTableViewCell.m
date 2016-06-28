@@ -3,14 +3,14 @@
 @implementation MyPackageTableViewCell
 //未启用
 @synthesize packageStatusTextView;
-//2013秋冬自驾游
+//2013秋冬
 @synthesize packageNameTextView;
-//有效日期:
-@synthesize dateTitleTextView;
-//2013111
+//有效期:
+@synthesize dateTextView;
+//2013
 @synthesize startDateTextView;
 //-
-@synthesize lineTextView;
+@synthesize hengTextView;
 //2014
 @synthesize endDateTextView;
 //right

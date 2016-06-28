@@ -21,7 +21,7 @@ public class ImportString {
 					
 				}else
 				{
-				importString+="#import \""+line.substring(start+1,end)+".h\"\n";
+				importString+="#import \""+line.substring(start+1,end).trim()+".h\"\n";
 				}
 			}
 			
@@ -33,7 +33,7 @@ public class ImportString {
 				int start=line.indexOf("\"");
 				int end=line.lastIndexOf("\"");
 				String name=line.substring(start+1,end);
-				importString+="#import \""+line.substring(start+1,end)+".h\"\n";
+				importString+="#import \""+line.substring(start+1,end).trim()+".h\"\n";
 			}
 			
 		}

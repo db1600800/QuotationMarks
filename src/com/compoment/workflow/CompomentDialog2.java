@@ -62,7 +62,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
-public class CompomentDialog2 extends JDialog {
+public class CompomentDialog2 extends JFrame {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField cnNameEdit;
@@ -552,12 +552,22 @@ public class CompomentDialog2 extends JDialog {
 		});
 
 		List actions = new ArrayList();
+		actions.add("---Button---");
 		actions.add("跳到");
 		actions.add("跳回到上个");
 		actions.add("跳回到上几个");
 		actions.add("单选");
 		actions.add("发请求");
 		actions.add("弹出");
+		actions.add("日期选择器");
+		actions.add("省市县选择器");
+		actions.add("省简称选择器");
+		
+		actions.add("---TextView---");
+		actions.add("数字转义成汉字");
+		actions.add("时间格式化");
+		actions.add("金额格式化");
+		
 
 		actionList.setListData(actions.toArray());
 		actionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -714,8 +724,8 @@ public class CompomentDialog2 extends JDialog {
 				
 				bean.actionString = actionString;
 				bean.actionDetailString = actionDetail.getText();
-				bean.interfaceId = interfaceid;
-				bean.interfaceColumnEnName = interfaceColumnEnName;
+				
+				
 
 				if ("跳到".equals(actionString) && jumpToWhichPage == null) {
 					JOptionPane.showMessageDialog(null, "请选择跳到哪个页面", "", JOptionPane.INFORMATION_MESSAGE);
@@ -887,6 +897,12 @@ public class CompomentDialog2 extends JDialog {
 					
 					boolean isOkRequest=false;
 					int i=0;
+					
+					if(interfaceBeans==null || interfaceBeans.size()<=0)
+					{
+						return;
+					}
+					
 					for (Group group : interfaceBeans.get(0).requestGroups) {
 
 						for (Row row : group.rows) {
