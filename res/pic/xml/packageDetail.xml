@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical" >
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F2F2F2"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FB6F2C"   android:orientation="horizontal"  android:gravity="center_vertical">
+<Button   android:id="@+id/backButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="back"   android:textSize="16sp" android:textColor="#FB6F2C"   android:background="#FB6F2C"  >
+</Button>
+<TextView   android:id="@+id/titleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="可加办套餐详情"   android:textSize="16sp" android:textColor="#C58768"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<ScrollViewLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F2F2F2"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/part1TitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="套餐信息"   android:textSize="16sp" android:textColor="#2A2A2A"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#ffffff"  android:orientation="horizontal"  >
+<TextView   android:id="@+id/packageNameTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="套餐名称"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/packageNameTitleTextViewValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="2013"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/feePeriodTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="周期"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/feePeriodValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="6个月"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/feeTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="价格"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/feeValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="333"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/areaTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="服务区域"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/areaValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="广州北京"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/feeModeTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="收费模式"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/feeModeValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="先付款"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/countModeTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="累加模式"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/countModeTitleTextViewValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="按次"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/part3TitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="绑定信息"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/maxBindNumTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="最大绑定数量"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/maxBindNumValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="10"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/bindedNumTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="已绑"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/bindedNumValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="2"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+<Button   android:id="@+id/newBindButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="新绑定"   android:textSize="16sp" android:textColor="#FB6F2C"   android:background="#FFFFFF"  >
+</Button>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/cartypeTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="小型汽车"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/carNumTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="粤c132"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/carMsgTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="小树枝"   android:textSize="16sp" android:textColor="#AEAEAE"   android:gravity="center" >
+</TextView>
+<Button   android:id="@+id/deleteButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="删除"   android:textSize="16sp" android:textColor="#212121"   android:background="#FFFFFF"  >
+</Button>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/emptyBindTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="暂未绑定车辆"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/singleTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="简介"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/singleMsgValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="safdsf"   android:textSize="16sp" android:textColor="#212121"   android:gravity="center" >
+</TextView>
+</LinearLayout>
+</LinearLayout>
+</ScrollViewLayout>
+</LinearLayout>
+</LinearLayout>
+
+
+
+

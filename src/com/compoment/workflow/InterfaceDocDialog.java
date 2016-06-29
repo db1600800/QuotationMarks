@@ -64,6 +64,7 @@ public class InterfaceDocDialog extends JDialog {
 	 * 接口列表多选的值   (f.id + "" + f.title);
 	 * */
 	public Object[] selects;
+	public List selectInterfaceBeans;
 	
 	boolean isSingleSelect;
 	
@@ -370,12 +371,12 @@ Desktop desktop=Desktop.getDesktop();
 		
 		
 		//listview
-		if(isSingleSelect)
-		{
-			
-			listListView.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-			
-		}else
+//		if(isSingleSelect)
+//		{
+//			
+//			listListView.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+//			
+//		}else
 		{
 			listListView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			
@@ -388,6 +389,20 @@ Desktop desktop=Desktop.getDesktop();
 				if(even.getValueIsAdjusting()==true)
 				{//按下时
 				selects = listListView.getSelectedValues();
+				selectInterfaceBeans=new ArrayList();
+				for(Object row:selects)
+				{
+					
+				for(int i=0;i<interfaceBeans.size();i++)
+				{
+					
+					if(((String)row).contains(interfaceBeans.get(i).id))
+					{
+						
+						selectInterfaceBeans.add(interfaceBeans.get(i));
+					}
+				}
+				}
 			
 				}
 			}

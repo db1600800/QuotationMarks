@@ -493,7 +493,9 @@ public class CompomentDialog2 extends JFrame {
 					
 					boolean isOkRequest=false;
 					int i=0;
-					for (Group group : interfaceBeans.get(0).requestGroups) {
+					for(int k=0;k<interfaceBeans.size();k++)
+					{
+					for (Group group : interfaceBeans.get(k).requestGroups) {
 
 						for (Row row : group.rows) {
 							
@@ -508,9 +510,12 @@ public class CompomentDialog2 extends JFrame {
 						}
 
 					}
+					}
 					boolean isOkRespond=false;
 					int j=0;
-					for (Group group : interfaceBeans.get(0).respondGroups) {
+					for(int k=0;k<interfaceBeans.size();k++)
+					{
+					for (Group group : interfaceBeans.get(k).respondGroups) {
 
 						for (Row row : group.rows) {
 							String column = row.enName + ":" + row.cnName;
@@ -523,6 +528,7 @@ public class CompomentDialog2 extends JFrame {
 							}
 						}
 
+					}
 					}
 					
 				}else
@@ -617,7 +623,7 @@ public class CompomentDialog2 extends JFrame {
 					
 						
 						bean.interfaceColumnEnName=id;
-						bean.interfaceId=interfaceBeans.get(0).id;
+						//bean.interfaceId=interfaceBeans.get(0).id;
 						
 
 			        }
@@ -625,14 +631,16 @@ public class CompomentDialog2 extends JFrame {
 			    }});
 		
 
-			for (Group group : interfaceBeans.get(0).requestGroups) {
+			for(int k=0;k<interfaceBeans.size();k++)
+			{
+			for (Group group : interfaceBeans.get(k).requestGroups) {
 
 				for (Row row : group.rows) {
 					String column = row.enName + ":" + row.cnName;
 					tempinputs.add(column);
 				}
 
-			}
+			}}
 
 			interfaceList.setListData(tempinputs.toArray());
 
@@ -661,7 +669,8 @@ public class CompomentDialog2 extends JFrame {
 						
 						
 						bean.interfaceColumnEnName=id;
-						bean.interfaceId=interfaceBeans.get(0).id;
+						
+						//bean.interfaceId=interfaceBeans.get(0).id;
 						
 			        }
 			        
@@ -669,14 +678,16 @@ public class CompomentDialog2 extends JFrame {
 			});  
 
 
-
-			for (Group group : interfaceBeans.get(0).respondGroups) {
+			for(int k=0;k<interfaceBeans.size();k++)
+			{
+			for (Group group : interfaceBeans.get(k).respondGroups) {
 
 				for (Row row : group.rows) {
 					String column = row.enName + ":" + row.cnName;
 					tempoutputs.add(column);
 				}
 
+			}
 			}
 
 			interfaceColumnList.setListData(tempoutputs.toArray());
@@ -904,7 +915,9 @@ public class CompomentDialog2 extends JFrame {
 						return;
 					}
 					
-					for (Group group : interfaceBeans.get(0).requestGroups) {
+					for(int k=0;k<interfaceBeans.size();k++)
+					{
+					for (Group group : interfaceBeans.get(k).requestGroups) {
 
 						for (Row row : group.rows) {
 							
@@ -918,7 +931,7 @@ public class CompomentDialog2 extends JFrame {
 							i++;
 						}
 
-					}
+					}}
 					
 					if(!isOkRequest)
 					{
@@ -928,7 +941,9 @@ public class CompomentDialog2 extends JFrame {
 					
 					boolean isOkRespond=false;
 					int j=0;
-					for (Group group : interfaceBeans.get(0).respondGroups) {
+					for(int k=0;k<interfaceBeans.size();k++)
+					{
+					for (Group group : interfaceBeans.get(k).respondGroups) {
 
 						for (Row row : group.rows) {
 							String column = row.enName + ":" + row.cnName;
@@ -943,6 +958,7 @@ public class CompomentDialog2 extends JFrame {
 							j++;
 						}
 
+					}
 					}
 					
 					if(!isOkRespond)
