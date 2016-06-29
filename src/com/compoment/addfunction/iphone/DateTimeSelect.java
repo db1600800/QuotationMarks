@@ -11,7 +11,7 @@ public class DateTimeSelect {
 		m+="  //----日期选择Start----\n";
 		m+="UIButton *selectDateTimeBtn=nil;\n";
 		m+="      #pragma mark -日期选择 \n";
-		m+="      -(void) "+clickName+"SelectDateTime:(UIButton *)btn{\n";
+		m+="      -(void) "+clickName+":(UIButton *)btn{\n";
 		m+="selectDateTimeBtn=btn;\n";
 		m+="          UIDatePicker *datePicker = [[UIDatePicker alloc] init];\n";
 		m+="          datePicker.tag = 101;\n";

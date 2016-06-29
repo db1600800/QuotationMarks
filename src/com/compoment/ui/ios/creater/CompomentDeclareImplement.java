@@ -1,5 +1,6 @@
 package com.compoment.ui.ios.creater;
 
+import com.compoment.addfunction.iphone.BaseSelecter;
 import com.compoment.addfunction.iphone.DateTimeSelect;
 import com.compoment.cut.CompomentBean;
 import com.compoment.util.FileUtil;
@@ -121,6 +122,16 @@ public class CompomentDeclareImplement {
 			viewDidLoad_Declare += "[" + selfString + chirld.enname + " setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域\n\n";
 			}
 
+			
+			 if("日期选择器".equals( chirld.actionString))
+			{
+				
+				DateTimeSelect dateTimeSelect=new DateTimeSelect();
+				viewDidLoad_Implement+=dateTimeSelect.dateSelect(chirld.enname + "Clicked");
+			}else
+			{
+			
+			
 			viewDidLoad_Implement += "-(void)" + chirld.enname + "Clicked:(UIButton *)btn{\n";
 			viewDidLoad_Implement += "//id mId = objc_getAssociatedObject(btn, \"mId\");\n//取绑定数据";
 			viewDidLoad_Implement += "int mId2 = btn.tag;\n//取绑定数据";
@@ -187,15 +198,18 @@ public class CompomentDeclareImplement {
 				viewDidLoad_Implement += "    menu.view.hidden=YES;\n";
 				viewDidLoad_Implement += "}\n";
 
-			}else if("日期选择器".equals( chirld.actionString))
-			{
-				
-				DateTimeSelect dateTimeSelect=new DateTimeSelect();
-				viewDidLoad_Implement+=dateTimeSelect.dateSelect(chirld.enname + "Clicked");
+			}else if("通用选择器".equals( chirld.actionString)){
+				BaseSelecter baseSelecter=new BaseSelecter(chirld.enname);
+				viewDidLoad_Implement+=baseSelecter.commonSelector();
+			}
+			else if("省市县选择器".equals( chirld.actionString)){
+				BaseSelecter baseSelecter=new BaseSelecter(chirld.enname);
+				viewDidLoad_Implement+=baseSelecter.proCityCountySqlApp();
 			}
 			
 
 			viewDidLoad_Implement += "\n}\n\n";
+			}
 
 		}
 

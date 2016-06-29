@@ -1,294 +1,77 @@
-//注入网络请求,响应,等待提示
-
-
-
-#import "SelectInsuranceDialogViewController.h"
-#import "UIImageView+WebCache.h"
-#import <Foundation/Foundation.h>
-#import <JSONKit.h>
-#import <objc/runtime.h>
-#import "UIButton+EnlargeTouchArea.h"
-#import "SelectInsuranceDialogTableViewCell.h"
-#import "RespondParam8056110.h"
-
-//注入table功能
- NSString *SelectInsuranceDialogCellIdentifier = @"SelectInsuranceDialogTableViewCell";
- NSString *SelectInsuranceDialogCellHeadIdentifier = @"SelectInsuranceDialogTableViewCellHead";
-
-@implementation SelectInsuranceDialogViewController
-@synthesize citycode;
-@synthesize cacheCells;
-//back
-@synthesize backButton;
-//list
-@synthesize tableView;
-//选择保险公司
-@synthesize selecInsuranceButton;
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-//start  TableView 
-totalRowCount=0;
-currentRowCount=0;
-page=1;
-
-allIndexpaths=[[NSMutableArray alloc] init];
- rows=[[NSMutableArray alloc] init];
-    [self.tableView setDelegate:self];//tableview委托
-    [self.tableView setDataSource:self];//tableview数据委托
-    self.tableView.tableFooterView=[[UIView alloc]init];//tableview去除多余的分隔线
-    //使用自定义的Cell,需要向UITableView进行注册
-    UINib *cellNib = [UINib nibWithNibName:@"SelectInsuranceDialogTableViewCell" bundle:nil];
-    [tableView registerNib:cellNib forCellReuseIdentifier:SelectInsuranceDialogCellIdentifier];
-     cacheCells = [NSMutableDictionary dictionary];
-//end TableView 
-
-
-//back
-[self.backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-[self.backButton setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域
-
-
-//选择保险公司
-
-[self.selecInsuranceButton addTarget:self action:@selector(selecInsuranceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+-(CityEntity*) queryCityMSG:(NSString*) code withLevel:(NSString*)level{
     
-   
-}
-
--(void) viewWillAppear:(BOOL)animated{
-     [super viewWillAppear:animated];
-//table
-[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self openDB];
     
-    // [self  request8056110];
-}
-
--(void)backButtonClicked:(UIButton *)btn{
-id mId = objc_getAssociatedObject(btn, "mId");
-//取绑定数据int mId2 = btn.tag;
-//取绑定数据//方法3.回到上页面
- // [self.navigationController popViewControllerAnimated:YES];
-[self.view setHidden:YES];
-}
-
--(void)selecInsuranceButtonClicked:(UIButton *)btn{
-id mId = objc_getAssociatedObject(btn, "mId");
-//取绑定数据int mId2 = btn.tag;
-//取绑定数据//方法3.回到上页面
-  //[self.navigationController popViewControllerAnimated:YES];
-    [self.view setHidden:YES];
-    
-    [self.chirldViewCallBackDelegate chirldViewCallBack_selectCompany:rows];
-}
-
-
--(void)viewWillLayoutSubviews
-{
-//int startY=self.headView.frame.origin.y+self.headView.frame.size.height;
-// [self.tableView setFrame:CGRectMake(0, startY, self.tableView.frame.size.width, self.view.frame.size.height-startY )];
-}
-
-//指定有多少个分区(Section)，默认为1
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;//返回标题数组中元素的个数来确定分区的个数   return [sections count];
-}
-
-//指定每个分区中有多少行，默认为1
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-     return  [rows count];
-    
-}
-
-//绘制Cell
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
- {
- SelectInsuranceDialogTableViewCell *cell = (SelectInsuranceDialogTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:SelectInsuranceDialogCellIdentifier];
-    if (!cell)
-    {
-       cell = [[[NSBundle mainBundle] loadNibNamed:@"SelectInsuranceDialogTableViewCell" owner:self options:nil] lastObject];
-    }
-     
-     
-     RespondParam8056110 *row=rows[indexPath.row];
-
-//中国人寿
-cell.insurancenameCheckBox.tag=indexPath.row;
-     [cell.insurancenameCheckBox setSelected:row.isSelect];
-[cell.insurancenameCheckBox addTarget:self action:@selector(insurancenameCheckBoxCheck:) forControlEvents:UIControlEventTouchUpInside];
-[cell.insurancenameCheckBox setBackgroundImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateSelected];
- [cell.insurancenameCheckBox setBackgroundImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
-[cell.insurancenameCheckBox setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];//扩大点击区域
-     
-     
-     //名称
-    [ cell.insurancenameCheckBoxCover setText:row.D44_70_BX_COMPANY];
-
-//人寿
-
-[cell.insurancePicImageView setImageWithURL:[NSURL URLWithString:row.D44_70_PICID ] placeholderImage:[UIImage imageNamed:@"default.jpg"]];
-return cell;
- }
-    
-}
-
-//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-NSString *reuseIdentifier = SelectInsuranceDialogCellIdentifier;
-SelectInsuranceDialogTableViewCell *cell= [self.cacheCells objectForKey:reuseIdentifier];
-if (!cell) {
-  cell=[self.tableView dequeueReusableCellWithIdentifier:SelectInsuranceDialogCellIdentifier];
-  [self.cacheCells setObject:cell forKey:reuseIdentifier];
-}
-
-
-
- 
-   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   
-return height+1;
- 
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 88;
-}
-
-//点击后，过段时间cell自动取消选中
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    RespondParam8056110 *row=rows[indexPath.row];
-    row.isSelect=!row.isSelect;
-    [tableView reloadData];
-    //消除cell选择痕迹
-    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.05f];
-}
-- (void)deselect
-{
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-}
--(void) setChirldViewValue:(NSMutableArray*)mdata  delegate:(id<SelectInsuranceDialogChirldViewCallBackDelegate>)parent{
-   self.chirldViewCallBackDelegate=parent;
-   rows=mdata;
-    [tableView reloadData];
-}
-
--(void)insurancenameCheckBoxCheck:(UIButton *)btn{
-//id mId = objc_getAssociatedObject(btn, "mId");
-int mId2 = btn.tag;
-//取绑定数据  btn.selected = !btn.selected ;//用与button做checkBox
-    
-     RespondParam8056110 *row=rows[mId2];
-    row.isSelect=!row.isSelect;
-
-[tableView reloadData];
-}
-
-
-
-
-/*保险公司信息查询8056110*/
-NSString  *n8056110=@"8056110";
-/*保险公司信息查询8056110*/
--(void) request8056110{
-    
-    if (oldCityCode!=nil && citycode!=nil && [oldCityCode isEqualToString:citycode]) {
+     NSString *sqlQuery=@"";
+    if ([level isEqualToString:@"2"]) {//省
+         sqlQuery = [NSString stringWithFormat:
+                              @"SELECT * FROM PM_CITYCODE  where not CITYCODE = '000000000000000' and CITYCODE like '%%000000000' "];
         
-        return;
+    }else  if ([level isEqualToString:@"3"]) {//市
+        
+       NSString *part1= [code substringWithRange:NSMakeRange(0, 6)];
+        NSString *part2=[code substringWithRange:NSMakeRange(9, 6)];
+        
+         sqlQuery = [NSString stringWithFormat:
+                              @"SELECT * FROM PM_CITYCODE a where not a.CITYCODE = '%@' and a.CITYCODE like '%@'  ",code,[NSString stringWithFormat:@"%@___%@",part1,part2]];
+        
+    }else  if ([level isEqualToString:@"4"]) {//县
+        
+        NSString *part1= [code substringWithRange:NSMakeRange(0, 9)];
+  
+        
+         sqlQuery = [NSString stringWithFormat:
+                              @"SELECT * FROM PM_CITYCODE a where not a.CITYCODE = '%@' and a.CITYCODE like '%@%%' ",code,part1];
+        
     }
     
-NSMutableDictionary *businessparam=[[NSMutableDictionary alloc] init];
-/* 保险公司ID号 备注:*/
-[businessparam setValue:@"" forKey:@"D44_70_BX_COMPANYID"];
-/* 保险公司名称 备注:*/
-[businessparam setValue:@"" forKey:@"D44_70_BX_COMPANY"];
-/* 状态标志 备注: HYPERLINK  \l "_保险公司状态" 见附录“保险公司状态”*/
-[businessparam setValue:@"" forKey:@"D44_70_STATUS"];
-/* 保险公司类型 备注: HYPERLINK  \l "_保险公司类别" 见附录“保险公司类型”*/
-[businessparam setValue:@"" forKey:@"D44_70_DATATYPE"];
-/* 城市代号 备注:*/
-[businessparam setValue:citycode forKey:@"D44_03_CITY_CODE"];
-/* 险种类型 备注:*/
-[businessparam setValue:@"" forKey:@"D44_70_BX_XZLX"];
-/* 保险险种ID 备注:*/
-[businessparam setValue:@"" forKey:@"D44_70_BX_XZID"];
-    SysBaseInfo *_sysBaseInfo=[SysBaseInfo sharedInstance];
+ 
     
-    StampTranCall *stampTranCall=[StampTranCall sharedInstance ];
-      CstmMsg *cstmMsg=[CstmMsg sharedInstance ];
+    NSLog(@"sqlQuery:%@",sqlQuery);
+    sqlite3_stmt * statement;
     
-    [stampTranCall jyTranCall:_sysBaseInfo cstmMsg:cstmMsg formName:n8056110 business:businessparam delegate:self viewController:self];
+    NSMutableArray *superioridarr=[NSMutableArray array];
+    NSMutableArray *regionidarr=[NSMutableArray array];
+    NSMutableArray *regionnamearr=[NSMutableArray array];
+    
+    CityEntity *ety= [[CityEntity alloc] init ];
+    
+    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        
+        //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值,注意这里的列值
+        
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+//            cityEntity *r=[[cityEntity alloc] init ];
+            
+            
+            char *superioridCHAR = (char*)sqlite3_column_text(statement, 0);
+            NSString *strsuperiorid = [[NSString alloc]initWithUTF8String:superioridCHAR];
+            [superioridarr addObject:strsuperiorid];
+            
+            char *regionidchar = (char*)sqlite3_column_text(statement, 1);
+            NSString *regionidstring = [[NSString alloc]initWithUTF8String:regionidchar];
+            [regionidarr addObject:regionidstring];
 
+            
+            char *regionnamechar = (char*)sqlite3_column_text(statement, 2);
+            NSString *regionnamestring = [[NSString alloc]initWithUTF8String:regionnamechar];
+            [regionnamearr addObject:regionnamestring];
+            
+            //NSLog(@"name:%@  age:%d  address:%@",nsNameStr,age, nsAddressStr);
+        }
+    }else{
+        NSLog(@"select error:%@",sqlQuery);
+        
+    }
+    sqlite3_close(db);
+    if (superioridarr.count>0) {
+        ety.superiorid = superioridarr;
+        ety.regionid =superioridarr ;
+        ety.regionname =regionidarr ;
+    }
+    else
+    {
+        ety =nil;
+    }
+    return ety;
 }
-
- 
- 
- -(void) ReturnError:(MsgReturn*)msgReturn
-     {
-     }
- 
- -(void) ReturnData:(MsgReturn*)msgReturn
-     {
-         
-         
-         
-    
-         
-         NSMutableArray *listData=[[NSMutableArray alloc]init];
-     /*保险公司信息查询8056110*/
-         if ([ msgReturn.formName isEqualToString:n8056110]){
-             
-             NSDictionary *returnData=[msgReturn.map objectForKey:@"returnData"];
-             NSDictionary *returnHead=[returnData objectForKey:@"returnHead"];
-             NSString *respDesc=[returnHead objectForKey:@"respDesc"];
-             NSString *respCode=[returnHead objectForKey:@"respCode"];
-             NSDictionary *returnDataBody=[returnData objectForKey:@"returnBody"];
-             
-             oldCityCode=citycode;
-             
-             RespondParam8056110 *commonItem=[[RespondParam8056110 alloc]init];
-             /* 循环域开始 备注:*/
-             int D44_70_RECORDNUM= [[returnDataBody objectForKey:@"D44_70_RECORDNUM"]intValue];
-             for(int i=0;i<D44_70_RECORDNUM;i++)
-             {
-                 RespondParam8056110 *item1=[[RespondParam8056110 alloc]init];
-                 /* 保险公司ID号 备注:*/
-                 item1.D44_70_BX_COMPANYID=[[returnDataBody objectForKey:@"D44_70_BX_COMPANYID"] objectAtIndex:i];
-                 /* 保险公司名称 备注:*/
-                 item1.D44_70_BX_COMPANY=[[returnDataBody objectForKey:@"D44_70_BX_COMPANY"] objectAtIndex:i];
-                 /* 保险公司简介 备注:*/
-                 item1.D44_70_ACT_INTRO=[[returnDataBody objectForKey:@"D44_70_ACT_INTRO"] objectAtIndex:i];
-                 /* 图片ID 备注:*/
-                 item1.D44_70_PICID=[[returnDataBody objectForKey:@"D44_70_PICID"] objectAtIndex:i];
-                 /* 询价模式 备注: HYPERLINK  \l "_询价单状态" 见附录“询价模式”*/
-                 item1.D44_70_INQUERY_MODE=[[returnDataBody objectForKey:@"D44_70_INQUERY_MODE"] objectAtIndex:i];
-                 /* 状态标志 备注: HYPERLINK  \l "_保险公司类型" 见附录“保险公司状态”*/
-                 item1.D44_70_STATUS=[[returnDataBody objectForKey:@"D44_70_STATUS"] objectAtIndex:i];
-                 /* 保险公司类型 备注: HYPERLINK  \l "_保险公司类别" 见附录“保险公司类型”*/
-                 item1.D44_70_DATATYPE=[[returnDataBody objectForKey:@"D44_70_DATATYPE"] objectAtIndex:i];
-                 /* 业务开办局 备注:*/
-                 item1.D44_70_YWKBJ=[[returnDataBody objectForKey:@"D44_70_YWKBJ"] objectAtIndex:i];
-                 /* 业务开办局名称 备注:*/
-                 item1.D44_70_BRCH_NAME1=[[returnDataBody objectForKey:@"D44_70_BRCH_NAME1"] objectAtIndex:i];
-                 /* 备注 备注:*/
-                 item1.D44_70_REMARK=[[returnDataBody objectForKey:@"D44_70_REMARK"] objectAtIndex:i];
-                 [rows addObject:item1];
-             }
-
-             
-         }
-     
-     }
- 
- 
-@end//end viewController
-
-
-
-
-

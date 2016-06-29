@@ -562,6 +562,7 @@ public class CompomentDialog2 extends JFrame {
 		actions.add("日期选择器");
 		actions.add("省市县选择器");
 		actions.add("省简称选择器");
+		actions.add("通用选择器");
 		
 		actions.add("---TextView---");
 		actions.add("数字转义成汉字");
