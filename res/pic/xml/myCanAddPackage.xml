@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical" >
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F2F2F2"   android:orientation="vertical"  android:gravity="">
+<ListView   android:id="@+id/listListView" android:layout_width="fill_parent"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:cacheColorHint="@null" android:divider="#FFFFFF"  android:dividerHeight="0.5dip" android:fadingEdge="none"  android:fastScrollEnabled="false" >
+</ListView>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FB6F2C"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/titleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="可加办套餐"   android:textSize="16sp" android:textColor="#FFFFFF"   android:gravity="center" >
+</TextView>
+<Button   android:id="@+id/myPackageButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="我的套餐"   android:textSize="16sp" android:textColor="#FFFFFF"   android:background="#FB6F2C"  >
+</Button>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<Button   android:id="@+id/priceUpButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="价格从高到低"   android:textSize="16sp" android:textColor="#212121"   android:background="#FFFFFF"  >
+</Button>
+<ImageView   android:id="@+id/downImageView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"   android:background="@drawable/down"  >
+</ImageView>
+<Button   android:id="@+id/timeButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="3个月"   android:textSize="16sp" android:textColor="#212121"   android:background="#FFFFFF"  >
+</Button>
+<ImageView   android:id="@+id/downImageView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"   android:background="@drawable/down"  >
+</ImageView>
+<Button   android:id="@+id/cityButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="全国"   android:textSize="16sp" android:textColor="#353434"   android:background="#FFFFFF"  >
+</Button>
+<ImageView   android:id="@+id/downImageView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"   android:background="@drawable/down"  >
+</ImageView>
+</LinearLayout>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
+<TextView   android:id="@+id/totalTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="总计:"   android:textSize="16sp" android:textColor="#353434"   android:gravity="center" >
+</TextView>
+<TextView   android:id="@+id/totalValueTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="123"   android:textSize="16sp" android:textColor="#B84752"   android:gravity="center" >
+</TextView>
+<Button   android:id="@+id/buyButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="办理"   android:textSize="16sp" android:textColor="#FFFFFF"   android:background="#FB6F2C"  >
+</Button>
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>
+
+
+
+

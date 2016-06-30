@@ -61,6 +61,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JScrollBar;
 
 public class CompomentDialog2 extends JFrame {
 
@@ -96,7 +97,6 @@ public class CompomentDialog2 extends JFrame {
 	String actionString;
 	String actionDetailString;
 	String jumpToWhichPage;
-	private JTextField actionDetail;
 
 	JCheckBox runTimeAddScrollView;
 	private JLabel colorLabel;
@@ -153,15 +153,10 @@ public class CompomentDialog2 extends JFrame {
 		JLabel label_1 = new JLabel("输出参数");
 
 		JLabel label_2 = new JLabel("事件");
-
-		actionList = new JList();
 		interfaceColumnList = new JList();
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(interfaceColumnList);
-
-		actionDetail = new JTextField();
-		actionDetail.setColumns(10);
 
 		jumpToViewComboBox = new JComboBox();
 
@@ -175,6 +170,8 @@ public class CompomentDialog2 extends JFrame {
 		webCompomentPanel = new JPanel();
 		
 		JLabel lblNewLabel = new JLabel("输入参数");
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
 
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -191,7 +188,7 @@ public class CompomentDialog2 extends JFrame {
 											.addComponent(baseListListView, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.UNRELATED)
 											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
 												.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 									.addGap(12)
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -204,22 +201,15 @@ public class CompomentDialog2 extends JFrame {
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(48)
-											.addComponent(label_2))
-										.addGroup(gl_contentPanel.createSequentialGroup()
-											.addGap(12)
-											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(actionList, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-												.addComponent(actionDetail)
-												.addComponent(label)
-												.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE))
-							.addGap(68))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(998, Short.MAX_VALUE))))
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(label)
+										.addComponent(label_2)
+										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+										.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+					.addGap(37))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -235,29 +225,32 @@ public class CompomentDialog2 extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
 					.addGap(19)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(actionList, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-								.addGap(5)
-								.addComponent(actionDetail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(3)
-								.addComponent(label)
-								.addGap(1)
-								.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(basePicScrollPane, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(interfaceList, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE)
+									.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(baseListListView, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGroup(gl_contentPanel.createSequentialGroup()
+										.addComponent(basePicScrollPane, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(label)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(61))
+					.addContainerGap(66, Short.MAX_VALUE))
 		);
+		
+				actionList = new JList();
+				scrollPane_1.setViewportView(actionList);
 
 		lblWeb = new JLabel("web组件");
 
@@ -735,7 +728,7 @@ public class CompomentDialog2 extends JFrame {
 
 				
 				bean.actionString = actionString;
-				bean.actionDetailString = actionDetail.getText();
+				
 				
 				
 

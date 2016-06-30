@@ -641,13 +641,13 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 						// 在此可以判断剪贴板的其它类型，如果不是复制的rtf只在弹出提示框显示；
 						System.out.println("剪贴板内容类型：" + data.getSubType());
 						
-						JOptionPane.showMessageDialog(null, "剪贴板内容类型不是图片," + data.getSubType());
-
-						String str = "";// 设置字符串
-						StringSelection selection = new StringSelection(str);// 构建String数据类型
-						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
-
-						clipboard.setContents(clipboard.getContents(null), this);
+//						JOptionPane.showMessageDialog(null, "剪贴板内容类型不是图片," + data.getSubType());
+//
+//						String str = "";// 设置字符串
+//						StringSelection selection = new StringSelection(str);// 构建String数据类型
+//						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+//
+//						clipboard.setContents(clipboard.getContents(null), this);
 						
 						break;
 					}
