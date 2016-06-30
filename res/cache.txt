@@ -1,5 +1,5 @@
-#Update '\u5907\u6CE8' value
-#Thu Jun 30 12:31:11 GMT+08:00 2016
+#Update 'docPath' value
+#Thu Jun 30 14:00:25 GMT+08:00 2016
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2

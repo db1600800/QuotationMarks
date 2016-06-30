@@ -1,77 +1,19 @@
--(CityEntity*) queryCityMSG:(NSString*) code withLevel:(NSString*)level{
-    
-    [self openDB];
-    
-     NSString *sqlQuery=@"";
-    if ([level isEqualToString:@"2"]) {//省
-         sqlQuery = [NSString stringWithFormat:
-                              @"SELECT * FROM PM_CITYCODE  where not CITYCODE = '000000000000000' and CITYCODE like '%%000000000' "];
-        
-    }else  if ([level isEqualToString:@"3"]) {//市
-        
-       NSString *part1= [code substringWithRange:NSMakeRange(0, 6)];
-        NSString *part2=[code substringWithRange:NSMakeRange(9, 6)];
-        
-         sqlQuery = [NSString stringWithFormat:
-                              @"SELECT * FROM PM_CITYCODE a where not a.CITYCODE = '%@' and a.CITYCODE like '%@'  ",code,[NSString stringWithFormat:@"%@___%@",part1,part2]];
-        
-    }else  if ([level isEqualToString:@"4"]) {//县
-        
-        NSString *part1= [code substringWithRange:NSMakeRange(0, 9)];
-  
-        
-         sqlQuery = [NSString stringWithFormat:
-                              @"SELECT * FROM PM_CITYCODE a where not a.CITYCODE = '%@' and a.CITYCODE like '%@%%' ",code,part1];
-        
-    }
-    
- 
-    
-    NSLog(@"sqlQuery:%@",sqlQuery);
-    sqlite3_stmt * statement;
-    
-    NSMutableArray *superioridarr=[NSMutableArray array];
-    NSMutableArray *regionidarr=[NSMutableArray array];
-    NSMutableArray *regionnamearr=[NSMutableArray array];
-    
-    CityEntity *ety= [[CityEntity alloc] init ];
-    
-    if (sqlite3_prepare_v2(db, [sqlQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        
-        //查询结果集中一条一条的遍历所有的记录，这里的数字对应的是列值,注意这里的列值
-        
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-//            cityEntity *r=[[cityEntity alloc] init ];
-            
-            
-            char *superioridCHAR = (char*)sqlite3_column_text(statement, 0);
-            NSString *strsuperiorid = [[NSString alloc]initWithUTF8String:superioridCHAR];
-            [superioridarr addObject:strsuperiorid];
-            
-            char *regionidchar = (char*)sqlite3_column_text(statement, 1);
-            NSString *regionidstring = [[NSString alloc]initWithUTF8String:regionidchar];
-            [regionidarr addObject:regionidstring];
+#import <Foundation/Foundation.h>
+#import "sqlite3.h"
 
-            
-            char *regionnamechar = (char*)sqlite3_column_text(statement, 2);
-            NSString *regionnamestring = [[NSString alloc]initWithUTF8String:regionnamechar];
-            [regionnamearr addObject:regionnamestring];
-            
-            //NSLog(@"name:%@  age:%d  address:%@",nsNameStr,age, nsAddressStr);
-        }
-    }else{
-        NSLog(@"select error:%@",sqlQuery);
-        
-    }
-    sqlite3_close(db);
-    if (superioridarr.count>0) {
-        ety.superiorid = superioridarr;
-        ety.regionid =superioridarr ;
-        ety.regionname =regionidarr ;
-    }
-    else
-    {
-        ety =nil;
-    }
-    return ety;
+#import "CityEntity.h"
+
+@interface SqlQueryCity : NSObject
+{
+    
+    sqlite3 *db;
 }
+
+-(BOOL) openDB;
+-(CityEntity*) queryCityMSG:(NSString*) code withLevel:(NSString*)level;
+
+-(NSMutableArray*) queryCountyNameWithCountyCode:(NSString*) arearCode;
+-(NSMutableArray*) queryCityNameWithCountyCode:(NSString*) arearCode;
+-(NSMutableArray*) queryProNameWithCountyCode:(NSString*) arearCode;
+-(NSString*) queryCityNameWithRegionid:(NSString*) code;
+@end
