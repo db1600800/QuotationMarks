@@ -76,6 +76,11 @@ public class CompomentDialog2 extends JFrame {
 	JCheckBox imgCacheCheckBox;
 	JCheckBox setPublicCheckBox;
 	JCheckBox circularCheckBox;
+	//"是否九宫格"
+	JCheckBox isNineListCheck ;
+	//"是否分页"
+	JCheckBox isMutiPageListCheck;
+	
 	JButton cancel;
 	JList baseListListView;
 	JList webCompomentListView;
@@ -116,13 +121,16 @@ public class CompomentDialog2 extends JFrame {
 	
 	List<CompomentBean> allCompoments;
 	CompomentBean bean = new CompomentBean();
+	
+	String pageName;
+	int runTimeAddCount=0;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CompomentDialog2 dialog = new CompomentDialog2(null,null);
+			CompomentDialog2 dialog = new CompomentDialog2(null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -133,9 +141,10 @@ public class CompomentDialog2 extends JFrame {
 	/**
 	 * Create the dialog.
 	 */
-	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments) {
+	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments,final String pageName) {
 		this.interfaceBeans = interfaceBeans;
 		this.allCompoments=allCompoments;
+		this.pageName=pageName;
 		setBounds(100, 100, 1170, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.LIGHT_GRAY);
@@ -289,13 +298,15 @@ public class CompomentDialog2 extends JFrame {
 		textSizeEdit.setText("字体大小");
 		textSizeEdit.setColumns(10);
 
+		
 		runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView(独立一个Cell页面)");
 		runTimeAddScrollView.setVisible(false);
 		runTimeAddScrollView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (runTimeAddScrollView.isSelected()) {
-					cnNameEdit.setText("中文名");
-					enNameEdit.setText("英文名");
+					cnNameEdit.setText(pageName+"Part"+runTimeAddCount);
+					enNameEdit.setText(pageName+"Part"+runTimeAddCount);
+					runTimeAddCount++;
 				}
 			}
 		});
@@ -320,6 +331,10 @@ public class CompomentDialog2 extends JFrame {
 		layoutNoUseBool.setVisible(false);
 		
 		 sameGroupWithBeforCompomentCheckbox = new JCheckBox("同上一组");
+		
+		 isNineListCheck = new JCheckBox("是否九宫格");
+		
+		 isMutiPageListCheck = new JCheckBox("是否分页");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -339,12 +354,19 @@ public class CompomentDialog2 extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(textSizeEdit, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel_1.createSequentialGroup()
-									.addComponent(runTimeAddScrollView)
+									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+										.addComponent(runTimeAddScrollView)
+										.addGroup(gl_panel_1.createSequentialGroup()
+											.addGap(274)
+											.addComponent(isNineListCheck)))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel_1.createSequentialGroup()
-											.addGap(29)
-											.addComponent(ok))
+											.addComponent(isMutiPageListCheck)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(ok)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(cancel))
 										.addGroup(gl_panel_1.createSequentialGroup()
 											.addComponent(circularCheckBox)
 											.addPreferredGap(ComponentPlacement.RELATED)
@@ -353,11 +375,8 @@ public class CompomentDialog2 extends JFrame {
 											.addComponent(setPublicCheckBox)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(isRunTimeHeight))))))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(490)
-							.addComponent(cancel))
 						.addComponent(layoutNoUseBool))
-					.addContainerGap(310, Short.MAX_VALUE))
+					.addContainerGap(184, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
@@ -376,17 +395,17 @@ public class CompomentDialog2 extends JFrame {
 						.addComponent(imgCacheCheckBox)
 						.addComponent(setPublicCheckBox)
 						.addComponent(isRunTimeHeight))
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-							.addComponent(cancel))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(ok)
-							.addContainerGap())))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(ok)
+						.addComponent(cancel))
+					.addContainerGap())
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(69)
-					.addComponent(layoutNoUseBool)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(layoutNoUseBool)
+						.addComponent(isNineListCheck)
+						.addComponent(isMutiPageListCheck))
 					.addGap(6))
 		);
 		panel_1.setLayout(gl_panel_1);
@@ -483,6 +502,9 @@ public class CompomentDialog2 extends JFrame {
 					bean.interfaceId=before.interfaceId;
 					before.interfaceColumnEnName=null;
 					before.interfaceId=null;
+					
+					bean.isNineListCheck=isNineListCheck.isSelected();
+					bean.isMutiPageListCheck=isMutiPageListCheck.isSelected();
 					
 					boolean isOkRequest=false;
 					int i=0;
@@ -1097,6 +1119,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				} else if (compomentType.contains("ListView") || compomentType.contains("ScrollView")) {
 
 					colorLabel.setText("行间距颜色");
@@ -1106,6 +1130,8 @@ public class CompomentDialog2 extends JFrame {
 					textSizeEdit.setVisible(false);
 					cnNameEdit.setVisible(true);
 					enNameEdit.setVisible(true);
+					isNineListCheck.setVisible(true);
+					isMutiPageListCheck.setVisible(true);
 					picNameEdit.setVisible(false);
 					circularCheckBox.setVisible(false);
 					imgCacheCheckBox.setVisible(false);
@@ -1129,6 +1155,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				} else if (compomentType.contains("Button")) {
 					colorLabel.setText("文字颜色");
 
@@ -1145,6 +1173,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				}
 
 				else if (compomentType.contains("CheckBox")) {
@@ -1163,6 +1193,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				} else if (compomentType.contains("TextView")) {
 					colorLabel.setText("文字颜色");
 
@@ -1179,6 +1211,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(true);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				}
 
 				else if (compomentType.equals("Line")) {
@@ -1197,6 +1231,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				} else {
 					colorLabel.setText("颜色");
 
@@ -1214,6 +1250,8 @@ public class CompomentDialog2 extends JFrame {
 					runTimeAddScrollView.setVisible(false);
 					isRunTimeHeight.setVisible(false);
 					layoutNoUseBool.setVisible(false);
+					isNineListCheck.setVisible(false);
+					isMutiPageListCheck.setVisible(false);
 				}
 
 				CompomentDialog2.this.setVisible(true);

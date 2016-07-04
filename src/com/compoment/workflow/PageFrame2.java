@@ -888,7 +888,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		
 		
-		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans);
+		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName);
 		//jdialog.setSize(1000, 800);
 		jdialog.init(this,this, image, x, y, w, h,components);
 	

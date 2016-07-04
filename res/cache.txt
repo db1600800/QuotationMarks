@@ -1,11 +1,11 @@
-#Update 'docPath' value
-#Thu Jun 30 14:00:25 GMT+08:00 2016
+#Update '\u5907\u6CE8' value
+#Thu Jun 30 16:46:46 GMT+08:00 2016
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
 codeFilePath=/Users/admin/Documents/hobby/QuotationMarks/res/pic/src/ios
-\u5907\u6CE8=3
-recentUseColor=\#A5A5A5,\#2A2A2A,\#A4A4A4,\#FFFFFF,\#63A138,\#B84752,
+\u5907\u6CE8=4
+recentUseColor=\#F2620B,\#282828,\#292929,\#FFFFFF,\#FFF4EB,\#BB7E88,
 picPath=/Users/admin/Documents/hobby/QuotationMarks/res/pic
 \u4E2D\u6587\u540D=0
 projectPath=/Users/admin/Documents/hobby/QuotationMarks/res

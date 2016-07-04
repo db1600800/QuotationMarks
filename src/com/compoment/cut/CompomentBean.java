@@ -44,6 +44,9 @@ public class CompomentBean implements Serializable {
 	public boolean isRunTimeAddScrollView=false;
 	public boolean isRunTimeHeightTextview=false;
 	public boolean isFilletedCorner=false;//是否是圆角
+	
+	public boolean isNineListCheck=false;
+	public boolean isMutiPageListCheck=false;
 	public String id;// for iPhone id=jyV-Pf-zRb
 	
 	public boolean isSameGroupWihtBeforCompoment;//与上个控件一组   Title Value
