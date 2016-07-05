@@ -44,7 +44,7 @@ public class CompomentDeclareImplement {
 				
 				viewDidLoad_Declare += "SqlApp *sqlApp=[[SqlApp alloc ]init ];\n";
 				viewDidLoad_Declare += "NSString *"+chirld.interfaceColumnEnName+"Cn=[sqlApp selectTransferredMeaningByCode:"+chirld.interfaceColumnEnName+"];\n";
-				viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"[%@]\","+chirld.interfaceColumnEnName+"Cn]];\n";
+				viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"%@\","+chirld.interfaceColumnEnName+"Cn]];\n";
             }else if("时间格式化".equals(chirld.actionString))
             {
             	
@@ -63,14 +63,14 @@ public class CompomentDeclareImplement {
                 
             	viewDidLoad_Declare += "NSString *"+chirld.interfaceColumnEnName+"Time=[desDateFormat stringFromDate:date];\n";
             	
-            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥[%@]元\","+chirld.interfaceColumnEnName+"Time]];\n";
+            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥%@元\","+chirld.interfaceColumnEnName+"Time]];\n";
             	
             	viewDidLoad_Declare += "}\n";
             	
             }else if("金额格式化".equals(chirld.actionString))
             {
             	
-            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥[%.2f]元\","+chirld.interfaceColumnEnName+"]];\n";
+            	viewDidLoad_Declare += "[" +selfString +chirld.enname + " setText:[NSString stringWithFormat:@\"￥%.2f元\","+chirld.interfaceColumnEnName+"]];\n";
                 
             }
             else

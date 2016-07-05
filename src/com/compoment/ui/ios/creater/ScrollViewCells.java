@@ -110,7 +110,7 @@ public class ScrollViewCells {
 				scrollDeclare += " self."+bean.enname.replace("Layout", "")+".contentInset = contentInsets;\n";
 				scrollDeclare += " self."+bean.enname.replace("Layout", "")+".scrollIndicatorInsets = contentInsets;\n\n";
 
-				scrollDeclare += " [self."+bean.enname.replace("Layout", "")+" setFrame:CGRectMake(0, self.head.frame.size.height, self."+bean.enname.replace("Layout", "")+".frame.size.width, self.view.frame.size.height-self.head.frame.size.height-self.bottom.frame.size.height)];\n";
+				scrollDeclare += " [self."+bean.enname.replace("Layout", "")+" setFrame:CGRectMake(0, self.headView.frame.size.height, self."+bean.enname.replace("Layout", "")+".frame.size.width, self.view.frame.size.height-self.headView.frame.size.height-self.bottom.frame.size.height)];\n";
 				
 				scrollDeclare+="\n\n//编辑框键盘顶起\n"+closeKeyboardDeclare+"\n//编辑框键盘顶起\n";
 				
