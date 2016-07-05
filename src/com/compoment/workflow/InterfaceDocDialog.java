@@ -620,14 +620,14 @@ Desktop desktop=Desktop.getDesktop();
 	}
 	
 	/**iphone respond*/
-	public String  respondFunctionForIphone(String id)
+	public String  respondFunctionForIphone(String id,boolean isNineList)
 	{
 		for(InterfaceBean bean:interfaceBeans )
 		{
 		  if(bean.id.equals(id))
 		  {
 			  RequestRespondForIphone rr = new RequestRespondForIphone();
-		      return rr.respond(respondJsonValueEditText.getText(),bean);
+		      return rr.respond(respondJsonValueEditText.getText(),bean,isNineList);
 		  }
 		}
 		return "";

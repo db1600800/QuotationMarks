@@ -44,6 +44,7 @@ public class RequestRespondForIphone {
 //		}
 //	}
 
+	public static boolean isMutiPage=false;
 	public String request(InterfaceBean interfaceBean) {
 		String m = "\n\n\n";
 		List<String> mChirldClass = new ArrayList();
@@ -54,8 +55,13 @@ public class RequestRespondForIphone {
 		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m+="NSString  *n"+interfaceBean.id+"=@\""+interfaceBean.id +"\";\n";
 		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
-		m += "-(void) request"+interfaceBean.id+"{\n";
+		String ismoreString="";
+		m += "-(void) request"+interfaceBean.id+ismoreString+"{\n";
 		
+		String mutiPage="";
+		isMutiPage=false;
+		
+		m+=mutiPage;
 		m+="NSMutableDictionary *businessparam=[[NSMutableDictionary alloc] init];\n";
 		
 		
@@ -103,12 +109,50 @@ public class RequestRespondForIphone {
 			} else {
 				
 				for (Row row : group.rows) {
+					if(row.enName.toLowerCase().contains("page") && row.cnName.contains("页"))
+					{
+						isMutiPage=true;
+						
+						
+					}
+					
 					m += "/* " + row.cnName + " 备注:" + row.remarks + "*/\n";
 					m+="[businessparam setValue:@\"\" forKey:@\""+row.enName+"\"];\n";
 				}
 			}
 		}
 
+		
+		//分页
+		if(isMutiPage)
+		{
+		ismoreString+=":(BOOL)ismore";
+		mutiPage+="\n//分页Start\n";
+		mutiPage+="if(ismore)\n";
+		mutiPage+="{\n";
+		mutiPage+="if (requestUnComplete==false) {\n";
+		mutiPage+="requestUnComplete=true;\n";
+		mutiPage+="}else\n";
+		mutiPage+="{\n";
+		mutiPage+="return;\n";
+		mutiPage+="}\n";
+		mutiPage+="}else //分页End \n\n";
+		mutiPage+="{\n";
+		mutiPage+="totalRowCount=0;\n";
+		mutiPage+="currentRowCount=0;\n";
+		mutiPage+="page=1;\n";
+		         
+		mutiPage+=" [rows removeAllObjects];\n";
+		         
+		mutiPage+="//if(allIndexpaths!=nil && [allIndexpaths count]>0)\n";
+		mutiPage+="//{\n";
+		mutiPage+="// [self.tableView deleteRowsAtIndexPaths:allIndexpaths withRowAnimation:UITableViewRowAnimationFade];\n";
+		mutiPage+="//}\n";
+		mutiPage+=" //[ allIndexpaths  removeAllObjects];\n\n";
+		         
+		mutiPage+="}\n\n";
+		}
+		
 		
 		m+=" ServiceInvoker *serviceInvoker=[[ServiceInvoker alloc ]init];\n";
 		
@@ -123,7 +167,7 @@ public class RequestRespondForIphone {
 	}
 	
 	
-	public String  respond(String baseJson,InterfaceBean interfaceBean) {
+	public String  respond(String baseJson,InterfaceBean interfaceBean,boolean isNineList) {
 		String m = "\n\n\n";
 	
 		String className="RespondParam" + interfaceBean.id ;	
@@ -135,6 +179,25 @@ public class RequestRespondForIphone {
 		
 		m += "/*" + interfaceBean.title + interfaceBean.id + "*/\n";
 		m += "if ([msgReturn.formName isEqualToString:n"+interfaceBean.id +"]){\n";
+
+		if(isMutiPage)
+		{
+		m+="//分页Start\n";
+		m+="requestUnComplete=false;//避免重复请求 一个发完下一个再发\n";
+		m+="totalRowCount=commonItem.totalNum;\n";
+		m+="currentRowCount+=commonItem.recordNum;\n";
+
+		m+="if (commonItem.recordNum>0) {\n";
+		m+="    if (currentRowCount< totalRowCount) {\n";
+		m+="        page++;\n";
+		      
+		m+="    }\n";
+		m+="}else if(commonItem.recordNum==0)\n";
+		m+="{\n";
+		m+="// 暂无数据\n";
+		m+="}\n";
+		m+="//分页End\n\n";
+		}
 
 		JsonToIosBeanForSimple jsonToIosBeanForSimple=new JsonToIosBeanForSimple(baseJson);
 		m+=jsonToIosBeanForSimple.getJaveBeanClass();
@@ -211,6 +274,51 @@ public class RequestRespondForIphone {
 				}
 			}
           groupCount++;
+		}
+		
+		if(isNineList)
+		{
+			
+			
+				m+="//九宫图列表数据Start\n";
+				m+="Row *sectionRow;\n";
+				m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
+				m+="			    for (int i=0; i<[mdata count]; i++) {\n";
+				m+="			        RespondParam"+interfaceBean.id+" *commonItem2=mdata[i];\n";
+				m+="			        \n";
+				m+="			        \n";
+				m+="			        if (i==0 || i%3==0) {//每行3个\n";
+				m+="			            sectionRow=[[Row alloc ] init];\n";
+				m+="			            sectionRow.rowChirlds=[[NSMutableArray alloc]init];\n";
+				m+="			            [thisPageRows addObject:sectionRow];\n";
+				m+="			            [rows addObject:sectionRow];\n";
+				m+="			        }\n";
+				m+="			        \n";
+				m+="			        Chirld *rowChirld=[[Chirld alloc] init ];\n";
+				m+="			        rowChirld.productId=commonItem2.merchID;\n";
+				m+="			        rowChirld.pic=commonItem2.merchPicID;\n";
+				m+="			        rowChirld.picName=commonItem2.merchName;\n";
+				m+="			        rowChirld.picPrice=[NSString stringWithFormat:@\"%.2f\",commonItem2.merchPrice] ;\n";
+				m+="			        \n";
+				m+="			        //chirld add\n";
+				m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
+				m+="			        \n";
+				m+="			        \n";
+				m+="			    }\n\n";
+				m+="//九宫图列表数据End\n\n";
+				
+		}
+		
+		if(isMutiPage)
+		{
+			m+="[tableView reloadData];\n";
+			m+="//NSMutableArray *insertIndexPaths = [[NSMutableArray alloc]init];\n";
+			m+="//for (int ind = 0; ind < [thisPageRows count]; ind++) {\n";
+			m+="  //  NSIndexPath    *newPath =  [NSIndexPath indexPathForRow:[rows indexOfObject:[thisPageRows objectAtIndex:ind]] inSection:0];\n";
+			m+="   // [allIndexpaths addObject:newPath];\n";
+			m+="   // [insertIndexPaths addObject:newPath];\n";
+			m+="//}\n";
+			m+="//[self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];\n";
 		}
 		m += "}\n\n";
 

@@ -96,7 +96,7 @@ public class TableViewCellAddToViewController {
 
 		
 		boolean findViewByIdFirst=true;
-		
+		boolean isNineList=false;//九宫图列表
 		//
 		String content = "";
 		for (int i = 0; i < lines.size(); i++) {
@@ -212,8 +212,19 @@ public class TableViewCellAddToViewController {
 	 
 	  if(line.contains("cellForRowAtIndexPath")&&isHeadCell==false)		
 				{
+		            
 					String m="\n";
-					
+					if(line.contains("九宫图"))
+					{
+						isNineList=true;
+						m+="// 九宫图数据处理\n";
+						m+="Row *row=thisPageRows[indexPath.row];\n";
+						m+="if ([row.rowChirlds count]>0) {//第一列 \n}\nelse{\n [cell.picButton setTitle:@\"\" forState:UIControlStateNormal ];\n[cell.picButton setTitle:@\"\" forState:UIControlStateSelected ];\n }\n"; 
+						m+="if ([row.rowChirlds count]>1) {//第二列 } \n\n";
+						m+="//end 九宫图\n";
+					}
+					 if(line.contains("分页"))
+					 {
 					m+="\n//分页Start(可注调)\n";
 					m+=" if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
 				       m+=" if( currentRowCount<totalRowCount)\n";
@@ -233,6 +244,8 @@ public class TableViewCellAddToViewController {
 							 m+="return [[UITableViewCell alloc] init ];\n";
 				  m+=" }\n";
 				  m+=" else //分页End\n\n";
+					 
+				  
 				  m+=" {\n";
 					
 					m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
@@ -243,6 +256,16 @@ public class TableViewCellAddToViewController {
 					m+=controllers;
 					m+="return cell;\n";
 				  m+=" }\n";
+					 }else
+					 {
+							m+=" "+className+"TableViewCell *cell = ("+className+"TableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:"+className+"CellIdentifier];\n";
+							m+="    if (!cell)\n";
+							m+="    {\n";
+							m+="       cell = [[[NSBundle mainBundle] loadNibNamed:@\""+className+"TableViewCell\" owner:self options:nil] lastObject];\n";
+							m+="    }\n";
+							m+=controllers;
+							m+="return cell;\n"; 
+					 }
 			    	content += m;
 				}
 	  
@@ -259,7 +282,8 @@ public class TableViewCellAddToViewController {
 				    m+=controllers;
 				    
 				    
-				    
+				    if(line.contains("分页"))
+				    {
 					m+="\n//分页Start(可注调)\n";
 				    m+="if([indexPath row] == ([rows count])  && [rows count]>0) {\n";
 				        
@@ -279,6 +303,11 @@ public class TableViewCellAddToViewController {
 				    m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
 				    m+="return height+1;\n";
 				    m+=" }\n";
+				    }else
+				    {
+				        m+="   int height=cell.contentView.frame.size.height;//非动态高度(row1跟row2同样高)变化适用 不需配合上边使用   \n";
+					    m+="return height+1;\n";
+				    }
 			    	content += m;
 			 }
 		 
@@ -287,38 +316,8 @@ public class TableViewCellAddToViewController {
 				 
 String m="";
 
-m+="-(void) request9999:(BOOL)ismore{\n";
-
-    m+="\n//分页Start\n";
-	m+="if(ismore)\n";
-    m+="{\n";
-    	m+="if (requestUnComplete==false) {\n";
-        	m+="requestUnComplete=true;\n";
-        	m+="}else\n";
-        	m+="{\n";
-        	m+="return;\n";
-            m+="}\n";
-    m+="}else //分页End \n\n";
-    	 m+="{\n";
-         m+="totalRowCount=0;\n";
-         m+="currentRowCount=0;\n";
-         m+="page=1;\n";
-         
-         m+=" [rows removeAllObjects];\n";
-         
-         m+="if(allIndexpaths!=nil && [allIndexpaths count]>0)\n";
-         m+="{\n";
-        		 m+=" [self.tableView deleteRowsAtIndexPaths:allIndexpaths withRowAnimation:UITableViewRowAnimationFade];\n";
-         m+="}\n";
-       
-         m+=" [ allIndexpaths  removeAllObjects];\n\n";
-         
-    m+="}\n\n";
-    
-    m+="....(请求内容)\n";   
- m+="}\n\n";
-
-
+if(isNineList)
+{
 m+="\n//九宫图列表数据(九宫图列表用到)Start\n";
 m+="@interface Section : NSObject\n";
 m+="@property (strong,nonatomic) NSString *title;\n";
@@ -342,71 +341,9 @@ m+="@property (strong,nonatomic) NSString *productId;\n";
 m+="@end\n\n";
 
 m+="//九宫图列表数据(九宫图列表用到)End\n\n";
-
-m+="-(void) respond9999{\n";
-
-m+="....(返回数据)\n";
-
-m+="requestUnComplete=false;//避免重复请求 一个发完下一个再发\n";
-
-m+="//九宫图列表数据Start\n";
-m+="Row *sectionRow;\n";
-m+="NSMutableArray *thisPageRows=[[NSMutableArray alloc] init];\n";
-m+="			    for (int i=0; i<[mdata count]; i++) {\n";
-m+="			        RespondParam0027 *commonItem2=mdata[i];\n";
-m+="			        \n";
-m+="			        \n";
-m+="			        if (i==0 || i%3==0) {//每行3个\n";
-m+="			            sectionRow=[[Row alloc ] init];\n";
-m+="			            sectionRow.rowChirlds=[[NSMutableArray alloc]init];\n";
-m+="			            [thisPageRows addObject:sectionRow];\n";
-m+="			            [rows addObject:sectionRow];\n";
-m+="			        }\n";
-m+="			        \n";
-m+="			        Chirld *rowChirld=[[Chirld alloc] init ];\n";
-m+="			        rowChirld.productId=commonItem2.merchID;\n";
-m+="			        rowChirld.pic=commonItem2.merchPicID;\n";
-m+="			        rowChirld.picName=commonItem2.merchName;\n";
-m+="			        rowChirld.picPrice=[NSString stringWithFormat:@\"%.2f\",commonItem2.merchPrice] ;\n";
-m+="			        \n";
-m+="			        //chirld add\n";
-m+="			        [sectionRow.rowChirlds addObject:rowChirld];\n";
-m+="			        \n";
-m+="			        \n";
-m+="			    }\n\n";
-
-m+="//在函数中-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  添加使用九宫图结果\n";
-m+="Row *row=thisPageRows[indexPath.row];\n";
-m+="if ([row.rowChirlds count]>0) {//第一列 \n}\nelse{\n [cell.picButton setTitle:@\"\" forState:UIControlStateNormal ];\n[cell.picButton setTitle:@\"\" forState:UIControlStateSelected ];\n }\n"; 
-m+="if ([row.rowChirlds count]>1) {//第二列 } \n\n";
-m+="//九宫图列表数据End\n\n";
+}
 
 
-m+="//分页Start\n";
-m+="totalRowCount=commonItem.totalNum;\n";
-m+="currentRowCount+=commonItem.recordNum;\n";
-
-m+="if (commonItem.recordNum>0) {\n";
-m+="    if (currentRowCount< totalRowCount) {\n";
-m+="        page++;\n";
-      
-m+="    }\n";
-m+="}else if(commonItem.recordNum==0)\n";
-m+="{\n";
-m+="// 暂无数据\n";
-m+="}\n";
-m+="//分页End\n\n";
-
-
-m+="NSMutableArray *insertIndexPaths = [[NSMutableArray alloc]init];\n";
-m+="for (int ind = 0; ind < [thisPageRows count]; ind++) {\n";
-m+="    NSIndexPath    *newPath =  [NSIndexPath indexPathForRow:[rows indexOfObject:[thisPageRows objectAtIndex:ind]] inSection:0];\n";
-m+="    [allIndexpaths addObject:newPath];\n";
-m+="    [insertIndexPaths addObject:newPath];\n";
-m+="}\n";
-m+="[self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];\n";
-
-m+="}\n\n";
 
 
 content += m;

@@ -572,14 +572,35 @@ public class CompomentDeclareImplement {
 			tablem += "}\n\n";
 
 			tablem += "//绘制Cell\n";
-			tablem += "-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {\n";
-			tablem += "    \n";
+			tablem += "-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {";
+			
+			if(chirld.isMutiPageListCheck)
+			{
+			tablem += " //分页 ";
+			}
+			if(chirld.isNineListCheck)
+			{
+				tablem += "//九宫格";
+			}
+			tablem += "   \n";
+			
 
 			tablem += "}\n\n";
 
 			tablem += "//关键方法，获取复用的Cell后模拟赋值，然后取得Cell高度\n";
-			tablem += "- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\n";
+			tablem += "- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{  ";
 
+			if(chirld.isMutiPageListCheck)
+			{
+			tablem += " //分页 ";
+			}
+			if(chirld.isNineListCheck)
+			{
+				tablem += "//九宫格";
+			}
+			tablem += "   \n";
+			
+			
 			tablem += "}\n\n";
 
 	

@@ -132,7 +132,7 @@ public class Request {
 		}
 
 		boolean findViewByIdFirst = true;
-        
+        boolean isNineList=false;
 		
 		//
 		String content = "";
@@ -145,6 +145,11 @@ public class Request {
 				line = lines.get(i).toString();
 			}
 
+			if(line.contains("九宫图"))
+			{
+				isNineList=true;
+			}
+			
 			if (line.contains("-(void) ReturnError:(MsgReturn*)msgReturn")) {
 				// 类结尾位置
 				String m="";
@@ -169,7 +174,7 @@ public class Request {
 					String id=select.toString().split(":")[0];
 					String cn=select.toString().split(":")[1];
 					
-				m+=pageInterfaceDocPanel.respondFunctionForIphone(id);
+				m+=pageInterfaceDocPanel.respondFunctionForIphone(id,isNineList);
 			
 				}
 				content += m;
@@ -177,9 +182,10 @@ public class Request {
 			
 			content += line + "\n";
 
-			
-
 		}
+		
+	
+	
 
 		String filename = FileUtil.makeFile(waitByModifyFileName, content);
 	}
