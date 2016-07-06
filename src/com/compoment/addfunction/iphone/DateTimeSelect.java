@@ -50,7 +50,7 @@ public class DateTimeSelect {
 		m+="              \n";
 		m+="              //实例化一个NSDateFormatter对象\n";
 		m+="              \n";
-		m+="              [dateFormat setDateFormat:@\"yyyy-MM-dd\"];//设定时间格式\n";
+		m+="              [dateFormat setDateFormat:@\"yyyy年MM月dd日\"];//设定时间格式\n";
 		m+="              \n";
 		m+="              NSString *timestamp = [dateFormat stringFromDate:datePicker.date];\n";
 		m+="              \n";
