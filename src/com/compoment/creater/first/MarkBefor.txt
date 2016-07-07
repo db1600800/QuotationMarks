@@ -1,19 +1,38 @@
-#import <Foundation/Foundation.h>
-#import "sqlite3.h"
-
-#import "CityEntity.h"
-
-@interface SqlQueryCity : NSObject
-{
-    
-    sqlite3 *db;
-}
-
--(BOOL) openDB;
--(CityEntity*) queryCityMSG:(NSString*) code withLevel:(NSString*)level;
-
--(NSMutableArray*) queryCountyNameWithCountyCode:(NSString*) arearCode;
--(NSMutableArray*) queryCityNameWithCountyCode:(NSString*) arearCode;
--(NSMutableArray*) queryProNameWithCountyCode:(NSString*) arearCode;
--(NSString*) queryCityNameWithRegionid:(NSString*) code;
-@end
+ if (buyPackage.startTime==nil) {
+            
+            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+            
+            [dateFormat setDateFormat:@"yyyy年MM月dd日"];
+            NSString *timestamp1 = [dateFormat stringFromDate:[NSDate date]];
+            
+        
+            [ packageCanAddConfirmPart1LinearLayout.beginDateButton setTitle:timestamp1 forState:UIControlStateNormal];
+            [ packageCanAddConfirmPart1LinearLayout.beginDateButton setTitle:timestamp1 forState:UIControlStateSelected];
+            
+            NSDateFormatter* dateFormat1 = [[NSDateFormatter alloc] init];
+            
+            [dateFormat1 setDateFormat:@"yyyyMMdd"];
+            NSString *timestamp11 = [dateFormat1 stringFromDate:[NSDate date]];
+            
+            buyPackage.startTime=timestamp11;
+            
+        }else
+        {
+        
+            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+            
+            [dateFormat setDateFormat:@"yyyyMMdd"];
+            NSDate  *date  = [dateFormat dateFromString:buyPackage.startTime];
+            
+            
+            NSDateFormatter* dateFormat1 = [[NSDateFormatter alloc] init];
+            
+            [dateFormat1 setDateFormat:@"yyyy年MM月dd日"];
+            NSString *timestamp1 = [dateFormat1 stringFromDate:date];
+            
+            
+            
+            [ packageCanAddConfirmPart1LinearLayout.beginDateButton setTitle:timestamp1 forState:UIControlStateNormal];
+            [ packageCanAddConfirmPart1LinearLayout.beginDateButton setTitle:timestamp1 forState:UIControlStateSelected];
+            
+        }

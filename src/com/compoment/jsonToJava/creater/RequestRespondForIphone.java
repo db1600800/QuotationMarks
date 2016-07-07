@@ -138,6 +138,14 @@ public class RequestRespondForIphone {
 		mutiPage+="}\n";
 		mutiPage+="}else //分页End \n\n";
 		mutiPage+="{\n";
+		
+		mutiPage+="if (requestUnComplete==false) {\n";
+		mutiPage+="requestUnComplete=true;\n";
+		mutiPage+="}else\n";
+		mutiPage+="{\n";
+		mutiPage+="return;\n";
+		mutiPage+="}\n";
+		
 		mutiPage+="totalRowCount=0;\n";
 		mutiPage+="currentRowCount=0;\n";
 		mutiPage+="page=1;\n";

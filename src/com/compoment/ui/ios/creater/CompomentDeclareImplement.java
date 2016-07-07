@@ -126,6 +126,45 @@ public class CompomentDeclareImplement {
 			 if("日期选择器".equals( chirld.actionString))
 			{
 				
+				 viewDidLoad_Declare+=" if (.timeValue==nil) {\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            [dateFormat setDateFormat:@\"yyyy年MM月dd日\"];\n";
+				 viewDidLoad_Declare+="            NSString *currentDateTimeCn = [dateFormat stringFromDate:[NSDate date]];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="        \n";
+				 viewDidLoad_Declare+="            [ "+ selfString + chirld.enname +" setTitle:currentDateTimeCn forState:UIControlStateNormal];\n";
+				 viewDidLoad_Declare+="            [ "+ selfString + chirld.enname +" setTitle:currentDateTimeCn forState:UIControlStateSelected];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            NSDateFormatter* dateFormat1 = [[NSDateFormatter alloc] init];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            [dateFormat1 setDateFormat:@\"yyyyMMdd\"];\n";
+				 viewDidLoad_Declare+="            NSString *currentDateTimeEn = [dateFormat1 stringFromDate:[NSDate date]];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            .timeValue=currentDateTimeEn;\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="        }else\n";
+				 viewDidLoad_Declare+="        {\n";
+				 viewDidLoad_Declare+="        \n";
+				 viewDidLoad_Declare+="            NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            [dateFormat setDateFormat:@\"yyyyMMdd\"];\n";
+				 viewDidLoad_Declare+="            NSDate  *date  = [dateFormat dateFromString:.timeValue];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            NSDateFormatter* dateFormat1 = [[NSDateFormatter alloc] init];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            [dateFormat1 setDateFormat:@\"yyyy年MM月dd日\"];\n";
+				 viewDidLoad_Declare+="            NSString *dateTimeCn = [dateFormat1 stringFromDate:date];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="            [ "+ selfString + chirld.enname +" setTitle:dateTimeCn forState:UIControlStateNormal];\n";
+				 viewDidLoad_Declare+="            [ "+ selfString + chirld.enname +" setTitle:dateTimeCn forState:UIControlStateSelected];\n";
+				 viewDidLoad_Declare+="            \n";
+				 viewDidLoad_Declare+="        }\n\n";
+
 				DateTimeSelect dateTimeSelect=new DateTimeSelect();
 				viewDidLoad_Implement+=dateTimeSelect.dateSelect(chirld.enname + "Clicked");
 			}else
