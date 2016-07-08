@@ -56,6 +56,7 @@ public class BaseSelecter {
 	}
 	
 	
+	//省市县
 	public String proCityCountySqlApp()
 	{
 		
@@ -73,10 +74,6 @@ public class BaseSelecter {
 	    m1+="  NSMutableArray *citys = [sqlapp queryCityMSG:proCode withLevel:@\"3\"];//市\n";
 	    m1+="  NSMutableArray *countys = [sqlapp queryCityMSG:cityCode withLevel:@\"4\"];//县\n";
 	    
-	    
-	  
-		    
-		
 		
 		return m1;
 		

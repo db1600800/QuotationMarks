@@ -17,7 +17,7 @@ public class ProvinceCityCountySelector {
 		  String m2="";
 		    m2+="#import <Foundation/Foundation.h>\n";
 		    m2+="#import \"sqlite3.h\"\n";
-		    m2+="@interface SqlQueryCity : NSObject\n";
+		    m2+="@interface SqlApp : NSObject\n";
 		    m2+="{\n";
 		    m2+="    \n";
 		    m2+="    sqlite3 *db;\n";
@@ -40,7 +40,7 @@ public class ProvinceCityCountySelector {
 		    
 		    m2+="@end\n";
 		    
-			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlQueryCity", "h", m2);
+			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlApp", "h", m2);
 	}
 	
 	public void createM()
@@ -48,7 +48,7 @@ public class ProvinceCityCountySelector {
 		
 		String m="";
 		m+="//SqlApp.m\n";
-		m+="@implementation SqlQueryCity\n";
+		m+="@implementation SqlApp\n";
 		
 		m+="-(BOOL) openDB{\n";
 		m+="    \n";
@@ -226,7 +226,7 @@ public class ProvinceCityCountySelector {
         
         m+="@end\n";
         
-        FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlQueryCity", "m", m);
+        FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlApp", "m", m);
 		
 		System.out.println(m);
 		
