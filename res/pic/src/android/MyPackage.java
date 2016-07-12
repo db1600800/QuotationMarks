@@ -25,21 +25,8 @@ public class MyPackage extends Activity implements OnScrollListener {
 Context context;
 public View containView;
 String searchText;
-/**back*/
-Button backButton;
-/**添加套餐*/
-Button addPackageButton;
-/**全部*/
-Button allButton;
-/**有效*/
-Button useButton;
-/**过期*/
-Button unuseButton;
-/**我的套餐*/
-TextView titleTextView;
-/***/
-ListView listListView;
-MyPackageAdapter adapter;
+/**a*/
+TextView aTextView;
 public MyPackage()
 {
 }
@@ -62,46 +49,8 @@ this.setContentView(view);
 public View init() {
 		if (containView == null) {
 			containView = inflateView(R.layout.myPackage);
-//back
-backButton = (Button) containView
-					.findViewById(R.id.backButton);
-backButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//添加套餐
-addPackageButton = (Button) containView
-					.findViewById(R.id.addPackageButton);
-addPackageButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//全部
-allButton = (Button) containView
-					.findViewById(R.id.allButton);
-allButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//有效
-useButton = (Button) containView
-					.findViewById(R.id.useButton);
-useButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//过期
-unuseButton = (Button) containView
-					.findViewById(R.id.unuseButton);
-unuseButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//我的套餐
-titleTextView= (TextView) containView.findViewById(R.id.titleTextView);
-//
-listListView= (ListView) containView.findViewById(R.id.listListView);
-adapter= new MyPackageAdapter(context);
+//a
+aTextView= (TextView) containView.findViewById(R.id.aTextView);
 		}
 request...();
 return containView;
@@ -154,14 +103,8 @@ return true;
 	}
 }.execute("");}
 public void setView(){
-//back
-//添加套餐
-//全部
-//有效
-//过期
-//我的套餐
-titleTextView.setText("");
-//
+//a
+aTextView.setText("");
 }
 /**返回本页刷新数据*/
 int n0000=0;
@@ -186,30 +129,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (body!=null) {
 			//有数据 且头没错
 				try {
-//back
-//添加套餐
-//全部
-//有效
-//过期
-//我的套餐
-//
-adapter.setList(listData);
-listListView.setAdapter(adapter);
-listListView.setOnScrollListener(MyPackage.this);
-listListView.setOnItemClickListener(new OnItemClickListener() {
-	@Override
-	public void onItemClick(
-	AdapterView<?> arg0,
-	View view, int position,
-	long id) {
-		Intent intent = new Intent();
-		intent.setClass(MyPackage.this,OperatorModify.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("operator",((RespondParam4463604) listData.get(position)));
-		intent.putExtras(bundle);
-		startActivityForResult(intent,n0000);
-	}
-});
+//a
 //注入RequestRespond
 //End注入RequestRespond
 } catch (Exception e) {

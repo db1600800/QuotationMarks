@@ -3,25 +3,9 @@
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical" >
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F2F2F2"   android:orientation="vertical"  android:gravity="">
-<ListView   android:id="@+id/listListView" android:layout_width="fill_parent"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:cacheColorHint="@null" android:divider="#1D1D1D"  android:dividerHeight="0.5dip" android:fadingEdge="none"  android:fastScrollEnabled="false" >
-</ListView>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FB6F2C"   android:orientation="horizontal"  android:gravity="center_vertical">
-<Button   android:id="@+id/backButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="back"   android:textSize="16sp" android:textColor="#FB6F2C"   android:background="#FB6F2C"  >
-</Button>
-<TextView   android:id="@+id/titleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="我的套餐"   android:textSize="16sp" android:textColor="#FFFFFF"   android:gravity="center" >
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#ffffff"  android:orientation="horizontal"  >
+<TextView   android:id="@+id/aTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="a"   android:textSize="16sp" android:textColor="#242424"   android:gravity="center" >
 </TextView>
-<Button   android:id="@+id/addPackageButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="添加套餐"   android:textSize="16sp" android:textColor="#FFFFFF"   android:background="#FB6F2C"  >
-</Button>
-</LinearLayout>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
-<Button   android:id="@+id/allButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="全部"   android:textSize="16sp" android:textColor="#BC8660"   android:background="#FFFFFF"  >
-</Button>
-<Button   android:id="@+id/useButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="有效"   android:textSize="16sp" android:textColor="#1D1D1D"   android:background="#FFFFFF"  >
-</Button>
-<Button   android:id="@+id/unuseButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="过期"   android:textSize="16sp" android:textColor="#1D1D1D"   android:background="#FFFFFF"  >
-</Button>
-</LinearLayout>
 </LinearLayout>
 </LinearLayout>
 
