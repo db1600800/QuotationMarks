@@ -8,7 +8,7 @@
 	
 	
 
-.titlebar {
+.titlebar_fixed {
     position: fixed;
     z-index: 10;
     top: 0;
@@ -77,20 +77,20 @@
 
 
 
-.content {
+.content-absolute {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
+    top: 30px;
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: #FF0000;
+    background-color: #F2F2F2;
 }
 
 
-
-.mui-table-view:before {
+/*
+.mui-table-view-relative:before {
     position: absolute;
     right: 0;
     top: 0;
@@ -105,7 +105,7 @@
 }
 
 
-.mui-table-view:after {
+.mui-table-view-relative:after {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -115,21 +115,18 @@
     -webkit-transform: scaleY(.5);
     transform: scaleY(.5);
     background-color: #FF0000;
-}
+}*/
 
 
-.mui-table-view:first-child {
+/*.mui-table-view-relative:first-child{
     margin-top: 11px;
-}
+}*/
 
-.mui-table-view {
-    position: relative;
-
-    top: 0px;
-    width: 100%;
-    height: 100%;
+.mui-table-view-relative {
+    position:relative;
+    top: 30px;
     list-style: none;
-    background-color: #F0AD4E;
+    background-color: #FF0000;
 }
 
 		</style>
@@ -139,17 +136,16 @@
 
 	
 		
-		<header class="titlebar">
+		<header class="titlebar_fixed">
 			<a class="backbtn"></a>
 			<h1 class="titleTxt">找回密码</h1>
 		</header>
 		
 		
-		<!--<div class="content">-->
-			
-			
-			
-						<ul class="mui-table-view">
+		<!--<div class="content-absolute">-->
+		
+		
+					<ul class="mui-table-view-relative">
 							<li class="mui-table-view-cell">
 								<a id="rate" class="mui-navigate-right">评分鼓励</a>
 							</li>
