@@ -129,6 +129,76 @@
     background-color: #FF0000;
 }
 
+
+
+
+
+
+.mui-table-view-cell-relative {
+    position: relative;
+    overflow: hidden;
+    padding: 11px 15px;
+       padding-right: 65px;
+    -webkit-touch-callout: none;
+}
+
+.mui-table-view-cell-relative:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+
+
+
+.mui-table-view-cell>a:not(.mui-btn) {
+    margin-right: -65px;
+}
+
+.mui-table-view-cell>a:not(.mui-btn) {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: -11px -15px;
+    padding: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+a {
+    text-decoration: none;
+    color: #007aff;
+}
+a {
+    background: 0 0;
+}
+
+.mui-navigate-right:after {
+    right: 15px;
+    content: '\e583';
+}
+.mui-navigate-right:after {
+    font-family: Muiicons;
+    font-size: inherit;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: #bbb;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+
 		</style>
 		<title></title>
 	</head>
@@ -146,10 +216,10 @@
 		
 		
 					<ul class="mui-table-view-relative">
-							<li class="mui-table-view-cell">
+							<li class="mui-table-view-cell-relative">
 								<a id="rate" class="mui-navigate-right">评分鼓励</a>
 							</li>
-							<li class="mui-table-view-cell">
+							<li class="mui-table-view-cell-relative">
 								<a id="share" class="mui-navigate-right">分享推荐</a>
 							</li>
 							
