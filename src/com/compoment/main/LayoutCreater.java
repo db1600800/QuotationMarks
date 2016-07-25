@@ -60,6 +60,7 @@ public class LayoutCreater {
 			CheckProblem obj = new CheckProblem();
 			Naming.rebind("CheckProblem", obj);
 			
+			
 			IphoneViewControllerXib iphoneViewControllerXib=new IphoneViewControllerXib();
 			Naming.rebind("IphoneViewControllerXib", iphoneViewControllerXib);
 			
