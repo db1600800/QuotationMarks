@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,9 @@ import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.cut.web.WebJsp;
 import com.compoment.cut.web.WebJspListViewItem;
+import com.compoment.remote.CheckProblemInterface;
+import com.compoment.remote.IphoneViewControllerXibInterface;
+import com.compoment.remote.RemoteUtil;
 import com.compoment.ui.CreateActivityChirldView;
 import com.compoment.ui.CreateActivityView;
 import com.compoment.ui.CreaterAdapter;
@@ -44,6 +51,8 @@ import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
 import com.compoment.util.StringUtil;
 import com.compoment.workflow.CompomentDialog2.CompomentDialogCallBack;
+
+
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -504,7 +513,22 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			//ios
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(pageName,beans);
+
+				//rmi://120.76.232.114:1099/checkProblem
+		try {
+			IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
+			
+				iphoneLayout.IphoneViewControllerXib(pageName,beans);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			ViewControllerH viewControllerH=new ViewControllerH(pageName,beans,false);
 			ViewControllerM viewControllerM=new ViewControllerM(pageName,beans,false);
@@ -533,7 +557,21 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			//ios
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(pageName,beans);
+			//rmi://120.76.232.114:1099/checkProblem
+			try {
+				IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
+				
+					iphoneLayout.IphoneViewControllerXib(pageName,beans);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 			ViewControllerH viewControllerH=new ViewControllerH(pageName,beans,true);
 			ViewControllerM viewControllerM=new ViewControllerM(pageName,beans,true);
@@ -632,9 +670,21 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 						savePublicCompoment();
 
 						//ios
-						
-						IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(pageName,beans);
-						
+						//rmi://120.76.232.114:1099/checkProblem
+						try {
+							IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
+							
+								iphoneLayout.IphoneViewControllerXib(pageName,beans);
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (MalformedURLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (NotBoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						
 						ViewControllerH viewControllerH=new ViewControllerH(pageName,beans,true);
 						ViewControllerM viewControllerM=new ViewControllerM(pageName,beans,true);
@@ -660,7 +710,21 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			//ios
 			
-			IphoneViewControllerXib  iphoneLayout = new IphoneViewControllerXib(pageName,beans);
+			//rmi://120.76.232.114:1099/checkProblem
+			try {
+				IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
+				
+					iphoneLayout.IphoneViewControllerXib(pageName,beans);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 			ViewControllerH viewControllerH=new ViewControllerH(pageName,beans,false);
 			ViewControllerM viewControllerM=new ViewControllerM(pageName,beans,false);
@@ -799,17 +863,35 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		beans.add(bean);
 	
 		
-		CheckProblem checkProblem=new CheckProblem();
+		CheckProblemInterface checkProblem;
+		try {
+			//rmi://120.76.232.114:1099/checkProblem
+			checkProblem = (CheckProblemInterface)Naming.lookup(RemoteUtil.rmiurl+"CheckProblem");
 		
-		if(checkProblem.check(beans))
-		{
-			
-		}else
-		{
-			beans.remove(bean);
-			JOptionPane.showMessageDialog(null, bean.enname+"没有父窗体,请先生成", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
-			return;
+		
+			if(checkProblem.check(beans))
+			{
+				
+			}else
+			{
+				beans.remove(bean);
+				JOptionPane.showMessageDialog(null, bean.enname+"没有父窗体,请先生成", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
+		
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
+		
 	}
 
 	

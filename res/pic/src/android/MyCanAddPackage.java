@@ -25,31 +25,8 @@ public class MyCanAddPackage extends Activity implements OnScrollListener {
 Context context;
 public View containView;
 String searchText;
-/**我的套餐*/
-Button myPackageButton;
-/**价格从高到低*/
-Button priceUpButton;
-/**3个月*/
-Button timeButton;
-/**全国*/
-Button cityButton;
-/**办理*/
-Button buyButton;
-/**可加办套餐*/
-TextView titleTextView;
-/**总计:*/
-TextView totalTitleTextView;
-/**123*/
-TextView totalValueTextView;
-/***/
-ImageView downImageView;
-/***/
-ImageView downImageView;
-/***/
-ImageView downImageView;
-/***/
-ListView listListView;
-MyCanAddPackageAdapter adapter;
+/**a*/
+Button aButton;
 public MyCanAddPackage()
 {
 }
@@ -72,56 +49,13 @@ this.setContentView(view);
 public View init() {
 		if (containView == null) {
 			containView = inflateView(R.layout.myCanAddPackage);
-//我的套餐
-myPackageButton = (Button) containView
-					.findViewById(R.id.myPackageButton);
-myPackageButton.setOnClickListener(new View.OnClickListener() {
+//a
+aButton = (Button) containView
+					.findViewById(R.id.aButton);
+aButton.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
 }
 					});
-//价格从高到低
-priceUpButton = (Button) containView
-					.findViewById(R.id.priceUpButton);
-priceUpButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//3个月
-timeButton = (Button) containView
-					.findViewById(R.id.timeButton);
-timeButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//全国
-cityButton = (Button) containView
-					.findViewById(R.id.cityButton);
-cityButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//办理
-buyButton = (Button) containView
-					.findViewById(R.id.buyButton);
-buyButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
-//可加办套餐
-titleTextView= (TextView) containView.findViewById(R.id.titleTextView);
-//总计:
-totalTitleTextView= (TextView) containView.findViewById(R.id.totalTitleTextView);
-//123
-totalValueTextView= (TextView) containView.findViewById(R.id.totalValueTextView);
-//
-downImageView= (ImageView) containView.findViewById(R.id.downImageView);
-//
-downImageView= (ImageView) containView.findViewById(R.id.downImageView);
-//
-downImageView= (ImageView) containView.findViewById(R.id.downImageView);
-//
-listListView= (ListView) containView.findViewById(R.id.listListView);
-adapter= new MyCanAddPackageAdapter(context);
 		}
 request...();
 return containView;
@@ -174,21 +108,7 @@ return true;
 	}
 }.execute("");}
 public void setView(){
-//我的套餐
-//价格从高到低
-//3个月
-//全国
-//办理
-//可加办套餐
-titleTextView.setText("");
-//总计:
-totalTitleTextView.setText("");
-//123
-totalValueTextView.setText("");
-//
-//
-//
-//
+//a
 }
 /**返回本页刷新数据*/
 int n0000=0;
@@ -213,35 +133,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (body!=null) {
 			//有数据 且头没错
 				try {
-//我的套餐
-//价格从高到低
-//3个月
-//全国
-//办理
-//可加办套餐
-//总计:
-//123
-//
-//
-//
-//
-adapter.setList(listData);
-listListView.setAdapter(adapter);
-listListView.setOnScrollListener(MyCanAddPackage.this);
-listListView.setOnItemClickListener(new OnItemClickListener() {
-	@Override
-	public void onItemClick(
-	AdapterView<?> arg0,
-	View view, int position,
-	long id) {
-		Intent intent = new Intent();
-		intent.setClass(MyCanAddPackage.this,OperatorModify.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("operator",((RespondParam4463604) listData.get(position)));
-		intent.putExtras(bundle);
-		startActivityForResult(intent,n0000);
-	}
-});
+//a
 //注入RequestRespond
 //End注入RequestRespond
 } catch (Exception e) {

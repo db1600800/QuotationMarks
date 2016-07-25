@@ -5,21 +5,35 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.compoment.remote.CheckProblemInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class CheckProblem {
+
+
+public class CheckProblem extends UnicastRemoteObject implements CheckProblemInterface {
+
+
+
+
+	public CheckProblem() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	int maxW = 0;
 	int maxH = 0;
 
-	public List<CompomentBean> analyseRelative( List<CompomentBean> oldbeans) {
-
+	public List<CompomentBean> analyseRelative( List<CompomentBean> oldbeans) throws RemoteException{
+	
 		
 		 List<CompomentBean> beans=null;
 		try {
@@ -325,7 +339,7 @@ public class CheckProblem {
 	
 	 CompomentBean maxBean = null;
 	 
-	public  boolean check(List<CompomentBean> old) {
+	public  boolean check(List<CompomentBean> old) throws RemoteException {
 		// Collections.sort(oldBeans, comparatorDate);
 		
 		

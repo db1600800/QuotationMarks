@@ -2,14 +2,16 @@ package com.compoment.main;
 
 
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+
 import javax.swing.JFrame;
 
-
+import com.compoment.cut.CheckProblem;
+import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.workflow.ProjectFrame2;
-
-
-
-
 
 
 
@@ -20,12 +22,57 @@ public class LayoutCreater {
 //		String picName="/src/com/compoment/cut/example/1.png";
 //		String picPcPath="c:/pic/";
 		
+		LayoutCreater layoutCreater=new LayoutCreater();
+		layoutCreater.remote();
+		
 		
 		ProjectFrame2 frame = new ProjectFrame2();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		
 		frame.setVisible(true);
+	
+	}
+	
+	
+	public void remote()
+	{
+		
+
+		/*
+		 * If you want Serializable classes to be downloaded in the client machines
+		 * you need to change the security level. This may not work, then you
+		 * have to change the security policy.
+		 */
+//		System.setSecurityManager(new RMISecurityManager());
+		
+		System.out.println("RMI server started");
+		
+		try {
+			/*
+			 * Creates and exports a registry where objects will be registered,
+			 * I choosed here port 1099 which is the default port where
+			 * RMI Registry runs
+			 */
+			LocateRegistry.createRegistry(1099);
+			System.out.println("Java RMI registry created.");
+			
+			CheckProblem obj = new CheckProblem();
+			Naming.rebind("CheckProblem", obj);
+			
+			IphoneViewControllerXib iphoneViewControllerXib=new IphoneViewControllerXib();
+			Naming.rebind("IphoneViewControllerXib", iphoneViewControllerXib);
+			
+		} catch (RemoteException e) {
+			System.out.println("Java RMI registry already exists.");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+//		UnicastRemoteObject.unexportObject(obj, true);
+		System.out.println("RmiServer bound in registry");
 	
 	}
 }

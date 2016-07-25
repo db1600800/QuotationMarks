@@ -2,6 +2,10 @@ package com.compoment.cut.iphone;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Document;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.remote.IphoneViewControllerXibInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -40,11 +45,32 @@ public class IphoneTableViewCellXib {
 		this.pageName=pageName;
 		className=firstCharToUpperAndJavaName(pageName);
 		
-	   IphoneViewControllerXib iphoneViewControllerXibForHorizontallayout=new IphoneViewControllerXib(320,40);
+		String body="";
+		 CompomentBean maxBean = null ;
+		//rmi://120.76.232.114:1099/checkProblem
+		try {
 		
-		String body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
-		connection=iphoneViewControllerXibForHorizontallayout.getConnection();
-		 CompomentBean maxBean = iphoneViewControllerXibForHorizontallayout.maxBean;
+			
+			 IphoneViewControllerXibInterface iphoneViewControllerXibForHorizontallayout=(IphoneViewControllerXibInterface) Naming.lookup("IphoneViewControllerXib");
+					 
+			 iphoneViewControllerXibForHorizontallayout.IphoneViewControllerXib(320,40);
+				
+				 body=iphoneViewControllerXibForHorizontallayout.analyse(oldBeans);
+				connection=iphoneViewControllerXibForHorizontallayout.getConnection();
+				  maxBean = iphoneViewControllerXibForHorizontallayout.getMaxBean();
+				 
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	  
 
 
 		String m="";

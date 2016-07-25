@@ -3,56 +3,9 @@
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical" >
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F1F4F2"   android:orientation="vertical"  android:gravity="">
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#F2620B"   android:orientation="horizontal"  android:gravity="center_vertical">
-<Button   android:id="@+id/backButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="back"   android:textSize="16sp" android:textColor="#F2620B"   android:background="#F2620B"  >
-</Button>
-<TextView   android:id="@+id/titleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="订单确认"   android:textSize="16sp" android:textColor="#FFFFFF"   android:gravity="center" >
-</TextView>
+<LinearLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#212121"   android:orientation="horizontal"  android:gravity="center_vertical">
+<LinearLayout  android:layout_width="wrap_content"  android:layout_height="wrap_content"    android:background="#222222"   android:orientation="horizontal"  android:gravity="center_vertical">
 </LinearLayout>
-<ScrollViewLayout  android:layout_width="fill_parent"  android:layout_height="fill_parent"    android:background="#F1F4F2"   android:orientation="vertical"  android:gravity="">
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
-<TextView   android:id="@+id/packageNameTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="业务包名"   android:textSize="16sp" android:textColor="#222222"   android:gravity="center" >
-</TextView>
-<TextView   android:id="@+id/periodTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="6个月"   android:textSize="16sp" android:textColor="#858585"   android:gravity="center" >
-</TextView>
-<TextView   android:id="@+id/arearTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="北京广州"   android:textSize="16sp" android:textColor="#A5A5A5"   android:gravity="center" >
-</TextView>
- <View android:layout_width="fill_parent" android:layout_height="1dip" android:background="#A5A5A5" />
-<TextView   android:id="@+id/feeModeTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="先付款"   android:textSize="16sp" android:textColor="#8D8D8D"   android:gravity="center" >
-</TextView>
-<TextView   android:id="@+id/countModeTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="按次数累加"   android:textSize="16sp" android:textColor="#A5A5A5"   android:gravity="center" >
-</TextView>
-<TextView   android:id="@+id/feeTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="245"   android:textSize="16sp" android:textColor="#BB7E88"   android:gravity="center" >
-</TextView>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFF4EB"   android:orientation="horizontal"  android:gravity="center_vertical">
-<TextView   android:id="@+id/dateTitleTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="套餐生效日期"   android:textSize="16sp" android:textColor="#222222"   android:gravity="center" >
-</TextView>
-<Button   android:id="@+id/beginDateButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="2013年"   android:textSize="16sp" android:textColor="#222222"   android:background="#FFF4EB"  >
-</Button>
-</LinearLayout>
-</LinearLayout>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#ffffff"  android:orientation="horizontal"  >
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
-<TextView   android:id="@+id/totalfeeTextView" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="总计:"   android:textSize="16sp" android:textColor="#222222"   android:gravity="center" >
-</TextView>
-</LinearLayout>
-</LinearLayout>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="vertical"  android:gravity="">
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
-<CheckBox   android:id="@+id/weiPayCheckBox" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="微支付"   android:textSize="16sp" android:textColor="#282828"   >
-</CheckBox>
-</LinearLayout>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
-<CheckBox   android:id="@+id/onlinePayCheckBox" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="银联在线"   android:textSize="16sp" android:textColor="#282828"   >
-</CheckBox>
-</LinearLayout>
-</LinearLayout>
-<LinearLayout  android:layout_width="fill_parent"  android:layout_height="wrap_content"    android:background="#FFFFFF"   android:orientation="horizontal"  android:gravity="center_vertical">
-<Button   android:id="@+id/paynowButton" android:layout_width="wrap_content"  android:layout_height="wrap_content"  android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="支付"   android:textSize="16sp" android:textColor="#FFFFFF"   android:background="#F2620B"  >
-</Button>
-</LinearLayout>
-</ScrollViewLayout>
 </LinearLayout>
 </LinearLayout>
 

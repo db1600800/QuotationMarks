@@ -5,6 +5,8 @@ import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,12 +27,19 @@ import javax.swing.text.Document;
 import org.apache.poi.poifs.property.Child;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.remote.CheckProblemInterface;
+import com.compoment.remote.IphoneViewControllerXibInterface;
 import com.compoment.ui.ios.creater.ScrollViewCells;
 import com.compoment.util.DeepCopy;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class IphoneViewControllerXib {
+public class IphoneViewControllerXib extends UnicastRemoteObject implements IphoneViewControllerXibInterface{
+
+	public  IphoneViewControllerXib() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	String bodym = "\n\n\n";
 	String connection = "";
@@ -42,13 +51,15 @@ public class IphoneViewControllerXib {
 
 	List<CompomentBean> deepCopyCompomentBeans;
 	CompomentBean newParent;
+	
 
-	public IphoneViewControllerXib(int cellWidth, int cellHeight) {
+
+	public void IphoneViewControllerXib(int cellWidth, int cellHeight) throws RemoteException {
 		rootViewWidth = cellWidth;
 		rootViewHeight = cellHeight;
 	}
 
-	public IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) {
+	public void IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) throws RemoteException {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
@@ -93,7 +104,7 @@ public class IphoneViewControllerXib {
 
 	CompomentBean maxBean = null;
 
-	public String analyse(List<CompomentBean> oldBeans) {
+	public String analyse(List<CompomentBean> oldBeans) throws RemoteException {
 
 		Collections.sort(oldBeans, comparatorDate);
 
@@ -165,8 +176,13 @@ public class IphoneViewControllerXib {
 		return bodym;
 	}
 
-	public String getConnection() {
+	public String getConnection() throws RemoteException {
 		return connection;
+	}
+	
+	public CompomentBean getMaxBean() throws RemoteException {
+	
+		return maxBean;
 	}
 
 	/** 修正定位 */
@@ -794,4 +810,6 @@ public class IphoneViewControllerXib {
 
 		   
 	}
+
+
 }

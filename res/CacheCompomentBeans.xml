@@ -1,19 +1,19 @@
 <list>
   <CompomentBean>
-    <rgb16>#1D1D1D</rgb16>
-    <rgb16ios>#1D1D1D</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <rgb16>#FB6F2C</rgb16>
+    <rgb16ios>#FB6F2C</rgb16ios>
+    <bgRgb16>#FB6F2C</bgRgb16>
+    <bgRgb16ios>#FB6F2C</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>34</x>
-    <y>84</y>
-    <w>238</w>
-    <h>258</h>
+    <x>11</x>
+    <y>8</y>
+    <w>277</w>
+    <h>437</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1467874782837</cnname>
-    <enname>bg1467874782837LinearLayout</enname>
+    <cnname>bg1469455024389</cnname>
+    <enname>bg1469455024389LinearLayout</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -22,7 +22,7 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>3ZR-2X-Ag4</id>
+    <id>jJB-6n-bcf</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>LinearLayout</type>
     <orientation></orientation>
@@ -31,7 +31,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467874785531</time>
+    <time>1469455029216</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -42,13 +42,13 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>84</x>
-    <y>144</y>
-    <w>42</w>
-    <h>52</h>
+    <x>56</x>
+    <y>153</y>
+    <w>57</w>
+    <h>14</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
     <cnname>a</cnname>
-    <enname>aTextView</enname>
+    <enname>aButton</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -57,16 +57,16 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>8PH-9v-RJy</id>
+    <id>98t-RT-nVm</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
+    <type>Button</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1467874795387</time>
+    <time>1469455043093</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
 </list>
