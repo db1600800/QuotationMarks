@@ -7,8 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyCanAddPackageViewController">
             <connections>
-                        <outlet property="aButton" destination="98t-RT-nVm" id="0Vs-0F-r75"/>
-                <outlet property="view" destination="jJB-6n-bcf" id="tuM-7X-Sgt"/>
+                        <outlet property="aButton" destination="98t-RT-nVm" id="HEB-Of-L5m"/>
+                <outlet property="view" destination="jJB-6n-bcf" id="Jin-d5-JIj"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -21,12 +21,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -41,8 +48,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
+import com.compoment.remote.RemoteUtil;
+import com.compoment.remote.VersionCheckInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.ZipUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -245,7 +255,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		}
 	  this.webPathValueEditText.setText(classDir + "/res");
 	  
-	   
+	  checkVersion();
 	}
 
 	public void init() {
@@ -810,5 +820,70 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	public void dropActionChanged(DropTargetDragEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	//版本
+	public void checkVersion()
+	{
+		
+		
+		try {
+			VersionCheckInterface androidLayoutXml = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
+			;
+			byte[] content=androidLayoutXml.hasNewVersion("1.0");
+			
+			
+			String classDir = "";
+			File directory = new File("");// 参数为空
+			try {
+				classDir = directory.getCanonicalPath();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block 
+				e.printStackTrace();
+			}
+			
+			String filePath = classDir+"/res/DevelopHelper1.zip" ;
+			
+			
+			
+			
+			FileUtil.byteToFile(filePath, content);
+
+			File   file = new File(filePath);
+	           if(!file.exists()){
+	               file.createNewFile();
+	           }
+	        
+	           
+	           
+			if(file!=null)
+			{
+			
+				int yes=JOptionPane.showConfirmDialog(null, "", "更新软件", JOptionPane.DEFAULT_OPTION);
+				
+				if(yes==0)
+				{
+				
+				
+				ZipUtil.unzip(file, new File(classDir+"/res"));
+				}
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
