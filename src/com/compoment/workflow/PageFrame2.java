@@ -929,7 +929,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 	    					JOptionPane.INFORMATION_MESSAGE);
 	            	return;
 	            }
-			  
+			  beans=androidLayoutXml.getBeans();
 			 FileUtil.makeFile(KeyValue.readCache("picPath"),"xml", pageName+pageNamePart , "xml", xmlFileName);
 			  
 			

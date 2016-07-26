@@ -22,8 +22,9 @@ import com.compoment.util.SerializeToFile;
 public interface AndroidLayoutXmlInterface extends Remote{
 
 
-	public String analyseRelative(String filename, List<CompomentBean> beans) throws RemoteException;
+	public String analyseRelative(String filename, List<CompomentBean> abeans) throws RemoteException;
 
+	public List  getBeans() throws RemoteException;
 	
 	
 	

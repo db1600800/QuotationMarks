@@ -33,10 +33,20 @@ public class AndroidLayoutXml extends UnicastRemoteObject implements AndroidLayo
 	int maxH = 0;
 	String m = "";
 
-	public String analyseRelative(String filename, List<CompomentBean> beans) throws RemoteException{
+	List<CompomentBean> beans;
+	public List  getBeans() throws RemoteException
+	{
+		
+		return beans;
+	}
+	
+	public String analyseRelative(String filename, List<CompomentBean> abeans) throws RemoteException{
 
+		beans=abeans;
+		
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
 		CompomentBean maxBean = null;
+		
 		// 找出容器
 		for (CompomentBean bean : beans) {
 			if (bean.type.contains("Layout")) {
