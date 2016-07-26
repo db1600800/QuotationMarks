@@ -38,7 +38,7 @@ public    interface IphoneViewControllerXibInterface extends Remote{
 
 	public void IphoneViewControllerXib(int cellWidth, int cellHeight) throws RemoteException;
 
-	public void IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) throws RemoteException;
+	public String IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) throws RemoteException;
 	
 	public String analyse(List<CompomentBean> oldBeans) throws RemoteException ;
 	

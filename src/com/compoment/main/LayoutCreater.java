@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import javax.swing.JFrame;
 
 import com.compoment.cut.CheckProblem;
+import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.workflow.ProjectFrame2;
 
@@ -63,6 +64,10 @@ public class LayoutCreater {
 			
 			IphoneViewControllerXib iphoneViewControllerXib=new IphoneViewControllerXib();
 			Naming.rebind("IphoneViewControllerXib", iphoneViewControllerXib);
+			
+			AndroidLayoutXml androidLayoutXml=new AndroidLayoutXml();
+			Naming.rebind("AndroidLayoutXml", androidLayoutXml);
+			
 			
 		} catch (RemoteException e) {
 			System.out.println("Java RMI registry already exists.");

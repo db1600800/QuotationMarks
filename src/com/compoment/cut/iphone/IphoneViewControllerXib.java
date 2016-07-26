@@ -59,7 +59,7 @@ public class IphoneViewControllerXib extends UnicastRemoteObject implements Ipho
 		rootViewHeight = cellHeight;
 	}
 
-	public void IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) throws RemoteException {
+	public String IphoneViewControllerXib(String pageName, List<CompomentBean> oldBeans) throws RemoteException {
 		this.pageName = pageName;
 		className = firstCharToUpperAndJavaName(pageName);
 
@@ -87,8 +87,10 @@ public class IphoneViewControllerXib extends UnicastRemoteObject implements Ipho
 		m += "</document>\n";
 		System.out.println(m);
 
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+		//FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
 
+		return m;
+		
 	}
 
 	public static String firstCharToUpperAndJavaName(String string) {

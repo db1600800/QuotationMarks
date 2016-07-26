@@ -32,6 +32,7 @@ import com.compoment.cut.iphone.IphoneViewControllerXib;
 import com.compoment.cut.swing.SwingLayout;
 import com.compoment.cut.web.WebJsp;
 import com.compoment.cut.web.WebJspListViewItem;
+import com.compoment.remote.AndroidLayoutXmlInterface;
 import com.compoment.remote.CheckProblemInterface;
 import com.compoment.remote.IphoneViewControllerXibInterface;
 import com.compoment.remote.RemoteUtil;
@@ -333,16 +334,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			return;
 		} else if (pageType.contains("Activity-Android")) {
 			// android页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-            if(xmlFileName.equals("no have layout"))
-            {
-            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-    					JOptionPane.INFORMATION_MESSAGE);
-            	return;
-            }
-			
+			CreateAndroidLayoutXml("");
+		
 			
 			savePublicCompoment();
 
@@ -359,15 +352,10 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					options, options[0]);
 			if (response == 0) {
 				// android页面分析生成
-				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-				String xmlFileName = androidLayoutXml.analyseRelative(
-						pageName + "_item", beans);
-				  if(xmlFileName.equals("no have layout"))
-		            {
-		            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-		    					JOptionPane.INFORMATION_MESSAGE);
-		            	return;
-		            }
+				
+				CreateAndroidLayoutXml("_item");
+				
+				
 				savePublicCompoment();
 
 				com.compoment.ui.CreaterAdapter createrAdapter = new CreaterAdapter(
@@ -376,26 +364,12 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			} else if (response == 1) {
 				// android页面分析生成
-				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-				String xmlFileName = androidLayoutXml.analyseRelative(
-						pageName + "_parentitem", beans);
-				  if(xmlFileName.equals("no have layout"))
-		            {
-		            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-		    					JOptionPane.INFORMATION_MESSAGE);
-		            	return;
-		            }
+				CreateAndroidLayoutXml("_parentitem");
+				
+				
 			} else if (response == 2) {
 				// android页面分析生成
-				AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-				String xmlFileName = androidLayoutXml.analyseRelative(
-						pageName + "_childitem", beans);
-				  if(xmlFileName.equals("no have layout"))
-		            {
-		            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-		    					JOptionPane.INFORMATION_MESSAGE);
-		            	return;
-		            }
+				CreateAndroidLayoutXml("_childitem");
 				
 				savePublicCompoment();
 
@@ -409,15 +383,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 		} else if (pageType.contains("Activity-ChirldView-Android")) {
 			// android页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
@@ -425,15 +392,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			createrAdapter.create();
 		} else if (pageType.contains("JFrame-Swing")) {
 			// android页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -451,15 +411,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		} else if (pageType.contains("JDialog-Swing")) {
 
 			// android页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -476,15 +429,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 		} else if (pageType.contains("JPanel-Swing")) {
 			// android页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			// Swing页面水平方向 再次取得分组信息
@@ -500,15 +446,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			swingLayout.createJPanel(beans, beansForSwing);
 		}else if (pageType.equals("ViewController-IOS")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			//ios
@@ -518,7 +457,10 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		try {
 			IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
 			
-				iphoneLayout.IphoneViewControllerXib(pageName,beans);
+				String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
+				String className=StringUtil.firstCharToUpperAndJavaName(pageName);
+				FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -544,15 +486,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		else if (pageType.equals("ChirldViewController-IOS")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			//ios
@@ -561,7 +496,10 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			try {
 				IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
 				
-					iphoneLayout.IphoneViewControllerXib(pageName,beans);
+					String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
+					String className=StringUtil.firstCharToUpperAndJavaName(pageName);
+					FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -589,15 +527,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		else if (pageType.contains("TableViewHeadCell-IOS")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			TableViewCellH viewControllerH=new TableViewCellH(pageName,beans,"TableViewHeadCell");
@@ -612,15 +543,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			}
 		else if (pageType.contains("CommonCell-IOS")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			TableViewCellH viewControllerH=new TableViewCellH(pageName,beans,"TableViewHeadCell");
@@ -635,15 +559,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		else if (pageType.contains("TableViewCell-IOS")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			TableViewCellH tableViewCellH=new TableViewCellH(pageName,beans,"TableViewCell");
@@ -658,23 +575,18 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		}
 		else if (pageType.equals("ChirldViewController-Web")) {
 			// 页面分析生成
-						AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-						String xmlFileName = androidLayoutXml.analyseRelative(
-								pageName, beans);
-						  if(xmlFileName.equals("no have layout"))
-				            {
-				            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-				    					JOptionPane.INFORMATION_MESSAGE);
-				            	return;
-				            }
-						savePublicCompoment();
+			CreateAndroidLayoutXml("");
+			savePublicCompoment();
 
 						//ios
 						//rmi://120.76.232.114:1099/checkProblem
 						try {
 							IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
 							
-								iphoneLayout.IphoneViewControllerXib(pageName,beans);
+								String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
+								String className=StringUtil.firstCharToUpperAndJavaName(pageName);
+								FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -697,15 +609,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		}
 		else if (pageType.equals("ViewController-Web")) {
 			// 页面分析生成
-			AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-			String xmlFileName = androidLayoutXml.analyseRelative(
-					pageName, beans);
-			  if(xmlFileName.equals("no have layout"))
-	            {
-	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-	    					JOptionPane.INFORMATION_MESSAGE);
-	            	return;
-	            }
+			CreateAndroidLayoutXml("");
+			
 			savePublicCompoment();
 
 			//ios
@@ -714,7 +619,10 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			try {
 				IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
 				
-					iphoneLayout.IphoneViewControllerXib(pageName,beans);
+					String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
+					String className=StringUtil.firstCharToUpperAndJavaName(pageName);
+					FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -747,15 +655,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			}
 		else if (pageType.equals("TableViewCell-Web")) {
 			// 页面分析生成
-						AndroidLayoutXml androidLayoutXml = new AndroidLayoutXml();
-						String xmlFileName = androidLayoutXml.analyseRelative(
-								pageName + "_item", beans);
-						  if(xmlFileName.equals("no have layout"))
-				            {
-				            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
-				    					JOptionPane.INFORMATION_MESSAGE);
-				            	return;
-				            }
+			CreateAndroidLayoutXml("_item");
+			
+						
 						savePublicCompoment();
 						
 						//Ios
@@ -1012,6 +914,37 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		    
 	}
 
+	
+	public void CreateAndroidLayoutXml(String pageNamePart)
+	{
+		try {
+			
+			AndroidLayoutXmlInterface androidLayoutXml = (AndroidLayoutXmlInterface) Naming.lookup(RemoteUtil.rmiurl+"AndroidLayoutXml");
+			;
+			String xmlFileName = androidLayoutXml.analyseRelative(
+					pageName+pageNamePart , beans);
+			  if(xmlFileName.equals("no have layout"))
+	            {
+	            	JOptionPane.showMessageDialog(this, "请添加父布局", "",
+	    					JOptionPane.INFORMATION_MESSAGE);
+	            	return;
+	            }
+			  
+			 FileUtil.makeFile(KeyValue.readCache("picPath"),"xml", pageName+pageNamePart , "xml", xmlFileName);
+			  
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public  void makeDir(File dir) {  
 	    if(! dir.getParentFile().exists()) {  

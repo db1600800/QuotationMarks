@@ -5,25 +5,35 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import com.compoment.cut.CompomentBean;
-
-
+import com.compoment.remote.AndroidLayoutXmlInterface;
+import com.compoment.remote.IphoneViewControllerXibInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.SerializeToFile;
 
-public class AndroidLayoutXml {
+public class AndroidLayoutXml extends UnicastRemoteObject implements AndroidLayoutXmlInterface{
+
+	public AndroidLayoutXml() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 
 	int maxW = 0;
 	int maxH = 0;
 	String m = "";
 
-	public String analyseRelative(String filename, List<CompomentBean> beans) {
+	public String analyseRelative(String filename, List<CompomentBean> beans) throws RemoteException{
 
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
 		CompomentBean maxBean = null;
@@ -319,13 +329,12 @@ public class AndroidLayoutXml {
 
 		m += "</LinearLayout>\n\n\n\n";
 
-		String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
-				"xml", filename, "xml", m);
-		//FileUtil.makeFile(KeyValue.readCache("projectPath")+"/res", "layout", filename,"xml", m);
+		//String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),"xml", filename, "xml", m);
+		
 		System.out.println(m);
 		
 		
-		return xmlFileName;
+		return m;
 	}
 
 	public void xml(CompomentBean bean) {
