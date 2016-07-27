@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -90,6 +91,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 	String path;
 
+	String osName;
 	private Clipboard clipboard;
 	
 	
@@ -234,13 +236,24 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		contentPane.setLayout(gl_contentPane);
 
 		
+		Properties props=System.getProperties(); //获得系统属性集    
+		 osName = props.getProperty("os.name"); //操作系统名称    
+		 String osArch = props.getProperty("os.arch"); //操作系统构架    
+		 String osVersion = props.getProperty("os.version"); //操作系统版本 
+		
+		
 		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		// 将剪贴板中内容的ClipboardOwner设置为自己
 		// 这样当其中内容变化时，就会触发lostOwnership事件
+		if(!osName.toLowerCase().contains("Windows".toLowerCase()))
+		{
+		//粘贴板重置
 		String str = "";// 设置字符串
 		StringSelection selection = new StringSelection(str);// 构建String数据类型
 		clipboard.setContents(selection, selection);// 添加文本到系统剪切板
 		clipboard.setContents(clipboard.getContents(null), this);
+		}
+	
 		
 		init();
 
@@ -273,20 +286,20 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 				searchPics(KeyValue.readCache("picPath"));
 
-				if (KeyValue.readCache("compomentProjectAddress") == null
-						|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-					String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-					KeyValue.writeCache("compomentProjectAddress", inputValue);
-				} else {
-
-					String projectPath = KeyValue.readCache("compomentProjectAddress");
-					if (FileUtil.isDirectory(projectPath + "/src/com/compoment")) {
-
-					} else {
-						String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-						KeyValue.writeCache("compomentProjectAddress", inputValue);
-					}
-				}
+//				if (KeyValue.readCache("compomentProjectAddress") == null
+//						|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+//					String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+//					KeyValue.writeCache("compomentProjectAddress", inputValue);
+//				} else {
+//
+//					String projectPath = KeyValue.readCache("compomentProjectAddress");
+//					if (FileUtil.isDirectory(projectPath + "/src/com/compoment")) {
+//
+//					} else {
+//						String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+//						KeyValue.writeCache("compomentProjectAddress", inputValue);
+//					}
+//				}
 			}
 		});
 
@@ -568,10 +581,14 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
 			
 			//重置
+			if(!osName.toLowerCase().contains("Windows".toLowerCase()))
+			{
+			//粘贴板重置
 			String str = "";// 设置字符串
 			StringSelection selection = new StringSelection(str);// 构建String数据类型
 			clipboard.setContents(selection, selection);// 添加文本到系统剪切板
 			clipboard.setContents(clipboard.getContents(null), this);
+			}
 	
 		return ;
 		}
@@ -602,10 +619,14 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 						if(fileName==null)
 						{
 							//重置
+							if(!osName.toLowerCase().contains("Windows".toLowerCase()))
+							{
+							//粘贴板重置
 							String str = "";// 设置字符串
 							StringSelection selection = new StringSelection(str);// 构建String数据类型
 							clipboard.setContents(selection, selection);// 添加文本到系统剪切板
 							clipboard.setContents(clipboard.getContents(null), this);
+							}
 							break;
 						}
 						if (fileName.indexOf(".png") == -1) {
@@ -641,10 +662,14 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 						
 						
 						//重置
+						if(!osName.toLowerCase().contains("Windows".toLowerCase()))
+						{
+						//粘贴板重置
 						String str = "";// 设置字符串
 						StringSelection selection = new StringSelection(str);// 构建String数据类型
 						clipboard.setContents(selection, selection);// 添加文本到系统剪切板
 						clipboard.setContents(clipboard.getContents(null), this);
+						}
 					
 						break;
 					} else {
@@ -774,8 +799,15 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		{
 			JOptionPane.showMessageDialog(null, "请选择项目路径", null, JOptionPane.ERROR_MESSAGE);
 			
-		
-	
+			if(!osName.toLowerCase().contains("Windows".toLowerCase()))
+			{
+			//粘贴板重置
+			String str = "";// 设置字符串
+			StringSelection selection = new StringSelection(str);// 构建String数据类型
+			clipboard.setContents(selection, selection);// 添加文本到系统剪切板
+			clipboard.setContents(clipboard.getContents(null), this);
+			}
+			
 		return ;
 		}
        
@@ -831,7 +863,13 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		try {
 			VersionCheckInterface androidLayoutXml = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
 			;
-			byte[] content=androidLayoutXml.hasNewVersion("1.0");
+			byte[] content=androidLayoutXml.hasNewVersion("2.0");
+			
+			if(content==null)
+			{
+				
+				return;
+			}
 			
 			
 			String classDir = "";
@@ -860,13 +898,13 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			if(file!=null)
 			{
 			
-				int yes=JOptionPane.showConfirmDialog(null, "", "更新软件", JOptionPane.DEFAULT_OPTION);
+				int yes=JOptionPane.showConfirmDialog(null, "更新软件", "温馨提示", JOptionPane.DEFAULT_OPTION);
 				
 				if(yes==0)
 				{
 				
 				
-				ZipUtil.unzip(file, new File(classDir+"/res"));
+				ZipUtil.unzip(file, new File(classDir));
 				}
 			}
 		} catch (RemoteException e) {
