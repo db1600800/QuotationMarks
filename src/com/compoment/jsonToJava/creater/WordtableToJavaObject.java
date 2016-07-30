@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,11 @@ import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
+import com.compoment.remote.CheckProblemInterface;
+import com.compoment.remote.WordtableToJavaObjectInterface;
 import com.google.gson.Gson;
 
 //http://wenku.baidu.com/link?url=ll3rEIIMCAr5m_T-F3rcvzawiI-pd5E5W2uxHBXTzHoQkSBMgQXdtnhBaU9VITz4neKofs_J66_OCR_QPpYz94QMVw6xBBkVqhDnMxkIgk_
@@ -31,7 +38,12 @@ import com.google.gson.Gson;
  * 
  * */
 
-public class WordtableToJavaObject {
+public class WordtableToJavaObject extends UnicastRemoteObject implements WordtableToJavaObjectInterface{
+
+	public WordtableToJavaObject() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	Map point = new HashMap();
 	
@@ -65,7 +77,9 @@ public class WordtableToJavaObject {
 	
 
 		WordtableToJavaObject wordtable = new WordtableToJavaObject();
+		Gson gson=new Gson();
 		List interfaceBeans=wordtable.wordAnalyse(sourceFile ,point);
+	
 		RequestRespondParamBean requestRespondParamBean=new RequestRespondParamBean();
 		requestRespondParamBean.requestRespondParamBean(interfaceBeans);
 		
@@ -73,74 +87,15 @@ public class WordtableToJavaObject {
 		requestRespond.requestRespond(interfaceBeans);
 	}
 
-	public WordtableToJavaObject()  {
 	
-	}
 
 
 
-	public class InterfaceBean {
-		public String title;// 接口名称
-		public String detail;// 接口描述
-		public String id;// 接口id号
-		public String enName;
-		
-		
-		
-	
-		public String getEnName() {
-			return enName;
-		}
 
-		public void setEnName(String enName) {
-			this.enName = enName;
-		}
 
-		public List<Group> requestGroups ;// 循环域开始结束构成一个组 ，
-													// 自定义对象开始结束构成一个组，
-		// 其它的则构成一个通用组
-		// ，每个组由一行或多行row构成
-
-		public List<Group> respondGroups ;
+	public List wordAnalyse(String file,Map point)  throws RemoteException {
+		Gson gson=new Gson();
 		
-		public InterfaceBean()
-		{requestGroups = new ArrayList();
-			
-			respondGroups = new ArrayList();
-		
-		}
-		
-	
-	}
-
-	public class Group {
-		public String name;// 组名
-		public List<Row> rows = new ArrayList();
-	}
-
-	public class Row {
-		public String cnName;
-		public String enName;
-		public String type;
-		public long time;
-		public Row()
-		{
-			
-			time=System.currentTimeMillis();
-		}
-		
-		public String getType() {
-			return type.replaceAll("[^0-9a-zA-Z]","");
-		}
-		public void setType(String type) {
-			this.type = type;
-		}
-		public String remarks;
-		
-		
-	}
-
-	public List<InterfaceBean> wordAnalyse(String file,Map point) {
 		List<InterfaceBean> interfaceBeans = new ArrayList();
 		 HWPFDocument hwpf;
 		 Range range = null;
@@ -232,7 +187,10 @@ public class WordtableToJavaObject {
 
 		}
 
+	
+		//ListToArray.listToArray(interfaceBeans)
 		return interfaceBeans;
+	
 	}
 
 	public String getInterfaceTitle(String txt) {
@@ -305,7 +263,7 @@ public class WordtableToJavaObject {
 
 		if (rowCount < 2)
 			return;
-		Group commonGroup = new Group();
+		Group commonGroup =interfaceBean.new Group();
 		for (int i = 1; i < tb.numRows(); i++) {// 1表示第二行开始
 
 			TableRow tr = tb.getRow(i);
@@ -385,7 +343,7 @@ public class WordtableToJavaObject {
 					|| sType.toLowerCase().contains("long")) {
 
 				if (isCommon) {
-					Row row = new Row();
+					Row row = interfaceBean.new Row();
 					row.cnName = sCnName;
 					row.enName = sEnName;
 					row.remarks = sRemarks;
@@ -484,7 +442,7 @@ public class WordtableToJavaObject {
 			}
 
 			if (sCnName.contains("开始") && sCnName.contains("循环")) {
-				group = new Group();
+				group = interfaceBean.new Group();
 				group.name=sEnName+"Group";
 				if(!sType.matches("[a-zA-Z]+") || !sType.equals("int") )
 				{
@@ -504,7 +462,7 @@ public class WordtableToJavaObject {
 			if (sType.matches("[a-zA-Z]+")) {
 
 				if (isNotCommon) {
-					Row row = new Row();
+					Row row = interfaceBean.new Row();
 					row.cnName = sCnName;
 					row.enName = sEnName;
 					row.remarks = sRemarks;

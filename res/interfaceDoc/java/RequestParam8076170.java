@@ -6,7 +6,7 @@ public class RequestParam8076170{
 /** 会员号 备注:12 2010-11-15新增*/
 public String D44_70_CUSTMNUM;
 /** 套餐加办流水 备注:*/
-public int D44_70_PACKETSEQ;
+public Int D44_70_PACKETSEQ;
 /** 套餐代号 备注:3*/
 public String D44_70_PACKETID;
 /** 循环域结束 备注:*/

@@ -19,9 +19,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 
 public class DBTableRelativePanel extends JPanel implements MouseListener,
 		MouseMotionListener {

@@ -27,9 +27,9 @@ import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
 
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 /**

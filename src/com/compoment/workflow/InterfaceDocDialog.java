@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +31,13 @@ import com.compoment.jsonToJava.creater.RequestRespondForIphone;
 import com.compoment.jsonToJava.creater.RequestRespondParamBean;
 import com.compoment.jsonToJava.creater.RequestRespondParamBeanForIphone;
 import com.compoment.jsonToJava.creater.WordtableToJavaObject;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.remote.RemoteUtil;
+import com.compoment.remote.WordtableToJavaObjectInterface;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+
 import com.compoment.server.Serverlet;
 import com.compoment.util.KeyValue;
+import com.google.gson.Gson;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -484,9 +492,24 @@ Desktop desktop=Desktop.getDesktop();
 		point.put("备注",
 				Integer.valueOf(remarksValueEditText.getText().toString()));
 
-		WordtableToJavaObject wordtable = new WordtableToJavaObject();
-		 interfaceBeans = wordtable.wordAnalyse(filePath,
-				point);
+		WordtableToJavaObjectInterface wordtable;
+		try {
+			wordtable = (WordtableToJavaObjectInterface) Naming.lookup(RemoteUtil.rmiurl+"WordtableToJavaObject");
+			
+			interfaceBeans=wordtable.wordAnalyse(filePath,point);
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		;
+		
 
 		listDate.clear();
 		listListView.setListData(listDate.toArray());

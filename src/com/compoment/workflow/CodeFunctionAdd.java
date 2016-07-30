@@ -29,9 +29,9 @@ import com.compoment.addfunction.webmanage.ActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import  com.compoment.addfunction.webmanage.Action;
 import com.compoment.addfunction.webmanage.QueryJsp;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 /**

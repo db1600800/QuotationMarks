@@ -12,7 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.compoment.jsonToJava.creater.JsonToJavaBeanForSimple;
 import com.compoment.jsonToJava.creater.RequestRespondForServerlet;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.util.KeyValue;
 
 

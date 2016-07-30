@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.RegexUtil;

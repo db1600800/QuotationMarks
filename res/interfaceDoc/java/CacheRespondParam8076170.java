@@ -4,7 +4,7 @@
 /**套餐绑定加办8076170*/
 public class CacheRespondParam8076170{
 /** 套餐加办流水 备注:*/
-public int D44_70_PACKETSEQ;
+public String D44_70_PACKETSEQ;
 /**  备注:*/
 public String ;
 }

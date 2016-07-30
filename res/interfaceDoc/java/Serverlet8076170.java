@@ -42,11 +42,11 @@ public class Serverlet8076170 extends HttpServlet {
 Gson gson = new Gson();
 RequestParam8076170 bean = gson.fromJson(parameter, RequestParam8076170.class);
 /** 会员号 备注:12 2010-11-15新增*/
-bean.D44_70_CUSTMNUM;//String
+bean.D44_70_CUSTMNUM;//String
 /** 套餐加办流水 备注:*/
-bean.D44_70_PACKETSEQ;//int
+bean.D44_70_PACKETSEQ;//Int
 /** 套餐代号 备注:3*/
-bean.D44_70_PACKETID;//String
+bean.D44_70_PACKETID;//String
 /** 循环域结束 备注:*/
 bean.;//String
 /**  备注:*/
@@ -107,7 +107,7 @@ returnData.body=body;
 /**套餐绑定加办8076170*/
 CacheRespondParam8076170 cacheRespondParam8076170=new CacheRespondParam8076170(); 
 /** 套餐加办流水 备注:*/
-cacheRespondParam8076170.D44_70_PACKETSEQ=;//int
+cacheRespondParam8076170.D44_70_PACKETSEQ=;//String
 /**  备注:*/
 cacheRespondParam8076170.=;//String
 					

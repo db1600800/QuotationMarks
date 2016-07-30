@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Group;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.InterfaceBean;
-import com.compoment.jsonToJava.creater.WordtableToJavaObject.Row;
+import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.jsonToJava.creater.InterfaceBean;
+import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.KeyValue;
 
 public class QueryJsp {

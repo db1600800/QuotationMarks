@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import com.compoment.cut.CheckProblem;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneViewControllerXib;
+import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.util.VersionCheck;
 import com.compoment.workflow.ProjectFrame2;
 
@@ -72,6 +73,8 @@ public class LayoutCreater {
 			VersionCheck versionCheck=new VersionCheck();
 			Naming.rebind("VersionCheck", versionCheck);
 			
+			WordtableToJavaObject wordtableToJavaObject=new WordtableToJavaObject();
+			Naming.rebind("WordtableToJavaObject", wordtableToJavaObject);
 			
 		} catch (RemoteException e) {
 			System.out.println("Java RMI registry already exists.");
