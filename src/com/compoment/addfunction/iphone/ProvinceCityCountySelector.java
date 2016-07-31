@@ -40,7 +40,7 @@ public class ProvinceCityCountySelector {
 		    
 		    m2+="@end\n";
 		    
-			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlApp", "h", m2);
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios",   "SqlApp", "h", m2);
 	}
 	
 	public void createM()
@@ -226,7 +226,7 @@ public class ProvinceCityCountySelector {
         
         m+="@end\n";
         
-        FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios",   "SqlApp", "m", m);
+        FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios",   "SqlApp", "m", m);
 		
 		System.out.println(m);
 		

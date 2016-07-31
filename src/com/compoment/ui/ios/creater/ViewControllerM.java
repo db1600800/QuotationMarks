@@ -140,7 +140,7 @@ public class ViewControllerM {
 		i += "\n@end//end viewController\n";
 
 		i=ImportString.autoAddImportInMFileHead(i);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "m", i);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "m", i);
 	}
 
 	public void parent(CompomentBean bean) {

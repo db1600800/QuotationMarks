@@ -286,20 +286,23 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 
 				searchPics(KeyValue.readCache("picPath"));
 
-//				if (KeyValue.readCache("compomentProjectAddress") == null
-//						|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-//					String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-//					KeyValue.writeCache("compomentProjectAddress", inputValue);
-//				} else {
-//
-//					String projectPath = KeyValue.readCache("compomentProjectAddress");
-//					if (FileUtil.isDirectory(projectPath + "/src/com/compoment")) {
-//
-//					} else {
-//						String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-//						KeyValue.writeCache("compomentProjectAddress", inputValue);
-//					}
-//				}
+				
+				KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
+				if (KeyValue.readCache("compomentProjectAddress") == null
+						|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+					String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+					KeyValue.writeCache("compomentProjectAddress", inputValue);
+				} else {
+
+					String projectPath = KeyValue.readCache("compomentProjectAddress");
+					if (FileUtil.isDirectory(projectPath + "/src/com/compoment")) {
+
+					} else {
+						
+						String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+						KeyValue.writeCache("compomentProjectAddress", inputValue);
+					}
+				}
 			}
 		});
 

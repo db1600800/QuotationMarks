@@ -27,7 +27,7 @@ public class KeyValue {
 			courseFile =directory.getCanonicalPath();
 		
 
-		String path = courseFile + "/res/cache.txt";
+		String path = courseFile + "/res/other/cache.txt";
 		
 		return readValue(path,key);
 			} catch (Exception e1) {
@@ -49,7 +49,7 @@ public class KeyValue {
 			courseFile =directory.getCanonicalPath();
 		
 
-		String path = courseFile + "/res/cache.txt";
+		String path = courseFile + "/res/other/cache.txt";
 		
 		writeProperties(path,key,value);
 			} catch (Exception e1) {

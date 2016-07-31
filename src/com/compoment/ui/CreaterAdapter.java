@@ -61,7 +61,7 @@ public class CreaterAdapter {
 		} else {
 
 			xmlfilename = filename;
-			xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + filename;
+			xmlFilePath = KeyValue.readCache("projectPath") + "/src/android/xml/" + filename;
 		}
 
 		className = firstCharToUpperAndJavaName(xmlfilename);
@@ -348,7 +348,7 @@ public class CreaterAdapter {
 		m += "	}\n";
 
 		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", className
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/android", className
 				+ "Adapter", "java", m);
 		
 		//FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter","java", m);

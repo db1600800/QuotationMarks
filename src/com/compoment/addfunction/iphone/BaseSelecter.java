@@ -132,7 +132,7 @@ m+="//[ self.view addSubview:chirldViewController.view];\n";
 m+="// [chirldViewController.view setHidden:YES];\n";
 
 
-FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "ViewController", "h", m);
+FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "ViewController", "h", m);
 	}
 	
 	
@@ -373,7 +373,7 @@ m+="}\n";
 
 m+="@end//end viewController\n";
 
-FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "ViewController", "m", m);
+FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "ViewController", "m", m);
 	}
 	
 	
@@ -444,7 +444,7 @@ FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName +
 		m+="    </simulatedMetricsContainer>\n";
 		m+="</document>\n";
 
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "ViewController", "xib", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "ViewController", "xib", m);
 	}
 	
     public void cellH()
@@ -460,7 +460,7 @@ FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName +
     	m+="@property (weak, nonatomic) IBOutlet UILabel *whichCheckBoxCover;\n";
     	m+="@end\n";
     	
-    	FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "TableViewCell", "h", m);
+    	FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "TableViewCell", "h", m);
     	
     }
     
@@ -475,7 +475,7 @@ FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName +
     	m+="@synthesize whichCheckBox;\n";
     	m+="@end\n";
 
-    	FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "TableViewCell", "m", m);
+    	FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "TableViewCell", "m", m);
     }
 	
     public void cellXib()
@@ -539,7 +539,7 @@ FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName +
     	m+="        <simulatedScreenMetrics key=\"destination\" type=\"retina4\"/>\n";
     	m+="    </simulatedMetricsContainer>\n";
     	m+="</document>\n";
-    	FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", viewControllerName + "TableViewCell", "xib", m);
+    	FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", viewControllerName + "TableViewCell", "xib", m);
     }
 	
 

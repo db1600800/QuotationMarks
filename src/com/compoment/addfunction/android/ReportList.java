@@ -207,8 +207,10 @@ public class ReportList {
 		String filename = FileUtil.makeFile(adapterFilePath, content);
 		
 		
-		 String xmlFilePath=KeyValue.readCache("picPath")+"/xml/"+adapterClassName.replace("Adapter", "").toLowerCase()+"_item.xml";
-		addFunctionForAdapterXml(adapterClassName,xmlFilePath);
+		 String xmlFilePath=KeyValue.readCache("projectPath")+"/src/android/xml/"+adapterClassName.replace("Adapter", "").toLowerCase()+"_item.xml";
+		
+		 
+		 addFunctionForAdapterXml(adapterClassName,xmlFilePath);
 		
 	}
 
@@ -336,9 +338,9 @@ public class ReportList {
 		m += "	}\n";
 		m += "}\n";
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", horizontalScrollViewClassName,
-				"java", m);
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", horizontalScrollViewClassName,
+		//FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", horizontalScrollViewClassName,
+				//"java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/android", horizontalScrollViewClassName,
 				"java", m);
 
 	}

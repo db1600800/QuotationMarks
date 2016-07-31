@@ -459,7 +459,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			
 				String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
 				String className=StringUtil.firstCharToUpperAndJavaName(pageName);
-				FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+				FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -498,7 +498,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 				
 					String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
 					String className=StringUtil.firstCharToUpperAndJavaName(pageName);
-					FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+					FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
 
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
@@ -536,7 +536,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			
 			IphoneTableViewCellXib  iphoneLayout = new IphoneTableViewCellXib(pageName,beans,"TableViewHeadCell");
 			
-			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
+			String 	fileName = KeyValue.readCache("projectPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
 					+ "." + "m";
 			TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(pageName,beans,fileName,true);
 			
@@ -568,7 +568,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			
 			IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(pageName,beans,"TableViewCell");
 			
-			String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
+			String 	fileName = KeyValue.readCache("projectPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
 					+ "." + "m";
 			TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(pageName,beans,fileName,false);
 			
@@ -585,7 +585,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 							
 								String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
 								String className=StringUtil.firstCharToUpperAndJavaName(pageName);
-								FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+								FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
 
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
@@ -621,7 +621,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 				
 					String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
 					String className=StringUtil.firstCharToUpperAndJavaName(pageName);
-					FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+					FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
 
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
@@ -669,7 +669,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 						TableViewCellM tableViewCellM=new TableViewCellM(pageName,beans,"TableViewCell");
 						
 						
-						String 	fileName = KeyValue.readCache("picPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
+						String 	fileName = KeyValue.readCache("projectPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
 								+ "." + "m";
 						TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(pageName,beans,fileName,false);
 						
@@ -689,7 +689,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		beansForSwing.clear();
 
 		JOptionPane.showMessageDialog(this,
-				"刷新Eclipse目录或到" + KeyValue.readCache("picPath") + "查看生成的文件",
+				"刷新Eclipse目录或到" + KeyValue.readCache("projectPath") + "/src查看生成的文件",
 				"", JOptionPane.INFORMATION_MESSAGE);
 
 		new CodeFunctionAdd();
@@ -895,20 +895,17 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			
 		
 			
-			File xmlfile=new File(path+"/xml/");
-			 if(! xmlfile.exists()) {  
-		         makeDir(xmlfile);  
-		     } 
+			
 			 
 				File drawablefile=new File(path+"/drawable/");
 				 if(! drawablefile.exists()) {  
 			         makeDir(drawablefile);  
 			     } 
 				 
-					File javafile=new File(path+"/java/");
-					 if(! javafile.exists()) {  
-				         makeDir(javafile);  
-				     } 
+//					File javafile=new File(path+"/java/");
+//					 if(! javafile.exists()) {  
+//				         makeDir(javafile);  
+//				     } 
 	
 		        return pageName;
 		    
@@ -930,7 +927,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 	            	return;
 	            }
 			  beans=androidLayoutXml.getBeans();
-			 FileUtil.makeFile(KeyValue.readCache("picPath"),"xml", pageName+pageNamePart , "xml", xmlFileName);
+			 FileUtil.makeFile(KeyValue.readCache("projectPath"),"src/android/xml", pageName+pageNamePart , "xml", xmlFileName);
 			  
 			
 		} catch (RemoteException e) {

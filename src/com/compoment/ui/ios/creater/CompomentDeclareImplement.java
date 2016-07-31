@@ -715,7 +715,7 @@ public class CompomentDeclareImplement {
 		
 		
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", "UIButton+EnlargeTouchArea.",
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", "UIButton+EnlargeTouchArea.",
 				"h", m);
 
 		m="";
@@ -766,7 +766,7 @@ public class CompomentDeclareImplement {
 
 		m+="@end\n";
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", "UIButton+EnlargeTouchArea.",
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", "UIButton+EnlargeTouchArea.",
 				"m", m);
 		
 	}

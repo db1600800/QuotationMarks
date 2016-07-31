@@ -46,7 +46,7 @@ public class SerializeToFile {
 			courseFile = directory.getCanonicalPath();
 
 			String path = courseFile
-					+ "/res/CacheCompomentBeans.xml";
+					+ "/res/other/CacheCompomentBeans.xml";
 
 			XStream xStream = new XStream();
 			xStream.alias("CompomentBean", CompomentBean.class);
@@ -58,7 +58,7 @@ public class SerializeToFile {
 			if(!"".equals( pageName))
 			{
 			String xmlFileName = FileUtil.makeFile(KeyValue.readCache("picPath"),
-					"src/CacheCompomentBeans", "CacheCompomentBeans_"+pageName, "xml", "");
+					"cacheCompomentBean/CacheCompomentBeans", "CacheCompomentBeans_"+pageName, "xml", "");
 			FileOutputStream outStream = new FileOutputStream(xmlFileName);
 			xStream.toXML(myPersons, outStream);
 			}
@@ -90,7 +90,7 @@ public class SerializeToFile {
 			courseFile = directory.getCanonicalPath();
 
 			String path = courseFile
-					+ "/res/CacheCompomentBeans.xml";
+					+ "/res/other/CacheCompomentBeans.xml";
 			XStream xStream = new XStream();
 			xStream.alias("CompomentBean", CompomentBean.class);
 			List<CompomentBean> myPersons = null;

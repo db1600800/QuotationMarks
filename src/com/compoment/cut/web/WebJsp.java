@@ -72,11 +72,11 @@ public class WebJsp {
 
 		String body = analyse(oldBeans);
 
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/Jsp", className + "Jsp", "jsp", bodym);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/Jsp", className + "Jsp", "jsp", bodym);
 		
 		System.out.println(bodym);
 
-		// FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className
+		// FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className
 		// + "ViewController", "xib", m);
 
 	}

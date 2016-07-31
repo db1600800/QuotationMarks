@@ -113,7 +113,7 @@ public class IphoneTableViewCellXib {
 		
 		System.out.println(m);
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+type,
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className+type,
 				"xib", m);
 
 	}

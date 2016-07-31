@@ -134,23 +134,25 @@ public class CodeFunctionAdd extends JFrame {
 
 		setVisible(true);
 
-//		if (KeyValue.readCache("compomentProjectAddress") == null
-//				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-//			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-//			KeyValue.writeCache("compomentProjectAddress", inputValue);
-//		}else
-//		{
-//			
-//			String projectPath=KeyValue.readCache("compomentProjectAddress");
-//			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
-//			{
-//				
-//			}else
-//			{
-//				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-//				KeyValue.writeCache("compomentProjectAddress", inputValue);
-//			}
-//		}
+		KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
+		
+		if (KeyValue.readCache("compomentProjectAddress") == null
+				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+			KeyValue.writeCache("compomentProjectAddress", inputValue);
+		}else
+		{
+			
+			String projectPath=KeyValue.readCache("compomentProjectAddress");
+			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
+			{
+				
+			}else
+			{
+				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+				KeyValue.writeCache("compomentProjectAddress", inputValue);
+			}
+		}
 		
 
 	}
@@ -197,9 +199,11 @@ public class CodeFunctionAdd extends JFrame {
 
 						if (value.equals("Android")) {
 							
+							KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
 							
 							if (KeyValue.readCache("compomentProjectAddress") == null
 									|| KeyValue.readCache("compomentProjectAddress").equals("")) {
+								
 								String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
 								
 								KeyValue.writeCache("compomentProjectAddress", inputValue);
@@ -212,8 +216,10 @@ public class CodeFunctionAdd extends JFrame {
 									
 								}else
 								{
-									String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-									KeyValue.writeCache("compomentProjectAddress", inputValue);
+									KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
+									
+									//String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+									//KeyValue.writeCache("compomentProjectAddress", inputValue);
 								}
 							}
 							
@@ -227,7 +233,7 @@ public class CodeFunctionAdd extends JFrame {
 							functionListListView.setModel(functionModelList);
 
 							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/pic/src/android");
+							codePathValueEditText.setText(projectPath+"/src/android");
 							
 						} else	if (value.equals("Iphone")) {
 							iphoneData();
@@ -240,7 +246,7 @@ public class CodeFunctionAdd extends JFrame {
 							functionListListView.setModel(functionModelList);
 							
 							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/pic/src/ios");
+							codePathValueEditText.setText(projectPath+"/src/ios");
 						}  
 						else	if (value.equals("Swing")) {
 							swingData();
@@ -271,7 +277,7 @@ public class CodeFunctionAdd extends JFrame {
 							functionListListView.setModel(functionModelList);
 							
 							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/pic/src/jsp");
+							codePathValueEditText.setText(projectPath+"/src/jsp");
 						} 
 						
 						
@@ -384,7 +390,7 @@ public class CodeFunctionAdd extends JFrame {
 
 		layout.setVerticalGroup(bg1422276538785LinearLayout);
 
-		codePathValueEditText.setText(KeyValue.readCache("codeFilePath"));
+		//codePathValueEditText.setText(KeyValue.readCache("codeFilePath"));
 
 		// 水平
 		/**

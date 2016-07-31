@@ -48,7 +48,7 @@ public class CreateActivityView {
 		} else {
 
 			xmlfilename = filename;
-			xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + filename;
+			xmlFilePath = KeyValue.readCache("projectPath") + "/src/android/xml/" + filename;
 		}
 		className = firstCharToUpperAndJavaName(xmlfilename);
 
@@ -567,7 +567,7 @@ public class CreateActivityView {
 		m += "}\n";
 
 		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", className,
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/android", className,
 				"java", m);
 		//FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className,"java", m);
 		// stringToFile("d:\\" + className + ".java", m);

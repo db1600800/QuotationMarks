@@ -87,7 +87,7 @@ public class IphoneViewControllerXib extends UnicastRemoteObject implements Ipho
 		m += "</document>\n";
 		System.out.println(m);
 
-		//FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className + "ViewController", "xib", m);
+		//FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
 
 		return m;
 		

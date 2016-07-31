@@ -99,7 +99,7 @@ public class TableViewCellH {
 		n+="@end\n";
   
 		
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+type,
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className+type,
 				"h", n);
 	}
 

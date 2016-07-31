@@ -128,7 +128,7 @@ public class ViewControllerH {
 		    
 			}
 			
-			FileUtil.makeFile(KeyValue.readCache("picPath"), "src/ios", className+"ViewController",
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className+"ViewController",
 					"h", m);
       
 		}

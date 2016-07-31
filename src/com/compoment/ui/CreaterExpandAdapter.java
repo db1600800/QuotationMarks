@@ -116,11 +116,11 @@ public class CreaterExpandAdapter {
 		m += "	}\n";
 		
 		System.out.println(m);
-		FileUtil.makeFile(KeyValue.readCache("picPath"), "src/android", className
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/android", className
 				+ "Adapter", "java", m);
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
-				"java", m);
+		//FileUtil.makeFile(KeyValue.readCache("projectPath"), "src", className+ "Adapter",
+			//	"java", m);
 		// stringToFile("d:\\" + className + "Adapter.java", m);
 	}
 	
@@ -130,7 +130,7 @@ public class CreaterExpandAdapter {
 	
 		String parentXmlFileName=filename+"_parentitem";
 		String childXmlFileName=filename+"_childitem";
-		String xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + parentXmlFileName;
+		String xmlFilePath = KeyValue.readCache("projectPath") + "/src/android/xml/" + parentXmlFileName;
 		
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -368,7 +368,7 @@ public class CreaterExpandAdapter {
 	
 		
 		String childXmlFileName=filename+"_childitem";
-		String xmlFilePath = KeyValue.readCache("picPath") + "/xml/" + childXmlFileName;
+		String xmlFilePath = KeyValue.readCache("picPath") + "/src/android/xml/" + childXmlFileName;
 		
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
