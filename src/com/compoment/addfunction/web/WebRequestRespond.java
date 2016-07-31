@@ -342,7 +342,7 @@ public class WebRequestRespond {
 				p = doc.lastIndexOf("\\");
 			}
 
-			File tofile = new File(doc.substring(0, p) + "/java/" + fileName + ".java");
+			File tofile = new File(doc.substring(0, p) + "/Servlet/" + fileName + ".java");
 			if (!tofile.exists()) {
 				makeDir(tofile.getParentFile());
 			}

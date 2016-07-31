@@ -219,7 +219,7 @@ public class RequestRespondParamBeanForIphone {
 		      
 		    
 		
-		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+"."+filetype+"");
+		File tofile=new File(doc.substring(0, p)+"/Ios/"+fileName+"."+filetype+"");
 		  if(! tofile.exists()) {  
 	            makeDir(tofile.getParentFile());  
 	        }  
