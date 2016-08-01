@@ -10,6 +10,6 @@ import com.compoment.remote.IphoneViewControllerXibInterface;
 
 public interface VersionCheckInterface  extends Remote {
 
-	public byte[] hasNewVersion(String currentVersion) throws RemoteException;
+	public String hasNewVersion(String currentVersion) throws RemoteException;
 
 }

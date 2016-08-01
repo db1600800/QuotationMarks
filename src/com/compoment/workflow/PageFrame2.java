@@ -689,7 +689,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		beansForSwing.clear();
 
 		JOptionPane.showMessageDialog(this,
-				"刷新Eclipse目录或到" + KeyValue.readCache("projectPath") + "/src查看生成的文件",
+				"到" + KeyValue.readCache("projectPath") + "/src目录查看生成的文件",
 				"", JOptionPane.INFORMATION_MESSAGE);
 
 		new CodeFunctionAdd();

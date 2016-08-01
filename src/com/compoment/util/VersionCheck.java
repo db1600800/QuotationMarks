@@ -19,7 +19,7 @@ public class VersionCheck  extends UnicastRemoteObject implements VersionCheckIn
 
 	String nowVersion="2.0";
 	
-	public byte[] hasNewVersion(String currentVersion) throws RemoteException
+	public String hasNewVersion(String currentVersion) throws RemoteException
 	{
 		if(!currentVersion.equals(nowVersion))
 		{
@@ -30,14 +30,12 @@ public class VersionCheck  extends UnicastRemoteObject implements VersionCheckIn
 			try {
 				
 				
-				  //byte[] content = new byte[(int)file.length()];
-				  //BufferedInputStream  input = new BufferedInputStream(new FileInputStream(file));
-		          // input.read(content);
-		       	//return content;
+				 
 		       	
-		          FileUtil fileUtil=new FileUtil();
-		          return fileUtil.fileToByte(file.getPath());
+		          //FileUtil fileUtil=new FileUtil();
+		          //return fileUtil.fileToByte(file.getPath());
 			
+				return "http://120.76.232.114:8080/DeveloperHelperHomePage/app/DevelopHelper.zip";
 			}  catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

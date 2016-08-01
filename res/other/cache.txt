@@ -1,5 +1,5 @@
-#Update 'compomentProjectAddress' value
-#Sun Jul 31 21:38:42 CST 2016
+#Update 'picPath' value
+#Tue Aug 02 06:40:59 CST 2016
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2

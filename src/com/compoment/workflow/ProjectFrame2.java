@@ -117,8 +117,15 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	 */
 	public ProjectFrame2() {
 
+		if(checkVersion())
+		{
+			System.exit(0);
+			return ;
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
+		this.setTitle("IOS Android 开发流程助手V1.0");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -268,7 +275,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		}
 	  this.webPathValueEditText.setText(classDir + "/res");
 	  
-	  checkVersion();
+	  
 	}
 
 	public void init() {
@@ -859,55 +866,76 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	
 	
 	//版本
-	public void checkVersion()
+	public boolean checkVersion()
 	{
 		
 		
 		try {
 			VersionCheckInterface androidLayoutXml = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
 			;
-			byte[] content=androidLayoutXml.hasNewVersion("2.0");
+			String content=androidLayoutXml.hasNewVersion("1.0");
 			
 			if(content==null)
 			{
 				
-				return;
+				return false;
 			}
 			
 			
-			String classDir = "";
-			File directory = new File("");// 参数为空
-			try {
-				classDir = directory.getCanonicalPath();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block 
-				e.printStackTrace();
-			}
-			
-			String filePath = classDir+"/res/DevelopHelper1.zip" ;
-			
-			
-			
-			
-			FileUtil.byteToFile(filePath, content);
-
-			File   file = new File(filePath);
-	           if(!file.exists()){
-	               file.createNewFile();
-	           }
-	        
-	           
-	           
-			if(file!=null)
+//			String classDir = "";
+//			File directory = new File("");// 参数为空
+//			try {
+//				classDir = directory.getCanonicalPath();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block 
+//				e.printStackTrace();
+//			}
+//			
+//			String filePath = classDir+"/res/DevelopHelper1.zip" ;
+//			
+//			
+//			
+//			
+//			FileUtil.byteToFile(filePath, content);
+//
+//			File   file = new File(filePath);
+//	           if(!file.exists()){
+//	               file.createNewFile();
+//	           }
+//	        
+//	           
+//	           
+//			if(file!=null)
 			{
 			
-				int yes=JOptionPane.showConfirmDialog(null, "更新软件", "温馨提示", JOptionPane.DEFAULT_OPTION);
+				int yes=JOptionPane.showConfirmDialog(null, "有新版本,请更新软件", "温馨提示", JOptionPane.DEFAULT_OPTION);
+				
+				
 				
 				if(yes==0)
 				{
+					//判断当前系统是否支持Java AWT Desktop扩展
+			        if(java.awt.Desktop.isDesktopSupported()){
+			            try{
+			                //创建一个URI实例,注意不是URL
+			                java.net.URI uri=java.net.URI.create(content);
+			                //获取当前系统桌面扩展
+			                java.awt.Desktop dp=java.awt.Desktop.getDesktop();
+			                //判断系统桌面是否支持要执行的功能
+			                if(dp.isSupported(java.awt.Desktop.Action.BROWSE)){
+			                    //获取系统默认浏览器打开链接
+			                    dp.browse(uri);
+			                }
+			            }catch(java.lang.NullPointerException e){
+			                //此为uri为空时抛出异常
+			            }catch(java.io.IOException e){
+			                //此为无法获取系统默认浏览器
+			            }
+			        }
 				
-				
-				ZipUtil.unzip(file, new File(classDir));
+				//ZipUtil.unzip(file, new File(classDir));
+					
+			          return true;		
 				}
 			}
 		} catch (RemoteException e) {
@@ -919,12 +947,8 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		return false;
 	}
 }
