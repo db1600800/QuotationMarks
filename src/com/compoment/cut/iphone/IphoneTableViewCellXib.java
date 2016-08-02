@@ -25,6 +25,7 @@ import javax.swing.text.Document;
 
 import com.compoment.cut.CompomentBean;
 import com.compoment.remote.IphoneViewControllerXibInterface;
+import com.compoment.remote.RemoteUtil;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
@@ -51,7 +52,7 @@ public class IphoneTableViewCellXib {
 		try {
 		
 			
-			 IphoneViewControllerXibInterface iphoneViewControllerXibForHorizontallayout=(IphoneViewControllerXibInterface) Naming.lookup("IphoneViewControllerXib");
+			 IphoneViewControllerXibInterface iphoneViewControllerXibForHorizontallayout=(IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
 					 
 			 iphoneViewControllerXibForHorizontallayout.IphoneViewControllerXib(320,40);
 				
