@@ -41,7 +41,11 @@ public class AndroidLayoutXml extends UnicastRemoteObject implements AndroidLayo
 	}
 	
 	public String analyseRelative(String filename, List<CompomentBean> abeans) throws RemoteException{
-
+	     if(beans!=null)
+	     {
+	    	 beans.clear();
+	    	 beans=null;
+	     }
 		beans=abeans;
 		
 		List<CompomentBean> layouts = new ArrayList<CompomentBean>();

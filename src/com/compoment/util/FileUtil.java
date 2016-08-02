@@ -68,11 +68,16 @@ public class FileUtil {
 				xmlFileName = filePath + "/" + secondPath + "/" + fileName + "." + fileType;
 			}
 
+			{
 			File tofile = new File(xmlFileName);
 			if (!tofile.exists()) {
 				makeDir(tofile.getParentFile());
-			}
+			}else
+			{
+				tofile.delete();
+			}}
 
+			File tofile = new File(xmlFileName);
 			tofile.createNewFile();
 
 			FileWriter fw;

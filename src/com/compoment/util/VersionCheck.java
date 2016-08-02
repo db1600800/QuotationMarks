@@ -17,7 +17,7 @@ public class VersionCheck  extends UnicastRemoteObject implements VersionCheckIn
 		// TODO Auto-generated constructor stub
 	}
 
-	String nowVersion="2.0";
+	String nowVersion="1.0";
 	
 	public String hasNewVersion(String currentVersion) throws RemoteException
 	{
