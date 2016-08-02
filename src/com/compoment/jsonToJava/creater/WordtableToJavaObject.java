@@ -30,6 +30,8 @@ import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.remote.CheckProblemInterface;
 import com.compoment.remote.WordtableToJavaObjectInterface;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 
 //http://wenku.baidu.com/link?url=ll3rEIIMCAr5m_T-F3rcvzawiI-pd5E5W2uxHBXTzHoQkSBMgQXdtnhBaU9VITz4neKofs_J66_OCR_QPpYz94QMVw6xBBkVqhDnMxkIgk_
@@ -78,7 +80,10 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 		WordtableToJavaObject wordtable = new WordtableToJavaObject();
 		Gson gson=new Gson();
-		List interfaceBeans=wordtable.wordAnalyse(sourceFile ,point);
+		
+		FileUtil fileUtil=new FileUtil();
+         
+		List interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(sourceFile) ,point);
 	
 		RequestRespondParamBean requestRespondParamBean=new RequestRespondParamBean();
 		requestRespondParamBean.requestRespondParamBean(interfaceBeans);
@@ -93,7 +98,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 
 
-	public List wordAnalyse(String file,Map point)  throws RemoteException {
+	public List wordAnalyse(byte[] file,Map point)  throws RemoteException {
 		Gson gson=new Gson();
 		
 		List<InterfaceBean> interfaceBeans = new ArrayList();
@@ -102,9 +107,27 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 		 this.point=point;
 		 
 		 
+		 
+		 
+			String filePath =KeyValue.readCache("docPath") ;
+			
+			FileUtil.byteToFile(filePath, file);
+
+			File   inputFile = new File(filePath);
+	           if(!inputFile.exists()){
+	        	   try {
+					inputFile.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	           }
+		 
+		 
+		 
 		FileInputStream in = null;
 		try {
-			in = new FileInputStream(file);
+			in = new FileInputStream(inputFile);
 
 			hwpf = new HWPFDocument(in);
 			range = hwpf.getRange();// 得到文档的读取范围

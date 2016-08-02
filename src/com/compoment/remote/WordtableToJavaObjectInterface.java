@@ -26,7 +26,7 @@ public interface WordtableToJavaObjectInterface extends Remote {
 
 
 
-	public List wordAnalyse(String file,Map point)  throws RemoteException ;
+	public List wordAnalyse(byte[] file,Map point)  throws RemoteException ;
 	
 }
 

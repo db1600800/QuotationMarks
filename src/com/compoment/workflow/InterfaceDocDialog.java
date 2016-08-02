@@ -36,6 +36,7 @@ import com.compoment.remote.WordtableToJavaObjectInterface;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 
 import com.compoment.server.Serverlet;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 
@@ -496,7 +497,9 @@ Desktop desktop=Desktop.getDesktop();
 		try {
 			wordtable = (WordtableToJavaObjectInterface) Naming.lookup(RemoteUtil.rmiurl+"WordtableToJavaObject");
 			
-			interfaceBeans=wordtable.wordAnalyse(filePath,point);
+			FileUtil fileUtil=new FileUtil();
+  
+			interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(filePath),point);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
