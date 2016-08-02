@@ -109,19 +109,24 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 		 
 		 
 		 
-			String filePath =KeyValue.readCache("docPath") ;
 			
-			FileUtil.byteToFile(filePath, file);
+			String classDir = "";
+			File directory = new File("");// 参数为空
+			try {
+				classDir = directory.getCanonicalPath();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block 
+				e.printStackTrace();
+			}
+		   final String	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+					+ "wordTableToJaveObject.doc";
+		   
+		
+	           
+			FileUtil.byteToFile(sourceFile, file);
 
-			File   inputFile = new File(filePath);
-	           if(!inputFile.exists()){
-	        	   try {
-					inputFile.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	           }
+			File   inputFile = new File(sourceFile);
+	         
 		 
 		 
 		 
