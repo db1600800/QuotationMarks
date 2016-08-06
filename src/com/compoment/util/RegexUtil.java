@@ -27,8 +27,39 @@ public class RegexUtil {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		RegexUtil regex = new RegexUtil();
-		regex.dbTable();
+//		RegexUtil regex = new RegexUtil();
+//		regex.dbTable();
+		
+		
+		
+		String input1 = "+ destinationPackage, \"On DateSelect ClickListener\", \"java\"));";
+
+		//(\\(|!|=|,|.|<| |	|{|\\))DateSelect(;|,|.|>| |{|\\(|\\))
+		String regex = "(\\(|!|=|,|\\.|<| |	|\\{|\\))" + "DateSelect"
+				+ "(;|,|\\.|>| |\\{|\\(|\\))";
+		Pattern pattern = Pattern.compile(regex);
+
+		Matcher matcher = pattern.matcher(input1);
+	
+		
+		
+	    StringBuffer sb = new StringBuffer();  
+	    while(matcher.find()){  
+	    	
+	    	  String matchStr = matcher.group();  
+	          matchStr = matchStr.replaceAll("DateSelect", "99");
+	          
+	        matcher.appendReplacement(sb, matchStr);  
+	    }  
+	     matcher.appendTail(sb);  
+	     System.out.println(sb.toString());
+		
+		
+		
+		//System.out.println(temp);
+		
+
+		
 	}
 
 	public boolean classRegex(String input) {

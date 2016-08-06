@@ -25,9 +25,9 @@ import com.compoment.addfunction.android.ReportList;
 import com.compoment.addfunction.android.Request;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.addfunction.web.WebRequestRespond;
-import com.compoment.addfunction.webmanage.ActionForm;
+import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
-import  com.compoment.addfunction.webmanage.Action;
+import  com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
@@ -981,9 +981,9 @@ public class CodeFunctionAdd extends JFrame {
 				
 				new AddJsp(projectDocPanel.interfaceBeans);
 				
-				new ActionForm(projectDocPanel.interfaceBeans);
+				new StructActionForm(projectDocPanel.interfaceBeans);
 				
-				new Action(projectDocPanel.interfaceBeans);
+				new StructAction(projectDocPanel.interfaceBeans);
 			}
 		
 		}

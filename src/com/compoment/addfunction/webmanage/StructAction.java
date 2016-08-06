@@ -12,9 +12,9 @@ import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.KeyValue;
 
-public class Action {
+public class StructAction {
 
-	public Action(List<InterfaceBean> interfaceBeans) {
+	public StructAction(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 

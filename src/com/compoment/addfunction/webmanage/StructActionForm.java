@@ -35,9 +35,9 @@ import com.google.gson.Gson;
 /**
  * 查询 接收Bean 拥有新增，修改，删除，查询需要的所有变量
  * */
-public class ActionForm {
+public class StructActionForm {
 
-	public  ActionForm(List<InterfaceBean> interfaceBeans) {
+	public  StructActionForm(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
