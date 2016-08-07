@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +9,7 @@ import java.util.regex.Pattern;
 public class Rename {
 
 	String sourceFile;
+	String unRenameFile;
 
 	public static void main(String[] args) {
 
@@ -40,7 +43,7 @@ public class Rename {
 		}
 
 		sourceFile = classDir + "/src/com";
-
+		unRenameFile="InterfaceBean;";
 	}
 
 	File currentFile;
@@ -64,13 +67,48 @@ public class Rename {
 							currentName = "A" + Math.round(Math.random() * 8999 + 1000);
 							String parentPath = f.getParentFile().getAbsolutePath();
 							currentFileParent = parentPath.substring(parentPath.lastIndexOf("\\")+1);
+							
+							
+							{	
+							 boolean isRmiInterface=false;
+							 
+							 
+								List<String> lines = FileUtil.fileContentToArrayList(f.getAbsolutePath());
+								
+								for(int ii=0;ii<lines.size();ii++)
+								{
+									String line=lines.get(ii);
+									
+									if(line.contains("extends Remote"))
+									{
+										isRmiInterface=true;
+									}
+								
+									if(line.contains("implements Serializable"))
+									{
+										isRmiInterface=true;
+										
+									}
+								
+									
+								}
+							
+								if(!isRmiInterface)
+								{
+									if(!unRenameFile.contains(currentName))
+									{
 							reContent(sourceFile);
 
 							f.renameTo(new File(parentPath + "/" + currentName + ".java"));// 记得将路径也输入
+									}
+								}
+							
+						}
 						}
 					}
 				}
 			}
+			
 		} else {
 			// rootFile.renameTo(new File(path + Math.round(Math.random() * 8999
 			// + 1000) + ".jpg"));// 记得将路径也输入
@@ -122,7 +160,7 @@ public class Rename {
 										System.out.println("before:"+line);
 										
 										String regex = "(\\(|!|=|,|\\.|<| |	|\\{|\\))" + filename
-												+ "(;|,|\\.|>| |\\{|\\(|\\))";
+												+ "(;|,|\\.|>| |\\{|\\(|\\)|\n)";
 										Pattern pattern = Pattern.compile(regex);
 
 										Matcher matcher = pattern.matcher(line);

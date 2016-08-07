@@ -25,7 +25,7 @@ import com.compoment.workflow.InterfaceDocDialog;
 /***
  * iphone 网络
  * */
-public class Request {
+public class RequestIphone {
 
 	String sourceAddress = KeyValue.readCache("compomentProjectAddress");// "C:\\Documents and Settings\\Administrator\\My Documents\\下载\\mobile-android";
 	String destinationAddress = KeyValue.readCache("projectPath");
@@ -36,7 +36,7 @@ public class Request {
 	
 	}
 
-	public Request(String waitByModifyFileName,InterfaceDocDialog pageInterfaceDocPanel) {
+	public RequestIphone(String waitByModifyFileName,InterfaceDocDialog pageInterfaceDocPanel) {
 		this.waitByModifyFileName = waitByModifyFileName;
 		this.pageInterfaceDocPanel=pageInterfaceDocPanel;
 		//copyFile();

@@ -32,11 +32,11 @@ public class RegexUtil {
 		
 		
 		
-		String input1 = "+ destinationPackage, \"On DateSelect ClickListener\", \"java\"));";
+		String input1 = "+ destinationPackage, \"On(DateSelect";
 
 		//(\\(|!|=|,|.|<| |	|{|\\))DateSelect(;|,|.|>| |{|\\(|\\))
 		String regex = "(\\(|!|=|,|\\.|<| |	|\\{|\\))" + "DateSelect"
-				+ "(;|,|\\.|>| |\\{|\\(|\\))";
+				+ "(;|,|\\.|>| |\\{|\\(|\\)|)";
 		Pattern pattern = Pattern.compile(regex);
 
 		Matcher matcher = pattern.matcher(input1);
