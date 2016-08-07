@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class cssToJsp {
+public class CssToJsp {
 
-	public cssToJsp() {
+	public CssToJsp() {
 
 	}
 
 	public static void main(String[] args) {
 
-		cssToJsp cssToJsp = new cssToJsp();
+		CssToJsp cssToJsp = new CssToJsp();
 		cssToJsp.cssToObject();
 		cssToJsp.jsp();
 	}
