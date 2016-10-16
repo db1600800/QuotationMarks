@@ -264,7 +264,7 @@ public class CompomentDialog2 extends JFrame {
 				actionList = new JList();
 				scrollPane_1.setViewportView(actionList);
 
-		lblWeb = new JLabel("web组件");
+		lblWeb = new JLabel("位置（左中右）");
 
 		webCompomentListView = new JList();
 		GroupLayout gl_webCompomentPanel = new GroupLayout(webCompomentPanel);
@@ -1050,11 +1050,11 @@ public class CompomentDialog2 extends JFrame {
 		textSizeEdit.setText("16");
 
 		ArrayList webCompomentString = new ArrayList();
-		webCompomentString.add("table");
-		webCompomentString.add("tr");
-		webCompomentString.add("ul");
-		webCompomentString.add("li");
-		webCompomentString.add("div");
+		webCompomentString.add("left");
+		webCompomentString.add("center");
+		webCompomentString.add("right");
+		webCompomentString.add("verticalCenter");
+		webCompomentString.add("HorizontalCenter");
 		webCompomentListView.setListData(webCompomentString.toArray());
 		webCompomentListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 

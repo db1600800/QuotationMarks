@@ -29,6 +29,17 @@ import com.compoment.util.KeyValue;
 
 public class WebJsp {
 
+//	<!--
+//	http://blog.csdn.net/topviewers/article/details/21644305
+//    relative相对自己进行top，right，bottom，left移动 ，占位，文档流不变。
+//
+//	absolute 有父辈(父亲或爷爷)为absolute,relative，就相对父辈。没父辈,就相对浏览器。不占位，文档流改变。忽略padding
+//	fixed 特殊absolute
+//	
+//	static 文档流 
+//	-->
+	
+	
 	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
 	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
 	// background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
@@ -51,6 +62,7 @@ public class WebJsp {
 	//margin-top:3px;
 
 	String bodym = "\n\n\n";
+	String style="";
 	String js="";
 	String connection = "";
 	String pageName = "";
@@ -363,24 +375,33 @@ public class WebJsp {
 
 					String start = "";
 					String end = "";
-					if (chirld.compomentForWeb.equals("table")) {
-						start = "  <" + chirld.compomentForWeb+" style=\"width:100%;\">\n";
-
-						end = "  </" + chirld.compomentForWeb + ">\n";
-					} else if (chirld.compomentForWeb.equals("tr")) {
-						start = "  <" + chirld.compomentForWeb + ">\n";
-
-						end = "  </" + chirld.compomentForWeb + ">\n";
-					} else if (chirld.compomentForWeb.equals("ul")) {
-						start = "  <" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">\n";
-
-						end = "  </" + chirld.compomentForWeb + ">\n";
-					} else if (chirld.compomentForWeb.equals("li")) {
-						start = "  <" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >\n";
-
-						end = "  </" + chirld.compomentForWeb + ">\n";
-					} else {
-						start = "<div style=\" height:"+chirld.h+"px; line-height: " + chirld.h + "px; text-align: center; left:0; background-color:" + chirld.bgRgb16+"\" >\n";
+//					if (chirld.compomentForWeb.equals("table")) {
+//						start = "  <" + chirld.compomentForWeb+" style=\"width:100%;\">\n";
+//
+//						end = "  </" + chirld.compomentForWeb + ">\n";
+//					} else if (chirld.compomentForWeb.equals("tr")) {
+//						start = "  <" + chirld.compomentForWeb + ">\n";
+//
+//						end = "  </" + chirld.compomentForWeb + ">\n";
+//					} else if (chirld.compomentForWeb.equals("ul")) {
+//						start = "  <" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">\n";
+//
+//						end = "  </" + chirld.compomentForWeb + ">\n";
+//					} else if (chirld.compomentForWeb.equals("li")) {
+//						start = "  <" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >\n";
+//
+//						end = "  </" + chirld.compomentForWeb + ">\n";
+//					} else 
+					
+					{
+						style+="."+chirld.enname+"Style {\n";
+						style+="height:"+chirld.h+"px;\n";
+						style+="line-height: " + chirld.h + "px;";
+						style+="background-color:" + chirld.bgRgb16+"\"";
+						style+="}\n";
+						
+						
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
 
 
 						end = "  </div>\n";
@@ -393,15 +414,15 @@ public class WebJsp {
 					bodym += end;
 				} else {// 这个儿子是非容器
 
-					if (bean.compomentForWeb.equals("tr")) {
-						bodym += "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
-					}
+//					if (bean.compomentForWeb.equals("tr")) {
+//						bodym += "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
+//					}
 
 					chirld(chirld, bean);
 
-					if (bean.compomentForWeb.equals("tr")) {
-						bodym += "  </td>\n";
-					}
+//					if (bean.compomentForWeb.equals("tr")) {
+//						bodym += "  </td>\n";
+//					}
 				}
 			}
 
@@ -420,6 +441,21 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("Line")) {
+			
+			style+=".父亲的LayoutId:after {\n";
+			style+="position: absolute;\n";
+			style+="top: 0px;\n";
+			style+="right: 0px;\n";
+			style+="left: 0px;\n";
+		    
+			style+=" height: 1px;\n";
+			style+=" content: '';\n";
+			style+="  -webkit-transform: scaleY(.5);\n";
+			style+=" transform: scaleY(.5);\n";
+			style+="background-color: #c8c7cc;\n";
+			style+="}\n";
+			
+			
 
 		}
 
