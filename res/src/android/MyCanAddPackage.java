@@ -26,7 +26,7 @@ Context context;
 public View containView;
 String searchText;
 /**a*/
-Button aButton;
+TextView aTextView;
 public MyCanAddPackage()
 {
 }
@@ -50,12 +50,7 @@ public View init() {
 		if (containView == null) {
 			containView = inflateView(R.layout.myCanAddPackage);
 //a
-aButton = (Button) containView
-					.findViewById(R.id.aButton);
-aButton.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-}
-					});
+aTextView= (TextView) containView.findViewById(R.id.aTextView);
 		}
 request...();
 return containView;
@@ -109,6 +104,7 @@ return true;
 }.execute("");}
 public void setView(){
 //a
+aTextView.setText("");
 }
 /**返回本页刷新数据*/
 int n0000=0;

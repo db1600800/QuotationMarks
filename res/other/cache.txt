@@ -1,12 +1,12 @@
 #Update 'picPath' value
-#Tue Aug 02 06:40:59 CST 2016
+#Thu Aug 04 21:11:59 CST 2016
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
 codeFilePath=C\:\\Users\\bbq\\git\\QuotationMarks/res/src/android
 \u5907\u6CE8=3
 compomentProjectAddress=C\:\\Users\\bbq\\git\\QuotationMarks/res/other/mobile-android
-recentUseColor=\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,\#1D1D1D,
+recentUseColor=\#141414,\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,
 picPath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic
 \u4E2D\u6587\u540D=0
 projectPath=C\:\\Users\\bbq\\git\\QuotationMarks/res

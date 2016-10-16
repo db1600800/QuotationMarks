@@ -20,8 +20,8 @@
 </script>
 </head>
 <body>
-<div style=" width:100%; height:437px;  background-color:#FB6F2C; ">
-<div id="emptyOrErrorMsg"></div><a href="#" id="aButton" name ="aButton"  onclick="null"  style="text-align: center; height:14px; line-height: 14px; border-radius: 8px; color:#242424; background-color:背景颜色;  font-size: 16px ; margin:1px;  padding: 1px; text-decoration: none;" >a</a> 
+<div style=" width:100%; height:466px;  background-color:背景颜色; ">
+<div id="emptyOrErrorMsg"></div> <span id="aTextView" name ="aTextView" style="  font-size: 16px; color: #141414;  ">a</span>
   </div>
 </body>
 </html>

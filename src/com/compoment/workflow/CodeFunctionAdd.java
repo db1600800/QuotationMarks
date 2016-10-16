@@ -22,7 +22,7 @@ import com.compoment.addfunction.android.DateSelect;
 import com.compoment.addfunction.android.MyDialog;
 import com.compoment.addfunction.android.Paging;
 import com.compoment.addfunction.android.ReportList;
-import com.compoment.addfunction.android.Request;
+import com.compoment.addfunction.android.RequestAndroid;
 import com.compoment.addfunction.iphone.RequestIphone;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.addfunction.web.WebRequestRespond;
@@ -801,7 +801,7 @@ public class CodeFunctionAdd extends JFrame {
 			}
 			
 			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			Request paging = new Request(currentCodeFileFullPath,projectDocPanel);
+			RequestAndroid paging = new RequestAndroid(currentCodeFileFullPath,projectDocPanel);
 			editorValueEditText.setText(FileUtil
 					.fileContent(currentCodeFileFullPath));
 			

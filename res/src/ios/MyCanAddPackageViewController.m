@@ -11,23 +11,16 @@
 @implementation MyCanAddPackageViewController
 
 //a
-@synthesize aButton;
+@synthesize aTextView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 //a
-[self.aButton addTarget:self action:@selector(aButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+[self.aTextView setText:null];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-}
-
--(void)aButtonClicked:(UIButton *)btn{
-//id mId = objc_getAssociatedObject(btn, "mId");
-//取绑定数据int mId2 = btn.tag;
-//取绑定数据
 }
 
 -(bool)checkInput{

@@ -10,6 +10,6 @@
 
 }
 //a
-@property (weak, nonatomic) IBOutlet UIButton *aButton;
+@property (weak, nonatomic) IBOutlet UILabel *aTextView;
 @end
 
