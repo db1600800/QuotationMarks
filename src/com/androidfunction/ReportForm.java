@@ -2,18 +2,20 @@ package com.androidfunction;
 
 public class ReportForm {
 
+	String formNameCn="";
+	String formNameEn="";
+	String formSearchInputPart1="";
+	String formSearchInputPart1Cn="";
+	
+	String results[]={"ID","Name",""};
+	String resultsCn[]={"ID","名字",""};
+	
 	
 	
 	public void activity()
 	{
 		
-		String formNameCn="";
-		String formNameEn="";
-		String formSearchInputPart1="";
-		String formSearchInputPart1Cn="";
-		
-		String results[]={"ID","Name",""};
-		String resultsCn[]={"ID","名字",""};
+	
 		
 		String m="";
 		m+="import java.io.IOException;\n";
@@ -904,6 +906,393 @@ public class ReportForm {
 		m+="	}\n";
 
 		m+="}\n";
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void chscrollview()
+	{
+		
+		String m="";
+		
+
+		m+="import android.content.Context;\n";
+		m+="import android.util.AttributeSet;\n";
+		m+="import android.view.MotionEvent;\n";
+		m+="import android.widget.HorizontalScrollView;\n";
+
+		m+="public class "+formNameEn+"CHScrollView extends HorizontalScrollView {\n";
+		m+="	\n";
+		m+="	"+formNameEn+"Activity activity;\n";
+		m+="	\n";
+		m+="	public DeliveryRateCHScrollView(Context context, AttributeSet attrs, int defStyle) {\n";
+		m+="		super(context, attrs, defStyle);\n";
+		m+="		activity = ("+formNameEn+"Activity) context;\n";
+		m+="	}\n";
+
+		m+="	\n";
+		m+="	public DeliveryRateCHScrollView(Context context, AttributeSet attrs) {\n";
+		m+="		super(context, attrs);\n";
+		m+="		if(context!=null && context instanceof "+formNameEn+"Activity)\n";
+		m+="		activity = ("+formNameEn+"Activity) context;\n";
+		m+="	}\n";
+
+		m+="	public DeliveryRateCHScrollView(Context context) {\n";
+		m+="		super(context);\n";
+		m+="		activity = ("+formNameEn+"Activity) context;\n";
+		m+="	}\n";
+		m+="	\n";
+		m+="	@Override\n";
+		m+="	public boolean onTouchEvent(MotionEvent ev) {\n";
+		m+="		activity.mTouchView = this;\n";
+		m+="		return super.onTouchEvent(ev);\n";
+		m+="	}\n";
+		m+="	\n";
+		m+="	@Override\n";
+		m+="	protected void onScrollChanged(int l, int t, int oldl, int oldt) {\n";
+		m+="	\n";
+		m+="		if(activity.mTouchView == this) {\n";
+		m+="			activity.onScrollChanged(l, t, oldl, oldt);\n";
+		m+="		}else{\n";
+		m+="			super.onScrollChanged(l, t, oldl, oldt);\n";
+		m+="		}\n";
+		m+="	}\n";
+		m+="}\n";
+
+	}
+	
+	
+	
+	public void mainXml()
+	{
+		String m="";
+		
+		m+="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+		m+="<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n";
+		m+="    android:layout_width=\"fill_parent\"\n";
+		m+="    android:layout_height=\"fill_parent\"\n";
+		m+="    android:background=\"#f8f8f8\"\n";
+		m+="    android:orientation=\"vertical\" >\n";
+
+		m+="    <!-- title -->\n";
+
+		m+="    <include\n";
+		m+="        android:layout_width=\"wrap_content\"\n";
+		m+="        android:layout_height=\"wrap_content\"\n";
+		m+="        layout=\"@layout/public_title_bar\" />\n";
+
+		m+="    <!-- 日期 -->\n";
+
+		m+="    <LinearLayout\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"wrap_content\" >\n";
+
+		m+="        <RelativeLayout\n";
+		m+="            android:layout_width=\"fill_parent\"\n";
+		m+="            android:layout_height=\"wrap_content\"\n";
+		m+="            android:background=\"@color/col_text4\"\n";
+		m+="            android:padding=\"8dip\" >\n";
+
+		m+="            <LinearLayout\n";
+		m+="                android:id=\"@+id/ll_start_date_layout\"\n";
+		m+="                android:layout_width=\"wrap_content\"\n";
+		m+="                android:layout_height=\"wrap_content\"\n";
+		m+="                android:gravity=\"center\"\n";
+		m+="                android:orientation=\"horizontal\" >\n";
+
+		m+="                <ImageView\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:layout_marginRight=\"5dip\"\n";
+		m+="                    android:src=\"@drawable/icon_text\" />\n";
+
+		m+="                <TextView\n";
+		m+="                    android:id=\"@+id/tv_start_date\"\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:text=\"2014年10月22日 \"\n";
+		m+="                    android:textColor=\"@color/col_text1\"\n";
+		m+="                    android:textSize=\"12dip\" />\n";
+
+		m+="                <ImageView\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:src=\"@drawable/abs__ic_go_search_api_holo_light\" />\n";
+		m+="            </LinearLayout>\n";
+
+		m+="            <TextView\n";
+		m+="                android:layout_width=\"wrap_content\"\n";
+		m+="                android:layout_height=\"wrap_content\"\n";
+		m+="                android:layout_centerInParent=\"true\"\n";
+		m+="                android:text=\"至 \"\n";
+		m+="                android:textColor=\"@color/col_text3\"\n";
+		m+="                android:textSize=\"12dip\" />\n";
+
+		m+="            <LinearLayout\n";
+		m+="                android:id=\"@+id/ll_end_date_layout\"\n";
+		m+="                android:layout_width=\"wrap_content\"\n";
+		m+="                android:layout_height=\"wrap_content\"\n";
+		m+="                android:layout_alignParentRight=\"true\"\n";
+		m+="                android:gravity=\"center\"\n";
+		m+="                android:orientation=\"horizontal\" >\n";
+
+		m+="                <ImageView\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:layout_marginRight=\"5dip\"\n";
+		m+="                    android:src=\"@drawable/icon_text\" />\n";
+
+		m+="                <TextView\n";
+		m+="                    android:id=\"@+id/tv_end_date\"\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:text=\"2014年10月22日 \"\n";
+		m+="                    android:textColor=\"@color/col_text1\"\n";
+		m+="                    android:textSize=\"12dip\" />\n";
+
+		m+="                <ImageView\n";
+		m+="                    android:layout_width=\"wrap_content\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:src=\"@drawable/abs__ic_go_search_api_holo_light\" />\n";
+		m+="            </LinearLayout>\n";
+		m+="        </RelativeLayout>\n";
+		m+="    </LinearLayout>\n";
+
+		m+="    <!-- 种类 -->\n";
+
+		if(!formSearchInputPart1.equals(""))
+		{
+		m+="    <LinearLayout\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"wrap_content\"\n";
+		m+="        android:gravity=\"center\"\n";
+		m+="        android:background=\"#FFFFFF\"\n";
+		m+="        android:padding=\"3dip\" >\n";
+
+		m+="        <TextView\n";
+		m+="            android:id=\"@+id/packagetrend_endtime\"\n";
+		m+="            android:layout_width=\"wrap_content\"\n";
+		m+="            android:layout_height=\"wrap_content\"\n";
+		m+="            android:text=\"种类\"\n";
+		m+="             android:layout_marginRight=\"7dp\"\n";
+		m+="            android:layout_marginLeft=\"7dp\"\n";
+		m+="            android:textColor=\"@color/col_text1\"\n";
+		m+="            android:textSize=\"@dimen/normal_space16\" />\n";
+
+		m+="        <com.chinapost.view.FlowRadioGroup\n";
+		m+="            android:id=\"@+id/type_radiogroup\"\n";
+		m+="            android:layout_width=\"fill_parent\"\n";
+		m+="            android:layout_height=\"wrap_content\"\n";
+		m+="            android:layout_alignParentBottom=\"true\"\n";
+		m+="            android:layout_gravity=\"bottom\"\n";
+		m+="            android:gravity=\"center_vertical\"\n";
+		m+="            android:orientation=\"horizontal\" >\n";
+
+		m+="            <RadioButton\n";
+		m+="                android:id=\"@+id/type_radio_xiaobao\"\n";
+		m+="                style=\"@style/EnregisterCheckboxTheme\"\n";
+		m+="                android:layout_height=\"match_parent\"\n";
+		m+="                android:checked=\"true\"\n";
+		m+="                android:layout_marginLeft=\"3dp\"\n";
+		m+="                    android:background=\"@android:color/transparent\"\n";
+		m+="                 android:paddingLeft=\"2dp\"\n";
+		m+="                android:text=\"国内小包\"\n";
+		m+="                android:textColor=\"@color/black\"\n";
+		m+="                android:textSize=\"14dip\" />\n";
+
+		m+="            <RadioButton\n";
+		m+="                android:id=\"@+id/type_radio_guahao\"\n";
+		m+="                style=\"@style/EnregisterCheckboxTheme\"\n";
+		m+="                android:layout_height=\"match_parent\"\n";
+		m+="                android:text=\"约投挂号\"\n";
+		m+="                  android:layout_marginLeft=\"3dp\"\n";
+		m+="                    android:background=\"@android:color/transparent\"\n";
+		m+="                 android:paddingLeft=\"2dp\"\n";
+		m+="                android:textColor=\"@color/black\"\n";
+		m+="                android:textSize=\"14dip\" />\n";
+
+		m+="            <RadioButton\n";
+		m+="                android:id=\"@+id/type_radio_shudi\"\n";
+		m+="                style=\"@style/EnregisterCheckboxTheme\"\n";
+		m+="                android:layout_height=\"match_parent\"\n";
+		m+="                android:text=\"代投速递\"\n";
+		m+="                  android:layout_marginLeft=\"3dp\"\n";
+		m+="                    android:background=\"@android:color/transparent\"\n";
+		m+="                 android:paddingLeft=\"2dp\"\n";
+		m+="                android:textColor=\"@color/black\"\n";
+		m+="                android:textSize=\"14dip\" />\n";
+		m+="        </com.chinapost.view.FlowRadioGroup>\n";
+		m+="    </LinearLayout>\n";
+		}
+		
+		
+		m+="   \n";
+
+		m+="    <RelativeLayout\n";
+		m+="        android:id=\"@+id/ll_listlayout\"\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"wrap_content\"\n";
+		m+="        android:orientation=\"vertical\" >\n";
+
+		m+="         <!-- 报表头 -->\n";
+		m+="        <LinearLayout\n";
+		m+="            android:layout_width=\"fill_parent\"\n";
+		m+="            android:layout_height=\"wrap_content\"\n";
+		m+="            android:id=\"@+id/formhead\"\n";
+		m+="            android:background=\"#C5D7CF\"\n";
+		m+="            android:orientation=\"horizontal\"\n";
+		m+="            android:padding=\"5dp\" >\n";
+
+		for(int i=0;i<resultsCn.length;i++)
+		{
+			 if(i==1)
+			{
+		m+="            <TextView\n";
+		m+="                android:layout_width=\"fill_parent\"\n";
+		m+="                android:layout_height=\"wrap_content\"\n";
+		m+="                android:layout_weight=\"2\"\n";
+		m+="                android:gravity=\"center\"\n";
+		m+="                android:text=\""+resultsCn[i]+"\"\n";
+		m+="                 android:textSize=\"14dp\"\n";
+		m+="                android:textColor=\"#90AD9F\" />\n";
+			}
+	   }
+
+		m+="            <com.chinapost.palmpost."+formNameEn+"CHScrollView\n";
+		m+="                android:id=\"@+id/item_scroll_title\"\n";
+		m+="                android:layout_width=\"fill_parent\"\n";
+		m+="                android:layout_height=\"wrap_content\"\n";
+		m+="                android:layout_weight=\"1\"\n";
+		m+="                android:scrollbars=\"none\" >\n";
+
+		m+="                <LinearLayout\n";
+		m+="                    android:layout_width=\"fill_parent\"\n";
+		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="                    android:orientation=\"horizontal\" >\n";
+
+		for(int i=0;i<resultsCn.length;i++)
+		{
+			 if(i==0||i==1)
+			{
+				 continue;
+			}
+		m+="                    <TextView\n";
+		m+="                        android:layout_width=\"100dip\"\n";
+		m+="                        android:layout_height=\"fill_parent\"\n";
+		m+="                        android:gravity=\"center\"\n";
+		m+="                        android:text=\""+resultsCn[i]+"\"\n";
+		m+="                        android:textSize=\"14dp\"\n";
+		m+="                        android:textColor=\"#90AD9F\" />\n";
+		}
+
+	
+		
+		m+="                </LinearLayout>\n";
+		m+="            </com.chinapost.palmpost."+formNameEn+"CHScrollView>\n";
+		m+="        </LinearLayout>\n";
+		m+="          <!-- 报表头end -->\n";
+
+		m+="        <ListView\n";
+		m+="            android:layout_below=\"@id/formhead\"\n";
+		m+="         \n";
+		m+="            android:id=\"@+id/scroll_list\"\n";
+		m+="            android:layout_width=\"fill_parent\"\n";
+		m+="            android:layout_height=\"fill_parent\"\n";
+		m+="            android:cacheColorHint=\"#00000000\"\n";
+		m+="            android:divider=\"@drawable/item_line\"\n";
+		m+="            android:dividerHeight=\"1dip\"\n";
+		m+="            android:layoutAnimation=\"@anim/layout_anim_ctrl\"\n";
+		m+="            android:persistentDrawingCache=\"animation|scrolling\"\n";
+		m+="            android:scrollbars=\"none\" >\n";
+		m+="        </ListView>\n";
+
+		m+="    </RelativeLayout>\n";
+		m+="    <!-- 报表 end-->\n";
+		m+="    \n";
+
+		m+="    <Button\n";
+		m+="        android:id=\"@+id/refresh_btn\"\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"fill_parent\"\n";
+		m+="        android:layout_gravity=\"center\"\n";
+		m+="        android:visibility=\"gone\"\n";
+		m+="        android:background=\"@drawable/item_blue_selector\"\n";
+		m+="        android:text=\"@string/refresh_btn\" />\n";
+
+		m+="</LinearLayout>\n";
+
+		
+	}
+	
+	
+	
+	public void xmlItem()
+	{
+		String m="";
+		m+="<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+		m+="<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n";
+		m+="    android:layout_width=\"fill_parent\"\n";
+		m+="    android:layout_height=\"fill_parent\"\n";
+		m+="    android:minHeight=\"50dip\"\n";
+		m+="    android:orientation=\"horizontal\" >\n";
+
+
+		m+="    <TextView\n";
+		m+="        android:id=\"@+id/item_title\"\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"fill_parent\"\n";
+		m+="        android:layout_weight=\"2\"\n";
+		m+="        android:gravity=\"center\"\n";
+		m+="         android:textColor=\"#2B8F69\"\n";
+		m+="        android:textSize=\"14dp\"\n";
+		m+="        android:text=\"行头\" />\n";
+		m+="    \n";
+		m+="   \n";
+
+		m+="    <com.chinapost.palmpost."+formNameEn+"CHScrollView\n";
+		m+="        android:id=\"@+id/item_scroll\"\n";
+		m+="        android:layout_width=\"fill_parent\"\n";
+		m+="        android:layout_height=\"fill_parent\"\n";
+		m+="        android:scrollbars=\"none\"\n";
+		m+="        android:layout_weight=\"1\" >\n";
+
+		m+="        <LinearLayout\n";
+		m+="            android:layout_width=\"fill_parent\"\n";
+		m+="            android:layout_height=\"fill_parent\"\n";
+		m+="            android:orientation=\"horizontal\" >\n";
+		
+		
+		for(int i=0;i<resultsCn.length;i++)
+		{
+			 if(i==0||i==1)
+			{
+				 continue;
+			}
+
+		m+="            <TextView\n";
+		m+="                android:id=\"@+id/item_data"+i+"\"\n";
+		m+="                android:layout_width=\"100dip\"\n";
+		m+="                android:layout_height=\"fill_parent\"\n";
+		m+="                android:textColor=\"#101010\"\n";
+		m+="                  android:textSize=\"14dp\"\n";
+		m+="                android:gravity=\"center\" />\n";
+		}
+
+		
+		
+		m+="       \n";
+		m+="        </LinearLayout>\n";
+		m+="    </com.chinapost.palmpost."+formNameEn+"CHScrollView>\n";
+
+		m+="</LinearLayout>\n";
 
 	}
 }
