@@ -1,5 +1,7 @@
 package com.androidfunction;
 
+import com.compoment.util.FileUtil;
+
 public class ReportForm {
 
 	String formNameCn="";
@@ -9,6 +11,19 @@ public class ReportForm {
 	
 	String results[]={"ID","Name",""};
 	String resultsCn[]={"ID","名字",""};
+	
+	String outPath="C:/CreateCode/ReportForm";
+	
+	public static void main(String []arg)
+	{
+		
+		ReportForm reportForm=new ReportForm();
+		reportForm.activity();
+		reportForm.chscrollview();
+		reportForm.mainXml();
+		reportForm.xmlItem();
+		
+	}
 	
 	
 	
@@ -906,6 +921,9 @@ public class ReportForm {
 		m+="	}\n";
 
 		m+="}\n";
+		
+		
+		String filename = FileUtil.makeFile(outPath+"/"+formNameEn+"Activity.java", m);
 
 	}
 	
@@ -966,6 +984,8 @@ public class ReportForm {
 		m+="		}\n";
 		m+="	}\n";
 		m+="}\n";
+		
+		String filename = FileUtil.makeFile(outPath+"/"+formNameEn+"CHScrollView.java", m);
 
 	}
 	
@@ -1228,7 +1248,9 @@ public class ReportForm {
 		m+="        android:text=\"@string/refresh_btn\" />\n";
 
 		m+="</LinearLayout>\n";
-
+		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn+".xml", m);
+		
+		
 		
 	}
 	
@@ -1293,6 +1315,8 @@ public class ReportForm {
 		m+="    </com.chinapost.palmpost."+formNameEn+"CHScrollView>\n";
 
 		m+="</LinearLayout>\n";
+		
+		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn+"_item.xml", m);
 
 	}
 }
