@@ -1,18 +1,19 @@
 package com.androidfunction;
 
 import com.compoment.util.FileUtil;
-
+ 
 public class ReportForm {
 
-	String formNameCn="";
-	String formNameEn="";
+	String formNameCn="格口情况分析";
+	String formNameEn="GeKouSituation";
 	String formSearchInputPart1="";
 	String formSearchInputPart1Cn="";
 	
-	String results[]={"ID","Name",""};
-	String resultsCn[]={"ID","名字",""};
+	String results[]={"dept_code","dept_name","bigbig","big","middle","small"};
+	String resultsCn[]={"dept_code","单位名称","超大","大","中","小"};
 	
 	String outPath="C:/CreateCode/ReportForm";
+	String javapackage="com.chinapost.palmpost.smartpackage";
 	
 	public static void main(String []arg)
 	{
@@ -33,6 +34,7 @@ public class ReportForm {
 	
 		
 		String m="";
+		  m+="package "+javapackage+";\n";
 		m+="import java.io.IOException;\n";
 		m+="import java.net.ConnectException;\n";
 		m+="import java.net.SocketTimeoutException;\n";
@@ -264,150 +266,23 @@ public class ReportForm {
 		m+="		}\n";
 
 		m+="	}\n";
+		
+		
+		for(int i=0;i<results.length;i++)
+		{
+		m+="	/**"+resultsCn[i]+"*/\n";
+		m+="	static String "+results[i]+" = \""+results[i]+"\".toUpperCase();\n";
+		}
 
-		m+="	@Override\n";
-		m+="	public boolean onKeyDown(int keyCode, KeyEvent event) {\n";
-		m+="		if ((keyCode == KeyEvent.KEYCODE_BACK)) {\n";
+		
 
-		m+="			if(pages!=null && pages.size()==0)\n";
-		m+="			{\n";
-		m+="				"+formNameEn+"Activity.this.finish();\n";
-		m+="			}else\n";
-		m+="			{\n";
-		m+="				int count=pages.size();\n";
-		m+="				pages.remove(count-1);\n";
-		m+="				 count=pages.size();\n";
-		m+="				 if(count==0)\n";
-		m+="				 {\n";
-		m+="					 "+formNameEn+"Activity.this.finish();\n";
-		m+="				 }else\n";
-		m+="				 {\n";
-		m+="				lists=(ArrayList<HashMap<String, String>>) pages.get(count-1);\n";
-		m+="				refreshList();\n";
-		m+="				 }\n";
-		m+="			}\n";
-		m+="			\n";
-		m+="			\n";
-		m+="			return false;\n";
 
-		m+="		} else {\n";
-		m+="			return super.onKeyDown(keyCode, event);\n";
-		m+="		}\n";
+		
+		m+="	private void requestData(final String deptCode, String queryType) {\n";
 
+		m+="		new AnsyTry().execute(deptCode, queryType);\n";
 		m+="	}\n";
-
-		m+="	WheelMain wheelMain;\n";
-		m+="	DateFormat dateFormat = new SimpleDateFormat(\"yyyy-MM-dd\");\n";
-
-		m+="	private void showToast(String text) {\n";
-		m+="		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();\n";
-		m+="	}\n";
-
-		m+="	/**\n";
-		m+="	 * 开始&结束 日期点击时间\n";
-		m+="	 * \n";
-		m+="	 */\n";
-		m+="	private class OnDateClickListener implements OnClickListener {\n";
-
-		m+="		TextView txttime;\n";
-
-		m+="		@Override\n";
-		m+="		public void onClick(final View v) {\n";
-
-		m+="			if (v.getId() == R.id.ll_start_date_layout) {\n";
-		m+="				txttime = tv_start_date;\n";
-		m+="			} else {\n";
-		m+="				txttime = tv_end_date;\n";
-		m+="			}\n";
-
-		m+="			LayoutInflater inflater = LayoutInflater\n";
-		m+="					.from("+formNameEn+"Activity.this);\n";
-		m+="			final View timepickerview = inflater.inflate(\n";
-		m+="					R.layout.ipo_dialog_date_picker, null);\n";
-		m+="			ScreenInfo screenInfo = new ScreenInfo(\n";
-		m+="					"+formNameEn+"Activity.this);\n";
-		m+="			wheelMain = new WheelMain(timepickerview);// 设置日期控件\n";
-		m+="			wheelMain.screenheight = screenInfo.getHeight();\n";
-		m+="			String time = txttime.getText().toString();\n";
-		m+="			try {\n";
-		m+="				time = dateFormat.format(sdfYMD.parse(time));// 日期格式转换\n";
-		m+="																// yyyy年MM月dd日\n";
-		m+="																// from\n";
-		m+="																// yyyy-MM-dd\n";
-		m+="			} catch (ParseException e1) {\n";
-		m+="				e1.printStackTrace();\n";
-		m+="			}\n";
-		m+="			Calendar calendar = Calendar.getInstance();\n";
-		m+="			if (JudgeDate.isDate(time, \"yyyy-MM-dd\")) {\n";
-		m+="				try {\n";
-		m+="					calendar.setTime(dateFormat.parse(time));\n";
-		m+="				} catch (ParseException e) {\n";
-		m+="					e.printStackTrace();\n";
-		m+="				}\n";
-		m+="			}\n";
-		m+="			int year = calendar.get(Calendar.YEAR);\n";
-		m+="			int month = calendar.get(Calendar.MONTH);\n";
-		m+="			int day = calendar.get(Calendar.DAY_OF_MONTH);\n";
-		m+="			wheelMain.initDateTimePicker(year, month, day);\n";
-		m+="			new AlertDialog.Builder("+formNameEn+"Activity.this)\n";
-		m+="					.setTitle(\"选择时间\")\n";
-		m+="					.setView(timepickerview)\n";
-		m+="					.setPositiveButton(\"确定\",\n";
-		m+="							new DialogInterface.OnClickListener() {\n";
-		m+="								@Override\n";
-		m+="								public void onClick(DialogInterface dialog,\n";
-		m+="										int which) {\n";
-		m+="									try {\n";
-		m+="										if (v.getId() == R.id.ll_start_date_layout) {\n";
-
-		m+="											Date endDate = sdfYMD\n";
-		m+="													.parse(tv_end_date\n";
-		m+="															.getText()\n";
-		m+="															.toString());\n";
-		m+="											int compareTo = dateFormat.parse(\n";
-		m+="													wheelMain.getTime())\n";
-		m+="													.compareTo(endDate);\n";
-
-		m+="										 if (compareTo < 0 ||compareTo==0) {// 开始时间小于结束时间\n";
-		m+="												txttime.setText(sdfYMD.format(dateFormat\n";
-		m+="														.parse(wheelMain\n";
-		m+="																.getTime())));// 开始日期\n";
-		m+="											} else {// 开始时间大于结束时间\n";
-		m+="												showToast(\"开始时间不能大于结束时间.\");\n";
-		m+="											}\n";
-		m+="										} else {\n";
-		m+="											Date startDate = sdfYMD\n";
-		m+="													.parse(tv_start_date\n";
-		m+="															.getText()\n";
-		m+="															.toString());\n";
-		m+="											int compareTo = dateFormat.parse(\n";
-		m+="													wheelMain.getTime())\n";
-		m+="													.compareTo(startDate);\n";
-		m+="                                             if (compareTo < 0) {// 开始时间小于结束时间\n";
-		m+="												showToast(\"结束时间不能小于开始时间.\");\n";
-		m+="											} else {// 开始时间大于结束时间\n";
-		m+="												txttime.setText(sdfYMD.format(dateFormat\n";
-		m+="														.parse(wheelMain\n";
-		m+="																.getTime())));// 开始日期\n";
-		m+="											}\n";
-		m+="										}\n";
-
-		m+="									} catch (ParseException e) {\n";
-		m+="										e.printStackTrace();\n";
-		m+="									}\n";
-		m+="								}\n";
-		m+="							})\n";
-		m+="					.setNegativeButton(\"取消\",\n";
-		m+="							new DialogInterface.OnClickListener() {\n";
-		m+="								@Override\n";
-		m+="								public void onClick(DialogInterface dialog,\n";
-		m+="										int which) {\n";
-		m+="								}\n";
-		m+="							}).show();\n";
-		m+="		}\n";
-
-		m+="	}\n";
-
+	
 
 
 		m+="	class AnsyTry extends AsyncTask<String, TextView, String> {\n";
@@ -435,7 +310,7 @@ public class ReportForm {
 		m+="				// String deptCode, String mailType\n";
 		
 		m+="				/**"+formNameCn+"**/\n";
-		m+="				param = JsonUtils.requestDlvAmount(mBaseService,\n";
+		m+="				param = request"+formNameEn+"(mBaseService,\n";
 		m+="						userPara, sdfYMD.format(sdfYMD2.parse(tv_start_date\n";
 		m+="								.getText().toString()))\n";
 
@@ -555,10 +430,143 @@ public class ReportForm {
 
 		m+="	}\n";
 
-		m+="	private void requestData(final String deptCode, String queryType) {\n";
-
-		m+="		new AnsyTry().execute(deptCode, queryType);\n";
+	
+		m+="/**请求"+formNameCn+"**/\n";
+		m+="	public  String request"+formNameEn+"(\n";
+		m+="			BaseServiceInterface mBaseService, String userPara,\n";
+		m+="			String startDate, String endDate, String queryType,\n";
+		m+="			String deptCode, String mailType) {\n";
+		
+		m+="		return null;\n";
 		m+="	}\n";
+		
+		
+		m+="	public static ArrayList<HashMap<String, String>> reSpondExpectParse(\n";
+		m+="			String reSpondparams) {\n";
+		m+="		reSpondparams = reSpondparams.replaceAll(\"null\", \"0\");\n";
+		m+="		ArrayList<HashMap<String, String>> lists = new ArrayList<HashMap<String, String>>();\n";
+
+		m+="		try {\n";
+		m+="			JSONObject jsonResult = new JSONObject(reSpondparams);\n";
+
+		m+="			JSONObject jsonResponse = jsonResult.getJSONObject(\"response\");\n";
+		m+="			if (jsonResponse != null) {\n";
+		m+="				boolean success = jsonResponse\n";
+		m+="						.optBoolean(Constants.RESULT_EXPECT_KEY_SUCCESS);\n";
+		m+="				if (!success) {\n";
+		m+="					return lists;\n";
+		m+="				}\n";
+		m+="				if (jsonResponse.has(Constants.RESULT_CHART_KEY_GROUPS_ITEMS)) {\n";
+		m+="					JSONArray arrays = jsonResponse\n";
+		m+="							.getJSONArray(Constants.RESULT_CHART_KEY_GROUPS_ITEMS);\n";
+		m+="					if (arrays == null || arrays.length() == 0) {\n";
+		m+="						return lists;\n";
+		m+="					}\n";
+
+		
+		
+		
+		m+="					for (int i = 0; i < arrays.length(); i++) {\n";
+		m+="						JSONObject item = arrays.optJSONObject(i);\n";
+		m+="						if (item != null) {\n";
+		m+="							HashMap<String, String> mapItem = new HashMap<String, String>();\n";
+		m+="							// =====================code and name\n";
+	
+		
+		
+		for(int i=0;i<results.length;i++)
+		{
+			 if(i==1)
+			{
+				m+="//"+resultsCn[i]+"\n";
+				m+="							if (item.has("+results[i]+")) {\n";
+				m+="								mapItem.put("+results[i]+",\n";
+				m+="										item.optString("+results[i]+"));\n";
+				m+="							}\n";
+			}
+		}
+		
+		for(int i=0;i<results.length;i++)
+		{
+			 if(i==0)
+			{
+				m+="//"+resultsCn[i]+"\n";
+				m+="							if (item.has("+results[0]+")) {\n";
+				m+="								String name = mapItem.get("+results[1]+");\n";
+				m+="								mapItem.put(\n";
+				m+="										"+results[1]+",\n";
+				m+="										name + \"#\"\n";
+				m+="												+ item.optString("+results[0]+"));\n";
+			
+				m+="							}\n";
+			}
+		}
+		
+	
+		
+		m+="							// =====================code and name\n";
+
+		
+		
+		for(int i=0;i<results.length;i++)
+		{
+			if(i==0||i==1)
+			{
+				continue;
+			}
+			
+			m+="//"+resultsCn[i]+"\n";
+			m+="							if (item.has("+results[i]+")) {\n";
+
+			m+="								mapItem.put("+results[i]+",\n";
+			m+="										item.optString("+results[i]+"));\n";
+			m+="							}\n";
+		}
+		
+
+
+		m+="							lists.add(mapItem);\n";
+		m+="						}\n";
+		m+="					}\n";
+
+		m+="					// HashMap<String, String> mapItem = new HashMap<String,\n";
+		m+="					// String>();\n";
+		m+="					// mapItem.put(Constants.DLV_ORG_NAME, \"总计\");\n";
+		m+="					// // ====================24======================//\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24,\n";
+		m+="					// String.valueOf(dlv_mail_count_24));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24_8,\n";
+		m+="					// String.valueOf(dlv_mail_count_24_8));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24_15,\n";
+		m+="					// String.valueOf(dlv_mail_count_24_15));\n";
+		m+="					// // ===================48=======================//\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48,\n";
+		m+="					// String.valueOf(dlv_mail_count_48));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48_8,\n";
+		m+="					// String.valueOf(dlv_mail_count_48_8));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48_15,\n";
+		m+="					// String.valueOf(dlv_mail_count_48_15));\n";
+		m+="					// // ===================72=======================//\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72,\n";
+		m+="					// String.valueOf(dlv_mail_count_72));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72_8,\n";
+		m+="					// String.valueOf(dlv_mail_count_72_8));\n";
+		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72_15,\n";
+		m+="					// String.valueOf(dlv_mail_count_72_15));\n";
+		m+="					// lists.add(mapItem);\n";
+
+		m+="					return lists;\n";
+		m+="				}\n";
+		m+="			}\n";
+
+		m+="		} catch (JSONException e) {\n";
+		m+="			e.printStackTrace();\n";
+		m+="			return new ArrayList<HashMap<String, String>>();\n";
+		m+="		}\n";
+
+		m+="		return lists;\n";
+		m+="	}\n";
+		
 
 		m+="	private void toastError(String hintString) {\n";
 		m+="//		refreshBtn.setText(\"点击屏幕刷新数据\");\n";
@@ -572,11 +580,7 @@ public class ReportForm {
 		m+="	\n";
 
 
-		for(int i=0;i<results.length;i++)
-		{
-		m+="	/**"+resultsCn[i]+"*/\n";
-		m+="	static String "+results[i]+" = \""+results[i]+"\".toUpperCase();\n";
-		}
+	
 	
 
 		m+="	ScrollAdapter adapter;\n";
@@ -603,9 +607,11 @@ public class ReportForm {
 			}else if(i==results.length-1)
 			{
 				m+=results[i];
-			}
+			}else
+			{
 			
 		m+=results[i]+",";
+			}
 		}
 		
 		m+="}, new int[] {";
@@ -619,9 +625,11 @@ public class ReportForm {
 			}else if(i==results.length-1)
 			{
 				m+="R.id.item_data"+(i);
-			}
+			}else
+			{
 			
 		m+="R.id.item_data"+(i)+",";
+			}
 		}
 		
 		m+= "});\n";
@@ -632,7 +640,7 @@ public class ReportForm {
 		m+="	public void addHViews(final "+formNameEn+"CHScrollView hScrollView) {\n";
 		m+="		if (!mHScrollViews.isEmpty()) {\n";
 		m+="			int size = mHScrollViews.size();\n";
-		m+="			"+formNameEn+"CHScrollView = mHScrollViews\n";
+		m+="			"+formNameEn+"CHScrollView scrollView= mHScrollViews\n";
 		m+="					.get(size - 1);\n";
 		m+="			final int scrollX = scrollView.getScrollX();\n";
 
@@ -795,133 +803,165 @@ public class ReportForm {
 		m+="		mBaseService = baseService;\n";
 		m+="	}\n";
 
-		m+="	public static ArrayList<HashMap<String, String>> reSpondExpectParse(\n";
-		m+="			String reSpondparams) {\n";
-		m+="		reSpondparams = reSpondparams.replaceAll(\"null\", \"0\");\n";
-		m+="		ArrayList<HashMap<String, String>> lists = new ArrayList<HashMap<String, String>>();\n";
+		
+		
+		
+		m+="//点击返回按钮 到报表上层\n";
+		m+="	@Override\n";
+		m+="	public boolean onKeyDown(int keyCode, KeyEvent event) {\n";
+		m+="		if ((keyCode == KeyEvent.KEYCODE_BACK)) {\n";
 
-		m+="		try {\n";
-		m+="			JSONObject jsonResult = new JSONObject(reSpondparams);\n";
-
-		m+="			JSONObject jsonResponse = jsonResult.getJSONObject(\"response\");\n";
-		m+="			if (jsonResponse != null) {\n";
-		m+="				boolean success = jsonResponse\n";
-		m+="						.optBoolean(Constants.RESULT_EXPECT_KEY_SUCCESS);\n";
-		m+="				if (!success) {\n";
-		m+="					return lists;\n";
-		m+="				}\n";
-		m+="				if (jsonResponse.has(Constants.RESULT_CHART_KEY_GROUPS_ITEMS)) {\n";
-		m+="					JSONArray arrays = jsonResponse\n";
-		m+="							.getJSONArray(Constants.RESULT_CHART_KEY_GROUPS_ITEMS);\n";
-		m+="					if (arrays == null || arrays.length() == 0) {\n";
-		m+="						return lists;\n";
-		m+="					}\n";
-
-		
-		
-		
-		m+="					for (int i = 0; i < arrays.length(); i++) {\n";
-		m+="						JSONObject item = arrays.optJSONObject(i);\n";
-		m+="						if (item != null) {\n";
-		m+="							HashMap<String, String> mapItem = new HashMap<String, String>();\n";
-		m+="							// =====================code and name\n";
-	
-		
-		
-		for(int i=0;i<results.length;i++)
-		{
-			 if(i==1)
-			{
-				m+="//"+resultsCn[i]+"\n";
-				m+="							if (item.has("+results[i]+")) {\n";
-				m+="								mapItem.put("+results[i]+",\n";
-				m+="										item.optString("+results[i]+"));\n";
-				m+="							}\n";
-			}
-		}
-		
-		for(int i=0;i<results.length;i++)
-		{
-			 if(i==0)
-			{
-				m+="//"+resultsCn[i]+"\n";
-				m+="							if (item.has("+results[0]+")) {\n";
-				m+="								String name = mapItem.get("+results[1]+");\n";
-				m+="								mapItem.put(\n";
-				m+="										"+results[1]+",\n";
-				m+="										name + \"#\"\n";
-				m+="												+ item.optString("+results[0]+"));\n";
-			
-				m+="							}\n";
-			}
-		}
-		
-	
-		
-		m+="							// =====================code and name\n";
-
-		
-		
-		for(int i=0;i<results.length;i++)
-		{
-			if(i==0||i==1)
-			{
-				continue;
-			}
-			
-			m+="							if (item.has("+results[i]+")) {\n";
-
-			m+="								mapItem.put("+results[i]+",\n";
-			m+="										item.optString("+results[i]+"));\n";
-			m+="							}\n";
-		}
-		
-
-
-		m+="							lists.add(mapItem);\n";
-		m+="						}\n";
-		m+="					}\n";
-
-		m+="					// HashMap<String, String> mapItem = new HashMap<String,\n";
-		m+="					// String>();\n";
-		m+="					// mapItem.put(Constants.DLV_ORG_NAME, \"总计\");\n";
-		m+="					// // ====================24======================//\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24,\n";
-		m+="					// String.valueOf(dlv_mail_count_24));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24_8,\n";
-		m+="					// String.valueOf(dlv_mail_count_24_8));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_24_15,\n";
-		m+="					// String.valueOf(dlv_mail_count_24_15));\n";
-		m+="					// // ===================48=======================//\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48,\n";
-		m+="					// String.valueOf(dlv_mail_count_48));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48_8,\n";
-		m+="					// String.valueOf(dlv_mail_count_48_8));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_48_15,\n";
-		m+="					// String.valueOf(dlv_mail_count_48_15));\n";
-		m+="					// // ===================72=======================//\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72,\n";
-		m+="					// String.valueOf(dlv_mail_count_72));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72_8,\n";
-		m+="					// String.valueOf(dlv_mail_count_72_8));\n";
-		m+="					// mapItem.put(Constants.DLV_MAIL_COUNT_72_15,\n";
-		m+="					// String.valueOf(dlv_mail_count_72_15));\n";
-		m+="					// lists.add(mapItem);\n";
-
-		m+="					return lists;\n";
-		m+="				}\n";
+		m+="			if(pages!=null && pages.size()==0)\n";
+		m+="			{\n";
+		m+="				"+formNameEn+"Activity.this.finish();\n";
+		m+="			}else\n";
+		m+="			{\n";
+		m+="				int count=pages.size();\n";
+		m+="				pages.remove(count-1);\n";
+		m+="				 count=pages.size();\n";
+		m+="				 if(count==0)\n";
+		m+="				 {\n";
+		m+="					 "+formNameEn+"Activity.this.finish();\n";
+		m+="				 }else\n";
+		m+="				 {\n";
+		m+="				lists=(ArrayList<HashMap<String, String>>) pages.get(count-1);\n";
+		m+="				refreshList();\n";
+		m+="				 }\n";
 		m+="			}\n";
+		m+="			\n";
+		m+="			\n";
+		m+="			return false;\n";
 
-		m+="		} catch (JSONException e) {\n";
-		m+="			e.printStackTrace();\n";
-		m+="			return new ArrayList<HashMap<String, String>>();\n";
+		m+="		} else {\n";
+		m+="			return super.onKeyDown(keyCode, event);\n";
 		m+="		}\n";
 
-		m+="		return lists;\n";
+		m+="	}\n";
+
+		m+="	WheelMain wheelMain;\n";
+		m+="	DateFormat dateFormat = new SimpleDateFormat(\"yyyy-MM-dd\");\n";
+
+		m+="	private void showToast(String text) {\n";
+		m+="		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();\n";
+		m+="	}\n";
+
+		m+="	/**\n";
+		m+="	 * 开始&结束 日期点击时间\n";
+		m+="	 * \n";
+		m+="	 */\n";
+		m+="	private class OnDateClickListener implements OnClickListener {\n";
+
+		m+="		TextView txttime;\n";
+
+		m+="		@Override\n";
+		m+="		public void onClick(final View v) {\n";
+
+		m+="			if (v.getId() == R.id.ll_start_date_layout) {\n";
+		m+="				txttime = tv_start_date;\n";
+		m+="			} else {\n";
+		m+="				txttime = tv_end_date;\n";
+		m+="			}\n";
+
+		m+="			LayoutInflater inflater = LayoutInflater\n";
+		m+="					.from("+formNameEn+"Activity.this);\n";
+		m+="			final View timepickerview = inflater.inflate(\n";
+		m+="					R.layout.ipo_dialog_date_picker, null);\n";
+		m+="			ScreenInfo screenInfo = new ScreenInfo(\n";
+		m+="					"+formNameEn+"Activity.this);\n";
+		m+="			wheelMain = new WheelMain(timepickerview);// 设置日期控件\n";
+		m+="			wheelMain.screenheight = screenInfo.getHeight();\n";
+		m+="			String time = txttime.getText().toString();\n";
+		m+="			try {\n";
+		m+="				time = dateFormat.format(sdfYMD.parse(time));// 日期格式转换\n";
+		m+="																// yyyy年MM月dd日\n";
+		m+="																// from\n";
+		m+="																// yyyy-MM-dd\n";
+		m+="			} catch (ParseException e1) {\n";
+		m+="				e1.printStackTrace();\n";
+		m+="			}\n";
+		m+="			Calendar calendar = Calendar.getInstance();\n";
+		m+="			if (JudgeDate.isDate(time, \"yyyy-MM-dd\")) {\n";
+		m+="				try {\n";
+		m+="					calendar.setTime(dateFormat.parse(time));\n";
+		m+="				} catch (ParseException e) {\n";
+		m+="					e.printStackTrace();\n";
+		m+="				}\n";
+		m+="			}\n";
+		m+="			int year = calendar.get(Calendar.YEAR);\n";
+		m+="			int month = calendar.get(Calendar.MONTH);\n";
+		m+="			int day = calendar.get(Calendar.DAY_OF_MONTH);\n";
+		m+="			wheelMain.initDateTimePicker(year, month, day);\n";
+		m+="			new AlertDialog.Builder("+formNameEn+"Activity.this)\n";
+		m+="					.setTitle(\"选择时间\")\n";
+		m+="					.setView(timepickerview)\n";
+		m+="					.setPositiveButton(\"确定\",\n";
+		m+="							new DialogInterface.OnClickListener() {\n";
+		m+="								@Override\n";
+		m+="								public void onClick(DialogInterface dialog,\n";
+		m+="										int which) {\n";
+		m+="									try {\n";
+		m+="										if (v.getId() == R.id.ll_start_date_layout) {\n";
+
+		m+="											Date endDate = sdfYMD\n";
+		m+="													.parse(tv_end_date\n";
+		m+="															.getText()\n";
+		m+="															.toString());\n";
+		m+="											int compareTo = dateFormat.parse(\n";
+		m+="													wheelMain.getTime())\n";
+		m+="													.compareTo(endDate);\n";
+
+		m+="										 if (compareTo < 0 ||compareTo==0) {// 开始时间小于结束时间\n";
+		m+="												txttime.setText(sdfYMD.format(dateFormat\n";
+		m+="														.parse(wheelMain\n";
+		m+="																.getTime())));// 开始日期\n";
+		m+="											} else {// 开始时间大于结束时间\n";
+		m+="												showToast(\"开始时间不能大于结束时间.\");\n";
+		m+="											}\n";
+		m+="										} else {\n";
+		m+="											Date startDate = sdfYMD\n";
+		m+="													.parse(tv_start_date\n";
+		m+="															.getText()\n";
+		m+="															.toString());\n";
+		m+="											int compareTo = dateFormat.parse(\n";
+		m+="													wheelMain.getTime())\n";
+		m+="													.compareTo(startDate);\n";
+		m+="                                             if (compareTo < 0) {// 开始时间小于结束时间\n";
+		m+="												showToast(\"结束时间不能小于开始时间.\");\n";
+		m+="											} else {// 开始时间大于结束时间\n";
+		m+="												txttime.setText(sdfYMD.format(dateFormat\n";
+		m+="														.parse(wheelMain\n";
+		m+="																.getTime())));// 开始日期\n";
+		m+="											}\n";
+		m+="										}\n";
+
+		m+="									} catch (ParseException e) {\n";
+		m+="										e.printStackTrace();\n";
+		m+="									}\n";
+		m+="								}\n";
+		m+="							})\n";
+		m+="					.setNegativeButton(\"取消\",\n";
+		m+="							new DialogInterface.OnClickListener() {\n";
+		m+="								@Override\n";
+		m+="								public void onClick(DialogInterface dialog,\n";
+		m+="										int which) {\n";
+		m+="								}\n";
+		m+="							}).show();\n";
+		m+="		}\n";
+
 		m+="	}\n";
 
 		m+="}\n";
 		
+		
+		String n="AndroidManifest.xml加入新Activity声明\n\n";
+		 n+="<activity\n";
+         n+="android:name=\""+javapackage+"."+formNameEn+"Activity\"\n";
+         n+="android:label=\"@string/contacts_text\"\n";
+         n+="android:screenOrientation=\"portrait\"\n";
+         n+="android:theme=\"@android:style/Theme.Black.NoTitleBar\" >\n";
+        n+=" </activity>\n";
+        
+        System.out.println(n);
 		
 		String filename = FileUtil.makeFile(outPath+"/"+formNameEn+"Activity.java", m);
 
@@ -941,7 +981,7 @@ public class ReportForm {
 		
 		String m="";
 		
-
+        m+="package "+javapackage+";\n";
 		m+="import android.content.Context;\n";
 		m+="import android.util.AttributeSet;\n";
 		m+="import android.view.MotionEvent;\n";
@@ -951,19 +991,19 @@ public class ReportForm {
 		m+="	\n";
 		m+="	"+formNameEn+"Activity activity;\n";
 		m+="	\n";
-		m+="	public DeliveryRateCHScrollView(Context context, AttributeSet attrs, int defStyle) {\n";
+		m+="	public "+formNameEn+"CHScrollView(Context context, AttributeSet attrs, int defStyle) {\n";
 		m+="		super(context, attrs, defStyle);\n";
 		m+="		activity = ("+formNameEn+"Activity) context;\n";
 		m+="	}\n";
 
 		m+="	\n";
-		m+="	public DeliveryRateCHScrollView(Context context, AttributeSet attrs) {\n";
+		m+="	public "+formNameEn+"CHScrollView(Context context, AttributeSet attrs) {\n";
 		m+="		super(context, attrs);\n";
 		m+="		if(context!=null && context instanceof "+formNameEn+"Activity)\n";
 		m+="		activity = ("+formNameEn+"Activity) context;\n";
 		m+="	}\n";
 
-		m+="	public DeliveryRateCHScrollView(Context context) {\n";
+		m+="	public "+formNameEn+"CHScrollView(Context context) {\n";
 		m+="		super(context);\n";
 		m+="		activity = ("+formNameEn+"Activity) context;\n";
 		m+="	}\n";
@@ -1183,10 +1223,13 @@ public class ReportForm {
 		m+="                android:text=\""+resultsCn[i]+"\"\n";
 		m+="                 android:textSize=\"14dp\"\n";
 		m+="                android:textColor=\"#90AD9F\" />\n";
+		
+		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+			
 			}
 	   }
 
-		m+="            <com.chinapost.palmpost."+formNameEn+"CHScrollView\n";
+		m+="            <"+javapackage+"."+formNameEn+"CHScrollView\n";
 		m+="                android:id=\"@+id/item_scroll_title\"\n";
 		m+="                android:layout_width=\"fill_parent\"\n";
 		m+="                android:layout_height=\"wrap_content\"\n";
@@ -1211,12 +1254,22 @@ public class ReportForm {
 		m+="                        android:text=\""+resultsCn[i]+"\"\n";
 		m+="                        android:textSize=\"14dp\"\n";
 		m+="                        android:textColor=\"#90AD9F\" />\n";
+		
+		if(i==resultsCn.length-1)
+		{
+			
+		}else
+		{
+			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+				
+		}
+			
 		}
 
 	
 		
 		m+="                </LinearLayout>\n";
-		m+="            </com.chinapost.palmpost."+formNameEn+"CHScrollView>\n";
+		m+="            </"+javapackage+"."+formNameEn+"CHScrollView>\n";
 		m+="        </LinearLayout>\n";
 		m+="          <!-- 报表头end -->\n";
 
@@ -1248,7 +1301,7 @@ public class ReportForm {
 		m+="        android:text=\"@string/refresh_btn\" />\n";
 
 		m+="</LinearLayout>\n";
-		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn+".xml", m);
+		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn.toLowerCase()+".xml", m);
 		
 		
 		
@@ -1278,8 +1331,11 @@ public class ReportForm {
 		m+="        android:text=\"行头\" />\n";
 		m+="    \n";
 		m+="   \n";
+		
+		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+			
 
-		m+="    <com.chinapost.palmpost."+formNameEn+"CHScrollView\n";
+		m+="    <"+javapackage+"."+formNameEn+"CHScrollView\n";
 		m+="        android:id=\"@+id/item_scroll\"\n";
 		m+="        android:layout_width=\"fill_parent\"\n";
 		m+="        android:layout_height=\"fill_parent\"\n";
@@ -1306,17 +1362,27 @@ public class ReportForm {
 		m+="                android:textColor=\"#101010\"\n";
 		m+="                  android:textSize=\"14dp\"\n";
 		m+="                android:gravity=\"center\" />\n";
+		
+		if(i==resultsCn.length-1)
+		{
+			
+		}else
+		{
+
+			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+		}
+		
 		}
 
 		
 		
 		m+="       \n";
 		m+="        </LinearLayout>\n";
-		m+="    </com.chinapost.palmpost."+formNameEn+"CHScrollView>\n";
+		m+="    </"+javapackage+"."+formNameEn+"CHScrollView>\n";
 
 		m+="</LinearLayout>\n";
 		
-		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn+"_item.xml", m);
+		String filename = FileUtil.makeFile(outPath+"/activity_"+formNameEn.toLowerCase()+"_item.xml", m);
 
 	}
 }

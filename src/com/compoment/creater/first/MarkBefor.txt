@@ -1,100 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:minHeight="50dip"
-    android:orientation="horizontal" >
+/**投递量统计**/
+	public static String requestDlvAmount(
+			BaseServiceInterface mBaseService, String userPara,
+			String startDate, String endDate, String queryType,
+			String deptCode, String mailType) {
+		try {
+			JSONObject jsonParam = new JSONObject();
+			JSONObject jsonBusinessParam = new JSONObject();
+			jsonParam.put(Constants.REQUEST_KEY_ACTION, "business");
+			jsonParam
+					.put(Constants.REQUEST_KEY_ACTIONID, "android_router_tdgk");
+			jsonParam.put(Constants.REQUEST_KEY_USERPARA, userPara);
 
+			// "serviceParams":"{"startDate":"20141001","endDate":"20141010","queryType":"1","deptCode":"51080100","mailType":"318"}"
+			JSONObject serviceParams = new JSONObject();
 
-    <TextView
-        android:id="@+id/item_title"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:gravity="center"
-         android:textColor="#2B8F69"
-        android:textSize="14dp"
-        android:text="表头测试" />
-    
-   
+			serviceParams.put(Constants.REQUEST_KEY_STARTDATE, startDate);
+			serviceParams.put(Constants.REQUEST_KEY_ENDDATE, endDate);
+			serviceParams.put(Constants.REQUEST_KEY_QUERYTYPE, queryType);
+			serviceParams.put(Constants.REQUEST_KEY_DEPTCODE, deptCode);
+			serviceParams.put(Constants.REQUEST_KEY_MAILTYPE, mailType);
+			jsonParam.put(Constants.REQUEST_KEY_SERVICEPARAMS,
+					serviceParams.toString());
 
-    <com.chinapost.palmpost.DeliveryRateCHScrollView
-        android:id="@+id/item_scroll"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="none"
-        android:layout_weight="1" >
+			JSONObject jsonRequestParam = new JSONObject();
+			jsonRequestParam.put(Constants.REQUEST_KEY_SERVICEID,
+					Constants.REQUEST_DlvAmount);
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/item_data1"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/item_data2"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/item_data3"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" 
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/item_data4"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" 
-                
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/item_data5"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-               android:textColor="#101010"
-                 android:textSize="14dp"
-                android:gravity="center" 
-                android:visibility="gone"/>
-
-               <TextView
-                android:id="@+id/item_data6"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" 
-                android:visibility="gone"
-                />
-               
-                  <TextView
-                android:id="@+id/item_data7"
-                android:layout_width="100dip"
-                android:layout_height="fill_parent"
-                android:textColor="#101010"
-                  android:textSize="14dp"
-                android:gravity="center" 
-                android:visibility="gone"
-                />
-       
-        </LinearLayout>
-    </com.chinapost.palmpost.DeliveryRateCHScrollView>
-
-</LinearLayout>
+			jsonRequestParam.put(Constants.REQUEST_KEY_SERVICEPARAMS,
+					serviceParams.toString());
+			jsonBusinessParam.put(Constants.REQUEST_KEY_REQUEST,
+					jsonRequestParam.toString());
+			String encryptStr = mBaseService.encrypt(
+					jsonBusinessParam.toString(), Constants.ENCRYPT_KEY);
+			jsonParam.put(Constants.REQUEST_KEY_BUSINESSPARAM, encryptStr);
+			return jsonParam.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
