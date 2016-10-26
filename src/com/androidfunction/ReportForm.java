@@ -4,13 +4,13 @@ import com.compoment.util.FileUtil;
  
 public class ReportForm {
 
-	String formNameCn="格口情况分析";
-	String formNameEn="GeKouSituation";
+	String formNameCn="故障终端";
+	String formNameEn="ErrorPackageCabinet";
 	String formSearchInputPart1="";
 	String formSearchInputPart1Cn="";
 	
-	String results[]={"dept_code","dept_name","bigbig","big","middle","small"};
-	String resultsCn[]={"dept_code","单位名称","超大","大","中","小"};
+	String results[]={"dept_code","dept_name","time","gekou"};
+	String resultsCn[]={"dept_code","单位名称","报错小时数","格口数"};
 	
 	String outPath="C:/CreateCode/ReportForm";
 	String javapackage="com.chinapost.palmpost.smartpackage";
@@ -1208,6 +1208,7 @@ public class ReportForm {
 		m+="            android:layout_height=\"wrap_content\"\n";
 		m+="            android:id=\"@+id/formhead\"\n";
 		m+="            android:background=\"#C5D7CF\"\n";
+		m+="  android:gravity=\"center\"\n";
 		m+="            android:orientation=\"horizontal\"\n";
 		m+="            android:padding=\"5dp\" >\n";
 
@@ -1224,7 +1225,7 @@ public class ReportForm {
 		m+="                 android:textSize=\"14dp\"\n";
 		m+="                android:textColor=\"#90AD9F\" />\n";
 		
-		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"fill_parent\" android:background=\"@drawable/links_icon\" />\n";
 			
 			}
 	   }
@@ -1239,6 +1240,7 @@ public class ReportForm {
 		m+="                <LinearLayout\n";
 		m+="                    android:layout_width=\"fill_parent\"\n";
 		m+="                    android:layout_height=\"wrap_content\"\n";
+		m+="  android:gravity=\"center\"\n";
 		m+="                    android:orientation=\"horizontal\" >\n";
 
 		for(int i=0;i<resultsCn.length;i++)
@@ -1249,7 +1251,7 @@ public class ReportForm {
 			}
 		m+="                    <TextView\n";
 		m+="                        android:layout_width=\"100dip\"\n";
-		m+="                        android:layout_height=\"fill_parent\"\n";
+		m+="                        android:layout_height=\"wrap_content\"\n";
 		m+="                        android:gravity=\"center\"\n";
 		m+="                        android:text=\""+resultsCn[i]+"\"\n";
 		m+="                        android:textSize=\"14dp\"\n";
@@ -1260,7 +1262,7 @@ public class ReportForm {
 			
 		}else
 		{
-			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"fill_parent\" android:background=\"@drawable/links_icon\" />\n";
 				
 		}
 			
@@ -1332,7 +1334,7 @@ public class ReportForm {
 		m+="    \n";
 		m+="   \n";
 		
-		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+		 m+="<View android:layout_width=\"1dp\" android:layout_height=\"fill_parent\" android:background=\"@drawable/links_icon\" />\n";
 			
 
 		m+="    <"+javapackage+"."+formNameEn+"CHScrollView\n";
@@ -1369,7 +1371,7 @@ public class ReportForm {
 		}else
 		{
 
-			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"wrap_content\" android:background=\"@drawable/links_icon\" />\n";
+			 m+="<View android:layout_width=\"1dp\" android:layout_height=\"fill_parent\" android:background=\"@drawable/links_icon\" />\n";
 		}
 		
 		}
