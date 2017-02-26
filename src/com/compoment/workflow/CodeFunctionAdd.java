@@ -27,6 +27,7 @@ import com.compoment.addfunction.iphone.RequestIphone;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.StructActionForm;
+import com.compoment.addfunction.webmanage.ActionStruct2;
 import com.compoment.addfunction.webmanage.AddJsp;
 import  com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.QueryJsp;
@@ -978,6 +979,8 @@ public class CodeFunctionAdd extends JFrame {
 				
 			
 				//接口列表
+				new ActionStruct2(projectDocPanel.interfaceBeans);
+				
 				new QueryJsp(projectDocPanel.interfaceBeans);
 				
 				new AddJsp(projectDocPanel.interfaceBeans);

@@ -498,7 +498,7 @@ Desktop desktop=Desktop.getDesktop();
 			wordtable = (WordtableToJavaObjectInterface) Naming.lookup(RemoteUtil.rmiurl+"WordtableToJavaObject");
 			
 			FileUtil fileUtil=new FileUtil();
-  
+			//WordtableToJavaObject wordtable2=new WordtableToJavaObject();
 			interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(filePath),point);
 			
 		} catch (MalformedURLException e) {

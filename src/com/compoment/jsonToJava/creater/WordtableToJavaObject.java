@@ -240,6 +240,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 	public String[] getInterfaceId(String txt) {
 
 
+
 		int start = txt.indexOf("(");
 		int start2 = txt.indexOf("（");
 		int end = txt.indexOf(")");
@@ -248,7 +249,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 		if ((start != -1 || start2 != -1) && (end != -1 || end2 != -1)) {
 			if (start != -1 && end!=-1) {
 				String id = txt.subSequence(start + 1, end).toString();
-				String ids[]=id.split("|");
+				String ids[]=id.split("\\|");
 				if (id != null) {
 					if (isNum(ids[0])) {
 						return ids;
@@ -256,7 +257,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				}
 			} else if(start2!=-1 && end2!=-1){
 				String id = txt.subSequence(start2 + 1, end2).toString();
-				String ids[]=id.split(",");
+				String ids[]=id.split("\\|");
 				if (id != null) {
 					if (isNum(ids[0])) {
 						return ids;
@@ -264,14 +265,14 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				}
 			}else if(start!=-1 && end2!=-1){
 				String id = txt.subSequence(start + 1, end2).toString();
-				String ids[]=id.split("|");
+				String ids[]=id.split("\\|");
 				if (id != null) {
 					if (isNum(ids[0])) {
 						return ids;
 					}
 				}}else if(start2!=-1 && end!=-1){
 					String id = txt.subSequence(start2 + 1, end).toString();
-					String ids[]=id.split("|");
+					String ids[]=id.split("\\|");
 					if (id != null) {
 						if (isNum(ids[0])) {
 							return ids;
