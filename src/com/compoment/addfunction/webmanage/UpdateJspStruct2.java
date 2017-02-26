@@ -139,7 +139,7 @@ public class UpdateJspStruct2 {
 		m+="<body>\n";
 		m+="	<%@ include file=\"/chinapost/weixin/lovepackage/include.jsp\"%>\n";
 
-		m+=" <form action=\"/chinapost/....Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
+		m+=" <form action=\"/chinapost/"+interfaceBean.enName+"Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";
 		m+="	<div class=\"table_form lr10\">\n";
 		m+="		<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";
@@ -262,7 +262,7 @@ public class UpdateJspStruct2 {
 		m+="	</form>\n";
 		m+="</body>\n";
 		m+="</html>\n";
-		makeFile( interfaceBean.enName+"AddJsp",m);
+		makeFile( interfaceBean.enName+"updateJsp",m);
 		System.out.println(m);
 		
 	}
@@ -314,3 +314,8 @@ public class UpdateJspStruct2 {
 	        dir.mkdir();  
 	    }  
 }
+
+
+
+
+
