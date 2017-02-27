@@ -110,7 +110,7 @@ public class QueryJspStruct2 {
 		List<Group> groups = interfaceBean.respondGroups;
 		for (Group group : groups) {
 			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
+			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
@@ -194,7 +194,7 @@ public class QueryJspStruct2 {
 		
 		for (Group group : groups) {
 			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
+			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
 					if (i == 0) {// 循环域开始
