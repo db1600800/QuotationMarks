@@ -127,7 +127,7 @@ public class ActionStruct2 {
 		m+="	public "+interfaceBean.enName+"Entity get"+interfaceBean.enName+"Entity() {\n";
 		m+="		return entity;\n";
 		m+="	}\n";
-		m+="	public void set"+interfaceBean.enName+"Entity("+interfaceBean.enName+" "+interfaceBean.enName.toLowerCase()+") {\n";
+		m+="	public void set"+interfaceBean.enName+"Entity("+interfaceBean.enName+"Entity  "+interfaceBean.enName.toLowerCase()+") {\n";
 		m+="		this.entity = "+interfaceBean.enName.toLowerCase()+";\n";
 		m+="	}\n";
 		

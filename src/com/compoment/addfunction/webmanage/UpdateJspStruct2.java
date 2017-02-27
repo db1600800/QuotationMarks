@@ -262,7 +262,7 @@ public class UpdateJspStruct2 {
 		m+="	</form>\n";
 		m+="</body>\n";
 		m+="</html>\n";
-		makeFile( interfaceBean.enName+"updateJsp",m);
+		makeFile( interfaceBean.enName.toLowerCase()+"Setting",m);
 		System.out.println(m);
 		
 	}

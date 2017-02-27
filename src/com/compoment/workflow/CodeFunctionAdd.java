@@ -27,10 +27,13 @@ import com.compoment.addfunction.iphone.RequestIphone;
 import com.compoment.addfunction.swing.SystemDialog;
 import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.StructActionForm;
+import com.compoment.addfunction.webmanage.TableToHibernateEntity;
+import com.compoment.addfunction.webmanage.UpdateJspStruct2;
 import com.compoment.addfunction.webmanage.ActionStruct2;
 import com.compoment.addfunction.webmanage.AddJsp;
 import  com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.QueryJsp;
+import com.compoment.addfunction.webmanage.QueryJspStruct2;
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
@@ -981,13 +984,21 @@ public class CodeFunctionAdd extends JFrame {
 				//接口列表
 				new ActionStruct2(projectDocPanel.interfaceBeans);
 				
-				new QueryJsp(projectDocPanel.interfaceBeans);
+				new UpdateJspStruct2(projectDocPanel.interfaceBeans);
 				
-				new AddJsp(projectDocPanel.interfaceBeans);
+				new QueryJspStruct2(projectDocPanel.interfaceBeans);
 				
-				new StructActionForm(projectDocPanel.interfaceBeans);
+				new TableToHibernateEntity(projectDocPanel.interfaceBeans);
 				
-				new StructAction(projectDocPanel.interfaceBeans);
+				
+				//Struct2
+				//new QueryJsp(projectDocPanel.interfaceBeans);
+				
+				//new AddJsp(projectDocPanel.interfaceBeans);
+				
+				//new StructActionForm(projectDocPanel.interfaceBeans);
+				
+				//new StructAction(projectDocPanel.interfaceBeans);
 			}
 		
 		}

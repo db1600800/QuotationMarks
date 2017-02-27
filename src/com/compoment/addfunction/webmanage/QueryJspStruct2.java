@@ -233,7 +233,7 @@ public class QueryJspStruct2 {
 		
 		
 		
-		makeFile( interfaceBean.enName+"QueryJsp",m);
+		makeFile( interfaceBean.enName.toLowerCase(),m);
 		System.out.println(m);
 	}
 	
