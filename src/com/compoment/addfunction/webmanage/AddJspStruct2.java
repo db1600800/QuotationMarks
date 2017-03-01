@@ -12,9 +12,9 @@ import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.KeyValue;
 
-public class UpdateJspStruct2 {
+public class AddJspStruct2 {
 
-	public UpdateJspStruct2(List<InterfaceBean> interfaceBeans) {
+	public AddJspStruct2(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
@@ -141,7 +141,7 @@ public class UpdateJspStruct2 {
 		m+="<body>\n";
 		m+="	<%@ include file=\"/chinapost/weixin/lovepackage/include.jsp\"%>\n";
 
-		m+=" <form action=\"/chinapost/"+interfaceBean.enName+"Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
+		m+=" <form action=\"/chinapost/"+interfaceBean.enName+"Action!doAdd.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";
 		m+="	<div class=\"table_form lr10\">\n";
 		m+="		<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";
