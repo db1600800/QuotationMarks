@@ -69,7 +69,7 @@ public class QueryJspStruct2 {
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
-		m+="					url:'/chinapost/"+interfaceBean.enName+"Action!todelete.do',\n";
+		m+="					url:'/chinapost/"+interfaceBean.enName+"Action!doDelete.do',\n";
 		m+="					data:{\n";
 		m+="						activity_code:code\n";
 		m+="					},\n";
@@ -113,16 +113,15 @@ public class QueryJspStruct2 {
 			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-					} else {
+				
 					
 						
 						if(row.type.toLowerCase().equals("bool")||row.type.toLowerCase().equals("boolean"))
 						{
 							m+="								if(data[i]."+row.enName.toLowerCase()+"=='01'){\n";
-							m+="									divtext +=  '"+row.cnName+"' ;\n";
+							m+="									divtext +=  '"+row.cnName.replaceAll("", "")+"' ;\n";
 							m+="								}else if(data[i]."+row.enName.toLowerCase()+"=='02'){\n";
-							m+="									divtext +=  '"+row.cnName+"' ;\n";
+							m+="									divtext +=  '"+row.cnName.replaceAll("", "")+"' ;\n";
 							m+="								}\n";
 							m+="								divtext += '</td>';\n";
 							
@@ -133,7 +132,7 @@ public class QueryJspStruct2 {
 						
 						}
 						
-					}
+					
 					i++;
 				}
 			}
@@ -144,7 +143,7 @@ public class QueryJspStruct2 {
 
 
 		m+="								divtext += '<td ><a href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?activity_code='+data[i].activity_code+'\"> [修改] </a>'\n";
-		m+="								+'|<a href=\"#\" onclick=\"dodel(\''+data[i].activity_code+'\')\"> [删除] </a></td>';\n";
+		m+="								divtext +='|<a href=\"#\" onclick=\"dodel(\''+data[i].activity_code+'\')\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";
 		m+="							//divtext += pagenational;\n";
@@ -197,12 +196,10 @@ public class QueryJspStruct2 {
 			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-					} else {
+				
+						m+="				<th  style=\"text-align:center;\">"+row.cnName.replaceAll("", "")+"</th>\n";
 						
-						m+="				<th  style=\"text-align:center;\">"+row.cnName+"</th>\n";
-						
-					}
+					
 					i++;
 				}
 			}

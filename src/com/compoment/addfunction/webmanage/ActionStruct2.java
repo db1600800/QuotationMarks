@@ -124,10 +124,10 @@ public class ActionStruct2 {
 		m+="	}\n";
 		
 		
-		m+="	public "+interfaceBean.enName+"Entity get"+interfaceBean.enName+"Entity() {\n";
+		m+="	public "+interfaceBean.enName+"Entity getEntity() {\n";
 		m+="		return entity;\n";
 		m+="	}\n";
-		m+="	public void set"+interfaceBean.enName+"Entity("+interfaceBean.enName+"Entity  "+interfaceBean.enName.toLowerCase()+") {\n";
+		m+="	public void setEntity("+interfaceBean.enName+"Entity  "+interfaceBean.enName.toLowerCase()+") {\n";
 		m+="		this.entity = "+interfaceBean.enName.toLowerCase()+";\n";
 		m+="	}\n";
 		
@@ -159,15 +159,15 @@ public class ActionStruct2 {
 		m+="	}\n";
 
 		m+="	//"+interfaceBean.title+"列表\n";
-		m+="	public void "+interfaceBean.enName.toLowerCase()+"List(){\n";
+		m+="	public void list(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		String pageNo = request.getParameter(\"subclassPageNo\");\n";
+		m+="		String pageNo = request.getParameter(\"pageNo\");\n";
 		m+="		String activity_name = StrutsParamUtils.getPraramValue(\"activity_name\", \"\");\n";
 		m+="		String activity_class = StrutsParamUtils.getPraramValue(\"activity_class\", \"\");\n";
 		m+="		String thd_sys_id=StrutsParamUtils.getPraramValue(\"thd_sys_id\", \"\");\n";
 		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
 		m+="			pageNo = \"1\";\n";
-		m+="			request.setAttribute(\"subclassPageNo\", pageNo);\n";
+		m+="			request.setAttribute(\"pageNo\", pageNo);\n";
 		m+="		}\n";
 		m+="		if(StringUtils.isBlank(thd_sys_id) || StringUtils.isBlank(activity_class)){\n";
 		m+="			return;\n";

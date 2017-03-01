@@ -65,13 +65,12 @@ public class UpdateJspStruct2 {
 			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-					} else {
+					
 					
 						m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
 						m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					
-					}
+					
 					i++;
 				}
 			}
@@ -92,12 +91,11 @@ public class UpdateJspStruct2 {
 			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-					} else {
+				
 						
 						
 						m+="		if ($(\"#"+row.enName.toLowerCase()+"\").val() == \"\") {\n";
-						m+="			alert(\"请输入"+row.cnName+"！\");\n";
+						m+="			alert(\"请输入"+row.cnName.replaceAll("", "")+"！\");\n";
 						m+="			return false;\n";
 						m+="		}\n";
 						
@@ -118,7 +116,7 @@ public class UpdateJspStruct2 {
 							m+="	    }  \n";
 							m+="		\n";
 						}
-					}
+					
 					i++;
 				}
 			}
@@ -151,13 +149,12 @@ public class UpdateJspStruct2 {
 			if (groupname.equals("CommonGroup")) {
 				int i = 0;
 				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-					} else {
+				
 					
 						
 						m+="	<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" />\n";
 						
-					}
+					
 					i++;
 				}
 			}
@@ -197,7 +194,7 @@ public class UpdateJspStruct2 {
 						if(row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
 						{
 							m+="				 <tr>\n";
-							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.toLowerCase()+"：</td>\n";
+							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><select id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"><option value=\"1\">是</option>\n";
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
@@ -206,7 +203,7 @@ public class UpdateJspStruct2 {
 						{
 							
 							m+="				<tr>\n";
-							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.toLowerCase()+"：</td>\n";
+							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><input id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
@@ -215,7 +212,7 @@ public class UpdateJspStruct2 {
 						{
 							
 							m+="					<tr >\n";
-							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.toLowerCase()+"：\n";
+							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
 							m+="						<img src=\"${activityInfoExt.qrcode }\" style=\"display: block;width:40px;height:30px\"/>\n";
@@ -230,7 +227,7 @@ public class UpdateJspStruct2 {
 						{
 						
 							m+="				<tr>\n";
-							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.toLowerCase()+"：</td>\n";
+							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><input type=\"text\" class=\"input-text wid400 bg\"\n";
 							m+="						id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\"/></td>\n";
 							m+="					\n";
