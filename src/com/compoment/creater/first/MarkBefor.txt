@@ -1,41 +1,5 @@
-/**投递量统计**/
-	public static String requestDlvAmount(
-			BaseServiceInterface mBaseService, String userPara,
-			String startDate, String endDate, String queryType,
-			String deptCode, String mailType) {
-		try {
-			JSONObject jsonParam = new JSONObject();
-			JSONObject jsonBusinessParam = new JSONObject();
-			jsonParam.put(Constants.REQUEST_KEY_ACTION, "business");
-			jsonParam
-					.put(Constants.REQUEST_KEY_ACTIONID, "android_router_tdgk");
-			jsonParam.put(Constants.REQUEST_KEY_USERPARA, userPara);
-
-			// "serviceParams":"{"startDate":"20141001","endDate":"20141010","queryType":"1","deptCode":"51080100","mailType":"318"}"
-			JSONObject serviceParams = new JSONObject();
-
-			serviceParams.put(Constants.REQUEST_KEY_STARTDATE, startDate);
-			serviceParams.put(Constants.REQUEST_KEY_ENDDATE, endDate);
-			serviceParams.put(Constants.REQUEST_KEY_QUERYTYPE, queryType);
-			serviceParams.put(Constants.REQUEST_KEY_DEPTCODE, deptCode);
-			serviceParams.put(Constants.REQUEST_KEY_MAILTYPE, mailType);
-			jsonParam.put(Constants.REQUEST_KEY_SERVICEPARAMS,
-					serviceParams.toString());
-
-			JSONObject jsonRequestParam = new JSONObject();
-			jsonRequestParam.put(Constants.REQUEST_KEY_SERVICEID,
-					Constants.REQUEST_DlvAmount);
-
-			jsonRequestParam.put(Constants.REQUEST_KEY_SERVICEPARAMS,
-					serviceParams.toString());
-			jsonBusinessParam.put(Constants.REQUEST_KEY_REQUEST,
-					jsonRequestParam.toString());
-			String encryptStr = mBaseService.encrypt(
-					jsonBusinessParam.toString(), Constants.ENCRYPT_KEY);
-			jsonParam.put(Constants.REQUEST_KEY_BUSINESSPARAM, encryptStr);
-			return jsonParam.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	<tr>
+					<td align="right" style="width: 120px">活动规则：</td>
+						<td><textarea type="text" style="width:400px;height:50px;"
+							id="rule" name="activityInfoExt.rule" >${activityInfoExt.rule}</textarea></td>
+				</tr>

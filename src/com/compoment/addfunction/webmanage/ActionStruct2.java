@@ -30,11 +30,13 @@ public class ActionStruct2 {
 		
 	     //list()
 		String urlKeyString="";
+		String urlKeyString2="";
 		String listInKeyString="";
 		String appendString="";
 		
 		int keyCount=0;
 		String keyValue="";
+		String keyValue2="";
 		
 		//toUpdate()
 		String toUpdateInKeyString="";
@@ -43,6 +45,8 @@ public class ActionStruct2 {
 		
 		//doUpdate
 		String doUpdateKeyStirng="";
+		
+		
 		
 		
 		List<Group> groups = interfaceBean.respondGroups;
@@ -60,13 +64,16 @@ public class ActionStruct2 {
 						//list()
 						listInKeyString+="	String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
 					
-						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+"){\n";
+						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+")){\n";
 						listInKeyString+="			return;\n";
 						listInKeyString+="		}\n";
 						
 						
 						urlKeyString+=""+row.enName.toLowerCase()+"=? And ";
+						urlKeyString2+=""+row.enName.toLowerCase()+"=:"+row.enName.toLowerCase()+" And ";
+						
 						keyValue+=" args["+keyCount+"]="+row.enName.toLowerCase()+";\n";
+						keyValue2+="argsMap.put(\""+row.enName.toLowerCase()+"\","+row.enName.toLowerCase()+");\n";
 						keyCount++;
 						
 						
@@ -97,7 +104,7 @@ public class ActionStruct2 {
 			}
 	
 		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("And"));
-
+		urlKeyString2=urlKeyString2.substring(0, urlKeyString2.lastIndexOf("And"));
 		
 		
 		
@@ -229,18 +236,22 @@ public class ActionStruct2 {
 		m+=listInKeyString;
 		
 		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where "+urlKeyString+" \");\n";
-		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString+" \");\n";
+		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString2+" \");\n";
 		m+="	\n";
 	
 		m+="		Object[] args =new Object["+keyCount+"];\n";
 		m+=keyValue;
+		
+		
+		m+="\nMap<String, Object> argsMap=new HashMap<String, Object>();\n";
+		m+=keyValue2;
 		
 		m+="	//	sb.append(\" order by activity_code desc\");\n";
 		
 		
 		m+="		int count = objectDao.countObjectByHql(sql.toString(),args);\n";
 		m+="		List<"+interfaceBean.enName+"Entity> list = (List<"+interfaceBean.enName+"Entity>) objectDao.findByHqlPage(\n";
-		m+="				sb.toString(),args,\n";
+		m+="				sb.toString(),argsMap,\n";
 		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
 		m+="				Integer.parseInt(pageSize));\n";
 		
@@ -248,6 +259,9 @@ public class ActionStruct2 {
 		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
 		m+=appendString;
 		m+="}\n";
+		
+		
+	
 		
 		m+="		String pageString = PaginationUtil.getPaginationHtml(\n";
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
@@ -305,6 +319,9 @@ public class ActionStruct2 {
 		
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
+		
+		
+		
 		m+="	\n";
 		m+="	public String doAdd()  throws IOException{\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
@@ -321,13 +338,17 @@ public class ActionStruct2 {
 		m+=doUpdateKeyStirng;
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
+		
+		
 		m+="	\n";
 		m+="	public void doDelete() throws IOException{\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		String "+mainkey+" = request.getParameter(\""+mainkey+"\");\n";
-		m+="		"+interfaceBean.enName+"Entity act = new "+interfaceBean.enName+"Entity();\n";
-		m+="		act.set"+firstCharUpperCase(mainkey)+"("+mainkey+");\n";
-		m+="		objectDao.delete(act);\n";
+		m+=toUpdateInKeyString;
+		
+		m+=""+interfaceBean.enName+"Entity entity = new "+interfaceBean.enName+"Entity();\n";
+	
+		m+=appendString;
+		m+="		objectDao.delete(entity);\n";
 		
 		m+="		StrutsParamUtils.getResponse().getWriter().write(\"success\");\n";
 		m+="		return ;\n";
