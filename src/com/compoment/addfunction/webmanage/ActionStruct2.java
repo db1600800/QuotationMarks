@@ -28,13 +28,22 @@ public class ActionStruct2 {
 		
 		
 		
-		String inKeyString="";
-		String indataKeyString="";
-		String ajaxdataKeyString="";
+	     //list()
 		String urlKeyString="";
-		String requestKeyString="";
-		String updateKeyString="";
-		String deleteKeyString="";
+		String listInKeyString="";
+		String appendString="";
+		
+		int keyCount=0;
+		String keyValue="";
+		
+		//toUpdate()
+		String toUpdateInKeyString="";
+		String getEntityString="";
+		String mainkey="";
+		
+		//doUpdate
+		String doUpdateKeyStirng="";
+		
 		
 		List<Group> groups = interfaceBean.respondGroups;
 		for (Group group : groups) {
@@ -44,56 +53,58 @@ public class ActionStruct2 {
 				for (Row row : group.rows) {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
-						updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'&";
-								
-						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
-						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
-						inKeyString+="m"+row.enName.toLowerCase()+",";
-						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}&";
+				
+					
 						
-						requestKeyString+="			var "+row.enName.toLowerCase()+"=\"${"+row.enName.toLowerCase()+"}\";\n";
-						requestKeyString+="			$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 						
+						//list()
+						listInKeyString+="	String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
+					
+						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+"){\n";
+						listInKeyString+="			return;\n";
+						listInKeyString+="		}\n";
+						
+						
+						urlKeyString+=""+row.enName.toLowerCase()+"=? And";
+						keyValue+=" args["+keyCount+"]="+row.enName.toLowerCase()+";\n";
+						keyCount++;
+						
+						
+						appendString+="entity.set"+firstCharUpperCase(row.enName.toLowerCase())+"("+row.enName.toLowerCase()+")";
+						
+						
+						//toUpdate()
+						
+						toUpdateInKeyString+="String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
+						toUpdateInKeyString+="request.setAttribute(\""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+");\n";
+						
+						
+						if(row.remarks.toLowerCase().equals("mainkey"))
+						{
+							mainkey=row.enName.toLowerCase();
+						getEntityString+="			Object obj = objectDao.getByProperty(\""+interfaceBean.enName+"Entity\", \""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+" );\n";
+						getEntityString+="			if (obj != null) {\n";
+						getEntityString+="				request.setAttribute(\""+interfaceBean.enName.toLowerCase()+"Entity\", ("+interfaceBean.enName+"Entity) obj);\n";
+						getEntityString+="			}\n";
+						}
+						
+						
+						//doUpdate()
+						doUpdateKeyStirng+=" request.setAttribute(\""+row.enName.toLowerCase()+"\", entity.get"+firstCharUpperCase(row.enName.toLowerCase())+"());\n";
 					}
 				}
 			}
 			}
-		inKeyString=inKeyString.substring(0, inKeyString.lastIndexOf(","));
-		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
-		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
-		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("&"));
-		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("&"));
-		deleteKeyString=deleteKeyString.substring(0, deleteKeyString.lastIndexOf(","));
+	
+		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("And"));
+
 		
 		
 		
 		
 		String m="";
 	
-		for (Group group : groups) {
-			String groupname = group.name;
-			if (!groupname.equals("CommonGroup")) {
-				int i = 0;
-				int columnCount=0;
-				for (Row row : group.rows) {
-					if (i == 0) {// 循环域开始
-						
-					} else {
-						
-					
-						
-						columnCount++;
-					}
-					i++;
-				}
-			}
-
-		}
 		
-		
-		
-	
 
 		m+="import java.io.File;\n";
 		m+="import java.io.IOException;\n";
@@ -131,7 +142,7 @@ public class ActionStruct2 {
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
 		m+="		\n";
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
@@ -201,54 +212,44 @@ public class ActionStruct2 {
 		m+="	//"+interfaceBean.title+"列表\n";
 		m+="	public void list(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
+		
 		m+="		String pageNo = request.getParameter(\"pageNo\");\n";
-		m+="		String activity_name = StrutsParamUtils.getPraramValue(\"activity_name\", \"\");\n";
-		m+="		String activity_class = StrutsParamUtils.getPraramValue(\"activity_class\", \"\");\n";
-		m+="		String thd_sys_id=StrutsParamUtils.getPraramValue(\"thd_sys_id\", \"\");\n";
+		
 		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
 		m+="			pageNo = \"1\";\n";
 		m+="			request.setAttribute(\"pageNo\", pageNo);\n";
 		m+="		}\n";
-		m+="		if(StringUtils.isBlank(thd_sys_id) || StringUtils.isBlank(activity_class)){\n";
-		m+="			return;\n";
-		m+="		}\n";
-		m+="		String pageSize = request.getParameter(\"subclassPageSize\");\n";
+		
+		m+="		String pageSize = request.getParameter(\"pageSize\");\n";
 		m+="		if (StringUtils.isBlank(pageSize)) {\n";
 		m+="			pageSize = \"10\";\n";
-		m+="			request.setAttribute(\"subclassPageSize\", pageSize);\n";
+		m+="			request.setAttribute(\"pageSize\", pageSize);\n";
 		m+="		}\n";
-		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where thd_sys_id=? \");\n";
-		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where thd_sys_id=:thd_sys_id \");\n";
+		
+		
+		m+=listInKeyString;
+		
+		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where "+urlKeyString+" \");\n";
+		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString+" \");\n";
 		m+="	\n";
-		m+="		int i=1;\n";
-		m+="		if(!\"\".equals(activity_name)){\n";
-		m+="			i++;\n";
-		m+="		}\n";
-		m+="		if(!\"\".equals(activity_class)){\n";
-		m+="			i++;\n";
-		m+="		}\n";
-		m+="		Object[] args =new Object[i];\n";
-		m+="		Map<String, Object> argsMap=new HashMap<String, Object>();\n";
-		m+="		args[0]=thd_sys_id;\n";
-		m+="		argsMap.put(\"thd_sys_id\",thd_sys_id);\n";
-		m+="		if(!\"\".equals(activity_name)){\n";
-		m+="			args[1]=\"%\"+activity_name+\"%\";\n";
-		m+="			argsMap.put(\"activity_name\", \"%\"+activity_name+\"%\");\n";
-		m+="			sql.append(\" and activity_name like ?\");\n";
-		m+="			sb.append(\" and activity_name like :activity_name\");\n";
-		m+="		}\n";
-		m+="		if(!\"\".equals(activity_class)){\n";
-		m+="			args[i-1]=activity_class;\n";
-		m+="			argsMap.put(\"activity_class\",activity_class);\n";
-		m+="			sql.append(\" and activity_class = ? \");\n";
-		m+="			sb.append(\" and activity_class = :activity_class  \");\n";
-		m+="		}\n";
-		m+="		sb.append(\" order by activity_code desc\");\n";
+	
+		m+="		Object[] args =new Object["+keyCount+"];\n";
+		m+=keyValue;
+		
+		m+="	//	sb.append(\" order by activity_code desc\");\n";
+		
+		
 		m+="		int count = objectDao.countObjectByHql(sql.toString(),args);\n";
 		m+="		List<"+interfaceBean.enName+"Entity> list = (List<"+interfaceBean.enName+"Entity>) objectDao.findByHqlPage(\n";
-		m+="				sb.toString(),argsMap,\n";
+		m+="				sb.toString(),args,\n";
 		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
 		m+="				Integer.parseInt(pageSize));\n";
+		
+		m+="for(int i=0;i<list.size();i++){\n";
+		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
+		m+=appendString;
+		m+="}\n";
+		
 		m+="		String pageString = PaginationUtil.getPaginationHtml(\n";
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
@@ -273,19 +274,14 @@ public class ActionStruct2 {
 		m+="//跳到修改页\n";
 		m+="	public String toUpdate() {\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		String activity_code = request.getParameter(\"activity_code\");\n";
-		m+="		String activity_class = StrutsParamUtils.getPraramValue(\"activity_class\", \"\");\n";
-		m+="		request.setAttribute(\"activity_class\", activity_class);\n";
-		m+="		if (StringUtils.isNotBlank(activity_code)) {\n";
-		m+="			Object obj = objectDao.getByProperty(\"ActivityInfo\", \"activity_code\", activity_code );\n";
-		m+="			if (obj != null) {\n";
-		m+="				request.setAttribute(\"activityInfo\", (ActivityInfo) obj);\n";
-		m+="			}\n";
-		m+="			Object objext = objectDao.getByProperty(\"ActivityInfoExt\", \"activity_code\", activity_code );\n";
-		m+="			if (objext != null) {\n";
-		m+="				request.setAttribute(\"activityInfoExt\",  (ActivityInfoExt) objext);\n";
-		m+="			}\n";
-		m+="			merchMsg = (MerchMsg)objectDao.getByProperty(\"MerchMsg\", \"belong_activity\", activity_code );\n";
+		
+		m+=toUpdateInKeyString;
+		
+		
+		m+="		if (StringUtils.isNotBlank("+mainkey+")) {\n";
+		
+	    m+=getEntityString;
+		
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"Setting\";\n";
 		m+="		}else{\n";
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"Add\";\n";
@@ -301,12 +297,12 @@ public class ActionStruct2 {
 		m+="		            FileUtils.copyFile(file4, new File(storePath,\"guangzhu.jpg\"));\n";
 		m+="		            activityInfoExt.setQrcode(activityBannerPath+activityInfo.getActivity_code()+\"/guangzhu.jpg\");\n";
 		m+="		       }\n";
-		m+="	        List  objectList = objectDao.findByProperty(\"MerchMsg\", \"belong_activity\", activityInfo.getActivity_code() );\n";
-		m+="	        objectDao.deleteAll(objectList);\n";
+		m+="	  //批量删除    //  List  objectList = objectDao.findByProperty(\"MerchMsg\", \"belong_activity\", activityInfo.getActivity_code() );\n";
+		m+="	       // objectDao.deleteAll(objectList);\n";
 		
-		m+="			objectDao.saveOrUpdate(entity);\n";
+		m+="			objectDao.saveOrUpdate(entity);//form表单提交过来的对象\n";
 	
-		m+="			request.setAttribute(\"activity_class\", activityInfo.getActivity_class());\n";
+		m+=doUpdateKeyStirng;
 		
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
@@ -321,17 +317,17 @@ public class ActionStruct2 {
 		m+="              FileUtils.copyFile(file4, new File(storePath,\"guangzhu.jpg\"));\n";
 		m+="              activityInfoExt.setQrcode(activityBannerPath+activity_code+\"/guangzhu.jpg\");\n";
 		m+="         }\n";
-		m+="        entity.setActivity_code(activity_code);\n";
-		m+="		objectDao.save(entity);\n";
-		m+="		request.setAttribute(\"activity_class\", entity.getActivity_class());\n";
+		
+		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
+		m+=doUpdateKeyStirng;
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
 		m+="	\n";
 		m+="	public void doDelete() throws IOException{\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		String activity_code = request.getParameter(\"activity_code\");\n";
+		m+="		String "+mainkey+" = request.getParameter(\""+mainkey+"\");\n";
 		m+="		"+interfaceBean.enName+"Entity act = new "+interfaceBean.enName+"Entity();\n";
-		m+="		act.setActivity_code(activity_code);\n";
+		m+="		act.set"+firstCharUpperCase(mainkey)+"(mainkey);\n";
 		m+="		objectDao.delete(act);\n";
 		
 		m+="		StrutsParamUtils.getResponse().getWriter().write(\"success\");\n";
@@ -393,6 +389,19 @@ public class ActionStruct2 {
 	        }  
 	        dir.mkdir();  
 	    }  
+	  
+	  /** 首字母大写 */
+		public static String firstCharUpperCase(String s) {
+			if (s.length() > 0) {
+				String firstchar = String.valueOf(s.charAt(0)).toUpperCase();
+				s = s.substring(1);
+				s = firstchar + s;
+				return s;
+			} else {
+				return null;
+			}
+
+		}
 }
 
 

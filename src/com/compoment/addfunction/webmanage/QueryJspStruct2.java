@@ -156,7 +156,11 @@ public class QueryJspStruct2 {
 				int i = 0;
 				for (Row row : group.rows) {
 				
-					
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						
+					}else
+					{
 						
 						if(row.type.toLowerCase().equals("bool")||row.type.toLowerCase().equals("boolean"))
 						{
@@ -173,7 +177,7 @@ public class QueryJspStruct2 {
 						m+="	 divtext += '<td>' + data[i]."+row.enName.toLowerCase()+" + '</td>';\n";
 						
 						}
-						
+					}
 					
 					i++;
 				}
@@ -237,9 +241,14 @@ public class QueryJspStruct2 {
 				int i = 0;
 				for (Row row : group.rows) {
 				
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						
+					}else
+					{
 						m+="				<th  style=\"text-align:center;\">"+row.cnName.replaceAll("", "")+"</th>\n";
 						
-					
+					}
 					i++;
 				}
 			}

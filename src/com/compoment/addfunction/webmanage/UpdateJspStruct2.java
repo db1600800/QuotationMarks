@@ -44,22 +44,42 @@ public class UpdateJspStruct2 {
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"/js/My97DatePicker/WdatePicker.js\"></script>\n";
 		m+="<script type=\"text/javascript\">\n";
 
-		m+="var editor;\n";
-		m+="KindEditor.ready(function(K) {\n";
-		m+="editor = K.create('#rule', {\n";
-		m+="resizeType : 1,\n";
-		m+="allowPreviewEmoticons : false,\n";
-		m+="allowImageUpload : true,\n";
-		m+="afterBlur:function(){this.sync();},   //关键  同步KindEditor的值到textarea文本框   解决了多个editor的取值问题\n";
-		m+="uploadJson : '/kindeditor/jsp/upload_json.jsp',\n";
-		m+="fileManagerJson : '/kindeditor/jsp/file_manager_json.jsp',\n";
+		
+		
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					
+					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
+					{
+						if(row.remarks.toLowerCase().contains("long"))
+						{
+							
+							m+="var "+row.enName.toLowerCase()+"Editor;\n";
+							m+="KindEditor.ready(function(K) {\n";
+							m+=""+row.enName.toLowerCase()+"Editor = K.create('#"+row.enName.toLowerCase()+"', {\n";
+							m+="resizeType : 1,\n";
+							m+="allowPreviewEmoticons : false,\n";
+							m+="allowImageUpload : true,\n";
+							m+="afterBlur:function(){this.sync();},   //关键  同步KindEditor的值到textarea文本框   解决了多个editor的取值问题\n";
+							m+="uploadJson : '/kindeditor/jsp/upload_json.jsp',\n";
+							m+="fileManagerJson : '/kindeditor/jsp/file_manager_json.jsp',\n";
 
-		m+="items : [\n";
-		m+="'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',\n";
-		m+="'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',\n";
-		m+="'insertunorderedlist', '|', ,'media' ,'link']\n";
-		m+="});\n";
-		m+="});\n";
+							m+="items : [\n";
+							m+="'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',\n";
+							m+="'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',\n";
+							m+="'insertunorderedlist', '|', ,'media' ,'link']\n";
+							m+="});\n";
+							m+="});\n";
+						}
+					}
+				}
+				}
+			}
+		
+		
 
 		m+="$(document).on('ready', function() {\n";
 		m+="	\n";
@@ -129,10 +149,28 @@ public class UpdateJspStruct2 {
 		
 
 
-		m+="		// if(editor.count('text')>2000){\n";
-		m+="          //   alert('活动规则字数超过限制');\n";
-		m+="            // return;\n";
-		m+="         //}\n";
+		
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					
+					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
+					{
+						if(row.remarks.toLowerCase().contains("long"))
+						{
+							
+							m+="		 if("+row.enName.toLowerCase()+"Editor.count('text')>2000){\n";
+							m+="            alert('字数超过限制');\n";
+							m+="             return;\n";
+							m+="         }\n";
+						}
+					}
+				}
+				}
+			}
+		
 		m+="		 myForm.submit();\n";
 		m+="	}\n";
 		m+="	 \n";
@@ -159,8 +197,11 @@ public class UpdateJspStruct2 {
 				for (Row row : group.rows) {
 			
 					
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" />\n";
 						
-						//m+="	<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" />\n";
+					}
 						
 					
 					i++;
@@ -176,7 +217,11 @@ public class UpdateJspStruct2 {
 				int i = 0;
 				for (Row row : group.rows) {
 				
-					
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						
+					}else
+					{
 
 						if(row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
 						{
@@ -213,16 +258,28 @@ public class UpdateJspStruct2 {
 						else
 						{
 						
+							if(row.remarks.toLowerCase().contains("long"))
+							{
+								m+="	<tr>\n";
+								m+="					<td align=\"right\" style=\"width: 120px\">"+row.cnName+"：</td>\n";
+								m+="						<td><textarea type=\"text\" style=\"width:400px;height:50px;\"\n";
+								m+="							id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" >${entity."+row.enName.toLowerCase()+"}</textarea></td>\n";
+								m+="				</tr>\n";
+								
+							}else
+							{
+							
 							m+="				<tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><input type=\"text\" class=\"input-text wid400 bg\"\n";
 							m+="						id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\"/></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
+							}
 							
 						}
 						
-					
+					}
 					i++;
 				}
 			}
