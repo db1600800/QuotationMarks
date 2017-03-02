@@ -65,12 +65,12 @@ public class ActionStruct2 {
 						listInKeyString+="		}\n";
 						
 						
-						urlKeyString+=""+row.enName.toLowerCase()+"=? And";
+						urlKeyString+=""+row.enName.toLowerCase()+"=? And ";
 						keyValue+=" args["+keyCount+"]="+row.enName.toLowerCase()+";\n";
 						keyCount++;
 						
 						
-						appendString+="entity.set"+firstCharUpperCase(row.enName.toLowerCase())+"("+row.enName.toLowerCase()+")";
+						appendString+="entity.set"+firstCharUpperCase(row.enName.toLowerCase())+"("+row.enName.toLowerCase()+");\n";
 						
 						
 						//toUpdate()
@@ -204,8 +204,7 @@ public class ActionStruct2 {
 		m+="	}\n";
 		m+="	public String index(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		String activity_class = StrutsParamUtils.getPraramValue(\"activity_class\", \"\");\n";
-		m+="		request.setAttribute(\"activity_class\", activity_class);\n";
+		m+=toUpdateInKeyString;
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
 
@@ -327,7 +326,7 @@ public class ActionStruct2 {
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+="		String "+mainkey+" = request.getParameter(\""+mainkey+"\");\n";
 		m+="		"+interfaceBean.enName+"Entity act = new "+interfaceBean.enName+"Entity();\n";
-		m+="		act.set"+firstCharUpperCase(mainkey)+"(mainkey);\n";
+		m+="		act.set"+firstCharUpperCase(mainkey)+"("+mainkey+");\n";
 		m+="		objectDao.delete(act);\n";
 		
 		m+="		StrutsParamUtils.getResponse().getWriter().write(\"success\");\n";
