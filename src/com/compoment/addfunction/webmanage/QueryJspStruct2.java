@@ -31,6 +31,46 @@ public class QueryJspStruct2 {
 
 	public void queryjspStruct2(InterfaceBean interfaceBean,String type)
 	{
+		String inKeyString="";
+		String indataKeyString="";
+		String ajaxdataKeyString="";
+		String urlKeyString="";
+		String requestKeyString="";
+		String updateKeyString="";
+		String deleteKeyString="";
+		
+		List<Group> groups = interfaceBean.respondGroups;
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
+						updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'&";
+								
+						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
+						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+						inKeyString+="m"+row.enName.toLowerCase()+",";
+						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}&";
+						
+						requestKeyString+="			var "+row.enName.toLowerCase()+"=\"${"+row.enName.toLowerCase()+"}\";\n";
+						requestKeyString+="			$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+						
+					}
+				}
+			}
+			}
+		inKeyString=inKeyString.substring(0, inKeyString.lastIndexOf(","));
+		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
+		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
+		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("&"));
+		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("&"));
+		deleteKeyString=deleteKeyString.substring(0, deleteKeyString.lastIndexOf(","));
+		
+		
+		
 		String m="";
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
@@ -42,20 +82,14 @@ public class QueryJspStruct2 {
 		m+="	type=\"text/javascript\" src=\"/chinapost/weixin/lovepackage/js/jquery-1.8.3.min.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?activity_class=${activity_class}\";\n";
+		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
-		m+="			function toBargainSubclass(){\n";
-		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!bargainSubclass.do?activity_class=${activity_class}\";\n";
-		m+="		}\n";
-		m+="		\n";
-		m+="			function toPrize(){\n";
-		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?activity_class=${activity_class}\";\n";
-		m+="		}\n";
+		
 		m+="		\n";
 		m+="		$(document).on('ready', function() {\n";
-		m+="			var thd_sys_id=\"${userName}\";\n";
-		m+="			$(\"#thd_sys_id\").val(thd_sys_id);\n";
+		m+=requestKeyString;
+
 		m+="			getAll('/chinapost/"+interfaceBean.enName+"Action!list.do');\n";
 		m+="		});\n";
 		m+="		\n";
@@ -64,18 +98,27 @@ public class QueryJspStruct2 {
 		m+="			getAll('/chinapost/"+interfaceBean.enName+"Action!list.do');\n";
 		m+="		}\n";
 		m+="		\n";
-		m+="		function dodel(code){\n";
+		
+		
+		
+		
+		
+		m+="		function dodel("+inKeyString+"){\n";
 		m+="			var r=confirm(\"确定要删除吗？\");\n";
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
 		m+="					url:'/chinapost/"+interfaceBean.enName+"Action!doDelete.do',\n";
 		m+="					data:{\n";
-		m+="						activity_code:code\n";
-		m+="					},\n";
+		
+		
+		m+=indataKeyString;
+	
+		
+		m+="					\n},\n";
 		m+="					success:function(k){\n";
 		m+="							alert(\"删除成功！\")\n";
-		m+="							window.location.href = \"/chinapost/"+interfaceBean.enName+"Action!index.do?activity_class=${activity_class}\";\n";
+		m+="							window.location.href = \"/chinapost/"+interfaceBean.enName+"Action!index.do?"+urlKeyString+"\";\n";
 		m+="					},\n";
 		m+="					error : function() {\n";
 		m+="						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -86,16 +129,15 @@ public class QueryJspStruct2 {
 		m+="			\n";
 		m+="		}\n";
 		m+="		function getAll(tzurl){\n";
-		m+="			var activityName = $(\"#activityName\").val();\n";
-		m+="			//审核信息管理	\n";
+		
+	
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
 		m+="					dataType:'json',\n";
 		m+="					url:tzurl,\n";
 		m+="					data:{\n";
-		m+="						activity_name:activityName,\n";
-		m+="						activity_class:'${activity_class}',\n";
-		m+="						thd_sys_id:$(\"#thd_sys_id\").val()\n";
+		m+=ajaxdataKeyString;
+	
 		m+="					},\n";
 		m+="					success:function(result){\n";
 		m+="	\n";
@@ -107,7 +149,7 @@ public class QueryJspStruct2 {
 		m+="								divtext += '<tr class=\"even\" style=\"white-space:nowrap; overflow:hidden; text-align:center\">';\n";
 		
 		
-		List<Group> groups = interfaceBean.respondGroups;
+	
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
@@ -143,7 +185,7 @@ public class QueryJspStruct2 {
 
 
 		m+="								divtext += '<td ><a href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?activity_code='+data[i].activity_code+'\"> [修改] </a>'\n";
-		m+="								divtext +='|<a href=\"#\" onclick=\"dodel(\''+data[i].activity_code+'\')\"> [删除] </a></td>';\n";
+		m+="								divtext +='|<a href=\"#\" onclick=\"dodel('+data[i].activity_code+')\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";
 		m+="							//divtext += pagenational;\n";
@@ -163,9 +205,7 @@ public class QueryJspStruct2 {
 		m+="	活动名称：<input type=\"text\" id=\"activityName\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
 		m+="	<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
 		m+="	<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
-		m+="	<input type=\"button\" value=\"砍价子类\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toBargainSubclass()\">\n";
-		m+="	<input type=\"button\" value=\"奖状\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toPrize()\">\n";
-		m+="	\n";
+	
 		m+="	\n";
 		m+="	</div>\n";
 		m+="	<div id=\"signContent\">\n";
