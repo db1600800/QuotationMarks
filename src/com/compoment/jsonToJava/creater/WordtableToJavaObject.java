@@ -319,7 +319,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			// 再取row值
 			//
 			Paragraph paralCnName = tdCnName.getParagraph(0);
-			 sCnName = paralCnName.text();
+			 sCnName = paralCnName.text().replaceAll("", "");
 			}
 			
 			int remarksIndex=(Integer) point.get("备注");
@@ -345,7 +345,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 																		// 再取row值
 
 			Paragraph paralType = tdType.getParagraph(0);
-			 sType = paralType.text();
+			 sType = paralType.text().replaceAll("", "");
 			 if(sType==null ||"".equals(sType)||sType.length()==1)
 			 {
 				 sType = "String";
@@ -373,10 +373,10 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 				if (isCommon) {
 					Row row = interfaceBean.new Row();
-					row.cnName = sCnName;
-					row.enName = sEnName;
-					row.remarks = sRemarks;
-					row.type = sType;
+					row.cnName = sCnName.replaceAll("", "");
+					row.enName = sEnName.replaceAll("", "");
+					row.remarks = sRemarks.replaceAll("", "");
+					row.type = sType.replaceAll("", "");
 					commonGroup.rows.add(row);
 				}
 
@@ -428,7 +428,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			// 再取row值
 			//
 			Paragraph paralCnName = tdCnName.getParagraph(0);
-			 sCnName = paralCnName.text();
+			 sCnName = paralCnName.text().replaceAll("", "");
 			}
 			
 			
@@ -492,10 +492,10 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 				if (isNotCommon) {
 					Row row = interfaceBean.new Row();
-					row.cnName = sCnName;
-					row.enName = sEnName;
-					row.remarks = sRemarks;
-					row.type = sType;
+					row.cnName = sCnName.replaceAll("", "");
+					row.enName = sEnName.replaceAll("", "");
+					row.remarks = sRemarks.replaceAll("", "");
+					row.type = sType.replaceAll("", "");
 					group.rows.add(row);
 				}
 

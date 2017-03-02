@@ -26,11 +26,51 @@ public class ActionStruct2 {
 	public void action(InterfaceBean interfaceBean ,String type)
 	{
 		
-		String m="";
 		
 		
+		String inKeyString="";
+		String indataKeyString="";
+		String ajaxdataKeyString="";
+		String urlKeyString="";
+		String requestKeyString="";
+		String updateKeyString="";
+		String deleteKeyString="";
 		
 		List<Group> groups = interfaceBean.respondGroups;
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
+						updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'&";
+								
+						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
+						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+						inKeyString+="m"+row.enName.toLowerCase()+",";
+						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}&";
+						
+						requestKeyString+="			var "+row.enName.toLowerCase()+"=\"${"+row.enName.toLowerCase()+"}\";\n";
+						requestKeyString+="			$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+						
+					}
+				}
+			}
+			}
+		inKeyString=inKeyString.substring(0, inKeyString.lastIndexOf(","));
+		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
+		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
+		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("&"));
+		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("&"));
+		deleteKeyString=deleteKeyString.substring(0, deleteKeyString.lastIndexOf(","));
+		
+		
+		
+		
+		String m="";
+	
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (!groupname.equals("CommonGroup")) {
