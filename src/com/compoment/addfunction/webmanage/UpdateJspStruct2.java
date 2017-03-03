@@ -90,9 +90,15 @@ public class UpdateJspStruct2 {
 				int i = 0;
 				for (Row row : group.rows) {
 					
-					
+					    if(row.remarks.toLowerCase().contains("key"))
+					    {
+					    	m+="	var "+row.enName.toLowerCase()+"='${"+row.enName.toLowerCase()+"}';\n";
+							m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+					    }else
+					    {
 						m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
 						m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+					    }
 					
 					
 					i++;
@@ -199,7 +205,7 @@ public class UpdateJspStruct2 {
 					
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" />\n";
+						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${"+row.enName.toLowerCase()+"}\" />\n";
 						
 					}
 						

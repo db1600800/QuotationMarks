@@ -40,7 +40,7 @@ public class ActionStruct2 {
 		
 		//toUpdate()
 		String toUpdateInKeyString="";
-		String getEntityString="";
+	
 		String mainkey="";
 		
 		//doUpdate
@@ -89,10 +89,7 @@ public class ActionStruct2 {
 						if(row.remarks.toLowerCase().equals("mainkey"))
 						{
 							mainkey=row.enName.toLowerCase();
-						getEntityString+="			Object obj = objectDao.getByProperty(\""+interfaceBean.enName+"Entity\", \""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+" );\n";
-						getEntityString+="			if (obj != null) {\n";
-						getEntityString+="				request.setAttribute(\""+interfaceBean.enName.toLowerCase()+"Entity\", ("+interfaceBean.enName+"Entity) obj);\n";
-						getEntityString+="			}\n";
+					
 						}
 						
 						
@@ -149,7 +146,7 @@ public class ActionStruct2 {
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
 		m+="		\n";
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
@@ -290,10 +287,18 @@ public class ActionStruct2 {
 		
 		m+=toUpdateInKeyString;
 		
+		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString2+" \");\n";
+		m+="\nMap<String, Object> argsMap=new HashMap<String, Object>();\n";
+		m+=keyValue2;
+		m+="		List<"+interfaceBean.enName+"Entity> list = (List<"+interfaceBean.enName+"Entity>) objectDao.findByHqlPage(\n";
+		m+="				sb.toString(),argsMap,\n";
+		m+="				0,\n";
+		m+="				10);\n";
 		
-		m+="		if (StringUtils.isNotBlank("+mainkey+")) {\n";
+		m+="		if (list!=null && list.size()>1) {\n";
 		
-	    m+=getEntityString;
+	   
+	    m+="				request.setAttribute(\"entity\", ("+interfaceBean.enName+"Entity) list.get(0));\n";
 		
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"Setting\";\n";
 		m+="		}else{\n";
@@ -321,6 +326,17 @@ public class ActionStruct2 {
 		m+="	}\n";
 		
 		
+		
+		m+="//跳到新增页\n";
+		m+="	public String toAdd() {\n";
+		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
+		
+		m+=toUpdateInKeyString;
+		
+		m+="			return \""+interfaceBean.enName.toLowerCase()+"Add\";\n";
+	
+		m+="		\n";
+		m+="	}\n";
 		
 		m+="	\n";
 		m+="	public String doAdd()  throws IOException{\n";

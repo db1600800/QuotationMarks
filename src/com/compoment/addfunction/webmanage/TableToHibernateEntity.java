@@ -33,6 +33,21 @@ public class TableToHibernateEntity {
 	{
 		
 
+		int keycount=0;
+		List<Group> groups = interfaceBean.respondGroups;
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+						if(row.remarks.toLowerCase().contains("key"))
+						{
+							keycount++;
+						}
+				}
+			}
+
+		}
 
 			
 
@@ -48,10 +63,14 @@ public class TableToHibernateEntity {
 			m += "@Entity\n";
 			m += "@Table(name = \"tablename..\")\n";
 			m += "@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)\n";
+			if(keycount>1)
+			{
+			m+="@IdClass("+interfaceBean.enName+"EntityIds.class)\n";
+			}
 			m += "public class "+interfaceBean.enName+"Entity {\n";
 			
 			
-			List<Group> groups = interfaceBean.respondGroups;
+		
 			for (Group group : groups) {
 				String groupname = group.name;
 				if (groupname.equals("CommonGroup")) {
@@ -82,7 +101,12 @@ public class TableToHibernateEntity {
 						String end = row.enName.substring(1)
 								.toLowerCase();
 						if (i == 0) {// 循环域开始
+							
+							if(row.remarks.toLowerCase().contains("key"))
+							{
 							m += "	@Id\n";
+							}
+							
 							m += "	public String get" + start + end + "() {\n";
 							m += "		return " + row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
@@ -92,7 +116,10 @@ public class TableToHibernateEntity {
 									+ row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
 						} else {
-							
+							if(row.remarks.toLowerCase().contains("key"))
+							{
+							m += "	@Id\n";
+							}
 							m += "	public String get" + start + end + "() {\n";
 							m += "		return " + row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
@@ -110,17 +137,76 @@ public class TableToHibernateEntity {
 		
 
 			
-			m += "	public String toString() {\n";
-			m += "        return ToStringBuilder.reflectionToString(this);\n";
-			m += "    }\n";
+			m += "	//public String toString() {\n";
+			m += "    //    return ToStringBuilder.reflectionToString(this);\n";
+			m += "    //}\n";
 			m += "}\n";
 
+			
+			
+			
+			
+			
+			
+			String m2="";
+			m2+="@SuppressWarnings(\"serial\")\n";
+			m2+="public class "+interfaceBean.enName+"EntityIds implements java.io.Serializable{\n";
+			for (Group group : groups) {
+				String groupname = group.name;
+				if (groupname.equals("CommonGroup")) {
+					int i = 0;
+					for (Row row : group.rows) {
+					
+							if(row.remarks.toLowerCase().contains("key"))
+							{
+							m2 += "	private String " + row.enName.toLowerCase() + ";//"+row.cnName+"\n";
+							}
+						i++;
+					}
+				}
+
+			}
+			
+			
+			
+			for (Group group : groups) {
+				String groupname = group.name;
+				if (groupname.equals("CommonGroup")) {
+					int i = 0;
+					for (Row row : group.rows) {
+						String start = row.enName.substring(0, 1)
+								.toUpperCase();
+						String end = row.enName.substring(1)
+								.toLowerCase();
+						 
+							if(row.remarks.toLowerCase().contains("key"))
+							{
+							m2 += "	public String get" + start + end + "() {\n";
+							m2 += "		return " + row.enName.toLowerCase() + ";\n";
+							m2 += "	}\n";
+							m2 += "	public void set" + start + end + "(String m"
+									+ row.enName.toLowerCase() + ") {\n";
+							m2 += "		" + row.enName.toLowerCase() + " = m"
+									+ row.enName.toLowerCase() + ";\n";
+							m2 += "	}\n";
+							}
+						i++;
+					}
+				}
+
+			}
+			m2+="}\n";
+			
+			
 			makeFile(  interfaceBean.enName+"Entity",m);
+			makeFile(  interfaceBean.enName+"EntityIds",m2);
 			System.out.println(m);
 	
 
 		
 	}
+	
+	
 	
 	public void makeFile(String fileName,String s)
 	{

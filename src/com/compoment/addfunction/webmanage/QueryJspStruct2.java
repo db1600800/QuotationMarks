@@ -49,13 +49,13 @@ public class QueryJspStruct2 {
 				for (Row row : group.rows) {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
-						updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'&";
+						deleteKeyString+="${"+row.enName.toLowerCase()+"},";
+						updateKeyString+=row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
 								
 						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
 						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
 						inKeyString+="m"+row.enName.toLowerCase()+",";
-						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}&";
+						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
 						
 						requestKeyString+="			var "+row.enName.toLowerCase()+"=\"${"+row.enName.toLowerCase()+"}\";\n";
 						requestKeyString+="			$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
@@ -69,8 +69,8 @@ public class QueryJspStruct2 {
 		inKeyString=inKeyString.substring(0, inKeyString.lastIndexOf(","));
 		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
 		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
-		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("&"));
-		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("&"));
+		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("%26"));
+		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("%26"));
 		deleteKeyString=deleteKeyString.substring(0, deleteKeyString.lastIndexOf(","));
 		
 		
@@ -86,7 +86,7 @@ public class QueryJspStruct2 {
 		m+="	type=\"text/javascript\" src=\"/chinapost/weixin/lovepackage/js/jquery-1.8.3.min.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?"+urlKeyString+"\";\n";
+		m+="			window.location.href=\"/chinapost/"+interfaceBean.enName+"Action!toAdd.do?"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -132,6 +132,13 @@ public class QueryJspStruct2 {
 		m+="			\n";
 		m+="			\n";
 		m+="		}\n";
+		
+		
+		
+		
+		
+		
+		
 		m+="		function getAll(tzurl){\n";
 		
 	
