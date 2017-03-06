@@ -88,6 +88,7 @@ public class QueryJspStruct2 {
 		
 		
 		
+		
 		String m="";
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
