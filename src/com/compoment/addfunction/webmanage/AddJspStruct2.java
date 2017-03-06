@@ -237,7 +237,7 @@ public class AddJspStruct2 {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间"))
+						}else if(row.cnName.contains("时间")||row.type.toLowerCase().contains("time"))
 						{
 							
 							m+="				<tr>\n";

@@ -29,13 +29,13 @@ public class ActionStruct2 {
 		
 		
 	     //list()
-		String urlKeyString="";
+
 		String urlKeyString2="";
 		String listInKeyString="";
 		String appendString="";
 		
-		int keyCount=0;
-		String keyValue="";
+		
+		
 		String keyValue2="";
 		
 		//toUpdate()
@@ -65,16 +65,21 @@ public class ActionStruct2 {
 						listInKeyString+="	String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
 					
 						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+")){\n";
-						listInKeyString+="			return;\n";
-						listInKeyString+="		}\n";
+						listInKeyString+="			//return;\n";
+						listInKeyString+="		}else{\n";
+						listInKeyString+="where+=\""+row.enName.toLowerCase()+"=? And \";\n"; 
+						listInKeyString+="where2+=\""+row.enName.toLowerCase()+"=:"+row.enName.toLowerCase()+" And \";\n";
+						listInKeyString+="argslist.add("+row.enName.toLowerCase()+");\n";
+						listInKeyString+="argsMap.put(\""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+");\n";
+						listInKeyString+="}\n";
 						
 						
-						urlKeyString+=""+row.enName.toLowerCase()+"=? And ";
+						
 						urlKeyString2+=""+row.enName.toLowerCase()+"=:"+row.enName.toLowerCase()+" And ";
 						
-						keyValue+=" args["+keyCount+"]="+row.enName.toLowerCase()+";\n";
+						
 						keyValue2+="argsMap.put(\""+row.enName.toLowerCase()+"\","+row.enName.toLowerCase()+");\n";
-						keyCount++;
+					
 						
 						
 						appendString+="entity.set"+firstCharUpperCase(row.enName.toLowerCase())+"("+row.enName.toLowerCase()+");\n";
@@ -100,7 +105,7 @@ public class ActionStruct2 {
 			}
 			}
 	
-		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("And"));
+	
 		urlKeyString2=urlKeyString2.substring(0, urlKeyString2.lastIndexOf("And"));
 		
 		
@@ -230,18 +235,22 @@ public class ActionStruct2 {
 		m+="		}\n";
 		
 		
+		m+="String where=\"\";\n";
+		m+="String where2=\"\";\n";
+		m+="List argslist=new ArrayList();\n";
+		m+="Map<String, Object> argsMap = new HashMap<String, Object>();\n";
+		
 		m+=listInKeyString;
 		
-		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where "+urlKeyString+" \");\n";
-		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString2+" \");\n";
+		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where \"+where.substring(0,where.lastIndexOf(\"And\")));\n";
+		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where \"+where2.substring(0,where2.lastIndexOf(\"And\")));\n";
 		m+="	\n";
 	
-		m+="		Object[] args =new Object["+keyCount+"];\n";
-		m+=keyValue;
 		
-		
-		m+="\nMap<String, Object> argsMap=new HashMap<String, Object>();\n";
-		m+=keyValue2;
+		m+="  int size=argslist.size();\n";
+	   m+=" Object[] args = (Object[])argslist.toArray(new String[size]);\n"; 
+
+	       
 		
 		m+="	//	sb.append(\" order by activity_code desc\");\n";
 		
@@ -252,10 +261,10 @@ public class ActionStruct2 {
 		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
 		m+="				Integer.parseInt(pageSize));\n";
 		
-		m+="for(int i=0;i<list.size();i++){\n";
-		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
-		m+=appendString;
-		m+="}\n";
+//		m+="for(int i=0;i<list.size();i++){\n";
+//		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
+//		m+=appendString;
+//		m+="}\n";
 		
 		
 	

@@ -49,11 +49,24 @@ public class QueryJspStruct2 {
 				for (Row row : group.rows) {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						deleteKeyString+="${"+row.enName.toLowerCase()+"},";
+						
+						if(row.remarks.toLowerCase().contains("main"))
+						{
+							deleteKeyString+="\''+data[i]."+row.enName.toLowerCase()+"+'\',";
+							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'%26";
+							ajaxdataKeyString+=row.enName.toLowerCase()+":searchInput,\n";
+						}else
+						{
+							deleteKeyString+="\'${"+row.enName.toLowerCase()+"}\',";
 						updateKeyString+=row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
+						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+						}
 								
 						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
-						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+						
+					
+						
+						
 						inKeyString+="m"+row.enName.toLowerCase()+",";
 						urlKeyString+=""+row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
 						
@@ -141,6 +154,8 @@ public class QueryJspStruct2 {
 		
 		m+="		function getAll(tzurl){\n";
 		
+		m+="var searchInput = $(\"#searchInput\").val();\n";
+		
 	
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
@@ -200,7 +215,7 @@ public class QueryJspStruct2 {
 
 
 		m+="								divtext += '<td ><a href=\"/chinapost/"+interfaceBean.enName+"Action!toUpdate.do?"+updateKeyString+"\"> [修改] </a>'\n";
-		m+="								divtext +='|<a href=\"#\" onclick=\"dodel("+deleteKeyString+")\"> [删除] </a></td>';\n";
+		m+="								divtext +='|<a href=\"javascript:void(0);\" onclick=\"dodel("+deleteKeyString+")\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";
 		m+="							//divtext += pagenational;\n";
@@ -221,7 +236,7 @@ public class QueryJspStruct2 {
 		m+=cacheValueHiddenString;
 		
 		
-		m+="	活动名称：<input type=\"text\" id=\"activityName\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
+		m+="	活动名称：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
 		m+="	<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
 		m+="	<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
 	
