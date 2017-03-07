@@ -33,7 +33,7 @@ public class ActionStruct2 {
 		String urlKeyString2="";
 		String listInKeyString="";
 		String appendString="";
-		
+		String nextPageKeyString="";
 		
 		
 		String keyValue2="";
@@ -84,6 +84,7 @@ public class ActionStruct2 {
 						
 						appendString+="entity.set"+firstCharUpperCase(row.enName.toLowerCase())+"("+row.enName.toLowerCase()+");\n";
 						
+						nextPageKeyString+=row.enName.toLowerCase()+"=\"+"+row.enName.toLowerCase()+"+\"%26";
 						
 						//toUpdate()
 						
@@ -273,7 +274,7 @@ public class ActionStruct2 {
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m+="				Integer.valueOf(5),\n";
-		m+="				\"javascript:getAll('/chinapost/secKillAction!parameters.do?activity_class=\"+activity_class+\"&activity_name=\"+activity_name+\"&pageNo=\",true);\n";
+		m+="				\"javascript:getAll('/chinapost/"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
 		m+="		pageString = pageString.replace(\".html\", \"\");\n";
 		m+="		JSONObject jsonObject = new JSONObject();\n";
 		m+="		jsonObject.put(\"list\", list);\n";
