@@ -52,12 +52,12 @@ public class QueryJspStruct2 {
 						
 						if(row.remarks.toLowerCase().contains("main"))
 						{
-							deleteKeyString+="\''+data[i]."+row.enName.toLowerCase()+"+'\',";
+							deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
 							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'%26";
 							ajaxdataKeyString+=row.enName.toLowerCase()+":searchInput,\n";
 						}else
 						{
-							deleteKeyString+="\'${"+row.enName.toLowerCase()+"}\',";
+							deleteKeyString+="\'+${"+row.enName.toLowerCase()+"}+\',";
 						updateKeyString+=row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
 						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
 						}

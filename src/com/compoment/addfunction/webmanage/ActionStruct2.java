@@ -305,7 +305,7 @@ public class ActionStruct2 {
 		m+="				0,\n";
 		m+="				10);\n";
 		
-		m+="		if (list!=null && list.size()>1) {\n";
+		m+="		if (list!=null && list.size()==1) {\n";
 		
 	   
 	    m+="				request.setAttribute(\"entity\", ("+interfaceBean.enName+"Entity) list.get(0));\n";
