@@ -350,13 +350,20 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			 {
 				 sType = "String";
 			 }
-			 else if (sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
+			 else if (sType.contains("字符")||sType.toLowerCase().contains("string")||sType.toLowerCase().contains("char")) {
 				sType = "String";
-			} else if (sType.contains("整数") || sType.contains("整型")||sType.contains("Integer")||sType.contains("long")||sType.contains("Long")) {
+			} else if (sType.contains("整数") || sType.contains("整型")||sType.toLowerCase().contains("integer")||sType.toLowerCase().contains("long")||sType.toLowerCase().contains("int")) {
 				sType = "int";
-			} else if (sType.contains("浮点")||sType.contains("Float")) {
+			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")) {
 				sType = "float";
-			}}
+			} else if (sType.contains("布尔")||sType.toLowerCase().contains("boolean")||sType.toLowerCase().contains("bool")) {
+				sType = "bool";
+			}
+			else if (sType.contains("文件")||sType.toLowerCase().contains("file")) {
+				sType = "file";
+			}
+			 
+		   }
 
 			if (sCnName.contains("开始") && sCnName.contains("循环")) {
 				isCommon = false;
@@ -369,7 +376,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			if (sType.toLowerCase().contains("string")
 					|| sType.toLowerCase().contains("int")
 					|| sType.toLowerCase().contains("float")
-					|| sType.toLowerCase().contains("long")) {
+					|| sType.toLowerCase().contains("long")|| sType.toLowerCase().contains("bool")||sType.toLowerCase().contains("file")) {
 
 				if (isCommon) {
 					Row row = interfaceBean.new Row();
@@ -457,17 +464,21 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 			Paragraph paralType = tdType.getParagraph(0);
 			 sType = paralType.text().replaceAll("", "");
-			 if(sType==null || "".equals(sType)||sType.length()==1)
+			 if(sType==null ||"".equals(sType)||sType.length()==1)
 			 {
 				 sType = "String";
 			 }
-			 else if (sType.contains("String")||sType.contains("字符")||sType.contains("string")||sType.contains("char")) {
-					sType = "String";
-				} else if (sType.contains("int")||sType.contains("整数") || sType.contains("整型")||sType.contains("Integer")||sType.contains("long")||sType.contains("Long")) {
-					sType = "int";
-				} else if (sType.contains("浮点")||sType.contains("float")||sType.contains("Float")) {
-					sType = "float";
-				}	
+			 else if (sType.contains("字符")||sType.toLowerCase().contains("string")||sType.toLowerCase().contains("char")) {
+				sType = "String";
+			} else if (sType.contains("整数") || sType.contains("整型")||sType.toLowerCase().contains("integer")||sType.toLowerCase().contains("long")||sType.toLowerCase().contains("int")) {
+				sType = "int";
+			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")) {
+				sType = "float";
+			} else if (sType.contains("布尔")||sType.toLowerCase().contains("boolean")||sType.toLowerCase().contains("bool")) {
+				sType = "bool";
+			}else if (sType.contains("文件")||sType.toLowerCase().contains("file")) {
+				sType = "file";
+			}
 			}
 
 			if (sCnName.contains("开始") && sCnName.contains("循环")) {
