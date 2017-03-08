@@ -246,14 +246,14 @@ public class UpdateJspStruct2 {
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("img"))
+						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
 							
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img src=\"${activityInfoExt.qrcode }\" style=\"display: block;width:40px;height:30px\"/>\n";
+							m+="						<img src=\"${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
 							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
 							m+="							<input type=\"file\" id=\"file4\" name=\"file4\"  />\n";
 							m+="								\n";

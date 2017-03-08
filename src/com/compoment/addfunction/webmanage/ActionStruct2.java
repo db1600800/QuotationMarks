@@ -46,6 +46,13 @@ public class ActionStruct2 {
 		//doUpdate
 		String doUpdateKeyStirng="";
 		
+		//file
+		String filebean="";
+		int fileCount=0;
+		String fileAdd="";
+		String fileUpdate="";
+		
+		
 		
 		
 		
@@ -101,6 +108,47 @@ public class ActionStruct2 {
 						
 						//doUpdate()
 						doUpdateKeyStirng+=" request.setAttribute(\""+row.enName.toLowerCase()+"\", entity.get"+firstCharUpperCase(row.enName.toLowerCase())+"());\n";
+					}
+					
+					
+					
+					if(row.type.toLowerCase().contains("file"))
+					{
+						fileCount++;
+						filebean+="    private File file"+fileCount+";//对应的就是表单中文件上传的那个输入域的名称，Struts2框架会封装成File类型的\n";
+						filebean+="    private String file"+fileCount+"FileName;//   上传输入域FileName  文件名\n";
+						filebean+="    private String file"+fileCount+"ContentType;// 上传文件的MIME类型\n";
+						
+						
+						filebean+="	public File getFile"+fileCount+"() {\n";
+						filebean+="		return file"+fileCount+";\n";
+						filebean+="	}\n";
+						filebean+="	public void setFile"+fileCount+"(File file"+fileCount+") {\n";
+						filebean+="		this.file"+fileCount+" = file"+fileCount+";\n";
+						filebean+="	}\n";
+						filebean+="	public String getFile"+fileCount+"FileName() {\n";
+						filebean+="		return file"+fileCount+"FileName;\n";
+						filebean+="	}\n";
+						filebean+="	public void setFile"+fileCount+"FileName(String file"+fileCount+"FileName) {\n";
+						filebean+="		this.file"+fileCount+"FileName = file"+fileCount+"FileName;\n";
+						filebean+="	}\n";
+						filebean+="	public String getFile"+fileCount+"ContentType() {\n";
+						filebean+="		return file"+fileCount+"ContentType;\n";
+						filebean+="	}\n";
+						filebean+="	public void setFile"+fileCount+"ContentType(String file"+fileCount+"ContentType) {\n";
+						filebean+="		this.file"+fileCount+"ContentType = file"+fileCount+"ContentType;\n";
+						filebean+="	}\n";
+						
+						
+						
+						fileUpdate+="		  if(file"+fileCount+" != null){\n";
+						fileUpdate+="		 ServletContext sc = ServletActionContext.getServletContext();\n";
+						fileUpdate+="		       	 String activityBannerPath=CommonFunction.readDefVal(\"activityBannerPath\");\n";
+						fileUpdate+="		            String storePath = sc.getRealPath(activityBannerPath+entity.getActivity_code());\n";
+						fileUpdate+="		            FileUtils.copyFile(file"+fileCount+", new File(storePath,\""+row.enName.toLowerCase().replaceAll("", "")+".jpg\"));\n";
+						fileUpdate+="		            entity.set"+this.firstCharUpperCase(row.enName.toLowerCase())+"(activityBannerPath+entity.getActivity_code()+\"/"+row.enName.toLowerCase().replaceAll("", "")+".jpg\");\n";
+						fileUpdate+="		       }\n";
+						
 					}
 				}
 			}
@@ -164,9 +212,10 @@ public class ActionStruct2 {
 		m+="    private "+interfaceBean.enName+"Entity entity;\n";
 	
 		m+="    private ActivityService activityService;\n";
-		m+="    private File file4;//对应的就是表单中文件上传的那个输入域的名称，Struts2框架会封装成File类型的\n";
-		m+="    private String file4FileName;//   上传输入域FileName  文件名\n";
-		m+="    private String file4ContentType;// 上传文件的MIME类型\n";
+		
+		m+=filebean;
+	
+		
 		m+="	public ObjectDao getObjectDao() {\n";
 		m+="		return objectDao;\n";
 		m+="	}\n";
@@ -194,24 +243,7 @@ public class ActionStruct2 {
 		
 		
 		m+="	\n";
-		m+="	public File getFile4() {\n";
-		m+="		return file4;\n";
-		m+="	}\n";
-		m+="	public void setFile4(File file4) {\n";
-		m+="		this.file4 = file4;\n";
-		m+="	}\n";
-		m+="	public String getFile4FileName() {\n";
-		m+="		return file4FileName;\n";
-		m+="	}\n";
-		m+="	public void setFile4FileName(String file4FileName) {\n";
-		m+="		this.file4FileName = file4FileName;\n";
-		m+="	}\n";
-		m+="	public String getFile4ContentType() {\n";
-		m+="		return file4ContentType;\n";
-		m+="	}\n";
-		m+="	public void setFile4ContentType(String file4ContentType) {\n";
-		m+="		this.file4ContentType = file4ContentType;\n";
-		m+="	}\n";
+		
 		m+="	public String index(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+=toUpdateInKeyString;
@@ -318,13 +350,8 @@ public class ActionStruct2 {
 		m+="	}\n";
 		m+="	public String doUpdate() throws IOException {\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		 ServletContext sc = ServletActionContext.getServletContext();\n";
-		m+="		  if(file4 != null){\n";
-		m+="		       	 String activityBannerPath=CommonFunction.readDefVal(\"activityBannerPath\");\n";
-		m+="		            String storePath = sc.getRealPath(activityBannerPath+activityInfo.getActivity_code());\n";
-		m+="		            FileUtils.copyFile(file4, new File(storePath,\"guangzhu.jpg\"));\n";
-		m+="		            activityInfoExt.setQrcode(activityBannerPath+activityInfo.getActivity_code()+\"/guangzhu.jpg\");\n";
-		m+="		       }\n";
+		m+=fileUpdate;
+		
 		m+="	  //批量删除    //  List  objectList = objectDao.findByProperty(\"MerchMsg\", \"belong_activity\", activityInfo.getActivity_code() );\n";
 		m+="	       // objectDao.deleteAll(objectList);\n";
 		
@@ -351,14 +378,7 @@ public class ActionStruct2 {
 		m+="	\n";
 		m+="	public String doAdd()  throws IOException{\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
-		m+="		 ServletContext sc = ServletActionContext.getServletContext();\n";
-		m+="        String activity_code=activityService.getActivityCode();\n";
-		m+="        if(file4 != null){\n";
-		m+="         	 String activityBannerPath=CommonFunction.readDefVal(\"activityBannerPath\");\n";
-		m+="              String storePath = sc.getRealPath(activityBannerPath+activity_code);\n";
-		m+="              FileUtils.copyFile(file4, new File(storePath,\"guangzhu.jpg\"));\n";
-		m+="              activityInfoExt.setQrcode(activityBannerPath+activity_code+\"/guangzhu.jpg\");\n";
-		m+="         }\n";
+		m+=fileUpdate;
 		
 		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
 		m+=doUpdateKeyStirng;
