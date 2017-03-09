@@ -364,6 +364,8 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			}
 			else if (sType.contains("图片")||sType.toLowerCase().contains("image")) {
 				sType = "image";
+			}else if (sType.toLowerCase().contains("select")) {
+				sType = "select";
 			}
 			 
 		   }
@@ -381,7 +383,8 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 					|| sType.toLowerCase().contains("float")
 					|| sType.toLowerCase().contains("long")||
 					sType.toLowerCase().contains("bool")||
-					sType.toLowerCase().contains("file")||sType.toLowerCase().contains("image")) {
+					sType.toLowerCase().contains("file")||sType.toLowerCase().contains("image")
+					||sType.toLowerCase().contains("select")) {
 
 				if (isCommon) {
 					Row row = interfaceBean.new Row();
@@ -486,6 +489,8 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			}
 			else if (sType.contains("图片")||sType.toLowerCase().contains("image")) {
 				sType = "image";
+			}else if (sType.toLowerCase().contains("select")) {
+				sType = "select";
 			}
 			}
 

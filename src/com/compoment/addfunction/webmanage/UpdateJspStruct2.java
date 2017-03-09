@@ -269,7 +269,7 @@ public class UpdateJspStruct2 {
 							m+="						</td>\n";
 							m+="						<td>\n";
 							
-							m+="<select id=\""+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:28px;margin-bottom:10px;\">\n";
+							m+="<select id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:28px;margin-bottom:10px;\">\n";
 							m+="				<option value=\"\">请选择</option>\n";
 							m+="					<c:forEach var=\"item\" items=\"${"+row.enName.toLowerCase()+"SelectList}\">	\n";
 							m+="						<c:choose>\n";

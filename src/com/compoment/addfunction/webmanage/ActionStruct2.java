@@ -53,7 +53,8 @@ public class ActionStruct2 {
 		String fileUpdate="";
 		
 		
-		
+		//select
+		String selectList="";
 		
 		
 		List<Group> groups = interfaceBean.respondGroups;
@@ -149,6 +150,13 @@ public class ActionStruct2 {
 						fileUpdate+="		            entity.set"+this.firstCharUpperCase(row.enName.toLowerCase())+"(activityBannerPath+entity.getActivity_code()+\"/"+row.enName.toLowerCase().replaceAll("", "")+".jpg\");\n";
 						fileUpdate+="		       }\n";
 						
+					}
+					
+					if(row.type.toLowerCase().contains("select"))
+					{
+					
+						
+						selectList+="request.setAttribute(\""+row.enName.toLowerCase()+"SelectList\","+row.enName.toLowerCase()+"list);\n";
 					}
 				}
 			}
@@ -325,8 +333,15 @@ public class ActionStruct2 {
 		
 		m+="//跳到修改页\n";
 		m+="	public String toUpdate() {\n";
+		
+		
+		
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		
+		m+="//选择器数据\n";
+		m+=selectList;
+		
+		m+="//页面数据\n";
 		m+=toUpdateInKeyString;
 		
 		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString2+" \");\n";
@@ -366,7 +381,14 @@ public class ActionStruct2 {
 		
 		m+="//跳到新增页\n";
 		m+="	public String toAdd() {\n";
+		
+		
+		
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
+		m+="//选择器数据\n";
+		m+=selectList;
+		
+		m+="//页面数据\n";
 		
 		m+=toUpdateInKeyString;
 		

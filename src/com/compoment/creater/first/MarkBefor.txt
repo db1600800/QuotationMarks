@@ -1,5 +1,14 @@
-	<tr>
-					<td align="right" style="width: 120px">活动规则：</td>
-						<td><textarea type="text" style="width:400px;height:50px;"
-							id="rule" name="activityInfoExt.rule" >${activityInfoExt.rule}</textarea></td>
-				</tr>
+<select id="para_nm" class="form-control" style="width: 187px;height:28px;margin-bottom:10px;">
+				<option value="">请选择</option>
+					<c:forEach var="wxpara" items="${image_typeList}">	
+						<c:choose>
+							<c:when test="${wxpara==paraNM}">								
+								<option value='${fn:substringBefore(wxpara,"-")}' selected="selected">${fn:substringAfter(wxpara,"-")} </option>
+							</c:when>
+							<c:otherwise>
+							<option value='${fn:substringBefore(wxpara,"-")}'>${fn:substringAfter(wxpara,"-")}</option>
+							</c:otherwise>
+						</c:choose>		  				
+					</c:forEach>
+					
+</select>
