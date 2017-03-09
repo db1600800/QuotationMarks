@@ -216,7 +216,7 @@ public class AddJspStruct2 {
 
 		}
 		
-	
+	int filecount=0;
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
@@ -248,12 +248,12 @@ public class AddJspStruct2 {
 						}
 						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
-							
+							filecount++;
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="							<input type=\"file\" id=\"file4\" name=\"file4\"  />\n";
+							m+="							<input type=\"file\" id=\"file"+filecount+"\" name=\"file"+filecount+"\"  />\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";

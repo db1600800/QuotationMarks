@@ -217,6 +217,7 @@ public class UpdateJspStruct2 {
 		}
 		
 	
+		int fileCount=0;
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
@@ -248,14 +249,14 @@ public class UpdateJspStruct2 {
 						}
 						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
-							
+							fileCount++;
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
 							m+="						<img src=\"${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
 							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
-							m+="							<input type=\"file\" id=\"file4\" name=\"file4\"  />\n";
+							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"  />\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";
