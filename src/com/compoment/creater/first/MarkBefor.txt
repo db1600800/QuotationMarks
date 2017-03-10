@@ -1,14 +1,20 @@
-<select id="para_nm" class="form-control" style="width: 187px;height:28px;margin-bottom:10px;">
-				<option value="">请选择</option>
-					<c:forEach var="wxpara" items="${image_typeList}">	
-						<c:choose>
-							<c:when test="${wxpara==paraNM}">								
-								<option value='${fn:substringBefore(wxpara,"-")}' selected="selected">${fn:substringAfter(wxpara,"-")} </option>
-							</c:when>
-							<c:otherwise>
-							<option value='${fn:substringBefore(wxpara,"-")}'>${fn:substringAfter(wxpara,"-")}</option>
-							</c:otherwise>
-						</c:choose>		  				
-					</c:forEach>
-					
-</select>
+//id 当前最大值加一
+		{
+StringBuffer sb = new StringBuffer(
+" select max(a.oth_flag2) from ParaEntity a  where thd_sys_id=:thd_sys_id And type_cd=:type_cd And para_nm=:para_nm And oth_flag1=:oth_flag1   ");
+
+
+List argsMap = new ArrayList();
+
+
+argsMap.add( entity.getThd_sys_id());
+argsMap.add( entity.getType_cd());
+argsMap.add( entity.getPara_nm());
+argsMap.add( entity.getOth_flag1());
+
+
+List list = (List) objectDao
+		.findByHql(sb.toString(), argsMap.toArray());
+int max=Integer.valueOf((String)list.get(0));
+entity.setOth_flag2(max+1+"");
+		}

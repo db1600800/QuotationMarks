@@ -51,6 +51,8 @@ public class ActionStruct2 {
 		int fileCount=0;
 		String fileAdd="";
 		String fileUpdate="";
+		String doAddMainKeyAutoCreateWhere="";
+		String doAddMainKeyAutoCreateValue="";
 		
 		
 		//select
@@ -84,7 +86,9 @@ public class ActionStruct2 {
 						
 						
 						urlKeyString2+=""+row.enName.toLowerCase()+"=:"+row.enName.toLowerCase()+" And ";
+						doAddMainKeyAutoCreateWhere+=row.enName.toLowerCase()+"=? And ";
 						
+						doAddMainKeyAutoCreateValue+="argslist.add(entity.get"+this.firstCharUpperCase(row.enName.toLowerCase())+");\n";
 						
 						keyValue2+="argsMap.put(\""+row.enName.toLowerCase()+"\","+row.enName.toLowerCase()+");\n";
 					
@@ -103,12 +107,22 @@ public class ActionStruct2 {
 						if(row.remarks.toLowerCase().equals("mainkey"))
 						{
 							mainkey=row.enName.toLowerCase();
+							
+							String temp=row.enName.toLowerCase()+"=? And ";
+							doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.replace(temp, "");
 					
+							String temp2="argslist.add(entity.get"+this.firstCharUpperCase(row.enName.toLowerCase())+");\n";
+							doAddMainKeyAutoCreateValue=doAddMainKeyAutoCreateValue.replace(temp2, "");
 						}
 						
 						
 						//doUpdate()
 						doUpdateKeyStirng+=" request.setAttribute(\""+row.enName.toLowerCase()+"\", entity.get"+firstCharUpperCase(row.enName.toLowerCase())+"());\n";
+					
+						
+						//doAdd()
+						
+					
 					}
 					
 					
@@ -164,6 +178,7 @@ public class ActionStruct2 {
 	
 	
 		urlKeyString2=urlKeyString2.substring(0, urlKeyString2.lastIndexOf("And"));
+		doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.substring(0, doAddMainKeyAutoCreateWhere.lastIndexOf("And"));
 		
 		
 		
@@ -401,6 +416,22 @@ public class ActionStruct2 {
 		m+="	public String doAdd()  throws IOException{\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+=fileUpdate;
+		
+		m+="//id 当前最大值加一\n";
+		m+="{\n";
+		m+="StringBuffer sb = new StringBuffer(\n";
+		m+="\" select max(a."+mainkey+") from "+interfaceBean.enName+"Entity a  where "+doAddMainKeyAutoCreateWhere+"  \");\n";
+
+
+		m+="List argslist = new ArrayList();\n";
+		m+=doAddMainKeyAutoCreateValue;
+
+
+		m+="List list = (List) objectDao\n";
+		m+="		.findByHql(sb.toString(), argslist.toArray());\n";
+		m+="int max=Integer.valueOf((String)list.get(0));\n";
+		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(max+1+\"\");\n";
+		m+="		}\n";
 		
 		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
 		m+=doUpdateKeyStirng;
