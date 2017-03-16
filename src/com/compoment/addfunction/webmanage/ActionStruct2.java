@@ -430,7 +430,7 @@ public class ActionStruct2 {
 		m+="List list = (List) objectDao\n";
 		m+="		.findByHql(sb.toString(), argslist.toArray());\n";
 		m+="int max=Integer.valueOf((String)list.get(0));\n";
-		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(max+1+\"\");\n";
+		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(StrutsParamUtils.beforeAppend0(max+1+\"\")+\"\");\n";
 		m+="		}\n";
 		
 		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
