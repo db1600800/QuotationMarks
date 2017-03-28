@@ -61,7 +61,7 @@ public class TableToHibernateEntity {
 			m += "import org.hibernate.annotations.CacheConcurrencyStrategy;\n";
 
 			m += "@Entity\n";
-			m += "@Table(name = \"tablename..\")\n";
+			m += "@Table(name = \""+interfaceBean.enName.toLowerCase()+"\")\n";
 			m += "//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)\n";
 			if(keycount>1)
 			{

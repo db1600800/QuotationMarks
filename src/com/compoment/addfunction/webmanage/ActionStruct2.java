@@ -219,11 +219,11 @@ public class ActionStruct2 {
 
 		m+="@SuppressWarnings(\"unchecked\")\n";
 		m+="@ParentPackage(value = \"default\")\n";
-		m+="@Namespace(value = \"/chinapost\")\n";
+		m+="@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/chinapost/weixin/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
 		m+="		\n";
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
@@ -322,7 +322,7 @@ public class ActionStruct2 {
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m+="				Integer.valueOf(5),\n";
-		m+="				\"javascript:getAll('/chinapost/"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
+		m+="				\"javascript:getAll('/com/"+interfaceBean.projectName.toLowerCase()+"/action/"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
 		m+="		pageString = pageString.replace(\".html\", \"\");\n";
 		m+="		JSONObject jsonObject = new JSONObject();\n";
 		m+="		jsonObject.put(\"list\", list);\n";
