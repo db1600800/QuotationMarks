@@ -36,15 +36,16 @@ public class UpdateJspStruct2 {
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
 		m+="<%@ taglib prefix=\"s\" uri=\"/struts-tags\" %>\n"; 
 		m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
+		m+="	<%@ include file=\"../../include.jsp\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
-		m+="<script src=\"/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
-		m+="<script src=\"/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
-		m+="<script type=\"text/javascript\" src=\"/chinapost/weixin/lovepackage/js/jquery-1.8.3.js\"></script>\n";
-		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"/js/My97DatePicker/WdatePicker.js\"></script>\n";
-		m+="<script type=\"text/javascript\">\n";
+		m+="<script src=\"${ctx}/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
+		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
+
+		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
+		
 
 		
 		
@@ -185,7 +186,7 @@ public class UpdateJspStruct2 {
 		m+="</script>\n";
 		m+="</head>\n";
 		m+="<body>\n";
-		m+="	<%@ include file=\"../tools/include.jsp\"%>\n";
+		
 
 		m+=" <form action=\""+interfaceBean.enName+"Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";

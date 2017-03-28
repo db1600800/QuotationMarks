@@ -92,12 +92,12 @@ public class QueryJspStruct2 {
 		String m="";
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
+		m+="	<%@ include file=\"../../include.jsp\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
-		m+="<script\n";
-		m+="	type=\"text/javascript\" src=\"../tools/js/jquery-1.8.3.min.js\"></script>\n";
+	
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
 		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd.do?"+urlKeyString+"\";\n";
@@ -230,7 +230,7 @@ public class QueryJspStruct2 {
 
 		m+="</head>\n";
 		m+="<body>\n";
-		m+="	<%@ include file=\"../tools/include.jsp\"%>\n";
+		
 		m+="	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		
 		
