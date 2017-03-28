@@ -217,9 +217,8 @@ public class ActionStruct2 {
 		m+="import com.tools.StrutsParamUtils;\n";
 		m+="import com.tools.hibernate.ObjectDao;\n";
 
-		m+="@SuppressWarnings(\"unchecked\")\n";
-		m+="@ParentPackage(value = \"default\")\n";
-		m+="@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
+		m+="//@SuppressWarnings(\"unchecked\")\n";
+		m+="//@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
 		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
@@ -322,7 +321,7 @@ public class ActionStruct2 {
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m+="				Integer.valueOf(5),\n";
-		m+="				\"javascript:getAll('/com/"+interfaceBean.projectName.toLowerCase()+"/action/"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
+		m+="				\"javascript:getAll('"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
 		m+="		pageString = pageString.replace(\".html\", \"\");\n";
 		m+="		JSONObject jsonObject = new JSONObject();\n";
 		m+="		jsonObject.put(\"list\", list);\n";
