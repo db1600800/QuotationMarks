@@ -221,9 +221,9 @@ public class ActionStruct2 {
 		m+="@ParentPackage(value = \"default\")\n";
 		m+="@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
 		m+="		\n";
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
