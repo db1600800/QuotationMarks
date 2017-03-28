@@ -185,9 +185,9 @@ public class UpdateJspStruct2 {
 		m+="</script>\n";
 		m+="</head>\n";
 		m+="<body>\n";
-		m+="	<%@ include file=\"/chinapost/weixin/lovepackage/include.jsp\"%>\n";
+		m+="	<%@ include file=\"../tools/include.jsp\"%>\n";
 
-		m+=" <form action=\"/chinapost/"+interfaceBean.enName+"Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
+		m+=" <form action=\"/....../"+interfaceBean.enName+"Action!doUpdate.do\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";
 		m+="	<div class=\"table_form lr10\">\n";
 		m+="		<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";

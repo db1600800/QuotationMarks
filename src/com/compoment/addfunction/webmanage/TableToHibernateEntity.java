@@ -62,7 +62,7 @@ public class TableToHibernateEntity {
 
 			m += "@Entity\n";
 			m += "@Table(name = \"tablename..\")\n";
-			m += "@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)\n";
+			m += "//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)\n";
 			if(keycount>1)
 			{
 			m+="@IdClass("+interfaceBean.enName+"EntityIds.class)\n";

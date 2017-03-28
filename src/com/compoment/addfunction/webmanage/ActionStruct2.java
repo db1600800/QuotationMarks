@@ -178,6 +178,7 @@ public class ActionStruct2 {
 	
 	
 		urlKeyString2=urlKeyString2.substring(0, urlKeyString2.lastIndexOf("And"));
+		if(doAddMainKeyAutoCreateWhere.lastIndexOf("And")!=-1)
 		doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.substring(0, doAddMainKeyAutoCreateWhere.lastIndexOf("And"));
 		
 		
@@ -192,7 +193,7 @@ public class ActionStruct2 {
 		m+="import java.util.HashMap;\n";
 		m+="import java.util.List;\n";
 		m+="import java.util.Map;\n";
-
+		m+="import java.util.ArrayList;\n";
 		m+="import javax.annotation.Resource;\n";
 		m+="import javax.servlet.ServletContext;\n";
 		m+="import javax.servlet.http.HttpServletRequest;\n";
@@ -206,16 +207,15 @@ public class ActionStruct2 {
 		m+="import org.apache.struts2.convention.annotation.Namespace;\n";
 		m+="import org.apache.struts2.convention.annotation.ParentPackage;\n";
 		m+="import org.apache.struts2.convention.annotation.Result;\n";
-		m+="import org.slf4j.Logger;\n";
-		m+="import org.slf4j.LoggerFactory;\n";
+	
 
-		m+="import com.chinapost.tools.CommonFunction;\n";
-		m+="import com.chinapost.weixin.model."+interfaceBean.enName+"Entity;\n";
+		m+="import com.tools.CommonFunction;\n";
+		m+="import com...entity."+interfaceBean.enName+"Entity;\n";
 		
-		m+="import com.chinapost.weixin.service.ActivityService;\n";
-		m+="import com.chinapost.weixin.util.page.PaginationUtil;\n";
-		m+="import com.forgon.tools.StrutsParamUtils;\n";
-		m+="import com.forgon.tools.hibernate.ObjectDao;\n";
+		
+		m+="import com.tools.PaginationUtil;\n";
+		m+="import com.tools.StrutsParamUtils;\n";
+		m+="import com.tools.hibernate.ObjectDao;\n";
 
 		m+="@SuppressWarnings(\"unchecked\")\n";
 		m+="@ParentPackage(value = \"default\")\n";
@@ -228,13 +228,12 @@ public class ActionStruct2 {
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
 		m+="	\n";
-		m+="	private static Logger logger = LoggerFactory.getLogger(BargainAction.class);\n";
 		m+="	@Resource\n";
 		m+="	private ObjectDao objectDao;\n";
 		m+="	\n";
 		m+="    private "+interfaceBean.enName+"Entity entity;\n";
 	
-		m+="    private ActivityService activityService;\n";
+	
 		
 		m+=filebean;
 	
@@ -248,13 +247,7 @@ public class ActionStruct2 {
 		m+="	\n";
 		
 
-		m+="	public ActivityService getActivityService() {\n";
-		m+="		return activityService;\n";
-		m+="	}\n";
-		m+="	\n";
-		m+="	public void setActivityService(ActivityService activityService) {\n";
-		m+="		this.activityService = activityService;\n";
-		m+="	}\n";
+	
 		
 		
 		m+="	public "+interfaceBean.enName+"Entity getEntity() {\n";
