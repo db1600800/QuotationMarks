@@ -45,7 +45,7 @@ public class UpdateJspStruct2 {
 		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
 
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
-		
+		m+="<script type=\"text/javascript\">\n";
 
 		
 		

@@ -46,7 +46,7 @@ public class AddJspStruct2 {
 	
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
 	
-
+		m+="<script type=\"text/javascript\">\n";
 		
 		
 		for (Group group : groups) {
