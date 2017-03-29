@@ -290,10 +290,18 @@ public class ActionStruct2 {
 		
 		m+=listInKeyString;
 		
-		m+="		StringBuffer sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where \"+where.substring(0,where.lastIndexOf(\"And\")));\n";
-		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where \"+where2.substring(0,where2.lastIndexOf(\"And\")));\n";
-		m+="	\n";
-	
+		
+		m+="StringBuffer sql=null;\n";
+		m+="StringBuffer sb=null;\n";
+		m+="if(where.length()==0)\n";
+		m+="{\n";
+		
+		m+="		 sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity  \");\n";
+		m+="		 sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a   \");\n";
+	    m+="	}else{\n";
+			m+="		 sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where \"+where.substring(0,where.lastIndexOf(\"And\")));\n";
+			m+="		 sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where \"+where2.substring(0,where2.lastIndexOf(\"And\")));\n";
+		m+="	}\n";
 		
 		m+="  int size=argslist.size();\n";
 	   m+=" Object[] args = (Object[])argslist.toArray(new String[size]);\n"; 
@@ -321,7 +329,7 @@ public class ActionStruct2 {
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m+="				Integer.valueOf(5),\n";
-		m+="				\"javascript:getAll('"+interfaceBean.enName+"Action!list.do?"+nextPageKeyString+"pageNo=\",true);\n";
+		m+="				\"javascript:getAll('"+interfaceBean.enName+"Action!list.action?"+nextPageKeyString+"pageNo=\",true);\n";
 		m+="		pageString = pageString.replace(\".html\", \"\");\n";
 		m+="		JSONObject jsonObject = new JSONObject();\n";
 		m+="		jsonObject.put(\"list\", list);\n";

@@ -100,7 +100,7 @@ public class QueryJspStruct2 {
 	
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd.do?"+urlKeyString+"\";\n";
+		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd.action?"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -108,12 +108,12 @@ public class QueryJspStruct2 {
 		m+="		$(document).on('ready', function() {\n";
 		m+=requestKeyString;
 
-		m+="			getAll('"+interfaceBean.enName+"Action!list.do');\n";
+		m+="			getAll('"+interfaceBean.enName+"Action!list.action');\n";
 		m+="		});\n";
 		m+="		\n";
 		m+="		\n";
 		m+="		function search(){\n";
-		m+="			getAll('"+interfaceBean.enName+"Action!list.do');\n";
+		m+="			getAll('"+interfaceBean.enName+"Action!list.action');\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -126,7 +126,7 @@ public class QueryJspStruct2 {
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
-		m+="					url:'"+interfaceBean.enName+"Action!doDelete.do',\n";
+		m+="					url:'"+interfaceBean.enName+"Action!doDelete.action',\n";
 		m+="					data:{\n";
 		
 		
@@ -136,7 +136,7 @@ public class QueryJspStruct2 {
 		m+="					\n},\n";
 		m+="					success:function(k){\n";
 		m+="							alert(\"删除成功！\")\n";
-		m+="							window.location.href = \""+interfaceBean.enName+"Action!index.do?"+urlKeyString+"\";\n";
+		m+="							window.location.href = \""+interfaceBean.enName+"Action!index.action?"+urlKeyString+"\";\n";
 		m+="					},\n";
 		m+="					error : function() {\n";
 		m+="						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -215,7 +215,7 @@ public class QueryJspStruct2 {
 		
 
 
-		m+="								divtext += '<td ><a href=\""+interfaceBean.enName+"Action!toUpdate.do?"+updateKeyString+"\"> [修改] </a>'\n";
+		m+="								divtext += '<td ><a href=\""+interfaceBean.enName+"Action!toUpdate.action?"+updateKeyString+"\"> [修改] </a>'\n";
 		m+="								divtext +='|<a href=\"javascript:void(0);\" onclick=\"dodel("+deleteKeyString+")\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";
@@ -229,7 +229,7 @@ public class QueryJspStruct2 {
 		m+="	</script>\n";
 
 		m+="</head>\n";
-		m+="<body>\n";
+		m+="<body style=\"overflow:auto\">\n";
 		
 		m+="	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		
