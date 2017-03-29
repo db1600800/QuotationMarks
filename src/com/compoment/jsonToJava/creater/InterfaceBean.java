@@ -10,8 +10,30 @@ public class InterfaceBean implements Serializable{
 	public String detail;// 接口描述
 	public String id;// 接口id号
 	public String enName;
+	public String projectName;
+	public String companyName;
 	
 	
+	
+
+	public String getProjectName() {
+		return projectName;
+	}
+	
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+	
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	
 
 	public String getEnName() {

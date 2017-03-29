@@ -48,6 +48,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 	}
 
 	Map point = new HashMap();
+	boolean isTable=false;
 	
 	
 
@@ -83,7 +84,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 		
 		FileUtil fileUtil=new FileUtil();
          
-		List interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(sourceFile) ,point);
+		List interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(sourceFile) ,point,false);
 	
 		RequestRespondParamBean requestRespondParamBean=new RequestRespondParamBean();
 		requestRespondParamBean.requestRespondParamBean(interfaceBeans);
@@ -98,7 +99,8 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 
 
 
-	public List wordAnalyse(byte[] file,Map point)  throws RemoteException {
+	public List wordAnalyse(byte[] file,Map point,boolean isTable)  throws RemoteException {
+		this.isTable=isTable;
 		Gson gson=new Gson();
 		
 		List<InterfaceBean> interfaceBeans = new ArrayList();
@@ -118,8 +120,17 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				// TODO Auto-generated catch block 
 				e.printStackTrace();
 			}
-		   final String	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+			
+			  String	sourceFile="";
+			if(this.isTable==false)
+			{
+		   	sourceFile = classDir + "/res/InterfaceDocAndCode/"
 					+ "wordTableToJaveObject.doc";
+			}else
+			{
+				 	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+							+ "wordTableToJaveObject2.doc";
+			}
 		   
 		
 	           
@@ -164,6 +175,22 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				{
 					interfaceBean.enName="";
 				}
+				
+				if(ids.length>2)
+				{
+					interfaceBean.projectName=ids[2].trim();
+				}else
+				{
+					interfaceBean.projectName="";
+				}
+				
+				if(ids.length>3)
+				{
+					interfaceBean.companyName=ids[3].trim();
+				}else
+				{
+					interfaceBean.companyName="";
+				}
 			
 				interfaceBeans.add(interfaceBean);
 				
@@ -193,6 +220,25 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 					
 				}
 			} else if (p.text().contains("传出参数") || p.text().contains("输出参数")||p.text().contains("接收报文")) {
+
+				
+				Paragraph nextP;
+				int j=1;
+				do{
+					// 判断该Paragraph是否在word的表格中
+					 nextP = range.getParagraph(i + j);
+					 j++;
+				}while(nextP.isInTable() != true);
+				
+				
+				if (nextP.isInTable() == true) {
+					Table table = range.getTable(nextP); // 通过第一个在table中的Paragraph来获取整个table
+
+					commonGroup(interfaceBean, table, "respond");
+					notCommonGroup(interfaceBean, table, "respond");
+					
+				}
+			} else if (p.text().contains("表") ) {
 
 				
 				Paragraph nextP;

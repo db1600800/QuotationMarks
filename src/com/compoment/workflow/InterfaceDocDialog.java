@@ -62,6 +62,8 @@ public class InterfaceDocDialog extends JDialog {
 	private JTextField respondJsonDetailValueEditText;
 	JButton tojavaButton;
 	JList listListView;
+	 String	sourceFile="";
+	 String sourceFileexample="";
 	
 	public ArrayList listDate = new ArrayList();
 	
@@ -77,13 +79,15 @@ public class InterfaceDocDialog extends JDialog {
 	
 	boolean isSingleSelect;
 	
+	boolean isTable;
+	
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			InterfaceDocDialog dialog = new InterfaceDocDialog(true);
+			InterfaceDocDialog dialog = new InterfaceDocDialog(true,false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -94,8 +98,9 @@ public class InterfaceDocDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InterfaceDocDialog(boolean isSingleSelect) {
+	public InterfaceDocDialog(boolean isSingleSelect,boolean isTable) {
 		this.isSingleSelect=isSingleSelect;
+		this.isTable=isTable;
 		setBounds(100, 100, 470, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,10 +121,21 @@ public class InterfaceDocDialog extends JDialog {
 			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
-	   final String	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+		
+		if(this.isTable==false)
+		{
+	   	sourceFile = classDir + "/res/InterfaceDocAndCode/"
 				+ "wordTableToJaveObject.doc"; 
-	   final String	sourceFileexample = classDir + "/res/InterfaceDocAndCode/"
+	   	sourceFileexample = classDir + "/res/InterfaceDocAndCode/"
 				+ "wordTableToJaveObject_example.doc"; 
+		}else
+		{
+		  	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+					+ "wordTableToJaveObject2.doc"; 
+		   	sourceFileexample = classDir + "/res/InterfaceDocAndCode/"
+					+ "wordTableToJaveObject_example2.doc"; 
+			
+		}
 	   KeyValue.writeCache("docPath",sourceFile);
 		
 		JLabel lblindex = new JLabel("中文名Index       ");
@@ -499,7 +515,7 @@ Desktop desktop=Desktop.getDesktop();
 			
 			FileUtil fileUtil=new FileUtil();
 			//WordtableToJavaObject wordtable2=new WordtableToJavaObject();
-			interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(filePath),point);
+			interfaceBeans=wordtable.wordAnalyse(fileUtil.fileToByte(filePath),point,isTable);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -421,7 +421,10 @@ public class ActionStruct2 {
 
 		m+="List list = (List) objectDao\n";
 		m+="		.findByHql(sb.toString(), argslist.toArray());\n";
-		m+="int max=Integer.valueOf((String)list.get(0));\n";
+		m+="int max=0;\n";
+		m+="if(list!=null && list.size()>0){\n";
+		m+=" max=Integer.valueOf((String)list.get(0));\n";
+		m+="}\n";
 		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(StrutsParamUtils.beforeAppend0(max+1+\"\")+\"\");\n";
 		m+="		}\n";
 		

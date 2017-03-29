@@ -793,7 +793,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 			
-			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false);
+			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
 			
@@ -937,7 +937,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 				
-				InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false);
+				InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 			
@@ -970,11 +970,11 @@ public class CodeFunctionAdd extends JFrame {
 	
 	public void WebManageFunction(Function function) {
 		
-		if (function.id.equals("1")) {// 网络请求,响应,等待提示
+		if (function.id.equals("1")) {// 表
 		
 
 			
-			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false);
+			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,true);
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
 			
@@ -1022,7 +1022,7 @@ public void WebFunction(Function function) {
 						if (response == 0) {
 //					
 						
-						InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false);
+						InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
 						projectDocPanel.setModal(true);
 						projectDocPanel.setVisible(true);
 						
