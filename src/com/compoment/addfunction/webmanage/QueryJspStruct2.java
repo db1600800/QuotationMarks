@@ -237,7 +237,7 @@ public class QueryJspStruct2 {
 		m+=cacheValueHiddenString;
 		
 		
-		m+="	活动名称：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
+		m+="	"+interfaceBean.title+"：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
 		m+="	<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
 		m+="	<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
 	
@@ -247,18 +247,7 @@ public class QueryJspStruct2 {
 		m+="	  <div class=\"table-list lr10\">\n";
 		m+="	      <table width=\"100%\">\n";
 		m+="	      <tr>\n";
-		m+="	       <td>\n";
-		m+="	       <div>\n";
-		m+="	       <img src=\"/images/ggk.jpg\" style=\"width:250px;display:block;margin:0 auto;\"/>\n";
-		m+="	       </div>\n";
-		m+="	       \n";
-		m+="	       \n";
-		m+="	          <div><p>活动玩法：</p>\n";
-		m+="<p>·添加砍价活动，关联砍价商品，设置砍价刀数；</p>\n";
-		m+="<p>·微信端查询出砍价列表，选择任一产品，参加砍价；</p>\n";
-		m+="<p>·分享给好友，帮忙砍价；</p>\n";
-		m+="<p>·砍到底价，下单，支付，购买成功，等待发货；</p>\n";
-		m+="	          </div></td>\n";
+		
 		m+="	        <td style=\"vertical-align: top;\">\n";
 		m+="	        <table id=\"newtable\" width=\"100%\">\n";
 		m+="	          <thead class=trhead id=\"tblHeader\">\n";
