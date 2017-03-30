@@ -329,7 +329,7 @@ public class ActionStruct2 {
 		m+="				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m+="				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m+="				Integer.valueOf(5),\n";
-		m+="				\"javascript:getAll('"+interfaceBean.enName+"Action!list.action?"+nextPageKeyString+"pageNo=\",true);\n";
+		m+="				\"javascript:getAll('"+interfaceBean.enName+"Action!list?"+nextPageKeyString+"pageNo=\",true);\n";
 		m+="		pageString = pageString.replace(\".html\", \"\");\n";
 		m+="		JSONObject jsonObject = new JSONObject();\n";
 		m+="		jsonObject.put(\"list\", list);\n";
