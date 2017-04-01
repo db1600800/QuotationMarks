@@ -79,8 +79,15 @@ public class ActionStruct2 {
 						listInKeyString+="		}else{\n";
 						listInKeyString+="where+=\""+row.enName.toLowerCase()+"=? And \";\n"; 
 						listInKeyString+="where2+=\""+row.enName.toLowerCase()+"=:"+row.enName.toLowerCase()+" And \";\n";
+						if(row.type.toLowerCase().contains("int"))
+						{
+							listInKeyString+="argslist.add(Integer.valueOf("+row.enName.toLowerCase()+"));\n";
+							listInKeyString+="argsMap.put(\""+row.enName.toLowerCase()+"\",Integer.valueOf( "+row.enName.toLowerCase()+"));\n";
+						}else
+						{
 						listInKeyString+="argslist.add("+row.enName.toLowerCase()+");\n";
 						listInKeyString+="argsMap.put(\""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+");\n";
+						}
 						listInKeyString+="}\n";
 						
 						
@@ -99,8 +106,14 @@ public class ActionStruct2 {
 						nextPageKeyString+=row.enName.toLowerCase()+"=\"+"+row.enName.toLowerCase()+"+\"%26";
 						
 						//toUpdate()
-						
+						if(row.type.toLowerCase().contains("int"))
+						{
+							toUpdateInKeyString+="int "+row.enName.toLowerCase()+" =Integer.valueOf( StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\"));\n";
+							
+						}else
+						{
 						toUpdateInKeyString+="String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
+						}
 						toUpdateInKeyString+="request.setAttribute(\""+row.enName.toLowerCase()+"\", "+row.enName.toLowerCase()+");\n";
 						
 						
@@ -303,8 +316,8 @@ public class ActionStruct2 {
 			m+="		 sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where \"+where2.substring(0,where2.lastIndexOf(\"And\")));\n";
 		m+="	}\n";
 		
-		m+="  int size=argslist.size();\n";
-	   m+=" Object[] args = (Object[])argslist.toArray(new String[size]);\n"; 
+
+	   m+=" Object[] args = (Object[])argslist.toArray();\n"; 
 
 	       
 		
