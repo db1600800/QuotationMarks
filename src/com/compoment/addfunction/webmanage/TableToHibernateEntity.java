@@ -77,8 +77,13 @@ public class TableToHibernateEntity {
 					int i = 0;
 					for (Row row : group.rows) {
 					
-							
+						if(row.type.toLowerCase().contains("int"))
+						{
+							m += "	private int " + row.enName.toLowerCase() + ";//"+row.cnName+"\n";
+						}else
+						{
 							m += "	private String " + row.enName.toLowerCase() + ";//"+row.cnName+"\n";
+						}
 						
 						i++;
 					}
@@ -105,8 +110,21 @@ public class TableToHibernateEntity {
 							if(row.remarks.toLowerCase().contains("key"))
 							{
 							m += "	@Id\n";
+							m += "	//@GeneratedValue(strategy=GenerationType.AUTO)\n";
 							}
 							
+							if(row.type.toLowerCase().contains("int"))
+							{
+								m += "	public int get" + start + end + "() {\n";
+								m += "		return " + row.enName.toLowerCase() + ";\n";
+								m += "	}\n";
+								m += "	public void set" + start + end + "(int m"
+										+ row.enName.toLowerCase() + ") {\n";
+								m += "		" + row.enName.toLowerCase() + " = m"
+										+ row.enName.toLowerCase() + ";\n";
+								m += "	}\n";
+							}else
+							{
 							m += "	public String get" + start + end + "() {\n";
 							m += "		return " + row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
@@ -115,11 +133,28 @@ public class TableToHibernateEntity {
 							m += "		" + row.enName.toLowerCase() + " = m"
 									+ row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
+							}
 						} else {
 							if(row.remarks.toLowerCase().contains("key"))
 							{
 							m += "	@Id\n";
+							m += "	//@GeneratedValue(strategy=GenerationType.AUTO)\n";
 							}
+							
+							
+							
+							if(row.type.toLowerCase().contains("int"))
+							{
+								m += "	public int get" + start + end + "() {\n";
+								m += "		return " + row.enName.toLowerCase() + ";\n";
+								m += "	}\n";
+								m += "	public void set" + start + end + "(int m"
+										+ row.enName.toLowerCase() + ") {\n";
+								m += "		" + row.enName.toLowerCase() + " = m"
+										+ row.enName.toLowerCase() + ";\n";
+								m += "	}\n";
+							}else
+							{
 							m += "	public String get" + start + end + "() {\n";
 							m += "		return " + row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
@@ -128,6 +163,7 @@ public class TableToHibernateEntity {
 							m += "		" + row.enName.toLowerCase() + " = m"
 									+ row.enName.toLowerCase() + ";\n";
 							m += "	}\n";
+							}
 						}
 						i++;
 					}
