@@ -12,6 +12,8 @@ public class InterfaceBean implements Serializable{
 	public String enName;
 	public String projectName;
 	public String companyName;
+	public boolean isTable;
+	public String tableName;
 	
 	
 	

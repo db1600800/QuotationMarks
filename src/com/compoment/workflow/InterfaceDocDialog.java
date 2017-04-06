@@ -542,7 +542,7 @@ Desktop desktop=Desktop.getDesktop();
 		
 		// 接口数据异常处理
 		for (InterfaceBean interfaceBean : interfaceBeans) {
-			if (interfaceBean != null) {
+			if (interfaceBean != null && !interfaceBean.isTable) {
 				if (interfaceBean.requestGroups != null
 						&& interfaceBean.requestGroups.size() < 1) {// 请检查word中参数表是否有标题"传入参数"
 

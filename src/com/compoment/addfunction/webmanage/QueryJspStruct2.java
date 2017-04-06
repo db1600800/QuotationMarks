@@ -79,11 +79,23 @@ public class QueryJspStruct2 {
 				}
 			}
 			}
+		
+		if(inKeyString.lastIndexOf(",")!=-1)
 		inKeyString=inKeyString.substring(0, inKeyString.lastIndexOf(","));
+		
+		if(indataKeyString.lastIndexOf(",")!=-1)
 		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
+		
+		if(ajaxdataKeyString.lastIndexOf(",")!=-1)
 		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
+		
+		if(urlKeyString.lastIndexOf("%26")!=-1)
 		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("%26"));
+		
+		if(updateKeyString.lastIndexOf("%26")!=-1)
 		updateKeyString=updateKeyString.substring(0, updateKeyString.lastIndexOf("%26"));
+		
+		if(deleteKeyString.lastIndexOf(",")!=-1)
 		deleteKeyString=deleteKeyString.substring(0, deleteKeyString.lastIndexOf(","));
 		
 		

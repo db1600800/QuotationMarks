@@ -32,6 +32,7 @@ import com.compoment.remote.CheckProblemInterface;
 import com.compoment.remote.WordtableToJavaObjectInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.StringUtil;
 import com.google.gson.Gson;
 
 //http://wenku.baidu.com/link?url=ll3rEIIMCAr5m_T-F3rcvzawiI-pd5E5W2uxHBXTzHoQkSBMgQXdtnhBaU9VITz4neKofs_J66_OCR_QPpYz94QMVw6xBBkVqhDnMxkIgk_
@@ -166,11 +167,28 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			if (ids != null) {
 					
 				interfaceBean = new InterfaceBean();
+				interfaceBean.isTable=this.isTable;
 				interfaceBean.title = getInterfaceTitle(p.text());
 				interfaceBean.id = ids[0].trim();
 				if(ids.length>1)
 				{
-					interfaceBean.enName=ids[1].trim();
+					String enName=ids[1].trim();
+					if(enName.contains("_"))
+					{
+						interfaceBean.tableName=enName;
+						enName=enName.toLowerCase();
+						if(enName.indexOf("t_")==0)
+						{
+							enName=enName.substring(2);
+						}
+						while(enName.contains("_"))
+						{
+							int pp=enName.indexOf("_");
+							enName=enName.substring(0, pp)+StringUtil.firstCharToUpperAndJavaName(enName.substring(pp+1));
+							
+						}
+					}
+					interfaceBean.enName=StringUtil.firstCharToUpperAndJavaName(enName);
 				}else
 				{
 					interfaceBean.enName="";
@@ -238,7 +256,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 					notCommonGroup(interfaceBean, table, "respond");
 					
 				}
-			} else if (p.text().contains("表") ) {
+			} else if (p.text().contains("表(") ) {
 
 				
 				Paragraph nextP;
@@ -291,8 +309,13 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 		int start2 = txt.indexOf("（");
 		int end = txt.indexOf(")");
 		int end2 = txt.indexOf("）");
+		int jiekoiu=txt.indexOf("接口");
+		int biao=txt.indexOf("表");
+		
+		
 
-		if ((start != -1 || start2 != -1) && (end != -1 || end2 != -1)) {
+		if ((start != -1 || start2 != -1) && (end != -1 || end2 != -1) && (jiekoiu!=-1||biao!=-1)) {
+			
 			if (start != -1 && end!=-1) {
 				String id = txt.subSequence(start + 1, end).toString();
 				String ids[]=id.split("\\|");
@@ -400,7 +423,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				sType = "String";
 			} else if (sType.contains("整数") || sType.contains("整型")||sType.toLowerCase().contains("integer")||sType.toLowerCase().contains("long")||sType.toLowerCase().contains("int")) {
 				sType = "int";
-			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")) {
+			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")||sType.toLowerCase().contains("double")) {
 				sType = "float";
 			} else if (sType.contains("布尔")||sType.toLowerCase().contains("boolean")||sType.toLowerCase().contains("bool")) {
 				sType = "bool";
@@ -526,7 +549,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 				sType = "String";
 			} else if (sType.contains("整数") || sType.contains("整型")||sType.toLowerCase().contains("integer")||sType.toLowerCase().contains("long")||sType.toLowerCase().contains("int")) {
 				sType = "int";
-			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")) {
+			} else if (sType.contains("浮点")||sType.toLowerCase().contains("float")||sType.toLowerCase().contains("double")) {
 				sType = "float";
 			} else if (sType.contains("布尔")||sType.toLowerCase().contains("boolean")||sType.toLowerCase().contains("bool")) {
 				sType = "bool";

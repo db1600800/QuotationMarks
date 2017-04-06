@@ -189,7 +189,7 @@ public class ActionStruct2 {
 			}
 			}
 	
-	
+		if(urlKeyString2.lastIndexOf("And")!=-1)
 		urlKeyString2=urlKeyString2.substring(0, urlKeyString2.lastIndexOf("And"));
 		if(doAddMainKeyAutoCreateWhere.lastIndexOf("And")!=-1)
 		doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.substring(0, doAddMainKeyAutoCreateWhere.lastIndexOf("And"));
