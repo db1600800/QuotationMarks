@@ -223,7 +223,7 @@ public class ActionStruct2 {
 	
 
 		m+="import com.tools.CommonFunction;\n";
-		m+="import com...entity."+interfaceBean.enName+"Entity;\n";
+		
 		
 		
 		m+="import com.tools.PaginationUtil;\n";
@@ -233,9 +233,9 @@ public class ActionStruct2 {
 		m+="//@SuppressWarnings(\"unchecked\")\n";
 		m+="//@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
-		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+".jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Setting\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Setting.jsp\"),\n";
+		m+="		@Result(name = \""+interfaceBean.enName.toLowerCase()+"Add\", location = \"/WEB-INF/"+interfaceBean.projectName.toLowerCase()+"/"+interfaceBean.enName.toLowerCase()+"Add.jsp\"),\n";
 		m+="		\n";
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
@@ -431,7 +431,7 @@ public class ActionStruct2 {
 		m+=fileUpdate;
 		
 		m+="//id 当前最大值加一\n";
-		m+="{\n";
+		m+="/*{\n";
 		m+="StringBuffer sb = new StringBuffer(\n";
 		m+="\" select max(a."+mainkey+") from "+interfaceBean.enName+"Entity a  where "+doAddMainKeyAutoCreateWhere+"  \");\n";
 
@@ -447,7 +447,7 @@ public class ActionStruct2 {
 		m+=" max=Integer.valueOf((String)list.get(0));\n";
 		m+="}\n";
 		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(StrutsParamUtils.beforeAppend0(max+1+\"\")+\"\");\n";
-		m+="		}\n";
+		m+="		}*/\n";
 		
 		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
 		m+=doUpdateKeyStirng;

@@ -62,7 +62,6 @@ public class TableToHibernateEntity {
 
 			m += "@Entity\n";
 			m += "@Table(name = \""+interfaceBean.tableName+"\")\n";
-			m += "//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)\n";
 			if(keycount>1)
 			{
 			m+="@IdClass("+interfaceBean.enName+"EntityIds.class)\n";
@@ -110,7 +109,7 @@ public class TableToHibernateEntity {
 							if(row.remarks.toLowerCase().contains("key"))
 							{
 							m += "	@Id\n";
-							m += "	//@GeneratedValue(strategy=GenerationType.AUTO)\n";
+							m += "	@GeneratedValue(strategy=GenerationType.AUTO)\n";
 							}
 							
 							if(row.type.toLowerCase().contains("int"))
