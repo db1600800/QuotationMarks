@@ -55,7 +55,8 @@ public class TableToHibernateEntity {
 			m += "import javax.persistence.Entity;\n";
 			m += "import javax.persistence.Id;\n";
 			m += "import javax.persistence.Table;\n";
-
+			m += "import javax.persistence.GeneratedValue;\n";
+			m += "import javax.persistence.GenerationType;\n";
 			m += "import org.apache.commons.lang.builder.ToStringBuilder;\n";
 			m += "import org.hibernate.annotations.Cache;\n";
 			m += "import org.hibernate.annotations.CacheConcurrencyStrategy;\n";
