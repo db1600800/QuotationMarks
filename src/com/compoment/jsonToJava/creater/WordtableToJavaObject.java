@@ -389,6 +389,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			//
 			Paragraph paralCnName = tdCnName.getParagraph(0);
 			 sCnName = paralCnName.text().replaceAll("", "");
+			 sCnName = paralCnName.text().replaceAll("\"", "");
 			}
 			
 			int remarksIndex=(Integer) point.get("备注");
@@ -513,6 +514,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			//
 			Paragraph paralCnName = tdCnName.getParagraph(0);
 			 sCnName = paralCnName.text().replaceAll("", "");
+			 sCnName = paralCnName.text().replaceAll("\"", "");
 			}
 			
 			
