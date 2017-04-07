@@ -42,6 +42,28 @@ public class QueryJspStruct2 {
 		String cacheValueHiddenString="";
 		
 		List<Group> groups = interfaceBean.respondGroups;
+		
+		
+		int maincount=0;
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						if(row.remarks.toLowerCase().contains("main"))
+						{
+							maincount++;
+						}
+					}
+					}
+				}
+			}
+		
+		
+		
+		
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
@@ -50,7 +72,7 @@ public class QueryJspStruct2 {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
 						
-						if(row.remarks.toLowerCase().contains("main"))
+						if(row.remarks.toLowerCase().contains("main")||maincount==0)
 						{
 							deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
 							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'%26";

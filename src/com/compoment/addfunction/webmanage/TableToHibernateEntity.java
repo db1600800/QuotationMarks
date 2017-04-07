@@ -61,6 +61,7 @@ public class TableToHibernateEntity {
 			m += "import org.hibernate.annotations.Cache;\n";
 			m += "import org.hibernate.annotations.CacheConcurrencyStrategy;\n";
 
+			m+="//"+interfaceBean.title+"\n";
 			m += "@Entity\n";
 			m += "@Table(name = \""+interfaceBean.tableName+"\")\n";
 			if(keycount>1)
@@ -235,7 +236,10 @@ public class TableToHibernateEntity {
 			
 			
 			makeFile(  interfaceBean.enName+"Entity",m);
+			if(keycount>1)
+			{
 			makeFile(  interfaceBean.enName+"EntityIds",m2);
+			}
 			System.out.println(m);
 	
 

@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
@@ -68,13 +70,14 @@ public class ActionStruct2 {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
 				
-					
+				
+						
 						
 						
 						//list()
 						listInKeyString+="	String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
 					
-						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+")){\n";
+						listInKeyString+="		if(StringUtils.isBlank("+row.enName.toLowerCase()+")||\"0\".equals("+row.enName.toLowerCase()+")){\n";
 						listInKeyString+="			//return;\n";
 						listInKeyString+="		}else{\n";
 						listInKeyString+="where+=\""+row.enName.toLowerCase()+"=? And \";\n"; 
@@ -105,10 +108,13 @@ public class ActionStruct2 {
 						
 						nextPageKeyString+=row.enName.toLowerCase()+"=\"+"+row.enName.toLowerCase()+"+\"%26";
 						
+						
+						
 						//toUpdate()
 						if(row.type.toLowerCase().contains("int"))
 						{
-							toUpdateInKeyString+="int "+row.enName.toLowerCase()+" =Integer.valueOf( StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\"));\n";
+							
+							toUpdateInKeyString+="int "+row.enName.toLowerCase()+" =Integer.valueOf( StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"0\"));\n";
 							
 						}else
 						{
@@ -130,7 +136,7 @@ public class ActionStruct2 {
 						
 						
 						//doUpdate()
-						doUpdateKeyStirng+=" request.setAttribute(\""+row.enName.toLowerCase()+"\", entity.get"+firstCharUpperCase(row.enName.toLowerCase())+"());\n";
+						//doUpdateKeyStirng+=" request.setAttribute(\""+row.enName.toLowerCase()+"\", entity.get"+firstCharUpperCase(row.enName.toLowerCase())+"());\n";
 					
 						
 						//doAdd()
@@ -183,6 +189,32 @@ public class ActionStruct2 {
 					{
 					
 						
+						selectList+="\n//"+row.cnName+"\n";
+						selectList+="List "+row.enName.toLowerCase()+"list=new ArrayList();\n";
+						selectList+="//for(int i=0;i<list.size();i++)\n";
+						selectList+="//{\n";
+										
+						
+						String re1=".*?";	// Non-greedy match on filler
+					    String re2="(\\d+)";	// Integer Number 1
+					    String re3=".*?";	// Non-greedy match on filler
+					    String re4="(:|：)";	// Any Single Character 1
+					    String re5=".*?";	// Non-greedy match on filler
+					    String re6="([\u4e00-\u9fa5]+)";	// Any Single Word Character (Not Whitespace) 1
+
+					    Pattern p = Pattern.compile(re1+re2+re3+re4+re5+re6,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+					    Matcher m = p.matcher(row.cnName);
+					    while (m.find())
+					    {
+					        String int1=m.group(1);
+					        String c1=m.group(2);
+					        String w1=m.group(3);
+					      
+					        selectList+="	"+row.enName.toLowerCase()+"list.add(\""+int1.toString()+"\"+\"-\"+\""+w1.toString()+"\");\n";
+					    }
+						
+					  
+						selectList+="//}\n";
 						selectList+="request.setAttribute(\""+row.enName.toLowerCase()+"SelectList\","+row.enName.toLowerCase()+"list);\n";
 					}
 				}
@@ -229,7 +261,7 @@ public class ActionStruct2 {
 		m+="import com.tools.PaginationUtil;\n";
 		m+="import com.tools.StrutsParamUtils;\n";
 		m+="import com.tools.hibernate.ObjectDao;\n";
-
+		m+="//"+interfaceBean.title+"\n";
 		m+="//@SuppressWarnings(\"unchecked\")\n";
 		m+="//@Namespace(value = \"/"+interfaceBean.projectName.toLowerCase()+"\")\n";
 		m+="@Action(value = \""+interfaceBean.enName+"Action\" ,results = { \n";
@@ -400,7 +432,7 @@ public class ActionStruct2 {
 		
 		m+="			objectDao.saveOrUpdate(entity);//form表单提交过来的对象\n";
 	
-		m+=doUpdateKeyStirng;
+		//m+=doUpdateKeyStirng;
 		
 		m+="			return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
@@ -450,7 +482,7 @@ public class ActionStruct2 {
 		m+="		}*/\n";
 		
 		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
-		m+=doUpdateKeyStirng;
+		//m+=doUpdateKeyStirng;
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
 		
