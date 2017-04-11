@@ -241,7 +241,7 @@ public class UpdateJspStruct2 {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间"))
+						}else if(row.cnName.contains("时间")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
 						{
 							
 							m+="				<tr>\n";
@@ -257,7 +257,7 @@ public class UpdateJspStruct2 {
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img src=\"${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
+							m+="						<img src=\".${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
 							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
 							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"  />\n";
 							m+="								\n";
