@@ -144,6 +144,28 @@ public class Main extends JFrame {
 		
 		sqlResultEditText = new JTextField();
 		sqlResultEditText.setColumns(10);
+		
+		JButton button = new JButton("连线回退");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(dbTableRelativePanel.tables!=null && dbTableRelativePanel.tables.size()>0)
+				{
+				for (TableBean table : dbTableRelativePanel.tables) {
+
+					for (TableColumnBean column : table.columns) {
+					
+							if (column.relateColumnBeans == null
+									|| column.relateColumnBeans.size() == 0) {
+								
+							}
+						}
+					}
+				}
+				
+				
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -156,10 +178,12 @@ public class Main extends JFrame {
 							.addGap(18)
 							.addComponent(updateRelateButton)
 							.addGap(18)
-							.addComponent(addRelateButton))
+							.addComponent(addRelateButton)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(button))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(6)
-							.addComponent(sqlResultEditText, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)))
+							.addComponent(sqlResultEditText, GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
@@ -169,10 +193,11 @@ public class Main extends JFrame {
 						.addComponent(queryRelateButton)
 						.addComponent(deleteRelateButton)
 						.addComponent(updateRelateButton)
-						.addComponent(addRelateButton))
+						.addComponent(addRelateButton)
+						.addComponent(button))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(sqlResultEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(14, Short.MAX_VALUE))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		

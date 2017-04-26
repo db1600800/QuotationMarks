@@ -148,7 +148,7 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 			tableBean.tableCnNameX = x;
 			tableBean.tableCnNameY = y - 5;
 
-			List<Group> groups = interfaceBean.requestGroups;
+			List<Group> groups = interfaceBean.respondGroups;
 			for (Group group : groups) {
 				String groupname = group.name;
 				if (groupname.equals("CommonGroup")) {
