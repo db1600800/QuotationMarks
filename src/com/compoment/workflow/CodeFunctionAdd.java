@@ -32,7 +32,7 @@ import com.compoment.addfunction.webmanage.UpdateJspStruct2;
 import com.compoment.addfunction.webmanage.ActionStruct2;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.AddJspStruct2;
-import com.compoment.addfunction.webmanage.MenuJsp;
+//import com.compoment.addfunction.webmanage.MenuJsp;
 import  com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.addfunction.webmanage.QueryJspStruct2;
@@ -993,7 +993,7 @@ public class CodeFunctionAdd extends JFrame {
 				new TableToHibernateEntity(projectDocPanel.interfaceBeans);
 				
 				new AddJspStruct2(projectDocPanel.interfaceBeans);
-				new MenuJsp(projectDocPanel.interfaceBeans);
+				//new MenuJsp(projectDocPanel.interfaceBeans);
 				
 				
 				//Struct2
