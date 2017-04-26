@@ -28,9 +28,17 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 
 	Graphics2D g2;
 	public List<TableBean> tables;
+	
+	Point startPoint;
+	Point endPoint;
+	TableColumnBean startColumnBean;
+	public List<TableColumnBean> latestRelateColumnBean;
+	
+	
 
 	public DBTableRelativePanel() {
 		tables = new ArrayList();
+		latestRelateColumnBean=new ArrayList();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
@@ -427,7 +435,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 								|| column.relateColumnBeans.size() == 0) {
 							column.relateColumnBeans = new ArrayList();
 							column.relateColumnBeans.add(startColumnBean);
-							latestRelateColumnBean=column;
+							latestRelateColumnBean.add( column);
 						} else {
 
 							
@@ -442,10 +450,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 		}
 	}
 
-	Point startPoint;
-	Point endPoint;
-	TableColumnBean startColumnBean;
-	public TableColumnBean latestRelateColumnBean;
+
 
 	// 鼠标移动事件
 	@Override
