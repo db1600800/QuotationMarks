@@ -151,43 +151,39 @@ public class Main extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				int index=0;
-				
-				if (dbTableRelativePanel.latestRelateColumnBean != null&&dbTableRelativePanel.latestRelateColumnBean.size()!=0) {
-					int count=dbTableRelativePanel.latestRelateColumnBean .size();
-					
-					if(count<1)
-					{
+				int index = 0;
+
+				if (dbTableRelativePanel.latestRelateColumnBean != null
+						&& dbTableRelativePanel.latestRelateColumnBean.size() != 0) {
+					int count = dbTableRelativePanel.latestRelateColumnBean.size();
+
+					if (count < 1) {
 						return;
-					}else
-					{
-						index=count-1;
+					} else {
+						index = count - 1;
 					}
-				}else
-				{
+				} else {
 					return;
 				}
-				
-				TableColumnBean latestColumnBean=dbTableRelativePanel.latestRelateColumnBean.get(index);
-				
+
+				TableColumnBean latestColumnBean = dbTableRelativePanel.latestRelateColumnBean.get(index);
+
 				if (dbTableRelativePanel.tables != null && dbTableRelativePanel.tables.size() > 0) {
 					for (TableBean table : dbTableRelativePanel.tables) {
 
 						for (TableColumnBean column : table.columns) {
 
-						
-								if (latestColumnBean.columnCnName.equals( column.columnCnName))
-								{
-									column.relateColumnBeans.clear();
-									column.relateColumnBeans = new ArrayList();
-									dbTableRelativePanel.latestRelateColumnBean.remove(index);
-									
-									dbTableRelativePanel.repaint();
-									return;
-								}
+							if (latestColumnBean.columnCnName.equals(column.columnCnName)) {
+								column.relateColumnBeans.clear();
+								column.relateColumnBeans = new ArrayList();
+								dbTableRelativePanel.latestRelateColumnBean.remove(index);
 
+								dbTableRelativePanel.repaint();
+								return;
 							}
-						
+
+						}
+
 					}
 				}
 
