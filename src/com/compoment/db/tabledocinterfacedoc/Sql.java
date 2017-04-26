@@ -9,6 +9,7 @@ public class Sql {
 	public void createTableSql(List<TableBean> tables) {
 
 		
+		
 		String tableString = "";
         String insertString="";
         

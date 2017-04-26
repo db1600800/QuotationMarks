@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.util.List;
 
+
 public class TableColumnBean {
 	
 	public String columnEnName;

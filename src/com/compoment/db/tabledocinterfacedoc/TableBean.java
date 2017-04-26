@@ -2,6 +2,7 @@ package com.compoment.db.tabledocinterfacedoc;
 import java.util.List;
 
 
+
 public class TableBean {
 	public String tableEnName;
 	public String tableCnName;
