@@ -42,6 +42,8 @@ public class TableColumnBean {
 	
 	/**left right null*/
 	public String leftOrRightClickSelected=null;
+	public String leftClickSelected=null;
+	public String rightClickSelected=null;
 
 	public TableColumnBean()
 	{

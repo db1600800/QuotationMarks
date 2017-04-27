@@ -75,19 +75,26 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 			for (TableColumnBean column : table.columns) {
 				column.belongWhichTable=table;
 				// 背景色
-				if ("left".equals(column.leftOrRightClickSelected)) {
+				if ("left".equals(column.leftClickSelected)) {
 					g2.setColor(Color.red);
-					g2.fillRect(column.x, column.y, column.x1 - column.x,
+					g2.fillRect(column.x, column.y, (column.x1 - column.x)/2,
 							column.y1 - column.y);
 
-				} else if ("right".equals(column.leftOrRightClickSelected)) {
+				}else {
+					g2.setColor(Color.LIGHT_GRAY);
+					g2.fillRect(column.x, column.y, (column.x1 - column.x)/2,
+							column.y1 - column.y);
+
+				}
+				
+				if ("right".equals(column.rightClickSelected)) {
 					g2.setColor(Color.green);
-					g2.fillRect(column.x, column.y, column.x1 - column.x,
+					g2.fillRect(column.x+(column.x1 - column.x)/2, column.y, (column.x1 - column.x)/2,
 							column.y1 - column.y);
 
 				} else {
 					g2.setColor(Color.LIGHT_GRAY);
-					g2.fillRect(column.x, column.y, column.x1 - column.x,
+					g2.fillRect(column.x+(column.x1 - column.x)/2, column.y, (column.x1 - column.x)/2,
 							column.y1 - column.y);
 
 				}
@@ -332,13 +339,10 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						if ("left".equals(column.leftOrRightClickSelected)) {
-							column.leftOrRightClickSelected = null;
-						} else if ("right"
-								.equals(column.leftOrRightClickSelected)) {
-							column.leftOrRightClickSelected = "left";
-						} else {
-							column.leftOrRightClickSelected = "left";
+						if ("left".equals(column.leftClickSelected)) {
+							column.leftClickSelected = null;
+						}  else {
+							column.leftClickSelected = "left";
 						}
 
 					}
@@ -366,13 +370,11 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 				for (TableColumnBean column : table.columns) {
 					if ((p.x >= column.x && p.x <= column.x1)
 							&& (p.y >= column.y && p.y <= column.y1)) {
-						if ("left".equals(column.leftOrRightClickSelected)) {
-							column.leftOrRightClickSelected = "right";
-						} else if ("right"
-								.equals(column.leftOrRightClickSelected)) {
-							column.leftOrRightClickSelected = null;
+						 if ("right"
+								.equals(column.rightClickSelected)) {
+							column.rightClickSelected = null;
 						} else {
-							column.leftOrRightClickSelected = "right";
+							column.rightClickSelected = "right";
 						}
 
 					}

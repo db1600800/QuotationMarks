@@ -111,22 +111,24 @@ public class Sql {
 		String show = "";
 		String condition = "";
 		String relate = "";
+		
+		boolean haveRelate=false;
 
 		for (TableBean table : tables) {
 
 			for (TableColumnBean column : table.columns) {
 
-				if ("left".equals(column.leftOrRightClickSelected)) {
+				if ("left".equals(column.leftClickSelected)) {
 					show += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + ",";
 
-				} else if ("right".equals(column.leftOrRightClickSelected)) {
+				} else if ("right".equals(column.rightClickSelected)) {
 					condition += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + "= ,and";
 				} else {
 
 				}
 
 				if (column.relateColumnBeans != null && column.relateColumnBeans.size() > 0) {
-
+					haveRelate=true;
 					relate += column.belongWhichTable.tableEnName;
 					// 关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
@@ -138,22 +140,61 @@ public class Sql {
 									+ relateColumn.belongWhichTable.tableEnName + "." + relateColumn.columnEnName;
 
 						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
-							relate += " left join " + relateColumn.belongWhichTable.tableEnName + " on "
+							relate += " inner join " + relateColumn.belongWhichTable.tableEnName + " on "
 									+ column.belongWhichTable.tableEnName + "." + column.columnEnName + "="
 									+ relateColumn.belongWhichTable.tableEnName + "." + relateColumn.columnEnName;
 
 						}
 
 					}
-				}else
-				{//单个表
-					relate = column.belongWhichTable.tableEnName;
 				}
 			}
 		}
 
-		String sql = "select " + show.substring(0, show.lastIndexOf(",")) + " from " + relate + " where "
-				+ condition.substring(0, condition.lastIndexOf(",and"));
+		
+		
+		
+		
+		for (TableBean table : tables) {
+
+			for (TableColumnBean column : table.columns) {
+		
+		
+	if(!haveRelate)
+		{//单个表
+			relate = column.belongWhichTable.tableEnName;
+		}
+		
+		}
+	}
+		
+		
+		
+		
+		
+		
+		
+		String sql="";
+		
+		if("".equals(show) && "".equals(condition))
+		{
+			 sql = "select * from " + relate ;
+		}
+		
+		else if("".equals(show) && !"".equals(condition))
+		{
+			 sql = "select * from " + relate + " where "
+						+ condition.substring(0, condition.lastIndexOf(",and"));
+		}else if(!"".equals(show) && "".equals(condition))
+		{
+			 sql = "select " + show.substring(0, show.lastIndexOf(",")) + " from " + relate ;
+		}
+		else
+		{
+			 sql = "select " + show.substring(0, show.lastIndexOf(",")) + " from " + relate + " where "
+						+ condition.substring(0, condition.lastIndexOf(",and"));
+		}
+		
 
 		System.out.println("查询:" + sql);
 

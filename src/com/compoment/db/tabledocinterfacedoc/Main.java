@@ -89,7 +89,7 @@ public class Main extends JFrame {
 		JLabel lblNewLabel = new JLabel("数据表");
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 14));
 
-		JLabel label = new JLabel("表关联");
+		JLabel label = new JLabel("表关联(左键红色表示查询结果，右键绿色表示查询条件)");
 		label.setFont(new Font("宋体", Font.PLAIN, 14));
 
 		JPanel panel_1 = new JPanel();
