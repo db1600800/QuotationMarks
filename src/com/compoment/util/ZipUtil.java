@@ -120,7 +120,7 @@ public class ZipUtil {
 	}
 
 	private static File[] eachFiles(File[] files) {
-		List<File>  list = new ArrayList<>();
+		List<File>  list = new ArrayList();
 		LinkedList<File> tasks = new LinkedList<File>(Arrays.asList(files));
 		while( !tasks.isEmpty() ) {
 		//	System.out.println(tasks);
@@ -141,7 +141,7 @@ public class ZipUtil {
 	}
 
 	private static File[] toAbs(File[] files) {
-		ArrayList<File> list = new ArrayList<>();
+		ArrayList<File> list = new ArrayList();
 		for(File f:files){
 			list.add(f.getAbsoluteFile());
 		}
