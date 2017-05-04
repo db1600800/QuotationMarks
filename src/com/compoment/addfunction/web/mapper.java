@@ -1,5 +1,10 @@
 package com.compoment.addfunction.web;
 
+import java.util.List;
+
+import com.compoment.db.tabledocinterfacedoc.TableBean;
+import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
+
 public class mapper {
 
 	public static void main(String[] args) {
@@ -7,13 +12,106 @@ public class mapper {
 
 	}
 	
-	public void mapperXml()
-	{
+	public void mapperXml(List<TableBean> tables) {
+
+		String show = "";
+		String condition = "";
+		String relate = "";
+		
+		boolean haveRelate=false;
+
+		for (TableBean table : tables) {
+
+			for (TableColumnBean column : table.columns) {
+
+				if ("left".equals(column.leftClickSelected)) {
+					show += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + ",";
+
+				} else if ("right".equals(column.rightClickSelected)) {
+					condition += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + "= ,and";
+				} else {
+
+				}
+
+				if (column.relateColumnBeans != null && column.relateColumnBeans.size() > 0) {
+					haveRelate=true;
+					relate += column.belongWhichTable.tableEnName;
+					// 关联的
+					for (TableColumnBean relateColumn : column.relateColumnBeans) {
+
+						if (column.relateColumnBeans.size() == 1) {// 两表
+
+							relate += " inner join " + relateColumn.belongWhichTable.tableEnName + " on "
+									+ column.belongWhichTable.tableEnName + "." + column.columnEnName + "="
+									+ relateColumn.belongWhichTable.tableEnName + "." + relateColumn.columnEnName;
+
+						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
+							relate += " inner join " + relateColumn.belongWhichTable.tableEnName + " on "
+									+ column.belongWhichTable.tableEnName + "." + column.columnEnName + "="
+									+ relateColumn.belongWhichTable.tableEnName + "." + relateColumn.columnEnName;
+
+						}
+
+					}
+				}
+			}
+		}
+
+		
+		
+		
+		
+		for (TableBean table : tables) {
+
+			for (TableColumnBean column : table.columns) {
+		
+		
+	if(!haveRelate)
+		{//单个表
+			relate = column.belongWhichTable.tableEnName;
+		}
+		
+		}
+	}
+		
+		
+		
+		
+		
+		
+		
+		String sql="";
+		
+		if("".equals(show) && "".equals(condition))
+		{
+			 sql = "select * from " + relate ;
+		}
+		
+		else if("".equals(show) && !"".equals(condition))
+		{
+			 sql = "select * from " + relate + " where "
+						+ condition.substring(0, condition.lastIndexOf(",and"));
+		}else if(!"".equals(show) && "".equals(condition))
+		{
+			 sql = "select " + show.substring(0, show.lastIndexOf(",")) + " from " + relate ;
+		}
+		else
+		{
+			 sql = "select " + show.substring(0, show.lastIndexOf(",")) + " from " + relate + " where "
+						+ condition.substring(0, condition.lastIndexOf(",and"));
+		}
+		
+
+		System.out.println("查询:" + sql);
+		
+		
 		String m="";
 		
 		m+="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 		m+="<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n";
 		m+="<mapper namespace=\"com.cpz.dao.impl.ErrorInfoMapper\">\n";
+		
+		
 		m+="	<resultMap id=\"BaseResultMap\" type=\"ErrorInfo\">\n";
 		m+="		<id column=\"id\" property=\"id\" jdbcType=\"INTEGER\" />\n";
 		m+="		<result column=\"errorCode\" property=\"errorCode\" jdbcType=\"VARCHAR\" />\n";
