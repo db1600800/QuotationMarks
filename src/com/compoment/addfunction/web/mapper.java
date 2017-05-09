@@ -1,5 +1,6 @@
 package com.compoment.addfunction.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.compoment.db.tabledocinterfacedoc.TableBean;
@@ -19,6 +20,10 @@ public class mapper {
 		String relate = "";
 		
 		boolean haveRelate=false;
+		
+		List resultColumns=new ArrayList();
+		
+		
 
 		for (TableBean table : tables) {
 
@@ -26,6 +31,7 @@ public class mapper {
 
 				if ("left".equals(column.leftClickSelected)) {
 					show += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + ",";
+					resultColumns.add(column);
 
 				} else if ("right".equals(column.rightClickSelected)) {
 					condition += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + "= ,and";
