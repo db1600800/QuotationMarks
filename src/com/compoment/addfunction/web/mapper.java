@@ -22,6 +22,7 @@ public class mapper {
 		boolean haveRelate=false;
 		
 		List resultColumns=new ArrayList();
+		List queryConditionColumns=new ArrayList();
 		
 		
 
@@ -35,6 +36,7 @@ public class mapper {
 
 				} else if ("right".equals(column.rightClickSelected)) {
 					condition += " " + column.belongWhichTable.tableEnName + "." + column.columnEnName + "= ,and";
+					queryConditionColumns.add(column);
 				} else {
 
 				}
@@ -124,6 +126,8 @@ public class mapper {
 		m+="		<result column=\"errorType\" property=\"errorType\" jdbcType=\"VARCHAR\" />\n";
 		m+="		<result column=\"errorMsg\" property=\"errorMsg\" jdbcType=\"VARCHAR\" />\n";
 		m+="	</resultMap>\n";
+		
+		
 		m+="	<sql id=\"Base_Column_List\">\n";
 		m+="		id, errorCode, errorType, errorMsg\n";
 		m+="	</sql>\n";
