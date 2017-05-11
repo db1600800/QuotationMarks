@@ -20,6 +20,7 @@ public class TableBean {
 	public long time;
 	
 	public boolean selected;
+	public boolean isMainTable;
 	
 	public TableBean()
 	{

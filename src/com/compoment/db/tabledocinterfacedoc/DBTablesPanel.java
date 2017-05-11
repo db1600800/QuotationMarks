@@ -44,8 +44,8 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 
 			for (TableColumnBean column : table.columns) {
 				// 背景色
-				if (table.selected) {
-					g2.setColor(Color.red);
+				if (table.isMainTable) {
+					g2.setColor(Color.green);
 
 				} else {
 					g2.setColor(Color.black);
@@ -291,8 +291,42 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 		if (c == MouseEvent.BUTTON1)// 判断是鼠标左键按下
 		{
 			// mouseInfo = "左键";
+			
+			Point p = e.getPoint();
+			for (TableBean table : tables) {
+				
+				if ((p.x >= table.x && p.x <= table.x1)
+						&& (p.y >= table.y && p.y <= table.y1)) {
+					if (table.selected == true) {
+						table.selected = false;
+						table.isMainTable=false;
+					} else {
+						table.selected = true;
+					}
+
+				}
+			}
+
+			this.repaint();
 		} else if (c == MouseEvent.BUTTON3) {// 判断是鼠标右键按下
 			// mouseInfo = "右键";
+			Point p = e.getPoint();
+			for (TableBean table : tables) {
+				
+				if ((p.x >= table.x && p.x <= table.x1)
+						&& (p.y >= table.y && p.y <= table.y1)) {
+					if(table.selected)
+					{
+					if (table.isMainTable == true) {
+						table.isMainTable = false;
+					} else {
+						table.isMainTable = true;
+					}
+					}
+				}
+			}
+
+			this.repaint();
 		} else {
 			// mouseInfo = "滚轴";
 		}
@@ -312,21 +346,7 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		// text.append("鼠标按下.\n");
-		Point p = e.getPoint();
-		for (TableBean table : tables) {
-			
-			if ((p.x >= table.x && p.x <= table.x1)
-					&& (p.y >= table.y && p.y <= table.y1)) {
-				if (table.selected == true) {
-					table.selected = false;
-				} else {
-					table.selected = true;
-				}
-
-			}
-		}
-
-		this.repaint();
+		
 	}
 
 	public void mouseReleased(MouseEvent e) {

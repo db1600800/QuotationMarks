@@ -53,7 +53,13 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 		for (TableBean table : tables) {
 
 			// 画Table名字
-			g2.setColor(Color.black);
+			if(table.isMainTable)
+			{
+			g2.setColor(Color.green);
+			}else
+			{
+				g2.setColor(Color.black);
+			}
 			g2.setFont(new Font("宋体", Font.BOLD, 11)); // 改变字体大小
 			g2.drawString(table.tableCnName + "(" + table.tableEnName + ""
 					+ table.id + ")", table.tableCnNameX, table.tableCnNameY);
@@ -182,7 +188,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 
 			// 数据表
 			TableBean tableBean = new TableBean();
-
+			tableBean.isMainTable=interfaceBean.isMainTable;
 			tableBean.tableCnName = interfaceBean.tableCnName;// 表中文名
 			tableBean.tableEnName = interfaceBean.tableEnName;// 表英文名
 			tableBean.id = interfaceBean.id;// 表编号
