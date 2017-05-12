@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class DBTableRelativePanel extends JPanel implements MouseListener,
 		MouseMotionListener {
@@ -41,6 +43,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 		latestRelateColumnBean=new ArrayList();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+	
 	}
 
 	@Override

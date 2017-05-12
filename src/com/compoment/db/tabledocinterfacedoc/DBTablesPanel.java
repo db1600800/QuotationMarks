@@ -44,8 +44,8 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 
 			for (TableColumnBean column : table.columns) {
 				// 背景色
-				if (table.isMainTable) {
-					g2.setColor(Color.green);
+				if (table.selected) {
+					g2.setColor(Color.red);
 
 				} else {
 					g2.setColor(Color.black);
@@ -76,6 +76,13 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 
 			}
 
+			
+			if (table.isMainTable) {
+				g2.setColor(Color.green);
+
+			} else {
+				g2.setColor(Color.black);
+			}
 			g2.setFont(new Font("宋体", Font.PLAIN, 12)); // 改变字体大小
 			g2.drawString(table.tableCnName + "(" + table.tableEnName + ""
 					+ table.id + ")", table.tableCnNameX, table.tableCnNameY);
