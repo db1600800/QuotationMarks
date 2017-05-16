@@ -322,12 +322,14 @@ public class mapper {
 		String servicename="";
 		String resultType="";
 		String queryCondition="";
-		
+		String queryCondition2="";
+		String mainTableName="";
 		for (TableBean table : tables) {
 			servicename+=table.tableEnName+"_";
 			if(table.isMainTable)
 			{
 				resultType=table.tableEnName+"Bean";
+				mainTableName=table.tableEnName;
 			}
 		}
 		
@@ -341,6 +343,7 @@ public class mapper {
 		for(TableColumnBean column:queryConditionColumns)
 		{
 			queryCondition+=column.type+" "+column.columnEnName+",";
+			queryCondition2+="m.put(\""+column.columnEnName+"\", "+column.columnEnName+");\n";
 		}
 		
 		if(queryCondition.lastIndexOf("_")!=-1)
@@ -376,12 +379,12 @@ public class mapper {
 			m += "import com.framework.dao.BaseDao;\n";
 			m += "import com.framework.dao.common.DaoTools;\n";
 			m += "import com.framework.exception.CommonException;\n";
-			m += "import com.cpz.pojo.ErrorInfo;\n";
-			m += "import com.cpz.service.ErrorService;\n";
+			
+	
 
 
 			
-			m += "@Service(\"errorService\")\n";
+			m += "@Service(\""+servicename+"Service\")\n";
 			m += "public class "+servicename+"ServiceImpl implements "+servicename+"Service {\n";
 			m += "	private final static Logger logger = LoggerFactory.getLogger(ErrorServiceImpl.class);\n";
 			m += "	\n";
@@ -392,11 +395,11 @@ public class mapper {
 			m += "	public "+resultType+" get("+queryCondition+") throws Exception {\n";
 			m += "		// TODO Auto-generated method stub\n";
 			m += "		Map<String,Object> m = new HashMap<>();\n";
-			m += "		m.put(\"errorCode\", errorCode);\n";
-			m += "		m.put(\"errorType\", errorType);\n";
+			m += queryCondition2;
+			
 			m += "		\n";
-			m += "		Object obj = baseDao.selectOne(DaoTools.getMapperNamespace(ErrorInfo.class, \"selectByCodeOrType\"), m);\n";
-			m += "		return obj == null ? null : (ErrorInfo)obj;\n";
+			m += "		Object obj = baseDao.selectOne(DaoTools.getMapperNamespace("+resultType+".class, \""+mainTableName+"Select\"), m);\n";
+			m += "		return obj == null ? null : ("+resultType+")obj;\n";
 			m += "	}\n";
 
 			m += "}\n";
@@ -409,6 +412,41 @@ public class mapper {
 	
 
 	public void controller(List<TableBean> tables) {
+		
+		
+		String servicename="";
+		String serviceCnName="";
+		String resultType="";
+		String queryCondition="";
+	
+		String mainTableName="";
+		for (TableBean table : tables) {
+			servicename+=table.tableEnName+"_";
+			serviceCnName+=table.tableCnName+"_";
+			if(table.isMainTable)
+			{
+				resultType=table.tableEnName+"Bean";
+				mainTableName=table.tableEnName;
+			}
+		}
+		
+		if(servicename.lastIndexOf("_")!=-1)
+		{
+		servicename=servicename.substring(0, servicename.lastIndexOf("_"));
+		}
+		
+		
+		
+		for(TableColumnBean column:queryConditionColumns)
+		{
+			
+			queryCondition += "		String "+column.columnEnName+" = reqMap.get(\""+column.columnEnName+"\") == null ? null : reqMap.get(\""+column.columnEnName+"\").toString();\n";
+		}
+		
+
+		
+		
+		
 		String m = "";
 		m += "import java.util.Locale;\n";
 		m += "import java.util.Map;\n";
@@ -425,7 +463,7 @@ public class mapper {
 		m += "import org.springframework.web.bind.annotation.RequestMapping;\n";
 		m += "import org.springframework.web.bind.annotation.RequestParam;\n";
 		m += "import org.springframework.web.bind.annotation.ResponseBody;\n";
-		m += "import org.springframework.web.servlet.i18n.SessionLocaleResolver;\n";
+	
 		m += "import org.springframework.web.servlet.support.RequestContext;\n";
 
 		m += "import com.framework.controller.BaseController;\n";
@@ -433,40 +471,21 @@ public class mapper {
 		m += "import com.cpz.utils.CommonUtil;\n";
 		m += "import com.cpz.utils.Constant;\n";
 
-		m += "/**\n";
-		m += " * @author tang E-mail: killerover84@163.com\n";
-		m += " * @version 2016年5月16日 上午9:05:38 类说明\n";
-		m += " */\n";
+	
 		m += "@Controller\n";
 		m += "@Scope(\"prototype\")\n";
-		m += "@RequestMapping(\"/front/i18n\")\n";
-		m += "public class I18n extends BaseController {\n";
+		m += "@RequestMapping(\"/front/"+servicename.toLowerCase()+"\")\n";
+		m += "public class "+servicename+"Controller extends BaseController {\n";
 
-		m += "	// 国际化\n";
-		m += "	@RequestMapping(\"/inter.do\")\n";
-		m += "	public @ResponseBody Map<String, Object> inter(@RequestParam Map reqMap) {\n";
+		m += "	// "+serviceCnName+"\n";
+		m += "	@RequestMapping(\"/query.do\")\n";
+		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
 		m += "		if (null == reqMap || reqMap.isEmpty())\n";
 		m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
-		m += "		String langType = reqMap.get(\"langType\") == null ? null : reqMap.get(\"langType\").toString();\n";
-		m += "		if (null == langType || langType.isEmpty())\n";
-		m += "			langType = \"zh\";\n";
-
-		m += "		if (langType.equals(\"zh\")) {\n";
-		m += "			Locale locale = new Locale(\"zh\", \"CN\");\n";
-		m += "			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);\n";
-		m += "		} else if (langType.equals(\"en\")) {\n";
-		m += "			Locale locale = new Locale(\"en\", \"US\");\n";
-		m += "			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);\n";
-		m += "		} else\n";
-		m += "			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,\n";
-		m += "					LocaleContextHolder.getLocale());\n";
-
-		m += "		// 从后台代码获取国际化信息\n";
-		m += "		RequestContext requestContext = new RequestContext(getRequest());\n";
-		m += "		System.out.println(requestContext.getMessage(\"xxx\"));\n";
-		m += "		System.out.println(SpringBeanManger.getTextValue(\"xxx\"));\n";
+		m += queryCondition;
+	
 
 		m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 		m += "	}\n";
