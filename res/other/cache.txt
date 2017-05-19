@@ -1,13 +1,13 @@
-#Update '\u5907\u6CE8' value
-#Tue Mar 28 17:22:13 CST 2017
-\u53D8\u91CF\u540D=1
+#Update 'codeFilePath' value
+#Fri May 19 15:49:41 CST 2017
+\u53D8\u91CF\u540D=0
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
-codeFilePath=C\:\\Users\\by\\git\\QuotationMarks/res/src/jsp
+codeFilePath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/src/jsp
 \u5907\u6CE8=3
-compomentProjectAddress=C\:\\Users\\by\\git\\QuotationMarks/res/other/mobile-android
+compomentProjectAddress=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/other/mobile-android
 recentUseColor=\#141414,\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,
-picPath=C\:\\Users\\by\\git\\QuotationMarks/res/pic
-\u4E2D\u6587\u540D=0
-projectPath=C\:\\Users\\by\\git\\QuotationMarks/res
-docPath=C\:\\Users\\by\\git\\QuotationMarks/res/InterfaceDocAndCode/wordTableToJaveObject.doc
+picPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/pic
+\u4E2D\u6587\u540D=1
+projectPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res
+docPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/InterfaceDocAndCode/wordTableToJaveObject2.doc
