@@ -33,14 +33,16 @@ import com.compoment.addfunction.webmanage.ActionStruct2;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.AddJspStruct2;
 //import com.compoment.addfunction.webmanage.MenuJsp;
-import  com.compoment.addfunction.webmanage.StructAction;
+import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.addfunction.webmanage.QueryJspStruct2;
+import com.compoment.db.tabledocinterfacedoc.TableDocToInterfaceService;
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+
 /**
  * 
  * 功能添加页
@@ -67,18 +69,18 @@ public class CodeFunctionAdd extends JFrame {
 	ArrayList codeFileListDate = new ArrayList();
 	JList codeFileListListView;
 
-	/**编辑器*/
+	/** 编辑器 */
 	JTextArea editorValueEditText;
 	JLabel imgTextView;
 	int lineno;
 
 	String currentCodeFileFullPath = "";
-    String backupBeforeModify="";
-    
-     JList codeTypeListListView ;
-     String fileName;
-     JTextField codePathValueEditText;
-     
+	String backupBeforeModify = "";
+
+	JList codeTypeListListView;
+	String fileName;
+	JTextField codePathValueEditText;
+
 	public CodeFunctionAdd() {
 
 		super("");
@@ -135,32 +137,31 @@ public class CodeFunctionAdd extends JFrame {
 		bg1422277614475.addComponent(part4JPanel);
 
 		layout.setHorizontalGroup(bg1422277614475);
-	  
+
 		setLocation(200, 200);
 		pack();
 
 		setVisible(true);
 
-		KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
-		
+		KeyValue.writeCache("compomentProjectAddress",
+				KeyValue.readCache("projectPath") + "/other/mobile-android");
+
 		if (KeyValue.readCache("compomentProjectAddress") == null
 				|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-			String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+			String inputValue = JOptionPane
+					.showInputDialog("请输入(mobile-android)Project路径");
 			KeyValue.writeCache("compomentProjectAddress", inputValue);
-		}else
-		{
-			
-			String projectPath=KeyValue.readCache("compomentProjectAddress");
-			if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
-			{
-				
-			}else
-			{
-				String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+		} else {
+
+			String projectPath = KeyValue.readCache("compomentProjectAddress");
+			if (FileUtil.isDirectory(projectPath + "/src/com/compoment")) {
+
+			} else {
+				String inputValue = JOptionPane
+						.showInputDialog("请输入(mobile-android)Project路径");
 				KeyValue.writeCache("compomentProjectAddress", inputValue);
 			}
 		}
-		
 
 	}
 
@@ -205,31 +206,41 @@ public class CodeFunctionAdd extends JFrame {
 								.toString();
 
 						if (value.equals("Android")) {
-							
-							KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
-							
+
+							KeyValue.writeCache("compomentProjectAddress",
+									KeyValue.readCache("projectPath")
+											+ "/other/mobile-android");
+
 							if (KeyValue.readCache("compomentProjectAddress") == null
-									|| KeyValue.readCache("compomentProjectAddress").equals("")) {
-								
-								String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-								
-								KeyValue.writeCache("compomentProjectAddress", inputValue);
-							}else
-							{
-								
-								String projectPath=KeyValue.readCache("compomentProjectAddress");
-								if(FileUtil.isDirectory(projectPath+"/src/com/compoment"))
-								{
-									
-								}else
-								{
-									KeyValue.writeCache("compomentProjectAddress",KeyValue.readCache("projectPath")+"/other/mobile-android");
-									
-									//String inputValue = JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
-									//KeyValue.writeCache("compomentProjectAddress", inputValue);
+									|| KeyValue.readCache(
+											"compomentProjectAddress").equals(
+											"")) {
+
+								String inputValue = JOptionPane
+										.showInputDialog("请输入(mobile-android)Project路径");
+
+								KeyValue.writeCache("compomentProjectAddress",
+										inputValue);
+							} else {
+
+								String projectPath = KeyValue
+										.readCache("compomentProjectAddress");
+								if (FileUtil.isDirectory(projectPath
+										+ "/src/com/compoment")) {
+
+								} else {
+									KeyValue.writeCache(
+											"compomentProjectAddress",
+											KeyValue.readCache("projectPath")
+													+ "/other/mobile-android");
+
+									// String inputValue =
+									// JOptionPane.showInputDialog("请输入(mobile-android)Project路径");
+									// KeyValue.writeCache("compomentProjectAddress",
+									// inputValue);
 								}
 							}
-							
+
 							androidData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel();
@@ -239,10 +250,12 @@ public class CodeFunctionAdd extends JFrame {
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
 
-							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/src/android");
-							
-						} else	if (value.equals("Iphone")) {
+							String projectPath = KeyValue
+									.readCache("projectPath");
+							codePathValueEditText.setText(projectPath
+									+ "/src/android");
+
+						} else if (value.equals("Iphone")) {
 							iphoneData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel();
@@ -251,11 +264,12 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
-							
-							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/src/ios");
-						}  
-						else	if (value.equals("Swing")) {
+
+							String projectPath = KeyValue
+									.readCache("projectPath");
+							codePathValueEditText.setText(projectPath
+									+ "/src/ios");
+						} else if (value.equals("Swing")) {
 							swingData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel();
@@ -264,7 +278,7 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
-						} else	if (value.equals("WebManage")) {
+						} else if (value.equals("WebManage")) {
 							WebManageData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel();
@@ -273,7 +287,11 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
-						} else	if (value.equals("Web")) {
+							String projectPath = KeyValue
+									.readCache("projectPath");
+							codePathValueEditText.setText(projectPath
+									+ "/src/webManager");
+						} else if (value.equals("Web")) {
 							WebData();
 							// 设值
 							DefaultListModel functionModelList = new DefaultListModel();
@@ -282,12 +300,13 @@ public class CodeFunctionAdd extends JFrame {
 							}
 							// 自定义对象加入模型列表
 							functionListListView.setModel(functionModelList);
-							
-							String projectPath=KeyValue.readCache("projectPath");
-							codePathValueEditText.setText(projectPath+"/src/jsp");
-						} 
-						
-						
+
+							String projectPath = KeyValue
+									.readCache("projectPath");
+							codePathValueEditText.setText(projectPath
+									+ "/src/web");
+						}
+
 						else {
 							DefaultListModel functionModelList = new DefaultListModel();
 
@@ -308,7 +327,7 @@ public class CodeFunctionAdd extends JFrame {
 		bg1422276614897LinearLayout.addComponent(codePathTitleTextView);
 
 		/** path */
-		 codePathValueEditText = new JTextField();
+		codePathValueEditText = new JTextField();
 		bg1422276614897LinearLayout.addComponent(codePathValueEditText);
 
 		// 添加DocumentListener监听器
@@ -358,9 +377,9 @@ public class CodeFunctionAdd extends JFrame {
 				.addListSelectionListener(new ListSelectionListener() {
 
 					public void valueChanged(ListSelectionEvent even) {
-						backupBeforeModify="";
-						 fileName = codeFileListListView
-								.getSelectedValue().toString();
+						backupBeforeModify = "";
+						fileName = codeFileListListView.getSelectedValue()
+								.toString();
 						currentCodeFileFullPath = codePathValueEditText
 								.getText() + "/" + fileName;
 						editorValueEditText.setText(FileUtil
@@ -368,14 +387,12 @@ public class CodeFunctionAdd extends JFrame {
 
 						String codePath = codePathValueEditText.getText();
 
-						int p=codePath.lastIndexOf("\\");
-						if(p==-1)
-						{
-							p=codePath.lastIndexOf("/");
+						int p = codePath.lastIndexOf("\\");
+						if (p == -1) {
+							p = codePath.lastIndexOf("/");
 						}
-						
-						String picPath = codePath.substring(0,
-								p);
+
+						String picPath = codePath.substring(0, p);
 						String img = picPath + "/" + getPicName(fileName)
 								+ ".png";
 						File file = new File(img);
@@ -397,7 +414,7 @@ public class CodeFunctionAdd extends JFrame {
 
 		layout.setVerticalGroup(bg1422276538785LinearLayout);
 
-		//codePathValueEditText.setText(KeyValue.readCache("codeFilePath"));
+		// codePathValueEditText.setText(KeyValue.readCache("codeFilePath"));
 
 		// 水平
 		/**
@@ -508,11 +525,10 @@ public class CodeFunctionAdd extends JFrame {
 		functionListListView.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
 				if (checkClickTime()) {
-					
-					
-					String codeFile=(String) codeFileListListView.getSelectedValue();
-				
-					
+
+					String codeFile = (String) codeFileListListView
+							.getSelectedValue();
+
 					Function function = (Function) functionListListView
 							.getSelectedValue();
 					if (function == null)
@@ -521,30 +537,31 @@ public class CodeFunctionAdd extends JFrame {
 							.toString();
 
 					if (value.equals("Android")) {
-						if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
-						{
-							
-							JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+						if (codeFile == null
+								|| (codeFile != null && codeFile.equals(""))) {
+
+							JOptionPane.showMessageDialog(null, "请选择代码文件",
+									"温馨提示", JOptionPane.INFORMATION_MESSAGE);
 							return;
 						}
 						androidFunction(function);
-					}else 	if (value.equals("Iphone")) {
-						if(codeFile==null || (codeFile!=null&& codeFile.equals("")))
-						{
-							
-							JOptionPane.showMessageDialog(null, "请选择代码文件", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+					} else if (value.equals("Iphone")) {
+						if (codeFile == null
+								|| (codeFile != null && codeFile.equals(""))) {
+
+							JOptionPane.showMessageDialog(null, "请选择代码文件",
+									"温馨提示", JOptionPane.INFORMATION_MESSAGE);
 							return;
 						}
 						iphoneFunction(function);
-					}
-					else 	if (value.equals("WebManage")) {
+					} else if (value.equals("WebManage")) {
 						WebManageFunction(function);
 					}
-					
-					else 	if (value.equals("Web")) {
+
+					else if (value.equals("Web")) {
 						WebFunction(function);
 					}
-					
+
 				}
 			}
 		});
@@ -603,21 +620,20 @@ public class CodeFunctionAdd extends JFrame {
 		functionList2ListView.setCellRenderer(new FunctionListCell());
 		// functionListListView.setListData(functionParents.toArray());
 
+		// 单击
+		// functionList2ListView
+		// .addListSelectionListener(new ListSelectionListener() {
+		//
+		// public void valueChanged(ListSelectionEvent even) {
+		// // String value =
+		// // functionList2ListView.getSelectedValue()
+		// // .toString();
+		// Function function = (Function) functionList2ListView
+		// .getSelectedValue();
+		// }
+		// });
 
-		//单击
-//		functionList2ListView
-//				.addListSelectionListener(new ListSelectionListener() {
-//
-//					public void valueChanged(ListSelectionEvent even) {
-//						// String value =
-//						// functionList2ListView.getSelectedValue()
-//						// .toString();
-//						Function function = (Function) functionList2ListView
-//								.getSelectedValue();
-//					}
-//				});
-		
-		//双击
+		// 双击
 		functionList2ListView.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
 				if (checkClickTime()) {
@@ -630,21 +646,16 @@ public class CodeFunctionAdd extends JFrame {
 
 					if (value.equals("Swing")) {
 						swingFunction(function);
-					}else if(value.equals("Android"))
-					{
+					} else if (value.equals("Android")) {
 						androidFunction(function);
-					}else if(value.equals("Iphone"))
-					{
+					} else if (value.equals("Iphone")) {
 						iphoneFunction(function);
-					}else if(value.equals("WebManage"))
-					{
+					} else if (value.equals("WebManage")) {
 						WebManageFunction(function);
-					}
-					else if(value.equals("Web"))
-					{
+					} else if (value.equals("Web")) {
 						WebFunction(function);
 					}
-					
+
 				}
 			}
 		});
@@ -712,12 +723,11 @@ public class CodeFunctionAdd extends JFrame {
 	 * */
 	class FunctionListCell extends JLabel implements ListCellRenderer {
 
-	
-
 		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList list, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
 			// TODO Auto-generated method stub
-			Function fun=(Function)value;
+			Function fun = (Function) value;
 			setText(fun.name);
 
 			// 判断是否选中
@@ -747,18 +757,20 @@ public class CodeFunctionAdd extends JFrame {
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-				backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
 				dateSelect.add();
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。",
+						"温馨提示", JOptionPane.INFORMATION_MESSAGE);
 			} else if (response == 1) {
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
-				editorValueEditText.setText(FileUtil
-						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
 
@@ -770,22 +782,24 @@ public class CodeFunctionAdd extends JFrame {
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-				backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
 				Paging paging = new Paging(currentCodeFileFullPath);
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				
-				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
+
+				JOptionPane.showMessageDialog(null, "请查看文件，有异常请进行\"恢复\"操作。",
+						"温馨提示", JOptionPane.INFORMATION_MESSAGE);
 			} else if (response == 1) {
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
-				editorValueEditText.setText(FileUtil
-						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
-		}else if (function.id.equals("3")) {// 网络请求,响应,等待提示
+		} else if (function.id.equals("3")) {// 网络请求,响应,等待提示
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
@@ -793,142 +807,145 @@ public class CodeFunctionAdd extends JFrame {
 					options, options[0]);
 			if (response == 0) {
 
-			
-			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
-			projectDocPanel.setModal(true);
-			projectDocPanel.setVisible(true);
-			
-			
-			
-			if(projectDocPanel.selects==null)
-			{
-				JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
-				return ;
-			}
-			
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			RequestAndroid paging = new RequestAndroid(currentCodeFileFullPath,projectDocPanel);
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-		
-			}else if (response == 1) {
-			
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+						false, false);
+				projectDocPanel.setModal(true);
+				projectDocPanel.setVisible(true);
+
+				if (projectDocPanel.selects == null) {
+					JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				RequestAndroid paging = new RequestAndroid(
+						currentCodeFileFullPath, projectDocPanel);
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
 
-		}else if (function.id.equals("10")) {//报表列表(首列固定左右滑动 首行固定上下滑)
+		} else if (function.id.equals("10")) {// 报表列表(首列固定左右滑动 首行固定上下滑)
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-				
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			ReportList paging = new ReportList(currentCodeFileFullPath);
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-			}else if (response == 1) {
-				
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				ReportList paging = new ReportList(currentCodeFileFullPath);
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
 
-		}else if (function.id.equals("41")) {//Dialog   msg:title:leftBtn:rightBtn:rightBtn2
+		} else if (function.id.equals("41")) {// Dialog
+												// msg:title:leftBtn:rightBtn:rightBtn2
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
 					+ function.name + "功能", function.name,
 					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					options, options[0]);
 			if (response == 0) {
-				
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"1");
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-			}else if (response == 1) {
-				
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				MyDialog paging = new MyDialog(currentCodeFileFullPath,
+						whichLine, "1");
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
+				}
+			}
+
+		} else if (function.id.equals("42")) {// Dialog msg:list
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				MyDialog paging = new MyDialog(currentCodeFileFullPath,
+						whichLine, "2");
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
+				}
+			}
+
+		} else if (function.id.equals("43")) {// Dialog msg:editText
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				MyDialog paging = new MyDialog(currentCodeFileFullPath,
+						whichLine, "3");
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
 
 		}
-		else if (function.id.equals("42")) {//Dialog   msg:list
-			Object[] options = { "添加", "恢复" };
-			int response = JOptionPane.showOptionDialog(this, "添加或删除"
-					+ function.name + "功能", function.name,
-					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-					options, options[0]);
-			if (response == 0) {
-				
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"2");
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-			}else if (response == 1) {
-				
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
-				editorValueEditText.setText(FileUtil
-						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
-				}
-			}
-
-		}
-		else if (function.id.equals("43")) {//Dialog   msg:editText
-			Object[] options = { "添加", "恢复" };
-			int response = JOptionPane.showOptionDialog(this, "添加或删除"
-					+ function.name + "功能", function.name,
-					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-					options, options[0]);
-			if (response == 0) {
-				
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			MyDialog paging = new MyDialog(currentCodeFileFullPath,whichLine,"3");
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-			}else if (response == 1) {
-				
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
-				editorValueEditText.setText(FileUtil
-						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
-				}
-			}
-
-		}
-		
 
 	}
-	
-	
+
 	public void iphoneFunction(Function function) {
-		
+
 		if (function.id.equals("3")) {// 网络请求,响应,等待提示
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
@@ -937,127 +954,123 @@ public class CodeFunctionAdd extends JFrame {
 					options, options[0]);
 			if (response == 0) {
 
-				
-				InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
+				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+						false, false);
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
-			
-			if(projectDocPanel.selects==null)
-			{
-				JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
-				return ;
-			}
-			
-			backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-			RequestIphone paging = new RequestIphone(currentCodeFileFullPath,projectDocPanel);
-			editorValueEditText.setText(FileUtil
-					.fileContent(currentCodeFileFullPath));
-			
-		
-			}else if (response == 1) {
-			
-				if(!backupBeforeModify.equals(""))
-				{
-				FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
+
+				if (projectDocPanel.selects == null) {
+					JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				RequestIphone paging = new RequestIphone(
+						currentCodeFileFullPath, projectDocPanel);
 				editorValueEditText.setText(FileUtil
 						.fileContent(currentCodeFileFullPath));
-				backupBeforeModify="";
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
 				}
 			}
 
 		}
-    }
-	
-	
-	public void WebManageFunction(Function function) {
-		
-		if (function.id.equals("1")) {// 表
-		
+	}
 
-			
-			InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,true);
+	public void WebManageFunction(Function function) {
+
+		if (function.id.equals("1")) {// 表
+
+			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(false,
+					true);
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
-			
-			if(projectDocPanel.interfaceBeans!=null)
-			{
-				
-			
-				//接口列表
+
+			if (projectDocPanel.interfaceBeans != null) {
+
+				// 接口列表
 				new ActionStruct2(projectDocPanel.interfaceBeans);
-				
+
 				new UpdateJspStruct2(projectDocPanel.interfaceBeans);
-				
+
 				new QueryJspStruct2(projectDocPanel.interfaceBeans);
-				
+
 				new TableToHibernateEntity(projectDocPanel.interfaceBeans);
-				
+
 				new AddJspStruct2(projectDocPanel.interfaceBeans);
-				//new MenuJsp(projectDocPanel.interfaceBeans);
-				
-				
-				//Struct2
-				//new QueryJsp(projectDocPanel.interfaceBeans);
-				
-				//new AddJsp(projectDocPanel.interfaceBeans);
-				
-				//new StructActionForm(projectDocPanel.interfaceBeans);
-				
-				//new StructAction(projectDocPanel.interfaceBeans);
+				// new MenuJsp(projectDocPanel.interfaceBeans);
+
+				// Struct2
+				// new QueryJsp(projectDocPanel.interfaceBeans);
+
+				// new AddJsp(projectDocPanel.interfaceBeans);
+
+				// new StructActionForm(projectDocPanel.interfaceBeans);
+
+				// new StructAction(projectDocPanel.interfaceBeans);
 			}
-		
+
 		}
-    }
-	
-	
-public void WebFunction(Function function) {
-		
+	}
+
+	public void WebFunction(Function function) {
+
 		if (function.id.equals("1")) {// 网络请求,响应,等待提示
-			
+
 			// 网络请求,响应,等待提示
-						Object[] options = { "添加", "恢复" };
-						int response = JOptionPane.showOptionDialog(this, "添加或删除"
-								+ function.name + "功能", function.name,
-								JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-								options, options[0]);
-						if (response == 0) {
-//					
-						
-						InterfaceDocDialog projectDocPanel=new InterfaceDocDialog(false,false);
-						projectDocPanel.setModal(true);
-						projectDocPanel.setVisible(true);
-						
-						if(projectDocPanel.selects==null)
-						{
-							JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示", JOptionPane.INFORMATION_MESSAGE);
-							return ;
-						}
-						
-						backupBeforeModify=FileUtil.fileContent(currentCodeFileFullPath);
-						new WebRequestRespond(currentCodeFileFullPath,projectDocPanel);
-						editorValueEditText.setText(FileUtil
-								.fileContent(currentCodeFileFullPath));
-						
-					
-						}else if (response == 1) {
-						
-							if(!backupBeforeModify.equals(""))
-							{
-							FileUtil.makeFile(currentCodeFileFullPath, backupBeforeModify);
-							editorValueEditText.setText(FileUtil
-									.fileContent(currentCodeFileFullPath));
-							backupBeforeModify="";
-							}
-						}
-			
-			
-			
-			
-		
+			Object[] options = { "添加", "恢复" };
+			int response = JOptionPane.showOptionDialog(this, "添加或删除"
+					+ function.name + "功能", function.name,
+					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					options, options[0]);
+			if (response == 0) {
+				//
+
+				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+						false, false);
+				projectDocPanel.setModal(true);
+				projectDocPanel.setVisible(true);
+
+				if (projectDocPanel.selects == null) {
+					JOptionPane.showMessageDialog(null, "没有选择接口,请重试", "温馨提示",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				backupBeforeModify = FileUtil
+						.fileContent(currentCodeFileFullPath);
+				new WebRequestRespond(currentCodeFileFullPath, projectDocPanel);
+				editorValueEditText.setText(FileUtil
+						.fileContent(currentCodeFileFullPath));
+
+			} else if (response == 1) {
+
+				if (!backupBeforeModify.equals("")) {
+					FileUtil.makeFile(currentCodeFileFullPath,
+							backupBeforeModify);
+					editorValueEditText.setText(FileUtil
+							.fileContent(currentCodeFileFullPath));
+					backupBeforeModify = "";
+				}
+			}
+
 		}
-    }
-	
-	
+
+		if (function.id.equals("2")) {// ssm接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService();
+			frame.setVisible(true);
+		}
+	}
+
 	public void swingFunction(Function function) {
 		if (function.id.equals("41")) {// 系统对话框提示(单个按钮)
 			SystemDialog dialog = new SystemDialog();
@@ -1069,9 +1082,9 @@ public void WebFunction(Function function) {
 			if (response == 0) {
 				dialog.msg();
 			} else if (response == 1) {
-				
+
 			}
-		}else if (function.id.equals("42")) {// 系统对话框提示(左右按钮)
+		} else if (function.id.equals("42")) {// 系统对话框提示(左右按钮)
 			SystemDialog dialog = new SystemDialog();
 			Object[] options = { "添加", "恢复" };
 			int response = JOptionPane.showOptionDialog(this, "添加或删除"
@@ -1081,7 +1094,7 @@ public void WebFunction(Function function) {
 			if (response == 0) {
 				dialog.confirm();
 			} else if (response == 1) {
-				
+
 			}
 		} else if (function.id.equals("43")) {// 系统对话框选择(列表)"
 			SystemDialog dialog = new SystemDialog();
@@ -1093,7 +1106,7 @@ public void WebFunction(Function function) {
 			if (response == 0) {
 				dialog.inputListSelect();
 			} else if (response == 1) {
-				
+
 			}
 		} else if (function.id.equals("44")) {// 系统对话框输入
 			SystemDialog dialog = new SystemDialog();
@@ -1105,9 +1118,9 @@ public void WebFunction(Function function) {
 			if (response == 0) {
 				dialog.inputText();
 			} else if (response == 1) {
-				
+
 			}
-		} 
+		}
 	}
 
 	public void androidData() {
@@ -1120,17 +1133,17 @@ public void WebFunction(Function function) {
 		dateParent.chirlds = dateChirlds;
 
 		functionParents.add(new Function("3", "网络请求,响应,等待提示"));
-		
-		
+
 		functionParents.add(new Function("2", "分页(列表)"));
 
 		functionParents.add(new Function("10", "报表(首列固定左右滑动 首行固定上下滑)"));
-		
+
 		Function dialogParent = new Function("4", "对话框");
 		functionParents.add(dialogParent);
 		ArrayList<Function> dialogChirlds = new ArrayList<Function>();
 		dialogParent.chirlds = dialogChirlds;
-		dialogChirlds.add(new Function("41", "系统对话框提示(title:msg:leftBtn:rightBtn:rightBtn2)"));
+		dialogChirlds.add(new Function("41",
+				"系统对话框提示(title:msg:leftBtn:rightBtn:rightBtn2)"));
 		dialogChirlds.add(new Function("42", "系统对话框提示(title:list)"));
 		dialogChirlds.add(new Function("43", "系统对话框输入"));
 		dialogChirlds.add(new Function("45", "自定义对话框提示(单个按钮)"));
@@ -1166,13 +1179,13 @@ public void WebFunction(Function function) {
 		functionParents.add(new Function("9", "日期格式化"));
 
 	}
-	
+
 	public void iphoneData() {
 		functionParents.clear();
 		functionParents.add(new Function("3", "网络请求,响应,等待提示"));
 
 	}
-	
+
 	public void swingData() {
 		functionParents.clear();
 
@@ -1189,20 +1202,17 @@ public void WebFunction(Function function) {
 		dialogChirlds.add(new Function("47", "自定义对话框选择(列表)"));
 		dialogChirlds.add(new Function("48", "自定义对话框输入"));
 
-		
+	}
 
-	}
-	
-	
-	public void WebManageData(){
+	public void WebManageData() {
 		functionParents.clear();
-		functionParents.add(new Function("1", "查询新增修改"));
+		functionParents.add(new Function("1", "ssh查询新增修改"));
 	}
-	
-	
-	public void WebData(){
+
+	public void WebData() {
 		functionParents.clear();
 		functionParents.add(new Function("1", "网络请求,响应"));
+		functionParents.add(new Function("2", "ssm接口请求响应"));
 	}
 
 	public void searchCodeFiles(String root) {
@@ -1228,7 +1238,8 @@ public void WebFunction(Function function) {
 	/**
 	 * 用于侦听文本组件插入符的位置更改的侦听器 获取当前光标在文件中的行号
 	 */
-	int whichLine=-1;
+	int whichLine = -1;
+
 	class CaretLis_lineNo implements CaretListener {
 		public void caretUpdate(CaretEvent e) {
 			try {
@@ -1270,9 +1281,9 @@ public void WebFunction(Function function) {
 
 	public boolean checkClickTime() {
 		long nowTime = (new Date()).getTime();
-	
+
 		if ((nowTime - clickTime) < 300) {
-			
+
 			clickTime = nowTime;
 			return true;
 		}

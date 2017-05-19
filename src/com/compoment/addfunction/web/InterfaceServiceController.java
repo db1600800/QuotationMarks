@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class mapper {
+public class InterfaceServiceController {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -18,11 +20,24 @@ public class mapper {
 	List<TableColumnBean> queryConditionColumns = new ArrayList();
 	
 
+	public void createInterfaceService(List<TableBean> tables)
+	{
+		
+		
+		mapperXml(tables);
+		entity(tables);
+		serviceInterface(tables);
+		controller(tables);
+		
+	}
+	
+	
 	public void mapperXml(List<TableBean> tables) {
 
 		String show = "";
 		String condition = "";
 		String relate = "";
+		String mainTableName="";
 
 		boolean haveRelate = false;
 
@@ -121,6 +136,7 @@ public class mapper {
 
 			if(table.isMainTable)
 			{
+				mainTableName=table.tableEnName;
 				m += "<mapper namespace=\"com..dao.impl."+table.tableEnName+"Mapper\">\n";
 				m += "	<resultMap id=\""+table.tableEnName+"ResultMap\" type=\"com..bean."+table.tableEnName+"Bean\">\n";
 				for (TableColumnBean column : resultColumns)
@@ -271,7 +287,9 @@ public class mapper {
 //		m += "		where id = #{id,jdbcType=INTEGER}\n";
 //		m += "	</update>\n";
 		m += "</mapper>\n";
-
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", mainTableName+"Mapper", "xml", m);
+		
 	}
 
 	public void entity(List<TableBean> tables) {
@@ -279,7 +297,7 @@ public class mapper {
 		
 		
 		for (TableBean table : tables) {
-
+			m="";
 			m += "public class "+StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Bean {\n";
 			for (TableColumnBean column : table.columns) {
 			
@@ -307,6 +325,9 @@ public class mapper {
 			}
 			
 			m += "}\n";
+			
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Mapper", "java", m);
+			
 		}
 	
 	
@@ -360,6 +381,8 @@ public class mapper {
 
 		m += "}\n";
 		
+	
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", servicename+"Service", "java", m);
 		
 		
 		
@@ -403,9 +426,11 @@ public class mapper {
 			m += "	}\n";
 
 			m += "}\n";
-			
+		
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", servicename+"ServiceImpl", "java", m);
 		}
 
+		
 	}
 
 
@@ -491,6 +516,8 @@ public class mapper {
 		m += "	}\n";
 		m += "}\n";
 
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",servicename+"Controller", "java", m);
 	}
 
 }

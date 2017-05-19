@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
+import com.compoment.addfunction.web.InterfaceServiceController;
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
@@ -28,13 +29,16 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-public class Main extends JFrame {
+public class TableDocToInterfaceService extends JFrame {
 
 	private JPanel contentPane;
 	DBTablesPanel dbTablesPanel;
@@ -55,7 +59,7 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main frame = new Main();
+					TableDocToInterfaceService frame = new TableDocToInterfaceService();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +71,7 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Main() {
+	public TableDocToInterfaceService() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 800);
 		contentPane = new JPanel();
@@ -236,12 +240,12 @@ public class Main extends JFrame {
 		// 选择到表关系页
 		addToRelateTablesView = new JButton("");
 		addToRelateTablesView
-				.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
+				.setIcon(new ImageIcon(TableDocToInterfaceService.class.getResource("/javax/swing/plaf/metal/icons/sortDown.png")));
 
 		// 从表关系页移除
 		removeFromRelateTablesView = new JButton("");
 		removeFromRelateTablesView
-				.setIcon(new ImageIcon(Main.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
+				.setIcon(new ImageIcon(TableDocToInterfaceService.class.getResource("/javax/swing/plaf/metal/icons/sortUp.png")));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -274,6 +278,9 @@ public class Main extends JFrame {
 				Sql sql = new Sql();
 				sql.createTableSql(dbTablesPanel.tables);
 
+				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+				interfaceServiceController.createInterfaceService(dbTablesPanel.tables);
+				
 				dbTablesPanel.cleanSelectTables();
 			}
 		});
