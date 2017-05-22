@@ -275,11 +275,7 @@ public class TableDocToInterfaceService extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dbTableRelativePanel.setDBTables(dbTablesPanel.tables);
 
-				Sql sql = new Sql();
-				sql.createTableSql(dbTablesPanel.tables);
-
-				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-				interfaceServiceController.createInterfaceService(dbTablesPanel.tables);
+			
 				
 				dbTablesPanel.cleanSelectTables();
 			}
@@ -298,6 +294,12 @@ public class TableDocToInterfaceService extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Sql sql = new Sql();
 				String query = sql.createQuerySql(dbTableRelativePanel.tables);
+				
+				
+			
+
+				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+				interfaceServiceController.createInterfaceService(dbTableRelativePanel.tables);
 				sqlResultEditText.setText(query);
 
 			}

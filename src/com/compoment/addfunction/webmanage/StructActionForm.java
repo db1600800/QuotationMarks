@@ -26,10 +26,10 @@ import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
-
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 /**
@@ -151,7 +151,8 @@ public class StructActionForm {
 		for (String cirldClassString : mChirldClass) {
 			m += cirldClassString + "\n\n";
 		}
-		makeFile(  interfaceBean.enName+"ActionForm",m);
+	
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName+"ActionForm", "java", m);
 		System.out.println(m);
 	}
 

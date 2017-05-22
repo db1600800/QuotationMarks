@@ -14,6 +14,7 @@ import com.compoment.creater.first.QuotationMarks;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
 public class TableToHibernateEntity {
@@ -235,10 +236,12 @@ public class TableToHibernateEntity {
 			m2+="}\n";
 			
 			
-			makeFile(  interfaceBean.enName+"Entity",m);
+		
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName+"Entity", "java", m);
 			if(keycount>1)
 			{
-			makeFile(  interfaceBean.enName+"EntityIds",m2);
+		
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", interfaceBean.enName+"EntityIds", "java", m2);
 			}
 			System.out.println(m);
 	
@@ -248,52 +251,6 @@ public class TableToHibernateEntity {
 	
 	
 	
-	public void makeFile(String fileName,String s)
-	{
-		try {
-		String doc=KeyValue.readCache("docPath");
-		int p=doc.lastIndexOf("/");
-		if(p==-1)
-		{
-			 p=doc.lastIndexOf("\\");
-		}
-		
-		
-		      
-		    
-		
-		File tofile=new File(doc.substring(0, p)+"/java/"+fileName+".java");
-		  if(! tofile.exists()) {  
-	            makeDir(tofile.getParentFile());  
-	        }  
-	      
-		  tofile.createNewFile(); 
-		
-		FileWriter fw;
-		
-			fw = new FileWriter(tofile);
-			BufferedWriter buffw=new BufferedWriter(fw);
-			PrintWriter pw=new PrintWriter(buffw);
-		
-		
-
-	
-		pw.println(s);
-
-		pw.close();
-		buffw.close();
-		fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	  public  void makeDir(File dir) {  
-	        if(! dir.getParentFile().exists()) {  
-	            makeDir(dir.getParentFile());  
-	        }  
-	        dir.mkdir();  
-	    }  
 
 	public static boolean isinteger(String value) {
 		try {

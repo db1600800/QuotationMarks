@@ -1,9 +1,9 @@
-#Update 'codeFilePath' value
-#Fri May 19 15:49:41 CST 2017
+#Update '\u5907\u6CE8' value
+#Mon May 22 09:15:40 CST 2017
 \u53D8\u91CF\u540D=0
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
-codeFilePath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/src/jsp
+codeFilePath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/src/web
 \u5907\u6CE8=3
 compomentProjectAddress=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/other/mobile-android
 recentUseColor=\#141414,\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,
