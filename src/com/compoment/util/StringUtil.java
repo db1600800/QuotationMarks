@@ -17,6 +17,24 @@ public class StringUtil {
 	}
 	
 	
+	public static String tableName(String str) {
+		// buy_typelist
+		StringBuilder tableNameTypeString = new StringBuilder(); 
+		tableNameTypeString.append("t");
+		 int i = 0;  
+	        while(i < str.length()){  
+	            char chr = str.charAt(i);  
+	            if(Character.isUpperCase(chr)){  
+	            	tableNameTypeString.append("_"); 
+	            	tableNameTypeString.append(chr); 
+	            } 
+	            i++;  
+	        }  
+		
+		
+		return tableNameTypeString.toString().toLowerCase();
+	}
+	
 
 	
 	

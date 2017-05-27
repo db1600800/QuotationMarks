@@ -3,6 +3,8 @@ package com.compoment.addfunction.web;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.util.FileUtil;
@@ -48,12 +50,12 @@ public class InterfaceServiceController {
 			for (TableColumnBean column : table.columns) {
 
 				if ("left".equals(column.leftClickSelected)) {
-					show += " " + column.belongWhichTable.tableEnName + "."
+					show += " " + StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
 							+ column.columnEnName + ",";
 					resultColumns.add(column);
 
 				} else if ("right".equals(column.rightClickSelected)) {
-					condition += " " + column.belongWhichTable.tableEnName
+					condition += " " + StringUtil.tableName(column.belongWhichTable.tableEnName)
 							+ "." + column.columnEnName + "= #{"+column.columnEnName+"},and";
 					queryConditionColumns.add(column);
 				} else {
@@ -63,27 +65,27 @@ public class InterfaceServiceController {
 				if (column.relateColumnBeans != null
 						&& column.relateColumnBeans.size() > 0) {
 					haveRelate = true;
-					relate += column.belongWhichTable.tableEnName;
+					relate += StringUtil.tableName(column.belongWhichTable.tableEnName);
 					// 关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
 
 						if (column.relateColumnBeans.size() == 1) {// 两表
 
 							relate += " inner join "
-									+ relateColumn.belongWhichTable.tableEnName
+									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ " on "
-									+ column.belongWhichTable.tableEnName + "."
+									+ StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
 									+ column.columnEnName + "="
-									+ relateColumn.belongWhichTable.tableEnName
+									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ "." + relateColumn.columnEnName;
 
 						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
 							relate += " inner join "
-									+ relateColumn.belongWhichTable.tableEnName
+									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ " on "
-									+ column.belongWhichTable.tableEnName + "."
+									+ StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
 									+ column.columnEnName + "="
-									+ relateColumn.belongWhichTable.tableEnName
+									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ "." + relateColumn.columnEnName;
 
 						}
@@ -98,7 +100,7 @@ public class InterfaceServiceController {
 			for (TableColumnBean column : table.columns) {
 
 				if (!haveRelate) {// 单个表
-					relate = column.belongWhichTable.tableEnName;
+					relate = StringUtil.tableName(column.belongWhichTable.tableEnName);
 				}
 
 			}
@@ -326,7 +328,7 @@ public class InterfaceServiceController {
 			
 			m += "}\n";
 			
-			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Mapper", "java", m);
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Bean", "java", m);
 			
 		}
 	
@@ -502,6 +504,8 @@ public class InterfaceServiceController {
 		m += "@RequestMapping(\"/front/"+servicename.toLowerCase()+"\")\n";
 		m += "public class "+servicename+"Controller extends BaseController {\n";
 
+		m+="@Autowired\n";
+		m+="private "+servicename+"Service "+StringUtil.firstCharToUpperAndJavaName(servicename)+"Service;\n";
 		m += "	// "+serviceCnName+"\n";
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
@@ -519,5 +523,7 @@ public class InterfaceServiceController {
 		
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",servicename+"Controller", "java", m);
 	}
+
+	
 
 }
