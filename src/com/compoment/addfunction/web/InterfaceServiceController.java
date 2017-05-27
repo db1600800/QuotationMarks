@@ -5,6 +5,7 @@ import java.util.List;
 
 
 
+
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.util.FileUtil;
@@ -27,6 +28,7 @@ public class InterfaceServiceController {
 		
 		
 		mapperXml(tables);
+		mapperJava(tables);
 		entity(tables);
 		serviceInterface(tables);
 		controller(tables);
@@ -291,6 +293,53 @@ public class InterfaceServiceController {
 		m += "</mapper>\n";
 		
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", mainTableName+"Mapper", "xml", m);
+		
+	}
+	
+	
+	
+	
+	public void mapperJava(List<TableBean> tables) {
+
+		String show = "";
+		String condition = "";
+		String relate = "";
+		String mainTableName="";
+
+		boolean haveRelate = false;
+
+		
+
+		
+		for (TableBean table : tables) {
+
+			if(table.isMainTable)
+			{
+				mainTableName=table.tableEnName;
+				
+			
+			}
+		}
+		
+		
+		String m = "";
+		
+		m+="public interface "+mainTableName+"Mapper"+" {\n";
+
+		for (TableBean table : tables) {
+
+			if(table.isMainTable)
+			{
+				
+				
+		m += table.tableEnName+"Bean "+table.tableEnName+"Select();\n";
+	
+			}
+		}
+		
+		m += "}\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", mainTableName+"Mapper", "java", m);
 		
 	}
 
