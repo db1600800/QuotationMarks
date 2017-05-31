@@ -17,6 +17,16 @@ public class StringUtil {
 	}
 	
 	
+	public static String firstCharToLower(String string) {
+		// buy_typelist
+	 
+
+		string = string.substring(0, 1).toLowerCase() + string.substring(1);
+		
+		return string;
+	}
+	
+	
 	public static String tableName(String str) {
 		// buy_typelist
 		StringBuilder tableNameTypeString = new StringBuilder(); 
@@ -27,7 +37,10 @@ public class StringUtil {
 	            if(Character.isUpperCase(chr)){  
 	            	tableNameTypeString.append("_"); 
 	            	tableNameTypeString.append(chr); 
-	            } 
+	            }else
+	            {
+	            	tableNameTypeString.append(chr); 
+	            }
 	            i++;  
 	        }  
 		
