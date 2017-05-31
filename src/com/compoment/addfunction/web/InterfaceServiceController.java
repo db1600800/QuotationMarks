@@ -1,16 +1,22 @@
 package com.compoment.addfunction.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 
+
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
+
 
 public class InterfaceServiceController {
 
@@ -462,8 +468,12 @@ public class InterfaceServiceController {
 			m += "public class "+servicename+"ServiceImpl implements "+servicename+"Service {\n";
 			m += "	private final static Logger logger = LoggerFactory.getLogger(ErrorServiceImpl.class);\n";
 			m += "	\n";
+			
+			
+		
+			
 			m += "	@Resource\n";
-			m += "	private BaseDao baseDao;\n";
+			m += "	private "+mainTableName+"Mapper mapper;\n";
 			m += "	\n";
 			m += "	@Override\n";
 			m += "	public "+resultType+" get("+queryCondition+") throws Exception {\n";
@@ -471,9 +481,8 @@ public class InterfaceServiceController {
 			m += "		Map<String,Object> m = new HashMap<>();\n";
 			m += queryCondition2;
 			
-			m += "		\n";
-			m += "		Object obj = baseDao.selectOne(DaoTools.getMapperNamespace("+resultType+".class, \""+mainTableName+"Select\"), m);\n";
-			m += "		return obj == null ? null : ("+resultType+")obj;\n";
+			
+			m+="return mapper."+mainTableName+"Select();\n";
 			m += "	}\n";
 
 			m += "}\n";
@@ -554,18 +563,26 @@ public class InterfaceServiceController {
 		m += "public class "+servicename+"Controller extends BaseController {\n";
 
 		m+="@Autowired\n";
-		m+="private "+servicename+"Service "+StringUtil.firstCharToUpperAndJavaName(servicename)+"Service;\n";
+		m+="private "+servicename+"Service "+StringUtil.firstCharToLower(servicename)+"Service;\n";
 		m += "	// "+serviceCnName+"\n";
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
-		m += "		if (null == reqMap || reqMap.isEmpty())\n";
-		m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+		m += "		//if (null == reqMap || reqMap.isEmpty())\n";
+		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
 		m += queryCondition;
 	
 
-		m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+		m+=mainTableName+"Bean "+mainTableName.toLowerCase()+"Bean=null;\n";
+		m+="try {\n";
+		m+=mainTableName.toLowerCase()+"Bean="+StringUtil.firstCharToLower(servicename)+"Service.get();\n";
+		m+="} catch (Exception e) {\n";
+		m+="	e.printStackTrace();\n";
+		m+="}\n";
+		
+		
+		m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 		m += "	}\n";
 		m += "}\n";
 
