@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -51,6 +52,8 @@ public class TableDocToInterfaceService extends JFrame {
 	JButton deleteRelateButton;
 	JButton updateRelateButton;
 	JButton addRelateButton;
+	private JTextField interfaceName;
+	private JTextField interfaceCnName;
 
 	/**
 	 * Launch the application.
@@ -95,55 +98,81 @@ public class TableDocToInterfaceService extends JFrame {
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-		JLabel lblNewLabel = new JLabel("数据表");
+		JLabel lblNewLabel = new JLabel("数据表（左键红色表示选中，右键绿色表示主表）");
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 14));
 
-		JLabel label = new JLabel("表关联(左键红色表示查询结果，右键绿色表示查询条件)");
+		JLabel label = new JLabel("接口表关联(左键红色表示查询结果，右键绿色表示查询条件)");
 		label.setFont(new Font("宋体", Font.PLAIN, 14));
 
 		JPanel panel_1 = new JPanel();
+		
+		interfaceName = new JTextField();
+        interfaceName.setColumns(15);
+		
+		JLabel lblNewLabel_1 = new JLabel("接口英文名:");
+		
+		JLabel label_1 = new JLabel("接口中文名:");
+		
+		interfaceCnName = new JTextField();
+		interfaceCnName.setColumns(15);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup().addGap(577)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panel_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 586,
-										Short.MAX_VALUE)
-								.addComponent(label, Alignment.LEADING).addGroup(Alignment.LEADING,
-										gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(lblNewLabel)
-														.addPreferredGap(ComponentPlacement.RELATED, 368,
-																Short.MAX_VALUE)
-														.addComponent(getDBTableBtn).addGap(81))
-												.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 586,
-														Short.MAX_VALUE)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-														.addComponent(scrollPane_1, Alignment.LEADING, 0, 0,
-																Short.MAX_VALUE)
-														.addComponent(panel, Alignment.LEADING,
-																GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))))
-						.addGap(27)));
-		gl_contentPane
-				.setVerticalGroup(
-						gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(
-										gl_contentPane.createSequentialGroup()
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-														.addComponent(getDBTableBtn).addComponent(lblNewLabel))
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 25,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED).addComponent(label)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 235,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 77,
-														GroupLayout.PREFERRED_SIZE)
-												.addContainerGap(90, Short.MAX_VALUE)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(577)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(interfaceName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(interfaceCnName, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+								.addComponent(label)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel)
+									.addPreferredGap(ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+									.addComponent(getDBTableBtn)
+									.addGap(81))
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(scrollPane_1, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+									.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)))
+							.addGap(27))))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(getDBTableBtn)
+						.addComponent(lblNewLabel))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_1)
+							.addComponent(interfaceName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_1))
+						.addComponent(interfaceCnName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 235, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(32, Short.MAX_VALUE))
+		);
 
 		queryRelateButton = new JButton("查询");
 
@@ -296,10 +325,15 @@ public class TableDocToInterfaceService extends JFrame {
 				String query = sql.createQuerySql(dbTableRelativePanel.tables);
 				
 				
-			
+			    if(interfaceName.getText()==null || "".equals(interfaceName.getText()))
+			    {
+			    	JOptionPane.showMessageDialog(null, "请填写接口英文名", "", JOptionPane.INFORMATION_MESSAGE);
+					
+			    	return;
+			    }
 
 				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-				interfaceServiceController.createInterfaceService(dbTableRelativePanel.tables);
+				interfaceServiceController.createInterfaceService(interfaceName.getText(),dbTableRelativePanel.tables);
 				sqlResultEditText.setText(query);
 
 			}

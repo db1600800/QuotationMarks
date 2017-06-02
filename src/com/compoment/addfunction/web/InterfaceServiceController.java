@@ -27,11 +27,11 @@ public class InterfaceServiceController {
 	
 	List<TableColumnBean> resultColumns = new ArrayList();
 	List<TableColumnBean> queryConditionColumns = new ArrayList();
-	
+	String interfaceName;
 
-	public void createInterfaceService(List<TableBean> tables)
+	public void createInterfaceService(String interfaceName,List<TableBean> tables)
 	{
-		
+		this.interfaceName=interfaceName;
 		
 		mapperXml(tables);
 		mapperJava(tables);
@@ -560,7 +560,7 @@ public class InterfaceServiceController {
 		m += "@Controller\n";
 		m += "@Scope(\"prototype\")\n";
 		m += "@RequestMapping(\"/front/"+servicename.toLowerCase()+"\")\n";
-		m += "public class "+servicename+"Controller extends BaseController {\n";
+		m += "public class "+interfaceName+"Controller extends BaseController {\n";
 
 		m+="@Autowired\n";
 		m+="private "+servicename+"Service "+StringUtil.firstCharToLower(servicename)+"Service;\n";
