@@ -28,10 +28,12 @@ public class InterfaceServiceController {
 	List<TableColumnBean> resultColumns = new ArrayList();
 	List<TableColumnBean> queryConditionColumns = new ArrayList();
 	String interfaceName;
+	String interfaceCnName;
 
-	public void createInterfaceService(String interfaceName,List<TableBean> tables)
+	public void createInterfaceService(String interfaceName,String interfaceCnName,List<TableBean> tables)
 	{
 		this.interfaceName=interfaceName;
+		this.interfaceCnName=interfaceCnName;
 		
 		mapperXml(tables);
 		mapperJava(tables);
@@ -65,6 +67,10 @@ public class InterfaceServiceController {
 				} else if ("right".equals(column.rightClickSelected)) {
 					condition += " " + StringUtil.tableName(column.belongWhichTable.tableEnName)
 							+ "." + column.columnEnName + "= #{"+column.columnEnName+"},and";
+					
+//					m += "		<if test=\"errorCode != null and errorCode != ''\">\n";
+//					m += "			and errorCode = #{errorCode}\n";
+//					m += "		</if>\n";
 					queryConditionColumns.add(column);
 				} else {
 
@@ -104,9 +110,7 @@ public class InterfaceServiceController {
 		}
 
 		for (TableBean table : tables) {
-
 			for (TableColumnBean column : table.columns) {
-
 				if (!haveRelate) {// 单个表
 					relate = StringUtil.tableName(column.belongWhichTable.tableEnName);
 				}
@@ -114,6 +118,9 @@ public class InterfaceServiceController {
 			}
 		}
 
+		
+		
+		//查询
 		String sql = "";
 
 		if ("".equals(show) && "".equals(condition)) {
@@ -135,7 +142,6 @@ public class InterfaceServiceController {
 	
 
 		String m = "";
-
 		m += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 		m += "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n";
 		
@@ -431,7 +437,7 @@ public class InterfaceServiceController {
 		
 		
 		
-		m += "public interface "+servicename+"Service {\n";
+		m += "public interface "+interfaceName+"Service {\n";
 
 	
 		m += "	"+resultType+" get("+queryCondition+") throws Exception;\n";
@@ -439,7 +445,7 @@ public class InterfaceServiceController {
 		m += "}\n";
 		
 	
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", servicename+"Service", "java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", interfaceName+"Service", "java", m);
 		
 		
 		
@@ -464,9 +470,9 @@ public class InterfaceServiceController {
 
 
 			
-			m += "@Service(\""+servicename+"Service\")\n";
-			m += "public class "+servicename+"ServiceImpl implements "+servicename+"Service {\n";
-			m += "	private final static Logger logger = LoggerFactory.getLogger(ErrorServiceImpl.class);\n";
+			m += "@Service(\""+interfaceName+"Service\")\n";
+			m += "public class "+interfaceName+"ServiceImpl implements "+interfaceName+"Service {\n";
+			m += "	private final static Logger logger = LoggerFactory.getLogger("+interfaceName+"ServiceImpl.class);\n";
 			m += "	\n";
 			
 			
@@ -487,7 +493,7 @@ public class InterfaceServiceController {
 
 			m += "}\n";
 		
-			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", servicename+"ServiceImpl", "java", m);
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", interfaceName+"ServiceImpl", "java", m);
 		}
 
 		
@@ -520,7 +526,10 @@ public class InterfaceServiceController {
 		servicename=servicename.substring(0, servicename.lastIndexOf("_"));
 		}
 		
-		
+		if(interfaceName==null || "".equals(interfaceName))
+		{
+			interfaceName=servicename;
+		}
 		
 		for(TableColumnBean column:queryConditionColumns)
 		{
@@ -553,18 +562,18 @@ public class InterfaceServiceController {
 
 		m += "import com.framework.controller.BaseController;\n";
 		m += "import com.framework.utils.SpringBeanManger;\n";
-		m += "import com.cpz.utils.CommonUtil;\n";
-		m += "import com.cpz.utils.Constant;\n";
+		
 
 	
+		m+="\n/**"+interfaceCnName+"*/\n";
 		m += "@Controller\n";
 		m += "@Scope(\"prototype\")\n";
-		m += "@RequestMapping(\"/front/"+servicename.toLowerCase()+"\")\n";
+		m += "@RequestMapping(\"/"+interfaceName.toLowerCase()+"\")\n";
 		m += "public class "+interfaceName+"Controller extends BaseController {\n";
 
 		m+="@Autowired\n";
-		m+="private "+servicename+"Service "+StringUtil.firstCharToLower(servicename)+"Service;\n";
-		m += "	// "+serviceCnName+"\n";
+		m+="private "+interfaceName+"Service "+StringUtil.firstCharToLower(interfaceName)+"Service;\n";
+		
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
@@ -576,7 +585,7 @@ public class InterfaceServiceController {
 
 		m+=mainTableName+"Bean "+mainTableName.toLowerCase()+"Bean=null;\n";
 		m+="try {\n";
-		m+=mainTableName.toLowerCase()+"Bean="+StringUtil.firstCharToLower(servicename)+"Service.get();\n";
+		m+=mainTableName.toLowerCase()+"Bean="+StringUtil.firstCharToLower(interfaceName)+"Service.get();\n";
 		m+="} catch (Exception e) {\n";
 		m+="	e.printStackTrace();\n";
 		m+="}\n";
@@ -587,7 +596,7 @@ public class InterfaceServiceController {
 		m += "}\n";
 
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",servicename+"Controller", "java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",interfaceName+"Controller", "java", m);
 	}
 
 	

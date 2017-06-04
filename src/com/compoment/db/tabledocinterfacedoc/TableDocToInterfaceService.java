@@ -333,7 +333,7 @@ public class TableDocToInterfaceService extends JFrame {
 			    }
 
 				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-				interfaceServiceController.createInterfaceService(interfaceName.getText(),dbTableRelativePanel.tables);
+				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 				sqlResultEditText.setText(query);
 
 			}
