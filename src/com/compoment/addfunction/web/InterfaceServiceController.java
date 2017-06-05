@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,60 +14,83 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-
 public class InterfaceServiceController {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	List<TableColumnBean> resultColumns = new ArrayList();
 	List<TableColumnBean> queryConditionColumns = new ArrayList();
 	String interfaceName;
 	String interfaceCnName;
 
-	public void createInterfaceService(String interfaceName,String interfaceCnName,List<TableBean> tables)
-	{
-		this.interfaceName=interfaceName;
-		this.interfaceCnName=interfaceCnName;
-		
+	public void createInterfaceService(String interfaceName,
+			String interfaceCnName, List<TableBean> tables) {
+		this.interfaceName = interfaceName;
+		this.interfaceCnName = interfaceCnName;
+
+		mapperXmlForSingleTable(tables);
 		mapperXml(tables);
 		mapperJava(tables);
 		entity(tables);
 		serviceInterface(tables);
 		controller(tables);
-		
+
 	}
-	
-	
-	public void mapperXml(List<TableBean> tables) {
+
+	public void mapperXmlForSingleTable(List<TableBean> tables) {
+
+		if (tables != null && tables.size() > 1) {
+			return;
+		}
 
 		String show = "";
 		String condition = "";
 		String relate = "";
-		String mainTableName="";
+		String mainTableName = "";
 
 		boolean haveRelate = false;
 
-		
+		boolean conditionFirstColumn = true;
 
 		for (TableBean table : tables) {
 
 			for (TableColumnBean column : table.columns) {
 
 				if ("left".equals(column.leftClickSelected)) {
-					show += " " + StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
-							+ column.columnEnName + ",";
+					show += " "
+							+ StringUtil
+									.tableName(column.belongWhichTable.tableEnName)
+							+ "." + column.columnEnName + ",";
 					resultColumns.add(column);
 
 				} else if ("right".equals(column.rightClickSelected)) {
-					condition += " " + StringUtil.tableName(column.belongWhichTable.tableEnName)
-							+ "." + column.columnEnName + "= #{"+column.columnEnName+"},and";
-					
-//					m += "		<if test=\"errorCode != null and errorCode != ''\">\n";
-//					m += "			and errorCode = #{errorCode}\n";
-//					m += "		</if>\n";
+
+					if (conditionFirstColumn) {
+						condition += "		<if test=\"" + column.columnEnName
+								+ "!= null and " + column.columnEnName
+								+ "!= ''\">\n";
+						condition += " "
+								+ StringUtil
+										.tableName(column.belongWhichTable.tableEnName)
+								+ "." + column.columnEnName + "= #{"
+								+ column.columnEnName + "}\n";
+						condition += "		</if>\n";
+					} else {
+						condition += "		<if test=\"" + column.columnEnName
+								+ "!= null and " + column.columnEnName
+								+ "!= ''\">\n";
+						condition += " and "
+								+ StringUtil
+										.tableName(column.belongWhichTable.tableEnName)
+								+ "." + column.columnEnName + "= #{"
+								+ column.columnEnName + "}\n";
+						condition += "		</if>\n";
+						conditionFirstColumn = false;
+					}
+
 					queryConditionColumns.add(column);
 				} else {
 
@@ -79,27 +99,38 @@ public class InterfaceServiceController {
 				if (column.relateColumnBeans != null
 						&& column.relateColumnBeans.size() > 0) {
 					haveRelate = true;
-					relate += StringUtil.tableName(column.belongWhichTable.tableEnName);
+					relate += StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
 					// 关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
 
 						if (column.relateColumnBeans.size() == 1) {// 两表
 
 							relate += " inner join "
-									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ " on "
-									+ StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
-									+ column.columnEnName + "="
-									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "."
+									+ column.columnEnName
+									+ "="
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ "." + relateColumn.columnEnName;
 
 						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
 							relate += " inner join "
-									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ " on "
-									+ StringUtil.tableName(column.belongWhichTable.tableEnName) + "."
-									+ column.columnEnName + "="
-									+ StringUtil.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "."
+									+ column.columnEnName
+									+ "="
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
 									+ "." + relateColumn.columnEnName;
 
 						}
@@ -112,15 +143,14 @@ public class InterfaceServiceController {
 		for (TableBean table : tables) {
 			for (TableColumnBean column : table.columns) {
 				if (!haveRelate) {// 单个表
-					relate = StringUtil.tableName(column.belongWhichTable.tableEnName);
+					relate = StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
 				}
 
 			}
 		}
 
-		
-		
-		//查询
+		// 查询
 		String sql = "";
 
 		if ("".equals(show) && "".equals(condition)) {
@@ -128,331 +158,524 @@ public class InterfaceServiceController {
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
-			sql = "select * from " + relate + " where "
-					+ condition.substring(0, condition.lastIndexOf(",and"));
+			sql = "select * from " + relate + " where " + condition;
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
-					+ " from " + relate + " where "
-					+ condition.substring(0, condition.lastIndexOf(",and"));
+					+ " from " + relate + " where " + condition;
 		}
-
-	
 
 		String m = "";
 		m += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 		m += "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n";
-		
 
-		
-		
 		for (TableBean table : tables) {
 
-			if(table.isMainTable)
-			{
-				mainTableName=table.tableEnName;
-				m += "<mapper namespace=\"com..dao.impl."+table.tableEnName+"Mapper\">\n";
-				m += "	<resultMap id=\""+table.tableEnName+"ResultMap\" type=\"com..bean."+table.tableEnName+"Bean\">\n";
-				for (TableColumnBean column : resultColumns)
-				{
-				  if(column.belongWhichTable.tableEnName.equals(table.tableEnName))
-				  {
-					  if(column.columnEnName.contains("id"))
-					  {
-							m += "<id column=\""+column.columnEnName+"\" property=\""+column.columnEnName+"\" />\n"; 
-					  }else
-					  {
-					  m += "<result column=\""+column.columnEnName+"\" property=\""+column.columnEnName+"\" />\n";
-					  }
-				  }
+			if (table.isMainTable) {
+				mainTableName = table.tableEnName;
+				m += "<mapper namespace=\"com..dao.impl." + table.tableEnName
+						+ "Mapper\">\n";
+				m += "	<resultMap id=\"" + table.tableEnName
+						+ "ResultMap\" type=\"com..bean." + table.tableEnName
+						+ "Bean\">\n";
+				for (TableColumnBean column : resultColumns) {
+					if (column.belongWhichTable.tableEnName
+							.equals(table.tableEnName)) {
+						if (column.columnEnName.contains("id")) {
+							m += "<id column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						} else {
+							m += "<result column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						}
+					}
 				}
 			}
 		}
-		
-		
+
 		for (TableBean table : tables) {
 
-			if(!table.isMainTable)
-			{
-				m += "	 <collection property=\""+table.tableEnName+"\" ofType=\"com..bean."+table.tableEnName+"Bean\">\n";
-				for (TableColumnBean column : resultColumns)
-				{
-				  if(column.belongWhichTable.tableEnName.equals(table.tableEnName))
-				  {
-					  if(column.columnEnName.contains("id"))
-					  {
-							m += "<id column=\""+column.columnEnName+"\" property=\""+column.columnEnName+"\" />\n"; 
-					  }else
-					  {
-					  m += "<result column=\""+column.columnEnName+"\" property=\""+column.columnEnName+"\" />\n";
-					  }
-				  }
+			if (!table.isMainTable) {
+				m += "	 <collection property=\"" + table.tableEnName
+						+ "\" ofType=\"com..bean." + table.tableEnName
+						+ "Bean\">\n";
+				for (TableColumnBean column : resultColumns) {
+					if (column.belongWhichTable.tableEnName
+							.equals(table.tableEnName)) {
+						if (column.columnEnName.contains("id")) {
+							m += "<id column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						} else {
+							m += "<result column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						}
+					}
 				}
-				
-				m+="</collection>\n";
+
+				m += "</collection>\n";
 			}
 		}
-		
+
 		m += "	</resultMap>\n";
-		
-		
-		
-		
-		
 
 		for (TableBean table : tables) {
 
-			if(table.isMainTable)
-			{
-		m += "	<select id=\""+table.tableEnName+"Select\" resultMap=\""+table.tableEnName+"ResultMap\" >\n";
-	
+			if (table.isMainTable) {
+				m += "	<select id=\"" + table.tableEnName
+						+ "Select\" resultMap=\"" + table.tableEnName
+						+ "ResultMap\" >\n";
+
 			}
 		}
-		m+=sql;
+		m += sql;
 		m += "	</select>\n";
-		
-		
-//		m += "	<select id=\"selectByCodeOrType\" resultMap=\"BaseResultMap\">\n";
-//		m += "		select\n";
-//		m += "		<include refid=\"Base_Column_List\" />\n";
-//		m += "		from t_gsp_error_info\n";
-//		m += "		\n";
-//		m += "		where 1=1\n";
-//		m += "		<if test=\"errorCode != null and errorCode != ''\">\n";
-//		m += "			and errorCode = #{errorCode}\n";
-//		m += "		</if>\n";
-//		m += "		<if test=\"errorType != null and errorType != ''\">\n";
-//		m += "			and errorType = #{errorType}\n";
-//		m += "		</if>\n";
-//		m += "	</select>\n";
-		
-		
-		
-//		m += "	<delete id=\"deleteByPrimaryKey\" parameterType=\"java.lang.Integer\">\n";
-//		m += "		delete from t_gsp_error_info\n";
-//		m += "		where id = #{id,jdbcType=INTEGER}\n";
-//		m += "	</delete>\n";
-//		
-//		
-//		m += "	<insert id=\"insert\" parameterType=\"ErrorInfo\">\n";
-//		m += "		insert into t_gsp_error_info (id, errorCode, errorType,\n";
-//		m += "		errorMsg)\n";
-//		m += "		values (#{id,jdbcType=INTEGER}, #{errorCode,jdbcType=VARCHAR},\n";
-//		m += "		#{errorType,jdbcType=VARCHAR},\n";
-//		m += "		#{errorMsg,jdbcType=VARCHAR})\n";
-//		m += "	</insert>\n";
-//		m += "	<insert id=\"insertSelective\" parameterType=\"ErrorInfo\">\n";
-//		m += "		insert into t_gsp_error_info\n";
-//		m += "		<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">\n";
-//		m += "			<if test=\"id != null\">\n";
-//		m += "				id,\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorCode != null\">\n";
-//		m += "				errorCode,\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorType != null\">\n";
-//		m += "				errorType,\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorMsg != null\">\n";
-//		m += "				errorMsg,\n";
-//		m += "			</if>\n";
-//		m += "		</trim>\n";
-//		m += "		<trim prefix=\"values (\" suffix=\")\" suffixOverrides=\",\">\n";
-//		m += "			<if test=\"id != null\">\n";
-//		m += "				#{id,jdbcType=INTEGER},\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorCode != null\">\n";
-//		m += "				#{errorCode,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorType != null\">\n";
-//		m += "				#{errorType,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorMsg != null\">\n";
-//		m += "				#{errorMsg,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "		</trim>\n";
-//		m += "	</insert>\n";
-//		m += "	<update id=\"updateByPrimaryKeySelective\" parameterType=\"ErrorInfo\">\n";
-//		m += "		<!-- WARNING - @mbggenerated This element is automatically generated by \n";
-//		m += "			MyBatis Generator, do not modify. This element was generated on Mon May 09 \n";
-//		m += "			14:23:05 CST 2016. -->\n";
-//		m += "		update t_gsp_error_info\n";
-//		m += "		<set>\n";
-//		m += "			<if test=\"errorCode != null\">\n";
-//		m += "				errorCode = #{errorCode,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorType != null\">\n";
-//		m += "				errorType = #{errorType,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "			<if test=\"errorMsg != null\">\n";
-//		m += "				errorMsg = #{errorMsg,jdbcType=VARCHAR},\n";
-//		m += "			</if>\n";
-//		m += "		</set>\n";
-//		m += "		where id = #{id,jdbcType=INTEGER}\n";
-//		m += "	</update>\n";
-//		m += "	<update id=\"updateByPrimaryKey\" parameterType=\"ErrorInfo\">\n";
-//		m += "		<!-- WARNING - @mbggenerated This element is automatically generated by \n";
-//		m += "			MyBatis Generator, do not modify. This element was generated on Mon May 09 \n";
-//		m += "			14:23:05 CST 2016. -->\n";
-//		m += "		update t_gsp_error_info\n";
-//		m += "		set errorCode = #{errorCode,jdbcType=VARCHAR},\n";
-//		m += "		errorType = #{errorType,jdbcType=VARCHAR},\n";
-//		m += "		errorMsg = #{errorMsg,jdbcType=VARCHAR}\n";
-//		m += "		where id = #{id,jdbcType=INTEGER}\n";
-//		m += "	</update>\n";
+
+		// 插入
+		for (TableBean table : tables) {
+			m += "\n\n	<insert id=\"" + table.tableEnName
+					+ "Insert\" parameterType=\"" + table.tableEnName
+					+ "Bean\">\n";
+			m += "		insert into " + StringUtil.tableName(table.tableEnName)
+					+ " \n";
+			m += "		<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">\n";
+			for (TableColumnBean column : table.columns) {
+
+				m += "			<if test=\"" + column.columnEnName + " != null\">\n";
+				m += "				" + column.columnEnName + ",\n";
+				m += "			</if>\n";
+
+			}
+		}
+
+		m += "		</trim>\n";
+
+		m += "		<trim prefix=\"values (\" suffix=\")\" suffixOverrides=\",\">\n";
+
+		for (TableBean table : tables) {
+			for (TableColumnBean column : table.columns) {
+
+				if (column.type.toLowerCase().equals("string")) {
+					m += "			<if test=\"" + column.columnEnName
+							+ " != null\">\n";
+					m += "				#{" + column.columnEnName
+							+ ",jdbcType=VARCHAR},\n";
+					m += "			</if>\n";
+				} else {
+					m += "			<if test=\"" + column.columnEnName
+							+ " != null\">\n";
+					m += "				#{" + column.columnEnName
+							+ ",jdbcType=INTEGER},\n";
+					m += "			</if>\n";
+				}
+
+			}
+		}
+		m += "		</trim>\n";
+		m += "	</insert>\n\n";
+
+		// 删除
+		for (TableBean table : tables) {
+			m += "	<delete id=\""
+					+ table.tableEnName
+					+ "DeleteByPrimaryKey\" parameterType=\"java.lang.Integer\">\n";
+			m += "		delete from " + StringUtil.tableName(table.tableEnName)
+					+ "\n";
+
+			for (TableColumnBean column : table.columns) {
+
+			}
+		}
+		m += "		where id = #{id,jdbcType=INTEGER}\n";
+		m += "	</delete>\n\n";
+
+		// 更新
+
+		for (TableBean table : tables) {
+			m += "	<update id=\"" + table.tableEnName
+					+ "UpdateByPrimaryKey\" parameterType=\""
+					+ table.tableEnName + "Bean\">\n";
+			m += "		update " + StringUtil.tableName(table.tableEnName) + "\n";
+			m += "		<set>\n";
+
+			for (TableColumnBean column : table.columns) {
+
+				if (column.type.toLowerCase().equals("string")) {
+					m += "			<if test=\"" + column.columnEnName
+							+ " != null\">\n";
+					m += "				" + column.columnEnName + "=#{"
+							+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+					m += "			</if>\n";
+				} else {
+					m += "			<if test=\"" + column.columnEnName
+							+ " != null\">\n";
+					m += "				" + column.columnEnName + "=#{"
+							+ column.columnEnName + ",jdbcType=INTEGER},\n";
+					m += "			</if>\n";
+				}
+
+			}
+
+			m += "		</set>\n";
+		}
+		m += "		where id = #{id,jdbcType=INTEGER}\n";
+		m += "	</update>\n";
+
 		m += "</mapper>\n";
-		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", mainTableName+"Mapper", "xml", m);
-		
+
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				mainTableName + "Mapper", "xml", m);
+
 	}
-	
-	
-	
-	
+
+	public void mapperXml(List<TableBean> tables) {
+
+		if (tables != null && tables.size() <= 1) {
+			return;
+		}
+
+		String show = "";
+		String condition = "";
+		String relate = "";
+		String mainTableName = "";
+
+		boolean haveRelate = false;
+
+		boolean conditionFirstColumn = true;
+
+		for (TableBean table : tables) {
+
+			for (TableColumnBean column : table.columns) {
+
+				if ("left".equals(column.leftClickSelected)) {
+					show += " "
+							+ StringUtil
+									.tableName(column.belongWhichTable.tableEnName)
+							+ "." + column.columnEnName + ",";
+					resultColumns.add(column);
+
+				} else if ("right".equals(column.rightClickSelected)) {
+
+					if (conditionFirstColumn) {
+						condition += "		<if test=\"" + column.columnEnName
+								+ "!= null and " + column.columnEnName
+								+ "!= ''\">\n";
+						condition += " "
+								+ StringUtil
+										.tableName(column.belongWhichTable.tableEnName)
+								+ "." + column.columnEnName + "= #{"
+								+ column.columnEnName + "}\n";
+						condition += "		</if>\n";
+					} else {
+						condition += "		<if test=\"" + column.columnEnName
+								+ "!= null and " + column.columnEnName
+								+ "!= ''\">\n";
+						condition += " and "
+								+ StringUtil
+										.tableName(column.belongWhichTable.tableEnName)
+								+ "." + column.columnEnName + "= #{"
+								+ column.columnEnName + "}\n";
+						condition += "		</if>\n";
+						conditionFirstColumn = false;
+					}
+
+					queryConditionColumns.add(column);
+				} else {
+
+				}
+
+				if (column.relateColumnBeans != null
+						&& column.relateColumnBeans.size() > 0) {
+					haveRelate = true;
+					relate += StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
+					// 关联的
+					for (TableColumnBean relateColumn : column.relateColumnBeans) {
+
+						if (column.relateColumnBeans.size() == 1) {// 两表
+
+							relate += " inner join "
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ " on "
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "."
+									+ column.columnEnName
+									+ "="
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ "." + relateColumn.columnEnName;
+
+						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
+							relate += " inner join "
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ " on "
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "."
+									+ column.columnEnName
+									+ "="
+									+ StringUtil
+											.tableName(relateColumn.belongWhichTable.tableEnName)
+									+ "." + relateColumn.columnEnName;
+
+						}
+
+					}
+				}
+			}
+		}
+
+		for (TableBean table : tables) {
+			for (TableColumnBean column : table.columns) {
+				if (!haveRelate) {// 单个表
+					relate = StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
+				}
+
+			}
+		}
+
+		// 查询
+		String sql = "";
+
+		if ("".equals(show) && "".equals(condition)) {
+			sql = "select * from " + relate;
+		}
+
+		else if ("".equals(show) && !"".equals(condition)) {
+			sql = "select * from " + relate + " where " + condition;
+		} else if (!"".equals(show) && "".equals(condition)) {
+			sql = "select " + show.substring(0, show.lastIndexOf(","))
+					+ " from " + relate;
+		} else {
+			sql = "select " + show.substring(0, show.lastIndexOf(","))
+					+ " from " + relate + " where " + condition;
+		}
+
+		String m = "";
+		m += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+		m += "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n";
+
+		for (TableBean table : tables) {
+
+			if (table.isMainTable) {
+				mainTableName = table.tableEnName;
+				m += "<mapper namespace=\"com..dao.impl." + table.tableEnName
+						+ "Mapper\">\n";
+				m += "	<resultMap id=\"" + table.tableEnName
+						+ "ResultMap\" type=\"com..bean." + table.tableEnName
+						+ "Bean\">\n";
+				for (TableColumnBean column : resultColumns) {
+					if (column.belongWhichTable.tableEnName
+							.equals(table.tableEnName)) {
+						if (column.columnEnName.contains("id")) {
+							m += "<id column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						} else {
+							m += "<result column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						}
+					}
+				}
+			}
+		}
+
+		for (TableBean table : tables) {
+
+			if (!table.isMainTable) {
+				m += "	 <collection property=\"" + table.tableEnName
+						+ "\" ofType=\"com..bean." + table.tableEnName
+						+ "Bean\">\n";
+				for (TableColumnBean column : resultColumns) {
+					if (column.belongWhichTable.tableEnName
+							.equals(table.tableEnName)) {
+						if (column.columnEnName.contains("id")) {
+							m += "<id column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						} else {
+							m += "<result column=\"" + column.columnEnName
+									+ "\" property=\"" + column.columnEnName
+									+ "\" />\n";
+						}
+					}
+				}
+
+				m += "</collection>\n";
+			}
+		}
+
+		m += "	</resultMap>\n";
+
+		for (TableBean table : tables) {
+
+			if (table.isMainTable) {
+				m += "	<select id=\"" + table.tableEnName
+						+ "Select\" resultMap=\"" + table.tableEnName
+						+ "ResultMap\" >\n";
+
+			}
+		}
+		m += sql;
+		m += "	</select>\n";
+
+		
+		m += "</mapper>\n";
+
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				mainTableName + "Mapper", "xml", m);
+
+	}
+
 	public void mapperJava(List<TableBean> tables) {
 
 		String show = "";
 		String condition = "";
 		String relate = "";
-		String mainTableName="";
+		String mainTableName = "";
 
 		boolean haveRelate = false;
 
-		
-
-		
 		for (TableBean table : tables) {
 
-			if(table.isMainTable)
-			{
-				mainTableName=table.tableEnName;
-				
-			
+			if (table.isMainTable) {
+				mainTableName = table.tableEnName;
+
 			}
 		}
-		
-		
+
 		String m = "";
-		
-		m+="public interface "+mainTableName+"Mapper"+" {\n";
+
+		m += "public interface " + mainTableName + "Mapper" + " {\n";
 
 		for (TableBean table : tables) {
 
-			if(table.isMainTable)
-			{
-				
-				
-		m += table.tableEnName+"Bean "+table.tableEnName+"Select();\n";
-	
+			if (table.isMainTable) {
+
+				m += table.tableEnName + "Bean " + table.tableEnName
+						+ "Select();\n";
+
 			}
 		}
-		
+
 		m += "}\n";
-		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", mainTableName+"Mapper", "java", m);
-		
+
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				mainTableName + "Mapper", "java", m);
+
 	}
 
 	public void entity(List<TableBean> tables) {
 		String m = "";
-		
-		
+
 		for (TableBean table : tables) {
-			m="";
-			m += "public class "+StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Bean {\n";
+			m = "";
+			m += "public class "
+					+ StringUtil.firstCharToUpperAndJavaName(table.tableEnName)
+					+ "Bean {\n";
 			for (TableColumnBean column : table.columns) {
-			
-				if(column.type.toLowerCase().contains("int"))
-				{
-					m += "	private Integer "+column.columnEnName+";\n";
-					m += "	public Integer get"+StringUtil.firstCharToUpperAndJavaName(column.columnEnName)+"() {\n";
-					m += "		return "+column.columnEnName+";\n";
+
+				if (column.type.toLowerCase().contains("int")) {
+					m += "	private Integer " + column.columnEnName + ";\n";
+					m += "	public Integer get"
+							+ StringUtil
+									.firstCharToUpperAndJavaName(column.columnEnName)
+							+ "() {\n";
+					m += "		return " + column.columnEnName + ";\n";
 					m += "	}\n";
 
-					m += "	public void set"+StringUtil.firstCharToUpperAndJavaName(column.columnEnName)+"(Integer "+column.columnEnName+") {\n";
-					m += "		this."+column.columnEnName+" = "+column.columnEnName+";\n";
+					m += "	public void set"
+							+ StringUtil
+									.firstCharToUpperAndJavaName(column.columnEnName)
+							+ "(Integer " + column.columnEnName + ") {\n";
+					m += "		this." + column.columnEnName + " = "
+							+ column.columnEnName + ";\n";
 					m += "	}\n";
-				}else 
-				{
-					m += "	private String "+column.columnEnName+";\n";
-					m += "	public String get"+StringUtil.firstCharToUpperAndJavaName(column.columnEnName)+"() {\n";
-					m += "		return "+column.columnEnName+";\n";
+				} else {
+					m += "	private String " + column.columnEnName + ";\n";
+					m += "	public String get"
+							+ StringUtil
+									.firstCharToUpperAndJavaName(column.columnEnName)
+							+ "() {\n";
+					m += "		return " + column.columnEnName + ";\n";
 					m += "	}\n";
 
-					m += "	public void set"+StringUtil.firstCharToUpperAndJavaName(column.columnEnName)+"(String "+column.columnEnName+") {\n";
-					m += "		this."+column.columnEnName+" = "+column.columnEnName+";\n";
+					m += "	public void set"
+							+ StringUtil
+									.firstCharToUpperAndJavaName(column.columnEnName)
+							+ "(String " + column.columnEnName + ") {\n";
+					m += "		this." + column.columnEnName + " = "
+							+ column.columnEnName + ";\n";
 					m += "	}\n";
 				}
 			}
-			
-			m += "}\n";
-			
-			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", StringUtil.firstCharToUpperAndJavaName(table.tableEnName)+"Bean", "java", m);
-			
-		}
-	
-	
 
-	
-	
+			m += "}\n";
+
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+					StringUtil.firstCharToUpperAndJavaName(table.tableEnName)
+							+ "Bean", "java", m);
+
+		}
 
 	}
 
 	public void serviceInterface(List<TableBean> tables) {
 		String m = "";
-		
-		String servicename="";
-		String resultType="";
-		String queryCondition="";
-		String queryCondition2="";
-		String mainTableName="";
+
+		String servicename = "";
+		String resultType = "";
+		String queryCondition = "";
+		String queryCondition2 = "";
+		String mainTableName = "";
 		for (TableBean table : tables) {
-			servicename+=table.tableEnName+"_";
-			if(table.isMainTable)
-			{
-				resultType=table.tableEnName+"Bean";
-				mainTableName=table.tableEnName;
+			servicename += table.tableEnName + "_";
+			if (table.isMainTable) {
+				resultType = table.tableEnName + "Bean";
+				mainTableName = table.tableEnName;
 			}
 		}
-		
-		if(servicename.lastIndexOf("_")!=-1)
-		{
-		servicename=servicename.substring(0, servicename.lastIndexOf("_"));
-		}
-		
-		
-		
-		for(TableColumnBean column:queryConditionColumns)
-		{
-			queryCondition+=column.type+" "+column.columnEnName+",";
-			queryCondition2+="m.put(\""+column.columnEnName+"\", "+column.columnEnName+");\n";
-		}
-		
-		if(queryCondition.lastIndexOf("_")!=-1)
-		{
-			queryCondition=queryCondition.substring(0, queryCondition.lastIndexOf(","));
-		}
-		
-		
-		
-		m += "public interface "+interfaceName+"Service {\n";
 
-	
-		m += "	"+resultType+" get("+queryCondition+") throws Exception;\n";
+		if (servicename.lastIndexOf("_") != -1) {
+			servicename = servicename
+					.substring(0, servicename.lastIndexOf("_"));
+		}
+
+		for (TableColumnBean column : queryConditionColumns) {
+			queryCondition += column.type + " " + column.columnEnName + ",";
+			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
+					+ column.columnEnName + ");\n";
+		}
+
+		if (queryCondition.lastIndexOf("_") != -1) {
+			queryCondition = queryCondition.substring(0,
+					queryCondition.lastIndexOf(","));
+		}
+
+		m += "public interface " + interfaceName + "Service {\n";
+
+		m += "	" + resultType + " get(" + queryCondition
+				+ ") throws Exception;\n";
 
 		m += "}\n";
-		
-	
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", interfaceName+"Service", "java", m);
-		
-		
-		
-		//接口实现
+
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				interfaceName + "Service", "java", m);
+
+		// 接口实现
 		{
-			
-			 m = "";
+
+			m = "";
 			m += "import java.util.HashMap;\n";
 			m += "import java.util.Map;\n";
 
@@ -465,82 +688,69 @@ public class InterfaceServiceController {
 			m += "import com.framework.dao.BaseDao;\n";
 			m += "import com.framework.dao.common.DaoTools;\n";
 			m += "import com.framework.exception.CommonException;\n";
-			
-	
 
-
-			
-			m += "@Service(\""+interfaceName+"Service\")\n";
-			m += "public class "+interfaceName+"ServiceImpl implements "+interfaceName+"Service {\n";
-			m += "	private final static Logger logger = LoggerFactory.getLogger("+interfaceName+"ServiceImpl.class);\n";
+			m += "@Service(\"" + interfaceName + "Service\")\n";
+			m += "public class " + interfaceName + "ServiceImpl implements "
+					+ interfaceName + "Service {\n";
+			m += "	private final static Logger logger = LoggerFactory.getLogger("
+					+ interfaceName + "ServiceImpl.class);\n";
 			m += "	\n";
-			
-			
-		
-			
+
 			m += "	@Resource\n";
-			m += "	private "+mainTableName+"Mapper mapper;\n";
+			m += "	private " + mainTableName + "Mapper mapper;\n";
 			m += "	\n";
 			m += "	@Override\n";
-			m += "	public "+resultType+" get("+queryCondition+") throws Exception {\n";
+			m += "	public " + resultType + " get(" + queryCondition
+					+ ") throws Exception {\n";
 			m += "		// TODO Auto-generated method stub\n";
 			m += "		Map<String,Object> m = new HashMap<>();\n";
 			m += queryCondition2;
-			
-			
-			m+="return mapper."+mainTableName+"Select();\n";
+
+			m += "return mapper." + mainTableName + "Select();\n";
 			m += "	}\n";
 
 			m += "}\n";
-		
-			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", interfaceName+"ServiceImpl", "java", m);
+
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+					interfaceName + "ServiceImpl", "java", m);
 		}
 
-		
 	}
 
-
-	
-
 	public void controller(List<TableBean> tables) {
-		
-		
-		String servicename="";
-		String serviceCnName="";
-		String resultType="";
-		String queryCondition="";
-	
-		String mainTableName="";
+
+		String servicename = "";
+		String serviceCnName = "";
+		String resultType = "";
+		String queryCondition = "";
+
+		String mainTableName = "";
 		for (TableBean table : tables) {
-			servicename+=table.tableEnName+"_";
-			serviceCnName+=table.tableCnName+"_";
-			if(table.isMainTable)
-			{
-				resultType=table.tableEnName+"Bean";
-				mainTableName=table.tableEnName;
+			servicename += table.tableEnName + "_";
+			serviceCnName += table.tableCnName + "_";
+			if (table.isMainTable) {
+				resultType = table.tableEnName + "Bean";
+				mainTableName = table.tableEnName;
 			}
 		}
-		
-		if(servicename.lastIndexOf("_")!=-1)
-		{
-		servicename=servicename.substring(0, servicename.lastIndexOf("_"));
-		}
-		
-		if(interfaceName==null || "".equals(interfaceName))
-		{
-			interfaceName=servicename;
-		}
-		
-		for(TableColumnBean column:queryConditionColumns)
-		{
-			
-			queryCondition += "		String "+column.columnEnName+" = reqMap.get(\""+column.columnEnName+"\") == null ? null : reqMap.get(\""+column.columnEnName+"\").toString();\n";
-		}
-		
 
-		
-		
-		
+		if (servicename.lastIndexOf("_") != -1) {
+			servicename = servicename
+					.substring(0, servicename.lastIndexOf("_"));
+		}
+
+		if (interfaceName == null || "".equals(interfaceName)) {
+			interfaceName = servicename;
+		}
+
+		for (TableColumnBean column : queryConditionColumns) {
+
+			queryCondition += "		String " + column.columnEnName
+					+ " = reqMap.get(\"" + column.columnEnName
+					+ "\") == null ? null : reqMap.get(\""
+					+ column.columnEnName + "\").toString();\n";
+		}
+
 		String m = "";
 		m += "import java.util.Locale;\n";
 		m += "import java.util.Map;\n";
@@ -557,23 +767,23 @@ public class InterfaceServiceController {
 		m += "import org.springframework.web.bind.annotation.RequestMapping;\n";
 		m += "import org.springframework.web.bind.annotation.RequestParam;\n";
 		m += "import org.springframework.web.bind.annotation.ResponseBody;\n";
-	
+
 		m += "import org.springframework.web.servlet.support.RequestContext;\n";
 
 		m += "import com.framework.controller.BaseController;\n";
 		m += "import com.framework.utils.SpringBeanManger;\n";
-		
 
-	
-		m+="\n/**"+interfaceCnName+"*/\n";
+		m += "\n/**" + interfaceCnName + "*/\n";
 		m += "@Controller\n";
 		m += "@Scope(\"prototype\")\n";
-		m += "@RequestMapping(\"/"+interfaceName.toLowerCase()+"\")\n";
-		m += "public class "+interfaceName+"Controller extends BaseController {\n";
+		m += "@RequestMapping(\"/" + interfaceName.toLowerCase() + "\")\n";
+		m += "public class " + interfaceName
+				+ "Controller extends BaseController {\n";
 
-		m+="@Autowired\n";
-		m+="private "+interfaceName+"Service "+StringUtil.firstCharToLower(interfaceName)+"Service;\n";
-		
+		m += "@Autowired\n";
+		m += "private " + interfaceName + "Service "
+				+ StringUtil.firstCharToLower(interfaceName) + "Service;\n";
+
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
@@ -581,24 +791,23 @@ public class InterfaceServiceController {
 		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
 		m += queryCondition;
-	
 
-		m+=mainTableName+"Bean "+mainTableName.toLowerCase()+"Bean=null;\n";
-		m+="try {\n";
-		m+=mainTableName.toLowerCase()+"Bean="+StringUtil.firstCharToLower(interfaceName)+"Service.get();\n";
-		m+="} catch (Exception e) {\n";
-		m+="	e.printStackTrace();\n";
-		m+="}\n";
-		
-		
+		m += mainTableName + "Bean " + mainTableName.toLowerCase()
+				+ "Bean=null;\n";
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Bean="
+				+ StringUtil.firstCharToLower(interfaceName)
+				+ "Service.get();\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
+
 		m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 		m += "	}\n";
 		m += "}\n";
 
-		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",interfaceName+"Controller", "java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				interfaceName + "Controller", "java", m);
 	}
-
-	
 
 }
