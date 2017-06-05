@@ -331,6 +331,12 @@ public class TableDocToInterfaceService extends JFrame {
 					
 			    	return;
 			    }
+			    if(interfaceCnName.getText()==null || "".equals(interfaceCnName.getText()))
+			    {
+			    	JOptionPane.showMessageDialog(null, "请填写接口中文名", "", JOptionPane.INFORMATION_MESSAGE);
+					
+			    	return;
+			    }
 
 				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
