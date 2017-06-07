@@ -1,13 +1,13 @@
 #Update '\u5907\u6CE8' value
-#Wed May 31 20:59:21 CST 2017
+#Wed Jun 07 15:44:15 CST 2017
 \u53D8\u91CF\u540D=0
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
-codeFilePath=/Users/apple/Documents/hobby_github/QuotationMarks/res/src/web
+codeFilePath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/src/web
 \u5907\u6CE8=3
-compomentProjectAddress=/Users/apple/Documents/hobby_github/QuotationMarks/res/other/mobile-android
+compomentProjectAddress=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/other/mobile-android
 recentUseColor=\#141414,\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,
-picPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/pic
+picPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/pic
 \u4E2D\u6587\u540D=1
-projectPath=/Users/apple/Documents/hobby_github/QuotationMarks/res
-docPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/InterfaceDocAndCode/wordTableToJaveObject2.doc
+projectPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res
+docPath=C\:\\Workspaces\\MyEclipse\\group\\q\\QuotationMarks/res/InterfaceDocAndCode/wordTableToJaveObject2.doc

@@ -19,8 +19,6 @@ public class StringUtil {
 	
 	public static String firstCharToLower(String string) {
 		// buy_typelist
-	 
-
 		string = string.substring(0, 1).toLowerCase() + string.substring(1);
 		
 		return string;
