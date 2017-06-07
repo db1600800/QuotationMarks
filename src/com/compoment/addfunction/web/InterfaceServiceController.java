@@ -260,7 +260,7 @@ public class InterfaceServiceController {
 		for (TableBean table : tables) {
 			for (TableColumnBean column : table.columns) {
 
-				if (column.type.toLowerCase().equals("string")) {
+				if (!column.type.toLowerCase().contains("int")) {
 					m += "			<if test=\"" + column.columnEnName
 							+ " != null\">\n";
 					m += "				#{" + column.columnEnName
@@ -304,7 +304,7 @@ public class InterfaceServiceController {
 
 			for (TableColumnBean column : table.columns) {
 
-				if (column.type.toLowerCase().equals("string")) {
+				if (!column.type.toLowerCase().contains("int")) {
 					m += "			<if test=\"" + column.columnEnName
 							+ " != null\">\n";
 					m += "				" + column.columnEnName + "=#{"
