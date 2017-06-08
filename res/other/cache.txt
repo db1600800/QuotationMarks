@@ -1,5 +1,5 @@
 #Update '\u5907\u6CE8' value
-#Wed Jun 07 15:49:02 CST 2017
+#Wed Jun 07 15:55:46 CST 2017
 \u53D8\u91CF\u540D=0
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2

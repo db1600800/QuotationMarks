@@ -808,7 +808,7 @@ public class InterfaceServiceController {
 		String serviceCnName = "";
 		String resultType = "";
 		String queryCondition = "";
-
+		String queryCondition2 = "";
 		String mainTableName = "";
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
@@ -828,12 +828,23 @@ public class InterfaceServiceController {
 			interfaceName = servicename;
 		}
 
+		int i=0;
 		for (TableColumnBean column : queryConditionColumns) {
 
 			queryCondition += "		String " + column.columnEnName
 					+ " = reqMap.get(\"" + column.columnEnName
 					+ "\") == null ? null : reqMap.get(\""
 					+ column.columnEnName + "\").toString();\n";
+			
+			if(i==queryConditionColumns.size()-1)
+			{
+				queryCondition2+=column.columnEnName+"";
+			}else
+			{
+			queryCondition2+=column.columnEnName+",";
+			}
+			
+			i++;
 		}
 
 		String m = "";
@@ -882,7 +893,7 @@ public class InterfaceServiceController {
 		m += "try {\n";
 		m += mainTableName.toLowerCase() + "Bean="
 				+ StringUtil.firstCharToLower(interfaceName)
-				+ "Service.get();\n";
+				+ "Service.get("+queryCondition2+");\n";
 		m += "} catch (Exception e) {\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n";
