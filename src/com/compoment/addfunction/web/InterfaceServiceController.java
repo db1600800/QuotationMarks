@@ -178,7 +178,7 @@ public class InterfaceServiceController {
 				m += "<mapper namespace=\"com.company.dao.impl." + table.tableEnName
 						+ "Mapper\">\n";
 				m += "	<resultMap id=\"" + table.tableEnName
-						+ "ResultMap\" type=\"com.company.bean." + table.tableEnName
+						+ "ResultMap\" type=\"com.company.pojo." + table.tableEnName
 						+ "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
@@ -713,6 +713,7 @@ public class InterfaceServiceController {
 		String resultType = "";
 		String queryCondition = "";
 		String queryCondition2 = "";
+		String queryCondition3 = "";
 		String mainTableName = "";
 		String mappername="";
 		
@@ -737,6 +738,8 @@ public class InterfaceServiceController {
 		for (TableColumnBean column : queryConditionColumns) {
 			queryCondition += typeCheck(column.type) + " "
 					+ column.columnEnName + ",";
+			queryCondition3 +=  " "
+					+ column.columnEnName + ",";
 			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
 					+ column.columnEnName + ");\n";
 		}
@@ -745,11 +748,40 @@ public class InterfaceServiceController {
 			queryCondition = queryCondition.substring(0,
 					queryCondition.lastIndexOf(","));
 		}
+		
+		if (queryCondition3.lastIndexOf(",") != -1) {
+			queryCondition3 = queryCondition3.substring(0,
+					queryCondition3.lastIndexOf(","));
+		}
 
 		m += "public interface " + interfaceName + "Service {\n";
 
-		m += "	" + resultType + " get(" + queryCondition
-				+ ") throws Exception;\n";
+	
+		
+		
+		for (TableBean table : tables) {
+
+			if (table.isMainTable && tables.size() > 1) {
+	
+				m += "	" + resultType + " get(" + queryCondition
+						+ ") throws Exception;\n";
+
+
+			} else if (tables.size() == 1) {
+
+				m += "	" + resultType + " get(" + queryCondition
+						+ ") throws Exception;\n";
+				
+				m += "void " + table.tableEnName + "Insert("
+						+ table.tableEnName + "Bean bean);\n";
+				m += "void " + table.tableEnName + "Update("
+						+ table.tableEnName + "Bean bean);\n";
+				m += "void " + table.tableEnName + "Delete(Integer id);\n";
+
+			}
+		}
+		
+		
 
 		m += "}\n";
 
@@ -783,6 +815,9 @@ public class InterfaceServiceController {
 			m += "	@Resource\n";
 			m += "	private " + mappername + "Mapper mapper;\n";
 			m += "	\n";
+			
+			
+			
 			m += "	@Override\n";
 			m += "	public " + resultType + " get(" + queryCondition
 					+ ") throws Exception {\n";
@@ -790,9 +825,69 @@ public class InterfaceServiceController {
 			m += "		Map<String,Object> m = new HashMap<>();\n";
 			m += queryCondition2;
 
-			m += "return mapper." + mainTableName + "Select(" + queryCondition
+			m += "return mapper." + mainTableName + "Select(" + queryCondition3
 					+ ");\n";
 			m += "	}\n";
+			
+			
+			for (TableBean table : tables) {
+
+				if (table.isMainTable && tables.size() > 1) {
+		
+					m += "	@Override\n";
+					m += "	public " + resultType + " get(" + queryCondition
+							+ ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					m += "		Map<String,Object> m = new HashMap();\n";
+					m += queryCondition2;
+
+					m += "return mapper." + mainTableName + "Select(" + queryCondition3
+							+ ");\n";
+					m += "	}\n";
+
+
+				} else if (tables.size() == 1) {
+
+					m += "	@Override\n";
+					m += "	public " + resultType + " get(" + queryCondition
+							+ ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					m += "		Map<String,Object> m = new HashMap();\n";
+					m += queryCondition2;
+
+					m += "return mapper." + mainTableName + "Select(" + queryCondition3
+							+ ");\n";
+					m += "	}\n\n";
+					
+					
+					m += "	@Override\n";
+					m += "public void "  + " insert("
+							+ table.tableEnName + "Bean bean){\n";
+	
+					m += " mapper." + mainTableName + "Insert(bean);\n";
+					m += "	}\n";
+					
+					
+					
+					m += "	@Override\n";
+					m += "public void update("
+							+ table.tableEnName + "Bean bean){\n";
+					m += " mapper." + mainTableName + "Update(bean);\n";
+					m += "	}\n\n";
+					
+					
+					m += "	@Override\n";
+					m += "public void   delete(Integer id){\n";
+					
+					m += " mapper." + mainTableName + "Delete(id);\n";
+					m += "	}\n";
+
+				}
+			}
+			
+			
+			
+			
 
 			m += "}\n";
 
@@ -813,7 +908,7 @@ public class InterfaceServiceController {
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
 			serviceCnName += table.tableCnName + "_";
-			if (table.isMainTable) {
+			if (table.isMainTable||tables.size()==1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
 			}
@@ -880,6 +975,8 @@ public class InterfaceServiceController {
 		m += "private " + interfaceName + "Service "
 				+ StringUtil.firstCharToLower(interfaceName) + "Service;\n";
 
+		
+		
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
@@ -900,6 +997,93 @@ public class InterfaceServiceController {
 
 		m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 		m += "	}\n";
+		
+		
+		
+		for (TableBean table : tables) {
+
+			if (table.isMainTable && tables.size() > 1) {
+	
+			
+
+			} else if (tables.size() == 1) {
+
+			
+				m += "	@RequestMapping(\"/insert.do\")\n";
+				m += "	public @ResponseBody Map<String, Object> insert(@RequestParam Map reqMap) {\n";
+
+				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+
+				m += queryCondition;
+
+				m += mainTableName + "Bean " + mainTableName.toLowerCase()
+						+ "Bean=null;\n";
+				m += "try {\n";
+				m +=  StringUtil.firstCharToLower(interfaceName)
+						+ "Service.insert("+mainTableName.toLowerCase()+"Bean);\n";
+				m += "} catch (Exception e) {\n";
+				m += "	e.printStackTrace();\n";
+				m += "}\n";
+
+				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "	}\n";
+				
+				
+				
+				
+				m += "	@RequestMapping(\"/update.do\")\n";
+				m += "	public @ResponseBody Map<String, Object> update(@RequestParam Map reqMap) {\n";
+
+				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+
+				m += queryCondition;
+
+				m += mainTableName + "Bean " + mainTableName.toLowerCase()
+						+ "Bean=null;\n";
+				m += "try {\n";
+				m +=  StringUtil.firstCharToLower(interfaceName)
+						+ "Service.update("+mainTableName.toLowerCase()+"Bean);\n";
+				m += "} catch (Exception e) {\n";
+				m += "	e.printStackTrace();\n";
+				m += "}\n";
+
+				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "	}\n";
+				
+		
+				
+				
+				m += "	@RequestMapping(\"/delete.do\")\n";
+				m += "	public @ResponseBody Map<String, Object> delete(@RequestParam Map reqMap) {\n";
+
+				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+
+				m += queryCondition;
+
+				m += mainTableName + "Bean " + mainTableName.toLowerCase()
+						+ "Bean=null;\n";
+				m += "try {\n";
+				m +=  StringUtil.firstCharToLower(interfaceName)
+						+ "Service.delete("+mainTableName.toLowerCase()+"Bean.id);\n";
+				m += "} catch (Exception e) {\n";
+				m += "	e.printStackTrace();\n";
+				m += "}\n";
+
+				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "	}\n";
+				
+				
+			
+
+			}
+		}
+		
+		
+		
+		
 		m += "}\n";
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
