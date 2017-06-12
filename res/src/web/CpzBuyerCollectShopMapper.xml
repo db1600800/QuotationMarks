@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.company.dao.impl.CpzBuyerCollectShopMapper">
+	<resultMap id="CpzBuyerCollectShopResultMap" type="com.company.pojo.CpzBuyerCollectShopBean">
+<result column="userId" property="userId" />
+<result column="shopId" property="shopId" />
+<result column="marketId" property="marketId" />
+<result column="shopBusineeRangeId" property="shopBusineeRangeId" />
+	 <collection property="CpzBuyerCollectShop" ofType="com.company.bean.CpzBuyerCollectShopBean">
+<result column="userId" property="userId" />
+<result column="shopId" property="shopId" />
+<result column="marketId" property="marketId" />
+<result column="shopBusineeRangeId" property="shopBusineeRangeId" />
+</collection>
+	</resultMap>
+	<select id="CpzBuyerCollectShopSelect" resultMap="CpzBuyerCollectShopResultMap" >
+select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.shopId, t_cpz_buyer_collect_shop.marketId, t_cpz_buyer_collect_shop.shopBusineeRangeId from t_cpz_buyer_collect_shop	</select>
+
+
+	<insert id="CpzBuyerCollectShopInsert" parameterType="CpzBuyerCollectShopBean">
+		insert into t_cpz_buyer_collect_shop 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				userId,
+			</if>
+			<if test="shopId != null">
+				shopId,
+			</if>
+			<if test="marketId != null">
+				marketId,
+			</if>
+			<if test="shopBusineeRangeId != null">
+				shopBusineeRangeId,
+			</if>
+			<if test="isDefaultShop != null">
+				isDefaultShop,
+			</if>
+			<if test="colletcTime != null">
+				colletcTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="marketId != null">
+				#{marketId,jdbcType=INTEGER},
+			</if>
+			<if test="shopBusineeRangeId != null">
+				#{shopBusineeRangeId,jdbcType=INTEGER},
+			</if>
+			<if test="isDefaultShop != null">
+				#{isDefaultShop,jdbcType=VARCHAR},
+			</if>
+			<if test="colletcTime != null">
+				#{colletcTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="CpzBuyerCollectShopDelete" parameterType="java.lang.Integer">
+		delete from t_cpz_buyer_collect_shop
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<update id="CpzBuyerCollectShopUpdate" parameterType="CpzBuyerCollectShopBean">
+		update t_cpz_buyer_collect_shop
+		<set>
+			<if test="userId != null">
+				userId=#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				shopId=#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="marketId != null">
+				marketId=#{marketId,jdbcType=INTEGER},
+			</if>
+			<if test="shopBusineeRangeId != null">
+				shopBusineeRangeId=#{shopBusineeRangeId,jdbcType=INTEGER},
+			</if>
+			<if test="isDefaultShop != null">
+				isDefaultShop=#{isDefaultShop,jdbcType=VARCHAR},
+			</if>
+			<if test="colletcTime != null">
+				colletcTime=#{colletcTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
+

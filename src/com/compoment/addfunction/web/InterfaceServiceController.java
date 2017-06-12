@@ -38,8 +38,8 @@ public class InterfaceServiceController {
 		serviceInterface(tables);
 		controller(tables);
 		
-		TestInterface testInterface=new TestInterface();
-		testInterface.testJsp(tables);
+		//TestInterface testInterface=new TestInterface();
+		//testInterface.testJsp(tables);
 		
 
 	}
@@ -203,7 +203,7 @@ public class InterfaceServiceController {
 
 		for (TableBean table : tables) {
 
-			if (!table.isMainTable) {
+			if (!table.isMainTable && tables.size()>1) {
 				m += "	 <collection property=\"" + table.tableEnName
 						+ "\" ofType=\"com.company.bean." + table.tableEnName
 						+ "Bean\">\n";
@@ -776,11 +776,11 @@ public class InterfaceServiceController {
 				m += "	" + resultType + " get(" + queryCondition
 						+ ") throws Exception;\n";
 				
-				m += "void " + table.tableEnName + "Insert("
+				m += "void " + "insert("
 						+ table.tableEnName + "Bean bean);\n";
-				m += "void " + table.tableEnName + "Update("
+				m += "void " +  "update("
 						+ table.tableEnName + "Bean bean);\n";
-				m += "void " + table.tableEnName + "Delete(Integer id);\n";
+				m += "void " + "delete(Integer id);\n";
 
 			}
 		}
@@ -822,16 +822,7 @@ public class InterfaceServiceController {
 			
 			
 			
-			m += "	@Override\n";
-			m += "	public " + resultType + " get(" + queryCondition
-					+ ") throws Exception {\n";
-			m += "		// TODO Auto-generated method stub\n";
-			m += "		Map<String,Object> m = new HashMap<>();\n";
-			m += queryCondition2;
-
-			m += "return mapper." + mainTableName + "Select(" + queryCondition3
-					+ ");\n";
-			m += "	}\n";
+			
 			
 			
 			for (TableBean table : tables) {
@@ -953,7 +944,7 @@ public class InterfaceServiceController {
 
 		m += "import javax.validation.ConstraintViolation;\n";
 		m += "import javax.validation.Validator;\n";
-
+		m+="import org.springframework.beans.factory.annotation.Autowired;\n";
 		m += "import org.springframework.context.annotation.Scope;\n";
 		m += "import org.springframework.context.i18n.LocaleContextHolder;\n";
 		m += "import org.springframework.stereotype.Controller;\n";
