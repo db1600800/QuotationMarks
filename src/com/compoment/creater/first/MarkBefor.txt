@@ -1,61 +1,144 @@
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>活动管理</title>
+<script
+	type="text/javascript" src="/chinapost/weixin/lovepackage/js/jquery-1.8.3.min.js"></script>
+	<script>
+		
+		
+		$(document).on('ready', function() {
+			var thd_sys_id="${userName}";
+			$("#thd_sys_id").val(thd_sys_id);
+			getAll('/chinapost/collectCardAction!parameters.do');
+		});
+		
+		
+		function doSearch(code){
+			
+				$.ajax({
+					type:'POST',
+					url:'/chinapost/collectCardAction!todelete.do',
+					data:{
+						activity_code:code
+					},
+					success:function(k){
+							//alert("删除成功！")
+							//window.location.href = "/chinapost/collectCardAction!index.do?activity_class=${activity_class}";
+								var pagenational='';
+							$("#pageContent").html(pagenational);
+					},
+					error : function() {
+						alert("对不起，系统错误，请稍候重试！")
+					}
+				});
+			
+		}
+		
+		
+		function doAdd(code){
+			
+				$.ajax({
+					type:'POST',
+					url:'/chinapost/collectCardAction!todelete.do',
+					data:{
+						activity_code:code
+					},
+					success:function(k){
+							//alert("删除成功！")
+							//window.location.href = "/chinapost/collectCardAction!index.do?activity_class=${activity_class}";
+								var pagenational='';
+							$("#pageContent").html(pagenational);
+					},
+					error : function() {
+						alert("对不起，系统错误，请稍候重试！")
+					}
+				});
+			
+		}
+		
+		
+		function doUpdate(code){
+			
+				$.ajax({
+					type:'POST',
+					url:'/chinapost/collectCardAction!todelete.do',
+					data:{
+						activity_code:code
+					},
+					success:function(k){
+							//alert("删除成功！")
+							//window.location.href = "/chinapost/collectCardAction!index.do?activity_class=${activity_class}";
+							
+							var pagenational='';
+							$("#pageContent").html(pagenational);
+					},
+					error : function() {
+						alert("对不起，系统错误，请稍候重试！")
+					}
+				});
+			
+		}
+		function doDelete(code){
+			
+				$.ajax({
+					type:'POST',
+					url:'/chinapost/collectCardAction!todelete.do',
+					data:{
+						activity_code:code
+					},
+					success:function(k){
+							//alert("删除成功！")
+							//window.location.href = "/chinapost/collectCardAction!index.do?activity_class=${activity_class}";
+							
+							var pagenational='';
+							$("#pageContent").html(pagenational);
+					},
+					error : function() {
+						alert("对不起，系统错误，请稍候重试！")
+					}
+				});
+			
+		}
+		
+		
+		
+	</script>
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+</head>
+<body>
+	<div> 接口输入</div>
+	<div style="padding-left:20px;margin-bottom:10px;" >
+	<input type="hidden" id="thd_sys_id" name="thd_sys_id" value="" />
+	查询url：<input type="text" id="searchIn" style="margin-left:10px;width:800px;height:20px; " value=""/>
+	<input type="button" value="查询" id="search" name = "search" onmouseover="this.style.cursor='hand'" style="width:50px;height:20px;font-size:12px;"  onclick="doSearch()">
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.support.RequestContext;
+	</div>
+	
+	<div style="padding-left:20px;margin-bottom:10px;" >
+	<input type="hidden" id="thd_sys_id" name="thd_sys_id" value="" />
+	新增url：<input type="text" id="addIn" style="margin-left:10px;width:800px;height:20px; " value=""/>
+	<input type="button" value="新增" id="search" name = "search" onmouseover="this.style.cursor='hand'" style="width:50px;height:20px;font-size:12px;"  onclick="doAdd()">
 
-import com.framework.controller.BaseController;
-import com.framework.utils.SpringBeanManger;
-import com.cpz.utils.CommonUtil;
-import com.cpz.utils.Constant;
+	</div>
+	
+	<div style="padding-left:20px;margin-bottom:10px;" >
+	<input type="hidden" id="thd_sys_id" name="thd_sys_id" value="" />
+	修改url：<input type="text" id="updateIn" style="margin-left:10px;width:800px;height:20px; " value=""/>
+	<input type="button" value="修改" id="search" name = "search" onmouseover="this.style.cursor='hand'" style="width:50px;height:20px;font-size:12px;"  onclick="doUpdate()">
 
-/**
- * @author tang E-mail: killerover84@163.com
- * @version 2016年5月16日 上午9:05:38 类说明
- */
-@Controller
-@Scope("prototype")
-@RequestMapping("/front/i18n")
-public class I18n extends BaseController {
+	</div>
+	<div style="padding-left:20px;margin-bottom:10px;" >
+	<input type="hidden" id="thd_sys_id" name="thd_sys_id" value="" />
+	删除url：<input type="text" id="deleteIn" style="margin-left:10px;width:800px;height:20px; " value=""/>
+	<input type="button" value="删除" id="search" name = "search" onmouseover="this.style.cursor='hand'" style="width:50px;height:20px;font-size:12px;"  onclick="doDelete()">
 
-	// 国际化
-	@RequestMapping("/inter.do")
-	public @ResponseBody Map<String, Object> inter(@RequestParam Map reqMap) {
-
-		if (null == reqMap || reqMap.isEmpty())
-			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-
-		String langType = reqMap.get("langType") == null ? null : reqMap.get("langType").toString();
-		if (null == langType || langType.isEmpty())
-			langType = "zh";
-
-		if (langType.equals("zh")) {
-			Locale locale = new Locale("zh", "CN");
-			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
-		} else if (langType.equals("en")) {
-			Locale locale = new Locale("en", "US");
-			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
-		} else
-			getRequest().getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
-					LocaleContextHolder.getLocale());
-
-		// 从后台代码获取国际化信息
-		RequestContext requestContext = new RequestContext(getRequest());
-		System.out.println(requestContext.getMessage("xxx"));
-		System.out.println(SpringBeanManger.getTextValue("xxx"));
-
-		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
-	}
-}
+	</div>
+	<div> 接口输出</div>
+	<div id="pageContent"></div>
+  </div>
+	
+</body>
+</html>

@@ -37,6 +37,10 @@ public class InterfaceServiceController {
 		entity(tables);
 		serviceInterface(tables);
 		controller(tables);
+		
+		TestInterface testInterface=new TestInterface();
+		testInterface.testJsp(tables);
+		
 
 	}
 
