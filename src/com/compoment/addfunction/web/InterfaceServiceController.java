@@ -580,12 +580,12 @@ public class InterfaceServiceController {
 
 			if (table.isMainTable && tables.size() > 1) {
 
-				m += table.tableEnName + "Bean " + table.tableEnName
+				m += "List<"+table.tableEnName + "Bean> " + table.tableEnName
 						+ "Select(" + selectPara + ");\n";
 
 			} else if (tables.size() == 1) {
 
-				m += table.tableEnName + "Bean " + table.tableEnName
+				m += "List<"+table.tableEnName + "Bean> " + table.tableEnName
 						+ "Select(" + selectPara + ");\n";
 				m += "void " + table.tableEnName + "Insert("
 						+ table.tableEnName + "Bean bean);\n";
@@ -767,13 +767,13 @@ public class InterfaceServiceController {
 
 			if (table.isMainTable && tables.size() > 1) {
 	
-				m += "	" + resultType + " get(" + queryCondition
+				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
 
 
 			} else if (tables.size() == 1) {
 
-				m += "	" + resultType + " get(" + queryCondition
+				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
 				
 				m += "void " + "insert("
@@ -830,7 +830,7 @@ public class InterfaceServiceController {
 				if (table.isMainTable && tables.size() > 1) {
 		
 					m += "	@Override\n";
-					m += "	public " + resultType + " get(" + queryCondition
+					m += "	public List<" + resultType + "> get(" + queryCondition
 							+ ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 					m += "		Map<String,Object> m = new HashMap();\n";
@@ -844,7 +844,7 @@ public class InterfaceServiceController {
 				} else if (tables.size() == 1) {
 
 					m += "	@Override\n";
-					m += "	public " + resultType + " get(" + queryCondition
+					m += "	public List<" + resultType + "> get(" + queryCondition
 							+ ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 					m += "		Map<String,Object> m = new HashMap();\n";
@@ -980,7 +980,7 @@ public class InterfaceServiceController {
 
 		m += queryCondition;
 
-		m += mainTableName + "Bean " + mainTableName.toLowerCase()
+		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
 				+ "Bean=null;\n";
 		m += "try {\n";
 		m += mainTableName.toLowerCase() + "Bean="
