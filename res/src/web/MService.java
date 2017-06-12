@@ -1,7 +1,7 @@
 public interface MService {
-	CpzBuyerCollectShopBean get() throws Exception;
-void CpzBuyerCollectShopInsert(CpzBuyerCollectShopBean bean);
-void CpzBuyerCollectShopUpdate(CpzBuyerCollectShopBean bean);
-void CpzBuyerCollectShopDelete(Integer id);
+	List<CpzBuyerCollectShopBean> get(int shopId,int marketId) throws Exception;
+void insert(CpzBuyerCollectShopBean bean);
+void update(CpzBuyerCollectShopBean bean);
+void delete(Integer id);
 }
 

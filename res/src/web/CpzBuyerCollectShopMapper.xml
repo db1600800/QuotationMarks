@@ -3,18 +3,16 @@
 <mapper namespace="com.company.dao.impl.CpzBuyerCollectShopMapper">
 	<resultMap id="CpzBuyerCollectShopResultMap" type="com.company.pojo.CpzBuyerCollectShopBean">
 <result column="userId" property="userId" />
-<result column="shopId" property="shopId" />
 <result column="marketId" property="marketId" />
-<result column="shopBusineeRangeId" property="shopBusineeRangeId" />
-	 <collection property="CpzBuyerCollectShop" ofType="com.company.bean.CpzBuyerCollectShopBean">
-<result column="userId" property="userId" />
-<result column="shopId" property="shopId" />
-<result column="marketId" property="marketId" />
-<result column="shopBusineeRangeId" property="shopBusineeRangeId" />
-</collection>
 	</resultMap>
 	<select id="CpzBuyerCollectShopSelect" resultMap="CpzBuyerCollectShopResultMap" >
-select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.shopId, t_cpz_buyer_collect_shop.marketId, t_cpz_buyer_collect_shop.shopBusineeRangeId from t_cpz_buyer_collect_shop	</select>
+select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.marketId from t_cpz_buyer_collect_shop where 		<if test="shopId!= null and shopId!= ''">
+ t_cpz_buyer_collect_shop.shopId= #{shopId}
+		</if>
+		<if test="marketId!= null and marketId!= ''">
+ and t_cpz_buyer_collect_shop.marketId= #{marketId}
+		</if>
+	</select>
 
 
 	<insert id="CpzBuyerCollectShopInsert" parameterType="CpzBuyerCollectShopBean">

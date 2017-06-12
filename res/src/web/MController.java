@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.support.RequestContext;
 import com.framework.controller.BaseController;
 import com.framework.utils.SpringBeanManger;
 
-/**好*/
+/**名*/
 @Controller
 @Scope("prototype")
 @RequestMapping("/m")
@@ -26,9 +27,11 @@ private MService mService;
 	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {
 		//if (null == reqMap || reqMap.isEmpty())
 			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
+		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
+		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
+List<CpzBuyerCollectShopBean> cpzbuyercollectshopBean=null;
 try {
-cpzbuyercollectshopBean=mService.get();
+cpzbuyercollectshopBean=mService.get(shopId,marketId);
 } catch (Exception e) {
 	e.printStackTrace();
 }
@@ -38,6 +41,8 @@ cpzbuyercollectshopBean=mService.get();
 	public @ResponseBody Map<String, Object> insert(@RequestParam Map reqMap) {
 		//if (null == reqMap || reqMap.isEmpty())
 			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
+		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
 CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
 try {
 mService.insert(cpzbuyercollectshopBean);
@@ -50,6 +55,8 @@ mService.insert(cpzbuyercollectshopBean);
 	public @ResponseBody Map<String, Object> update(@RequestParam Map reqMap) {
 		//if (null == reqMap || reqMap.isEmpty())
 			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
+		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
 CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
 try {
 mService.update(cpzbuyercollectshopBean);
@@ -62,6 +69,8 @@ mService.update(cpzbuyercollectshopBean);
 	public @ResponseBody Map<String, Object> delete(@RequestParam Map reqMap) {
 		//if (null == reqMap || reqMap.isEmpty())
 			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
+		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
 CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
 try {
 mService.delete(cpzbuyercollectshopBean.id);

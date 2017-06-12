@@ -70,7 +70,9 @@ public class InterfaceServiceController {
 							+ "." + column.columnEnName + ",";
 					resultColumns.add(column);
 
-				} else if ("right".equals(column.rightClickSelected)) {
+				} 
+				
+				if ("right".equals(column.rightClickSelected)) {
 
 					if (conditionFirstColumn) {
 						condition += "		<if test=\"" + column.columnEnName
@@ -82,6 +84,7 @@ public class InterfaceServiceController {
 								+ "." + column.columnEnName + "= #{"
 								+ column.columnEnName + "}\n";
 						condition += "		</if>\n";
+						conditionFirstColumn = false;
 					} else {
 						condition += "		<if test=\"" + column.columnEnName
 								+ "!= null and " + column.columnEnName
@@ -92,7 +95,7 @@ public class InterfaceServiceController {
 								+ "." + column.columnEnName + "= #{"
 								+ column.columnEnName + "}\n";
 						condition += "		</if>\n";
-						conditionFirstColumn = false;
+						
 					}
 
 					queryConditionColumns.add(column);
