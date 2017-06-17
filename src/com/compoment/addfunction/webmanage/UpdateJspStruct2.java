@@ -184,6 +184,22 @@ public class UpdateJspStruct2 {
 		m+="		 myForm.submit();\n";
 		m+="	}\n";
 		m+="	 \n";
+		
+		
+		//预览图片
+		m+=" function showDataByURL(file_id,show_id) {\n";
+		m+="var resultFile = document.getElementById(file_id).files[0];\n";
+		m+=" if(resultFile){\n";
+		m+="   var reader = new FileReader();\n";
+		m+=" reader.readAsDataURL(resultFile);\n";
+		m+=" reader.onload = function (e) {\n";
+		m+=" var urlData = this.result;\n";
+		m+=" $(\"#\"+show_id).attr(\"src\",urlData);\n";
+		m+=" };\n";
+		m+="  return ;\n";
+		m+=" }\n";
+		m+="}\n";
+	    
 		m+="</script>\n";
 		m+="</head>\n";
 		m+="<body>\n";
@@ -258,9 +274,9 @@ public class UpdateJspStruct2 {
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img src=\".${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
+							m+="						<img id=\"img"+fileCount+"\" src=\".${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
 							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
-							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"  />\n";
+							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"   onchange=\"showDataByURL('file"+fileCount+"','img"+fileCount+"')\"/>\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.RequestContext;
 import com.framework.controller.BaseController;
 import com.framework.utils.SpringBeanManger;
 
-/**名*/
+/**几点*/
 @Controller
 @Scope("prototype")
 @RequestMapping("/m")
@@ -27,57 +27,80 @@ private MService mService;
 	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {
 		//if (null == reqMap || reqMap.isEmpty())
 			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
-		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
-List<CpzBuyerCollectShopBean> cpzbuyercollectshopBean=null;
+		int shopBusineeRangeId = reqMap.get("shopBusineeRangeId") == null ? 0 :Integer.valueOf( reqMap.get("shopBusineeRangeId").toString());
+List<CpzBuyerCollectShopBean> cpzbuyercollectshopBeans=null;
 try {
-cpzbuyercollectshopBean=mService.get(shopId,marketId);
+cpzbuyercollectshopBeans=mService.get(shopBusineeRangeId);
 } catch (Exception e) {
 	e.printStackTrace();
 }
-		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
+Map r=new HashMap();
+r.put("result",cpzbuyercollectshopBeans);
+	  return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE,"",r);
 	}
 	@RequestMapping("/insert.do")
 	public @ResponseBody Map<String, Object> insert(@RequestParam Map reqMap) {
-		//if (null == reqMap || reqMap.isEmpty())
-			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
-		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
-CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
+		if (null == reqMap || reqMap.isEmpty())
+			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		int userId = reqMap.get("userId") == null ? 0 :Integer.valueOf( reqMap.get("userId").toString());
+		int shopId = reqMap.get("shopId") == null ? 0 :Integer.valueOf( reqMap.get("shopId").toString());
+		int marketId = reqMap.get("marketId") == null ? 0 :Integer.valueOf( reqMap.get("marketId").toString());
+		int shopBusineeRangeId = reqMap.get("shopBusineeRangeId") == null ? 0 :Integer.valueOf( reqMap.get("shopBusineeRangeId").toString());
+		String isDefaultShop = reqMap.get("isDefaultShop") == null ? null : reqMap.get("isDefaultShop").toString();
+		String colletcTime = reqMap.get("colletcTime") == null ? null : reqMap.get("colletcTime").toString();
+CpzBuyerCollectShopBean cpzbuyercollectshopBean=new CpzBuyerCollectShopBean();
+cpzbuyercollectshopBean.userId=userId;
+cpzbuyercollectshopBean.shopId=shopId;
+cpzbuyercollectshopBean.marketId=marketId;
+cpzbuyercollectshopBean.shopBusineeRangeId=shopBusineeRangeId;
+cpzbuyercollectshopBean.isDefaultShop=isDefaultShop;
+cpzbuyercollectshopBean.colletcTime=colletcTime;
 try {
 mService.insert(cpzbuyercollectshopBean);
 } catch (Exception e) {
 	e.printStackTrace();
 }
-		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
+		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
 	}
 	@RequestMapping("/update.do")
 	public @ResponseBody Map<String, Object> update(@RequestParam Map reqMap) {
-		//if (null == reqMap || reqMap.isEmpty())
-			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
-		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
-CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
+		if (null == reqMap || reqMap.isEmpty())
+			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		int userId = reqMap.get("userId") == null ? 0 :Integer.valueOf( reqMap.get("userId").toString());
+		int shopId = reqMap.get("shopId") == null ? 0 :Integer.valueOf( reqMap.get("shopId").toString());
+		int marketId = reqMap.get("marketId") == null ? 0 :Integer.valueOf( reqMap.get("marketId").toString());
+		int shopBusineeRangeId = reqMap.get("shopBusineeRangeId") == null ? 0 :Integer.valueOf( reqMap.get("shopBusineeRangeId").toString());
+		String isDefaultShop = reqMap.get("isDefaultShop") == null ? null : reqMap.get("isDefaultShop").toString();
+		String colletcTime = reqMap.get("colletcTime") == null ? null : reqMap.get("colletcTime").toString();
+CpzBuyerCollectShopBean cpzbuyercollectshopBean=new CpzBuyerCollectShopBean();
+cpzbuyercollectshopBean.userId=userId;
+cpzbuyercollectshopBean.shopId=shopId;
+cpzbuyercollectshopBean.marketId=marketId;
+cpzbuyercollectshopBean.shopBusineeRangeId=shopBusineeRangeId;
+cpzbuyercollectshopBean.isDefaultShop=isDefaultShop;
+cpzbuyercollectshopBean.colletcTime=colletcTime;
 try {
 mService.update(cpzbuyercollectshopBean);
 } catch (Exception e) {
 	e.printStackTrace();
 }
-		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
+		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
 	}
 	@RequestMapping("/delete.do")
 	public @ResponseBody Map<String, Object> delete(@RequestParam Map reqMap) {
-		//if (null == reqMap || reqMap.isEmpty())
-			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
-		String shopId = reqMap.get("shopId") == null ? null : reqMap.get("shopId").toString();
-		String marketId = reqMap.get("marketId") == null ? null : reqMap.get("marketId").toString();
-CpzBuyerCollectShopBean cpzbuyercollectshopBean=null;
+		if (null == reqMap || reqMap.isEmpty())
+			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);
+		int userId = reqMap.get("userId") == null ? 0 :Integer.valueOf( reqMap.get("userId").toString());
+		int shopId = reqMap.get("shopId") == null ? 0 :Integer.valueOf( reqMap.get("shopId").toString());
+CpzBuyerCollectShopBean cpzbuyercollectshopBean=new CpzBuyerCollectShopBean();
+cpzbuyercollectshopBean.userId=userId;
+cpzbuyercollectshopBean.shopId=shopId;
 try {
-mService.delete(cpzbuyercollectshopBean.id);
+mService.delete(cpzbuyercollectshopBean);
 } catch (Exception e) {
 	e.printStackTrace();
 }
-		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
+		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);
 	}
 }
 

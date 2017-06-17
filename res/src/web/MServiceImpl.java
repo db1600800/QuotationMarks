@@ -15,12 +15,11 @@ public class MServiceImpl implements MService {
 	private CpzBuyerCollectShopMapper mapper;
 	
 	@Override
-	public List<CpzBuyerCollectShopBean> get(int shopId,int marketId) throws Exception {
+	public List<CpzBuyerCollectShopBean> get(int shopBusineeRangeId) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String,Object> m = new HashMap();
-m.put("shopId", shopId);
-m.put("marketId", marketId);
-return mapper.CpzBuyerCollectShopSelect( shopId, marketId);
+m.put("shopBusineeRangeId", shopBusineeRangeId);
+return mapper.CpzBuyerCollectShopSelect( shopBusineeRangeId);
 	}
 
 	@Override
@@ -33,8 +32,8 @@ public void update(CpzBuyerCollectShopBean bean){
 	}
 
 	@Override
-public void   delete(Integer id){
- mapper.CpzBuyerCollectShopDelete(id);
+public void   delete(CpzBuyerCollectShopBean bean){
+ mapper.CpzBuyerCollectShopDelete(bean);
 	}
 }
 

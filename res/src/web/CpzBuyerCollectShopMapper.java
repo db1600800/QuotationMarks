@@ -1,7 +1,7 @@
 public interface CpzBuyerCollectShopMapper {
-List<CpzBuyerCollectShopBean> CpzBuyerCollectShopSelect(int shopId,int marketId);
+List<CpzBuyerCollectShopBean> CpzBuyerCollectShopSelect(@Param("shopBusineeRangeId")int shopBusineeRangeId);
 void CpzBuyerCollectShopInsert(CpzBuyerCollectShopBean bean);
 void CpzBuyerCollectShopUpdate(CpzBuyerCollectShopBean bean);
-void CpzBuyerCollectShopDelete(Integer id);
+void CpzBuyerCollectShopDelete(CpzBuyerCollectShopBean bean);
 }
 

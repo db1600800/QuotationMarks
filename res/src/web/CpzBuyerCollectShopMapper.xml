@@ -2,15 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.company.dao.impl.CpzBuyerCollectShopMapper">
 	<resultMap id="CpzBuyerCollectShopResultMap" type="com.company.pojo.CpzBuyerCollectShopBean">
-<result column="userId" property="userId" />
-<result column="marketId" property="marketId" />
 	</resultMap>
 	<select id="CpzBuyerCollectShopSelect" resultMap="CpzBuyerCollectShopResultMap" >
-select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.marketId from t_cpz_buyer_collect_shop where 		<if test="shopId!= null and shopId!= ''">
- t_cpz_buyer_collect_shop.shopId= #{shopId}
-		</if>
-		<if test="marketId!= null and marketId!= ''">
- and t_cpz_buyer_collect_shop.marketId= #{marketId}
+select * from t_cpz_buyer_collect_shop where 		<if test="shopBusineeRangeId!= null ">
+ t_cpz_buyer_collect_shop.shopBusineeRangeId= #{shopBusineeRangeId}
 		</if>
 	</select>
 
@@ -59,20 +54,19 @@ select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.marketId from 
 		</trim>
 	</insert>
 
-	<delete id="CpzBuyerCollectShopDelete" parameterType="java.lang.Integer">
-		delete from t_cpz_buyer_collect_shop
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
-
-	<update id="CpzBuyerCollectShopUpdate" parameterType="CpzBuyerCollectShopBean">
-		update t_cpz_buyer_collect_shop
-		<set>
+	<delete id="CpzBuyerCollectShopDelete" parameterType="CpzBuyerCollectShopBean">
+		delete from t_cpz_buyer_collect_shop		where 
 			<if test="userId != null">
 				userId=#{userId,jdbcType=INTEGER},
 			</if>
 			<if test="shopId != null">
 				shopId=#{shopId,jdbcType=INTEGER},
 			</if>
+	</delete>
+
+	<update id="CpzBuyerCollectShopUpdate" parameterType="CpzBuyerCollectShopBean">
+		update t_cpz_buyer_collect_shop
+		<set>
 			<if test="marketId != null">
 				marketId=#{marketId,jdbcType=INTEGER},
 			</if>
@@ -86,7 +80,13 @@ select  t_cpz_buyer_collect_shop.userId, t_cpz_buyer_collect_shop.marketId from 
 				colletcTime=#{colletcTime,jdbcType=VARCHAR},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
+		where 
+			<if test="userId != null">
+				userId=#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				shopId=#{shopId,jdbcType=INTEGER},
+			</if>
 	</update>
 </mapper>
 

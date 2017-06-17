@@ -3,10 +3,11 @@ package com.compoment.addfunction.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+
 
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
@@ -37,10 +38,9 @@ public class InterfaceServiceController {
 		entity(tables);
 		serviceInterface(tables);
 		controller(tables);
-		
-		//TestInterface testInterface=new TestInterface();
-		//testInterface.testJsp(tables);
-		
+
+		TestInterface testInterface = new TestInterface();
+		testInterface.testJsp(interfaceName, interfaceCnName, tables);
 
 	}
 
@@ -70,14 +70,13 @@ public class InterfaceServiceController {
 							+ "." + column.columnEnName + ",";
 					resultColumns.add(column);
 
-				} 
-				
+				}
+
 				if ("right".equals(column.rightClickSelected)) {
 
 					if (conditionFirstColumn) {
 						condition += "		<if test=\"" + column.columnEnName
-								+ "!= null and " + column.columnEnName
-								+ "!= ''\">\n";
+								+ "!= null \">\n";
 						condition += " "
 								+ StringUtil
 										.tableName(column.belongWhichTable.tableEnName)
@@ -87,15 +86,14 @@ public class InterfaceServiceController {
 						conditionFirstColumn = false;
 					} else {
 						condition += "		<if test=\"" + column.columnEnName
-								+ "!= null and " + column.columnEnName
-								+ "!= ''\">\n";
+								+ "!= null \">\n";
 						condition += " and "
 								+ StringUtil
 										.tableName(column.belongWhichTable.tableEnName)
 								+ "." + column.columnEnName + "= #{"
 								+ column.columnEnName + "}\n";
 						condition += "		</if>\n";
-						
+
 					}
 
 					queryConditionColumns.add(column);
@@ -182,11 +180,11 @@ public class InterfaceServiceController {
 
 			if (table.isMainTable || tables.size() == 1) {
 				mainTableName = table.tableEnName;
-				m += "<mapper namespace=\"com.company.dao.impl." + table.tableEnName
-						+ "Mapper\">\n";
+				m += "<mapper namespace=\"com.company.dao.impl."
+						+ table.tableEnName + "Mapper\">\n";
 				m += "	<resultMap id=\"" + table.tableEnName
-						+ "ResultMap\" type=\"com.company.pojo." + table.tableEnName
-						+ "Bean\">\n";
+						+ "ResultMap\" type=\"com.company.pojo."
+						+ table.tableEnName + "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
 							.equals(table.tableEnName)) {
@@ -206,7 +204,7 @@ public class InterfaceServiceController {
 
 		for (TableBean table : tables) {
 
-			if (!table.isMainTable && tables.size()>1) {
+			if (!table.isMainTable && tables.size() > 1) {
 				m += "	 <collection property=\"" + table.tableEnName
 						+ "\" ofType=\"com.company.bean." + table.tableEnName
 						+ "Bean\">\n";
@@ -289,15 +287,32 @@ public class InterfaceServiceController {
 		// 删除
 		for (TableBean table : tables) {
 			m += "	<delete id=\"" + table.tableEnName
-					+ "Delete\" parameterType=\"java.lang.Integer\">\n";
+					+ "Delete\" parameterType=\"" + table.tableEnName
+					+ "Bean\">\n";
 			m += "		delete from " + StringUtil.tableName(table.tableEnName)
-					+ "\n";
-
+					+ "";
+			m += "		where \n";
 			for (TableColumnBean column : table.columns) {
 
+				if (column.key != null
+						&& column.key.toLowerCase().contains("key")) {
+					if (!column.type.toLowerCase().contains("int")) {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+						m += "			</if>\n";
+					} else {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=INTEGER},\n";
+						m += "			</if>\n";
+					}
+				}
 			}
 		}
-		m += "		where id = #{id,jdbcType=INTEGER}\n";
+
 		m += "	</delete>\n\n";
 
 		// 更新
@@ -311,25 +326,49 @@ public class InterfaceServiceController {
 
 			for (TableColumnBean column : table.columns) {
 
-				if (!column.type.toLowerCase().contains("int")) {
-					m += "			<if test=\"" + column.columnEnName
-							+ " != null\">\n";
-					m += "				" + column.columnEnName + "=#{"
-							+ column.columnEnName + ",jdbcType=VARCHAR},\n";
-					m += "			</if>\n";
-				} else {
-					m += "			<if test=\"" + column.columnEnName
-							+ " != null\">\n";
-					m += "				" + column.columnEnName + "=#{"
-							+ column.columnEnName + ",jdbcType=INTEGER},\n";
-					m += "			</if>\n";
+				if (column.key == null
+						|| !column.key.toLowerCase().contains("key")) {
+					if (!column.type.toLowerCase().contains("int")) {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+						m += "			</if>\n";
+					} else {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=INTEGER},\n";
+						m += "			</if>\n";
+					}
 				}
-
 			}
 
 			m += "		</set>\n";
+
+			m += "		where \n";
+
+			for (TableColumnBean column : table.columns) {
+
+				if (column.key != null
+						&& column.key.toLowerCase().contains("key")) {
+					if (!column.type.toLowerCase().contains("int")) {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+						m += "			</if>\n";
+					} else {
+						m += "			<if test=\"" + column.columnEnName
+								+ " != null\">\n";
+						m += "				" + column.columnEnName + "=#{"
+								+ column.columnEnName + ",jdbcType=INTEGER},\n";
+						m += "			</if>\n";
+					}
+				}
+			}
 		}
-		m += "		where id = #{id,jdbcType=INTEGER}\n";
+
 		m += "	</update>\n";
 
 		m += "</mapper>\n";
@@ -371,8 +410,7 @@ public class InterfaceServiceController {
 
 					if (conditionFirstColumn) {
 						condition += "		<if test=\"" + column.columnEnName
-								+ "!= null and " + column.columnEnName
-								+ "!= ''\">\n";
+								+ "!= null \">\n";
 						condition += " "
 								+ StringUtil
 										.tableName(column.belongWhichTable.tableEnName)
@@ -382,8 +420,7 @@ public class InterfaceServiceController {
 						conditionFirstColumn = false;
 					} else {
 						condition += "		<if test=\"" + column.columnEnName
-								+ "!= null and " + column.columnEnName
-								+ "!= ''\">\n";
+								+ "!= null \">\n";
 						condition += " and "
 								+ StringUtil
 										.tableName(column.belongWhichTable.tableEnName)
@@ -475,11 +512,11 @@ public class InterfaceServiceController {
 
 			if (table.isMainTable) {
 				mainTableName = table.tableEnName;
-				m += "<mapper namespace=\"com.company.dao.impl." + table.tableEnName
-						+ "Mapper\">\n";
+				m += "<mapper namespace=\"com.company.dao.impl."
+						+ table.tableEnName + "Mapper\">\n";
 				m += "	<resultMap id=\"" + table.tableEnName
-						+ "ResultMap\" type=\"com.company.bean." + table.tableEnName
-						+ "Bean\">\n";
+						+ "ResultMap\" type=\"com.company.bean."
+						+ table.tableEnName + "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
 							.equals(table.tableEnName)) {
@@ -567,10 +604,10 @@ public class InterfaceServiceController {
 		for (int i = 0; i < queryConditionColumns.size(); i++) {
 			TableColumnBean column = queryConditionColumns.get(i);
 			if (i == queryConditionColumns.size() - 1) {
-				selectPara += typeCheck(column.type) + " "
+				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
 						+ column.columnEnName + "";
 			} else {
-				selectPara += typeCheck(column.type) + " "
+				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
 						+ column.columnEnName + ",";
 			}
 		}
@@ -583,18 +620,19 @@ public class InterfaceServiceController {
 
 			if (table.isMainTable && tables.size() > 1) {
 
-				m += "List<"+table.tableEnName + "Bean> " + table.tableEnName
+				m += "List<" + table.tableEnName + "Bean> " + table.tableEnName
 						+ "Select(" + selectPara + ");\n";
 
 			} else if (tables.size() == 1) {
 
-				m += "List<"+table.tableEnName + "Bean> " + table.tableEnName
+				m += "List<" + table.tableEnName + "Bean> " + table.tableEnName
 						+ "Select(" + selectPara + ");\n";
 				m += "void " + table.tableEnName + "Insert("
 						+ table.tableEnName + "Bean bean);\n";
 				m += "void " + table.tableEnName + "Update("
 						+ table.tableEnName + "Bean bean);\n";
-				m += "void " + table.tableEnName + "Delete(Integer id);\n";
+				m += "void " + table.tableEnName + "Delete("
+						+ table.tableEnName + "Bean bean);\n";
 
 			}
 		}
@@ -622,7 +660,7 @@ public class InterfaceServiceController {
 								.firstCharToUpperAndJavaName(table.tableEnName)
 						+ "Bean> "
 						+ StringUtil.firstCharToLower(table.tableEnName)
-						+ "s;/**"+table.tableCnName+"*/\n";
+						+ "s;/**" + table.tableCnName + "*/\n";
 				noMainTable1 += "";
 
 				noMainTable1 += "	public List get"
@@ -658,7 +696,8 @@ public class InterfaceServiceController {
 			for (TableColumnBean column : table.columns) {
 
 				if (column.type.toLowerCase().contains("int")) {
-					m += "	private Integer " + column.columnEnName + ";/**"+column.columnCnName+"*/\n";
+					m += "	public Integer " + column.columnEnName + ";/**"
+							+ column.columnCnName + "*/\n";
 					m1 += "	public Integer get"
 							+ StringUtil
 									.firstCharToUpperAndJavaName(column.columnEnName)
@@ -674,7 +713,8 @@ public class InterfaceServiceController {
 							+ column.columnEnName + ";\n";
 					m1 += "	}\n";
 				} else {
-					m += "	private String " + column.columnEnName + ";/**"+column.columnCnName+"*/\n";
+					m += "	public String " + column.columnEnName + ";/**"
+							+ column.columnCnName + "*/\n";
 					m1 += "	public String get"
 							+ StringUtil
 									.firstCharToUpperAndJavaName(column.columnEnName)
@@ -722,18 +762,18 @@ public class InterfaceServiceController {
 		String queryCondition2 = "";
 		String queryCondition3 = "";
 		String mainTableName = "";
-		String mappername="";
-		
+		String mappername = "";
+
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
 			if (table.isMainTable && tables.size() > 1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
-				mappername=interfaceName;
+				mappername = interfaceName;
 			} else if (tables.size() == 1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
-				mappername=table.tableEnName;
+				mappername = table.tableEnName;
 			}
 		}
 
@@ -745,8 +785,7 @@ public class InterfaceServiceController {
 		for (TableColumnBean column : queryConditionColumns) {
 			queryCondition += typeCheck(column.type) + " "
 					+ column.columnEnName + ",";
-			queryCondition3 +=  " "
-					+ column.columnEnName + ",";
+			queryCondition3 += " " + column.columnEnName + ",";
 			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
 					+ column.columnEnName + ");\n";
 		}
@@ -755,7 +794,7 @@ public class InterfaceServiceController {
 			queryCondition = queryCondition.substring(0,
 					queryCondition.lastIndexOf(","));
 		}
-		
+
 		if (queryCondition3.lastIndexOf(",") != -1) {
 			queryCondition3 = queryCondition3.substring(0,
 					queryCondition3.lastIndexOf(","));
@@ -763,32 +802,24 @@ public class InterfaceServiceController {
 
 		m += "public interface " + interfaceName + "Service {\n";
 
-	
-		
-		
 		for (TableBean table : tables) {
 
 			if (table.isMainTable && tables.size() > 1) {
-	
+
 				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
-
 
 			} else if (tables.size() == 1) {
 
 				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
-				
-				m += "void " + "insert("
-						+ table.tableEnName + "Bean bean);\n";
-				m += "void " +  "update("
-						+ table.tableEnName + "Bean bean);\n";
-				m += "void " + "delete(Integer id);\n";
+
+				m += "void " + "insert(" + table.tableEnName + "Bean bean);\n";
+				m += "void " + "update(" + table.tableEnName + "Bean bean);\n";
+				m += "void " + "delete(" + table.tableEnName + "Bean bean);\n";
 
 			}
 		}
-		
-		
 
 		m += "}\n";
 
@@ -822,70 +853,57 @@ public class InterfaceServiceController {
 			m += "	@Resource\n";
 			m += "	private " + mappername + "Mapper mapper;\n";
 			m += "	\n";
-			
-			
-			
-			
-			
-			
+
 			for (TableBean table : tables) {
 
 				if (table.isMainTable && tables.size() > 1) {
-		
+
 					m += "	@Override\n";
-					m += "	public List<" + resultType + "> get(" + queryCondition
-							+ ") throws Exception {\n";
+					m += "	public List<" + resultType + "> get("
+							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 					m += "		Map<String,Object> m = new HashMap();\n";
 					m += queryCondition2;
 
-					m += "return mapper." + mainTableName + "Select(" + queryCondition3
-							+ ");\n";
+					m += "return mapper." + mainTableName + "Select("
+							+ queryCondition3 + ");\n";
 					m += "	}\n";
-
 
 				} else if (tables.size() == 1) {
 
 					m += "	@Override\n";
-					m += "	public List<" + resultType + "> get(" + queryCondition
-							+ ") throws Exception {\n";
+					m += "	public List<" + resultType + "> get("
+							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 					m += "		Map<String,Object> m = new HashMap();\n";
 					m += queryCondition2;
 
-					m += "return mapper." + mainTableName + "Select(" + queryCondition3
-							+ ");\n";
+					m += "return mapper." + mainTableName + "Select("
+							+ queryCondition3 + ");\n";
 					m += "	}\n\n";
-					
-					
+
 					m += "	@Override\n";
-					m += "public void "  + " insert("
-							+ table.tableEnName + "Bean bean){\n";
-	
+					m += "public void " + " insert(" + table.tableEnName
+							+ "Bean bean){\n";
+
 					m += " mapper." + mainTableName + "Insert(bean);\n";
 					m += "	}\n";
-					
-					
-					
+
 					m += "	@Override\n";
-					m += "public void update("
-							+ table.tableEnName + "Bean bean){\n";
+					m += "public void update(" + table.tableEnName
+							+ "Bean bean){\n";
 					m += " mapper." + mainTableName + "Update(bean);\n";
 					m += "	}\n\n";
-					
-					
+
 					m += "	@Override\n";
-					m += "public void   delete(Integer id){\n";
-					
-					m += " mapper." + mainTableName + "Delete(id);\n";
+					m += "public void   delete(" + table.tableEnName
+							+ "Bean bean){\n";
+
+					m += " mapper." + mainTableName + "Delete(bean);\n";
 					m += "	}\n";
 
 				}
 			}
-			
-			
-			
-			
 
 			m += "}\n";
 
@@ -900,13 +918,13 @@ public class InterfaceServiceController {
 		String servicename = "";
 		String serviceCnName = "";
 		String resultType = "";
-		String queryCondition = "";
+		
 		String queryCondition2 = "";
 		String mainTableName = "";
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
 			serviceCnName += table.tableCnName + "_";
-			if (table.isMainTable||tables.size()==1) {
+			if (table.isMainTable || tables.size() == 1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
 			}
@@ -921,24 +939,7 @@ public class InterfaceServiceController {
 			interfaceName = servicename;
 		}
 
-		int i=0;
-		for (TableColumnBean column : queryConditionColumns) {
-
-			queryCondition += "		String " + column.columnEnName
-					+ " = reqMap.get(\"" + column.columnEnName
-					+ "\") == null ? null : reqMap.get(\""
-					+ column.columnEnName + "\").toString();\n";
-			
-			if(i==queryConditionColumns.size()-1)
-			{
-				queryCondition2+=column.columnEnName+"";
-			}else
-			{
-			queryCondition2+=column.columnEnName+",";
-			}
-			
-			i++;
-		}
+	
 
 		String m = "";
 		m += "import java.util.Locale;\n";
@@ -947,7 +948,7 @@ public class InterfaceServiceController {
 
 		m += "import javax.validation.ConstraintViolation;\n";
 		m += "import javax.validation.Validator;\n";
-		m+="import org.springframework.beans.factory.annotation.Autowired;\n";
+		m += "import org.springframework.beans.factory.annotation.Autowired;\n";
 		m += "import org.springframework.context.annotation.Scope;\n";
 		m += "import org.springframework.context.i18n.LocaleContextHolder;\n";
 		m += "import org.springframework.stereotype.Controller;\n";
@@ -973,115 +974,198 @@ public class InterfaceServiceController {
 		m += "private " + interfaceName + "Service "
 				+ StringUtil.firstCharToLower(interfaceName) + "Service;\n";
 
-		
-		
 		m += "	@RequestMapping(\"/query.do\")\n";
 		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
 
 		m += "		//if (null == reqMap || reqMap.isEmpty())\n";
 		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
-		m += queryCondition;
+		
+		int i = 0;
+		String n="";
+		for (TableColumnBean column : queryConditionColumns) {
 
+			if (column.type.toLowerCase().contains("int")) {
+				m += "		int " + column.columnEnName
+						+ " = reqMap.get(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+						+ column.columnEnName + "\").toString());\n";
+				
+			}else
+			{
+				m += "		String " + column.columnEnName
+						+ " = reqMap.get(\"" + column.columnEnName
+						+ "\") == null ? null : reqMap.get(\""
+						+ column.columnEnName + "\").toString();\n";
+			}
+			
+			
+			
+			if (i == queryConditionColumns.size() - 1) {
+				queryCondition2 += column.columnEnName + "";
+			} else {
+				queryCondition2 += column.columnEnName + ",";
+			}
+
+			i++;
+		}
+		
 		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
-				+ "Bean=null;\n";
+				+ "Beans=null;\n";
+		
+		
 		m += "try {\n";
-		m += mainTableName.toLowerCase() + "Bean="
-				+ StringUtil.firstCharToLower(interfaceName)
-				+ "Service.get("+queryCondition2+");\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.get("
+				+ queryCondition2 + ");\n";
 		m += "} catch (Exception e) {\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n";
 
-		m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+		m+="Map r=new HashMap();\n";
+		m+="r.put(\"result\","+ mainTableName.toLowerCase()+"Beans);\n";
+		m += "	  return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE,\"\",r);\n";
 		m += "	}\n";
-		
-		
-		
+
 		for (TableBean table : tables) {
 
 			if (table.isMainTable && tables.size() > 1) {
-	
-			
 
 			} else if (tables.size() == 1) {
 
-			
 				m += "	@RequestMapping(\"/insert.do\")\n";
 				m += "	public @ResponseBody Map<String, Object> insert(@RequestParam Map reqMap) {\n";
 
-				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+				m += "		if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
-				m += queryCondition;
+				 n="";
+				for (TableColumnBean column : table.columns) {
+					
+
+					if (column.type.toLowerCase().contains("int")) {
+						m += "		int " + column.columnEnName
+								+ " = reqMap.get(\"" + column.columnEnName
+								+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+								+ column.columnEnName + "\").toString());\n";
+						
+					}else
+					{
+						m += "		String " + column.columnEnName
+								+ " = reqMap.get(\"" + column.columnEnName
+								+ "\") == null ? null : reqMap.get(\""
+								+ column.columnEnName + "\").toString();\n";
+					}
+						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
+					
+				}
 
 				m += mainTableName + "Bean " + mainTableName.toLowerCase()
-						+ "Bean=null;\n";
+						+ "Bean=new "+mainTableName+"Bean();\n";
+				m+=n;
+				
 				m += "try {\n";
-				m +=  StringUtil.firstCharToLower(interfaceName)
-						+ "Service.insert("+mainTableName.toLowerCase()+"Bean);\n";
+				m += StringUtil.firstCharToLower(interfaceName)
+						+ "Service.insert(" + mainTableName.toLowerCase()
+						+ "Bean);\n";
 				m += "} catch (Exception e) {\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 				m += "	}\n";
-				
-				
-				
-				
+
 				m += "	@RequestMapping(\"/update.do\")\n";
 				m += "	public @ResponseBody Map<String, Object> update(@RequestParam Map reqMap) {\n";
 
-				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+				m += "		if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
-				m += queryCondition;
+				 n="";
+				for (TableColumnBean column : table.columns) {
+				
+					if (column.type.toLowerCase().contains("int")) {
+						m += "		int " + column.columnEnName
+								+ " = reqMap.get(\"" + column.columnEnName
+								+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+								+ column.columnEnName + "\").toString());\n";
+						
+					}else
+					{
+						m += "		String " + column.columnEnName
+								+ " = reqMap.get(\"" + column.columnEnName
+								+ "\") == null ? null : reqMap.get(\""
+								+ column.columnEnName + "\").toString();\n";
+					}
+						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
+					
+				}
 
 				m += mainTableName + "Bean " + mainTableName.toLowerCase()
-						+ "Bean=null;\n";
+						+ "Bean=new "+mainTableName+"Bean();\n";
+				m+=n;
+				
 				m += "try {\n";
-				m +=  StringUtil.firstCharToLower(interfaceName)
-						+ "Service.update("+mainTableName.toLowerCase()+"Bean);\n";
+				m += StringUtil.firstCharToLower(interfaceName)
+						+ "Service.update(" + mainTableName.toLowerCase()
+						+ "Bean);\n";
 				m += "} catch (Exception e) {\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 				m += "	}\n";
+
 				
-		
+				
 				
 				
 				m += "	@RequestMapping(\"/delete.do\")\n";
 				m += "	public @ResponseBody Map<String, Object> delete(@RequestParam Map reqMap) {\n";
 
-				m += "		//if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+				m += "		if (null == reqMap || reqMap.isEmpty())\n";
+				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
-				m += queryCondition;
+				
+				 n="";
+				for (TableColumnBean column : table.columns) {
+					if (column.key != null
+							&& column.key.toLowerCase().contains("key")) {
+
+						if (column.type.toLowerCase().contains("int")) {
+							m += "		int " + column.columnEnName
+									+ " = reqMap.get(\"" + column.columnEnName
+									+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+									+ column.columnEnName + "\").toString());\n";
+							
+						}else
+						{
+							m += "		String " + column.columnEnName
+									+ " = reqMap.get(\"" + column.columnEnName
+									+ "\") == null ? null : reqMap.get(\""
+									+ column.columnEnName + "\").toString();\n";
+						}
+						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
+					}
+				}
 
 				m += mainTableName + "Bean " + mainTableName.toLowerCase()
-						+ "Bean=null;\n";
+						+ "Bean=new "+mainTableName+"Bean();\n";
+				m+=n;
 				m += "try {\n";
-				m +=  StringUtil.firstCharToLower(interfaceName)
-						+ "Service.delete("+mainTableName.toLowerCase()+"Bean.id);\n";
+				m += StringUtil.firstCharToLower(interfaceName)
+						+ "Service.delete(" + mainTableName.toLowerCase()
+						+ "Bean);\n";
 				m += "} catch (Exception e) {\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return null;//return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
 				m += "	}\n";
-				
-				
-			
 
 			}
 		}
-		
-		
-		
-		
+
 		m += "}\n";
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
