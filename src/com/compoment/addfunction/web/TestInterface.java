@@ -127,6 +127,7 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doSearch(){\n";
 		m += "		var searchInp=	$(\"#searchIn\").val();\n";
+		m+="var requesturl='http://localhost:8080/m/query.do'+searchInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -136,8 +137,11 @@ public class TestInterface {
 
 		m += "					},\n";
 		m += "					success:function(result){\n";
-		m += "							var json = result.json;\n";
-		m += "							$(\"#pageContent\").html(json);\n";
+		m += "							var returndata = result.returnData;\n";
+		m+="var jsonstr=JSON.stringify(result); \n";
+		m+="$(\"#pageRequest\").html(requesturl);\n";
+		m+="$(\"#pageContent\").html(jsonstr);\n";
+		
 		m += "					},\n";
 		m += "					error : function() {\n";
 		m += "						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -149,6 +153,7 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doAdd(){\n";
 		m += "		var addInp=	$(\"#addIn\").val();\n";
+		m+="var requesturl='http://localhost:8080/m/insert.do'+addInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -157,8 +162,10 @@ public class TestInterface {
 
 		m += "					},\n";
 		m += "					success:function(result){\n";
-		m += "							var json = result.json;\n";
-		m += "							$(\"#pageContent\").html(json);\n";
+		m += "							var returndata = result.returnData;\n";
+		m+="var jsonstr=JSON.stringify(result); \n";
+		m+="$(\"#pageRequest\").html(requesturl);\n";
+		m+="$(\"#pageContent\").html(jsonstr);\n";
 		m += "					},\n";
 		m += "					error : function() {\n";
 		m += "						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -170,6 +177,7 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doUpdate(){\n";
 		m += "			var updateInp= $(\"#updateIn\").val();\n";
+		m+="var requesturl='http://localhost:8080/m/update.do'+updateInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -179,8 +187,10 @@ public class TestInterface {
 
 		m += "					},\n";
 		m += "					success:function(result){\n";
-		m += "							var json = result.json;\n";
-		m += "							$(\"#pageContent\").html(json);\n";
+		m += "							var returndata = result.returnData;\n";
+		m+="var jsonstr=JSON.stringify(result); \n";
+		m+="$(\"#pageRequest\").html(requesturl);\n";
+		m+="$(\"#pageContent\").html(jsonstr);\n";
 		m += "					},\n";
 		m += "					error : function() {\n";
 		m += "						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -190,6 +200,7 @@ public class TestInterface {
 		m += "		}\n";
 		m += "		function doDelete(code){\n";
 		m += "		var 	deleteInp=$(\"#deleteIn\").val();\n";
+		m+="var requesturl='http://localhost:8080/m/delete.do'+deleteInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -199,9 +210,10 @@ public class TestInterface {
 
 		m += "					},\n";
 		m += "					success:function(result){\n";
-		m += "							var json = result.json;\n";
-
-		m += "							$(\"#pageContent\").html(json);\n";
+		m += "							var returndata = result.returnData;\n";
+		m+="var jsonstr=JSON.stringify(result); \n";
+		m+="$(\"#pageRequest\").html(requesturl);\n";
+		m+="$(\"#pageContent\").html(jsonstr);\n";
 		m += "					},\n";
 		m += "					error : function() {\n";
 		m += "						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -216,33 +228,35 @@ public class TestInterface {
 
 		m += "</head>\n";
 		m += "<body>\n";
-		m += "	<div> " + interfaceCnName + "接口输入</div>\n";
+		m += "	<div> " + interfaceCnName + "接口</div>\n";
 		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
-		m += "	查询url：<input type=\"text\" id=\"searchIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
+		m += "	查询urlPara：<input type=\"text\" id=\"searchIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"查询\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doSearch()\">\n";
 
 		m += "	</div>\n";
 		m += "	\n";
 		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
-		m += "	新增url：<input type=\"text\" id=\"addIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
+		m += "	新增urlPara：<input type=\"text\" id=\"addIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"新增\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doAdd()\">\n";
 
 		m += "	</div>\n";
 		m += "	\n";
 		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
-		m += "	修改url：<input type=\"text\" id=\"updateIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
+		m += "	修改urlPara：<input type=\"text\" id=\"updateIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"修改\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doUpdate()\">\n";
 
 		m += "	</div>\n";
 		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
-		m += "	删除url：<input type=\"text\" id=\"deleteIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
+		m += "	删除urlPara：<input type=\"text\" id=\"deleteIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"删除\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doDelete()\">\n";
 
 		m += "	</div>\n";
+		m+="<div> 请求Url</div>\n";
+		m+="<div id=\"pageRequest\"></div>\n";
 		m += "	<div> 接口输出</div>\n";
 		m += "	<div id=\"pageContent\"></div>\n";
 		m += "  </div>\n";

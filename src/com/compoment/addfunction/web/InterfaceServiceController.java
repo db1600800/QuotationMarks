@@ -1023,7 +1023,7 @@ public class InterfaceServiceController {
 		m += "}\n";
 
 		m+="Map r=new HashMap();\n";
-		m+="r.put(\"result\","+ mainTableName.toLowerCase()+"Beans);\n";
+		m+="r.put(\"returnData\","+ mainTableName.toLowerCase()+"Beans);\n";
 		m += "	  return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE,\"\",r);\n";
 		m += "	}\n";
 

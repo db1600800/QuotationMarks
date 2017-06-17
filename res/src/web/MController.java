@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.RequestContext;
 import com.framework.controller.BaseController;
 import com.framework.utils.SpringBeanManger;
 
-/**几点*/
+/**接口*/
 @Controller
 @Scope("prototype")
 @RequestMapping("/m")
