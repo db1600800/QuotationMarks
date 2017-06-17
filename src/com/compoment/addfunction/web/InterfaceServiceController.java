@@ -292,6 +292,7 @@ public class InterfaceServiceController {
 			m += "		delete from " + StringUtil.tableName(table.tableEnName)
 					+ "";
 			m += "		where \n";
+			m+="<trim  suffix=\"\" suffixOverrides=\"and\">\n";
 			for (TableColumnBean column : table.columns) {
 
 				if (column.key != null
@@ -300,19 +301,19 @@ public class InterfaceServiceController {
 						m += "			<if test=\"" + column.columnEnName
 								+ " != null\">\n";
 						m += "				" + column.columnEnName + "=#{"
-								+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+								+ column.columnEnName + ",jdbcType=VARCHAR} and \n";
 						m += "			</if>\n";
 					} else {
 						m += "			<if test=\"" + column.columnEnName
 								+ " != null\">\n";
 						m += "				" + column.columnEnName + "=#{"
-								+ column.columnEnName + ",jdbcType=INTEGER},\n";
+								+ column.columnEnName + ",jdbcType=INTEGER} and \n";
 						m += "			</if>\n";
 					}
 				}
 			}
 		}
-
+m+="</trim>\n";
 		m += "	</delete>\n\n";
 
 		// 更新
@@ -347,7 +348,7 @@ public class InterfaceServiceController {
 			m += "		</set>\n";
 
 			m += "		where \n";
-
+			m+="<trim  suffix=\"\" suffixOverrides=\"and\">\n";
 			for (TableColumnBean column : table.columns) {
 
 				if (column.key != null
@@ -356,19 +357,19 @@ public class InterfaceServiceController {
 						m += "			<if test=\"" + column.columnEnName
 								+ " != null\">\n";
 						m += "				" + column.columnEnName + "=#{"
-								+ column.columnEnName + ",jdbcType=VARCHAR},\n";
+								+ column.columnEnName + ",jdbcType=VARCHAR} and \n";
 						m += "			</if>\n";
 					} else {
 						m += "			<if test=\"" + column.columnEnName
 								+ " != null\">\n";
 						m += "				" + column.columnEnName + "=#{"
-								+ column.columnEnName + ",jdbcType=INTEGER},\n";
+								+ column.columnEnName + ",jdbcType=INTEGER} and \n";
 						m += "			</if>\n";
 					}
 				}
 			}
 		}
-
+m+="</trim>\n";
 		m += "	</update>\n";
 
 		m += "</mapper>\n";

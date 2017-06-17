@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.RequestContext;
 import com.framework.controller.BaseController;
 import com.framework.utils.SpringBeanManger;
 
-/**接口*/
+/**卡*/
 @Controller
 @Scope("prototype")
 @RequestMapping("/m")
@@ -35,7 +35,7 @@ cpzbuyercollectshopBeans=mService.get(shopBusineeRangeId);
 	e.printStackTrace();
 }
 Map r=new HashMap();
-r.put("result",cpzbuyercollectshopBeans);
+r.put("returnData",cpzbuyercollectshopBeans);
 	  return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE,"",r);
 	}
 	@RequestMapping("/insert.do")

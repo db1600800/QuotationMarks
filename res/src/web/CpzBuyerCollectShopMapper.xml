@@ -56,12 +56,14 @@ select * from t_cpz_buyer_collect_shop where 		<if test="shopBusineeRangeId!= nu
 
 	<delete id="CpzBuyerCollectShopDelete" parameterType="CpzBuyerCollectShopBean">
 		delete from t_cpz_buyer_collect_shop		where 
+<trim  suffix="" suffixOverrides="and">
 			<if test="userId != null">
-				userId=#{userId,jdbcType=INTEGER},
+				userId=#{userId,jdbcType=INTEGER} and 
 			</if>
 			<if test="shopId != null">
-				shopId=#{shopId,jdbcType=INTEGER},
+				shopId=#{shopId,jdbcType=INTEGER} and 
 			</if>
+</trim>
 	</delete>
 
 	<update id="CpzBuyerCollectShopUpdate" parameterType="CpzBuyerCollectShopBean">
@@ -81,12 +83,14 @@ select * from t_cpz_buyer_collect_shop where 		<if test="shopBusineeRangeId!= nu
 			</if>
 		</set>
 		where 
+<trim  suffix="" suffixOverrides="and">
 			<if test="userId != null">
-				userId=#{userId,jdbcType=INTEGER},
+				userId=#{userId,jdbcType=INTEGER} and 
 			</if>
 			<if test="shopId != null">
-				shopId=#{shopId,jdbcType=INTEGER},
+				shopId=#{shopId,jdbcType=INTEGER} and 
 			</if>
+</trim>
 	</update>
 </mapper>
 
