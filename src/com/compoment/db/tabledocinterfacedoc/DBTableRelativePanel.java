@@ -163,7 +163,10 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 	
 	
 	
-	
+	 public Dimension getPreferredSize() {
+		 Dimension theSize = new Dimension(3000, 3000);
+         return theSize;
+ }
 
 	public void cleanDBTables() {
 		tables.clear();

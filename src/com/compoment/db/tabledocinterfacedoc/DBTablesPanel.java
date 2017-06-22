@@ -111,6 +111,11 @@ public class DBTablesPanel extends JPanel implements MouseListener {
 
 	}
 
+	
+	 public Dimension getPreferredSize() {
+		 Dimension theSize = new Dimension(3000, 3000);
+         return theSize;
+ }
 	public void cleanSelectTables() {
 
 		for (TableBean table : tables) {
