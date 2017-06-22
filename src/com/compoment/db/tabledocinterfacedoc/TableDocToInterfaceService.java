@@ -117,34 +117,42 @@ public class TableDocToInterfaceService extends JFrame {
 		interfaceCnName.setColumns(15);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(577)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(25)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(interfaceName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-							.addGap(6)
-							.addComponent(interfaceCnName, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+							.addComponent(label)
 							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-								.addComponent(label)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblNewLabel)
+										.addPreferredGap(ComponentPlacement.RELATED, 645, Short.MAX_VALUE)
+										.addComponent(getDBTableBtn)
+										.addGap(81))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+											.addComponent(panel, GroupLayout.PREFERRED_SIZE, 1123, GroupLayout.PREFERRED_SIZE)
+											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE))
+										.addPreferredGap(ComponentPlacement.RELATED)))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel)
-									.addPreferredGap(ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-									.addComponent(getDBTableBtn)
-									.addGap(81))
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(scrollPane_1, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-									.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)))
-							.addGap(27))))
+									.addGap(10)
+									.addComponent(lblNewLabel_1)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(interfaceName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+									.addGap(6)
+									.addComponent(interfaceCnName, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 677, GroupLayout.PREFERRED_SIZE)))
+							.addGap(24))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(panel_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE)
+								.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE))
+							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -156,7 +164,7 @@ public class TableDocToInterfaceService extends JFrame {
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(10)
 					.addComponent(label)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -171,7 +179,7 @@ public class TableDocToInterfaceService extends JFrame {
 					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 235, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(32, Short.MAX_VALUE))
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 
 		queryRelateButton = new JButton("查询");
@@ -263,7 +271,7 @@ public class TableDocToInterfaceService extends JFrame {
 
 		dbTableRelativePanel = new DBTableRelativePanel();
 		dbTableRelativePanel.setBackground(Color.LIGHT_GRAY);
-		dbTableRelativePanel.setPreferredSize(new Dimension(1000, 1000));
+		dbTableRelativePanel.setPreferredSize(new Dimension(2000, 1000));
 		scrollPane_1.setViewportView(dbTableRelativePanel);
 
 		// 选择到表关系页
@@ -289,7 +297,7 @@ public class TableDocToInterfaceService extends JFrame {
 		panel.setLayout(gl_panel);
 
 		dbTablesPanel = new DBTablesPanel();
-		dbTablesPanel.setPreferredSize(new Dimension(1000, 1000));
+		dbTablesPanel.setPreferredSize(new Dimension(2006, 1000));
 		dbTablesPanel.setBackground(Color.LIGHT_GRAY);
 		scrollPane.setViewportView(dbTablesPanel);
 		contentPane.setLayout(gl_contentPane);
