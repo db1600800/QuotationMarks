@@ -176,8 +176,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					.addContainerGap())
 		);
 		
-		boolean isSingleSelect=true;
-		 projectDocPanel=new InterfaceDocDialog(isSingleSelect,false);
+		
+		 projectDocPanel=new InterfaceDocDialog(false,"接口文档");
 		JPanel interfaceDocPanel = projectDocPanel.contentPanel;
 		scrollPane_1.setViewportView(interfaceDocPanel);
 		

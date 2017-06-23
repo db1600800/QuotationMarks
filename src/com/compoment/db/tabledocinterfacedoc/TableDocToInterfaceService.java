@@ -376,7 +376,7 @@ public class TableDocToInterfaceService extends JFrame {
 	}
 
 	public void getDBTables() {
-		InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(false, true);
+		InterfaceDocDialog projectDocPanel = new InterfaceDocDialog( true,"数据库文档");
 		projectDocPanel.setModal(true);
 		projectDocPanel.setVisible(true);
 

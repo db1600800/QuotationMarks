@@ -34,7 +34,6 @@ import com.compoment.jsonToJava.creater.WordtableToJavaObject;
 import com.compoment.remote.RemoteUtil;
 import com.compoment.remote.WordtableToJavaObjectInterface;
 import com.compoment.jsonToJava.creater.InterfaceBean;
-
 import com.compoment.server.Serverlet;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -43,6 +42,7 @@ import com.google.gson.Gson;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -68,16 +68,18 @@ public class InterfaceDocDialog extends JDialog {
 	public ArrayList listDate = new ArrayList();
 	
 	/**word文档解析出来的接口对象*/
-	public List<InterfaceBean> interfaceBeans;
+	public List<InterfaceBean> interfaceBeans;//返回文档里的全部接口
 	
 	
 	/**
-	 * 接口列表多选的值   (f.id + "" + f.title);
+	 * 接口列表多选的值   (f.id + "" + f.title);  列表页面里显示的   用于判断用户有没选  
 	 * */
 	public Object[] selects;
-	public List selectInterfaceBeans;
 	
-	boolean isSingleSelect;
+	
+	public List selectInterfaceBeans;//返回选择了的接口
+	
+	
 	
 	boolean isTable;
 	
@@ -87,7 +89,7 @@ public class InterfaceDocDialog extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			InterfaceDocDialog dialog = new InterfaceDocDialog(true,false);
+			InterfaceDocDialog dialog = new InterfaceDocDialog(false,"接口文档");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -98,17 +100,21 @@ public class InterfaceDocDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InterfaceDocDialog(boolean isSingleSelect,boolean isTable) {
-		this.isSingleSelect=isSingleSelect;
+	public InterfaceDocDialog(boolean isTable,String title) {
+	
 		this.isTable=isTable;
-		setBounds(100, 100, 470, 500);
+		setBounds(100, 100, 567, 542);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel = new JLabel("接口文档");
+		if(title==null)
+		{
+			title="接口文档";
+		}
+		JLabel lblNewLabel = new JLabel(title);
 		
-		JLabel lblNewLabel_1 = new JLabel("接口文档路径      ");
+		JLabel lblNewLabel_1 = new JLabel(title+"路径      ");
 		
 		pathValueEditText = new JTextField();
 		pathValueEditText.setColumns(10);
@@ -207,35 +213,16 @@ Desktop desktop=Desktop.getDesktop();
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblNewLabel)
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblRequestjson)
+							.addComponent(lblindex_3)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(requestJsonValueEditText, 300, 300, 300))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 432, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(lblindex_3)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(remarksValueEditText))
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(lblindex_1)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(enNameValueEditText))
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(lblindex_2)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(typeValueEditText, 302, 302, 302)))
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(lblRespondjson_1)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(respondJsonDetailValueEditText))
-							.addGroup(gl_contentPanel.createSequentialGroup()
-								.addComponent(lblRespondjson)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(respondJsonValueEditText, 298, 298, 298)))
+							.addComponent(remarksValueEditText))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(lblRespondjson_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(respondJsonDetailValueEditText))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(lblNewLabel_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -246,9 +233,26 @@ Desktop desktop=Desktop.getDesktop();
 							.addComponent(btnNewButton_2))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(lblindex)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(cnNameValueEditText))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblindex_1)
+								.addComponent(lblindex_2))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(cnNameValueEditText, 303, 303, 303)))
-					.addContainerGap(32, Short.MAX_VALUE))
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(typeValueEditText, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+								.addComponent(enNameValueEditText)))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblRequestjson)
+								.addComponent(lblRespondjson))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(respondJsonValueEditText, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+								.addComponent(requestJsonValueEditText)))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -290,32 +294,46 @@ Desktop desktop=Desktop.getDesktop();
 						.addComponent(lblRespondjson_1)
 						.addComponent(respondJsonDetailValueEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
 		);
 		
-		 tojavaButton = new JButton("接口生成");
+		 tojavaButton = new JButton("生成");
 		
-		 listListView = new JList();
+		 
+		JButton selectButton = new JButton("确定");
+		selectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(listListView, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tojavaButton))
-					.addContainerGap(27, Short.MAX_VALUE))
+					.addComponent(tojavaButton)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(selectButton)
+					.addGap(43))
+				.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(tojavaButton)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tojavaButton)
+						.addComponent(selectButton))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(listListView, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		
+		 listListView = new JList();
+		 scrollPane.setViewportView(listListView);
 		panel.setLayout(gl_panel);
 		contentPanel.setLayout(gl_contentPanel);
 		
@@ -395,17 +413,11 @@ Desktop desktop=Desktop.getDesktop();
 		});
 		
 		
-		//listview
-//		if(isSingleSelect)
-//		{
-//			
-//			listListView.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//			
-//		}else
-		{
+	
+		
 			listListView.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			
-		}
+		
 		
 		listListView.setListData(listDate.toArray());
 		listListView.addListSelectionListener(new ListSelectionListener() {

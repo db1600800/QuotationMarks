@@ -808,7 +808,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
-						false, false);
+						 false,"接口文档");
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 
@@ -955,7 +955,7 @@ public class CodeFunctionAdd extends JFrame {
 			if (response == 0) {
 
 				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
-						false, false);
+						 false,"接口文档");
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 
@@ -990,8 +990,8 @@ public class CodeFunctionAdd extends JFrame {
 
 		if (function.id.equals("1")) {// 表
 
-			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(false,
-					true);
+			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+					true,"数据库文档");
 			projectDocPanel.setModal(true);
 			projectDocPanel.setVisible(true);
 
@@ -1036,7 +1036,7 @@ public class CodeFunctionAdd extends JFrame {
 				//
 
 				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
-						false, false);
+						 false,"接口文档");
 				projectDocPanel.setModal(true);
 				projectDocPanel.setVisible(true);
 
