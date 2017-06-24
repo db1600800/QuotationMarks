@@ -357,7 +357,16 @@ public class TableDocToInterfaceService extends JFrame {
 		deleteRelateButton = new JButton("删除");
 		deleteRelateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog( false,"接口文档");
+				projectDocPanel.setModal(true);
+				projectDocPanel.setVisible(true);
 
+				if (projectDocPanel.selectInterfaceBeans != null) {
+					
+
+				}
+				
+				
 			}
 		});
 
