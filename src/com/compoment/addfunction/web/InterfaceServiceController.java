@@ -517,7 +517,7 @@ m+="</trim>\n";
 						+ table.tableEnName + "Mapper\">\n";
 				m += "	<resultMap id=\"" + table.tableEnName
 						+ "ResultMap\" type=\"com.company.bean."
-						+ table.tableEnName + "Bean\">\n";
+						+ interfaceName + "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
 							.equals(table.tableEnName)) {
@@ -621,7 +621,7 @@ m+="</trim>\n";
 
 			if (table.isMainTable && tables.size() > 1) {
 
-				m += "List<" + table.tableEnName + "Bean> " + table.tableEnName
+				m += "List<" + interfaceName + "Bean> " + interfaceName
 						+ "Select(" + selectPara + ");\n";
 
 			} else if (tables.size() == 1) {
@@ -640,8 +640,16 @@ m+="</trim>\n";
 
 		m += "}\n";
 
+		
+		if(tables!=null && tables.size()>1)
+		{
+			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+					interfaceName + "Mapper", "java", m);
+		}else
+		{
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
 				mainTableName + "Mapper", "java", m);
+		}
 
 	}
 
@@ -653,6 +661,8 @@ m+="</trim>\n";
 
 		for (TableBean table : tables) {
 
+			if(tables.size()>1)
+			{
 			if (table.isMainTable) {
 
 			} else {
@@ -686,14 +696,22 @@ m+="</trim>\n";
 						+ "s;\n";
 				noMainTable1 += "	}\n";
 			}
+			}
 		}
 
 		for (TableBean table : tables) {
 			m = "";
 			m1 = "";
+			if (tables.size()>1 && table.isMainTable) {
+				m += "public class "
+						+ interfaceName
+						+ "Bean {\n";
+			}else
+			{
 			m += "public class "
 					+ StringUtil.firstCharToUpperAndJavaName(table.tableEnName)
 					+ "Bean {\n";
+			}
 			for (TableColumnBean column : table.columns) {
 
 				if (column.type.toLowerCase().contains("int")) {
@@ -733,12 +751,11 @@ m+="</trim>\n";
 				}
 			}
 
-			if (table.isMainTable) {
+			if (tables.size()>1 && table.isMainTable) {
 				FileUtil.makeFile(
 						KeyValue.readCache("projectPath"),
 						"src/web",
-						StringUtil
-								.firstCharToUpperAndJavaName(table.tableEnName)
+						interfaceName
 								+ "Bean", "java", m + noMainTable + m1
 								+ noMainTable1 + "}\n");
 			} else {
@@ -768,8 +785,8 @@ m+="</trim>\n";
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
 			if (table.isMainTable && tables.size() > 1) {
-				resultType = table.tableEnName + "Bean";
-				mainTableName = table.tableEnName;
+				resultType = interfaceName + "Bean";
+				mainTableName = interfaceName;
 				mappername = interfaceName;
 			} else if (tables.size() == 1) {
 				resultType = table.tableEnName + "Bean";
@@ -925,7 +942,13 @@ m+="</trim>\n";
 		for (TableBean table : tables) {
 			servicename += table.tableEnName + "_";
 			serviceCnName += table.tableCnName + "_";
-			if (table.isMainTable || tables.size() == 1) {
+			if ( tables.size() > 1) {
+			
+				resultType = interfaceName + "Bean";
+				mainTableName = interfaceName;
+			}else
+			{
+				
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
 			}
