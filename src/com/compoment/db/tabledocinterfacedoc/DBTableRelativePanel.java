@@ -453,7 +453,7 @@ public class DBTableRelativePanel extends JPanel implements MouseListener,
 						} else {
 
 							
-							//column.relateColumnBeans.add(startColumnBean);
+							column.relateColumnBeans.add(startColumnBean);
 						}
 
 					}

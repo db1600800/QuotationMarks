@@ -391,6 +391,7 @@ m+="</trim>\n";
 		String mainTableName = "";
 
 		boolean haveRelate = false;
+		Map relateTable=new HashMap();
 
 		boolean conditionFirstColumn = true;
 
@@ -436,48 +437,64 @@ m+="</trim>\n";
 
 				if (column.relateColumnBeans != null
 						&& column.relateColumnBeans.size() > 0) {
+					
+					
 					haveRelate = true;
-					relate += StringUtil
-							.tableName(column.belongWhichTable.tableEnName);
+				
+					relateTable.put(column.belongWhichTable.tableEnName, column.belongWhichTable);
 					// 关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
 
-						if (column.relateColumnBeans.size() == 1) {// 两表
+					
+						relateTable.put(relateColumn.belongWhichTable.tableEnName, column.belongWhichTable);
+						
 
-							relate += " inner join "
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ " on "
-									+ StringUtil
-											.tableName(column.belongWhichTable.tableEnName)
-									+ "."
-									+ column.columnEnName
-									+ "="
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ "." + relateColumn.columnEnName;
-
-						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
-							relate += " inner join "
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ " on "
-									+ StringUtil
-											.tableName(column.belongWhichTable.tableEnName)
-									+ "."
-									+ column.columnEnName
-									+ "="
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ "." + relateColumn.columnEnName;
-
-						}
-
+						
 					}
 				}
 			}
 		}
 
+		
+		
+		
+		
+		
+		//多表
+			for(Object key : relateTable.keySet())
+			{
+				TableBean bean=(TableBean) relateTable.get(key);
+				if(bean.isMainTable)
+				{
+					relate += StringUtil
+							.tableName(bean.tableEnName);
+				}
+			}
+			
+			
+			for(Object key : relateTable.keySet())
+			{
+				TableBean bean=(TableBean) relateTable.get(key);
+				if(!bean.isMainTable)
+				{
+					relate += " inner join "
+							+ StringUtil
+									.tableName(relateColumn.belongWhichTable.tableEnName)
+							+ " on "
+							+ StringUtil
+									.tableName(column.belongWhichTable.tableEnName)
+							+ "."
+							+ column.columnEnName
+							+ "="
+							+ StringUtil
+									.tableName(relateColumn.belongWhichTable.tableEnName)
+							+ "." + relateColumn.columnEnName;
+				}
+			}
+		
+		
+		
+		
 		for (TableBean table : tables) {
 			for (TableColumnBean column : table.columns) {
 				if (!haveRelate) {// 单个表
@@ -514,8 +531,8 @@ m+="</trim>\n";
 			if (table.isMainTable) {
 				mainTableName = table.tableEnName;
 				m += "<mapper namespace=\"com.company.dao.impl."
-						+ table.tableEnName + "Mapper\">\n";
-				m += "	<resultMap id=\"" + table.tableEnName
+						+ interfaceName + "Mapper\">\n";
+				m += "	<resultMap id=\"" + interfaceName
 						+ "ResultMap\" type=\"com.company.bean."
 						+ interfaceName + "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
@@ -566,8 +583,8 @@ m+="</trim>\n";
 		for (TableBean table : tables) {
 
 			if (table.isMainTable) {
-				m += "	<select id=\"" + table.tableEnName
-						+ "Select\" resultMap=\"" + table.tableEnName
+				m += "	<select id=\"" + interfaceName
+						+ "Select\" resultMap=\"" + interfaceName
 						+ "ResultMap\" >\n";
 
 			}
