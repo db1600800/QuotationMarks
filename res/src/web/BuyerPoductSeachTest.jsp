@@ -3,20 +3,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>卡</title>
+<title>菜品搜索查询</title>
 <script
 	type="text/javascript" src="js/jquery-1.7.1.js"></script>
 	<script>
 		
 		
 		$(document).on('ready', function() {
-			var searchInp="?shopBusineeRangeId=";
+			var searchInp="?productName=&productType=";
 			$("#searchIn").val(searchInp);
-			var addInp="?userId=&shopId=&marketId=&shopBusineeRangeId=&isDefaultShop=&colletcTime=";
+			var addInp="?";
 			$("#addIn").val(addInp);
-			var updateInp="?userId=&shopId=&marketId=&shopBusineeRangeId=&isDefaultShop=&colletcTime=";
+			var updateInp="?";
 			$("#updateIn").val(updateInp);
-			var deleteInp="?userId=&shopId=";
+			var deleteInp="?";
 			$("#deleteIn").val(deleteInp);
 		});
 		
@@ -27,7 +27,7 @@ var requesturl='http://localhost:8080/m/query.do'+searchInp;
 			
 				$.ajax({
 					type:'POST',
-					url:'m/query.do'+searchInp,
+					url:'buyerpoductseach/query.do'+searchInp,
 					data:{
 					},
 					success:function(result){
@@ -50,7 +50,7 @@ var requesturl='http://localhost:8080/m/insert.do'+addInp;
 			
 				$.ajax({
 					type:'POST',
-					url:'m/insert.do'+addInp,
+					url:'buyerpoductseach/insert.do'+addInp,
 					data:{
 					},
 					success:function(result){
@@ -73,7 +73,7 @@ var requesturl='http://localhost:8080/m/update.do'+updateInp;
 			
 				$.ajax({
 					type:'POST',
-					url:'m/update.do'+updateInp,
+					url:'buyerpoductseach/update.do'+updateInp,
 					data:{
 					},
 					success:function(result){
@@ -94,7 +94,7 @@ var requesturl='http://localhost:8080/m/delete.do'+deleteInp;
 			
 				$.ajax({
 					type:'POST',
-					url:'m/delete.do'+deleteInp,
+					url:'buyerpoductseach/delete.do'+deleteInp,
 					data:{
 					},
 					success:function(result){
@@ -115,7 +115,7 @@ $("#pageContent").html(jsonstr);
 	</script>
 </head>
 <body>
-	<div> 卡接口</div>
+	<div> 菜品搜索查询接口</div>
 	<div style="padding-left:20px;margin-bottom:10px;" >
 	<input type="hidden" id="thd_sys_id" name="thd_sys_id" value="" />
 	查询urlPara：<input type="text" id="searchIn" style="margin-left:10px;width:800px;height:20px; " value=""/>
