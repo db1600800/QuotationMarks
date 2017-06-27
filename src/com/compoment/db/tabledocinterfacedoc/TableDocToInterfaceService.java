@@ -16,6 +16,7 @@ import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
+import com.compoment.util.StringUtil;
 import com.compoment.workflow.InterfaceDocDialog;
 
 import javax.swing.JButton;
@@ -26,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 
@@ -182,10 +184,10 @@ public class TableDocToInterfaceService extends JFrame {
 					.addContainerGap(29, Short.MAX_VALUE))
 		);
 
-		queryRelateButton = new JButton("查询");
+		queryRelateButton = new JButton("接口生成");
 
-		deleteRelateButton = new JButton("删除");
-
+		deleteRelateButton = new JButton("批量接口生成");
+	
 		updateRelateButton = new JButton("更新");
 
 		addRelateButton = new JButton("新增");
@@ -329,8 +331,8 @@ public class TableDocToInterfaceService extends JFrame {
 		// 表关系查询
 		queryRelateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sql sql = new Sql();
-				String query = sql.createQuerySql(dbTableRelativePanel.tables);
+				//Sql sql = new Sql();
+				//String query = sql.createQuerySql(dbTableRelativePanel.tables);
 				
 				
 			    if(interfaceName.getText()==null || "".equals(interfaceName.getText()))
@@ -345,26 +347,58 @@ public class TableDocToInterfaceService extends JFrame {
 					
 			    	return;
 			    }
+			    
+			    
+			    boolean isMain=false;
+			    if(dbTableRelativePanel.tables!=null &&dbTableRelativePanel.tables.size()>1)
+			    {
+			    	for(TableBean bean:dbTableRelativePanel.tables)
+			    	{
+			    		if(bean.isMainTable)
+			    		{
+			    			isMain=true;
+			    			break;
+			    		}
+			    	}
+			    }
+			    if(isMain==false)
+			    {
+			    	JOptionPane.showMessageDialog(null, "缺少主表", "", JOptionPane.INFORMATION_MESSAGE);
+					
+			    	return;
+			    }
+			    
+			    
 
 				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
-				sqlResultEditText.setText(query);
+				JOptionPane.showMessageDialog(null, "文件已生成查看目录", "", JOptionPane.INFORMATION_MESSAGE);
+				
 
 			}
 		});
 
-		// 删除
-		deleteRelateButton = new JButton("删除");
+		// 批量接口生成
+		
 		deleteRelateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InterfaceDocDialog projectDocPanel = new InterfaceDocDialog( false,"接口文档");
-				projectDocPanel.setModal(true);
-				projectDocPanel.setVisible(true);
-
-				if (projectDocPanel.selectInterfaceBeans != null) {
-					
-
-				}
+				
+				
+				    if(dbTableRelativePanel.tables!=null &&dbTableRelativePanel.tables.size()>0)
+				    {
+				    	for(TableBean bean:dbTableRelativePanel.tables)
+				    	{
+				    		List<TableBean> tables=new ArrayList();
+				    		tables.add(bean);
+				    		
+				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+							interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+							
+				    	
+				    	}
+				    }
+				
+			JOptionPane.showMessageDialog(null, "文件已生成查看目录", "", JOptionPane.INFORMATION_MESSAGE);
 				
 				
 			}

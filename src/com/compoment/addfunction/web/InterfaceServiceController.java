@@ -100,50 +100,50 @@ public class InterfaceServiceController {
 				} else {
 
 				}
-
-				if (column.relateColumnBeans != null
-						&& column.relateColumnBeans.size() > 0) {
-					haveRelate = true;
-					relate += StringUtil
-							.tableName(column.belongWhichTable.tableEnName);
-					// 关联的
-					for (TableColumnBean relateColumn : column.relateColumnBeans) {
-
-						if (column.relateColumnBeans.size() == 1) {// 两表
-
-							relate += " inner join "
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ " on "
-									+ StringUtil
-											.tableName(column.belongWhichTable.tableEnName)
-									+ "."
-									+ column.columnEnName
-									+ "="
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ "." + relateColumn.columnEnName;
-
-						} else if (column.relateColumnBeans.size() > 1) {// 三表或以上
-							relate += " inner join "
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ " on "
-									+ StringUtil
-											.tableName(column.belongWhichTable.tableEnName)
-									+ "."
-									+ column.columnEnName
-									+ "="
-									+ StringUtil
-											.tableName(relateColumn.belongWhichTable.tableEnName)
-									+ "." + relateColumn.columnEnName;
-
-						}
-
-					}
-				}
+				
+		
+			
 			}
 		}
+		
+		
+		
+		//单表没选条件 
+		if("".equals(condition))
+		{
+		
+			for (TableBean table : tables) {
+
+				for (TableColumnBean column : table.columns) {
+
+						if (conditionFirstColumn) {
+							condition += "		<if test=\"" + column.columnEnName
+									+ "!= null \">\n";
+							condition += " "
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "." + column.columnEnName + "= #{"
+									+ column.columnEnName + "}\n";
+							condition += "		</if>\n";
+							conditionFirstColumn = false;
+						} else {
+							condition += "		<if test=\"" + column.columnEnName
+									+ "!= null \">\n";
+							condition += " and "
+									+ StringUtil
+											.tableName(column.belongWhichTable.tableEnName)
+									+ "." + column.columnEnName + "= #{"
+									+ column.columnEnName + "}\n";
+							condition += "		</if>\n";
+
+						}
+				}
+			}
+			
+		}
+		
+		
+		
 
 		for (TableBean table : tables) {
 			for (TableColumnBean column : table.columns) {
@@ -624,6 +624,8 @@ m+="</trim>\n";
 
 		boolean haveRelate = false;
 
+		String selectPara = "";
+		
 		for (TableBean table : tables) {
 
 			if (table.isMainTable && tables.size() > 1) {
@@ -631,10 +633,11 @@ m+="</trim>\n";
 
 			} else if (tables.size() == 1) {
 				mainTableName = table.tableEnName;
+				selectPara+="Map para";
 			}
 		}
 
-		String selectPara = "";
+		
 		for (int i = 0; i < queryConditionColumns.size(); i++) {
 			TableColumnBean column = queryConditionColumns.get(i);
 			if (i == queryConditionColumns.size() - 1) {
@@ -645,9 +648,11 @@ m+="</trim>\n";
 						+ column.columnEnName + ",";
 			}
 		}
+		
+		
 
 		String m = "";
-
+		m += "//"+interfaceCnName+"\n";
 		m += "public interface " + mainTableName + "Mapper" + " {\n";
 
 		for (TableBean table : tables) {
@@ -733,7 +738,8 @@ m+="</trim>\n";
 		}
 
 		for (TableBean table : tables) {
-			m = "";
+			m="";
+			m += "//"+interfaceCnName+"\n";
 			m1 = "";
 			if (tables.size()>1 && table.isMainTable) {
 				m += "public class "
@@ -825,6 +831,8 @@ m+="</trim>\n";
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
 				mappername = table.tableEnName;
+				queryCondition+="Map para";
+				queryCondition3+="para";
 			}
 		}
 
@@ -851,6 +859,7 @@ m+="</trim>\n";
 					queryCondition3.lastIndexOf(","));
 		}
 
+		m += "//"+interfaceCnName+"\n";
 		m += "public interface " + interfaceName + "Service {\n";
 
 		for (TableBean table : tables) {
@@ -881,6 +890,7 @@ m+="</trim>\n";
 		{
 
 			m = "";
+			
 			m += "import java.util.HashMap;\n";
 			m += "import java.util.Map;\n";
 
@@ -893,7 +903,7 @@ m+="</trim>\n";
 			m += "import com.framework.dao.BaseDao;\n";
 			m += "import com.framework.dao.common.DaoTools;\n";
 			m += "import com.framework.exception.CommonException;\n";
-
+			m += "//"+interfaceCnName+"\n";
 			m += "@Service(\"" + interfaceName + "Service\")\n";
 			m += "public class " + interfaceName + "ServiceImpl implements "
 					+ interfaceName + "Service {\n";
@@ -984,6 +994,7 @@ m+="</trim>\n";
 				
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
+				queryCondition2="reqMap";
 			}
 		}
 
