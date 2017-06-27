@@ -127,7 +127,9 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doSearch(){\n";
 		m += "		var searchInp=	$(\"#searchIn\").val();\n";
-		m+="var requesturl='http://localhost:8080/m/query.do'+searchInp;\n";
+		m+="var pathName=window.document.location.pathname;\n";
+		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
+		m+="var requesturl='http://localhost:8080/'+projectName+'"+interfaceName.toLowerCase()+"/query.do'+searchInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -153,7 +155,9 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doAdd(){\n";
 		m += "		var addInp=	$(\"#addIn\").val();\n";
-		m+="var requesturl='http://localhost:8080/m/insert.do'+addInp;\n";
+		m+="var pathName=window.document.location.pathname;\n";
+		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
+		m+="var requesturl='http://localhost:8080/'+projectName+'"+interfaceName.toLowerCase()+"/insert.do'+addInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -177,7 +181,9 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doUpdate(){\n";
 		m += "			var updateInp= $(\"#updateIn\").val();\n";
-		m+="var requesturl='http://localhost:8080/m/update.do'+updateInp;\n";
+		m+="var pathName=window.document.location.pathname;\n";
+		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
+		m+="var requesturl='http://localhost:8080/'+projectName+'/"+interfaceName.toLowerCase()+"/update.do'+updateInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
@@ -200,7 +206,9 @@ public class TestInterface {
 		m += "		}\n";
 		m += "		function doDelete(code){\n";
 		m += "		var 	deleteInp=$(\"#deleteIn\").val();\n";
-		m+="var requesturl='http://localhost:8080/m/delete.do'+deleteInp;\n";
+		m+="var pathName=window.document.location.pathname;\n";
+		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
+		m+="var requesturl='http://localhost:8080/'+projectName+'/"+interfaceName.toLowerCase()+"/delete.do'+deleteInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
