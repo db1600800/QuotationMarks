@@ -163,13 +163,13 @@ public class InterfaceServiceController {
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
-			sql = "select * from " + relate + " <trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sql = "select * from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
-					+ " from " + relate + " <trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+					+ " from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		}
 
 		String m = "";
@@ -529,13 +529,13 @@ m+="</trim>\n";
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
-			sql = "select * from " + relate + " <trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sql = "select * from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
-					+ " from " + relate + " <trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+					+ " from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		}
 
 		String m = "";
