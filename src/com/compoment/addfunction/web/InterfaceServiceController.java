@@ -441,13 +441,6 @@ m+="</trim>\n";
 					
 					
 					haveRelate = true;
-<<<<<<< HEAD
-					
-				
-=======
-				
-					
-					
 					// 关联的
 					for (TableColumnBean relateColumn : column.relateColumnBeans) {
 
@@ -470,7 +463,7 @@ m+="</trim>\n";
 
 						
 					}
->>>>>>> c54cef63f0832d6130b2f435bc5b1832c012ad6a
+
 				}
 			}
 		}
@@ -481,9 +474,7 @@ m+="</trim>\n";
 		
 		
 		//多表
-<<<<<<< HEAD
-		
-=======
+
 			int i=0;
 			for(Map mainTableRelateChirldTable:mainTableRelateChirldTableList)
 			{
@@ -515,7 +506,7 @@ m+="</trim>\n";
 					i++;
 			}
 			}
->>>>>>> c54cef63f0832d6130b2f435bc5b1832c012ad6a
+
 		
 		
 		
