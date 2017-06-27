@@ -440,17 +440,8 @@ m+="</trim>\n";
 					
 					
 					haveRelate = true;
-				
-					relateTable.put(column.belongWhichTable.tableEnName, column.belongWhichTable);
-					// 关联的
-					for (TableColumnBean relateColumn : column.relateColumnBeans) {
-
 					
-						relateTable.put(relateColumn.belongWhichTable.tableEnName, column.belongWhichTable);
-						
-
-						
-					}
+				
 				}
 			}
 		}
@@ -461,36 +452,7 @@ m+="</trim>\n";
 		
 		
 		//多表
-			for(Object key : relateTable.keySet())
-			{
-				TableBean bean=(TableBean) relateTable.get(key);
-				if(bean.isMainTable)
-				{
-					relate += StringUtil
-							.tableName(bean.tableEnName);
-				}
-			}
-			
-			
-			for(Object key : relateTable.keySet())
-			{
-				TableBean bean=(TableBean) relateTable.get(key);
-				if(!bean.isMainTable)
-				{
-					relate += " inner join "
-							+ StringUtil
-									.tableName(relateColumn.belongWhichTable.tableEnName)
-							+ " on "
-							+ StringUtil
-									.tableName(column.belongWhichTable.tableEnName)
-							+ "."
-							+ column.columnEnName
-							+ "="
-							+ StringUtil
-									.tableName(relateColumn.belongWhichTable.tableEnName)
-							+ "." + relateColumn.columnEnName;
-				}
-			}
+		
 		
 		
 		
