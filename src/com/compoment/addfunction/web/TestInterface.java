@@ -235,21 +235,31 @@ public class TestInterface {
 		m += "	<input type=\"button\" value=\"查询\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doSearch()\">\n";
 
 		m += "	</div>\n";
+		
+		
+		String visiable="";
+		if(tables!=null && tables.size()>1)
+		{
+			visiable="display:none;";
+		}else
+		{
+			visiable="";
+		}
 		m += "	\n";
-		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
+		m += "	<div style=\"padding-left:20px;margin-bottom:10px;"+visiable+"\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
 		m += "	新增urlPara：<input type=\"text\" id=\"addIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"新增\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doAdd()\">\n";
 
 		m += "	</div>\n";
 		m += "	\n";
-		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
+		m += "	<div style=\"padding-left:20px;margin-bottom:10px;"+visiable+"\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
 		m += "	修改urlPara：<input type=\"text\" id=\"updateIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"修改\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doUpdate()\">\n";
 
 		m += "	</div>\n";
-		m += "	<div style=\"padding-left:20px;margin-bottom:10px;\" >\n";
+		m += "	<div style=\"padding-left:20px;margin-bottom:10px;"+visiable+"\" >\n";
 		m += "	<input type=\"hidden\" id=\"thd_sys_id\" name=\"thd_sys_id\" value=\"\" />\n";
 		m += "	删除urlPara：<input type=\"text\" id=\"deleteIn\" style=\"margin-left:10px;width:800px;height:20px; \" value=\"\"/>\n";
 		m += "	<input type=\"button\" value=\"删除\" id=\"search\" name = \"search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\"  onclick=\"doDelete()\">\n";
