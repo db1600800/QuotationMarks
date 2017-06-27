@@ -1,5 +1,9 @@
 #Update '\u5907\u6CE8' value
+<<<<<<< HEAD
 #Mon Jun 26 15:40:26 CST 2017
+=======
+#Mon Jun 26 22:19:33 CST 2017
+>>>>>>> c54cef63f0832d6130b2f435bc5b1832c012ad6a
 \u53D8\u91CF\u540D=0
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2

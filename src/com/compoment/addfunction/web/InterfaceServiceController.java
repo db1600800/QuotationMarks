@@ -391,7 +391,8 @@ m+="</trim>\n";
 		String mainTableName = "";
 
 		boolean haveRelate = false;
-		Map relateTable=new HashMap();
+		
+		List<Map> mainTableRelateChirldTableList=new ArrayList();
 
 		boolean conditionFirstColumn = true;
 
@@ -440,8 +441,36 @@ m+="</trim>\n";
 					
 					
 					haveRelate = true;
+<<<<<<< HEAD
 					
 				
+=======
+				
+					
+					
+					// 关联的
+					for (TableColumnBean relateColumn : column.relateColumnBeans) {
+
+					if(column.belongWhichTable.isMainTable && !relateColumn.belongWhichTable.isMainTable)
+					{
+						Map mainTableRelateChirldTable=new HashMap();
+						mainTableRelateChirldTable.put(column, relateColumn);
+						mainTableRelateChirldTableList.add(mainTableRelateChirldTable);
+					}else if(!column.belongWhichTable.isMainTable && relateColumn.belongWhichTable.isMainTable)
+					{
+						Map mainTableRelateChirldTable=new HashMap();
+						mainTableRelateChirldTable.put(relateColumn, column);
+						mainTableRelateChirldTableList.add(mainTableRelateChirldTable);
+					}else if(!column.belongWhichTable.isMainTable && !relateColumn.belongWhichTable.isMainTable)
+					{
+						
+					}
+						
+						
+
+						
+					}
+>>>>>>> c54cef63f0832d6130b2f435bc5b1832c012ad6a
 				}
 			}
 		}
@@ -452,7 +481,41 @@ m+="</trim>\n";
 		
 		
 		//多表
+<<<<<<< HEAD
 		
+=======
+			int i=0;
+			for(Map mainTableRelateChirldTable:mainTableRelateChirldTableList)
+			{
+			for(Object key : mainTableRelateChirldTable.keySet())
+			{
+				
+				TableColumnBean mainTableColumn=(TableColumnBean)key;
+				TableColumnBean chirldTableColumn=(TableColumnBean) mainTableRelateChirldTable.get(key);
+				
+				if(i==0)
+				{
+					relate += StringUtil
+							.tableName(mainTableColumn.belongWhichTable.tableEnName);
+				}
+				
+					relate += " inner join "
+							+ StringUtil
+									.tableName(chirldTableColumn.belongWhichTable.tableEnName)
+							+ " on "
+							+ StringUtil
+									.tableName(chirldTableColumn.belongWhichTable.tableEnName)
+							+ "."
+							+ chirldTableColumn.columnEnName
+							+ "="
+							+ StringUtil
+									.tableName(mainTableColumn.belongWhichTable.tableEnName)
+							+ "." + mainTableColumn.columnEnName;
+				
+					i++;
+			}
+			}
+>>>>>>> c54cef63f0832d6130b2f435bc5b1832c012ad6a
 		
 		
 		
@@ -495,7 +558,7 @@ m+="</trim>\n";
 				m += "<mapper namespace=\"com.company.dao.impl."
 						+ interfaceName + "Mapper\">\n";
 				m += "	<resultMap id=\"" + interfaceName
-						+ "ResultMap\" type=\"com.company.bean."
+						+ "ResultMap\" type=\"com.company.pojo."
 						+ interfaceName + "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
@@ -519,7 +582,7 @@ m+="</trim>\n";
 			if (!table.isMainTable) {
 				m += "	 <collection property=\""
 						+ StringUtil.firstCharToLower(table.tableEnName)
-						+ "s\" ofType=\"com.company.bean." + table.tableEnName
+						+ "s\" ofType=\"com.company.pojo." + table.tableEnName
 						+ "Bean\">\n";
 				for (TableColumnBean column : resultColumns) {
 					if (column.belongWhichTable.tableEnName
