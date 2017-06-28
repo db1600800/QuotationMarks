@@ -652,6 +652,9 @@ m+="</trim>\n";
 		
 
 		String m = "";
+		m += "package com.company.dao.impl;\n";
+		m += "import java.util.List;\n";
+		m += "import java.util.Map;\n";
 		m += "//"+interfaceCnName+"\n";
 		m += "public interface " + mainTableName + "Mapper" + " {\n";
 
@@ -739,6 +742,9 @@ m+="</trim>\n";
 
 		for (TableBean table : tables) {
 			m="";
+			m += "package com.company.pojo;\n";
+			m += "import java.util.List;\n";
+			m += "import java.util.Map;\n";
 			m += "//"+interfaceCnName+"\n";
 			m1 = "";
 			if (tables.size()>1 && table.isMainTable) {
@@ -859,6 +865,10 @@ m+="</trim>\n";
 					queryCondition3.lastIndexOf(","));
 		}
 
+		m += "package com.company.service.impl;\n";
+		m += "import java.util.List;\n";
+		m += "import java.util.Map;\n";
+		
 		m += "//"+interfaceCnName+"\n";
 		m += "public interface " + interfaceName + "Service {\n";
 
@@ -890,10 +900,10 @@ m+="</trim>\n";
 		{
 
 			m = "";
-			
+			m += "package com.company.service.impl;\n";
 			m += "import java.util.HashMap;\n";
 			m += "import java.util.Map;\n";
-
+			m += "import java.util.List;\n";
 			m += "import javax.annotation.Resource;\n";
 
 			m += "import org.slf4j.Logger;\n";
@@ -1010,9 +1020,11 @@ m+="</trim>\n";
 	
 
 		String m = "";
+		m += "package com.company.controller;\n";
 		m += "import java.util.Locale;\n";
 		m += "import java.util.Map;\n";
 		m += "import java.util.Set;\n";
+		m += "import java.util.List;\n";
 
 		m += "import javax.validation.ConstraintViolation;\n";
 		m += "import javax.validation.Validator;\n";
@@ -1030,6 +1042,8 @@ m+="</trim>\n";
 
 		m += "import com.framework.controller.BaseController;\n";
 		m += "import com.framework.utils.SpringBeanManger;\n";
+		m += "import com.framework.utils.Constant;\n";
+		m += "import com.framework.utils.CommonUtil;\n";
 
 		m += "\n/**" + interfaceCnName + "*/\n";
 		m += "@Controller\n";

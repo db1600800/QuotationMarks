@@ -104,7 +104,7 @@ public class TestInterface {
 		m += "<head>\n";
 		m += "<title>" + interfaceCnName + "</title>\n";
 		m += "<script\n";
-		m += "	type=\"text/javascript\" src=\"js/jquery-1.7.1.js\"></script>\n";
+		m += "	type=\"text/javascript\" src=\"../js/jquery-1.7.1.js\"></script>\n";
 		m += "	<script>\n";
 		m += "		\n";
 		m += "		\n";
@@ -127,14 +127,14 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doSearch(){\n";
 		m += "		var searchInp=	$(\"#searchIn\").val();\n";
+		m+="var host=window.document.location.host;\n";
 		m+="var pathName=window.document.location.pathname;\n";
 		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
-		m+="var requesturl='http://localhost:8080/'+projectName+'"+interfaceName.toLowerCase()+"/query.do'+searchInp;\n";
+		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/query.do'+searchInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
-		m += "					url:'" + interfaceName.toLowerCase()
-				+ "/query.do'+searchInp,\n";
+		m += "					url:requesturl,\n";
 		m += "					data:{\n";
 
 		m += "					},\n";
@@ -155,13 +155,14 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doAdd(){\n";
 		m += "		var addInp=	$(\"#addIn\").val();\n";
+		m+="var host=window.document.location.host;\n";
 		m+="var pathName=window.document.location.pathname;\n";
 		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
-		m+="var requesturl='http://localhost:8080/'+projectName+'"+interfaceName.toLowerCase()+"/insert.do'+addInp;\n";
+		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/insert.do'+addInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
-		m += "					url:'" + interfaceName.toLowerCase() + "/insert.do'+addInp,\n";
+		m += "					url:requesturl,\n";
 		m += "					data:{\n";
 
 		m += "					},\n";
@@ -181,14 +182,14 @@ public class TestInterface {
 		m += "		\n";
 		m += "		function doUpdate(){\n";
 		m += "			var updateInp= $(\"#updateIn\").val();\n";
+		m+="var host=window.document.location.host;\n";
 		m+="var pathName=window.document.location.pathname;\n";
 		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
-		m+="var requesturl='http://localhost:8080/'+projectName+'/"+interfaceName.toLowerCase()+"/update.do'+updateInp;\n";
+		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/update.do'+updateInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
-		m += "					url:'" + interfaceName.toLowerCase()
-				+ "/update.do'+updateInp,\n";
+		m += "					url:requesturl,\n";
 		m += "					data:{\n";
 
 		m += "					},\n";
@@ -206,14 +207,14 @@ public class TestInterface {
 		m += "		}\n";
 		m += "		function doDelete(code){\n";
 		m += "		var 	deleteInp=$(\"#deleteIn\").val();\n";
+		m+="var host=window.document.location.host;\n";
 		m+="var pathName=window.document.location.pathname;\n";
 		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
-		m+="var requesturl='http://localhost:8080/'+projectName+'/"+interfaceName.toLowerCase()+"/delete.do'+deleteInp;\n";
+		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/delete.do'+deleteInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
-		m += "					url:'" + interfaceName.toLowerCase()
-				+ "/delete.do'+deleteInp,\n";
+		m += "					url:requesturl,\n";
 		m += "					data:{\n";
 
 		m += "					},\n";

@@ -16,6 +16,8 @@ import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 import com.compoment.workflow.InterfaceDocDialog;
 
@@ -383,7 +385,13 @@ public class TableDocToInterfaceService extends JFrame {
 		deleteRelateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				String indexjsp="";
+				indexjsp+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
+				indexjsp+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
+				indexjsp+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
+				indexjsp+="<html>\n";
+				indexjsp+="<body>\n";
+						
 				    if(dbTableRelativePanel.tables!=null &&dbTableRelativePanel.tables.size()>0)
 				    {
 				    	for(TableBean bean:dbTableRelativePanel.tables)
@@ -394,10 +402,14 @@ public class TableDocToInterfaceService extends JFrame {
 				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
 							interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
 							
-				    	
+							indexjsp+="<a href=\"ProjectName/jsp/"+bean.tableEnName+"Test.jsp\">"+bean.tableCnName+"</a></h5>\n";
 				    	}
 				    }
-				
+				    
+				    indexjsp+="</body>\n";
+				    indexjsp+="</html>\n";
+					FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+							 "index", "jsp", indexjsp);
 			JOptionPane.showMessageDialog(null, "文件已生成查看目录", "", JOptionPane.INFORMATION_MESSAGE);
 				
 				
