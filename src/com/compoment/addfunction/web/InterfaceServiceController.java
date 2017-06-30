@@ -401,22 +401,27 @@ m+="</trim>\n";
 			for (TableColumnBean column : table.columns) {
 
 				if ("left".equals(column.leftClickSelected)) {
+					String tablename=StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
+					String shortTableName=tablename.substring(tablename.lastIndexOf("_"));
+					
 					show += " "
-							+ StringUtil
-									.tableName(column.belongWhichTable.tableEnName)
+							+ shortTableName
 							+ "." + column.columnEnName + ",";
 					resultColumns.add(column);
 
 				}
 
 				if ("right".equals(column.rightClickSelected)) {
+					String tablename=StringUtil
+							.tableName(column.belongWhichTable.tableEnName);
+					String shortTableName=tablename.substring(tablename.lastIndexOf("_"));
 
 					if (conditionFirstColumn) {
 						condition += "		<if test=\"" + column.columnEnName
 								+ "!= null \">\n";
 						condition += " "
-								+ StringUtil
-										.tableName(column.belongWhichTable.tableEnName)
+								+ shortTableName
 								+ "." + column.columnEnName + "= #{"
 								+ column.columnEnName + "}\n";
 						condition += "		</if>\n";
@@ -425,8 +430,7 @@ m+="</trim>\n";
 						condition += "		<if test=\"" + column.columnEnName
 								+ "!= null \">\n";
 						condition += " and "
-								+ StringUtil
-										.tableName(column.belongWhichTable.tableEnName)
+								+ shortTableName
 								+ "." + column.columnEnName + "= #{"
 								+ column.columnEnName + "}\n";
 						condition += "		</if>\n";
@@ -484,23 +488,28 @@ m+="</trim>\n";
 				TableColumnBean mainTableColumn=(TableColumnBean)key;
 				TableColumnBean chirldTableColumn=(TableColumnBean) mainTableRelateChirldTable.get(key);
 				
+				String mainName=StringUtil
+						.tableName(mainTableColumn.belongWhichTable.tableEnName);
+				String shortMainTableName=mainName.substring(mainName.lastIndexOf("_"));
+				
 				if(i==0)
 				{
-					relate += StringUtil
-							.tableName(mainTableColumn.belongWhichTable.tableEnName);
+					
+					relate += mainName+" "+shortMainTableName;
 				}
 				
+				
+				String chirldName=StringUtil
+						.tableName(chirldTableColumn.belongWhichTable.tableEnName);
+				String shortChirldTableName=chirldName.substring(chirldName.lastIndexOf("_"));
 					relate += " inner join "
-							+ StringUtil
-									.tableName(chirldTableColumn.belongWhichTable.tableEnName)
+							+ chirldName+" "+shortChirldTableName
 							+ " on "
-							+ StringUtil
-									.tableName(chirldTableColumn.belongWhichTable.tableEnName)
+							+ shortChirldTableName
 							+ "."
 							+ chirldTableColumn.columnEnName
 							+ "="
-							+ StringUtil
-									.tableName(mainTableColumn.belongWhichTable.tableEnName)
+							+shortMainTableName
 							+ "." + mainTableColumn.columnEnName;
 				
 					i++;
@@ -630,7 +639,7 @@ m+="</trim>\n";
 
 			if (table.isMainTable && tables.size() > 1) {
 				mainTableName = interfaceName;
-
+				selectPara+="Map para";
 			} else if (tables.size() == 1) {
 				mainTableName = table.tableEnName;
 				selectPara+="Map para";
@@ -638,16 +647,16 @@ m+="</trim>\n";
 		}
 
 		
-		for (int i = 0; i < queryConditionColumns.size(); i++) {
-			TableColumnBean column = queryConditionColumns.get(i);
-			if (i == queryConditionColumns.size() - 1) {
-				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
-						+ column.columnEnName + "";
-			} else {
-				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
-						+ column.columnEnName + ",";
-			}
-		}
+//		for (int i = 0; i < queryConditionColumns.size(); i++) {
+//			TableColumnBean column = queryConditionColumns.get(i);
+//			if (i == queryConditionColumns.size() - 1) {
+//				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
+//						+ column.columnEnName + "";
+//			} else {
+//				selectPara += "@Param(\""+column.columnEnName+"\")"+typeCheck(column.type) + " "
+//						+ column.columnEnName + ",";
+//			}
+//		}
 		
 		
 
@@ -833,6 +842,8 @@ m+="</trim>\n";
 				resultType = interfaceName + "Bean";
 				mainTableName = interfaceName;
 				mappername = interfaceName;
+				queryCondition+="Map para";
+				queryCondition3+="para";
 			} else if (tables.size() == 1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
@@ -848,22 +859,21 @@ m+="</trim>\n";
 		}
 
 		for (TableColumnBean column : queryConditionColumns) {
-			queryCondition += typeCheck(column.type) + " "
-					+ column.columnEnName + ",";
-			queryCondition3 += " " + column.columnEnName + ",";
+			//queryCondition += typeCheck(column.type) + " "+ column.columnEnName + ",";
+		//	queryCondition3 += " " + column.columnEnName + ",";
 			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
 					+ column.columnEnName + ");\n";
 		}
 
-		if (queryCondition.lastIndexOf(",") != -1) {
-			queryCondition = queryCondition.substring(0,
-					queryCondition.lastIndexOf(","));
-		}
+//		if (queryCondition.lastIndexOf(",") != -1) {
+//			queryCondition = queryCondition.substring(0,
+//					queryCondition.lastIndexOf(","));
+//		}
 
-		if (queryCondition3.lastIndexOf(",") != -1) {
-			queryCondition3 = queryCondition3.substring(0,
-					queryCondition3.lastIndexOf(","));
-		}
+//		if (queryCondition3.lastIndexOf(",") != -1) {
+//			queryCondition3 = queryCondition3.substring(0,
+//					queryCondition3.lastIndexOf(","));
+//		}
 
 		m += "package com.company.service.impl;\n";
 		m += "import java.util.List;\n";
@@ -999,6 +1009,7 @@ m+="</trim>\n";
 			
 				resultType = interfaceName + "Bean";
 				mainTableName = interfaceName;
+				queryCondition2="paraMap";
 			}else
 			{
 				
@@ -1062,6 +1073,7 @@ m+="</trim>\n";
 		m += "		//if (null == reqMap || reqMap.isEmpty())\n";
 		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
+		m+="Map paraMap=new HashMap();\n";
 		
 		int i = 0;
 		String n="";
@@ -1083,11 +1095,9 @@ m+="</trim>\n";
 			
 			
 			
-			if (i == queryConditionColumns.size() - 1) {
-				queryCondition2 += column.columnEnName + "";
-			} else {
-				queryCondition2 += column.columnEnName + ",";
-			}
+		
+				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
+			
 
 			i++;
 		}
