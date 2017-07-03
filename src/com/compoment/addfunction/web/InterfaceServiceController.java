@@ -403,7 +403,7 @@ m+="</trim>\n";
 				if ("left".equals(column.leftClickSelected)) {
 					String tablename=StringUtil
 							.tableName(column.belongWhichTable.tableEnName);
-					String shortTableName=tablename.substring(tablename.lastIndexOf("_"));
+					String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
 					
 					show += " "
 							+ shortTableName
@@ -415,7 +415,7 @@ m+="</trim>\n";
 				if ("right".equals(column.rightClickSelected)) {
 					String tablename=StringUtil
 							.tableName(column.belongWhichTable.tableEnName);
-					String shortTableName=tablename.substring(tablename.lastIndexOf("_"));
+					String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
 
 					if (conditionFirstColumn) {
 						condition += "		<if test=\"" + column.columnEnName
@@ -490,7 +490,7 @@ m+="</trim>\n";
 				
 				String mainName=StringUtil
 						.tableName(mainTableColumn.belongWhichTable.tableEnName);
-				String shortMainTableName=mainName.substring(mainName.lastIndexOf("_"));
+				String shortMainTableName=mainName.substring(mainName.lastIndexOf("_")+1);
 				
 				if(i==0)
 				{
@@ -501,7 +501,7 @@ m+="</trim>\n";
 				
 				String chirldName=StringUtil
 						.tableName(chirldTableColumn.belongWhichTable.tableEnName);
-				String shortChirldTableName=chirldName.substring(chirldName.lastIndexOf("_"));
+				String shortChirldTableName=chirldName.substring(chirldName.lastIndexOf("_")+1);
 					relate += " inner join "
 							+ chirldName+" "+shortChirldTableName
 							+ " on "
@@ -943,8 +943,10 @@ m+="</trim>\n";
 					m += "	public List<" + resultType + "> get("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "		Map<String,Object> m = new HashMap();\n";
+					m += "	/*	Map<String,Object> m = new HashMap();\n";
+					
 					m += queryCondition2;
+					m+="*/\n";
 
 					m += "return mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
@@ -956,9 +958,9 @@ m+="</trim>\n";
 					m += "	public List<" + resultType + "> get("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "		Map<String,Object> m = new HashMap();\n";
+					m += "	/*	Map<String,Object> m = new HashMap();\n";
 					m += queryCondition2;
-
+					m+="*/\n";
 					m += "return mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
 					m += "	}\n\n";
