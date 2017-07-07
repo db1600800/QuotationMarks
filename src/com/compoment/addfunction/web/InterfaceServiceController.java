@@ -1,5 +1,7 @@
 package com.compoment.addfunction.web;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,14 +11,25 @@ import javax.annotation.Resource;
 
 
 
+
+
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
+import com.compoment.remote.CheckProblemInterface;
+import com.compoment.remote.InterfaceServiceControllerInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class InterfaceServiceController {
+public class InterfaceServiceController extends UnicastRemoteObject implements InterfaceServiceControllerInterface {
 
+
+	public InterfaceServiceController() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

@@ -16,6 +16,9 @@ import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
+import com.compoment.remote.AndroidLayoutXmlInterface;
+import com.compoment.remote.InterfaceServiceControllerInterface;
+import com.compoment.remote.RemoteUtil;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
@@ -28,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,10 +194,6 @@ public class TableDocToInterfaceService extends JFrame {
 		queryRelateButton = new JButton("接口生成");
 
 		deleteRelateButton = new JButton("批量接口生成");
-	
-		updateRelateButton = new JButton("更新");
-
-		addRelateButton = new JButton("新增");
 
 		sqlResultEditText = new JTextField();
 		sqlResultEditText.setColumns(10);
@@ -240,37 +241,32 @@ public class TableDocToInterfaceService extends JFrame {
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1
-				.setHorizontalGroup(
-						gl_panel_1
-								.createParallelGroup(
-										Alignment.LEADING)
-								.addGroup(
-										gl_panel_1.createSequentialGroup()
-												.addGroup(
-														gl_panel_1
-																.createParallelGroup(
-																		Alignment.LEADING)
-																.addGroup(gl_panel_1.createSequentialGroup()
-																		.addComponent(queryRelateButton).addGap(18)
-																		.addComponent(deleteRelateButton).addGap(18)
-																		.addComponent(updateRelateButton).addGap(18)
-																		.addComponent(addRelateButton)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(button))
-																.addGroup(gl_panel_1.createSequentialGroup().addGap(6)
-																		.addComponent(sqlResultEditText,
-																				GroupLayout.DEFAULT_SIZE, 566,
-																				Short.MAX_VALUE)))
-												.addContainerGap()));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(queryRelateButton).addComponent(deleteRelateButton)
-								.addComponent(updateRelateButton).addComponent(addRelateButton).addComponent(button))
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(sqlResultEditText,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(19, Short.MAX_VALUE)));
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(queryRelateButton)
+							.addGap(18)
+							.addComponent(deleteRelateButton)
+							.addGap(170)
+							.addComponent(button))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(6)
+							.addComponent(sqlResultEditText, GroupLayout.DEFAULT_SIZE, 1113, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(queryRelateButton)
+						.addComponent(deleteRelateButton)
+						.addComponent(button))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(sqlResultEditText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(19, Short.MAX_VALUE))
+		);
 		panel_1.setLayout(gl_panel_1);
 
 		dbTableRelativePanel = new DBTableRelativePanel();
@@ -371,9 +367,14 @@ public class TableDocToInterfaceService extends JFrame {
 			    }
 			    
 			    
-
-				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+			
+			    try {
+				InterfaceServiceControllerInterface interfaceServiceController=(InterfaceServiceControllerInterface)Naming.lookup(RemoteUtil.rmiurl+"InterfaceServiceController");
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "文件已生成查看目录", "", JOptionPane.INFORMATION_MESSAGE);
 				
 
@@ -399,8 +400,13 @@ public class TableDocToInterfaceService extends JFrame {
 				    		List<TableBean> tables=new ArrayList();
 				    		tables.add(bean);
 				    		
-				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-							interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+				    		try {
+				    		InterfaceServiceControllerInterface interfaceServiceController=(InterfaceServiceControllerInterface)Naming.lookup(RemoteUtil.rmiurl+"InterfaceServiceController");
+								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							
 							indexjsp+="<a href=\"ProjectName/jsp/"+bean.tableEnName+"Test.jsp\">"+bean.tableCnName+"</a></h5>\n";
 				    	}
@@ -416,17 +422,7 @@ public class TableDocToInterfaceService extends JFrame {
 			}
 		});
 
-		updateRelateButton = new JButton("更新");
-		updateRelateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
-		addRelateButton = new JButton("新增");
-		addRelateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 
 	}
 
