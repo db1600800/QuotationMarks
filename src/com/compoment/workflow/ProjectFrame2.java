@@ -51,6 +51,7 @@ import javax.swing.text.Document;
 
 import com.compoment.remote.RemoteUtil;
 import com.compoment.remote.VersionCheckInterface;
+import com.compoment.util.DeviceUtil;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.ZipUtil;
@@ -117,6 +118,12 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 	 */
 	public ProjectFrame2() {
 
+		if(blackList())
+		{
+			System.exit(0);
+			return ;
+		}
+		
 		if(checkVersion())
 		{
 			System.exit(0);
@@ -864,6 +871,19 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		
 	}
 	
+	public boolean blackList()
+	{
+
+		try {
+		VersionCheckInterface vcheck = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
+		
+			return vcheck.blackList(DeviceUtil.getMac());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	
 	//版本
 	public boolean checkVersion()
@@ -871,41 +891,15 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		
 		
 		try {
-			VersionCheckInterface androidLayoutXml = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
-			;
-			String content=androidLayoutXml.hasNewVersion("1.0");
+			VersionCheckInterface vcheck = (VersionCheckInterface) Naming.lookup(RemoteUtil.rmiurl+"VersionCheck");
+			
+			String content=vcheck.hasNewVersion("1.0");
 			
 			if(content==null)
 			{
 				
 				return false;
-			}
-			
-			
-//			String classDir = "";
-//			File directory = new File("");// 参数为空
-//			try {
-//				classDir = directory.getCanonicalPath();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block 
-//				e.printStackTrace();
-//			}
-//			
-//			String filePath = classDir+"/res/DevelopHelper1.zip" ;
-//			
-//			
-//			
-//			
-//			FileUtil.byteToFile(filePath, content);
-//
-//			File   file = new File(filePath);
-//	           if(!file.exists()){
-//	               file.createNewFile();
-//	           }
-//	        
-//	           
-//	           
-//			if(file!=null)
+			}else
 			{
 			
 				int yes=JOptionPane.showConfirmDialog(null, "有新版本,请更新软件", "温馨提示", JOptionPane.DEFAULT_OPTION);
@@ -933,7 +927,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			            }
 			        }
 				
-				//ZipUtil.unzip(file, new File(classDir));
+				
 					
 			          return true;		
 				}
