@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -163,6 +164,15 @@ public class CodeFunctionAdd extends JFrame {
 			}
 		}
 
+		String classDir = "";
+		File directory = new File("");// 参数为空
+		try {
+			classDir = directory.getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+		KeyValue.writeCache("projectPath", classDir+"/res");
 	}
 
 	public JPanel createPart1() {
