@@ -357,7 +357,7 @@ public class UpdateJspStruct2 {
 		m+="</body>\n";
 		m+="</html>\n";
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName.toLowerCase()+"Setting", "java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName.toLowerCase()+"Setting", "jsp", m);
 		System.out.println(m);
 		
 	}
