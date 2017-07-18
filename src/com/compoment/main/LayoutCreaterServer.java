@@ -19,21 +19,16 @@ import com.compoment.workflow.ProjectFrame2;
 
 
 
-public class LayoutCreater {
+public class LayoutCreaterServer {
 	
 	
 	public static void main(String[] args) {
 
 		
-		LayoutCreater layoutCreater=new LayoutCreater();
+		LayoutCreaterServer layoutCreater=new LayoutCreaterServer();
 		layoutCreater.remote();
 		
-		
-		ProjectFrame2 frame = new ProjectFrame2();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		
-		frame.setVisible(true);
+		System.out.print("服务器启动成功");
 	
 	}
 	

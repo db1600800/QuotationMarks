@@ -11,5 +11,6 @@ import com.compoment.remote.IphoneViewControllerXibInterface;
 public interface VersionCheckInterface  extends Remote {
 
 	public String hasNewVersion(String currentVersion) throws RemoteException;
+	public boolean blackList(String macip) throws RemoteException;
 
 }
