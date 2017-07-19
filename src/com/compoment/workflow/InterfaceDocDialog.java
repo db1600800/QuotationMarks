@@ -130,15 +130,15 @@ public class InterfaceDocDialog extends JDialog {
 		
 		if(this.isTable==false)
 		{
-	   	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+	   	sourceFile = classDir + "/res/InterfaceDoc/"
 				+ "wordTableToJaveObject.doc"; 
-	   	sourceFileexample = classDir + "/res/InterfaceDocAndCode/"
+	   	sourceFileexample = classDir + "/res/InterfaceDoc/"
 				+ "wordTableToJaveObject_example.doc"; 
 		}else
 		{
-		  	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+		  	sourceFile = classDir + "/res/InterfaceDoc/"
 					+ "wordTableToJaveObject2.doc"; 
-		   	sourceFileexample = classDir + "/res/InterfaceDocAndCode/"
+		   	sourceFileexample = classDir + "/res/InterfaceDoc/"
 					+ "wordTableToJaveObject_example2.doc"; 
 			
 		}

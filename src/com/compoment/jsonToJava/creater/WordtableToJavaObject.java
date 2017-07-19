@@ -125,11 +125,11 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			  String	sourceFile="";
 			if(this.isTable==false)
 			{
-		   	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+		   	sourceFile = classDir + "/res/InterfaceDoc/"
 					+ "wordTableToJaveObject.doc";
 			}else
 			{
-				 	sourceFile = classDir + "/res/InterfaceDocAndCode/"
+				 	sourceFile = classDir + "/res/InterfaceDoc/"
 							+ "wordTableToJaveObject2.doc";
 			}
 		   

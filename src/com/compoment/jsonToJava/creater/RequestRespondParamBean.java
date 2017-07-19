@@ -27,9 +27,11 @@ import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
 
+
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
+import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.google.gson.Gson;
 /**
@@ -128,7 +130,11 @@ public class RequestRespondParamBean {
 		for (String cirldClassString : mChirldClass) {
 			m += cirldClassString + "\n\n";
 		}
-		makeFile( type + "Param" + interfaceBean.id,m);
+	
+		
+
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/java",
+				type + "Param" + interfaceBean.id, "java", m);
 		System.out.println(m);
 	}
 
@@ -162,52 +168,7 @@ public class RequestRespondParamBean {
 		return pattern.matcher(str).matches();
 	}
 	
-	public void makeFile(String fileName,String s)
-	{
-		try {
-		String doc=KeyValue.readCache("docPath");
-		int p=doc.lastIndexOf("/");
-		if(p==-1)
-		{
-			 p=doc.lastIndexOf("\\");
-		}
-		
-		
-		      
-		    
-		
-		File tofile=new File(doc.substring(0, p)+"/Java/"+fileName+".java");
-		  if(! tofile.exists()) {  
-	            makeDir(tofile.getParentFile());  
-	        }  
-	      
-		  tofile.createNewFile(); 
-		
-		FileWriter fw;
-		
-			fw = new FileWriter(tofile);
-			BufferedWriter buffw=new BufferedWriter(fw);
-			PrintWriter pw=new PrintWriter(buffw);
-		
-		
-
 	
-		pw.println(s);
-
-		pw.close();
-		buffw.close();
-		fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	  public  void makeDir(File dir) {  
-	        if(! dir.getParentFile().exists()) {  
-	            makeDir(dir.getParentFile());  
-	        }  
-	        dir.mkdir();  
-	    }  
 	
 	
 }
