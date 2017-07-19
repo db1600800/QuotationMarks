@@ -62,7 +62,7 @@ public class WebAction {
 		
 		
 	
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/Jsp", className + "Action", "java", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Action", "java", m);
 	}
 
 	
