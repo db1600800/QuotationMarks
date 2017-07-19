@@ -79,10 +79,10 @@ public void analyse(List<CompomentBean> oldBeans) {
   
 		 jsString();
 		
-		String lines = FileUtil.fileContent(KeyValue.readCache("projectPath")+"/src/jsp/"+className+"Jsp.jsp");
+		String lines = FileUtil.fileContent(KeyValue.readCache("projectPath")+"/src/web/"+className+"Jsp.jsp");
 		lines=lines.replace("<script type=\"text/javascript\"  id=\"myJs\">\n", "<script type=\"text/javascript\"  id=\"myJs\">\n"+js+"\n\n");
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/Jsp", className + "Jsp", "jsp", lines);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Jsp", "jsp", lines);
 		
 		System.out.println(lines);
 	}
