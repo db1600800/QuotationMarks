@@ -67,10 +67,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
+import javax.swing.JButton;
 
 //工程设置
 public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetListener {
@@ -131,8 +134,8 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 400);
-		this.setTitle("IOS Android 开发流程助手V1.0");
+		setBounds(100, 100, 713, 410);
+		this.setTitle("IOS Android Web开发流程助手V1.0");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -177,6 +180,14 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 				
 			}});
 		
+		JButton button = new JButton("功能管理");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				new CodeFunctionAdd();
+			}
+		});
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -184,32 +195,33 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel))
-						.addComponent(swingPathValueEditText, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblNewLabel))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(swingCheckBox))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(iphoneCheckBox))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(webCheckBox))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(androidCheckBox))
+								.addComponent(androidPathValueEditText, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+								.addComponent(iphonePathValueEditText, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+								.addComponent(swingPathValueEditText, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+								.addComponent(webPathValueEditText, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_5)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(swingCheckBox))
-						.addComponent(webPathValueEditText, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(iphoneCheckBox))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(webCheckBox))
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(androidPathValueEditText, Alignment.LEADING)
-							.addComponent(iphonePathValueEditText, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(androidCheckBox)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(114)
-							.addComponent(lblNewLabel_5))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(93)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+							.addComponent(button)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -220,7 +232,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 						.addComponent(lblNewLabel)
 						.addComponent(lblNewLabel_5))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(androidCheckBox)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -240,7 +252,9 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(9)
 							.addComponent(scrollPane)))
-					.addContainerGap(71, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+					.addComponent(button)
+					.addContainerGap())
 		);
 		
 				
@@ -269,9 +283,6 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 		}
 	
 		
-		init();
-
-		
 		String classDir = "";
 		File directory = new File("");// 参数为空
 		try {
@@ -280,8 +291,12 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
-	  this.webPathValueEditText.setText(classDir + "/res");
-	  
+		KeyValue.writeCache("projectPath", classDir+"/res");
+		
+		init();
+
+		
+		
 	  
 	}
 
