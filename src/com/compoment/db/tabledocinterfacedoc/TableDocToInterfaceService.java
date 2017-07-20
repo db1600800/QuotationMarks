@@ -17,7 +17,7 @@ import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;
-import com.compoment.remote.InterfaceServiceControllerInterface;
+
 import com.compoment.remote.RemoteUtil;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -369,7 +369,7 @@ public class TableDocToInterfaceService extends JFrame {
 			    
 			
 			    try {
-				InterfaceServiceControllerInterface interfaceServiceController=(InterfaceServiceControllerInterface)Naming.lookup(RemoteUtil.rmiurl+"InterfaceServiceController");
+				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -401,7 +401,7 @@ public class TableDocToInterfaceService extends JFrame {
 				    		tables.add(bean);
 				    		
 				    		try {
-				    		InterfaceServiceControllerInterface interfaceServiceController=(InterfaceServiceControllerInterface)Naming.lookup(RemoteUtil.rmiurl+"InterfaceServiceController");
+				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
 								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block

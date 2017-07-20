@@ -8,20 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
-
-
-
-
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.remote.CheckProblemInterface;
-import com.compoment.remote.InterfaceServiceControllerInterface;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class InterfaceServiceController extends UnicastRemoteObject implements InterfaceServiceControllerInterface {
+public class InterfaceServiceController  {
 
 
 	public InterfaceServiceController() throws RemoteException {

@@ -2,10 +2,11 @@ package com.compoment.db.tabledocinterfacedoc;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.io.Serializable;
 import java.util.List;
 
 
-public class TableColumnBean {
+public class TableColumnBean implements Serializable{
 	
 	public String columnEnName;
 	public int columnEnNameWidth;

@@ -1,9 +1,10 @@
 package com.compoment.db.tabledocinterfacedoc;
+import java.io.Serializable;
 import java.util.List;
 
 
 
-public class TableBean {
+public class TableBean implements Serializable{
 	public String tableEnName;
 	public String tableCnName;
 	public int tableCnNameX;

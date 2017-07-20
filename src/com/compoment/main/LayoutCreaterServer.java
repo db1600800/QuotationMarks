@@ -71,8 +71,7 @@ public class LayoutCreaterServer {
 			WordtableToJavaObject wordtableToJavaObject=new WordtableToJavaObject();
 			Naming.rebind("WordtableToJavaObject", wordtableToJavaObject);
 			
-			InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-			Naming.rebind("InterfaceServiceController", interfaceServiceController);
+	
 		} catch (RemoteException e) {
 			System.out.println("Java RMI registry already exists.");
 		} catch (MalformedURLException e) {
