@@ -134,7 +134,7 @@ public class WebJsp {
 
 		// RelativeLayout 儿子们的位置关系
 		for (CompomentBean bean : layouts) {
-			if (bean.type.equals("RelativeLayout")) {
+			if (bean.type.equals("RelativeLayout")||bean.type.equals("LinearLayout")) {
 				if (bean.chirlds != null && bean.chirlds.size() > 1) {
 
 					if (bean.chirlds.size() == 2) {
@@ -146,11 +146,11 @@ public class WebJsp {
 							CompomentBean chirld1 = bean.chirlds.get(0); 
 							CompomentBean chirld2 = bean.chirlds.get(1);
 							if (chirld1.x < chirld2.x) {
-								chirld1.relativeForWeb += "float:left;left:"+chirld1.x+"px;";
-								chirld2.relativeForWeb += "float:right;";
+								chirld1.relativeForWeb += "display:inline-block;width:50%;";
+								chirld2.relativeForWeb += "display:inline-block;";
 							} else if (chirld1.x > chirld2.x) {
-								chirld2.relativeForWeb += "float:left;left:"+chirld2.x+"px;  ";
-								chirld1.relativeForWeb += "float:right;";
+								chirld2.relativeForWeb += "display:inline-block;";
+								chirld1.relativeForWeb += "display:inline-block;width:50%;";
 							}
 
 						} else if (bean.orientation.equals("vertical")) {
