@@ -146,51 +146,18 @@ public class WebJsp {
 							CompomentBean chirld1 = bean.chirlds.get(0); 
 							CompomentBean chirld2 = bean.chirlds.get(1);
 							if (chirld1.x < chirld2.x) {
-								chirld1.relativeForWeb += "display:inline-block;width:50%;";
-								chirld2.relativeForWeb += "display:inline-block;";
+								chirld1.relativeForWeb += "display:inline-block;width:50%;margin:10px";
+								chirld2.relativeForWeb += "display:inline-block;margin:10px";
 							} else if (chirld1.x > chirld2.x) {
-								chirld2.relativeForWeb += "display:inline-block;";
-								chirld1.relativeForWeb += "display:inline-block;width:50%;";
+								chirld2.relativeForWeb += "display:inline-block;margin:10px";
+								chirld1.relativeForWeb += "display:inline-block;width:50%;margin:10px";
 							}
 
 						} else if (bean.orientation.equals("vertical")) {
 
 						}
 
-					} else if (bean.chirlds.size() == 3) {
-
-						if (bean.orientation.equals("horizontal")) {
-
-						
-							bean.relativeForWeb += " position:fixed; ";
-							
-						
-
-							Collections.sort(bean.chirlds, comparatorX);
-							int i = 0;
-							for (CompomentBean chirld : bean.chirlds) {
-								if (i == 0) {
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += "position: absolute;left:"+chirld.x+";";
-
-								} else if (i == 1) {
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += " ";
-
-								} else if (i == 2) {
-									float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320
-											* 100;
-									chirld.relativeForWeb += "position: absolute;right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px;";
-								}
-								i++;
-							}
-
-							Collections.sort(bean.chirlds, comparatorDate);
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-
-					} else if (bean.chirlds.size() > 3) {
+					}  else if (bean.chirlds.size() >= 3) {
 
 						if (bean.orientation.equals("horizontal")) {
 							bean.relativeForWeb += "";
@@ -200,17 +167,10 @@ public class WebJsp {
 							int i = 0;
 
 							for (CompomentBean chirld : bean.chirlds) {
-								if (i == 0) {
-
-									float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-									chirld.relativeForWeb += "position: absolute;left:"+chirld.x+";";
-
-								} else if (i == bean.chirlds.size() - 1) {
-									float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320
-											* 100;
-									chirld.relativeForWeb += "position: absolute;right:"+(bean.x+bean.w-chirld.x-chirld.w)+"px;";
+							 if (i == bean.chirlds.size() - 1) {
+									chirld.relativeForWeb += "display:inline-block;margin:10px";
 								} else {
-
+									chirld.relativeForWeb += "display:inline-block;width:"+100/bean.chirlds.size()+"%;margin:10px";
 								}
 								i++;
 							}
@@ -221,85 +181,7 @@ public class WebJsp {
 						}
 					}
 				}
-			} else if (bean.type.equals("LinearLayout")) {
-				if (bean.chirlds != null && bean.chirlds.size() > 1) {
-
-					if (bean.orientation.equals("horizontal")) {
-						bean.relativeForWeb += "";
-						Collections.sort(bean.chirlds, comparatorX);
-
-						int i = 0;
-						CompomentBean beforeChirld = null;
-						for (CompomentBean chirld : bean.chirlds) {
-							if (i == 0) {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								
-							
-									chirld.relativeForWeb = "";
-								
-								
-
-								beforeChirld = chirld;
-							} else if (i == bean.chirlds.size() - 1) {
-								float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320 * 100;
-							
-									chirld.relativeForWeb = "";
-								
-							} else {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								
-									chirld.relativeForWeb = "";
-								
-								beforeChirld = chirld;
-							}
-							i++;
-						}
-
-						Collections.sort(bean.chirlds, comparatorDate);
-					} else if (bean.orientation.equals("vertical")) {
-						
-							bean.relativeForWeb += "   ";
-
-						Collections.sort(bean.chirlds, comparatorY);
-
-						int i = 0;
-						CompomentBean beforeChirld = null;
-						for (CompomentBean chirld : bean.chirlds) {
-							if (i == 0) {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-
-								beforeChirld = chirld;
-							} else if (i == bean.chirlds.size() - 1) {
-
-								float rightvalue = (float) (bean.x + bean.w - chirld.x - chirld.w) / (float) 320 * 100;
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-							} else {
-								float leftvalue = (float) (chirld.x - bean.x) / (float) 320 * 100;
-								if ((chirld.chirlds != null && chirld.chirlds.size() > 0)
-										&& chirld.compomentForWeb.equals("")) {
-									chirld.relativeForWeb += "  ";
-									
-								}
-								beforeChirld = chirld;
-							}
-							i++;
-						}
-
-						Collections.sort(bean.chirlds, comparatorDate);
-					}
-				}
-
-			}
+			} 
 		}
 
 		bodym += "<html>\n";
@@ -434,9 +316,8 @@ public class WebJsp {
 
 		if (chirld.type.equals("TextView")) {
 
-			bodym += " <span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""
-					+ chirld.relativeForWeb + "  font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
-					+ ";  \">" + chirld.cnname + "</span>\n";
+			bodym += "<div style="+chirld.relativeForWeb+"> <span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\" font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
+					+ ";  \">" + chirld.cnname + "</span></div>\n";
 
 		}
 
@@ -479,18 +360,16 @@ public class WebJsp {
 
 			if (chirld.picName.equals("图片名")) {
 
-				bodym += "<a href=\"#\" id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\"  onclick=\""
+				bodym += "<div style="+chirld.relativeForWeb+"><a href=\"#\" id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\"  onclick=\""
 						+ chirld.actionString + "\"  style=\"text-align: center; height:" + chirld.h
 						+ "px; line-height: " + chirld.h + "px; border-radius: 8px; color:" + chirld.rgb16
-						+ "; background-color:" + chirld.bgRgb16 + ";  font-size: " + chirld.textSize + "px ;"
-						+ chirld.relativeForWeb + " margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a> \n";
+						+ "; background-color:" + chirld.bgRgb16 + ";  font-size: " + chirld.textSize + "px ; margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a> </div>\n";
 				
 
 			} else {
 
-				bodym += "<img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
-						+ chirld.picName + ".png\" onclick=\"" + chirld.actionString + ";\" style=\" width: 12px; "
-						+ chirld.relativeForWeb + "\">\n";
+				bodym += "<div style="+chirld.relativeForWeb+"><img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
+						+ chirld.picName + ".png\" onclick=\"" + chirld.actionString + ";\" style=\" width: 12px; \"></div>\n";
 			}
 
 		}
@@ -502,15 +381,15 @@ public class WebJsp {
 			js += "function setDefaultAddr(){\n";
 			js += "	if(setAddr){\n";
 			js += "	setAddr = false;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\""+chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\");\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}else{\n";
 			js += "	setAddr = true;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" "+ chirld.relativeForWeb +" background: url(images/checked.png) no-repeat 2px center;  padding-left: 35px; padding-top:0px; padding-bottom:0px;\");\n";
+			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(images/checked.png) no-repeat 2px center;  padding-left: 35px; padding-top:0px; padding-bottom:0px;\");\n";
 			js += "}\n";
 			js += "}\n\n";
 
 			
-			bodym += "<span id=\""+chirld.enname+"\" style=\" "+ chirld.relativeForWeb +" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span>";
+			bodym += "<div style="+chirld.relativeForWeb+"><span id=\""+chirld.enname+"\" style=\"  background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span></div>";
 
 			
 		}
@@ -518,7 +397,7 @@ public class WebJsp {
 		if (chirld.type.equals("EditText")) {
 
 			
-			bodym += " <input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\">";
+			bodym += "<div style="+chirld.relativeForWeb+"> <input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\"></div>";
 
 			
 
