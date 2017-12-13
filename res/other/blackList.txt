@@ -1,5 +1,6 @@
-#Update 'docPath' value
-#Sun Jul 31 21:15:37 CST 2016
+#Update '60-33-4B-2B-72-39' value
+#Wed Dec 13 20:43:28 CST 2017
+60-33-4B-2B-72-39=60-33-4B-2B-72-39
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2

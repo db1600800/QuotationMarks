@@ -1,16 +1,4 @@
-#Update 'codeFilePath' value
-#Wed Jul 19 15:00:41 CST 2017
-\u53D8\u91CF\u540D=0
->>>>>>>=c54cef63f0832d6130b2f435bc5b1832c012ad6a
-SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
-\u7C7B\u578B=2
-codeFilePath=C\:\\Workspaces\\MyEclipse\\group\\QuotationMarks/res/src/web
-\u5907\u6CE8=3
-<<<<<<<=HEAD
-compomentProjectAddress=C\:\\Workspaces\\MyEclipse\\group\\QuotationMarks/res/other/mobile-android
-recentUseColor=\#141414,\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,
-picPath=C\:\\Workspaces\\MyEclipse\\group\\QuotationMarks/res/pic
-\u4E2D\u6587\u540D=1
-projectPath=C\:\\Workspaces\\MyEclipse\\group\\QuotationMarks/res
-docPath=C\:\\Workspaces\\MyEclipse\\group\\QuotationMarks/res/InterfaceDoc/wordTableToJaveObject2.doc
-=\=\=\=\=\=\=
+#Update 'picPath' value
+#Wed Dec 13 21:34:54 CST 2017
+projectPath=/Users/apple/Documents/hobby_github/QuotationMarks/res
+picPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/pic
