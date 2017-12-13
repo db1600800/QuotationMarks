@@ -1,4 +1,10 @@
-#Update 'picPath' value
-#Wed Dec 13 21:34:54 CST 2017
+#Update '\u5907\u6CE8' value
+#Wed Dec 13 21:37:07 CST 2017
+\u4E2D\u6587\u540D=0
+\u5907\u6CE8=4
+docPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/InterfaceDoc/wordTableToJaveObject.doc
+\u53D8\u91CF\u540D=1
+\u7C7B\u578B=2
 projectPath=/Users/apple/Documents/hobby_github/QuotationMarks/res
 picPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/pic
+SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}

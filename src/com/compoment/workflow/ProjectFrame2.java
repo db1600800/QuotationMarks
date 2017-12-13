@@ -292,7 +292,7 @@ public class ProjectFrame2 extends JFrame implements ClipboardOwner, DropTargetL
 			e.printStackTrace();
 		}
 		KeyValue.writeCache("projectPath", classDir+"/res");
-		if(KeyValue.readCache("picPath")==null||"".equals(KeyValue.readCache("picPath")))
+		//if(KeyValue.readCache("picPath")==null||"".equals(KeyValue.readCache("picPath")))
 		KeyValue.writeCache("picPath", classDir+"/res/pic");
 		
 		init();
