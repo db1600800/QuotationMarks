@@ -811,60 +811,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					"请选择页面类型", "", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
-		if(pageType.contains("Android")||pageType.contains("IOS")||pageType.contains("Web"))
-		{
-			components.clear();
-			
-			components.add("RelativeLayout");
-			components.add("LinearLayout");
-			components.add("DrawerLayout");
-			components.add("ScrollViewLayout");
-			components.add("TableRow");
-			components.add("Line");
-			
-			components.add("TextView");
-			components.add("Button");
-			components.add("CheckBox");
-			components.add("EditText");
 		
-			components.add("ImageView");
-			components.add("ListView");
-			components.add("ExpandableListView");
-			components.add("Spinner");
-		}else if(pageType.contains("JFrame-Swing"))
-		{
-			components.clear();
-			
-			components.add("LinearLayout");
-			components.add("JPanel");
-			
-		}
-		else if(pageType.contains("JDialog-Swing"))
-		{
-			components.clear();
-		
-			components.add("LinearLayout");
-			components.add("TextView");
-			components.add("Button");
-			components.add("CheckBox");
-			components.add("EditText");
-			components.add("ImageView");
-			components.add("ListView");
-			
-		}
-		else if(pageType.contains("JPanel-Swing"))
-		{
-			components.clear();
-		
-			components.add("LinearLayout");
-			components.add("TextView");
-			components.add("Button");
-			components.add("CheckBox");
-			components.add("EditText");
-			components.add("ImageView");
-			components.add("ListView");
-			
-		}
 		
 		
 		//CompomentDialog dialog;
@@ -874,7 +821,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName);
 		//jdialog.setSize(1000, 800);
-		jdialog.init(this,this, image, x, y, w, h,components);
+		jdialog.init(this,this, image, x, y, w, h,pageType);
 	
 		jdialog.setLocationRelativeTo(null);
 		jdialog.setVisible(true);

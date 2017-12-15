@@ -484,9 +484,101 @@ public class CompomentDialog2 extends JFrame {
 	}
 
 	public void init(final CompomentDialogCallBack implementInterfaceFrame, JFrame frame, final Image image,
-			final int x, final int y, final int w, final int h, ArrayList listDate) {
+			final int x, final int y, final int w, final int h, String pageType) {
 		this.frame = frame;
-		setView(implementInterfaceFrame, frame, image, x, y, w, h, listDate);
+		ArrayList components=new ArrayList();
+		if(pageType.contains("Android"))
+		{
+			components.clear();
+			
+			components.add("RelativeLayout");
+			components.add("LinearLayout");
+			components.add("DrawerLayout");
+			components.add("Line");
+			
+			components.add("TextView");
+			components.add("Button");
+			components.add("CheckBox");
+			components.add("EditText");
+		
+			components.add("ImageView");
+			components.add("ListView");
+			components.add("ExpandableListView");
+			components.add("Spinner");
+		}else if(pageType.contains("IOS"))
+		{
+			components.clear();
+			
+			
+			components.add("LinearLayout");
+			components.add("ScrollViewLayout");
+			components.add("Line");
+			
+			components.add("TextView");
+			components.add("Button");
+			components.add("CheckBox");
+			components.add("EditText");
+		
+			components.add("ImageView");
+			components.add("ListView");
+		
+
+		}
+		else if(pageType.contains("Web"))
+		{
+			components.clear();
+			
+		
+			components.add("LinearLayout");
+			components.add("ScrollViewLayout");
+			components.add("Line");
+			
+			components.add("TextView");
+			components.add("Button");
+			components.add("CheckBox");
+			components.add("EditText");
+		
+			components.add("ImageView");
+			components.add("ListView");
+			components.add("ExpandableListView");
+			components.add("Selecter");
+		}
+		
+		else if(pageType.contains("JFrame-Swing"))
+		{
+			components.clear();
+			
+			components.add("LinearLayout");
+			components.add("JPanel");
+			
+		}
+		else if(pageType.contains("JDialog-Swing"))
+		{
+			components.clear();
+		
+			components.add("LinearLayout");
+			components.add("TextView");
+			components.add("Button");
+			components.add("CheckBox");
+			components.add("EditText");
+			components.add("ImageView");
+			components.add("ListView");
+			
+		}
+		else if(pageType.contains("JPanel-Swing"))
+		{
+			components.clear();
+		
+			components.add("LinearLayout");
+			components.add("TextView");
+			components.add("Button");
+			components.add("CheckBox");
+			components.add("EditText");
+			components.add("ImageView");
+			components.add("ListView");
+			
+		}
+		setView(implementInterfaceFrame, frame, image, x, y, w, h, components);
 
 	}
 
