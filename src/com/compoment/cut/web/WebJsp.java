@@ -447,13 +447,10 @@ public class WebJsp {
 		}
 
 	
-		if (chirld.type.equals("ListView")) {
+		if (chirld.type.equals("List")) {
 		
-			bodym += "<div id=\"listSpace\"></div>\n";
-			bodym += "<input type=\"hidden\"  name=\"page_code\" id=\"page_code\" value=\"1\" />\n";
-			bodym += "<input type=\"hidden\"  name=\"page_num\" id=\"page_num\" value=\"10\" />\n";
-//			bodym += "<input type=\"hidden\" id=\"flag\" name=\"shoppingCar\" value=\"<%=request.getAttribute(\"shoppingCar\") %>\">\n";
-		
+			bodym += "<ul class=\"ui-list ui-list-pure ui-border-tb\">\n";
+			bodym+="</ul>\n";
 		}
 
 		if (chirld.type.equals("ImageView")) {

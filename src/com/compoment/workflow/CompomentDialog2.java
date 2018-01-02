@@ -529,23 +529,23 @@ public class CompomentDialog2 extends JFrame {
 			components.clear();
 			
 		
-			components.add("Div");
-			components.add("Header");
-			components.add("Footer");
-			components.add("Section");
-			components.add("Table");
-			components.add("Table_TR");
-			components.add("Table_TH");
-			components.add("Form");
-			components.add("Form_Item");
-			components.add("List");
-			components.add("List_link");
-			components.add("List_Item");
-			components.add("Grid");
-			components.add("Grid_Item");
-			components.add("Dialog");
-			components.add("Tab");
-			components.add("Slider");//轮播
+			components.add("DivLayout");
+			components.add("HeaderLayout");
+			components.add("FooterLayout");
+			components.add("SectionLayout");
+			components.add("TableLayout");
+			components.add("Table_TRLayout");
+			components.add("Table_THLayout");
+			components.add("FormLayout");
+			components.add("Form_ItemLayout");
+			components.add("ListLayout");
+			components.add("List_linkLayout");
+			components.add("List_ItemLayout");
+			components.add("GridLayout");
+			components.add("Grid_ItemLayout");
+			components.add("DialogLayout");
+			components.add("TabLayout");
+			components.add("SliderLayout");//轮播
 			
 			
 			components.add("Line");
