@@ -314,6 +314,49 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
+		components.add("Div");
+		components.add("Header");
+		components.add("Footer");
+		components.add("Section");
+		components.add("Table");
+		components.add("Table_TR");
+		components.add("Table_TH");
+		components.add("Form");
+		components.add("Form_Item");
+		components.add("List");
+		components.add("List_link");
+		components.add("List_Item");
+		components.add("Grid");
+		components.add("Grid_Item");
+		components.add("Dialog");
+		components.add("Tab");
+		components.add("Slider");//轮播
+		
+		
+		components.add("Line");
+		
+		components.add("TextView");
+		components.add("EditText");
+		
+		components.add("Button");
+		components.add("Button_Close");
+		
+		components.add("CheckBox");
+		components.add("CheckBox_Switch");
+		components.add("Radio");
+		
+		components.add("PopTips");
+		
+		
+		components.add("LeftMenu");
+		
+		components.add("Loading");
+		
+		components.add("ImageView");
+		
+		components.add("Selecter");
+		
+		
 		if (chirld.type.equals("TextView")) {
 
 			bodym += "<div style="+chirld.relativeForWeb+"> <span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\" font-size: " + chirld.textSize + "px; color: " + chirld.rgb16

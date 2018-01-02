@@ -529,18 +529,46 @@ public class CompomentDialog2 extends JFrame {
 			components.clear();
 			
 		
-			components.add("LinearLayout");
-			components.add("ScrollViewLayout");
+			components.add("Div");
+			components.add("Header");
+			components.add("Footer");
+			components.add("Section");
+			components.add("Table");
+			components.add("Table_TR");
+			components.add("Table_TH");
+			components.add("Form");
+			components.add("Form_Item");
+			components.add("List");
+			components.add("List_link");
+			components.add("List_Item");
+			components.add("Grid");
+			components.add("Grid_Item");
+			components.add("Dialog");
+			components.add("Tab");
+			components.add("Slider");//轮播
+			
+			
 			components.add("Line");
 			
 			components.add("TextView");
-			components.add("Button");
-			components.add("CheckBox");
 			components.add("EditText");
-		
+			
+			components.add("Button");
+			components.add("Button_Close");
+			
+			components.add("CheckBox");
+			components.add("CheckBox_Switch");
+			components.add("Radio");
+			
+			components.add("PopTips");
+			
+			
+			components.add("LeftMenu");
+			
+			components.add("Loading");
+			
 			components.add("ImageView");
-			components.add("ListView");
-			components.add("ExpandableListView");
+			
 			components.add("Selecter");
 		}
 		
