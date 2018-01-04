@@ -252,29 +252,151 @@ public class WebJsp {
 					// position: relative; width: 100%; position:fixed; top:0;
 					// left:0
 					
-					
-					
-
 					String start = "";
 					String end = "";
-//					if (chirld.compomentForWeb.equals("table")) {
-//						start = "  <" + chirld.compomentForWeb+" style=\"width:100%;\">\n";
-//
-//						end = "  </" + chirld.compomentForWeb + ">\n";
-//					} else if (chirld.compomentForWeb.equals("tr")) {
-//						start = "  <" + chirld.compomentForWeb + ">\n";
-//
-//						end = "  </" + chirld.compomentForWeb + ">\n";
-//					} else if (chirld.compomentForWeb.equals("ul")) {
-//						start = "  <" + chirld.compomentForWeb + " style=\"margin: 0px;padding:0px;\">\n";
-//
-//						end = "  </" + chirld.compomentForWeb + ">\n";
-//					} else if (chirld.compomentForWeb.equals("li")) {
-//						start = "  <" + chirld.compomentForWeb + " style=\" list-style: none  ; padding: 10px; border-bottom: 1px solid #f5f5f5; color: #666;\" >\n";
-//
-//						end = "  </" + chirld.compomentForWeb + ">\n";
-//					} else 
+					omponents.add("DivLayout");
+					components.add("HeaderLayout");
+					components.add("FooterLayout");
+					components.add("SectionLayout");
+					components.add("TableLayout");
+					components.add("Table_TRLayout");
+					components.add("Table_THLayout");
+					components.add("FormLayout");
+					components.add("Form_ItemLayout");
+					components.add("ListLayout");
+					components.add("List_linkLayout");
+					components.add("List_ItemLayout");
+					components.add("GridLayout");
+					components.add("Grid_ItemLayout");
+					components.add("DialogLayout");
+					components.add("TabLayout");
+					components.add("SliderLayout");//轮播
 					
+					if (chirld.type.equals("DivLayout")) {
+						
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}else if (chirld.type.equals("HeaderLayout")) {
+						start="<header id=\"" + chirld.enname + "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
+
+						end = "</header>\n";
+					}
+					else if(chirld.type.equals("FooterLayout"))
+					{
+						start="<footer id=\"" + chirld.enname + "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
+
+						end = "</footer>\n";
+					}else if(chirld.type.equals("SectionLayout"))
+					{
+						start = "<section id=\"" + chirld.enname + "\" class=\"ui-container ui-center\">\n";
+
+						end = "  </section>\n";
+					}else if(chirld.type.equals("TableLayout"))
+					{
+						
+						start="<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
+
+						end = "</table>\n";
+					}else if(chirld.type.equals("Table_TRLayout"))
+					{
+						start = "<tr id=\"" + chirld.enname + "\" >\n";
+
+
+						end = "  </tr>\n";
+					}else if(chirld.type.equals("Table_THLayout"))
+					{
+						start = "<td id=\"" + chirld.enname + "\" >\n";
+
+
+						end = "  </td>\n";
+					}
+					else if(chirld.type.equals("FormLayout"))
+					{
+						
+						start="<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
+					    start="<form action=\"#\">\n";
+
+					    end=" </form>\n";
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("Form_ItemLayout"))
+					{
+						
+                        start=" <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
+
+						end = "  </div>\n";
+					}else if(chirld.type.equals("ListLayout"))
+					{
+						
+                        start="<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
+
+						end = "  </ul>\n";
+					}
+					else if(chirld.type.equals("List_linkLayout"))
+					{
+						 start="<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
+
+							end = "  </ul>\n";
+					}
+					else if(chirld.type.equals("List_ItemLayout"))
+					{
+						
+                        start=" <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
+
+						end = "  </li>\n";
+					}
+					else if(chirld.type.equals("GridLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("Grid_ItemLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("DialogLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("TabLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("DialogLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("SliderLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else if(chirld.type.equals("DialogLayout"))
+					{
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+
+
+						end = "  </div>\n";
+					}
+					else
 					{
 						style+="."+chirld.enname+"Style {\n";
 						style+="height:"+chirld.h+"px;\n";
@@ -314,23 +436,7 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-		components.add("Div");
-		components.add("Header");
-		components.add("Footer");
-		components.add("Section");
-		components.add("Table");
-		components.add("Table_TR");
-		components.add("Table_TH");
-		components.add("Form");
-		components.add("Form_Item");
-		components.add("List");
-		components.add("List_link");
-		components.add("List_Item");
-		components.add("Grid");
-		components.add("Grid_Item");
-		components.add("Dialog");
-		components.add("Tab");
-		components.add("Slider");//轮播
+	
 		
 		
 		components.add("Line");
