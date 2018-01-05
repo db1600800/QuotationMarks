@@ -1,4 +1,3 @@
-
 package com.compoment.cut.web;
 
 import java.awt.event.ActionEvent;
@@ -29,17 +28,17 @@ import com.compoment.util.KeyValue;
 
 public class WebJsp {
 
-//	<!--
-//	http://blog.csdn.net/topviewers/article/details/21644305
-//    relative相对自己进行top，right，bottom，left移动 ，占位，文档流不变。
-//
-//	absolute 有父辈(父亲或爷爷)为absolute,relative，就相对父辈。没父辈,就相对浏览器。不占位，文档流改变。忽略padding
-//	fixed 特殊absolute
-//	
-//	static 文档流 
-//	-->
-	
-	
+	// <!--
+	// http://blog.csdn.net/topviewers/article/details/21644305
+	// relative相对自己进行top，right，bottom，left移动 ，占位，文档流不变。
+	//
+	// absolute
+	// 有父辈(父亲或爷爷)为absolute,relative，就相对父辈。没父辈,就相对浏览器。不占位，文档流改变。忽略padding
+	// fixed 特殊absolute
+	//
+	// static 文档流
+	// -->
+
 	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
 	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
 	// background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
@@ -58,12 +57,12 @@ public class WebJsp {
 	// 后跟 top:0; left:0; bottom:0; right:0;
 
 	// overflow: scroll;滚动 auto自动处理 hidden隐藏
-	
-	//margin-top:3px;
+
+	// margin-top:3px;
 
 	String bodym = "\n\n\n";
-	String style="";
-	String js="";
+	String style = "";
+	String js = "";
 	String connection = "";
 	String pageName = "";
 	String className = "";
@@ -84,11 +83,13 @@ public class WebJsp {
 
 		String body = analyse(oldBeans);
 
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Jsp", "jsp", bodym);
-		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				className + "Jsp", "jsp", bodym);
+
 		System.out.println(bodym);
 
-		// FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className
+		// FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios",
+		// className
 		// + "ViewController", "xib", m);
 
 	}
@@ -132,58 +133,6 @@ public class WebJsp {
 
 		Collections.sort(layouts, comparatorDate);
 
-		// RelativeLayout 儿子们的位置关系
-		for (CompomentBean bean : layouts) {
-			if (bean.type.equals("RelativeLayout")||bean.type.equals("LinearLayout")) {
-				if (bean.chirlds != null && bean.chirlds.size() > 1) {
-
-					if (bean.chirlds.size() == 2) {
-						if (bean.orientation.equals("horizontal")) {
-
-							bean.relativeForWeb += "";
-							
-
-							CompomentBean chirld1 = bean.chirlds.get(0); 
-							CompomentBean chirld2 = bean.chirlds.get(1);
-							if (chirld1.x < chirld2.x) {
-								chirld1.relativeForWeb += "display:inline-block;width:50%;margin:10px";
-								chirld2.relativeForWeb += "display:inline-block;margin:10px";
-							} else if (chirld1.x > chirld2.x) {
-								chirld2.relativeForWeb += "display:inline-block;margin:10px";
-								chirld1.relativeForWeb += "display:inline-block;width:50%;margin:10px";
-							}
-
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-
-					}  else if (bean.chirlds.size() >= 3) {
-
-						if (bean.orientation.equals("horizontal")) {
-							bean.relativeForWeb += "";
-
-							Collections.sort(bean.chirlds, comparatorX);
-
-							int i = 0;
-
-							for (CompomentBean chirld : bean.chirlds) {
-							 if (i == bean.chirlds.size() - 1) {
-									chirld.relativeForWeb += "display:inline-block;margin:10px";
-								} else {
-									chirld.relativeForWeb += "display:inline-block;width:"+100/bean.chirlds.size()+"%;margin:10px";
-								}
-								i++;
-							}
-
-							Collections.sort(bean.chirlds, comparatorDate);
-						} else if (bean.orientation.equals("vertical")) {
-
-						}
-					}
-				}
-			} 
-		}
-
 		bodym += "<html>\n";
 
 		bodym += "<head>\n";
@@ -195,25 +144,24 @@ public class WebJsp {
 		bodym += "	<META Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
 		bodym += "	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
 
-	
-		
-
+		bodym += "<link rel=\"stylesheet\" href=\"../css/frozen.css\">\n";
 		bodym += "	<script type=\"text/javascript\" src=\"js/jquery-1.10.1.min.js\"></script>\n";
-		bodym+="<script type=\"text/javascript\"  id=\"myJs\">\n\n";
-		bodym+="//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
-		bodym+="//html取request值  <input type=\"hidden\"  name=\"busiNo\" id=\"busiNo\" value=\"<s:property value=\"#request.busiNo\"/>\" />\n\n";
-	
-		bodym+="//appendjs\n";
-		bodym+="</script>\n";
+		bodym += "	<script src=\"../lib/zepto.min.js\"></script>\n";
+		bodym += "	<script src=\"../js/frozen.js\"></script>\n";
+		bodym += "<script type=\"text/javascript\"  id=\"myJs\">\n\n";
+		bodym += "//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
+		bodym += "//html取request值  <input type=\"hidden\"  name=\"busiNo\" id=\"busiNo\" value=\"<s:property value=\"#request.busiNo\"/>\" />\n\n";
 
-		
+		bodym += "//appendjs\n";
+		bodym += "</script>\n";
+
 		bodym += "</head>\n";
 
 		bodym += "<body>\n";
-		bodym += "<div style=\" width:100%; height:" + maxBean.h + "px;  background-color:" + maxBean.bgRgb16
-				+ "; \">\n";
+		bodym += "<div style=\" width:100%; height:" + maxBean.h
+				+ "px;  background-color:" + maxBean.bgRgb16 + "; \">\n";
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>";
-		
+
 		bodym += formmStart;
 		parent(maxBean);
 
@@ -221,12 +169,11 @@ public class WebJsp {
 
 		bodym += "  </div>\n";
 		bodym += "</body>\n";
-	
+
 		bodym += "</html>\n";
-		
-		bodym=bodym.replace("//appendjs", js);
-		
-		
+
+		bodym = bodym.replace("//appendjs", js);
+
 		return bodym;
 	}
 
@@ -251,164 +198,145 @@ public class WebJsp {
 					// 18px; color: #fff; text-align: center; z-index: 2;
 					// position: relative; width: 100%; position:fixed; top:0;
 					// left:0
-					
+
 					String start = "";
 					String end = "";
-					omponents.add("DivLayout");
-					components.add("HeaderLayout");
-					components.add("FooterLayout");
-					components.add("SectionLayout");
-					components.add("TableLayout");
-					components.add("Table_TRLayout");
-					components.add("Table_THLayout");
-					components.add("FormLayout");
-					components.add("Form_ItemLayout");
-					components.add("ListLayout");
-					components.add("List_linkLayout");
-					components.add("List_ItemLayout");
-					components.add("GridLayout");
-					components.add("Grid_ItemLayout");
-					components.add("DialogLayout");
-					components.add("TabLayout");
-					components.add("SliderLayout");//轮播
-					
-					if (chirld.type.equals("DivLayout")) {
-						
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
 
+					if (chirld.type.equals("DivLayout")) {
+
+						start = "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-border\" >\n";
 
 						end = "  </div>\n";
-					}else if (chirld.type.equals("HeaderLayout")) {
-						start="<header id=\"" + chirld.enname + "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
+					} else if (chirld.type.equals("HeaderLayout")) {
+						start = "<header id=\""
+								+ chirld.enname
+								+ "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
 
 						end = "</header>\n";
-					}
-					else if(chirld.type.equals("FooterLayout"))
-					{
-						start="<footer id=\"" + chirld.enname + "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
+					} else if (chirld.type.equals("FooterLayout")) {
+						start = "<footer id=\""
+								+ chirld.enname
+								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
 
 						end = "</footer>\n";
-					}else if(chirld.type.equals("SectionLayout"))
-					{
-						start = "<section id=\"" + chirld.enname + "\" class=\"ui-container ui-center\">\n";
+					} else if (chirld.type.equals("SectionLayout")) {
+						start = "<section id=\"" + chirld.enname
+								+ "\" class=\"ui-container ui-center\">\n";
 
 						end = "  </section>\n";
-					}else if(chirld.type.equals("TableLayout"))
-					{
-						
-						start="<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
+					} else if (chirld.type.equals("TableLayout")) {
+
+						start = "<table id=\"" + chirld.enname
+								+ "\" class=\"ui-table ui-border\">\n";
 
 						end = "</table>\n";
-					}else if(chirld.type.equals("Table_TRLayout"))
-					{
+					} else if (chirld.type.equals("Table_TRLayout")) {
 						start = "<tr id=\"" + chirld.enname + "\" >\n";
 
-
 						end = "  </tr>\n";
-					}else if(chirld.type.equals("Table_THLayout"))
-					{
+					} else if (chirld.type.equals("Table_THLayout")) {
 						start = "<td id=\"" + chirld.enname + "\" >\n";
 
-
 						end = "  </td>\n";
-					}
-					else if(chirld.type.equals("FormLayout"))
-					{
-						
-						start="<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
-					    start="<form action=\"#\">\n";
+					} else if (chirld.type.equals("FormLayout")) {
 
-					    end=" </form>\n";
+						start = "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-form ui-border-t\">\n";
+						start = "<form action=\"#\">\n";
+
+						end = " </form>\n";
 						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("Form_ItemLayout"))
-					{
-						
-                        start=" <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
+					} else if (chirld.type.equals("Form_ItemLayout")) {
+
+						start = " <div id=\"" + chirld.enname
+								+ "\"  class=\"ui-form-item ui-border-b\">\n";
 
 						end = "  </div>\n";
-					}else if(chirld.type.equals("ListLayout"))
-					{
-						
-                        start="<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
+					} else if (chirld.type.equals("ListLayout")) {
+
+						start = "<ul id=\""
+								+ chirld.enname
+								+ "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
 
 						end = "  </ul>\n";
-					}
-					else if(chirld.type.equals("List_linkLayout"))
-					{
-						 start="<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
+					} else if (chirld.type.equals("List_linkLayout")) {
+						start = "<ul id=\""
+								+ chirld.enname
+								+ "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
 
-							end = "  </ul>\n";
-					}
-					else if(chirld.type.equals("List_ItemLayout"))
-					{
-						
-                        start=" <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
+						end = "  </ul>\n";
+					} else if (chirld.type.equals("List_ItemLayout")) {
+
+						start = " <li id=\"" + chirld.enname
+								+ "\" class=\"ui-border-t\">\n";
 
 						end = "  </li>\n";
-					}
-					else if(chirld.type.equals("GridLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+					} else if (chirld.type.equals("GridLayout")) {
 
+						start = "<ul id=\"" + chirld.enname
+								+ "\" class=\"ui-grid-trisect\">\n";
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("Grid_ItemLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						end = "</ul>\n";
+					} else if (chirld.type.equals("Grid_ItemLayout")) {
+						start = "<li id=\"" + chirld.enname + "\"  >\n";
 
+						end = "</li>\n";
+					} else if (chirld.type.equals("DialogLayout")) {
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("DialogLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						start = "<div id=\"" + chirld.enname
+								+ "\"  class=\"ui-dialog\">\n";
+						start = "<div class=\"ui-dialog-cnt\">\n";
 
+						start = " <header class=\"ui-dialog-hd ui-border-b\">\n";
+						start = "<h3>新手任务</h3>\n";
+						start = "<i class=\"ui-dialog-close\" data-role=\"button\"></i>\n";
+						start = "</header>\n";
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("TabLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						start = " <div class=\"ui-dialog-bd\">\n";
+						start = " <h4>标题标题</h4>\n";
+						start = "<div>开通年费QQ会员即可领取欢乐斗地主感恩节回馈礼包！</div>\n";
+						start = "</div>\n";
 
+						start = " <div class=\"ui-dialog-ft\">\n";
+						start = " <button type=\"button\" data-role=\"button\">取消</button>\n";
+						start = " <button type=\"button\" data-role=\"button\">确定</button>\n";
+						start = "</div>\n";
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("DialogLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						end = "</div>\n";
+						end = "</div>\n";
+						end = "<script class=\"demo-script\">\n";
+						end = "$(\".ui-dialog\").dialog(\"show\");\n";
+						end = "</script>\n";
 
+					} else if (chirld.type.equals("TabLayout")) {
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("SliderLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						start = "<div class=\"ui-tab\" id=\"" + chirld.enname
+								+ "\" >\n";
+						start = "<ul class=\"ui-tab-nav ui-border-b\">\n";
+						start = " <li class=\"current\">热门推荐</li>\n";
+						start = " <li>全部表情</li>\n";
+						start = " <li>表情</li>\n";
+						start = "</ul>\n";
+						start = " <ul class=\"ui-tab-content\" style=\"width:300%\">\n";
 
+						end = "</ul>\n";
+						end = "</div>\n";
 
-						end = "  </div>\n";
-					}
-					else if(chirld.type.equals("DialogLayout"))
-					{
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
-
-
-						end = "  </div>\n";
-					}
-					else
-					{
-						style+="."+chirld.enname+"Style {\n";
-						style+="height:"+chirld.h+"px;\n";
-						style+="line-height: " + chirld.h + "px;";
-						style+="background-color:" + chirld.bgRgb16+"\"";
-						style+="}\n";
-						
-						
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
-
+					} else if (chirld.type.equals("SliderLayout")) {// 轮播
+						start = "<div id=\"" + chirld.enname + "\" class=\""
+								+ chirld.enname + "Style\" >\n";
 
 						end = "  </div>\n";
+
+						start = "<div class=\"ui-slider\" id=\"slider1\">\n";
+						start = "<ul class=\"ui-slider-content\" style=\"width: 300%\">\n";
+						start = "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
+						start = "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
+
+						end = "</ul>\n";
+						end = "</div>\n";
+
 					}
 
 					bodym += start;
@@ -418,15 +346,16 @@ public class WebJsp {
 					bodym += end;
 				} else {// 这个儿子是非容器
 
-//					if (bean.compomentForWeb.equals("tr")) {
-//						bodym += "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
-//					}
+					// if (bean.compomentForWeb.equals("tr")) {
+					// bodym +=
+					// "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
+					// }
 
 					chirld(chirld, bean);
 
-//					if (bean.compomentForWeb.equals("tr")) {
-//						bodym += "  </td>\n";
-//					}
+					// if (bean.compomentForWeb.equals("tr")) {
+					// bodym += "  </td>\n";
+					// }
 				}
 			}
 
@@ -436,56 +365,36 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-	
-		
-		
 		components.add("Line");
-		
+
 		components.add("TextView");
 		components.add("EditText");
-		
+
 		components.add("Button");
 		components.add("Button_Close");
-		
+
 		components.add("CheckBox");
 		components.add("CheckBox_Switch");
 		components.add("Radio");
-		
+
 		components.add("PopTips");
-		
-		
+
 		components.add("LeftMenu");
-		
+
 		components.add("Loading");
-		
+
 		components.add("ImageView");
-		
+
 		components.add("Selecter");
-		
-		
+
 		if (chirld.type.equals("TextView")) {
 
-			bodym += "<div style="+chirld.relativeForWeb+"> <span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\" font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
-					+ ";  \">" + chirld.cnname + "</span></div>\n";
+			bodym += "<span id=\"" + chirld.enname + "\" name =\""
+					+ chirld.enname + "\" >" + chirld.cnname + "</span>\n";
 
 		}
 
 		if (chirld.type.equals("Line")) {
-			
-			style+=".父亲的LayoutId:after {\n";
-			style+="position: absolute;\n";
-			style+="top: 0px;\n";
-			style+="right: 0px;\n";
-			style+="left: 0px;\n";
-		    
-			style+=" height: 1px;\n";
-			style+=" content: '';\n";
-			style+="  -webkit-transform: scaleY(.5);\n";
-			style+=" transform: scaleY(.5);\n";
-			style+="background-color: #c8c7cc;\n";
-			style+="}\n";
-			
-			
 
 		}
 
@@ -497,96 +406,97 @@ public class WebJsp {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym += "<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" onclick=\""
-					+ chirld.actionString + "\" style=\" font-size: " + chirld.textSize + "px; color: " + chirld.rgb16
-					+ ";" + chirld.relativeForWeb + " \">"
+			bodym += "<div id=\"" + chirld.enname + "\" name =\""
+					+ chirld.enname + "\" onclick=\"" + chirld.actionString
+					+ "\" style=\" font-size: " + chirld.textSize
+					+ "px; color: " + chirld.rgb16 + ";"
+					+ chirld.relativeForWeb + " \">"
 
-					+ "" + chirld.cnname + "" + "<img  src= \"/images/" + chirld.picName
-					+ ".png\"  style=\" width: 12px; \">" + "</div>\n";
+					+ "" + chirld.cnname + "" + "<img  src= \"/images/"
+					+ chirld.picName + ".png\"  style=\" width: 12px; \">"
+					+ "</div>\n";
 		}
 
 		if (chirld.type.equals("Button")) {
 
 			if (chirld.picName.equals("图片名")) {
 
-				bodym += "<div style="+chirld.relativeForWeb+"><a href=\"#\" id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\"  onclick=\""
-						+ chirld.actionString + "\"  style=\"text-align: center; height:" + chirld.h
-						+ "px; line-height: " + chirld.h + "px; border-radius: 8px; color:" + chirld.rgb16
-						+ "; background-color:" + chirld.bgRgb16 + ";  font-size: " + chirld.textSize + "px ; margin:1px;  padding: 1px; text-decoration: none;\" >" + chirld.cnname + "</a> </div>\n";
-				
+				bodym += "<button class=\"ui-btn-s ui-btn-progress\"  background-color:"
+						+ chirld.bgRgb16
+						+ " onclick=\""
+						+ chirld.actionString
+						+ ";\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
-				bodym += "<div style="+chirld.relativeForWeb+"><img id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" src= \"/images/"
-						+ chirld.picName + ".png\" onclick=\"" + chirld.actionString + ";\" style=\" width: 12px; \"></div>\n";
+				bodym += "<button class=\"ui-btn-s ui-btn-progress\" src= \"/images/"
+						+ chirld.picName
+						+ ".png\" onclick=\""
+						+ chirld.actionString
+						+ "\" >"
+						+ chirld.cnname
+						+ "</button>\n";
 			}
 
 		}
 
+		if (chirld.type.equals("Button_Close")) {
+
+			bodym += "<a href=\"#\" class=\"ui-icon-close\"></a>\n";
+
+		}
+
 		if (chirld.type.equals("CheckBox")) {
+			bodym += " <label class=\"ui-checkbox\">\n";
+			bodym += "<input type=\"checkbox\">\n";
+			bodym += "</label>\n";
+			bodym += "<p>" + chirld.cnname + "</p>\n";
 
-			js +="//checkbox \n";
-			js += "var setAddr = false;\n";
-			js += "function setDefaultAddr(){\n";
-			js += "	if(setAddr){\n";
-			js += "	setAddr = false;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\");\n";
-			js += "}else{\n";
-			js += "	setAddr = true;\n";
-			js += "	$(\"#"+chirld.enname+"\").attr(\"style\",\" background: url(images/checked.png) no-repeat 2px center;  padding-left: 35px; padding-top:0px; padding-bottom:0px;\");\n";
-			js += "}\n";
-			js += "}\n\n";
+		}
 
-			
-			bodym += "<div style="+chirld.relativeForWeb+"><span id=\""+chirld.enname+"\" style=\"  background: url(images/check.png) no-repeat 2px center;  padding-left: 40px;  padding-top:0px; padding-bottom:0px;\"  onclick=\"setDefaultAddr()\">"+chirld.cnname+"</span></div>";
+		if (chirld.type.equals("CheckBox_Switch")) {
+			bodym += "<label class=\"ui-switch\">\n";
+			bodym += "<input type=\"checkbox\">\n";
+			bodym += "</label>\n";
+		}
 
+		if (chirld.type.equals("Radio")) {
+			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
+			bodym += " <label class=\"ui-radio\" for=\"radio\">\n";
+			bodym += "<input type=\"radio\" name=\"radio\">\n";
+			bodym += "</label>\n";
+			bodym += " <p>表单中用于单选操作</p>\n";
+			bodym += "</div>\n";
+			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
+
+			bodym += "<label class=\"ui-radio\" for=\"radio\">\n";
+			bodym += "<input type=\"radio\" checked name=\"radio\">\n";
+			bodym += "</label>\n";
+			bodym += "<p>表单中用于单选操作</p>\n";
+			bodym += "</div>\n";
 			
 		}
 
 		if (chirld.type.equals("EditText")) {
 
-			
-			bodym += "<div style="+chirld.relativeForWeb+"> <input style=\" border: 0; line-height: "+chirld.h+"px; height: "+chirld.h+"px;  font-size: "+chirld.textSize+"px;\"  type=\"text\"  id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" placeholder=\""+chirld.cnname+"\"></div>";
+			bodym += "<div style=" + chirld.relativeForWeb
+					+ "> <input style=\" border: 0; line-height: " + chirld.h
+					+ "px; height: " + chirld.h + "px;  font-size: "
+					+ chirld.textSize + "px;\"  type=\"text\"  id=\""
+					+ chirld.enname + "\" name=\"" + chirld.enname
+					+ "\" placeholder=\"" + chirld.cnname + "\"></div>";
 
-			
-
-		}
-
-	
-		if (chirld.type.equals("List")) {
-		
-			bodym += "<ul class=\"ui-list ui-list-pure ui-border-tb\">\n";
-			bodym+="</ul>\n";
 		}
 
 		if (chirld.type.equals("ImageView")) {
 
-			bodym += " <imageView userInteractionEnabled=\"NO\" contentMode=\"scaleToFill\" horizontalHuggingPriority=\"251\" verticalHuggingPriority=\"251\" fixedFrame=\"YES\" image=\""
-					+ chirld.picName + ".png\" translatesAutoresizingMaskIntoConstraints=\"NO\" id=\"" + chirld.id
-					+ "\">\n";
-			bodym += " <rect key=\"frame\" x=\"" + (chirld.x - parent.x) + "\" y=\"" + (chirld.y - parent.y)
-					+ "\" width=\"" + (chirld.w) + "\" height=\"" + (chirld.h) + "\"/>\n";
-			// bodym += " <constraints>\n";
-			// bodym += " <constraint firstAttribute=\"height\"
-			// constant=\""+imageHeightConstraint+"\" id=\""
-			// + id() + "\"/>\n";
-			// bodym += " <constraint firstAttribute=\"width\"
-			// constant=\""+imageWidthConstraint+"\" id=\""
-			// + id() + "\"/>\n";
-			// bodym += " </constraints>\n";
-			bodym += " </imageView>\n";
-			connection += "                        <outlet property=\"" + chirld.enname + "\" destination=\""
-					+ chirld.id + "\" id=\"" + id() + "\"/>\n";
+			bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
 
 		}
 	}
-	
-	
-	
-	
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
@@ -635,25 +545,23 @@ public class WebJsp {
 		return genID(3) + "-" + genID(2) + "-" + genID(3);
 	}
 
-//	function select_invoice(obj){//obj==this
-//		var invoiceTypeVal = $(obj).find("input[name='invoiceType']").val();
-//		var invoiceTypeVals = invoiceTypeVal.split("#", 2);
-//		var dw = invoiceTypeVals[1];
-//		
-//		$(obj).find("input[name='invoiceType']").prop("checked", true);
-//		$(obj).prop("class","checked04");
-//		$(obj).parent().find("input[name='invoiceType']").each(function () {
-//			if($(this).val() != invoiceTypeVal){
-//				ck_or_no_class(this, false);
-//			}
-//		});
-//		if(dw == "2"){
-//			$(obj).parent().parent().find("li[name='invoice_title_li']").show();
-//		} else {
-//			$(obj).parent().parent().find("li[name='invoice_title_li']").hide();
-//		}
-//	}
-	
-	
-	
+	// function select_invoice(obj){//obj==this
+	// var invoiceTypeVal = $(obj).find("input[name='invoiceType']").val();
+	// var invoiceTypeVals = invoiceTypeVal.split("#", 2);
+	// var dw = invoiceTypeVals[1];
+	//
+	// $(obj).find("input[name='invoiceType']").prop("checked", true);
+	// $(obj).prop("class","checked04");
+	// $(obj).parent().find("input[name='invoiceType']").each(function () {
+	// if($(this).val() != invoiceTypeVal){
+	// ck_or_no_class(this, false);
+	// }
+	// });
+	// if(dw == "2"){
+	// $(obj).parent().parent().find("li[name='invoice_title_li']").show();
+	// } else {
+	// $(obj).parent().parent().find("li[name='invoice_title_li']").hide();
+	// }
+	// }
+
 }
