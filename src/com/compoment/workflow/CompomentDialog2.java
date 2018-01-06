@@ -546,6 +546,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("DialogLayout");
 			components.add("TabLayout");
 			components.add("SliderLayout");//轮播
+			components.add("ActionSheetLayout");// 底部弹出菜单
 			
 			
 			components.add("Line");
@@ -563,13 +564,15 @@ public class CompomentDialog2 extends JFrame {
 			components.add("PopTips");
 			
 			
-			components.add("LeftMenu");
+			components.add("Progress");
 			
 			components.add("Loading");
 			
 			components.add("ImageView");
 			
 			components.add("Selecter");
+			components.add("ExpandableListView");
+			
 		}
 		
 		else if(pageType.contains("JFrame-Swing"))

@@ -83,8 +83,7 @@ public class WebJsp {
 
 		String body = analyse(oldBeans);
 
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
-				className + "Jsp", "jsp", bodym);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Jsp", "jsp", bodym);
 
 		System.out.println(bodym);
 
@@ -158,8 +157,8 @@ public class WebJsp {
 		bodym += "</head>\n";
 
 		bodym += "<body>\n";
-		bodym += "<div style=\" width:100%; height:" + maxBean.h
-				+ "px;  background-color:" + maxBean.bgRgb16 + "; \">\n";
+		bodym += "<div style=\" width:100%; height:" + maxBean.h + "px;  background-color:" + maxBean.bgRgb16
+				+ "; \">\n";
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>";
 
 		bodym += formmStart;
@@ -204,31 +203,26 @@ public class WebJsp {
 
 					if (chirld.type.equals("DivLayout")) {
 
-						start = "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-border\" >\n";
+						start = "<div id=\"" + chirld.enname + "\" class=\"ui-border\" >\n";
 
 						end = "  </div>\n";
 					} else if (chirld.type.equals("HeaderLayout")) {
-						start = "<header id=\""
-								+ chirld.enname
+						start = "<header id=\"" + chirld.enname
 								+ "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
 
 						end = "</header>\n";
 					} else if (chirld.type.equals("FooterLayout")) {
-						start = "<footer id=\""
-								+ chirld.enname
+						start = "<footer id=\"" + chirld.enname
 								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
 
 						end = "</footer>\n";
 					} else if (chirld.type.equals("SectionLayout")) {
-						start = "<section id=\"" + chirld.enname
-								+ "\" class=\"ui-container ui-center\">\n";
+						start = "<section id=\"" + chirld.enname + "\" class=\"ui-container ui-center\">\n";
 
 						end = "  </section>\n";
 					} else if (chirld.type.equals("TableLayout")) {
 
-						start = "<table id=\"" + chirld.enname
-								+ "\" class=\"ui-table ui-border\">\n";
+						start = "<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
 
 						end = "</table>\n";
 					} else if (chirld.type.equals("Table_TRLayout")) {
@@ -241,41 +235,34 @@ public class WebJsp {
 						end = "  </td>\n";
 					} else if (chirld.type.equals("FormLayout")) {
 
-						start = "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-form ui-border-t\">\n";
+						start = "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
 						start = "<form action=\"#\">\n";
 
 						end = " </form>\n";
 						end = "  </div>\n";
 					} else if (chirld.type.equals("Form_ItemLayout")) {
 
-						start = " <div id=\"" + chirld.enname
-								+ "\"  class=\"ui-form-item ui-border-b\">\n";
+						start = " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
 
 						end = "  </div>\n";
 					} else if (chirld.type.equals("ListLayout")) {
 
-						start = "<ul id=\""
-								+ chirld.enname
-								+ "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
+						start = "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
 
 						end = "  </ul>\n";
 					} else if (chirld.type.equals("List_linkLayout")) {
-						start = "<ul id=\""
-								+ chirld.enname
+						start = "<ul id=\"" + chirld.enname
 								+ "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
 
 						end = "  </ul>\n";
 					} else if (chirld.type.equals("List_ItemLayout")) {
 
-						start = " <li id=\"" + chirld.enname
-								+ "\" class=\"ui-border-t\">\n";
+						start = " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
 
 						end = "  </li>\n";
 					} else if (chirld.type.equals("GridLayout")) {
 
-						start = "<ul id=\"" + chirld.enname
-								+ "\" class=\"ui-grid-trisect\">\n";
+						start = "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
 
 						end = "</ul>\n";
 					} else if (chirld.type.equals("Grid_ItemLayout")) {
@@ -284,8 +271,7 @@ public class WebJsp {
 						end = "</li>\n";
 					} else if (chirld.type.equals("DialogLayout")) {
 
-						start = "<div id=\"" + chirld.enname
-								+ "\"  class=\"ui-dialog\">\n";
+						start = "<div id=\"" + chirld.enname + "\"  class=\"ui-dialog\">\n";
 						start = "<div class=\"ui-dialog-cnt\">\n";
 
 						start = " <header class=\"ui-dialog-hd ui-border-b\">\n";
@@ -311,8 +297,7 @@ public class WebJsp {
 
 					} else if (chirld.type.equals("TabLayout")) {
 
-						start = "<div class=\"ui-tab\" id=\"" + chirld.enname
-								+ "\" >\n";
+						start = "<div class=\"ui-tab\" id=\"" + chirld.enname + "\" >\n";
 						start = "<ul class=\"ui-tab-nav ui-border-b\">\n";
 						start = " <li class=\"current\">热门推荐</li>\n";
 						start = " <li>全部表情</li>\n";
@@ -324,8 +309,7 @@ public class WebJsp {
 						end = "</div>\n";
 
 					} else if (chirld.type.equals("SliderLayout")) {// 轮播
-						start = "<div id=\"" + chirld.enname + "\" class=\""
-								+ chirld.enname + "Style\" >\n";
+						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
 
 						end = "  </div>\n";
 
@@ -337,6 +321,16 @@ public class WebJsp {
 						end = "</ul>\n";
 						end = "</div>\n";
 
+					} else if (chirld.type.equals("ActionSheetLayout")) {
+
+						start = "<div class=\"ui-actionsheet\">\n";
+						start = "<div class=\"ui-actionsheet-cnt\">\n";
+
+						end = "</div>\n";
+						end = "</div>\n";
+						end = "<script type=\"text/javascript\">\n";
+						end = "$('.ui-actionsheet').addClass('show');\n";
+						end = "</script>\n";
 					}
 
 					bodym += start;
@@ -348,13 +342,15 @@ public class WebJsp {
 
 					// if (bean.compomentForWeb.equals("tr")) {
 					// bodym +=
-					// "  <td style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%; text-align: center;\">\n";
+					// " <td
+					// style=\"width:"+((float)1/(float)bean.chirlds.size())*100+"%;
+					// text-align: center;\">\n";
 					// }
 
 					chirld(chirld, bean);
 
 					// if (bean.compomentForWeb.equals("tr")) {
-					// bodym += "  </td>\n";
+					// bodym += " </td>\n";
 					// }
 				}
 			}
@@ -365,40 +361,44 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-		components.add("Line");
-
-		components.add("TextView");
-		components.add("EditText");
-
-		components.add("Button");
-		components.add("Button_Close");
-
-		components.add("CheckBox");
-		components.add("CheckBox_Switch");
-		components.add("Radio");
-
-		components.add("PopTips");
-
-		components.add("LeftMenu");
-
-		components.add("Loading");
-
-		components.add("ImageView");
-
-		components.add("Selecter");
-
 		if (chirld.type.equals("TextView")) {
 
-			bodym += "<span id=\"" + chirld.enname + "\" name =\""
-					+ chirld.enname + "\" >" + chirld.cnname + "</span>\n";
+			bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+					+ "</span>\n";
+			// h4 label
 
 		}
 
-		if (chirld.type.equals("Line")) {
+		if (chirld.type.equals("Progress")) {
+			bodym += " <div class=\"ui-progress\">\n";
+			bodym += "<span style=\"width:50%\"></span>\n";
+			bodym += "</div>\n";
+		}
+		if (chirld.type.equals("Loading")) {
+
+			bodym += "<div class=\"ui-loading-block show\">\n";
+			bodym += "<div class=\"ui-loading-cnt\">\n";
+			bodym += "<i class=\"ui-loading-bright\"></i>\n";
+			bodym += "<p>正在加载中...</p>\n";
+			bodym += "</div>\n";
+			bodym += "</div>\n";
+			bodym += "<script type=\"text/javascript\" class=\"demo-script\">\n";
+			bodym += " // var el = $.loading({content:'加载中...'});\n";
+			bodym += " // el.on(\"loading:hide\",function(){\n";
+			bodym += " //     console.log(\"loading hide\");\n";
+			bodym += " // });\n";
+			bodym += "</script>\n";
 
 		}
 
-		if (chirld.type.equals("Spinner")) {
+		if (chirld.type.equals("PopTips")) {
+
+			bodym += "<div class=\"ui-poptips ui-poptips-info\">\n";
+			bodym += "<div class=\"ui-poptips-cnt\"><i></i>" + chirld.cnname + "</div>\n";
+			bodym += "</div>\n";
+		}
+
+		if (chirld.type.equals("Selecter")) {
 
 			// <span style="background:url(../images/next.png) no-repeat right
 			// center #fff; background-size:8px; line-height:20px;
@@ -406,36 +406,28 @@ public class WebJsp {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym += "<div id=\"" + chirld.enname + "\" name =\""
-					+ chirld.enname + "\" onclick=\"" + chirld.actionString
-					+ "\" style=\" font-size: " + chirld.textSize
-					+ "px; color: " + chirld.rgb16 + ";"
-					+ chirld.relativeForWeb + " \">"
-
-					+ "" + chirld.cnname + "" + "<img  src= \"/images/"
-					+ chirld.picName + ".png\"  style=\" width: 12px; \">"
-					+ "</div>\n";
+			bodym += "<div class=\"ui-select-group\">\n";
+			bodym += "<div class=\"ui-select\">\n";
+			bodym += "<select>\n";
+			bodym += "<option>2014</option>\n";
+			bodym += "<option selected>2015</option>\n";
+			bodym += "<option>2016</option>\n";
+			bodym += "</select>\n";
+			bodym += "</div>\n";
+			bodym += "</div>\n";
 		}
 
 		if (chirld.type.equals("Button")) {
 
 			if (chirld.picName.equals("图片名")) {
 
-				bodym += "<button class=\"ui-btn-s ui-btn-progress\"  background-color:"
-						+ chirld.bgRgb16
-						+ " onclick=\""
-						+ chirld.actionString
-						+ ";\" >" + chirld.cnname + "</button>\n";
+				bodym += "<button class=\"ui-btn-s ui-btn-progress\"  background-color:" + chirld.bgRgb16
+						+ " onclick=\"" + chirld.actionString + ";\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
-				bodym += "<button class=\"ui-btn-s ui-btn-progress\" src= \"/images/"
-						+ chirld.picName
-						+ ".png\" onclick=\""
-						+ chirld.actionString
-						+ "\" >"
-						+ chirld.cnname
-						+ "</button>\n";
+				bodym += "<button class=\"ui-btn-s ui-btn-progress\" src= \"/images/" + chirld.picName
+						+ ".png\" onclick=\"" + chirld.actionString + "\" >" + chirld.cnname + "</button>\n";
 			}
 
 		}
@@ -474,17 +466,14 @@ public class WebJsp {
 			bodym += "</label>\n";
 			bodym += "<p>表单中用于单选操作</p>\n";
 			bodym += "</div>\n";
-			
+
 		}
 
 		if (chirld.type.equals("EditText")) {
 
-			bodym += "<div style=" + chirld.relativeForWeb
-					+ "> <input style=\" border: 0; line-height: " + chirld.h
-					+ "px; height: " + chirld.h + "px;  font-size: "
-					+ chirld.textSize + "px;\"  type=\"text\"  id=\""
-					+ chirld.enname + "\" name=\"" + chirld.enname
-					+ "\" placeholder=\"" + chirld.cnname + "\"></div>";
+			bodym += "<div style=" + chirld.relativeForWeb + "> <input style=\" border: 0; line-height: " + chirld.h
+					+ "px; height: " + chirld.h + "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\""
+					+ chirld.enname + "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\"></div>";
 
 		}
 
@@ -495,6 +484,38 @@ public class WebJsp {
 
 		if (chirld.type.equals("ExpandableListView")) {
 
+			bodym += "<div class=\"ui-selector-content\" style=\"display:\">\n";
+			bodym += "<ul>\n";
+			bodym += "<li class=\"ui-selector-item active\">\n";
+			bodym += "<h3 class=\"ui-border-b\">\n";
+			bodym += "<p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
+			bodym += "</h3>\n";
+			bodym += "<ul class=\"ui-list ui-border-b\">\n";
+			bodym += "<li>\n";
+			bodym += "<div class=\"ui-avatar-s\">\n";
+			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
+			bodym += "</div>\n";
+			bodym += "<div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
+			bodym += "</li>\n";
+			bodym += "</ul>\n";
+			bodym += "</li>\n";
+			bodym += "  <li class=\" ui-selector-item\">\n";
+			bodym += " <h3 class=\"ui-border-b\">\n";
+			bodym += "  <p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
+			bodym += "</h3>\n";
+			bodym += "<ul class=\"ui-list ui-border-b\">\n";
+			bodym += "<li>\n";
+			bodym += "<div class=\"ui-avatar-s\">\n";
+			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
+			bodym += " </div>\n";
+			bodym += "  <div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
+			bodym += " </li>\n";
+
+			bodym += " </ul>\n";
+			bodym += " </li>\n";
+
+			bodym += " </ul>\n";
+			bodym += " </div>\n";
 		}
 	}
 
