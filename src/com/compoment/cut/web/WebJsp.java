@@ -132,22 +132,28 @@ public class WebJsp {
 
 		Collections.sort(layouts, comparatorDate);
 
+		bodym+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
+		bodym+="<%\n";
+		bodym+="String path = request.getContextPath();\n";
+		bodym+="String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
+		bodym+="%>\n";
 		bodym += "<html>\n";
-
+		
 		bodym += "<head>\n";
 		bodym += "	<meta charset='utf-8'>\n";
 		bodym += "	<meta name=\"viewport\" content=\"width=device-width,initial-scale=1, maximum-scale=1\">\n";
 		bodym += "	<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n";
 		bodym += "	<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n";
-		bodym += "	<META Http-Equiv=\"Cache-Control\" Content=\"no-cache\"/>\n";
-		bodym += "	<META Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
-		bodym += "	<META Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
+		bodym += "	<meta Http-Equiv=\"Cache-Control\" Content=\"no-cache\"/>\n";
+		bodym += "	<meta Http-Equiv=\"Pragma\" Content=\"no-cache\"/>\n";
+		bodym += "	<meta Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
 
-		bodym += "<link rel=\"stylesheet\" href=\"../css/frozen.css\">\n";
-		bodym += "	<script type=\"text/javascript\" src=\"js/jquery-1.10.1.min.js\"></script>\n";
-		bodym += "	<script src=\"../lib/zepto.min.js\"></script>\n";
-		bodym += "	<script src=\"../js/frozen.js\"></script>\n";
-		bodym += "<script type=\"text/javascript\"  id=\"myJs\">\n\n";
+		bodym += "  <link rel=\"stylesheet\" href=\"<%=basePath%>css/frozen.css\">\n";
+		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery-1.10.1.min.js\"></script>\n";
+		bodym += "	<script src=\"<%=basePath%>lib/zepto.min.js\"></script>\n";
+		bodym += "	<script src=\"<%=basePath%>js/frozen.js\"></script>\n";
+		
+		bodym += "<script>\n";
 		bodym += "//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
 		bodym += "//html取request值  <input type=\"hidden\"  name=\"busiNo\" id=\"busiNo\" value=\"<s:property value=\"#request.busiNo\"/>\" />\n\n";
 
@@ -157,16 +163,15 @@ public class WebJsp {
 		bodym += "</head>\n";
 
 		bodym += "<body>\n";
-		bodym += "<div style=\" width:100%; height:" + maxBean.h + "px;  background-color:" + maxBean.bgRgb16
-				+ "; \">\n";
-		bodym += "<div id=\"emptyOrErrorMsg\"></div>";
+	
+		bodym += "<div id=\"emptyOrErrorMsg\"></div>\n";
 
 		bodym += formmStart;
 		parent(maxBean);
 
 		bodym += formmEnd;
 
-		bodym += "  </div>\n";
+		
 		bodym += "</body>\n";
 
 		bodym += "</html>\n";
@@ -203,141 +208,141 @@ public class WebJsp {
 
 					if (chirld.type.equals("DivLayout")) {
 
-						start = "<div id=\"" + chirld.enname + "\" class=\"ui-border\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-border\" >\n";
 
-						end = "  </div>\n";
+						end += "  </div>\n";
 					} else if (chirld.type.equals("HeaderLayout")) {
-						start = "<header id=\"" + chirld.enname
+						start += "<header id=\"" + chirld.enname
 								+ "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
 
-						end = "</header>\n";
+						end += "</header>\n";
 					} else if (chirld.type.equals("FooterLayout")) {
-						start = "<footer id=\"" + chirld.enname
+						start += "<footer id=\"" + chirld.enname
 								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
 
-						end = "</footer>\n";
+						end += "</footer>\n";
 					} else if (chirld.type.equals("SectionLayout")) {
-						start = "<section id=\"" + chirld.enname + "\" class=\"ui-container ui-center\">\n";
+						start += "<section id=\"" + chirld.enname + "\" class=\"ui-container \">\n";
 
-						end = "  </section>\n";
+						end += "  </section>\n";
 					} else if (chirld.type.equals("TableLayout")) {
 
-						start = "<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
+						start += "<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
 
-						end = "</table>\n";
+						end += "</table>\n";
 					} else if (chirld.type.equals("Table_TRLayout")) {
-						start = "<tr id=\"" + chirld.enname + "\" >\n";
+						start += "<tr id=\"" + chirld.enname + "\" >\n";
 
-						end = "  </tr>\n";
+						end += "  </tr>\n";
 					} else if (chirld.type.equals("Table_THLayout")) {
-						start = "<td id=\"" + chirld.enname + "\" >\n";
+						start += "<td id=\"" + chirld.enname + "\" >\n";
 
-						end = "  </td>\n";
+						end += "  </td>\n";
 					} else if (chirld.type.equals("FormLayout")) {
 
-						start = "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
-						start = "<form action=\"#\">\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
+						start += "<form action=\"#\">\n";
 
-						end = " </form>\n";
-						end = "  </div>\n";
+						end += " </form>\n";
+						end += "  </div>\n";
 					} else if (chirld.type.equals("Form_ItemLayout")) {
 
-						start = " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
+						start += " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
 
-						end = "  </div>\n";
+						end += "  </div>\n";
 					} else if (chirld.type.equals("ListLayout")) {
 
-						start = "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
 
-						end = "  </ul>\n";
+						end += "  </ul>\n";
 					} else if (chirld.type.equals("List_linkLayout")) {
-						start = "<ul id=\"" + chirld.enname
+						start += "<ul id=\"" + chirld.enname
 								+ "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
 
-						end = "  </ul>\n";
+						end += "  </ul>\n";
 					} else if (chirld.type.equals("List_ItemLayout")) {
 
-						start = " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
+						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
 
-						end = "  </li>\n";
+						end += "  </li>\n";
 					} else if (chirld.type.equals("GridLayout")) {
 
-						start = "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
 
-						end = "</ul>\n";
+						end += "</ul>\n";
 					} else if (chirld.type.equals("Grid_ItemLayout")) {
-						start = "<li id=\"" + chirld.enname + "\"  >\n";
+						start += "<li id=\"" + chirld.enname + "\"  >\n";
 
-						end = "</li>\n";
+						end += "</li>\n";
 					} else if (chirld.type.equals("DialogLayout")) {
 
-						start = "<div id=\"" + chirld.enname + "\"  class=\"ui-dialog\">\n";
-						start = "<div class=\"ui-dialog-cnt\">\n";
+						start += "<div id=\"" + chirld.enname + "\"  class=\"ui-dialog\">\n";
+						start += "<div class=\"ui-dialog-cnt\">\n";
 
-						start = " <header class=\"ui-dialog-hd ui-border-b\">\n";
-						start = "<h3>新手任务</h3>\n";
-						start = "<i class=\"ui-dialog-close\" data-role=\"button\"></i>\n";
-						start = "</header>\n";
+						start += " <header class=\"ui-dialog-hd ui-border-b\">\n";
+						start += "<h3>新手任务</h3>\n";
+						start += "<i class=\"ui-dialog-close\" data-role=\"button\"></i>\n";
+						start += "</header>\n";
 
-						start = " <div class=\"ui-dialog-bd\">\n";
-						start = " <h4>标题标题</h4>\n";
-						start = "<div>开通年费QQ会员即可领取欢乐斗地主感恩节回馈礼包！</div>\n";
-						start = "</div>\n";
+						start += " <div class=\"ui-dialog-bd\">\n";
+						start += " <h4>标题标题</h4>\n";
+						start += "<div>开通年费QQ会员即可领取欢乐斗地主感恩节回馈礼包！</div>\n";
+						start += "</div>\n";
 
-						start = " <div class=\"ui-dialog-ft\">\n";
-						start = " <button type=\"button\" data-role=\"button\">取消</button>\n";
-						start = " <button type=\"button\" data-role=\"button\">确定</button>\n";
-						start = "</div>\n";
+						start += " <div class=\"ui-dialog-ft\">\n";
+						start += " <button type=\"button\" data-role=\"button\">取消</button>\n";
+						start += " <button type=\"button\" data-role=\"button\">确定</button>\n";
+						start += "</div>\n";
 
-						end = "</div>\n";
-						end = "</div>\n";
-						end = "<script class=\"demo-script\">\n";
-						end = "$(\".ui-dialog\").dialog(\"show\");\n";
-						end = "</script>\n";
+						end += "</div>\n";
+						end += "</div>\n";
+						end += "<script class=\"demo-script\">\n";
+						end += "$(\".ui-dialog\").dialog(\"show\");\n";
+						end += "</script>\n";
 
 					} else if (chirld.type.equals("TabLayout")) {
 
-						start = "<div class=\"ui-tab\" id=\"" + chirld.enname + "\" >\n";
-						start = "<ul class=\"ui-tab-nav ui-border-b\">\n";
-						start = " <li class=\"current\">热门推荐</li>\n";
-						start = " <li>全部表情</li>\n";
-						start = " <li>表情</li>\n";
-						start = "</ul>\n";
-						start = " <ul class=\"ui-tab-content\" style=\"width:300%\">\n";
+						start += "<div class=\"ui-tab\" id=\"" + chirld.enname + "\" >\n";
+						start += "<ul class=\"ui-tab-nav ui-border-b\">\n";
+						start += " <li class=\"current\">热门推荐</li>\n";
+						start += " <li>全部表情</li>\n";
+						start += " <li>表情</li>\n";
+						start += "</ul>\n";
+						start += " <ul class=\"ui-tab-content\" style=\"width:300%\">\n";
 
-						end = "</ul>\n";
-						end = "</div>\n";
+						end += "</ul>\n";
+						end += "</div>\n";
 
 					} else if (chirld.type.equals("SliderLayout")) {// 轮播
-						start = "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
 
-						end = "  </div>\n";
+						end += "  </div>\n";
 
-						start = "<div class=\"ui-slider\" id=\"slider1\">\n";
-						start = "<ul class=\"ui-slider-content\" style=\"width: 300%\">\n";
-						start = "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
-						start = "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
+						start += "<div class=\"ui-slider\" id=\"slider1\">\n";
+						start += "<ul class=\"ui-slider-content\" style=\"width: 300%\">\n";
+						start += "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
+						start += "<li><span style=\"background-image:url(http://placeholder.qiniudn.com/640x200)\"></span></li>\n";
 
-						end = "</ul>\n";
-						end = "</div>\n";
+						end += "</ul>\n";
+						end += "</div>\n";
 
 					} else if (chirld.type.equals("ActionSheetLayout")) {
 
-						start = "<div class=\"ui-actionsheet\">\n";
-						start = "<div class=\"ui-actionsheet-cnt\">\n";
+						start += "<div class=\"ui-actionsheet\">\n";
+						start += "<div class=\"ui-actionsheet-cnt\">\n";
 
-						end = "</div>\n";
-						end = "</div>\n";
-						end = "<script type=\"text/javascript\">\n";
-						end = "$('.ui-actionsheet').addClass('show');\n";
-						end = "</script>\n";
+						end += "</div>\n";
+						end += "</div>\n";
+						end += "<script type=\"text/javascript\">\n";
+						end += "$('.ui-actionsheet').addClass('show');\n";
+						end += "</script>\n";
 					}
 
-					bodym += start;
+					bodym += "\n"+start;
 
 					parent(chirld);
 
-					bodym += end;
+					bodym += end+"\n";
 				} else {// 这个儿子是非容器
 
 					// if (bean.compomentForWeb.equals("tr")) {
@@ -361,10 +366,24 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-		if (chirld.type.equals("TextView")) {
+		if (chirld.type.equals("Span")) {
 
-			bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname
 					+ "</span>\n";
+			// h4 label
+
+		}
+		if (chirld.type.equals("H1-9") ||chirld.type.equals("TextView")) {
+
+			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname
+					+ "</h4>\n";
+			// h4 label
+
+		}
+		if (chirld.type.equals("Label")) {
+
+			bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+					+ "</label>\n";
 			// h4 label
 
 		}
