@@ -137,6 +137,7 @@ public class WebJsp {
 		bodym+="String path = request.getContextPath();\n";
 		bodym+="String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
 		bodym+="%>\n";
+		bodym+="<!DOCTYPE html>\n";
 		bodym += "<html>\n";
 		
 		bodym += "<head>\n";
@@ -585,23 +586,7 @@ public class WebJsp {
 		return genID(3) + "-" + genID(2) + "-" + genID(3);
 	}
 
-	// function select_invoice(obj){//obj==this
-	// var invoiceTypeVal = $(obj).find("input[name='invoiceType']").val();
-	// var invoiceTypeVals = invoiceTypeVal.split("#", 2);
-	// var dw = invoiceTypeVals[1];
-	//
-	// $(obj).find("input[name='invoiceType']").prop("checked", true);
-	// $(obj).prop("class","checked04");
-	// $(obj).parent().find("input[name='invoiceType']").each(function () {
-	// if($(this).val() != invoiceTypeVal){
-	// ck_or_no_class(this, false);
-	// }
-	// });
-	// if(dw == "2"){
-	// $(obj).parent().parent().find("li[name='invoice_title_li']").show();
-	// } else {
-	// $(obj).parent().parent().find("li[name='invoice_title_li']").hide();
-	// }
-	// }
+
+	
 
 }
