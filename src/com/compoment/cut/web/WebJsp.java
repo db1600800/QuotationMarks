@@ -129,6 +129,9 @@ public class WebJsp {
 				layouts.add(bean);
 			}
 		}
+		
+		
+		
 
 		Collections.sort(layouts, comparatorDate);
 
@@ -185,6 +188,47 @@ public class WebJsp {
 	public String getConnection() {
 		return connection;
 	}
+	
+	
+	//用于调整顺序
+	public void parent1(CompomentBean bean) {
+
+	
+		// 有 儿子
+		if (bean.chirlds != null && bean.chirlds.size() > 0) {
+
+			for (CompomentBean chirld : bean.chirlds) {
+
+				// 这个儿子是容器 layout
+				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+
+
+					if (chirld.type.equals("HeaderLayout")) {
+						maxBean.chirlds.set(0, chirld);
+					} else if (chirld.type.equals("FooterLayout")) {
+						maxBean.chirlds.set(1, chirld);
+					} else if (chirld.type.equals("SectionLayout")) {
+					
+					} 
+
+
+					parent1(chirld);
+
+					
+				} else {// 这个儿子是非容器
+
+					
+				}
+				
+				
+			}
+
+		}
+
+	}
+
+	
+	
 
 	public void parent(CompomentBean bean) {
 
@@ -359,6 +403,8 @@ public class WebJsp {
 					// bodym += " </td>\n";
 					// }
 				}
+				
+				
 			}
 
 		}
@@ -587,6 +633,7 @@ public class WebJsp {
 	}
 
 
+	
 	
 
 }
