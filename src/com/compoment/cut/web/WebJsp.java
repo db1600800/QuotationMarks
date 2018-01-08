@@ -134,6 +134,7 @@ public class WebJsp {
 		
 
 		Collections.sort(layouts, comparatorDate);
+		parent1(maxBean);
 
 		bodym+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
 		bodym+="<%\n";
@@ -190,7 +191,12 @@ public class WebJsp {
 	}
 	
 	
+	
+	
 	//用于调整顺序
+	int position=0;
+	boolean haveHeaderLayout=false;
+	boolean haveFooterLayout=false;
 	public void parent1(CompomentBean bean) {
 
 	
@@ -204,15 +210,54 @@ public class WebJsp {
 
 
 					if (chirld.type.equals("HeaderLayout")) {
-						maxBean.chirlds.set(0, chirld);
-					} else if (chirld.type.equals("FooterLayout")) {
-						maxBean.chirlds.set(1, chirld);
-					} else if (chirld.type.equals("SectionLayout")) {
+						if(position!=0)
+						{
+							
+						
+				        bean.chirlds.add(0, chirld);
+						
+						bean.chirlds.remove(position+1);
+						}
+						haveHeaderLayout=true;
 					
+					} 
+					
+					if (chirld.type.equals("FooterLayout")) {
+						if(haveHeaderLayout==true && position!=1)
+						{
+							
+						bean.chirlds.add(1, chirld);
+						bean.chirlds.remove(position+1);
+						
+						}else if(haveHeaderLayout==false && position!=0)
+						{
+							bean.chirlds.add(0, chirld);
+							bean.chirlds.remove(position);
+						}
+						haveFooterLayout=true;
+					
+					} 
+					
+					if (chirld.type.equals("SectionLayout")) {
+						if(haveHeaderLayout==true&&haveFooterLayout==true&& position!=2)
+						{
+						bean.chirlds.add(2, chirld);
+						bean.chirlds.remove(position+1);
+						}else if(haveHeaderLayout==true&&haveFooterLayout!=true&& position!=1)
+						{
+							bean.chirlds.add(1, chirld);
+							bean.chirlds.remove(position+1);
+						}else if(haveHeaderLayout!=true&&haveFooterLayout==true&& position!=1)
+						{
+							bean.chirlds.add(1, chirld);
+							bean.chirlds.remove(position+1);
+						}
+					
+						
 					} 
 
 
-					parent1(chirld);
+					
 
 					
 				} else {// 这个儿子是非容器
@@ -220,7 +265,7 @@ public class WebJsp {
 					
 				}
 				
-				
+				position++;
 			}
 
 		}
