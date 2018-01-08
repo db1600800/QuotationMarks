@@ -190,42 +190,7 @@ public class WebJsp {
 	}
 	
 	
-	//用于调整顺序
-	public void parent1(CompomentBean bean) {
 
-	
-		// 有 儿子
-		if (bean.chirlds != null && bean.chirlds.size() > 0) {
-
-			for (CompomentBean chirld : bean.chirlds) {
-
-				// 这个儿子是容器 layout
-				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-
-
-					if (chirld.type.equals("HeaderLayout")) {
-						maxBean.chirlds.set(0, chirld);
-					} else if (chirld.type.equals("FooterLayout")) {
-						maxBean.chirlds.set(1, chirld);
-					} else if (chirld.type.equals("SectionLayout")) {
-					
-					} 
-
-
-					parent1(chirld);
-
-					
-				} else {// 这个儿子是非容器
-
-					
-				}
-				
-				
-			}
-
-		}
-
-	}
 
 	
 	
@@ -251,12 +216,43 @@ public class WebJsp {
 					String start = "";
 					String end = "";
 
-					if (chirld.type.equals("DivLayout")) {
+					if (chirld.type.equals("DivLayoutHorizon")) {
 
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-border\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace\" >\n";
 
 						end += "  </div>\n";
-					} else if (chirld.type.equals("HeaderLayout")) {
+					}else if(chirld.type.equals("DivLayoutVertical"))
+					{
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+
+						end += "  </div>\n";
+					}else if(chirld.type.equals("DivLayout1/4"))
+					{
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
+
+						end += "  </div>\n";
+					}else if(chirld.type.equals("DivLayout2/4"))
+					{
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
+
+						end += "  </div>\n";
+					}else if(chirld.type.equals("DivLayout3/4"))
+					{
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col ui-col-3\" >\n";
+
+						end += "  </div>\n";
+					}else if(chirld.type.equals("DivLayout4/4"))
+					{
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\"ui\" >\n";
+
+						end += "  </div>\n";
+					}
+					else if (chirld.type.equals("HeaderLayout")) {
 						start += "<header id=\"" + chirld.enname
 								+ "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
 
