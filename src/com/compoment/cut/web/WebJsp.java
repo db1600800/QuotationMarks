@@ -392,7 +392,7 @@ public class WebJsp {
 						end += "</ul>\n";
 					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
 						start += "<li id=\"" + chirld.enname + "\"  >\n";
-
+						//<div class="ui-border">
 						end += "</li>\n";
 					} else if (chirld.type.equals("DialogLayout")) {
 
@@ -619,8 +619,15 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("ImageView")) {
+			
+        if(chirld.parent.type.contains("grid")||chirld.parent.parent.type.contains("grid"))
+		{
+        	// <div class="ui-grid-trisect-img">
+        	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+		}
 
-			bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+
+			
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
