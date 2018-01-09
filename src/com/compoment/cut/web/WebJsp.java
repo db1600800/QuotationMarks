@@ -390,7 +390,7 @@ public class WebJsp {
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
 
 						end += "</ul>\n";
-					} else if (chirld.type.equals("Grid_ItemLayout")) {
+					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
 						start += "<li id=\"" + chirld.enname + "\"  >\n";
 
 						end += "</li>\n";
