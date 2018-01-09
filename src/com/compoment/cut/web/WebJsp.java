@@ -198,8 +198,6 @@ public class WebJsp {
 	boolean haveHeaderLayout=false;
 	boolean haveFooterLayout=false;
 	public void changePosition(CompomentBean bean) {
-
-	
 		// 有 儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 
