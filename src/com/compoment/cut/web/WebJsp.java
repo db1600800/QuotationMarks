@@ -391,8 +391,11 @@ public class WebJsp {
 
 						end += "</ul>\n";
 					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
+						
 						start += "<li id=\"" + chirld.enname + "\"  >\n";
-						//<div class="ui-border">
+						start+="<div class=\"ui-border\">\n";
+						
+						end+="</div>\n";
 						end += "</li>\n";
 					} else if (chirld.type.equals("DialogLayout")) {
 
