@@ -129,21 +129,18 @@ public class WebJsp {
 				layouts.add(bean);
 			}
 		}
-		
-		
-		
 
 		Collections.sort(layouts, comparatorDate);
 		changePosition(maxBean);
 
-		bodym+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
-		bodym+="<%\n";
-		bodym+="String path = request.getContextPath();\n";
-		bodym+="String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
-		bodym+="%>\n";
-		bodym+="<!DOCTYPE html>\n";
+		bodym += "<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
+		bodym += "<%\n";
+		bodym += "String path = request.getContextPath();\n";
+		bodym += "String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
+		bodym += "%>\n";
+		bodym += "<!DOCTYPE html>\n";
 		bodym += "<html>\n";
-		
+
 		bodym += "<head>\n";
 		bodym += "	<meta charset='utf-8'>\n";
 		bodym += "	<meta name=\"viewport\" content=\"width=device-width,initial-scale=1, maximum-scale=1\">\n";
@@ -157,7 +154,7 @@ public class WebJsp {
 		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery-1.10.1.min.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>lib/zepto.min.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>js/frozen.js\"></script>\n";
-		
+
 		bodym += "<script>\n";
 		bodym += "//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
 		bodym += "//html取request值  <input type=\"hidden\"  name=\"busiNo\" id=\"busiNo\" value=\"<s:property value=\"#request.busiNo\"/>\" />\n\n";
@@ -168,7 +165,7 @@ public class WebJsp {
 		bodym += "</head>\n";
 
 		bodym += "<body>\n";
-	
+
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>\n";
 
 		bodym += formmStart;
@@ -176,7 +173,6 @@ public class WebJsp {
 
 		bodym += formmEnd;
 
-		
 		bodym += "</body>\n";
 
 		bodym += "</html>\n";
@@ -189,14 +185,12 @@ public class WebJsp {
 	public String getConnection() {
 		return connection;
 	}
-	
-	
 
-	
-	//用于调整顺序
-	int position=0;
-	boolean haveHeaderLayout=false;
-	boolean haveFooterLayout=false;
+	// 用于调整顺序
+	int position = 0;
+	boolean haveHeaderLayout = false;
+	boolean haveFooterLayout = false;
+
 	public void changePosition(CompomentBean bean) {
 		// 有 儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
@@ -206,73 +200,55 @@ public class WebJsp {
 				// 这个儿子是容器 layout
 				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-
 					if (chirld.type.equals("HeaderLayout")) {
-						if(position!=0)
-						{
-							
-						
-				        bean.chirlds.add(0, chirld);
-						
-						bean.chirlds.remove(position+1);
+						if (position != 0) {
+
+							bean.chirlds.add(0, chirld);
+
+							bean.chirlds.remove(position + 1);
 						}
-						haveHeaderLayout=true;
-					
-					} 
-					
+						haveHeaderLayout = true;
+
+					}
+
 					if (chirld.type.equals("FooterLayout")) {
-						if(haveHeaderLayout==true && position!=1)
-						{
-							
-						bean.chirlds.add(1, chirld);
-						bean.chirlds.remove(position+1);
-						
-						}else if(haveHeaderLayout==false && position!=0)
-						{
+						if (haveHeaderLayout == true && position != 1) {
+
+							bean.chirlds.add(1, chirld);
+							bean.chirlds.remove(position + 1);
+
+						} else if (haveHeaderLayout == false && position != 0) {
 							bean.chirlds.add(0, chirld);
 							bean.chirlds.remove(position);
 						}
-						haveFooterLayout=true;
-					
-					} 
-					
+						haveFooterLayout = true;
+
+					}
+
 					if (chirld.type.equals("SectionLayout")) {
-						if(haveHeaderLayout==true&&haveFooterLayout==true&& position!=2)
-						{
-						bean.chirlds.add(2, chirld);
-						bean.chirlds.remove(position+1);
-						}else if(haveHeaderLayout==true&&haveFooterLayout!=true&& position!=1)
-						{
+						if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
+							bean.chirlds.add(2, chirld);
+							bean.chirlds.remove(position + 1);
+						} else if (haveHeaderLayout == true && haveFooterLayout != true && position != 1) {
 							bean.chirlds.add(1, chirld);
-							bean.chirlds.remove(position+1);
-						}else if(haveHeaderLayout!=true&&haveFooterLayout==true&& position!=1)
-						{
+							bean.chirlds.remove(position + 1);
+						} else if (haveHeaderLayout != true && haveFooterLayout == true && position != 1) {
 							bean.chirlds.add(1, chirld);
-							bean.chirlds.remove(position+1);
+							bean.chirlds.remove(position + 1);
 						}
-					
-						
-					} 
 
+					}
 
-					
-
-					
 				} else {// 这个儿子是非容器
 
-					
 				}
-				
+
 				position++;
 			}
 
 		}
 
 	}
-
-
-	
-	
 
 	public void parent(CompomentBean bean) {
 
@@ -370,12 +346,45 @@ public class WebJsp {
 						start += " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
 
 						end += "  </div>\n";
-					} else if (chirld.type.equals("ListLayout")) {
+					} 
+				
+					else if (chirld.type.equals("ListLayout_LeftRight")) {
+
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-border-tb\">\n";
+						start+="<!--ui-list-link-->箭头\n";
+
+						end += "  </ul>\n";
+					} 
+					else if (chirld.type.equals("ListLayout_Left[LeftRight]")) {
+
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-one ui-border-tb\">\n";
+						start+="<!--ui-list-link-->箭头\n";
+						
+						end += "  </ul>\n";
+					} 
+					else if (chirld.type.equals("ListLayout_LeftLeft")) {
+
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
+						start+="<!--ui-list-link-->箭头\n";
+						
+						end += "  </ul>\n";
+					} 
+					
+				
+					else if (chirld.type.equals("ListLayout_TopBottom")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
 
 						end += "  </ul>\n";
-					} else if (chirld.type.equals("List_linkLayout")) {
+					} 
+					else if (chirld.type.equals("ListLayout_LeftTopBottom")) {
+
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
+
+						end += "  </ul>\n";
+					} 
+					
+					else if (chirld.type.equals("List_linkLayout")) {
 						start += "<ul id=\"" + chirld.enname
 								+ "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
 
@@ -493,18 +502,40 @@ public class WebJsp {
 
 		if (chirld.type.equals("Span")) {
 
-			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname
-					+ "</span>\n";
+			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>\n";
 			// h4 label
 
 		}
-		if (chirld.type.equals("H1-9") ||chirld.type.equals("TextView")) {
 
-			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname
-					+ "</h4>\n";
-			// h4 label
+		if (chirld.type.equals("H1-9")) {
+
+			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h4>\n";
 
 		}
+		
+		
+		if (chirld.type.equals("TextView")) {
+			// h4 label
+
+			if (chirld.parent.type.toLowerCase().contains("header")
+					|| chirld.parent.parent.type.toLowerCase().contains("header")) {
+				bodym += "<h1 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h1>\n";
+			} else if (chirld.parent.type.toLowerCase().contains("list")
+					|| chirld.parent.parent.type.toLowerCase().contains("list")) {
+
+				bodym += "<div class=\"ui-list-info\">\n";
+				bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
+				bodym += "</div>\n";
+
+			} else if (chirld.parent.type.toLowerCase().contains("form")
+					|| chirld.parent.parent.type.toLowerCase().contains("form")) {
+				bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+						+ "</label>\n";
+			}
+
+		}
+		
+		
 		if (chirld.type.equals("Label")) {
 
 			bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
@@ -622,33 +653,24 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("ImageView")) {
-			
-        if(chirld.parent.type.contains("grid")||chirld.parent.parent.type.contains("grid"))
-		{
-        bodym += "<div class=\"ui-grid-trisect-img\">\n";
-        	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
-        bodym += "</div>\n";
-		}
-        
-           if(chirld.parent.type.toLowerCase().contains("grid")||chirld.parent.parent.type.toLowerCase().contains("grid"))
-     		{
-             bodym += "<div class=\"ui-grid-trisect-img\">\n";
-             bodym += "<!-- ui-grid-halve-img 两列-->\n";
-             	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
-             bodym += "</div>\n";
-     		}
-           
-           if(chirld.parent.type.toLowerCase().contains("list")||chirld.parent.parent.type.toLowerCase().contains("list"))
-    		{
-        	
-            bodym += "<div class=\"ui-list-img\">\n";
-            bodym += "<!--class=\"ui-avatar\"  圆形框-->\n";
-            	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>\n";
-            bodym += "</div>\n";
-    		}
 
+			if (chirld.parent.type.toLowerCase().contains("grid")
+					|| chirld.parent.parent.type.toLowerCase().contains("grid")) {
+				bodym += "<div class=\"ui-grid-trisect-img\">\n";
+				bodym += "<!-- ui-grid-halve-img 两列-->\n";
+				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+				bodym += "</div>\n";
+			}
 
-			
+			if (chirld.parent.type.toLowerCase().contains("list")
+					|| chirld.parent.parent.type.toLowerCase().contains("list")) {
+
+				bodym += "<div class=\"ui-list-img\">\n";
+				bodym += "<!--class=\"ui-avatar\"  圆形框-->\n";
+				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>\n";
+				bodym += "</div>\n";
+			}
+
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
@@ -734,9 +756,5 @@ public class WebJsp {
 
 		return genID(3) + "-" + genID(2) + "-" + genID(3);
 	}
-
-
-	
-	
 
 }

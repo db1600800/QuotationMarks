@@ -545,12 +545,14 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Table_THLayout");
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
-			components.add("ListLayout");
-			components.add("ListLayout_LeftLeftRight");
+		
+			components.add("ListLayout_LeftRight");
+			components.add("ListLayout_Left[LeftRight]");
+			components.add("ListLayout_LeftLeft");
 			components.add("ListLayout_LeftTopBottom");
 			components.add("ListLayout_TopBottom");
 			
-			components.add("List_linkLayout");
+		
 			components.add("List_ItemLayout");
 		
 			
@@ -562,8 +564,8 @@ public class CompomentDialog2 extends JFrame {
 			components.add("ActionSheetLayout");// 底部弹出菜单
 			
 			
-			components.add("Line");
 			
+			components.add("TextView");
 			components.add("Span");
 			components.add("H1-9");
 			components.add("Label");
