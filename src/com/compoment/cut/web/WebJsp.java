@@ -625,9 +625,27 @@ public class WebJsp {
 			
         if(chirld.parent.type.contains("grid")||chirld.parent.parent.type.contains("grid"))
 		{
-        	// <div class="ui-grid-trisect-img">
+        bodym += "<div class=\"ui-grid-trisect-img\">\n";
         	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+        bodym += "</div>\n";
 		}
+        
+           if(chirld.parent.type.toLowerCase().contains("grid")||chirld.parent.parent.type.toLowerCase().contains("grid"))
+     		{
+             bodym += "<div class=\"ui-grid-trisect-img\">\n";
+             bodym += "<!-- ui-grid-halve-img 两列-->\n";
+             	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+             bodym += "</div>\n";
+     		}
+           
+           if(chirld.parent.type.toLowerCase().contains("list")||chirld.parent.parent.type.toLowerCase().contains("list"))
+    		{
+        	
+            bodym += "<div class=\"ui-list-img\">\n";
+            bodym += "<!--class=\"ui-avatar\"  圆形框-->\n";
+            	bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>\n";
+            bodym += "</div>\n";
+    		}
 
 
 			

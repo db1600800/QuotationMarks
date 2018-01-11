@@ -546,8 +546,14 @@ public class CompomentDialog2 extends JFrame {
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
 			components.add("ListLayout");
+			components.add("ListLayout_LeftLeftRight");
+			components.add("ListLayout_LeftTopBottom");
+			components.add("ListLayout_TopBottom");
+			
 			components.add("List_linkLayout");
 			components.add("List_ItemLayout");
+		
+			
 			components.add("GridLayout");
 			components.add("Grid_ItemLayoutVertical");
 			components.add("DialogLayout");
