@@ -558,6 +558,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("GridLayout2column");
 			components.add("GridLayout3column");
 			components.add("Grid_ItemLayoutVertical");
+			
 			components.add("DialogLayout");
 			components.add("TabLayout");
 			components.add("SliderLayout");//轮播

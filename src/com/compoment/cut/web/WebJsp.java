@@ -71,6 +71,8 @@ public class WebJsp {
 
 	int rootViewWidth = 320;
 	int rootViewHeight = 568;
+	
+	CompomentBean newParent;
 
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
@@ -130,8 +132,12 @@ public class WebJsp {
 			}
 		}
 
+		//2.修正属于哪个父亲
+		 newParent=maxBean;
+		 parentModifyParent(maxBean); 
+		
 		Collections.sort(layouts, comparatorDate);
-		changePosition(maxBean);
+		//changePosition(maxBean);
 
 		bodym += "<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
 		bodym += "<%\n";
@@ -185,70 +191,115 @@ public class WebJsp {
 	public String getConnection() {
 		return connection;
 	}
+	
+	
+	
+	public void parentModifyParent(CompomentBean bean) {
 
-	// 用于调整顺序
-	int position = 0;
-	boolean haveHeaderLayout = false;
-	boolean haveFooterLayout = false;
+		Collections.sort(bean.chirlds, comparatorDate);
 
-	public void changePosition(CompomentBean bean) {
 		// 有 儿子
 		if (bean.chirlds != null && bean.chirlds.size() > 0) {
 
-			for (CompomentBean chirld : bean.chirlds) {
+			if (bean.type.equals("ScrollViewLayout")) {
 
-				// 这个儿子是容器 layout
-				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					if (chirld.type.equals("HeaderLayout")) {
-						if (position != 0) {
+			} else {
 
-							bean.chirlds.add(0, chirld);
+				//
+				for (CompomentBean chirld : bean.chirlds) {
 
-							bean.chirlds.remove(position + 1);
-						}
-						haveHeaderLayout = true;
+					// 这个儿子是容器 layout
+					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-					}
-
-					if (chirld.type.equals("FooterLayout")) {
-						if (haveHeaderLayout == true && position != 1) {
-
-							bean.chirlds.add(1, chirld);
-							bean.chirlds.remove(position + 1);
-
-						} else if (haveHeaderLayout == false && position != 0) {
-							bean.chirlds.add(0, chirld);
-							bean.chirlds.remove(position);
-						}
-						haveFooterLayout = true;
-
-					}
-
-					if (chirld.type.equals("SectionLayout")) {
-						if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
-							bean.chirlds.add(2, chirld);
-							bean.chirlds.remove(position + 1);
-						} else if (haveHeaderLayout == true && haveFooterLayout != true && position != 1) {
-							bean.chirlds.add(1, chirld);
-							bean.chirlds.remove(position + 1);
-						} else if (haveHeaderLayout != true && haveFooterLayout == true && position != 1) {
-							bean.chirlds.add(1, chirld);
-							bean.chirlds.remove(position + 1);
+						if (chirld.layoutNoUseForIos == true) {//隐藏   
+							newParent=bean;
+						}else
+						{
+							newParent=chirld;
 						}
 
+						parentModifyParent(chirld);
+
+					
+
+						
+
+					} else {// 这个儿子是非容器
+
+						chirld.parent=newParent;
 					}
-
-				} else {// 这个儿子是非容器
-
 				}
 
-				position++;
 			}
-
 		}
 
-	}
+}
+	
+
+//	// 用于调整顺序
+//	int position = 0;
+//	boolean haveHeaderLayout = false;
+//	boolean haveFooterLayout = false;
+//
+//	public void changePosition(CompomentBean bean) {
+//		// 有 儿子
+//		if (bean.chirlds != null && bean.chirlds.size() > 0) {
+//
+//			for (CompomentBean chirld : bean.chirlds) {
+//
+//				// 这个儿子是容器 layout
+//				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+//
+//					if (chirld.type.equals("HeaderLayout")) {
+//						if (position != 0) {
+//
+//							bean.chirlds.add(0, chirld);
+//
+//							bean.chirlds.remove(position + 1);
+//						}
+//						haveHeaderLayout = true;
+//
+//					}
+//
+//					if (chirld.type.equals("FooterLayout")) {
+//						if (haveHeaderLayout == true && position != 1) {
+//
+//							bean.chirlds.add(1, chirld);
+//							bean.chirlds.remove(position + 1);
+//
+//						} else if (haveHeaderLayout == false && position != 0) {
+//							bean.chirlds.add(0, chirld);
+//							bean.chirlds.remove(position);
+//						}
+//						haveFooterLayout = true;
+//
+//					}
+//
+//					if (chirld.type.equals("SectionLayout")) {
+//						if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
+//							bean.chirlds.add(2, chirld);
+//							bean.chirlds.remove(position + 1);
+//						} else if (haveHeaderLayout == true && haveFooterLayout != true && position != 1) {
+//							bean.chirlds.add(1, chirld);
+//							bean.chirlds.remove(position + 1);
+//						} else if (haveHeaderLayout != true && haveFooterLayout == true && position != 1) {
+//							bean.chirlds.add(1, chirld);
+//							bean.chirlds.remove(position + 1);
+//						}
+//
+//					}
+//
+//				} else {// 这个儿子是非容器
+//
+//				}
+//
+//				position++;
+//			}
+//
+//		}
+//
+//	}
 
 	public void parent(CompomentBean bean) {
 
@@ -598,12 +649,23 @@ public class WebJsp {
 
 			if (chirld.picName.equals("图片名")) {
 
-				bodym += "<button class=\"ui-btn-s ui-btn-progress\"  background-color:" + chirld.bgRgb16
-						+ " onclick=\"" + chirld.actionString + ";\" >" + chirld.cnname + "</button>\n";
+				String bgcolor="";
+				if(chirld.bgRgb16.contains("#"))
+				{
+					bgcolor=chirld.bgRgb16;
+				}
+				String actionstring="";
+				if(chirld.actionString!=null)
+				{
+					actionstring=chirld.actionString;
+				}
+						
+				bodym += "<button class=\"ui-btn\"  background-color=\"" + bgcolor
+						+ "\" onclick=\"" + actionstring+ "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
-				bodym += "<button class=\"ui-btn-s ui-btn-progress\" src= \"/images/" + chirld.picName
+				bodym += "<button class=\"ui-btn\" src= \"/images/" + chirld.picName
 						+ ".png\" onclick=\"" + chirld.actionString + "\" >" + chirld.cnname + "</button>\n";
 			}
 
