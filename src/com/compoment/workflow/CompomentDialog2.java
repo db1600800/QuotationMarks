@@ -552,11 +552,11 @@ public class CompomentDialog2 extends JFrame {
 			components.add("ListLayout_LeftTopBottom");
 			components.add("ListLayout_TopBottom");
 			
-		
 			components.add("List_ItemLayout");
 		
 			
-			components.add("GridLayout");
+			components.add("GridLayout2column");
+			components.add("GridLayout3column");
 			components.add("Grid_ItemLayoutVertical");
 			components.add("DialogLayout");
 			components.add("TabLayout");
@@ -569,6 +569,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Span");
 			components.add("H1-9");
 			components.add("Label");
+			
 			components.add("EditText");
 			
 			components.add("Button");

@@ -384,22 +384,24 @@ public class WebJsp {
 						end += "  </ul>\n";
 					} 
 					
-					else if (chirld.type.equals("List_linkLayout")) {
-						start += "<ul id=\"" + chirld.enname
-								+ "\" class=\"ui-list  ui-list-text ui-list-link ui-border-tb\">\n";
-
-						end += "  </ul>\n";
-					} else if (chirld.type.equals("List_ItemLayout")) {
+					else if (chirld.type.equals("List_ItemLayout")) {
 
 						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
 
 						end += "  </li>\n";
-					} else if (chirld.type.equals("GridLayout")) {
+					} else if (chirld.type.equals("GridLayout2column")) {
 
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
+						start +="<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
 
 						end += "</ul>\n";
-					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
+					} 
+				    else if (chirld.type.equals("GridLayout3column")) {
+
+					start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
+
+					end += "</ul>\n";
+				     } 
+					else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
 						
 						start += "<li id=\"" + chirld.enname + "\"  >\n";
 						start+="<div class=\"ui-border\">\n";
@@ -656,9 +658,16 @@ public class WebJsp {
 
 			if (chirld.parent.type.toLowerCase().contains("grid")
 					|| chirld.parent.parent.type.toLowerCase().contains("grid")) {
-				bodym += "<div class=\"ui-grid-trisect-img\">\n";
-				bodym += "<!-- ui-grid-halve-img 两列-->\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/100x100)\"></span>\n";
+				String columncount="trisect";
+				String picsize="190x284";
+				if(chirld.parent.type.toLowerCase().contains("halve")
+						|| chirld.parent.parent.type.toLowerCase().contains("halve"))
+				{
+					columncount="halve";
+					picsize="290x160";
+				}
+				bodym += "<div class=\"ui-grid-"+columncount+"-img\">\n";
+				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/"+picsize+")\"></span>\n";
 				bodym += "</div>\n";
 			}
 
