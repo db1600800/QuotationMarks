@@ -645,6 +645,7 @@ public class WebJsp {
 			bodym += "</div>\n";
 		}
 
+		
 		if (chirld.type.equals("Button")) {
 
 			if (chirld.picName.equals("图片名")) {
