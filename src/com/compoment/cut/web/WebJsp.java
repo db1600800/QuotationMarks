@@ -360,12 +360,12 @@ public class WebJsp {
 					}
 					else if (chirld.type.equals("HeaderLayout")) {
 						start += "<header id=\"" + chirld.enname
-								+ "\" class=\"ui-header ui-header-stable ui-border-b\">\n";
+								+ "\" class=\"ui-header ui-header-stable ui-border-b\" style=\"background-color:"+chirld.bgRgb16+";\">\n";
 
 						end += "</header>\n";
 					} else if (chirld.type.equals("FooterLayout")) {
 						start += "<footer id=\"" + chirld.enname
-								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\">\n";
+								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\" style=\"background-color:"+chirld.bgRgb16+";\">\n";
 
 						end += "</footer>\n";
 					} else if (chirld.type.equals("SectionLayout")) {
@@ -661,8 +661,7 @@ public class WebJsp {
 					actionstring=chirld.actionString;
 				}
 						
-				bodym += "<button class=\"ui-btn\"  background-color=\"" + bgcolor
-						+ "\" onclick=\"" + actionstring+ "\" >" + chirld.cnname + "</button>\n";
+				bodym += "<button class=\"ui-btn\"  style=\"background-color:"+bgcolor+";color:"+chirld.rgb16+";\"  onclick=\"" + actionstring+ "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
