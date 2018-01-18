@@ -54,7 +54,7 @@ class JavaObjectToWordtable {
 		}
 
 		sourceFile = classDir + "/src/com/compoment/jsonToJava/creater/"
-				+ "someto";
+				+ "sqlToWordTable.txt";
 
 		String destinationFile = classDir
 				+ "/src/com/compoment/jsonToJava/creater/"

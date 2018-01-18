@@ -71,7 +71,7 @@ public class WebJsp {
 
 	int rootViewWidth = 320;
 	int rootViewHeight = 568;
-	
+
 	CompomentBean newParent;
 
 	public WebJsp(int cellWidth, int cellHeight) {
@@ -132,12 +132,12 @@ public class WebJsp {
 			}
 		}
 
-		//2.修正属于哪个父亲
-		 newParent=maxBean;
-		 parentModifyParent(maxBean); 
-		
+		// 2.修正属于哪个父亲
+		newParent = maxBean;
+		parentModifyParent(maxBean);
+
 		Collections.sort(layouts, comparatorDate);
-		//changePosition(maxBean);
+		// changePosition(maxBean);
 
 		bodym += "<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%>\n";
 		bodym += "<%\n";
@@ -157,7 +157,7 @@ public class WebJsp {
 		bodym += "	<meta Http-Equiv=\"Expires\" Content=\"-1\"/>\n";
 
 		bodym += "  <link rel=\"stylesheet\" href=\"<%=basePath%>css/frozen.css\">\n";
-		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery-1.10.1.min.js\"></script>\n";
+		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>lib/zepto.min.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>js/frozen.js\"></script>\n";
 
@@ -191,9 +191,7 @@ public class WebJsp {
 	public String getConnection() {
 		return connection;
 	}
-	
-	
-	
+
 	public void parentModifyParent(CompomentBean bean) {
 
 		Collections.sort(bean.chirlds, comparatorDate);
@@ -203,7 +201,6 @@ public class WebJsp {
 
 			if (bean.type.equals("ScrollViewLayout")) {
 
-
 			} else {
 
 				//
@@ -212,94 +209,90 @@ public class WebJsp {
 					// 这个儿子是容器 layout
 					if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 
-						if (chirld.layoutNoUseForIos == true) {//隐藏   
-							newParent=bean;
-						}else
-						{
-							newParent=chirld;
+						if (chirld.layoutNoUseForIos == true) {// 隐藏
+							newParent = bean;
+						} else {
+							newParent = chirld;
 						}
 
 						parentModifyParent(chirld);
 
-					
-
-						
-
 					} else {// 这个儿子是非容器
 
-						chirld.parent=newParent;
+						chirld.parent = newParent;
 					}
 				}
 
 			}
 		}
 
-}
-	
+	}
 
-//	// 用于调整顺序
-//	int position = 0;
-//	boolean haveHeaderLayout = false;
-//	boolean haveFooterLayout = false;
-//
-//	public void changePosition(CompomentBean bean) {
-//		// 有 儿子
-//		if (bean.chirlds != null && bean.chirlds.size() > 0) {
-//
-//			for (CompomentBean chirld : bean.chirlds) {
-//
-//				// 这个儿子是容器 layout
-//				if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-//
-//					if (chirld.type.equals("HeaderLayout")) {
-//						if (position != 0) {
-//
-//							bean.chirlds.add(0, chirld);
-//
-//							bean.chirlds.remove(position + 1);
-//						}
-//						haveHeaderLayout = true;
-//
-//					}
-//
-//					if (chirld.type.equals("FooterLayout")) {
-//						if (haveHeaderLayout == true && position != 1) {
-//
-//							bean.chirlds.add(1, chirld);
-//							bean.chirlds.remove(position + 1);
-//
-//						} else if (haveHeaderLayout == false && position != 0) {
-//							bean.chirlds.add(0, chirld);
-//							bean.chirlds.remove(position);
-//						}
-//						haveFooterLayout = true;
-//
-//					}
-//
-//					if (chirld.type.equals("SectionLayout")) {
-//						if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
-//							bean.chirlds.add(2, chirld);
-//							bean.chirlds.remove(position + 1);
-//						} else if (haveHeaderLayout == true && haveFooterLayout != true && position != 1) {
-//							bean.chirlds.add(1, chirld);
-//							bean.chirlds.remove(position + 1);
-//						} else if (haveHeaderLayout != true && haveFooterLayout == true && position != 1) {
-//							bean.chirlds.add(1, chirld);
-//							bean.chirlds.remove(position + 1);
-//						}
-//
-//					}
-//
-//				} else {// 这个儿子是非容器
-//
-//				}
-//
-//				position++;
-//			}
-//
-//		}
-//
-//	}
+	// // 用于调整顺序
+	// int position = 0;
+	// boolean haveHeaderLayout = false;
+	// boolean haveFooterLayout = false;
+	//
+	// public void changePosition(CompomentBean bean) {
+	// // 有 儿子
+	// if (bean.chirlds != null && bean.chirlds.size() > 0) {
+	//
+	// for (CompomentBean chirld : bean.chirlds) {
+	//
+	// // 这个儿子是容器 layout
+	// if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+	//
+	// if (chirld.type.equals("HeaderLayout")) {
+	// if (position != 0) {
+	//
+	// bean.chirlds.add(0, chirld);
+	//
+	// bean.chirlds.remove(position + 1);
+	// }
+	// haveHeaderLayout = true;
+	//
+	// }
+	//
+	// if (chirld.type.equals("FooterLayout")) {
+	// if (haveHeaderLayout == true && position != 1) {
+	//
+	// bean.chirlds.add(1, chirld);
+	// bean.chirlds.remove(position + 1);
+	//
+	// } else if (haveHeaderLayout == false && position != 0) {
+	// bean.chirlds.add(0, chirld);
+	// bean.chirlds.remove(position);
+	// }
+	// haveFooterLayout = true;
+	//
+	// }
+	//
+	// if (chirld.type.equals("SectionLayout")) {
+	// if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
+	// bean.chirlds.add(2, chirld);
+	// bean.chirlds.remove(position + 1);
+	// } else if (haveHeaderLayout == true && haveFooterLayout != true && position
+	// != 1) {
+	// bean.chirlds.add(1, chirld);
+	// bean.chirlds.remove(position + 1);
+	// } else if (haveHeaderLayout != true && haveFooterLayout == true && position
+	// != 1) {
+	// bean.chirlds.add(1, chirld);
+	// bean.chirlds.remove(position + 1);
+	// }
+	//
+	// }
+	//
+	// } else {// 这个儿子是非容器
+	//
+	// }
+	//
+	// position++;
+	// }
+	//
+	// }
+	//
+	// }
 
 	public void parent(CompomentBean bean) {
 
@@ -327,45 +320,42 @@ public class WebJsp {
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace\" >\n";
 
 						end += "  </div>\n";
-					}else if(chirld.type.equals("DivLayoutVertical"))
-					{
-						
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+					} else if (chirld.type.equals("DivLayoutVertical")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
 
 						end += "  </div>\n";
-					}else if(chirld.type.equals("DivLayout1/4"))
-					{
-						
+					} else if (chirld.type.equals("DivLayout1fen4")) {
+
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
 
 						end += "  </div>\n";
-					}else if(chirld.type.equals("DivLayout2/4"))
-					{
-						
+					} else if (chirld.type.equals("DivLayout2fen4")) {
+
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
 
 						end += "  </div>\n";
-					}else if(chirld.type.equals("DivLayout3/4"))
-					{
-						
+					} else if (chirld.type.equals("DivLayout3fen4")) {
+
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col ui-col-3\" >\n";
 
 						end += "  </div>\n";
-					}else if(chirld.type.equals("DivLayout4/4"))
-					{
-						
+					} else if (chirld.type.equals("DivLayout4fen4")) {
+
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
 
 						end += "  </div>\n";
-					}
-					else if (chirld.type.equals("HeaderLayout")) {
+					} else if (chirld.type.equals("HeaderLayout")) {
 						start += "<header id=\"" + chirld.enname
-								+ "\" class=\"ui-header ui-header-stable ui-border-b\" style=\"background-color:"+chirld.bgRgb16+";\">\n";
+								+ "\" class=\"ui-header ui-header-stable ui-border-b\" style=\"background-color:"
+								+ chirld.bgRgb16 + ";\">\n";
 
 						end += "</header>\n";
 					} else if (chirld.type.equals("FooterLayout")) {
 						start += "<footer id=\"" + chirld.enname
-								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\" style=\"background-color:"+chirld.bgRgb16+";\">\n";
+								+ "\" class=\"ui-footer ui-footer-stable ui-border-t\" style=\"background-color:"
+								+ chirld.bgRgb16 + ";\">\n";
 
 						end += "</footer>\n";
 					} else if (chirld.type.equals("SectionLayout")) {
@@ -397,44 +387,40 @@ public class WebJsp {
 						start += " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
 
 						end += "  </div>\n";
-					} 
-				
+					}
+
 					else if (chirld.type.equals("ListLayout_LeftRight")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-border-tb\">\n";
-						start+="<!--ui-list-link-->箭头\n";
+						start += "<!--ui-list-link-->箭头\n";
 
 						end += "  </ul>\n";
-					} 
-					else if (chirld.type.equals("ListLayout_Left[LeftRight]")) {
+					} else if (chirld.type.equals("ListLayout_Left[LeftRight]")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-one ui-border-tb\">\n";
-						start+="<!--ui-list-link-->箭头\n";
-						
+						start += "<!--ui-list-link-->箭头\n";
+
 						end += "  </ul>\n";
-					} 
-					else if (chirld.type.equals("ListLayout_LeftLeft")) {
+					} else if (chirld.type.equals("ListLayout_LeftLeft")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
-						start+="<!--ui-list-link-->箭头\n";
-						
+						start += "<!--ui-list-link-->箭头\n";
+
 						end += "  </ul>\n";
-					} 
-					
-				
+					}
+
 					else if (chirld.type.equals("ListLayout_TopBottom")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
 
 						end += "  </ul>\n";
-					} 
-					else if (chirld.type.equals("ListLayout_LeftTopBottom")) {
+					} else if (chirld.type.equals("ListLayout_LeftTopBottom")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
 
 						end += "  </ul>\n";
-					} 
-					
+					}
+
 					else if (chirld.type.equals("List_ItemLayout")) {
 
 						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
@@ -442,22 +428,20 @@ public class WebJsp {
 						end += "  </li>\n";
 					} else if (chirld.type.equals("GridLayout2column")) {
 
-						start +="<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
 
 						end += "</ul>\n";
-					} 
-				    else if (chirld.type.equals("GridLayout3column")) {
+					} else if (chirld.type.equals("GridLayout3column")) {
 
-					start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
 
-					end += "</ul>\n";
-				     } 
-					else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
-						
+						end += "</ul>\n";
+					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
+
 						start += "<li id=\"" + chirld.enname + "\"  >\n";
-						start+="<div class=\"ui-border\">\n";
-						
-						end+="</div>\n";
+						start += "<div class=\"ui-border\">\n";
+
+						end += "</div>\n";
 						end += "</li>\n";
 					} else if (chirld.type.equals("DialogLayout")) {
 
@@ -523,11 +507,11 @@ public class WebJsp {
 						end += "</script>\n";
 					}
 
-					bodym += "\n"+start;
+					bodym += "\n" + start;
 
 					parent(chirld);
 
-					bodym += end+"\n";
+					bodym += end + "\n";
 				} else {// 这个儿子是非容器
 
 					// if (bean.compomentForWeb.equals("tr")) {
@@ -543,8 +527,7 @@ public class WebJsp {
 					// bodym += " </td>\n";
 					// }
 				}
-				
-				
+
 			}
 
 		}
@@ -565,30 +548,51 @@ public class WebJsp {
 			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h4>\n";
 
 		}
-		
-		
+
 		if (chirld.type.equals("TextView")) {
 			// h4 label
 
-			if (chirld.parent.type.toLowerCase().contains("header")
-					|| chirld.parent.parent.type.toLowerCase().contains("header")) {
-				bodym += "<h1 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h1>\n";
-			} else if (chirld.parent.type.toLowerCase().contains("list")
-					|| chirld.parent.parent.type.toLowerCase().contains("list")) {
+			if ((chirld.parent.parent != null && chirld.parent.parent.type != null)) {
 
-				bodym += "<div class=\"ui-list-info\">\n";
-				bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
-				bodym += "</div>\n";
+				if (chirld.parent.parent.type.toLowerCase().contains("header")) {
+					bodym += "<h1 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h1>\n";
+				} else if (chirld.parent.parent.type.toLowerCase().contains("list")) {
 
-			} else if (chirld.parent.type.toLowerCase().contains("form")
-					|| chirld.parent.parent.type.toLowerCase().contains("form")) {
-				bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
-						+ "</label>\n";
+					bodym += "<div class=\"ui-list-info\">\n";
+					bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
+					bodym += "</div>\n";
+
+				} else if (chirld.parent.parent.type.toLowerCase().contains("form")) {
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+							+ "</label>\n";
+				} else {
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+							+ "</span>\n";
+				}
+
 			}
 
+			if ((chirld.parent != null && chirld.parent.type != null)) {
+
+				if (chirld.parent.type.toLowerCase().contains("header")) {
+					bodym += "<h1 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h1>\n";
+				} else if (chirld.parent.type.toLowerCase().contains("list")) {
+
+					bodym += "<div class=\"ui-list-info\">\n";
+					bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
+					bodym += "</div>\n";
+
+				} else if (chirld.parent.type.toLowerCase().contains("form")) {
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+							+ "</label>\n";
+				} else {
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+							+ "</span>\n";
+				}
+
+			}
 		}
-		
-		
+
 		if (chirld.type.equals("Label")) {
 
 			bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
@@ -645,28 +649,26 @@ public class WebJsp {
 			bodym += "</div>\n";
 		}
 
-		
 		if (chirld.type.equals("Button")) {
 
 			if (chirld.picName.equals("图片名")) {
 
-				String bgcolor="";
-				if(chirld.bgRgb16.contains("#"))
-				{
-					bgcolor=chirld.bgRgb16;
+				String bgcolor = "";
+				if (chirld.bgRgb16.contains("#")) {
+					bgcolor = chirld.bgRgb16;
 				}
-				String actionstring="";
-				if(chirld.actionString!=null)
-				{
-					actionstring=chirld.actionString;
+				String actionstring = "";
+				if (chirld.actionString != null) {
+					actionstring = chirld.actionString;
 				}
-						
-				bodym += "<button class=\"ui-btn\"  style=\"background-color:"+bgcolor+";color:"+chirld.rgb16+";\"  onclick=\"" + actionstring+ "\" >" + chirld.cnname + "</button>\n";
+
+				bodym += "<button class=\"ui-btn\"  style=\"background-color:" + bgcolor + ";color:" + chirld.rgb16
+						+ ";\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
-				bodym += "<button class=\"ui-btn\" src= \"/images/" + chirld.picName
-						+ ".png\" onclick=\"" + chirld.actionString + "\" >" + chirld.cnname + "</button>\n";
+				bodym += "<button class=\"ui-btn\" src= \"/images/" + chirld.picName + ".png\" onclick=\""
+						+ chirld.actionString + "\" >" + chirld.cnname + "</button>\n";
 			}
 
 		}
@@ -720,16 +722,16 @@ public class WebJsp {
 
 			if (chirld.parent.type.toLowerCase().contains("grid")
 					|| chirld.parent.parent.type.toLowerCase().contains("grid")) {
-				String columncount="trisect";
-				String picsize="190x284";
-				if(chirld.parent.type.toLowerCase().contains("halve")
-						|| chirld.parent.parent.type.toLowerCase().contains("halve"))
-				{
-					columncount="halve";
-					picsize="290x160";
+				String columncount = "trisect";
+				String picsize = "190x284";
+				if (chirld.parent.type.toLowerCase().contains("halve")
+						|| chirld.parent.parent.type.toLowerCase().contains("halve")) {
+					columncount = "halve";
+					picsize = "290x160";
 				}
-				bodym += "<div class=\"ui-grid-"+columncount+"-img\">\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/"+picsize+")\"></span>\n";
+				bodym += "<div class=\"ui-grid-" + columncount + "-img\">\n";
+				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/" + picsize
+						+ ")\"></span>\n";
 				bodym += "</div>\n";
 			}
 

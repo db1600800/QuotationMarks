@@ -533,10 +533,10 @@ public class CompomentDialog2 extends JFrame {
 		
 			components.add("DivLayoutHorizon");
 			components.add("DivLayoutVertical");
-			components.add("DivLayout1/4");
-			components.add("DivLayout2/4");
-			components.add("DivLayout3/4");
-			components.add("DivLayout4/4");
+			components.add("DivLayout1fen4");
+			components.add("DivLayout2fen4");
+			components.add("DivLayout3fen4");
+			components.add("DivLayout4fen4");
 			components.add("HeaderLayout");
 			components.add("FooterLayout");
 			components.add("SectionLayout");
