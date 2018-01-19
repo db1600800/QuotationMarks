@@ -383,7 +383,7 @@ public class WebJsp {
 					else if (chirld.type.equals("DivLayout_Vertical")) {
 
 						start += "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
 
 						end += "  </div>\n";
 					} 
@@ -391,7 +391,7 @@ public class WebJsp {
 					else if (chirld.type.equals("DivLayout_Fen1_Vertical")) {
 
 						start += "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
 
 						end += "  </div>\n";
 					} 
@@ -399,7 +399,7 @@ public class WebJsp {
 					else if (chirld.type.equals("DivLayout_Fen2_Vertical")) {
 
 						start += "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
 
 						end += "  </div>\n";
 					} 
@@ -407,7 +407,7 @@ public class WebJsp {
 					else if (chirld.type.equals("DivLayout_Fen3_Vertical")) {
 
 						start += "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
 
 						end += "  </div>\n";
 					} 

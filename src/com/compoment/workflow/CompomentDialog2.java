@@ -1204,17 +1204,11 @@ public class CompomentDialog2 extends JFrame {
 		textSizeEdit.setText("16");
 
 		ArrayList webCompomentString = new ArrayList();
-		webCompomentString.add("leftTop");
-		webCompomentString.add("leftCenter");
-		webCompomentString.add("leftBottom");
+		webCompomentString.add("leftLeft");
+		webCompomentString.add("leftCenterRight");
+		webCompomentString.add("rightRight");
 		
-		webCompomentString.add("centerTop");
-		webCompomentString.add("centerCenter");
-		webCompomentString.add("centerBottom");
-		
-		webCompomentString.add("rightTop");
-		webCompomentString.add("rightCenter");
-		webCompomentString.add("rightBottom");
+	
 		
 		webCompomentString.add("boderTop");
 		webCompomentString.add("boderLeft");
