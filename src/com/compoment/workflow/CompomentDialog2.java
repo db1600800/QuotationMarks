@@ -533,6 +533,18 @@ public class CompomentDialog2 extends JFrame {
 		
 			components.add("DivLayoutHorizon");
 			components.add("DivLayoutVertical");
+			
+			components.add("DivLayout_Horizon");
+			components.add("DivLayout_Fen1_Horizon");
+			components.add("DivLayout_Fen2_Horizon");
+			components.add("DivLayout_Fen3_Horizon");
+			
+			components.add("DivLayout_Vertical");
+			components.add("DivLayout_Fen1_Vertical");
+			components.add("DivLayout_Fen2_Vertical");
+			components.add("DivLayout_Fen3_Vertical");
+			
+			
 			components.add("DivLayout1fen4");
 			components.add("DivLayout2fen4");
 			components.add("DivLayout3fen4");
@@ -1192,11 +1204,26 @@ public class CompomentDialog2 extends JFrame {
 		textSizeEdit.setText("16");
 
 		ArrayList webCompomentString = new ArrayList();
-		webCompomentString.add("left");
-		webCompomentString.add("center");
-		webCompomentString.add("right");
-		webCompomentString.add("verticalCenter");
-		webCompomentString.add("HorizontalCenter");
+		webCompomentString.add("leftTop");
+		webCompomentString.add("leftCenter");
+		webCompomentString.add("leftBottom");
+		
+		webCompomentString.add("centerTop");
+		webCompomentString.add("centerCenter");
+		webCompomentString.add("centerBottom");
+		
+		webCompomentString.add("rightTop");
+		webCompomentString.add("rightCenter");
+		webCompomentString.add("rightBottom");
+		
+		webCompomentString.add("boderTop");
+		webCompomentString.add("boderLeft");
+		webCompomentString.add("boderRight");
+		webCompomentString.add("boderBottom");
+		webCompomentString.add("boderTopBottom");
+		webCompomentString.add("boderAll");
+		
+
 		webCompomentListView.setListData(webCompomentString.toArray());
 		webCompomentListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 

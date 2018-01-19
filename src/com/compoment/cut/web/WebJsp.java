@@ -26,6 +26,9 @@ import com.compoment.ui.ios.creater.ScrollViewCells;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
+//http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
+//http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+
 public class WebJsp {
 
 	// <!--
@@ -315,6 +318,21 @@ public class WebJsp {
 					String start = "";
 					String end = "";
 
+					String relate="";
+					if("leftLeft".equals(chirld.compomentForWeb))
+					{
+						relate="justify-content:flex-start;align-items:center;";
+					}
+					if("leftCenterRight".equals(chirld.compomentForWeb))
+					{
+						relate="justify-content: space-between;align-items:center;";
+					}
+					if("rightRight".equals(chirld.compomentForWeb))
+					{
+						relate="justify-content:flex-end;align-items:center;";
+					}
+					
+					
 					if (chirld.type.equals("DivLayoutHorizon")) {
 
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace\" >\n";
@@ -326,7 +344,77 @@ public class WebJsp {
 								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
 
 						end += "  </div>\n";
-					} else if (chirld.type.equals("DivLayout1fen4")) {
+					} 
+				
+					else if (chirld.type.equals("DivLayout_Horizon")) {
+
+							
+						start += "<div id=\"" + chirld.enname
+								+ "\" style=\"display:flex;flex-direction:row;"+relate+"\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					else if (chirld.type.equals("DivLayout_Fen1_Horizon")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" style=\"display:flex;flex-direction:row;flex:1;"+relate+"\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					else if (chirld.type.equals("DivLayout_Fen2_Horizon")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" style=\"display:flex;flex-direction:row;flex:2;\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					else if (chirld.type.equals("DivLayout_Fen3_Horizon")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" style=\"display:flex;flex-direction:row;flex:3;"+relate+"\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					
+					else if (chirld.type.equals("DivLayout_Vertical")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					else if (chirld.type.equals("DivLayout_Fen1_Vertical")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+
+						end += "  </div>\n";
+					} 
+				
+					else if (chirld.type.equals("DivLayout_Fen2_Vertical")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+
+						end += "  </div>\n";
+					} 
+				
+					else if (chirld.type.equals("DivLayout_Fen3_Vertical")) {
+
+						start += "<div id=\"" + chirld.enname
+								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
+
+						end += "  </div>\n";
+					} 
+					
+					
+					
+					else if (chirld.type.equals("DivLayout1fen4")) {
 
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
 
@@ -638,8 +726,9 @@ public class WebJsp {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym += "<div class=\"ui-select-group\">\n";
-			bodym += "<div class=\"ui-select\">\n";
+			bodym+="<div class=\"ui-row-flex ui-whitespace\"  style=\"-webkit-box-pack:center; \">\n";
+			bodym += "<div>"+chirld.cnname+"</div>\n";
+			bodym += "<div class=\"ui-select\" style=\"margin-left: 6px;margin-right:6px;\">\n";
 			bodym += "<select>\n";
 			bodym += "<option>2014</option>\n";
 			bodym += "<option selected>2015</option>\n";
@@ -647,6 +736,7 @@ public class WebJsp {
 			bodym += "</select>\n";
 			bodym += "</div>\n";
 			bodym += "</div>\n";
+			
 		}
 
 		if (chirld.type.equals("Button")) {
