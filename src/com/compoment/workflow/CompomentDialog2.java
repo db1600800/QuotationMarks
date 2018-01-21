@@ -127,7 +127,9 @@ public class CompomentDialog2 extends JFrame {
 	
 	String pageName;
 	int runTimeAddCount=0;
-
+	JList borderList;
+	String compmentBorderForWeb;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -184,6 +186,37 @@ public class CompomentDialog2 extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
+		
+		JPanel borderPanel = new JPanel();
+		
+		JLabel label_3 = new JLabel("边框,箭头");
+		
+		JScrollPane borderScrollPane = new JScrollPane();
+		GroupLayout gl_borderPanel = new GroupLayout(borderPanel);
+		gl_borderPanel.setHorizontalGroup(
+			gl_borderPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 136, Short.MAX_VALUE)
+				.addGroup(gl_borderPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_borderPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(borderScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+						.addComponent(label_3))
+					.addContainerGap())
+		);
+		gl_borderPanel.setVerticalGroup(
+			gl_borderPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 126, Short.MAX_VALUE)
+				.addGroup(gl_borderPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label_3)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(borderScrollPane, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+	     borderList = new JList();
+		borderScrollPane.setViewportView(borderList);
+		borderPanel.setLayout(gl_borderPanel);
 
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -200,7 +233,7 @@ public class CompomentDialog2 extends JFrame {
 											.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
 												.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 									.addGap(12)
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -218,9 +251,12 @@ public class CompomentDialog2 extends JFrame {
 										.addComponent(label_2)
 										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
 										.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1163, Short.MAX_VALUE))
+								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED))
-						.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(borderPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))
 					.addGap(37))
 		);
 		gl_contentPanel.setVerticalGroup(
@@ -248,7 +284,9 @@ public class CompomentDialog2 extends JFrame {
 									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
 								.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(borderPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+								.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -257,7 +295,7 @@ public class CompomentDialog2 extends JFrame {
 							.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(74, Short.MAX_VALUE))
+					.addContainerGap(55, Short.MAX_VALUE))
 		);
 		
 				baseListListView = new JList();
@@ -267,24 +305,30 @@ public class CompomentDialog2 extends JFrame {
 				scrollPane_1.setViewportView(actionList);
 
 		lblWeb = new JLabel("位置（左中右）");
-
-		webCompomentListView = new JList();
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
 		GroupLayout gl_webCompomentPanel = new GroupLayout(webCompomentPanel);
-		gl_webCompomentPanel
-				.setHorizontalGroup(
-						gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(
-										gl_webCompomentPanel.createSequentialGroup().addContainerGap()
-												.addGroup(gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE,
-																124, Short.MAX_VALUE)
-														.addComponent(lblWeb))
-												.addContainerGap()));
-		gl_webCompomentPanel.setVerticalGroup(gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_webCompomentPanel.createSequentialGroup().addContainerGap().addComponent(lblWeb)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(webCompomentListView, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-						.addContainerGap()));
+		gl_webCompomentPanel.setHorizontalGroup(
+			gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_webCompomentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+						.addComponent(lblWeb))
+					.addContainerGap())
+		);
+		gl_webCompomentPanel.setVerticalGroup(
+			gl_webCompomentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_webCompomentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblWeb)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+				webCompomentListView = new JList();
+				scrollPane_3.setViewportView(webCompomentListView);
 		webCompomentPanel.setLayout(gl_webCompomentPanel);
 
 		cnNameEdit = new JTextField();
@@ -531,8 +575,7 @@ public class CompomentDialog2 extends JFrame {
 			components.clear();
 			
 		
-			components.add("DivLayoutHorizon");
-			components.add("DivLayoutVertical");
+		
 			
 			components.add("DivLayout_Horizon");
 			components.add("DivLayout_Fen1_Horizon");
@@ -545,10 +588,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("DivLayout_Fen3_Vertical");
 			
 			
-			components.add("DivLayout1fen4");
-			components.add("DivLayout2fen4");
-			components.add("DivLayout3fen4");
-			components.add("DivLayout4fen4");
+		
 			components.add("HeaderLayout");
 			components.add("FooterLayout");
 			components.add("SectionLayout");
@@ -558,13 +598,9 @@ public class CompomentDialog2 extends JFrame {
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
 		
-			components.add("ListLayout_LeftRight");
-			components.add("ListLayout_Left[LeftRight]");
-			components.add("ListLayout_LeftLeft");
-			components.add("ListLayout_LeftTopBottom");
-			components.add("ListLayout_TopBottom");
-			
-			components.add("List_ItemLayout");
+			components.add("ListLayout");
+			components.add("List_ItemLayout_Horizon");
+			components.add("List_ItemLayout_Vertical");
 		
 			
 			components.add("GridLayout2column");
@@ -587,7 +623,7 @@ public class CompomentDialog2 extends JFrame {
 			
 			components.add("Button");
 			components.add("Button_Close");
-			
+			components.add("leftArrow");
 			components.add("CheckBox");
 			components.add("CheckBox_Switch");
 			components.add("Radio");
@@ -927,6 +963,7 @@ public class CompomentDialog2 extends JFrame {
 				bean.bgRgb16ios = "" + bgColorEdit.getText().trim();
 
 				bean.compomentForWeb = webCompomentType;
+				bean.compmentBorderForWeb=compmentBorderForWeb;
 				bean.layoutNoUseForIos = layoutNoUseBool.isSelected();
 
 				if (!colorEdit.getText().trim().contains("色")) {
@@ -1207,18 +1244,32 @@ public class CompomentDialog2 extends JFrame {
 		webCompomentString.add("leftLeft");
 		webCompomentString.add("leftCenterRight");
 		webCompomentString.add("rightRight");
+
+		ArrayList borderString = new ArrayList();
 		
-	
-		
-		webCompomentString.add("boderTop");
-		webCompomentString.add("boderLeft");
-		webCompomentString.add("boderRight");
-		webCompomentString.add("boderBottom");
-		webCompomentString.add("boderTopBottom");
-		webCompomentString.add("boderAll");
+		borderString.add("boderTop");
+		borderString.add("boderLeft");
+		borderString.add("boderRight");
+		borderString.add("boderBottom");
+		borderString.add("boderTopBottom");
+		borderString.add("boderAll");
+		borderList.setListData(borderString.toArray());
+		borderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		borderList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent even) {
+				// TODO Auto-generated method stub
+
+				String value = borderList.getSelectedValue().toString();
+				compmentBorderForWeb = value;
+			}
+		});
 		
 
 		webCompomentListView.setListData(webCompomentString.toArray());
+		
 		webCompomentListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		webCompomentListView.addListSelectionListener(new ListSelectionListener() {

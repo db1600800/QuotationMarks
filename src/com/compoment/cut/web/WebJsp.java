@@ -322,7 +322,7 @@ public class WebJsp {
 					if("leftLeft".equals(chirld.compomentForWeb))
 					{
 						relate="justify-content:flex-start;align-items:center;";
-					}
+					} 
 					if("leftCenterRight".equals(chirld.compomentForWeb))
 					{
 						relate="justify-content: space-between;align-items:center;";
@@ -333,20 +333,9 @@ public class WebJsp {
 					}
 					
 					
-					if (chirld.type.equals("DivLayoutHorizon")) {
-
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-row-flex ui-whitespace\" >\n";
-
-						end += "  </div>\n";
-					} else if (chirld.type.equals("DivLayoutVertical")) {
-
-						start += "<div id=\"" + chirld.enname
-								+ "\" class=\"ui-row-flex ui-whitespace ui-row-flex-ver\" >\n";
-
-						end += "  </div>\n";
-					} 
 				
-					else if (chirld.type.equals("DivLayout_Horizon")) {
+				
+					 if (chirld.type.equals("DivLayout_Horizon")) {
 
 							
 						start += "<div id=\"" + chirld.enname
@@ -414,27 +403,7 @@ public class WebJsp {
 					
 					
 					
-					else if (chirld.type.equals("DivLayout1fen4")) {
-
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
-
-						end += "  </div>\n";
-					} else if (chirld.type.equals("DivLayout2fen4")) {
-
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
-
-						end += "  </div>\n";
-					} else if (chirld.type.equals("DivLayout3fen4")) {
-
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col ui-col-3\" >\n";
-
-						end += "  </div>\n";
-					} else if (chirld.type.equals("DivLayout4fen4")) {
-
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-col\" >\n";
-
-						end += "  </div>\n";
-					} else if (chirld.type.equals("HeaderLayout")) {
+				 else if (chirld.type.equals("HeaderLayout")) {
 						start += "<header id=\"" + chirld.enname
 								+ "\" class=\"ui-header ui-header-stable ui-border-b\" style=\"background-color:"
 								+ chirld.bgRgb16 + ";\">\n";
@@ -477,44 +446,29 @@ public class WebJsp {
 						end += "  </div>\n";
 					}
 
-					else if (chirld.type.equals("ListLayout_LeftRight")) {
+					else if (chirld.type.equals("ListLayout")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-border-tb\">\n";
 						start += "<!--ui-list-link-->箭头\n";
 
 						end += "  </ul>\n";
-					} else if (chirld.type.equals("ListLayout_Left[LeftRight]")) {
+					} 
 
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-one ui-border-tb\">\n";
-						start += "<!--ui-list-link-->箭头\n";
+					else if (chirld.type.equals("List_ItemLayout_Horizon")) {
 
-						end += "  </ul>\n";
-					} else if (chirld.type.equals("ListLayout_LeftLeft")) {
-
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
-						start += "<!--ui-list-link-->箭头\n";
-
-						end += "  </ul>\n";
-					}
-
-					else if (chirld.type.equals("ListLayout_TopBottom")) {
-
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list ui-list-pure ui-border-tb\">\n";
-
-						end += "  </ul>\n";
-					} else if (chirld.type.equals("ListLayout_LeftTopBottom")) {
-
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-border-tb\">\n";
-
-						end += "  </ul>\n";
-					}
-
-					else if (chirld.type.equals("List_ItemLayout")) {
-
-						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\">\n";
+						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;"+relate+"\">\n";
 
 						end += "  </li>\n";
-					} else if (chirld.type.equals("GridLayout2column")) {
+					} 
+					else if (chirld.type.equals("List_ItemLayout_Vertical")) {
+
+						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;"+relate+"\">\n";
+
+						end += "  </li>\n";
+					} 
+					
+					
+					else if (chirld.type.equals("GridLayout2column")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
 
@@ -726,9 +680,9 @@ public class WebJsp {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym+="<div class=\"ui-row-flex ui-whitespace\"  style=\"-webkit-box-pack:center; \">\n";
+			bodym+="<div  style=\"display:flex;\">\n";
 			bodym += "<div>"+chirld.cnname+"</div>\n";
-			bodym += "<div class=\"ui-select\" style=\"margin-left: 6px;margin-right:6px;\">\n";
+			bodym += "<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">\n";
 			bodym += "<select>\n";
 			bodym += "<option>2014</option>\n";
 			bodym += "<option selected>2015</option>\n";
@@ -769,6 +723,10 @@ public class WebJsp {
 
 		}
 
+		if (chirld.type.equals("leftArrow")) {
+			bodym += "<i class=\"ui-icon-return\" onclick=\"history.back()\"></i>\n";
+		}
+		
 		if (chirld.type.equals("CheckBox")) {
 			bodym += " <label class=\"ui-checkbox\">\n";
 			bodym += "<input type=\"checkbox\">\n";
