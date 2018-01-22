@@ -72,6 +72,7 @@ public class CompomentBean implements Serializable {
 	public String relativeForWeb="";
 	public String compomentForWeb="";
 	public String compmentBorderForWeb="";
+	public String compmentExpandForWeb;
 	
 	public String picName;
 	/**
