@@ -573,10 +573,6 @@ public class CompomentDialog2 extends JFrame {
 		else if(pageType.contains("Web"))
 		{
 			components.clear();
-			
-		
-		
-			
 			components.add("DivLayout_Horizon");
 			components.add("DivLayout_Fen1_Horizon");
 			components.add("DivLayout_Fen2_Horizon");
@@ -586,8 +582,6 @@ public class CompomentDialog2 extends JFrame {
 			components.add("DivLayout_Fen1_Vertical");
 			components.add("DivLayout_Fen2_Vertical");
 			components.add("DivLayout_Fen3_Vertical");
-			
-			
 		
 			components.add("HeaderLayout");
 			components.add("FooterLayout");
@@ -612,8 +606,6 @@ public class CompomentDialog2 extends JFrame {
 			components.add("SliderLayout");//轮播
 			components.add("ActionSheetLayout");// 底部弹出菜单
 			
-			
-			
 			components.add("TextView");
 			components.add("Span");
 			components.add("H1-9");
@@ -624,6 +616,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Button");
 			components.add("Button_Close");
 			components.add("leftArrow");
+			components.add("rightArrow");
 			components.add("CheckBox");
 			components.add("CheckBox_Switch");
 			components.add("Radio");
@@ -1243,6 +1236,7 @@ public class CompomentDialog2 extends JFrame {
 		ArrayList webCompomentString = new ArrayList();
 		webCompomentString.add("leftLeft");
 		webCompomentString.add("centerCenter");
+		webCompomentString.add("leftRight");
 		webCompomentString.add("left_Center_Right");
 		webCompomentString.add("left[C e n t e r]Right");
 		webCompomentString.add("rightRight");

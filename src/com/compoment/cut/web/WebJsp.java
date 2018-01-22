@@ -260,6 +260,9 @@ public class WebJsp {
 					if ("left_Center_Right".equals(chirld.compomentForWeb)) {
 						relate = "justify-content: space-between;align-items:center;";
 					}
+					if ("leftRight".equals(chirld.compomentForWeb)) {
+						relate = "justify-content: space-between;align-items:center;";
+					}
 					if ("left[C e n t e r]Right".equals(chirld.compomentForWeb)) {
 						relate = "justify-content:flex-start;align-items:center;";
 					}
@@ -365,7 +368,7 @@ public class WebJsp {
 					}
 					
 					
-					
+		
 					
 
 					else if (chirld.type.equals("HeaderLayout")) {
@@ -414,7 +417,7 @@ public class WebJsp {
 					else if (chirld.type.equals("ListLayout")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-border-tb\">\n";
-						start += "<!--ui-list-link-->箭头\n";
+					
 
 						end += "  </ul>\n";
 					}
@@ -692,6 +695,11 @@ public class WebJsp {
 
 		if (chirld.type.equals("leftArrow")) {
 			bodym += "<i class=\"ui-icon-return\" onclick=\"history.back()\"></i>\n";
+		}
+		
+		if(chirld.type.equals("rightArrow"))
+		{
+			bodym += "<div style=\"width:7px;height: 7px;border-top: 2px solid #ffffff;border-right: 2px solid #ffffff;transform: rotate(45deg);\"></div>\n";
 		}
 
 		if (chirld.type.equals("CheckBox")) {
