@@ -280,7 +280,7 @@ public class WebJsp {
 					
 
 					if ("topBottom".equals(chirld.compomentForWeb)) {
-						relate = "justify-content:flex-start;align-items:center;";
+						relate = "width:100%;justify-content:flex-start;align-items:center;";
 					}
 
 					
