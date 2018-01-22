@@ -81,6 +81,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 	public String pageName;
 	ArrayList components = new ArrayList();
 	InterfaceDocDialog projectDocPanel;
+	CutImg cutImg;
 
 	/**
 	 * Launch the application.
@@ -113,7 +114,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		JPanel panel = new JPanel();
 		
-		JPanel picPanel = new CutImg(this, new File(pagePath));
+		cutImg= new CutImg(this, new File(pagePath));
+		JPanel picPanel=cutImg;
+		
 		
 		JPanel panel_2 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -259,6 +262,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 				{
 				beans.remove(beans.size()-1);
 				}
+				cutImg.repaint();
 				
 			}
 
@@ -837,7 +841,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		
 		
-		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName);
+		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName,pageType);
 		//jdialog.setSize(1000, 800);
 		jdialog.init(this,this, image, x, y, w, h,pageType);
 	

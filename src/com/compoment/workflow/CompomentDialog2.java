@@ -131,12 +131,15 @@ public class CompomentDialog2 extends JFrame {
 	String compmentBorderForWeb;
 	String compmentExpandForWeb;
 	JList expandList;
+	String pageType;//android ios  web webmanage
+	JPanel borderPanel;
+	JPanel expandPanel;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CompomentDialog2 dialog = new CompomentDialog2(null,null,null);
+			CompomentDialog2 dialog = new CompomentDialog2(null,null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -147,10 +150,11 @@ public class CompomentDialog2 extends JFrame {
 	/**
 	 * Create the dialog.
 	 */
-	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments,final String pageName) {
+	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments,final String pageName,final String pageType) {
 		this.interfaceBeans = interfaceBeans;
 		this.allCompoments=allCompoments;
 		this.pageName=pageName;
+		this.pageType=pageType;
 		setBounds(100, 100, 1170, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.LIGHT_GRAY);
@@ -188,7 +192,7 @@ public class CompomentDialog2 extends JFrame {
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		
-		JPanel borderPanel = new JPanel();
+		 borderPanel = new JPanel();
 		
 		JLabel label_3 = new JLabel("边框");
 		
@@ -219,7 +223,7 @@ public class CompomentDialog2 extends JFrame {
 		borderScrollPane.setViewportView(borderList);
 		borderPanel.setLayout(gl_borderPanel);
 		
-		JPanel expandPanel = new JPanel();
+		 expandPanel = new JPanel();
 		
 		JScrollPane scrollPane_4 = new JScrollPane();
 		
@@ -1367,6 +1371,8 @@ public class CompomentDialog2 extends JFrame {
 
 				if (compomentType.contains("Layout")) {
 					webCompomentPanel.setVisible(true);
+					borderPanel.setVisible(true);
+					expandPanel.setVisible(true);
 					long id = System.currentTimeMillis();
 					cnNameEdit.setText("bg" + id);
 					enNameEdit.setText("bg" + id);
@@ -1537,6 +1543,9 @@ public class CompomentDialog2 extends JFrame {
 					layoutNoUseBool.setVisible(false);
 					isNineListCheck.setVisible(false);
 					isMutiPageListCheck.setVisible(false);
+					borderPanel.setVisible(false);
+					expandPanel.setVisible(false);
+					webCompomentPanel.setVisible(false);
 				}
 
 				CompomentDialog2.this.setVisible(true);
