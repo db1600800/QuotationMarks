@@ -1242,7 +1242,9 @@ public class CompomentDialog2 extends JFrame {
 
 		ArrayList webCompomentString = new ArrayList();
 		webCompomentString.add("leftLeft");
-		webCompomentString.add("leftCenterRight");
+		webCompomentString.add("centerCenter");
+		webCompomentString.add("left_Center_Right");
+		webCompomentString.add("left[C e n t e r]Right");
 		webCompomentString.add("rightRight");
 
 		ArrayList borderString = new ArrayList();

@@ -231,72 +231,6 @@ public class WebJsp {
 
 	}
 
-	// // 用于调整顺序
-	// int position = 0;
-	// boolean haveHeaderLayout = false;
-	// boolean haveFooterLayout = false;
-	//
-	// public void changePosition(CompomentBean bean) {
-	// // 有 儿子
-	// if (bean.chirlds != null && bean.chirlds.size() > 0) {
-	//
-	// for (CompomentBean chirld : bean.chirlds) {
-	//
-	// // 这个儿子是容器 layout
-	// if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-	//
-	// if (chirld.type.equals("HeaderLayout")) {
-	// if (position != 0) {
-	//
-	// bean.chirlds.add(0, chirld);
-	//
-	// bean.chirlds.remove(position + 1);
-	// }
-	// haveHeaderLayout = true;
-	//
-	// }
-	//
-	// if (chirld.type.equals("FooterLayout")) {
-	// if (haveHeaderLayout == true && position != 1) {
-	//
-	// bean.chirlds.add(1, chirld);
-	// bean.chirlds.remove(position + 1);
-	//
-	// } else if (haveHeaderLayout == false && position != 0) {
-	// bean.chirlds.add(0, chirld);
-	// bean.chirlds.remove(position);
-	// }
-	// haveFooterLayout = true;
-	//
-	// }
-	//
-	// if (chirld.type.equals("SectionLayout")) {
-	// if (haveHeaderLayout == true && haveFooterLayout == true && position != 2) {
-	// bean.chirlds.add(2, chirld);
-	// bean.chirlds.remove(position + 1);
-	// } else if (haveHeaderLayout == true && haveFooterLayout != true && position
-	// != 1) {
-	// bean.chirlds.add(1, chirld);
-	// bean.chirlds.remove(position + 1);
-	// } else if (haveHeaderLayout != true && haveFooterLayout == true && position
-	// != 1) {
-	// bean.chirlds.add(1, chirld);
-	// bean.chirlds.remove(position + 1);
-	// }
-	//
-	// }
-	//
-	// } else {// 这个儿子是非容器
-	//
-	// }
-	//
-	// position++;
-	// }
-	//
-	// }
-	//
-	// }
-
 	public void parent(CompomentBean bean) {
 
 		Collections.sort(bean.chirlds, comparatorDate);
@@ -318,92 +252,123 @@ public class WebJsp {
 					String start = "";
 					String end = "";
 
-					String relate="";
-					if("leftLeft".equals(chirld.compomentForWeb))
-					{
-						relate="justify-content:flex-start;align-items:center;";
-					} 
-					if("leftCenterRight".equals(chirld.compomentForWeb))
-					{
-						relate="justify-content: space-between;align-items:center;";
+					String relate = "";
+					String border="";
+					if ("leftLeft".equals(chirld.compomentForWeb)) {
+						relate = "justify-content:flex-start;align-items:center;";
 					}
-					if("rightRight".equals(chirld.compomentForWeb))
-					{
-						relate="justify-content:flex-end;align-items:center;";
+					if ("left_Center_Right".equals(chirld.compomentForWeb)) {
+						relate = "justify-content: space-between;align-items:center;";
 					}
-					
-					
-				
-				
-					 if (chirld.type.equals("DivLayout_Horizon")) {
+					if ("left[C e n t e r]Right".equals(chirld.compomentForWeb)) {
+						relate = "justify-content:flex-start;align-items:center;";
+					}
+					if ("centerCenter".equals(chirld.compomentForWeb)) {
+						relate = "justify-content:center;align-items:center;";
+					}
 
-							
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:row;"+relate+"\" >\n";
+					if ("rightRight".equals(chirld.compomentForWeb)) {
+						relate = "justify-content:flex-end;align-items:center;";
+					}
+
+					
+					
+					
+					if ("boderTop".equals(chirld.compmentBorderForWeb)) {
+						border="border-top: 1px solid "+chirld.rgb16+";";
+					}
+
+					if ("boderLeft".equals(chirld.compmentBorderForWeb)) {
+						border="border-left: 1px solid "+chirld.rgb16+";";
+					}
+
+					if ("boderRight".equals(chirld.compmentBorderForWeb)) {
+						border="border-right: 1px solid "+chirld.rgb16+";";
+					}
+
+					if ("boderBottom".equals(chirld.compmentBorderForWeb)) {
+						border="border-bottom: 1px solid "+chirld.rgb16+";";
+					}
+
+					if ("boderTopBottom".equals(chirld.compmentBorderForWeb)) {
+						border="border-top: 1px solid "+chirld.rgb16+";border-bottom: 1px solid \"+chirld.rgb16+\";";
+					}
+
+					if ("boderAll".equals(chirld.compmentBorderForWeb)) {
+						border="border: 1px solid "+chirld.rgb16+";";
+					}
+					
+					
+
+					if (chirld.type.equals("DivLayout_Horizon")) {
+
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:row;" + relate +border+ "\" >\n";
 
 						end += "  </div>\n";
-					} 
-					
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen1_Horizon")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:row;flex:1;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:row;flex:1;" + relate +border+ "\" >\n";
 
 						end += "  </div>\n";
-					} 
-					
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen2_Horizon")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:row;flex:2;\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:row;flex:2;"+relate+border+"\" >\n";
 
 						end += "  </div>\n";
-					} 
-					
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen3_Horizon")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:row;flex:3;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:row;flex:3;" + relate +border+ "\" >\n";
 
 						end += "  </div>\n";
-					} 
-					
-					
+					}
+
 					else if (chirld.type.equals("DivLayout_Vertical")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate +border+ "\" >\n";
 
 						end += "  </div>\n";
-					} 
-					
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen1_Vertical")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border+"\" >\n";
 
 						end += "  </div>\n";
-					} 
-				
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen2_Vertical")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border+"\" >\n";
 
 						end += "  </div>\n";
-					} 
-				
+					}
+
 					else if (chirld.type.equals("DivLayout_Fen3_Vertical")) {
 
-						start += "<div id=\"" + chirld.enname
-								+ "\" style=\"display:flex;flex-direction:column;"+relate+"\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border+"\" >\n";
 
 						end += "  </div>\n";
-					} 
+					}
 					
 					
 					
-				 else if (chirld.type.equals("HeaderLayout")) {
+					
+
+					else if (chirld.type.equals("HeaderLayout")) {
 						start += "<header id=\"" + chirld.enname
 								+ "\" class=\"ui-header ui-header-stable ui-border-b\" style=\"background-color:"
 								+ chirld.bgRgb16 + ";\">\n";
@@ -452,22 +417,24 @@ public class WebJsp {
 						start += "<!--ui-list-link-->箭头\n";
 
 						end += "  </ul>\n";
-					} 
+					}
 
 					else if (chirld.type.equals("List_ItemLayout_Horizon")) {
 
-						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;"+relate+"\">\n";
+						start += " <li id=\"" + chirld.enname
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;" + relate
+								+ "\">\n";
 
 						end += "  </li>\n";
-					} 
-					else if (chirld.type.equals("List_ItemLayout_Vertical")) {
+					} else if (chirld.type.equals("List_ItemLayout_Vertical")) {
 
-						start += " <li id=\"" + chirld.enname + "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;"+relate+"\">\n";
+						start += " <li id=\"" + chirld.enname
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;" + relate
+								+ "\">\n";
 
 						end += "  </li>\n";
-					} 
-					
-					
+					}
+
 					else if (chirld.type.equals("GridLayout2column")) {
 
 						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
@@ -680,8 +647,8 @@ public class WebJsp {
 			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
 			// id="count` `Name">请选择</span>
 
-			bodym+="<div  style=\"display:flex;\">\n";
-			bodym += "<div>"+chirld.cnname+"</div>\n";
+			bodym += "<div  style=\"display:flex;\">\n";
+			bodym += "<div>" + chirld.cnname + "</div>\n";
 			bodym += "<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">\n";
 			bodym += "<select>\n";
 			bodym += "<option>2014</option>\n";
@@ -690,7 +657,7 @@ public class WebJsp {
 			bodym += "</select>\n";
 			bodym += "</div>\n";
 			bodym += "</div>\n";
-			
+
 		}
 
 		if (chirld.type.equals("Button")) {
@@ -706,13 +673,13 @@ public class WebJsp {
 					actionstring = chirld.actionString;
 				}
 
-				bodym += "<button class=\"ui-btn\"  style=\"background-color:" + bgcolor + ";color:" + chirld.rgb16
+				bodym += "<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16
 						+ ";\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
-				bodym += "<button class=\"ui-btn\" src= \"/images/" + chirld.picName + ".png\" onclick=\""
-						+ chirld.actionString + "\" >" + chirld.cnname + "</button>\n";
+				bodym += "<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
+						+ "\" >" + chirld.cnname + "</button>\n";
 			}
 
 		}
@@ -726,7 +693,7 @@ public class WebJsp {
 		if (chirld.type.equals("leftArrow")) {
 			bodym += "<i class=\"ui-icon-return\" onclick=\"history.back()\"></i>\n";
 		}
-		
+
 		if (chirld.type.equals("CheckBox")) {
 			bodym += " <label class=\"ui-checkbox\">\n";
 			bodym += "<input type=\"checkbox\">\n";
@@ -760,9 +727,15 @@ public class WebJsp {
 
 		if (chirld.type.equals("EditText")) {
 
-			bodym += "<div style=" + chirld.relativeForWeb + "> <input style=\" border: 0; line-height: " + chirld.h
-					+ "px; height: " + chirld.h + "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\""
-					+ chirld.enname + "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\"></div>";
+			if ("	left[C e n t e r]Right".equals(parent.compomentForWeb)) {
+				bodym += "<input style=\"flex:1; border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
+						+ "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\"" + chirld.enname
+						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
+			} else {
+				bodym += "<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
+						+ "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\"" + chirld.enname
+						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
+			}
 
 		}
 
