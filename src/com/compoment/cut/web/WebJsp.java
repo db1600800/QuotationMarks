@@ -76,7 +76,10 @@ public class WebJsp {
 	int rootViewHeight = 568;
 
 	CompomentBean newParent;
-
+	
+	String jsString="";
+	String styleString="";
+	
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
 		rootViewHeight = cellHeight;
@@ -184,13 +187,19 @@ public class WebJsp {
 
 		bodym += "</body>\n";
 		
+		bodym+=styleString;
+		
 		bodym += "<script type=\"text/javascript\">\n";
+		bodym+="//body宽高等于窗体";
 		bodym += " var screenHeight=document.documentElement.clientHeight;\n"; 
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
 		bodym += " var body=document.getElementById('body');\n";
 		bodym += " body.style.width=screenWidth+\"px\";\n";
 		bodym += " body.style.height=screenHeight+\"px\";\n";  
 		bodym += " </script> \n";
+		
+		bodym+=jsString;
+		
 
 		bodym += "</html>\n";
 
@@ -416,16 +425,46 @@ public class WebJsp {
 
 					} else if (chirld.type.equals("TabLayout")) {
 
-						start += "<div class=\"ui-tab\" id=\"" + chirld.enname + "\" >\n";
-						start += "<ul class=\"ui-tab-nav ui-border-b\">\n";
-						start += " <li class=\"current\">热门推荐</li>\n";
-						start += " <li>全部表情</li>\n";
-						start += " <li>表情</li>\n";
-						start += "</ul>\n";
-						start += " <ul class=\"ui-tab-content\" style=\"width:300%\">\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"tabbar\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:row;" + relate +border+expand+ "\" >\n";
 
-						end += "</ul>\n";
-						end += "</div>\n";
+						end += "  </div>\n";
+						
+					
+						jsString+="<script type=\"text/javascript\">\n";
+						jsString+="//tabbar\n";
+						jsString+=" $(function () {\n";
+						jsString+="     var collection = $(\".tabbar\").children();\n";
+						jsString+="  $.each(collection, function () {\n";
+						jsString+="     $(this).addClass(\"tabBtn\");\n";
+						jsString+=" });\n";
+						jsString+=" });\n";
+						jsString+=" //单击事件\n";
+						jsString+=" function tabBtnPress(btn) {\n";
+						jsString+="   var collection = $(\".tabbar\").children();\n";
+						jsString+=" $.each(collection, function () {\n";
+						jsString+="    $(this).removeClass(\"tabBtnPress\");\n";
+						jsString+="  $(this).addClass(\"tabBtn\");\n";
+						jsString+=" });\n";
+						jsString+=" $(btn).removeClass(\"tabBtn\");\n";
+						jsString+=" $(btn).addClass(\"tabBtnPress\");\n";
+						jsString+=" }\n";
+					    jsString+="</script>\n";
+					    
+					    styleString+="<style>\n";
+					    styleString+=".tabBtn\n";
+					    	styleString+=" {\n";
+					    	styleString+=" cursor: pointer;\n";
+					    	styleString+="  border-bottom: 2px solid transparent;\n";
+					    	styleString+="}\n";
+					    	styleString+=".tabBtnPress\n";
+					    	styleString+=" {\n";
+					    	styleString+=" cursor: pointer;\n";
+					    	styleString+="color: #00a5e0;\n";
+					    	styleString+="background: #ffffff;\n";
+					    	styleString+="border-bottom: 2px #00a5e0 solid;\n";
+					    	styleString+="}\n";
+					    	styleString+="</style>\n";
 
 					} else if (chirld.type.equals("SliderLayout")) {// 轮播
 						start += "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
@@ -481,6 +520,17 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
+		String expand="";
+		if ("1bei".equals(chirld.compmentExpandForWeb)) {
+			expand="flex:1;";
+		}
+		if ("2bei".equals(chirld.compmentExpandForWeb)) {
+			expand="flex:2;";
+		}
+		if ("3bei".equals(chirld.compmentExpandForWeb)) {
+			expand="flex:3;";
+		}
+		
 		if (chirld.type.equals("Span")) {
 
 			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>\n";
@@ -506,10 +556,10 @@ public class WebJsp {
 					bodym += "</div>\n";
 
 				} else if (chirld.parent.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""+expand+"\">" + chirld.cnname
 							+ "</label>\n";
 				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";\">" + chirld.cnname
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";"+expand+"\">" + chirld.cnname
 							+ "</span>\n";
 				}
 
@@ -524,10 +574,10 @@ public class WebJsp {
 					bodym += "</div>\n";
 
 				} else if (chirld.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""+expand+"\" >" + chirld.cnname
 							+ "</label>\n";
 				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";\">" + chirld.cnname
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";"+expand+"\">" + chirld.cnname
 							+ "</span>\n";
 				}
 
@@ -605,13 +655,20 @@ public class WebJsp {
 					actionstring = chirld.actionString;
 				}
 
+				if ((chirld.parent != null && chirld.parent.type != null)) {
+
+					if (chirld.parent.type.toLowerCase().contains("tab")) {
+						actionstring="tabBtnPress(this);";
+						expand="flex:1;";
+					}
+				}
 				bodym += "<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16
-						+ ";\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
+						+ ";"+expand+"\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
 				bodym += "<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
-						+ "\" >" + chirld.cnname + "</button>\n";
+						+ "\"  style=\""+expand+"\">" + chirld.cnname + "</button>\n";
 			}
 
 		}
@@ -667,15 +724,11 @@ public class WebJsp {
 
 		if (chirld.type.equals("EditText")) {
 
-			if ("	left[C e n t e r]Right".equals(parent.compomentForWeb)) {
-				bodym += "<input style=\"flex:1; border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
-						+ "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\"" + chirld.enname
-						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
-			} else {
+		
 				bodym += "<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
-						+ "px;  font-size: " + chirld.textSize + "px;\"  type=\"text\"  id=\"" + chirld.enname
+						+ "px;  font-size: " + chirld.textSize + "px;"+expand+"\"  type=\"text\"  id=\"" + chirld.enname
 						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
-			}
+		
 
 		}
 
