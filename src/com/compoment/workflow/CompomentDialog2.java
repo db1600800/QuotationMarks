@@ -129,13 +129,17 @@ public class CompomentDialog2 extends JFrame {
 	int runTimeAddCount=0;
 	JList borderList;
 	String compmentBorderForWeb;
-	
+	String compmentExpandForWeb;
+	JList expandList;
+	String pageType;//android ios  web webmanage
+	JPanel borderPanel;
+	JPanel expandPanel;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CompomentDialog2 dialog = new CompomentDialog2(null,null,null);
+			CompomentDialog2 dialog = new CompomentDialog2(null,null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -146,10 +150,11 @@ public class CompomentDialog2 extends JFrame {
 	/**
 	 * Create the dialog.
 	 */
-	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments,final String pageName) {
+	public CompomentDialog2(List<InterfaceBean> interfaceBeans,List<CompomentBean> allCompoments,final String pageName,final String pageType) {
 		this.interfaceBeans = interfaceBeans;
 		this.allCompoments=allCompoments;
 		this.pageName=pageName;
+		this.pageType=pageType;
 		setBounds(100, 100, 1170, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.LIGHT_GRAY);
@@ -187,9 +192,9 @@ public class CompomentDialog2 extends JFrame {
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		
-		JPanel borderPanel = new JPanel();
+		 borderPanel = new JPanel();
 		
-		JLabel label_3 = new JLabel("边框,箭头");
+		JLabel label_3 = new JLabel("边框");
 		
 		JScrollPane borderScrollPane = new JScrollPane();
 		GroupLayout gl_borderPanel = new GroupLayout(borderPanel);
@@ -217,6 +222,37 @@ public class CompomentDialog2 extends JFrame {
 	     borderList = new JList();
 		borderScrollPane.setViewportView(borderList);
 		borderPanel.setLayout(gl_borderPanel);
+		
+		 expandPanel = new JPanel();
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		
+		JLabel label_5 = new JLabel("扩大");
+		GroupLayout gl_expandPanel = new GroupLayout(expandPanel);
+		gl_expandPanel.setHorizontalGroup(
+			gl_expandPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 136, Short.MAX_VALUE)
+				.addGroup(gl_expandPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_expandPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_4, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+						.addComponent(label_5))
+					.addContainerGap())
+		);
+		gl_expandPanel.setVerticalGroup(
+			gl_expandPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 126, Short.MAX_VALUE)
+				.addGroup(gl_expandPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label_5)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		 expandList = new JList();
+		scrollPane_4.setViewportView(expandList);
+		expandPanel.setLayout(gl_expandPanel);
 
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -233,8 +269,8 @@ public class CompomentDialog2 extends JFrame {
 											.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-												.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
+												.addComponent(basePicScrollPane, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
 									.addGap(12)
 									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPanel.createSequentialGroup()
@@ -251,12 +287,14 @@ public class CompomentDialog2 extends JFrame {
 										.addComponent(label_2)
 										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
 										.addComponent(jumpToViewComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE))
+								.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 1208, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(borderPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(borderPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(expandPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))
 					.addGap(37))
 		);
 		gl_contentPanel.setVerticalGroup(
@@ -285,6 +323,7 @@ public class CompomentDialog2 extends JFrame {
 								.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(expandPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
 								.addComponent(borderPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
 								.addComponent(webCompomentPanel, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPanel.createSequentialGroup()
@@ -295,7 +334,7 @@ public class CompomentDialog2 extends JFrame {
 							.addComponent(jumpToViewComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(55, Short.MAX_VALUE))
+					.addContainerGap(74, Short.MAX_VALUE))
 		);
 		
 				baseListListView = new JList();
@@ -348,7 +387,7 @@ public class CompomentDialog2 extends JFrame {
 		textSizeEdit.setColumns(10);
 
 		
-		runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView(独立一个Cell页面)");
+		runTimeAddScrollView = new JCheckBox("是否动态加入ScrollView(独立一个Cell页面)IOS");
 		runTimeAddScrollView.setVisible(false);
 		runTimeAddScrollView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -488,42 +527,62 @@ public class CompomentDialog2 extends JFrame {
 		bgColorEdit = new JTextField();
 		bgColorEdit.setText("背景色");
 		bgColorEdit.setColumns(10);
+		
+		JLabel label_4 = new JLabel("背景色");
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup().addComponent(color1Btn)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(color2Btn)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(color3Btn))
-						.addGroup(
-								gl_panel.createSequentialGroup().addComponent(colorLabel)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(colorEdit, GroupLayout.PREFERRED_SIZE, 91,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(gaveBgColor, GroupLayout.PREFERRED_SIZE, 51,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(bgColorEdit,
-												GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup().addComponent(color4Btn)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(color5Btn)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(color6Btn)))
-				.addContainerGap(24, Short.MAX_VALUE)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(color1Btn)
-								.addComponent(color2Btn).addComponent(color3Btn))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING).addComponent(color4Btn)
-						.addComponent(color5Btn).addComponent(color6Btn))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(color1Btn)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(color2Btn)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(color3Btn))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(colorLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(colorEdit, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(color4Btn)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(color5Btn)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(color6Btn))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(gaveBgColor, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(label_4)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(170, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(color1Btn)
+						.addComponent(color2Btn)
+						.addComponent(color3Btn))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(color4Btn)
+						.addComponent(color5Btn)
+						.addComponent(color6Btn))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(colorEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(colorLabel))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(gaveBgColor)
-						.addComponent(colorEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(colorLabel)).addContainerGap(40, Short.MAX_VALUE)));
+						.addComponent(label_4)
+						.addComponent(bgColorEdit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		panel.setLayout(gl_panel);
 
 		contentPanel.setLayout(gl_contentPanel);
@@ -573,28 +632,10 @@ public class CompomentDialog2 extends JFrame {
 		else if(pageType.contains("Web"))
 		{
 			components.clear();
-			
-		
-		
-			
-			components.add("DivLayout_Horizon");
-			components.add("DivLayout_Fen1_Horizon");
-			components.add("DivLayout_Fen2_Horizon");
-			components.add("DivLayout_Fen3_Horizon");
-			
+			components.add("DivLayout_Horizon");	
 			components.add("DivLayout_Vertical");
-			components.add("DivLayout_Fen1_Vertical");
-			components.add("DivLayout_Fen2_Vertical");
-			components.add("DivLayout_Fen3_Vertical");
 			
 			
-		
-			components.add("HeaderLayout");
-			components.add("FooterLayout");
-			components.add("SectionLayout");
-			components.add("TableLayout");
-			components.add("Table_TRLayout");
-			components.add("Table_THLayout");
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
 		
@@ -603,16 +644,10 @@ public class CompomentDialog2 extends JFrame {
 			components.add("List_ItemLayout_Vertical");
 		
 			
-			components.add("GridLayout2column");
-			components.add("GridLayout3column");
-			components.add("Grid_ItemLayoutVertical");
-			
 			components.add("DialogLayout");
 			components.add("TabLayout");
 			components.add("SliderLayout");//轮播
 			components.add("ActionSheetLayout");// 底部弹出菜单
-			
-			
 			
 			components.add("TextView");
 			components.add("Span");
@@ -624,6 +659,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Button");
 			components.add("Button_Close");
 			components.add("leftArrow");
+			components.add("rightArrow");
 			components.add("CheckBox");
 			components.add("CheckBox_Switch");
 			components.add("Radio");
@@ -964,6 +1000,7 @@ public class CompomentDialog2 extends JFrame {
 
 				bean.compomentForWeb = webCompomentType;
 				bean.compmentBorderForWeb=compmentBorderForWeb;
+				bean.compmentExpandForWeb=compmentExpandForWeb;
 				bean.layoutNoUseForIos = layoutNoUseBool.isSelected();
 
 				if (!colorEdit.getText().trim().contains("色")) {
@@ -1242,8 +1279,13 @@ public class CompomentDialog2 extends JFrame {
 
 		ArrayList webCompomentString = new ArrayList();
 		webCompomentString.add("leftLeft");
-		webCompomentString.add("leftCenterRight");
+		webCompomentString.add("centerCenter");
+		webCompomentString.add("leftRight");
+		webCompomentString.add("left_Center_Right");
+		webCompomentString.add("left[C e n t e r]Right");
 		webCompomentString.add("rightRight");
+		webCompomentString.add("topBottom");
+		webCompomentString.add("topBottomAndCenter");
 
 		ArrayList borderString = new ArrayList();
 		
@@ -1253,6 +1295,13 @@ public class CompomentDialog2 extends JFrame {
 		borderString.add("boderBottom");
 		borderString.add("boderTopBottom");
 		borderString.add("boderAll");
+		
+		ArrayList expandString = new ArrayList();
+		expandString.add("1bei");
+		expandString.add("2bei");
+		expandString.add("3bei");
+	
+		
 		borderList.setListData(borderString.toArray());
 		borderList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -1282,6 +1331,23 @@ public class CompomentDialog2 extends JFrame {
 				webCompomentType = value;
 			}
 		});
+		
+		expandList.setListData(expandString.toArray());
+		
+		expandList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		expandList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent even) {
+				// TODO Auto-generated method stub
+
+				String value = expandList.getSelectedValue().toString();
+				compmentExpandForWeb = value;
+			}
+		});
+		
+		
 
 		webCompomentPanel.setVisible(false);
 		final JList list = baseListListView;
@@ -1300,6 +1366,8 @@ public class CompomentDialog2 extends JFrame {
 
 				if (compomentType.contains("Layout")) {
 					webCompomentPanel.setVisible(true);
+					borderPanel.setVisible(true);
+					expandPanel.setVisible(true);
 					long id = System.currentTimeMillis();
 					cnNameEdit.setText("bg" + id);
 					enNameEdit.setText("bg" + id);
@@ -1470,6 +1538,9 @@ public class CompomentDialog2 extends JFrame {
 					layoutNoUseBool.setVisible(false);
 					isNineListCheck.setVisible(false);
 					isMutiPageListCheck.setVisible(false);
+					borderPanel.setVisible(false);
+					expandPanel.setVisible(false);
+					webCompomentPanel.setVisible(false);
 				}
 
 				CompomentDialog2.this.setVisible(true);

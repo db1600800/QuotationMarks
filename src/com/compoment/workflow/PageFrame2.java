@@ -81,6 +81,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 	public String pageName;
 	ArrayList components = new ArrayList();
 	InterfaceDocDialog projectDocPanel;
+	CutImg cutImg;
 
 	/**
 	 * Launch the application.
@@ -113,7 +114,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		JPanel panel = new JPanel();
 		
-		JPanel picPanel = new CutImg(this, new File(pagePath));
+		cutImg= new CutImg(this, new File(pagePath));
+		JPanel picPanel=cutImg;
+		
 		
 		JPanel panel_2 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -184,6 +187,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		JButton resetButton = new JButton("用缓存直接生成");
 		
 		JButton createButton = new JButton("生成");
+		
+		JButton cancelButton = new JButton("撤销组件");
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -192,7 +197,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					.addComponent(resetButton)
 					.addGap(29)
 					.addComponent(createButton)
-					.addContainerGap(210, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(cancelButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(105, Short.MAX_VALUE))
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -200,8 +207,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 					.addContainerGap()
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(resetButton)
-						.addComponent(createButton))
-					.addContainerGap(71, Short.MAX_VALUE))
+						.addComponent(createButton)
+						.addComponent(cancelButton))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
 		panel_2.setLayout(gl_panel_2);
@@ -246,6 +254,20 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			}
 
 		});
+		
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if(beans!=null && beans.size()>0)
+				{
+				beans.remove(beans.size()-1);
+				}
+				cutImg.repaint();
+				
+			}
+
+		});
+		
 
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -819,7 +841,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		
 		
 		
-		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName);
+		CompomentDialog2 jdialog = new CompomentDialog2(projectDocPanel.selectInterfaceBeans,beans,pageName,pageType);
 		//jdialog.setSize(1000, 800);
 		jdialog.init(this,this, image, x, y, w, h,pageType);
 	
