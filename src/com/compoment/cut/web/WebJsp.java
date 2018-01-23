@@ -623,12 +623,15 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("leftArrow")) {
-			bodym += "<i class=\"ui-icon-return\" onclick=\"history.back()\"></i>\n";
+		
+			bodym+="<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>\n";
+			
 		}
 		
 		if(chirld.type.equals("rightArrow"))
 		{
-			bodym += "<div style=\"width:7px;height: 7px;border-top: 2px solid #ffffff;border-right: 2px solid #ffffff;transform: rotate(45deg);\"></div>\n";
+			bodym+="<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>\n";
+			
 		}
 
 		if (chirld.type.equals("CheckBox")) {
