@@ -635,9 +635,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("DivLayout_Horizon");	
 			components.add("DivLayout_Vertical");
 			
-			components.add("TableLayout");
-			components.add("Table_TRLayout");
-			components.add("Table_THLayout");
+			
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
 		
@@ -645,10 +643,6 @@ public class CompomentDialog2 extends JFrame {
 			components.add("List_ItemLayout_Horizon");
 			components.add("List_ItemLayout_Vertical");
 		
-			
-			components.add("GridLayout2column");
-			components.add("GridLayout3column");
-			components.add("Grid_ItemLayoutVertical");
 			
 			components.add("DialogLayout");
 			components.add("TabLayout");

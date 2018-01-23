@@ -350,20 +350,7 @@ public class WebJsp {
 						end += "  </div>\n";
 					}
 
-				  else if (chirld.type.equals("TableLayout")) {
-
-						start += "<table id=\"" + chirld.enname + "\" class=\"ui-table ui-border\">\n";
-
-						end += "</table>\n";
-					} else if (chirld.type.equals("Table_TRLayout")) {
-						start += "<tr id=\"" + chirld.enname + "\" >\n";
-
-						end += "  </tr>\n";
-					} else if (chirld.type.equals("Table_THLayout")) {
-						start += "<td id=\"" + chirld.enname + "\" >\n";
-
-						end += "  </td>\n";
-					} else if (chirld.type.equals("FormLayout")) {
+				   else if (chirld.type.equals("FormLayout")) {
 
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
 						start += "<form action=\"#\">\n";
@@ -401,24 +388,7 @@ public class WebJsp {
 						end += "  </li>\n";
 					}
 
-					else if (chirld.type.equals("GridLayout2column")) {
-
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-halve\">\n";
-
-						end += "</ul>\n";
-					} else if (chirld.type.equals("GridLayout3column")) {
-
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-grid-trisect\">\n";
-
-						end += "</ul>\n";
-					} else if (chirld.type.equals("Grid_ItemLayoutVertical")) {
-
-						start += "<li id=\"" + chirld.enname + "\"  >\n";
-						start += "<div class=\"ui-border\">\n";
-
-						end += "</div>\n";
-						end += "</li>\n";
-					} else if (chirld.type.equals("DialogLayout")) {
+					 else if (chirld.type.equals("DialogLayout")) {
 
 						start += "<div id=\"" + chirld.enname + "\"  class=\"ui-dialog\">\n";
 						start += "<div class=\"ui-dialog-cnt\">\n";
