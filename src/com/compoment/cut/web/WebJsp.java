@@ -173,7 +173,7 @@ public class WebJsp {
 
 		bodym += "</head>\n";
 
-		bodym += "<body>\n";
+		bodym += "<body id=\"body\" style=\"display:flex;flex-direction: column;\">\n";
 
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>\n";
 
@@ -183,6 +183,14 @@ public class WebJsp {
 		bodym += formmEnd;
 
 		bodym += "</body>\n";
+		
+		bodym += "<script type=\"text/javascript\">\n";
+		bodym += " var screenHeight=document.documentElement.clientHeight;\n"; 
+		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
+		bodym += " var body=document.getElementById('body');\n";
+		bodym += " body.style.width=screenWidth+\"px\";\n";
+		bodym += " body.style.height=screenHeight+\"px\";\n";  
+		bodym += " </script> \n";
 
 		bodym += "</html>\n";
 
@@ -280,6 +288,9 @@ public class WebJsp {
 					
 
 					if ("topBottom".equals(chirld.compomentForWeb)) {
+						relate = "width:100%;justify-content:flex-start;";
+					}
+					if ("topBottomAndCenter".equals(chirld.compomentForWeb)) {
 						relate = "width:100%;justify-content:flex-start;align-items:center;";
 					}
 
@@ -368,7 +379,7 @@ public class WebJsp {
 
 					else if (chirld.type.equals("ListLayout")) {
 
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-list  ui-list-text ui-border-tb\">\n";
+						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-border-tb\" style=\"flex:1;padding:10px;\">\n";
 					
 
 						end += "  </ul>\n";
@@ -377,14 +388,14 @@ public class WebJsp {
 					else if (chirld.type.equals("List_ItemLayout_Horizon")) {
 
 						start += " <li id=\"" + chirld.enname
-								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;" + relate+border
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;width: 100%; " + relate+border
 								+ "\">\n";
 
 						end += "  </li>\n";
 					} else if (chirld.type.equals("List_ItemLayout_Vertical")) {
 
 						start += " <li id=\"" + chirld.enname
-								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;" + relate+border
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;width: 100%; " + relate+border
 								+ "\">\n";
 
 						end += "  </li>\n";
