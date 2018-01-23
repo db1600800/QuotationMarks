@@ -8,12 +8,12 @@
     <g>0.0</g>
     <b>0.0</b>
     <x>3</x>
-    <y>6</y>
-    <w>312</w>
-    <h>548</h>
+    <y>4</y>
+    <w>311</w>
+    <h>522</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516260698773</cnname>
-    <enname>bg1516260698773DivLayoutHorizon</enname>
+    <cnname>bg1516530977847</cnname>
+    <enname>bg1516530977847DivLayout_Vertical</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -22,16 +22,16 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>Jn9-f3-9pW</id>
+    <id>Bk2-Mq-hRQ</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayoutHorizon</type>
+    <type>DivLayout_Vertical</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516260708050</time>
+    <time>1516530987255</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -42,14 +42,13 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>7</x>
-    <y>9</y>
-    <w>304</w>
-    <h>44</h>
-    <actionString>发请求</actionString>
+    <x>13</x>
+    <y>11</y>
+    <w>298</w>
+    <h>42</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516260725614</cnname>
-    <enname>bg1516260725614HeaderLayout</enname>
+    <cnname>bg1516530998675</cnname>
+    <enname>bg1516530998675DivLayout_Horizon</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -58,32 +57,67 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>bQz-Re-K28</id>
+    <id>Tdr-g7-PMI</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>HeaderLayout</type>
+    <type>DivLayout_Horizon</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb>leftCenterRight</compomentForWeb>
+    <picName>图片名</picName>
+    <time>1516531022368</time>
+    <layoutNoUseForIos>false</layoutNoUseForIos>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#FB6F2C</rgb16>
+    <rgb16ios>#FB6F2C</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>31</x>
+    <y>32</y>
+    <w>8</w>
+    <h>9</h>
+    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
+    <cnname>bg1516531047265</cnname>
+    <enname>bg1516531047265DivLayout_Horizon</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <isNineListCheck>false</isNineListCheck>
+    <isMutiPageListCheck>false</isMutiPageListCheck>
+    <id>YeH-ll-37B</id>
+    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
+    <type>DivLayout_Horizon</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516260731686</time>
+    <time>1516531050007</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
+    <rgb16>#C07E53</rgb16>
+    <rgb16ios>#C07E53</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>123</x>
-    <y>29</y>
-    <w>74</w>
-    <h>13</h>
+    <x>124</x>
+    <y>33</y>
+    <w>65</w>
+    <h>8</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>可加班里</cnname>
+    <cnname>可加倍套餐</cnname>
     <enname>titleTextView</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
@@ -93,7 +127,7 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>pRl-0o-iRj</id>
+    <id>c7x-wi-fN6</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>TextView</type>
     <orientation></orientation>
@@ -102,7 +136,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261199062</time>
+    <time>1516531084801</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -113,10 +147,10 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>260</x>
+    <x>261</x>
     <y>35</y>
-    <w>41</w>
-    <h>6</h>
+    <w>34</w>
+    <h>3</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
     <cnname>我的套餐</cnname>
     <enname>mypackageButton</enname>
@@ -128,7 +162,7 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>P2a-Gl-yyV</id>
+    <id>YkH-nm-IP9</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>Button</type>
     <orientation></orientation>
@@ -137,7 +171,7 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261233109</time>
+    <time>1516532012209</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -148,13 +182,13 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>6</x>
-    <y>56</y>
-    <w>300</w>
-    <h>414</h>
+    <x>9</x>
+    <y>57</y>
+    <w>298</w>
+    <h>412</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516261251162</cnname>
-    <enname>bg1516261251162SectionLayout</enname>
+    <cnname>bg1516532032179</cnname>
+    <enname>bg1516532032179DivLayout_Vertical</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -163,33 +197,33 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>KOp-UP-bkS</id>
+    <id>rea-Bk-pVt</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>SectionLayout</type>
+    <type>DivLayout_Vertical</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261262062</time>
+    <time>1516532126584</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#0A0A0A</rgb16>
-    <rgb16ios>#0A0A0A</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <rgb16>#FFFFFF</rgb16>
+    <rgb16ios>#FFFFFF</rgb16ios>
+    <bgRgb16>#FFFFFF</bgRgb16>
+    <bgRgb16ios>#FFFFFF</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>10</x>
+    <x>15</x>
     <y>61</y>
-    <w>292</w>
-    <h>31</h>
+    <w>289</w>
+    <h>33</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516261351962</cnname>
-    <enname>bg1516261351962DivLayoutHorizon</enname>
+    <cnname>bg1516532137298</cnname>
+    <enname>bg1516532137298DivLayout_Horizon</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -198,33 +232,33 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>0LJ-YH-nku</id>
+    <id>YvH-9X-7tA</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayoutHorizon</type>
+    <type>DivLayout_Horizon</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
+    <compomentForWeb>leftCenterRight</compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261603641</time>
+    <time>1516532150161</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
+    <rgb16>#272524</rgb16>
+    <rgb16ios>#272524</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>15</x>
-    <y>65</y>
-    <w>126</w>
-    <h>22</h>
+    <x>34</x>
+    <y>72</y>
+    <w>81</w>
+    <h>9</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516261613028</cnname>
-    <enname>bg1516261613028DivLayout1/4</enname>
+    <cnname>价格重高到低</cnname>
+    <enname>priceUpDownSelecter</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -233,16 +267,16 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>60b-Lu-1Pm</id>
+    <id>DLN-X0-pUA</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayout1/4</type>
+    <type>Selecter</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261618561</time>
+    <time>1516532185881</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
@@ -253,13 +287,13 @@
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>47</x>
-    <y>74</y>
-    <w>57</w>
-    <h>2</h>
+    <x>164</x>
+    <y>70</y>
+    <w>44</w>
+    <h>9</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>价格从高到低</cnname>
-    <enname>priceupdownSelecter</enname>
+    <cnname>３个月</cnname>
+    <enname>monthUpDownSelecter</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -268,7 +302,7 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>YOT-a4-Fxa</id>
+    <id>5JW-Oj-SmK</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
     <type>Selecter</type>
     <orientation></orientation>
@@ -277,514 +311,24 @@
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516261659112</time>
+    <time>1516532355185</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
   <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>146</x>
-    <y>66</y>
-    <w>79</w>
-    <h>21</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516261668510</cnname>
-    <enname>bg1516261668510DivLayout1/4</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>aWT-Xl-JAq</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayout1/4</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516261674408</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#0A0A0A</rgb16>
-    <rgb16ios>#0A0A0A</rgb16ios>
+    <rgb16>#141414</rgb16>
+    <rgb16ios>#141414</rgb16ios>
     <bgRgb16>背景颜色</bgRgb16>
     <bgRgb16ios>背景颜色</bgRgb16ios>
     <r>0.0</r>
     <g>0.0</g>
     <b>0.0</b>
-    <x>167</x>
-    <y>73</y>
-    <w>39</w>
-    <h>5</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>3个月</cnname>
-    <enname>monthupdowSelecter</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>MSZ-8e-nju</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>Selecter</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516261699530</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>232</x>
-    <y>67</y>
-    <w>66</w>
-    <h>19</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516261713344</cnname>
-    <enname>bg1516261713344DivLayout1/4</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>vem-TZ-SCd</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayout1/4</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516261772825</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#0A0A0A</rgb16>
-    <rgb16ios>#0A0A0A</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>259</x>
-    <y>77</y>
-    <w>3</w>
-    <h>1</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>全国</cnname>
-    <enname>allcountrySelecter</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>x7J-xL-xIG</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>Selecter</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516261800536</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#1E1E1E</rgb16>
-    <rgb16ios>#1E1E1E</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>12</x>
-    <y>102</y>
-    <w>290</w>
-    <h>361</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262026665</cnname>
-    <enname>bg1516262026665ListLayout_LeftTopBottom</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>iUN-hR-oqZ</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>ListLayout_LeftTopBottom</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262044622</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>15</x>
-    <y>106</y>
-    <w>280</w>
-    <h>77</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262068830</cnname>
-    <enname>bg1516262068830List_ItemLayout</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>ix3-rV-XNx</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>List_ItemLayout</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262076211</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#1E1E1E</rgb16>
-    <rgb16ios>#1E1E1E</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>20</x>
-    <y>134</y>
-    <w>18</w>
-    <h>17</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>选择</cnname>
-    <enname>checkCheckBox</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>qo6-ZZ-Jrd</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>CheckBox</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262103951</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#202020</rgb16>
-    <rgb16ios>#202020</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>40</x>
-    <y>111</y>
-    <w>243</w>
-    <h>27</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262166675</cnname>
-    <enname>bg1516262166675DivLayoutHorizon</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>0sa-tE-0ym</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayoutHorizon</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262170801</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#1E1E1E</rgb16>
-    <rgb16ios>#1E1E1E</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>55</x>
-    <y>124</y>
-    <w>97</w>
-    <h>1</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>秋天2013年</cnname>
-    <enname>listtitleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>q90-5d-Ss8</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262207780</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#CC566C</rgb16>
-    <rgb16ios>#CC566C</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>256</x>
-    <y>125</y>
-    <w>15</w>
-    <h>1</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>100元</cnname>
-    <enname>PriceTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>atb-4U-xgV</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262240425</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>43</x>
-    <y>147</y>
-    <w>243</w>
-    <h>29</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262298337</cnname>
-    <enname>bg1516262298337DivLayoutHorizon</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>7BB-EW-a75</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayoutHorizon</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262308878</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>47</x>
-    <y>153</y>
-    <w>32</w>
-    <h>18</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262319561</cnname>
-    <enname>bg1516262319561DivLayout1/4</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>FA7-PW-txV</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayout1/4</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262335401</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#AAAAAA</rgb16>
-    <rgb16ios>#AAAAAA</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>53</x>
-    <y>158</y>
-    <w>19</w>
-    <h>7</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>周期</cnname>
-    <enname>datetimetitleTextView</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>GKn-l5-2kf</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262370620</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#FFFFFF</rgb16>
-    <rgb16ios>#FFFFFF</rgb16ios>
-    <bgRgb16>#FFFFFF</bgRgb16>
-    <bgRgb16ios>#FFFFFF</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>84</x>
-    <y>153</y>
-    <w>41</w>
-    <h>18</h>
-    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>bg1516262390729</cnname>
-    <enname>bg1516262390729DivLayout1/4</enname>
-    <textSize>16</textSize>
-    <isImgCache>false</isImgCache>
-    <isPublicCompoment>false</isPublicCompoment>
-    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
-    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
-    <isFilletedCorner>false</isFilletedCorner>
-    <isNineListCheck>false</isNineListCheck>
-    <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>xoN-iF-taG</id>
-    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>DivLayout1/4</type>
-    <orientation></orientation>
-    <gravity></gravity>
-    <relative></relative>
-    <relativeForWeb></relativeForWeb>
-    <compomentForWeb></compomentForWeb>
-    <picName>图片名</picName>
-    <time>1516262395194</time>
-    <layoutNoUseForIos>false</layoutNoUseForIos>
-  </CompomentBean>
-  <CompomentBean>
-    <rgb16>#1E1E1E</rgb16>
-    <rgb16ios>#1E1E1E</rgb16ios>
-    <bgRgb16>背景颜色</bgRgb16>
-    <bgRgb16ios>背景颜色</bgRgb16ios>
-    <r>0.0</r>
-    <g>0.0</g>
-    <b>0.0</b>
-    <x>92</x>
-    <y>160</y>
-    <w>27</w>
+    <x>254</x>
+    <y>72</y>
+    <w>37</w>
     <h>6</h>
     <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
-    <cnname>3个月</cnname>
-    <enname>timevalueTextView</enname>
+    <cnname>全国</cnname>
+    <enname>allUpDownSelecter</enname>
     <textSize>16</textSize>
     <isImgCache>false</isImgCache>
     <isPublicCompoment>false</isPublicCompoment>
@@ -793,16 +337,51 @@
     <isFilletedCorner>false</isFilletedCorner>
     <isNineListCheck>false</isNineListCheck>
     <isMutiPageListCheck>false</isMutiPageListCheck>
-    <id>JcT-Mv-TLJ</id>
+    <id>7B9-s7-nBl</id>
     <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
-    <type>TextView</type>
+    <type>Selecter</type>
     <orientation></orientation>
     <gravity></gravity>
     <relative></relative>
     <relativeForWeb></relativeForWeb>
     <compomentForWeb></compomentForWeb>
     <picName>图片名</picName>
-    <time>1516262430399</time>
+    <time>1516532923930</time>
+    <layoutNoUseForIos>false</layoutNoUseForIos>
+  </CompomentBean>
+  <CompomentBean>
+    <rgb16>#1E1E1E</rgb16>
+    <rgb16ios>#1E1E1E</rgb16ios>
+    <bgRgb16>背景颜色</bgRgb16>
+    <bgRgb16ios>背景颜色</bgRgb16ios>
+    <r>0.0</r>
+    <g>0.0</g>
+    <b>0.0</b>
+    <x>14</x>
+    <y>100</y>
+    <w>286</w>
+    <h>359</h>
+    <jumpToWhichPage>myCanAddPackage</jumpToWhichPage>
+    <cnname>bg1516533226264</cnname>
+    <enname>bg1516533226264ListLayout_LeftRight</enname>
+    <textSize>16</textSize>
+    <isImgCache>false</isImgCache>
+    <isPublicCompoment>false</isPublicCompoment>
+    <isRunTimeAddScrollView>false</isRunTimeAddScrollView>
+    <isRunTimeHeightTextview>false</isRunTimeHeightTextview>
+    <isFilletedCorner>false</isFilletedCorner>
+    <isNineListCheck>false</isNineListCheck>
+    <isMutiPageListCheck>false</isMutiPageListCheck>
+    <id>wnh-8x-7Qs</id>
+    <isSameGroupWihtBeforCompoment>false</isSameGroupWihtBeforCompoment>
+    <type>ListLayout_LeftRight</type>
+    <orientation></orientation>
+    <gravity></gravity>
+    <relative></relative>
+    <relativeForWeb></relativeForWeb>
+    <compomentForWeb></compomentForWeb>
+    <picName>图片名</picName>
+    <time>1516533231311</time>
     <layoutNoUseForIos>false</layoutNoUseForIos>
   </CompomentBean>
 </list>
