@@ -635,7 +635,7 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			bodym += " <label class=\"ui-checkbox\">\n";
+			bodym += " <label class=\"ui-checkbox\" style=\"margin:10px\">\n";
 			bodym += "<input type=\"checkbox\">\n";
 			bodym += "</label>\n";
 			bodym += "<p>" + chirld.cnname + "</p>\n";
