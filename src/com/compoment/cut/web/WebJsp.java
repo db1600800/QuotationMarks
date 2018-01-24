@@ -69,8 +69,7 @@ public class WebJsp {
 	String connection = "";
 	String pageName = "";
 	String className = "";
-	String formmStart = "";
-	String formmEnd = "";
+
 
 	int rootViewWidth = 320;
 	int rootViewHeight = 568;
@@ -79,6 +78,9 @@ public class WebJsp {
 	
 	String jsString="";
 	String styleString="";
+	
+	String parentChirld="";
+	CompomentBean listItemBean = null;
 	
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
@@ -176,14 +178,12 @@ public class WebJsp {
 
 		bodym += "</head>\n";
 
-		bodym += "<body id=\"body\" style=\"display:flex;flex-direction: column;\">\n";
+		bodym += "<body id=\"body\" class=\"h-body\" style=\"display:flex;flex-direction: column;\">\n";
 
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>\n";
 
-		bodym += formmStart;
 		parent(maxBean);
-
-		bodym += formmEnd;
+       
 
 		bodym += "</body>\n";
 		
@@ -193,13 +193,12 @@ public class WebJsp {
 		bodym+="//body宽高等于窗体";
 		bodym += " var screenHeight=document.documentElement.clientHeight;\n"; 
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
-		bodym += " var body=document.getElementById('body');\n";
-		bodym += " body.style.width=screenWidth+\"px\";\n";
-		bodym += " body.style.height=screenHeight+\"px\";\n";  
+		bodym += "var body = $(\".h-body\");\n";
+	    bodym += "body.width(screenWidth + \"px\");\n";
+	    	bodym += "body.height(screenHeight + \"px\");\n";
 		bodym += " </script> \n";
 		
 		bodym+=jsString;
-		
 
 		bodym += "</html>\n";
 
@@ -247,6 +246,8 @@ public class WebJsp {
 		}
 
 	}
+	
+	
 
 	public void parent(CompomentBean bean) {
 
@@ -304,8 +305,6 @@ public class WebJsp {
 					}
 
 					
-					
-					
 					if ("boderTop".equals(chirld.compmentBorderForWeb)) {
 						border="border-top: 1px solid "+chirld.rgb16+";";
 					}
@@ -342,22 +341,43 @@ public class WebJsp {
 					
 					
 
-					if (chirld.type.equals("DivLayout_Horizon")) {
-
-						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+					if (chirld.type.equals("DivLayout_Horizon")||chirld.type.equals("HeaderLayout_Horizon")||chirld.type.equals("FooterLayout_Horizon")) {
+						String classString="";
+						if(chirld.type.contains("Header"))
+						{
+							classString="h-header";
+						}else if(chirld.type.contains("Footer"))
+						{
+							classString="h-footer";
+						}
+						
+						start += "<div id=\"" + chirld.enname  + "\" class=\""+classString+"\"  style=\"background-color:" + chirld.bgRgb16
 								+ ";display:flex;flex-direction:row;" + relate +border+expand+ "\" >\n";
 
 						end += "  </div>\n";
 					}
 
 
-					else if (chirld.type.equals("DivLayout_Vertical")) {
+					else if (chirld.type.equals("DivLayout_Vertical")||chirld.type.equals("HeaderLayout_Vertical")||chirld.type.equals("FooterLayout_Vertical")) {
 
-						start += "<div id=\"" + chirld.enname + "\" style=\"background-color:" + chirld.bgRgb16
+						String classString="";
+						if(chirld.type.contains("Header"))
+						{
+							classString="header";
+						}else if(chirld.type.contains("Footer"))
+						{
+							classString="footer";
+						}
+						
+						start += "<div id=\"" + chirld.enname + "\" class=\""+classString+"\" style=\"background-color:" + chirld.bgRgb16
 								+ ";display:flex;flex-direction:column;" + relate +border+expand+ "\" >\n";
 
 						end += "  </div>\n";
 					}
+					
+				
+					
+					
 
 				   else if (chirld.type.equals("FormLayout")) {
 
@@ -375,10 +395,101 @@ public class WebJsp {
 
 					else if (chirld.type.equals("ListLayout")) {
 
-						start += "<ul id=\"" + chirld.enname + "\" class=\"ui-border-tb\" style=\"flex:1;padding:10px;\">\n";
+						
+						start += "<ul id=\"" + chirld.enname + "\" class=\"h-list ui-border-tb\" style=\"flex:1;padding:10px;overflow-y:scroll\">\n";
 					
 
 						end += "  </ul>\n";
+						
+						if(chirld.chirlds!=null&&chirld.chirlds.size()>0)
+						{
+							WebListItemJsp webListItemJsp=new WebListItemJsp();
+						    webListItemJsp.analyse(chirld.chirlds.get(0));
+						    
+						    
+						    <script type="text/javascript">
+						    //分页
+						    
+						    window.resultTotal=0;
+						    window.pageSize=10;
+						    window.currentPage=0;
+						    window.requestIng=false;
+						    $(".h-list").scroll(function(){
+						    var list = $(".h-list");
+						    var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少
+						    var listScrollHeight = list[0].scrollHeight;//内容总高度
+						　  var listClientHeight = list[0].clientHeight;//可见区域高度
+						　  var listOffsetHeight = list[0].offsetHeight;//可见区域高度(包含边框高度)
+						  　if(listScrollTop + listClientHeight == listScrollHeight){
+						           
+						            if(requestIng==false)
+						            	{
+						            	 alert("<li>Hello</li>");
+						            	getData();
+						            	}
+						     }
+						    });
+						    
+						    
+						/*{
+						  "resultCode": "1001",
+						  "resultSize": 1,
+						  "resultTotal":10,
+						  "resultData": [
+						    {
+						      "name": "bootstrap-table",
+						      "stargazers_count": "526",
+						      "forks_count": "122",
+						      "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+						    }
+						   ]
+						   }*/
+						 function getData() {
+							requestIng=true;
+						    $.ajax({
+						        url:url,
+						        type:'post',
+						        dataType:'json',
+						        async:true,
+						        data:{"currentPage":currentPage,"pageSize":pageSize,"where":where_obj},
+						        timeout:1000,  
+						        error:function(){  
+						        	 requestIng=false;
+						            alert("ajax error");  
+						        }, 
+						        success:function(rsObj)
+						        {
+						          requestIng=false;
+						          
+						        	  var resultSize=rsObj.resultSize;
+						        	  window.resultTotal=rsObj.resultTotal;
+						        	  var resultData=rsObj.resultData;
+						        	  
+						        	  if(resultSize>0){  
+						                  for(var i=0;i<resultData.size();i++){  
+						                	  
+						                      $(".h-list").append(  
+						                      $("<tr><td>"+  
+						                    		  resultData[i].name+  
+						                          "</td><td>"+  
+						                          resultData[i].stargazers_count+  
+						                          "</td><td>"+  
+						                          resultData[i].forks_count+  
+						                          "</td><td>"+  
+						                          resultData[i].description+  
+						                          "</td></tr>")  
+						                      );  
+						                  }  
+						              }
+						        	  currentPage++;
+						        }
+						    });
+						    
+						}
+						    
+						    
+						</script>
+						}
 					}
 
 					else if (chirld.type.equals("List_ItemLayout_Horizon")) {
@@ -425,7 +536,7 @@ public class WebJsp {
 
 					} else if (chirld.type.equals("TabLayout")) {
 
-						start += "<div id=\"" + chirld.enname + "\" class=\"tabbar\" style=\"background-color:" + chirld.bgRgb16
+						start += "<div id=\"" + chirld.enname + "\" class=\"h-tabbar\" style=\"background-color:" + chirld.bgRgb16
 								+ ";display:flex;flex-direction:row;" + relate +border+expand+ "\" >\n";
 
 						end += "  </div>\n";
@@ -434,14 +545,14 @@ public class WebJsp {
 						jsString+="<script type=\"text/javascript\">\n";
 						jsString+="//tabbar\n";
 						jsString+=" $(function () {\n";
-						jsString+="     var collection = $(\".tabbar\").children();\n";
+						jsString+="     var collection = $(\".h-tabbar\").children();\n";
 						jsString+="  $.each(collection, function () {\n";
 						jsString+="     $(this).addClass(\"tabBtn\");\n";
 						jsString+=" });\n";
 						jsString+=" });\n";
 						jsString+=" //单击事件\n";
 						jsString+=" function tabBtnPress(btn) {\n";
-						jsString+="   var collection = $(\".tabbar\").children();\n";
+						jsString+="   var collection = $(\".h-tabbar\").children();\n";
 						jsString+=" $.each(collection, function () {\n";
 						jsString+="    $(this).removeClass(\"tabBtnPress\");\n";
 						jsString+="  $(this).addClass(\"tabBtn\");\n";
