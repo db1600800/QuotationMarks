@@ -707,13 +707,21 @@ public class WebJsp {
 			bodym += "<div  style=\"display:flex;\">\n";
 			bodym += "<div>" + chirld.cnname + "</div>\n";
 			bodym += "<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">\n";
-			bodym += "<select>\n";
+			bodym += "<select id=\""+chirld.enname+"\">\n";
 			bodym += "<option>2014</option>\n";
 			bodym += "<option selected>2015</option>\n";
 			bodym += "<option>2016</option>\n";
 			bodym += "</select>\n";
 			bodym += "</div>\n";
 			bodym += "</div>\n";
+			
+			jsString += "<script type=\"text/javascript\">\n";
+			jsString+="//选择\n";
+			jsString += "$(\"#"+chirld.enname+"\").change(function () {  \n";
+			jsString += "var s = $(this).children('option:selected').val();  \n";
+			jsString+="window.where+="+chirld.enname+":s,\n";
+			jsString += " }); \n"; 
+			jsString+="</script>\n";
 
 		}
 
