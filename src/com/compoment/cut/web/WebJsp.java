@@ -70,18 +70,17 @@ public class WebJsp {
 	String pageName = "";
 	String className = "";
 
-
 	int rootViewWidth = 320;
 	int rootViewHeight = 568;
 
 	CompomentBean newParent;
-	
-	String jsString="";
-	String styleString="";
-	
-	String parentChirld="";
+
+	String jsString = "";
+	String styleString = "";
+
+	String parentChirld = "";
 	CompomentBean listItemBean = null;
-	
+
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
 		rootViewHeight = cellHeight;
@@ -183,22 +182,21 @@ public class WebJsp {
 		bodym += "<div id=\"emptyOrErrorMsg\"></div>\n";
 
 		parent(maxBean);
-       
 
 		bodym += "</body>\n";
-		
-		bodym+=styleString;
-		
+
+		bodym += styleString;
+
 		bodym += "<script type=\"text/javascript\">\n";
-		bodym+="//body宽高等于窗体";
-		bodym += " var screenHeight=document.documentElement.clientHeight;\n"; 
+		bodym += "//body宽高等于窗体";
+		bodym += " var screenHeight=document.documentElement.clientHeight;\n";
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
 		bodym += "var body = $(\".h-body\");\n";
-	    bodym += "body.width(screenWidth + \"px\");\n";
-	    	bodym += "body.height(screenHeight + \"px\");\n";
+		bodym += "body.width(screenWidth + \"px\");\n";
+		bodym += "body.height(screenHeight + \"px\");\n";
 		bodym += " </script> \n";
-		
-		bodym+=jsString;
+
+		bodym += jsString;
 
 		bodym += "</html>\n";
 
@@ -246,8 +244,6 @@ public class WebJsp {
 		}
 
 	}
-	
-	
 
 	public void parent(CompomentBean bean) {
 
@@ -271,11 +267,10 @@ public class WebJsp {
 					String end = "";
 
 					String relate = "";
-					String border="";
-					
-					String expand="";
-				
-					
+					String border = "";
+
+					String expand = "";
+
 					if ("leftLeft".equals(chirld.compomentForWeb)) {
 						relate = "justify-content:flex-start;align-items:center;";
 					}
@@ -295,7 +290,6 @@ public class WebJsp {
 					if ("rightRight".equals(chirld.compomentForWeb)) {
 						relate = "justify-content:flex-end;align-items:center;";
 					}
-					
 
 					if ("topBottom".equals(chirld.compomentForWeb)) {
 						relate = "width:100%;justify-content:flex-start;";
@@ -304,82 +298,75 @@ public class WebJsp {
 						relate = "width:100%;justify-content:flex-start;align-items:center;";
 					}
 
-					
 					if ("boderTop".equals(chirld.compmentBorderForWeb)) {
-						border="border-top: 1px solid "+chirld.rgb16+";";
+						border = "border-top: 1px solid " + chirld.rgb16 + ";";
 					}
 
 					if ("boderLeft".equals(chirld.compmentBorderForWeb)) {
-						border="border-left: 1px solid "+chirld.rgb16+";";
+						border = "border-left: 1px solid " + chirld.rgb16 + ";";
 					}
 
 					if ("boderRight".equals(chirld.compmentBorderForWeb)) {
-						border="border-right: 1px solid "+chirld.rgb16+";";
+						border = "border-right: 1px solid " + chirld.rgb16 + ";";
 					}
 
 					if ("boderBottom".equals(chirld.compmentBorderForWeb)) {
-						border="border-bottom: 1px solid "+chirld.rgb16+";";
+						border = "border-bottom: 1px solid " + chirld.rgb16 + ";";
 					}
 
 					if ("boderTopBottom".equals(chirld.compmentBorderForWeb)) {
-						border="border-top: 1px solid "+chirld.rgb16+";border-bottom: 1px solid \"+chirld.rgb16+\";";
+						border = "border-top: 1px solid " + chirld.rgb16
+								+ ";border-bottom: 1px solid \"+chirld.rgb16+\";";
 					}
 
 					if ("boderAll".equals(chirld.compmentBorderForWeb)) {
-						border="border: 1px solid "+chirld.rgb16+";";
+						border = "border: 1px solid " + chirld.rgb16 + ";";
 					}
-					
+
 					if ("1bei".equals(chirld.compmentExpandForWeb)) {
-						expand="flex:1;";
+						expand = "flex:1;";
 					}
 					if ("2bei".equals(chirld.compmentExpandForWeb)) {
-						expand="flex:2;";
+						expand = "flex:2;";
 					}
 					if ("3bei".equals(chirld.compmentExpandForWeb)) {
-						expand="flex:3;";
+						expand = "flex:3;";
 					}
-					
-					
 
-					if (chirld.type.equals("DivLayout_Horizon")||chirld.type.equals("HeaderLayout_Horizon")||chirld.type.equals("FooterLayout_Horizon")) {
-						String classString="";
-						if(chirld.type.contains("Header"))
-						{
-							classString="h-header";
-						}else if(chirld.type.contains("Footer"))
-						{
-							classString="h-footer";
+					if (chirld.type.equals("DivLayout_Horizon") || chirld.type.equals("HeaderLayout_Horizon")
+							|| chirld.type.equals("FooterLayout_Horizon")) {
+						String classString = "";
+						if (chirld.type.contains("Header")) {
+							classString = "h-header";
+						} else if (chirld.type.contains("Footer")) {
+							classString = "h-footer";
 						}
-						
-						start += "<div id=\"" + chirld.enname  + "\" class=\""+classString+"\"  style=\"background-color:" + chirld.bgRgb16
-								+ ";display:flex;flex-direction:row;" + relate +border+expand+ "\" >\n";
+
+						start += "<div id=\"" + chirld.enname + "\" class=\"" + classString
+								+ "\"  style=\"background-color:" + chirld.bgRgb16 + ";display:flex;flex-direction:row;"
+								+ relate + border + expand + "\" >\n";
 
 						end += "  </div>\n";
 					}
 
+					else if (chirld.type.equals("DivLayout_Vertical") || chirld.type.equals("HeaderLayout_Vertical")
+							|| chirld.type.equals("FooterLayout_Vertical")) {
 
-					else if (chirld.type.equals("DivLayout_Vertical")||chirld.type.equals("HeaderLayout_Vertical")||chirld.type.equals("FooterLayout_Vertical")) {
-
-						String classString="";
-						if(chirld.type.contains("Header"))
-						{
-							classString="header";
-						}else if(chirld.type.contains("Footer"))
-						{
-							classString="footer";
+						String classString = "";
+						if (chirld.type.contains("Header")) {
+							classString = "header";
+						} else if (chirld.type.contains("Footer")) {
+							classString = "footer";
 						}
-						
-						start += "<div id=\"" + chirld.enname + "\" class=\""+classString+"\" style=\"background-color:" + chirld.bgRgb16
-								+ ";display:flex;flex-direction:column;" + relate +border+expand+ "\" >\n";
+
+						start += "<div id=\"" + chirld.enname + "\" class=\"" + classString
+								+ "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border + expand + "\" >\n";
 
 						end += "  </div>\n";
 					}
-					
-				
-					
-					
 
-				   else if (chirld.type.equals("FormLayout")) {
+					else if (chirld.type.equals("FormLayout")) {
 
 						start += "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
 						start += "<form action=\"#\">\n";
@@ -395,120 +382,95 @@ public class WebJsp {
 
 					else if (chirld.type.equals("ListLayout")) {
 
-						
-						start += "<ul id=\"" + chirld.enname + "\" class=\"h-list ui-border-tb\" style=\"flex:1;padding:10px;overflow-y:scroll\">\n";
-					
+						start += "<ul id=\"" + chirld.enname
+								+ "\" class=\"h-list ui-border-tb\" style=\"flex:1;padding:10px;overflow-y:scroll\">\n";
 
 						end += "  </ul>\n";
-						
-						if(chirld.chirlds!=null&&chirld.chirlds.size()>0)
-						{
-							WebListItemJsp webListItemJsp=new WebListItemJsp();
-						    webListItemJsp.analyse(chirld.chirlds.get(0));
-						    
-						    
-						    <script type="text/javascript">
-						    //分页
-						    
-						    window.resultTotal=0;
-						    window.pageSize=10;
-						    window.currentPage=0;
-						    window.requestIng=false;
-						    $(".h-list").scroll(function(){
-						    var list = $(".h-list");
-						    var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少
-						    var listScrollHeight = list[0].scrollHeight;//内容总高度
-						　  var listClientHeight = list[0].clientHeight;//可见区域高度
-						　  var listOffsetHeight = list[0].offsetHeight;//可见区域高度(包含边框高度)
-						  　if(listScrollTop + listClientHeight == listScrollHeight){
-						           
-						            if(requestIng==false)
-						            	{
-						            	 alert("<li>Hello</li>");
-						            	getData();
-						            	}
-						     }
-						    });
-						    
-						    
-						/*{
-						  "resultCode": "1001",
-						  "resultSize": 1,
-						  "resultTotal":10,
-						  "resultData": [
-						    {
-						      "name": "bootstrap-table",
-						      "stargazers_count": "526",
-						      "forks_count": "122",
-						      "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
-						    }
-						   ]
-						   }*/
-						 function getData() {
-							requestIng=true;
-						    $.ajax({
-						        url:url,
-						        type:'post',
-						        dataType:'json',
-						        async:true,
-						        data:{"currentPage":currentPage,"pageSize":pageSize,"where":where_obj},
-						        timeout:1000,  
-						        error:function(){  
-						        	 requestIng=false;
-						            alert("ajax error");  
-						        }, 
-						        success:function(rsObj)
-						        {
-						          requestIng=false;
-						          
-						        	  var resultSize=rsObj.resultSize;
-						        	  window.resultTotal=rsObj.resultTotal;
-						        	  var resultData=rsObj.resultData;
-						        	  
-						        	  if(resultSize>0){  
-						                  for(var i=0;i<resultData.size();i++){  
-						                	  
-						                      $(".h-list").append(  
-						                      $("<tr><td>"+  
-						                    		  resultData[i].name+  
-						                          "</td><td>"+  
-						                          resultData[i].stargazers_count+  
-						                          "</td><td>"+  
-						                          resultData[i].forks_count+  
-						                          "</td><td>"+  
-						                          resultData[i].description+  
-						                          "</td></tr>")  
-						                      );  
-						                  }  
-						              }
-						        	  currentPage++;
-						        }
-						    });
-						    
-						}
-						    
-						    
-						</script>
+
+						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+							WebListItemJsp webListItemJsp = new WebListItemJsp();
+							webListItemJsp.analyse(chirld.chirlds.get(0));
+
+							jsString += "<script type=\"text/javascript\">\n";
+							// 分页
+
+							jsString += "window.resultTotal=0;\n";
+							jsString += "window.pageSize=10;\n";
+							jsString += "window.currentPage=0;\n";
+							jsString += "window.requestIng=false;\n";
+							jsString+="window.where=\"\"\n";
+							jsString += " $(\".h-list\").scroll(function(){\n";
+							jsString += " var list = $(\".h-list\");\n";
+							jsString += "var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少\n";
+							jsString += "var listScrollHeight = list[0].scrollHeight;//内容总高度\n";
+							jsString += "var listClientHeight = list[0].clientHeight;//可见区域高度\n";
+							jsString += "var listOffsetHeight = list[0].offsetHeight;//可见区域高度(包含边框高度)\n";
+							jsString += "if(listScrollTop + listClientHeight == listScrollHeight){\n";
+
+							jsString += "if(requestIng==false)\n";
+							jsString += "{\n";
+							jsString += " alert(\"\");\n";
+							jsString += "getData();\n";
+							jsString += "}\n";
+							jsString += "}\n";
+							jsString += "});\n";
+
+							/*
+							 * { "resultCode": "1001", "resultSize": 1, "resultTotal":10, "resultData": [ {
+							 * "name": "bootstrap-table", "stargazers_count": "526", "forks_count": "122",
+							 * "description":
+							 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+							 * } ] }
+							 */
+							jsString += " function getData() {\n";
+							jsString += "requestIng=true;\n";
+							jsString += "$.ajax({\n";
+							jsString += "url:url,\n";
+							jsString += "type:'post',\n";
+							jsString += "dataType:'json',\n";
+							jsString += "async:true,\n";
+							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:where},\n";
+							jsString += "timeout:1000,\n";
+							jsString += "error:function(){\n";
+							jsString += "requestIng=false;\n";
+							jsString += "alert(\"ajax error\");\n";
+							jsString += "}, \n";
+							jsString += "success:function(rsObj)\n";
+							jsString += "{\n";
+							jsString += "requestIng=false;\n";
+							jsString += "var resultSize=rsObj.resultSize;\n";
+							jsString += "window.resultTotal=rsObj.resultTotal;\n";
+							jsString += "var resultData=rsObj.resultData;\n";
+							jsString += "if(resultSize>0){\n";
+							jsString += "for(var i=0;i<resultData.size();i++){ \n";
+							jsString += " $(\".h-list\").append(); \n";
+							jsString += " }\n";
+							jsString += " }\n";
+							jsString += " currentPage++;\n";
+							jsString += " }\n";
+							jsString += "});\n";
+							jsString += "}\n";
+							jsString += "</script>\n";
 						}
 					}
 
 					else if (chirld.type.equals("List_ItemLayout_Horizon")) {
 
 						start += " <li id=\"" + chirld.enname
-								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;width: 100%; " + relate+border
-								+ "\">\n";
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;width: 100%; "
+								+ relate + border + "\">\n";
 
 						end += "  </li>\n";
 					} else if (chirld.type.equals("List_ItemLayout_Vertical")) {
 
 						start += " <li id=\"" + chirld.enname
-								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;width: 100%; " + relate+border
-								+ "\">\n";
+								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;width: 100%; "
+								+ relate + border + "\">\n";
 
 						end += "  </li>\n";
 					}
 
-					 else if (chirld.type.equals("DialogLayout")) {
+					else if (chirld.type.equals("DialogLayout")) {
 
 						start += "<div id=\"" + chirld.enname + "\"  class=\"ui-dialog\">\n";
 						start += "<div class=\"ui-dialog-cnt\">\n";
@@ -536,46 +498,46 @@ public class WebJsp {
 
 					} else if (chirld.type.equals("TabLayout")) {
 
-						start += "<div id=\"" + chirld.enname + "\" class=\"h-tabbar\" style=\"background-color:" + chirld.bgRgb16
-								+ ";display:flex;flex-direction:row;" + relate +border+expand+ "\" >\n";
+						start += "<div id=\"" + chirld.enname + "\" class=\"h-tabbar\" style=\"background-color:"
+								+ chirld.bgRgb16 + ";display:flex;flex-direction:row;" + relate + border + expand
+								+ "\" >\n";
 
 						end += "  </div>\n";
-						
-					
-						jsString+="<script type=\"text/javascript\">\n";
-						jsString+="//tabbar\n";
-						jsString+=" $(function () {\n";
-						jsString+="     var collection = $(\".h-tabbar\").children();\n";
-						jsString+="  $.each(collection, function () {\n";
-						jsString+="     $(this).addClass(\"tabBtn\");\n";
-						jsString+=" });\n";
-						jsString+=" });\n";
-						jsString+=" //单击事件\n";
-						jsString+=" function tabBtnPress(btn) {\n";
-						jsString+="   var collection = $(\".h-tabbar\").children();\n";
-						jsString+=" $.each(collection, function () {\n";
-						jsString+="    $(this).removeClass(\"tabBtnPress\");\n";
-						jsString+="  $(this).addClass(\"tabBtn\");\n";
-						jsString+=" });\n";
-						jsString+=" $(btn).removeClass(\"tabBtn\");\n";
-						jsString+=" $(btn).addClass(\"tabBtnPress\");\n";
-						jsString+=" }\n";
-					    jsString+="</script>\n";
-					    
-					    styleString+="<style>\n";
-					    styleString+=".tabBtn\n";
-					    	styleString+=" {\n";
-					    	styleString+=" cursor: pointer;\n";
-					    	styleString+="  border-bottom: 2px solid transparent;\n";
-					    	styleString+="}\n";
-					    	styleString+=".tabBtnPress\n";
-					    	styleString+=" {\n";
-					    	styleString+=" cursor: pointer;\n";
-					    	styleString+="color: #00a5e0;\n";
-					    	styleString+="background: #ffffff;\n";
-					    	styleString+="border-bottom: 2px #00a5e0 solid;\n";
-					    	styleString+="}\n";
-					    	styleString+="</style>\n";
+
+						jsString += "<script type=\"text/javascript\">\n";
+						jsString += "//tabbar\n";
+						jsString += " $(function () {\n";
+						jsString += "     var collection = $(\".h-tabbar\").children();\n";
+						jsString += "  $.each(collection, function () {\n";
+						jsString += "     $(this).addClass(\"tabBtn\");\n";
+						jsString += " });\n";
+						jsString += " });\n";
+						jsString += " //单击事件\n";
+						jsString += " function tabBtnPress(btn) {\n";
+						jsString += "   var collection = $(\".h-tabbar\").children();\n";
+						jsString += " $.each(collection, function () {\n";
+						jsString += "    $(this).removeClass(\"tabBtnPress\");\n";
+						jsString += "  $(this).addClass(\"tabBtn\");\n";
+						jsString += " });\n";
+						jsString += " $(btn).removeClass(\"tabBtn\");\n";
+						jsString += " $(btn).addClass(\"tabBtnPress\");\n";
+						jsString += " }\n";
+						jsString += "</script>\n";
+
+						styleString += "<style>\n";
+						styleString += ".tabBtn\n";
+						styleString += " {\n";
+						styleString += " cursor: pointer;\n";
+						styleString += "  border-bottom: 2px solid transparent;\n";
+						styleString += "}\n";
+						styleString += ".tabBtnPress\n";
+						styleString += " {\n";
+						styleString += " cursor: pointer;\n";
+						styleString += "color: #00a5e0;\n";
+						styleString += "background: #ffffff;\n";
+						styleString += "border-bottom: 2px #00a5e0 solid;\n";
+						styleString += "}\n";
+						styleString += "</style>\n";
 
 					} else if (chirld.type.equals("SliderLayout")) {// 轮播
 						start += "<div id=\"" + chirld.enname + "\" class=\"" + chirld.enname + "Style\" >\n";
@@ -631,17 +593,17 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-		String expand="";
+		String expand = "";
 		if ("1bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:1;";
+			expand = "flex:1;";
 		}
 		if ("2bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:2;";
+			expand = "flex:2;";
 		}
 		if ("3bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:3;";
+			expand = "flex:3;";
 		}
-		
+
 		if (chirld.type.equals("Span")) {
 
 			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>\n";
@@ -660,17 +622,18 @@ public class WebJsp {
 
 			if ((chirld.parent.parent != null && chirld.parent.parent.type != null)) {
 
-			 if (chirld.parent.parent.type.toLowerCase().contains("list")) {
+				if (chirld.parent.parent.type.toLowerCase().contains("list")) {
 
 					bodym += "<div class=\"ui-list-info\">\n";
 					bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
 					bodym += "</div>\n";
 
 				} else if (chirld.parent.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""+expand+"\">" + chirld.cnname
-							+ "</label>\n";
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
+							+ "\">" + chirld.cnname + "</label>\n";
 				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";"+expand+"\">" + chirld.cnname
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
+							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
 							+ "</span>\n";
 				}
 
@@ -685,10 +648,11 @@ public class WebJsp {
 					bodym += "</div>\n";
 
 				} else if (chirld.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\""+expand+"\" >" + chirld.cnname
-							+ "</label>\n";
+					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
+							+ "\" >" + chirld.cnname + "</label>\n";
 				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";"+expand+"\">" + chirld.cnname
+					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
+							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
 							+ "</span>\n";
 				}
 
@@ -769,17 +733,17 @@ public class WebJsp {
 				if ((chirld.parent != null && chirld.parent.type != null)) {
 
 					if (chirld.parent.type.toLowerCase().contains("tab")) {
-						actionstring="tabBtnPress(this);";
-						expand="flex:1;";
+						actionstring = "tabBtnPress(this);";
+						expand = "flex:1;";
 					}
 				}
-				bodym += "<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16
-						+ ";"+expand+"\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
+				bodym += "<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16 + ";"
+						+ expand + "\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
 
 				bodym += "<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
-						+ "\"  style=\""+expand+"\">" + chirld.cnname + "</button>\n";
+						+ "\"  style=\"" + expand + "\">" + chirld.cnname + "</button>\n";
 			}
 
 		}
@@ -791,15 +755,14 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("leftArrow")) {
-		
-			bodym+="<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>\n";
-			
+
+			bodym += "<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>\n";
+
 		}
-		
-		if(chirld.type.equals("rightArrow"))
-		{
-			bodym+="<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>\n";
-			
+
+		if (chirld.type.equals("rightArrow")) {
+			bodym += "<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>\n";
+
 		}
 
 		if (chirld.type.equals("CheckBox")) {
@@ -835,11 +798,9 @@ public class WebJsp {
 
 		if (chirld.type.equals("EditText")) {
 
-		
-				bodym += "<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
-						+ "px;  font-size: " + chirld.textSize + "px;"+expand+"\"  type=\"text\"  id=\"" + chirld.enname
-						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
-		
+			bodym += "<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
+					+ "px;  font-size: " + chirld.textSize + "px;" + expand + "\"  type=\"text\"  id=\"" + chirld.enname
+					+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
 
 		}
 
