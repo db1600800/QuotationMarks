@@ -188,6 +188,11 @@ public class WebJsp {
 		bodym += styleString;
 
 		bodym += "<script type=\"text/javascript\">\n";
+		bodym += "$(document).ready(function(){\n";
+		bodym += "});\n";
+		bodym += "</script> \n\n";
+		
+		bodym += "<script type=\"text/javascript\">\n";
 		bodym += "//body宽高等于窗体\n";
 		bodym += " var screenHeight=document.documentElement.clientHeight;\n";
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
@@ -410,7 +415,7 @@ public class WebJsp {
 							jsString += "if(requestIng==false)\n";
 							jsString += "{\n";
 							jsString += " alert(\"\");\n";
-							jsString += "getData();\n";
+							jsString += "getListData();\n";
 							jsString += "}\n";
 							jsString += "}\n";
 							jsString += "});\n";
@@ -422,7 +427,7 @@ public class WebJsp {
 							 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
 							 * } ] }
 							 */
-							jsString += " function getData() {\n";
+							jsString += " function getListData() {\n";
 							jsString += "requestIng=true;\n";
 							jsString += "$.ajax({\n";
 							jsString += "url:url,\n";
@@ -444,8 +449,9 @@ public class WebJsp {
 							jsString += "if(resultSize>0){\n";
 							jsString += "for(var i=0;i<resultData.size();i++){ \n";
 							
-							jsString +="var itemString="+itemString+"\n;";
-							jsString += " $(\".h-list\").append(itemString); \n";
+							jsString +="var itemHtml='';\n";
+							jsString +=itemString;
+							jsString += " $(\".h-list\").append(itemHtml); \n";
 							jsString += " }\n";
 							jsString += " }\n";
 							jsString += " currentPage++;\n";
