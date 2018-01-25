@@ -1,10 +1,13 @@
-#Update '\u5907\u6CE8' value
-#Wed Dec 13 21:37:07 CST 2017
-\u4E2D\u6587\u540D=0
-\u5907\u6CE8=4
-docPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/InterfaceDoc/wordTableToJaveObject.doc
+#Update 'docPath' value
+#Tue Jan 23 14:23:10 CST 2018
 \u53D8\u91CF\u540D=1
-\u7C7B\u578B=2
-projectPath=/Users/apple/Documents/hobby_github/QuotationMarks/res
-picPath=/Users/apple/Documents/hobby_github/QuotationMarks/res/pic
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
+\u7C7B\u578B=2
+codeFilePath=/Users/admin/Documents/GitHub/QuotationMarks/res/src/web
+\u5907\u6CE8=4
+compomentProjectAddress=/Users/admin/Documents/GitHub/QuotationMarks/res/other/mobile-android
+recentUseColor=\#FB6F2C,\#9D2634,\#2C2C2C,\#FFFFFF,\#2A2A2A,\#A4A4A4,
+picPath=/Users/admin/Documents/GitHub/QuotationMarks/res/pic
+\u4E2D\u6587\u540D=0
+projectPath=/Users/admin/Documents/GitHub/QuotationMarks/res
+docPath=/Users/admin/Documents/GitHub/QuotationMarks/res/InterfaceDoc/wordTableToJaveObject.doc

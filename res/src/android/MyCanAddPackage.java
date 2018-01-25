@@ -25,8 +25,32 @@ public class MyCanAddPackage extends Activity implements OnScrollListener {
 Context context;
 public View containView;
 String searchText;
-/**a*/
-TextView aTextView;
+/**我的套餐*/
+Button mypackageButton;
+/**办理*/
+Button doitButton;
+/**可加办套餐*/
+TextView titleTextView;
+/**Y60元*/
+TextView moneyTextView;
+/**2013秋天*/
+TextView titlevalueTextView;
+/**周期*/
+TextView monthtitleTextView;
+/**6个月*/
+TextView monthvalueTextView;
+/**总计*/
+TextView totaltitleTextView;
+/**123*/
+TextView toalvalueTextView;
+/**首页*/
+TextView shouyeTextView;
+/**套餐*/
+TextView packageTextView;
+/**我的*/
+TextView myTextView;
+/**check*/
+CheckBox checkCheckBox;
 public MyCanAddPackage()
 {
 }
@@ -49,8 +73,51 @@ this.setContentView(view);
 public View init() {
 		if (containView == null) {
 			containView = inflateView(R.layout.myCanAddPackage);
-//a
-aTextView= (TextView) containView.findViewById(R.id.aTextView);
+//我的套餐
+mypackageButton = (Button) containView
+					.findViewById(R.id.mypackageButton);
+mypackageButton.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+}
+					});
+//办理
+doitButton = (Button) containView
+					.findViewById(R.id.doitButton);
+doitButton.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+}
+					});
+//可加办套餐
+titleTextView= (TextView) containView.findViewById(R.id.titleTextView);
+//Y60元
+moneyTextView= (TextView) containView.findViewById(R.id.moneyTextView);
+//2013秋天
+titlevalueTextView= (TextView) containView.findViewById(R.id.titlevalueTextView);
+//周期
+monthtitleTextView= (TextView) containView.findViewById(R.id.monthtitleTextView);
+//6个月
+monthvalueTextView= (TextView) containView.findViewById(R.id.monthvalueTextView);
+//总计
+totaltitleTextView= (TextView) containView.findViewById(R.id.totaltitleTextView);
+//123
+toalvalueTextView= (TextView) containView.findViewById(R.id.toalvalueTextView);
+//首页
+shouyeTextView= (TextView) containView.findViewById(R.id.shouyeTextView);
+//套餐
+packageTextView= (TextView) containView.findViewById(R.id.packageTextView);
+//我的
+myTextView= (TextView) containView.findViewById(R.id.myTextView);
+//check
+checkCheckBox= (CheckBox) containView.findViewById(R.id.checkCheckBox);
+checkCheckBox.setOnClickListener(new OnClickListener() {
+       @Override
+       public void onClick(View v) {
+if (checkCheckBox.isChecked()) {
+ adapter.selectAllCheckBox();
+ }else{
+ adapter.disSelectAllCheckBox();
+}      }
+    });
 		}
 request...();
 return containView;
@@ -103,8 +170,29 @@ return true;
 	}
 }.execute("");}
 public void setView(){
-//a
-aTextView.setText("");
+//我的套餐
+//办理
+//可加办套餐
+titleTextView.setText("");
+//Y60元
+moneyTextView.setText("");
+//2013秋天
+titlevalueTextView.setText("");
+//周期
+monthtitleTextView.setText("");
+//6个月
+monthvalueTextView.setText("");
+//总计
+totaltitleTextView.setText("");
+//123
+toalvalueTextView.setText("");
+//首页
+shouyeTextView.setText("");
+//套餐
+packageTextView.setText("");
+//我的
+myTextView.setText("");
+//check
 }
 /**返回本页刷新数据*/
 int n0000=0;
@@ -129,7 +217,19 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (body!=null) {
 			//有数据 且头没错
 				try {
-//a
+//我的套餐
+//办理
+//可加办套餐
+//Y60元
+//2013秋天
+//周期
+//6个月
+//总计
+//123
+//首页
+//套餐
+//我的
+//check
 //注入RequestRespond
 //End注入RequestRespond
 } catch (Exception e) {
