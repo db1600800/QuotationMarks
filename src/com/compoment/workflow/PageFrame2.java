@@ -703,7 +703,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			
 						//web
-			WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(pageName,beans); 
+			//WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(pageName,beans); 
 		}
 		
 
