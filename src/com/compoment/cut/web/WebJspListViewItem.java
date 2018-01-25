@@ -484,7 +484,7 @@ public class WebJspListViewItem {
 			bodym += "itemHtml+='<div  style=\"display:flex;\">'\n";
 			bodym += "itemHtml+='<div>" + chirld.cnname + "</div>'\n";
 			bodym += "itemHtml+='<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">'\n";
-			bodym += "itemHtml+='<select>'\n";
+			bodym += "itemHtml+='<select id=\""+chirld.enname+"\">'\n";
 			bodym += "itemHtml+='<option>2014</option>'\n";
 			bodym += "itemHtml+='<option selected>2015</option>'\n";
 			bodym += "itemHtml+='<option>2016</option>'\n";
@@ -544,8 +544,8 @@ public class WebJspListViewItem {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			bodym += " itemHtml+='<label class=\"ui-checkbox\" style=\"margin:10px\">'\n";
-			bodym += "itemHtml+='<input type=\"checkbox\">'\n";
+			bodym += "itemHtml+='<label class=\"ui-checkbox\" style=\"margin:10px\">'\n";
+			bodym += "itemHtml+='<input type=\"checkbox\" name=\"checkbox\" value=\"\">'\n";
 			bodym += "itemHtml+='</label>'\n";
 			bodym += "itemHtml+='<p>" + chirld.cnname + "</p>'\n";
 
@@ -558,19 +558,13 @@ public class WebJspListViewItem {
 		}
 
 		if (chirld.type.equals("Radio")) {
-			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
-			bodym += " <label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" name=\"radio\">\n";
-			bodym += "</label>\n";
-			bodym += " <p>表单中用于单选操作</p>\n";
-			bodym += "</div>\n";
-			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
-
-			bodym += "<label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" checked name=\"radio\">\n";
-			bodym += "</label>\n";
-			bodym += "<p>表单中用于单选操作</p>\n";
-			bodym += "</div>\n";
+			bodym += "itemHtml+='<div class=\"ui-form-item ui-form-item-radio ui-border-b\">'\n";
+			bodym += "itemHtml+=' <label class=\"ui-radio\" for=\"radio\">'\n";
+			bodym += "itemHtml+='<input type=\"radio\" name=\"radio\" value=\"\">'\n";
+			bodym += "itemHtml+='</label>'\n";
+			bodym += " itemHtml+='<p>"+chirld.cnname+"</p>'\n";
+			bodym += "itemHtml+='</div>'\n";
+		
 
 		}
 

@@ -388,7 +388,7 @@ public class WebJsp {
 						end += "  </ul>\n";
 
 						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-							WebListItemJsp webListItemJsp = new WebListItemJsp();
+							WebJspListViewItem webListItemJsp = new WebJspListViewItem();
 							webListItemJsp.analyse(chirld.chirlds.get(0));
 
 							jsString += "<script type=\"text/javascript\">\n";
@@ -620,43 +620,12 @@ public class WebJsp {
 		if (chirld.type.equals("TextView")) {
 			// h4 label
 
-			if ((chirld.parent.parent != null && chirld.parent.parent.type != null)) {
-
-				if (chirld.parent.parent.type.toLowerCase().contains("list")) {
-
-					bodym += "<div class=\"ui-list-info\">\n";
-					bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
-					bodym += "</div>\n";
-
-				} else if (chirld.parent.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
-							+ "\">" + chirld.cnname + "</label>\n";
-				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
+		
+			bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
 							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
 							+ "</span>\n";
-				}
+				
 
-			}
-
-			if ((chirld.parent != null && chirld.parent.type != null)) {
-
-				if (chirld.parent.type.toLowerCase().contains("list")) {
-
-					bodym += "<div class=\"ui-list-info\">\n";
-					bodym += "<div class=\"ui-txt-info\" >" + chirld.cnname + "</div>\n";
-					bodym += "</div>\n";
-
-				} else if (chirld.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
-							+ "\" >" + chirld.cnname + "</label>\n";
-				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
-							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
-							+ "</span>\n";
-				}
-
-			}
 		}
 
 		if (chirld.type.equals("Label")) {
@@ -716,7 +685,7 @@ public class WebJsp {
 			bodym += "</div>\n";
 			
 			jsString += "<script type=\"text/javascript\">\n";
-			jsString+="//选择\n";
+			jsString+="//select选择\n";
 			jsString += "$(\"#"+chirld.enname+"\").change(function () {  \n";
 			jsString += "var s = $(this).children('option:selected').val();  \n";
 			jsString+="window.where+="+chirld.enname+":s,\n";
@@ -775,9 +744,44 @@ public class WebJsp {
 
 		if (chirld.type.equals("CheckBox")) {
 			bodym += " <label class=\"ui-checkbox\" style=\"margin:10px\">\n";
-			bodym += "<input type=\"checkbox\">\n";
+			bodym += "<input type=\"checkbox\" name=\"checkbox\" value=\"\">\n";
 			bodym += "</label>\n";
 			bodym += "<p>" + chirld.cnname + "</p>\n";
+			
+			jsString+="<script>\n";
+			jsString+="//check\n";
+			jsString+="function checkWhich()\n";
+			jsString+="{\n";
+			jsString+="var checkboxs=document.getElementsByName(\"checkbox\");\n";
+			jsString+="var count=checkboxs.length;\n";
+			jsString+="var chestr=\"\";\n";
+			jsString+="for (i=0;i<count;i++)\n";
+			jsString+="{\n";
+			jsString+="if(checkboxs[i].checked == true)\n";
+			jsString+="{\n";
+			jsString+="chestr+=checkboxs[i].value+\",\";\n";
+			jsString+="}\n";
+			jsString+="}\n";
+			jsString+="if(chestr == \"\")\n";
+			jsString+="{\n";
+			jsString+="alert(\"请先选择复选框～！\");\n";
+			jsString+="}\n";
+			jsString+="}\n\n";
+			
+			jsString+="function checkAll()\n";
+			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
+		    jsString+="  this.checked = true;\n";
+			jsString+="})\n";
+			jsString+="}\n\n";
+			
+			jsString+="function unCheckAll()\n";
+			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
+		    jsString+="  this.checked = false;\n";
+			jsString+="})\n";
+			jsString+="}\n";
+			
+			
+			jsString+="</script>\n";
 
 		}
 
@@ -790,17 +794,28 @@ public class WebJsp {
 		if (chirld.type.equals("Radio")) {
 			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
 			bodym += " <label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" name=\"radio\">\n";
+			bodym += "<input type=\"radio\" name=\"radio\" value=\"\">\n";
 			bodym += "</label>\n";
-			bodym += " <p>表单中用于单选操作</p>\n";
+			bodym += " <p>"+chirld.cnname+"</p>\n";
 			bodym += "</div>\n";
-			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
 
-			bodym += "<label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" checked name=\"radio\">\n";
-			bodym += "</label>\n";
-			bodym += "<p>表单中用于单选操作</p>\n";
-			bodym += "</div>\n";
+			
+			jsString+="<script>\n";
+			jsString+="var bFlag = false;\n";
+		    jsString+="var valueString=\"\";\n";
+			jsString+="var gender = document.getElementsByName('radio');\n";
+			jsString+="for (var i = 0; i < gender.length; i++) {\n";
+			jsString+="if (gender[i].checked) {\n";
+			jsString+="bFlag = true;\n";
+			jsString+="valueString=gender[i].value;\n";
+			jsString+="break;\n";
+			jsString+="}\n";
+			jsString+="}\n";
+			jsString+="if (bFlag == false) {\n";
+			jsString+="alert('不能为空，请选择！')\n";
+			jsString+="return false;\n";
+			jsString+="}\n";
+			jsString+="</script>\n";
 
 		}
 
