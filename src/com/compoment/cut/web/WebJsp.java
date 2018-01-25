@@ -188,7 +188,7 @@ public class WebJsp {
 		bodym += styleString;
 
 		bodym += "<script type=\"text/javascript\">\n";
-		bodym += "//body宽高等于窗体";
+		bodym += "//body宽高等于窗体\n";
 		bodym += " var screenHeight=document.documentElement.clientHeight;\n";
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
 		bodym += "var body = $(\".h-body\");\n";
@@ -391,14 +391,14 @@ public class WebJsp {
 							WebJspListViewItem webListItemJsp = new WebJspListViewItem();
 							String itemString=webListItemJsp.analyse(chirld.chirlds.get(0));
 
-							jsString += "<script type=\"text/javascript\">\n";
+							jsString += "\n<script type=\"text/javascript\">\n";
 							// 分页
 
 							jsString += "window.resultTotal=0;\n";
 							jsString += "window.pageSize=10;\n";
 							jsString += "window.currentPage=0;\n";
 							jsString += "window.requestIng=false;\n";
-							jsString+="window.where=\"\"\n";
+							jsString+="window.where=new Map();\n";
 							jsString += " $(\".h-list\").scroll(function(){\n";
 							jsString += " var list = $(\".h-list\");\n";
 							jsString += "var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少\n";
@@ -429,7 +429,7 @@ public class WebJsp {
 							jsString += "type:'post',\n";
 							jsString += "dataType:'json',\n";
 							jsString += "async:true,\n";
-							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:where},\n";
+							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:window.where},\n";
 							jsString += "timeout:1000,\n";
 							jsString += "error:function(){\n";
 							jsString += "requestIng=false;\n";
@@ -494,7 +494,7 @@ public class WebJsp {
 
 						end += "</div>\n";
 						end += "</div>\n";
-						jsString += "<script class=\"demo-script\">\n";
+						jsString += "\n<script class=\"demo-script\">\n";
 						jsString += "$(\".ui-dialog\").dialog(\"show\");\n";
 						jsString += "</script>\n";
 
@@ -506,7 +506,7 @@ public class WebJsp {
 
 						end += "  </div>\n";
 
-						jsString += "<script type=\"text/javascript\">\n";
+						jsString += "\n<script type=\"text/javascript\">\n";
 						jsString += "//tabbar\n";
 						jsString += " $(function () {\n";
 						jsString += "     var collection = $(\".h-tabbar\").children();\n";
@@ -686,11 +686,11 @@ public class WebJsp {
 			bodym += "</div>\n";
 			bodym += "</div>\n";
 			
-			jsString += "<script type=\"text/javascript\">\n";
+			jsString += "\n<script type=\"text/javascript\">\n";
 			jsString+="//select选择\n";
 			jsString += "$(\"#"+chirld.enname+"\").change(function () {  \n";
 			jsString += "var s = $(this).children('option:selected').val();  \n";
-			jsString+="window.where+="+chirld.enname+":s,\n";
+			jsString+="window.where.set(\""+chirld.enname+"\",s);\n";
 			jsString += " }); \n"; 
 			jsString+="</script>\n";
 
@@ -750,7 +750,7 @@ public class WebJsp {
 			bodym += "</label>\n";
 			bodym += "<p>" + chirld.cnname + "</p>\n";
 			
-			jsString+="<script>\n";
+			jsString+="\n<script>\n";
 			jsString+="//check\n";
 			jsString+="function checkWhich()\n";
 			jsString+="{\n";
@@ -770,13 +770,13 @@ public class WebJsp {
 			jsString+="}\n";
 			jsString+="}\n\n";
 			
-			jsString+="function checkAll()\n";
+			jsString+="function checkAll(){\n";
 			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
 		    jsString+="  this.checked = true;\n";
 			jsString+="})\n";
 			jsString+="}\n\n";
 			
-			jsString+="function unCheckAll()\n";
+			jsString+="function unCheckAll(){\n";
 			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
 		    jsString+="  this.checked = false;\n";
 			jsString+="})\n";
@@ -802,7 +802,7 @@ public class WebJsp {
 			bodym += "</div>\n";
 
 			
-			jsString+="<script>\n";
+			jsString+="\n<script>\n";
 			jsString+="var bFlag = false;\n";
 		    jsString+="var valueString=\"\";\n";
 			jsString+="var gender = document.getElementsByName('radio');\n";
