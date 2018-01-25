@@ -389,7 +389,7 @@ public class WebJsp {
 
 						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 							WebJspListViewItem webListItemJsp = new WebJspListViewItem();
-							webListItemJsp.analyse(chirld.chirlds.get(0));
+							String itemString=webListItemJsp.analyse(chirld.chirlds.get(0));
 
 							jsString += "<script type=\"text/javascript\">\n";
 							// 分页
@@ -443,7 +443,9 @@ public class WebJsp {
 							jsString += "var resultData=rsObj.resultData;\n";
 							jsString += "if(resultSize>0){\n";
 							jsString += "for(var i=0;i<resultData.size();i++){ \n";
-							jsString += " $(\".h-list\").append(); \n";
+							
+							jsString +="var itemString="+itemString+"\n;";
+							jsString += " $(\".h-list\").append(itemString); \n";
 							jsString += " }\n";
 							jsString += " }\n";
 							jsString += " currentPage++;\n";
@@ -492,9 +494,9 @@ public class WebJsp {
 
 						end += "</div>\n";
 						end += "</div>\n";
-						end += "<script class=\"demo-script\">\n";
-						end += "$(\".ui-dialog\").dialog(\"show\");\n";
-						end += "</script>\n";
+						jsString += "<script class=\"demo-script\">\n";
+						jsString += "$(\".ui-dialog\").dialog(\"show\");\n";
+						jsString += "</script>\n";
 
 					} else if (chirld.type.equals("TabLayout")) {
 
