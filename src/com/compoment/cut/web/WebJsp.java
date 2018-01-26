@@ -394,7 +394,7 @@ public class WebJsp {
 
 						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
 							WebJspListViewItem webListItemJsp = new WebJspListViewItem();
-							String itemString=webListItemJsp.analyse(chirld.chirlds.get(0));
+							String itemString=webListItemJsp.analyse(chirld);
 
 							jsString += "\n<script type=\"text/javascript\">\n";
 							// 分页
