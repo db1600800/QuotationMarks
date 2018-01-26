@@ -427,9 +427,9 @@ public class WebJsp {
 							 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
 							 * } ] }
 							 */
-							jsString += " function getListData(var isInitQuery) {\n";
+							jsString += " function getListData(isInitQuery) {\n";
 							jsString += "requestIng=true;\n";
-							jsString += "if(!isInitQuery)\n";
+							jsString += "if(isInitQuery)\n";
 							jsString += "{\n";
 							jsString += "	window.currentPage=0;\n";
 							jsString += " }\n";
