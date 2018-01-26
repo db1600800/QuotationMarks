@@ -415,7 +415,7 @@ public class WebJsp {
 							jsString += "if(requestIng==false)\n";
 							jsString += "{\n";
 							jsString += " alert(\"\");\n";
-							jsString += "getListData();\n";
+							jsString += "getListData(false);\n";
 							jsString += "}\n";
 							jsString += "}\n";
 							jsString += "});\n";
@@ -427,8 +427,12 @@ public class WebJsp {
 							 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
 							 * } ] }
 							 */
-							jsString += " function getListData() {\n";
+							jsString += " function getListData(var isInitQuery) {\n";
 							jsString += "requestIng=true;\n";
+							jsString += "if(!isInitQuery)\n";
+							jsString += "{\n";
+							jsString += "	window.currentPage=0;\n";
+							jsString += " }\n";
 							jsString += "$.ajax({\n";
 							jsString += "url:url,\n";
 							jsString += "type:'post',\n";
@@ -466,14 +470,14 @@ public class WebJsp {
 
 						start += " <li id=\"" + chirld.enname
 								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;width: 100%; "
-								+ relate + border + "\">\n";
+								+ relate + border + "\" onclick=\"\">\n";
 
 						end += "  </li>\n";
 					} else if (chirld.type.equals("List_ItemLayout_Vertical")) {
 
 						start += " <li id=\"" + chirld.enname
 								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;width: 100%; "
-								+ relate + border + "\">\n";
+								+ relate + border + "\" onclick=\"\">\n";
 
 						end += "  </li>\n";
 					}
