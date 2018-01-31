@@ -80,6 +80,7 @@ public class WebJsp {
 
 	String parentChirld = "";
 	CompomentBean listItemBean = null;
+	boolean haveListView=false;
 
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
@@ -200,7 +201,11 @@ public class WebJsp {
 		bodym += "body.width(screenWidth + \"px\");\n";
 		bodym += "body.height(screenHeight + \"px\");\n";
 		bodym += " </script> \n";
-
+         
+		if(!haveListView)
+		{
+		this.commonViewNeedValue(maxBean);
+		}
 		bodym += jsString;
 
 		bodym += "</html>\n";
@@ -411,6 +416,7 @@ public class WebJsp {
 						jsString+="	}\n";
 						jsString+=" }\n";
 						jsString+="	});\n";
+						jsString += "</script>\n";
 				
 						
 					} else if (chirld.type.equals("Form_ItemLayout")) {
@@ -421,7 +427,7 @@ public class WebJsp {
 					}
 
 					else if (chirld.type.equals("ListLayout")) {
-
+						haveListView=true;
 						start += "<ul id=\"" + chirld.enname
 								+ "\" class=\"h-list ui-border-tb\" style=\"flex:1;padding:10px;overflow-y:scroll\">\n";
 
@@ -946,6 +952,61 @@ public class WebJsp {
 		}
 	}
 
+	
+	
+	public void commonViewNeedValue(CompomentBean chirld)
+	{
+		
+		
+		if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+			WebJspListViewItem webListItemJsp = new WebJspListViewItem();
+			String itemString=webListItemJsp.analyse(chirld);
+
+			jsString += "\n<script type=\"text/javascript\">\n";
+			jsString += "//进入页面向后台取数据,初始化页面\n";
+
+	
+
+			/*
+			 * { "resultCode": "1001", "resultSize": 1, "resultTotal":10, "resultData": [ {
+			 * "name": "bootstrap-table", "stargazers_count": "526", "forks_count": "122",
+			 * "description":
+			 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+			 * } ] }
+			 */
+			jsString += " function init() {\n";
+			jsString += "$.ajax({\n";
+			jsString += "url:${pageContext.request.contextPath}/__,\n";
+			jsString += "type:'post',\n";
+			jsString += "dataType:'json',\n";
+			jsString += "async:true,\n";
+			jsString += "data:{where:window.where},\n";
+			jsString += "timeout:1000,\n";
+			jsString += "error:function(){\n";
+			jsString += "requestIng=false;\n";
+			jsString += "alert(\"ajax error\");\n";
+			jsString += "}, \n";
+			jsString += "success:function(rsObj)\n";
+			jsString += "{\n";
+			jsString += "requestIng=false;\n";
+			jsString += "var resultSize=rsObj.resultSize;\n";
+			jsString += "window.resultTotal=rsObj.resultTotal;\n";
+			jsString += "var resultData=rsObj.resultData;\n";
+			jsString += "if(resultSize>0){\n";
+			jsString += "for(var i=0;i<resultData.size();i++){ \n";
+			
+			jsString +="var itemHtml='';\n";
+			jsString +=itemString;
+			jsString += " $(\".body\").append(itemHtml); \n";
+			jsString += " }\n";
+			jsString += " }\n";
+			jsString += "});\n";
+			jsString += "}\n";
+			jsString += "</script>\n";
+		}
+	
+	}
+	
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
 			// 按日期排
