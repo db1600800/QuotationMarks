@@ -667,6 +667,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("CheckBox");
 			components.add("CheckBox_Switch");
 			components.add("Radio");
+			components.add("File");
 			
 			components.add("PopTips");
 			

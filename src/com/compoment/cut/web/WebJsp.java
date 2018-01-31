@@ -372,12 +372,47 @@ public class WebJsp {
 					}
 
 					else if (chirld.type.equals("FormLayout")) {
+						
+						start += "\n\n<div   style=\"margin:5px 5px;display:none;\" id=\"tip-info\">\n";
+						start += "<button  onclick=\"$('#tip-info').css('display','none')\">\n";
+						start += "<span aria-hidden=\"true\">&times;</span>\n";
+						start += "</button>\n";
+						start += "<span></span>\n";
+						start += "</div>\n";
+						start += "<form id=\"" + chirld.enname + "\"  enctype=\"multipart/form-data\" method=\"post\" action=\"${pageContext.request.contextPath}/___\" class=\"" + ""
+								+ "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border + expand + "\" >\n";
 
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
-						start += "<form action=\"#\">\n";
+						
+						end += "<input type=\"submit\" value=\"确定\"/>\n"; 
+						end += "  </form>\n";
 
-						end += " </form>\n";
-						end += "  </div>\n";
+						
+						
+						jsString += "\n<script type=\"text/javascript\">\n";
+						jsString += "//表单提交\n";
+						jsString+="var form = $(\""+chirld.enname+"\");\n";
+						jsString+="form.ajaxForm({\n";
+						jsString+="beforeSubmit : function() {\n";
+						
+						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+							WebJspFormItem webJspFormItem = new WebJspFormItem();
+							String itemString=webJspFormItem.analyse(chirld);
+							jsString+=itemString;
+						}
+							
+								
+						jsString+="	},\n";
+						jsString+="dataType : \"json\",\n";
+						jsString+="	success : function(data) {\n";
+						jsString+="	if (data.status == \"true\") {\n";
+						jsString+="	$(\"#tip-info\").removeClass(\"alert-danger\").addClass(\"alert-danger\").css(\"display\", \"block\");\n";
+					    jsString+="	$(\"#tip-info > span\").text(data.info);\n";	
+						jsString+="	}\n";
+						jsString+=" }\n";
+						jsString+="	});\n";
+				
+						
 					} else if (chirld.type.equals("Form_ItemLayout")) {
 
 						start += " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
@@ -397,7 +432,7 @@ public class WebJsp {
 							String itemString=webListItemJsp.analyse(chirld);
 
 							jsString += "\n<script type=\"text/javascript\">\n";
-							// 分页
+							jsString += "// 分页\n";
 
 							jsString += "window.resultTotal=0;\n";
 							jsString += "window.pageSize=10;\n";
@@ -830,6 +865,13 @@ public class WebJsp {
 			jsString+="</script>\n";
 
 		}
+		
+		
+		if (chirld.type.equals("File")) {
+			bodym += "<input type=\"file\" id=\""+chirld.enname+"\" name=\""+chirld.enname+"\"/>\n";
+		}
+		
+		
 
 		if (chirld.type.equals("EditText")) {
 
