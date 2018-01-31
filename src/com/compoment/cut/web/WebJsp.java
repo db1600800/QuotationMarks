@@ -190,6 +190,7 @@ public class WebJsp {
 
 		bodym += "<script type=\"text/javascript\">\n";
 		bodym += "$(document).ready(function(){\n";
+		bodym += "     init();\n";
 		bodym += "});\n";
 		bodym += "</script> \n\n";
 		
