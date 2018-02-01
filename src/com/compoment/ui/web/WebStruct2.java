@@ -3,6 +3,8 @@ package com.compoment.ui.web;
 import java.util.List;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 
 public class WebStruct2 {
 	
@@ -46,8 +48,6 @@ public class WebStruct2 {
 		m+="@ParentPackage(value = \"default\")\n";
 		m+="@Namespace(value = \"/jiyou/wx\")\n";
 		m+="@Action(value = \"AddressAction\" ,results = { \n";
-		m+="		@Result(name = \"index\", location = \"/chinapost/jiyouwx/address/addressManage.jsp\"),\n";
-		m+="		@Result(name = \"member_index\", location = \"/chinapost/jiyouwx/member/member_index.jsp\"),\n";
 		m+="		@Result(name = \"add\", location = \"/chinapost/jiyouwx/address/addressAdd.jsp\")\n";
 		m+="})\n";
 
@@ -56,7 +56,7 @@ public class WebStruct2 {
 		
 		m+="\n//文件上传start\n";
 		m+="        private String myFileFileName;  \n";
-		m+="		    private File myFile;  //<input  name=\"myFile\" 里定义的值\n";
+		m+="		    private File myFile;  //<input  name=\"myFile\" name里定义的名字  \n";
 		m+="		    private String myFileContentType;  \n";
 		m+="		    public String getMyFileFileName() {  \n";
 		m+="		        return myFileFileName;  \n";
@@ -78,11 +78,7 @@ public class WebStruct2 {
 		m+="		    }  \n";
 		m+="//文件上传end\n\n";
 		
-		m+="	@Resource\n";
-		m+="	private Server server;\n";
-		m+="	public void setServer(Server server) {\n";
-		m+="		this.server = server;\n";
-		m+="	}\n";
+	
 		m+="	\n";
 		m+="	public String init(){\n";
 
@@ -95,7 +91,7 @@ public class WebStruct2 {
 		m+="	  public String demo() throws Exception{ \n";
 		m += "      //第一步 取值  \n";
 		m += "     //取值  ajax提交的数据  \n";
-		m+="		  HttpServletRequest request = StrutsParamUtils.getRequest();\n";
+		m+="		  HttpServletRequest request = ServletActionContext.getRequest();\n";
 		m+="		  String city = request.getParameter(\"city\");\n";
 		
 		m += "//取值  file  \n";
@@ -112,22 +108,24 @@ public class WebStruct2 {
 		
 		
 		
-		m += "      \n //第二步  发网络请求或发数据库请求 \n";
-		m += "        \n";
+		m += "    \n //第二步  发网络请求或发数据库请求 \n";
+		m += "    \n";
 		
 		
-		m += "       \n //第三步  正确跳转到哪  错误跳转到哪  一般用forward\n";
-		m += "        //A跳到新页面\n";
-		m+="				 request.setAttribute(\"address_info\", info);\n";
+		m += "   \n //第三步  正确跳转到哪  错误跳转到哪  一般用forward\n";
+		m += "    //A跳到新页面\n";
+		m+="		 request.setAttribute(\"address_info\", info);\n";
 		m+="		 return \"add\";\n";
 		
 		m+="		  //B跳回到本页面(带参数)\n";
-		m+="		  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
-		m+="		  StrutsParamUtils.getResponse().getWriter().write(new Gson().toJson(rltMap));\n";
+		m+="		  ServletActionContext.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+		m+="		  ServletActionContext.getResponse().getWriter().write(new Gson().toJson(rltMap));\n";
 		m+="		  return ActionSupport.NONE;\n";
 		m+="	  }\n";
 		m+="			\n";
 		m+="}\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Action", "java", m);
 
 	}
 

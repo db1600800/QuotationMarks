@@ -3,13 +3,15 @@ package com.compoment.ui.web;
 import java.util.List;
 
 import com.compoment.cut.CompomentBean;
+import com.compoment.util.FileUtil;
+import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
 public class WebServlet {
 	String pageName;
 	String className;
 	
-	public void create(String pageName, List<CompomentBean> oldBeans) {
+	public  WebServlet(String pageName, List<CompomentBean> oldBeans) {
 		pageName = pageName;
 		className = StringUtil.firstCharToUpperAndJavaName(pageName);
 		String m = "";
@@ -86,7 +88,18 @@ public class WebServlet {
 		m += "        　　　　 //i.getName();   　 　 //上传文件的文件名\n";
 		m += "        　　　　 //i.getContentType();  //上传文件的内容类型\n";
 		m += "        　　　　 if(!i.isFormField()&&i.getSize()>0)　　 //简单参数返回true，文件返回false \n";
-		m += "        　　　　　　Files.write(Paths.get(\"/upload/\"+Paths.get(i.getName()).getFileName()), i.get());      \n";
+		m += "  {\n";
+		m+="ServletContext servletContext = request.getSession().getServletContext();\n";
+		m+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
+		m+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
+		m+="//3.如果这个真实的目录不存在，需要创建\n";
+		m+="File file = new File(realPath );\n";
+		m+="if(!file.exists()){\n";
+		m+="file.mkdirs();\n";
+		m+="}\n";
+		m+="myfile.renameTo(new File(file,myfileFileName));\n";
+		m += "        　　}\n";
+		
 		m += "        　　}\n";
 		m += "        }\n";
 		m += "        \n";
@@ -137,6 +150,8 @@ public class WebServlet {
 
 		m += " \n";
 		m += "}\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Action", "java", m);
 
 	}
 
