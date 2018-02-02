@@ -13,7 +13,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
-import com.compoment.addfunction.web.ssm.InterfaceServiceController;
+import com.compoment.addfunction.web.ssm.InterfaceServiceController_ssm;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;
@@ -369,7 +369,7 @@ public class TableDocToInterfaceService extends JFrame {
 			    
 			
 			    try {
-				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+				InterfaceServiceController_ssm interfaceServiceController=new InterfaceServiceController_ssm();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -401,7 +401,7 @@ public class TableDocToInterfaceService extends JFrame {
 				    		tables.add(bean);
 				    		
 				    		try {
-				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+				    		InterfaceServiceController_ssm interfaceServiceController=new InterfaceServiceController_ssm();
 								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
