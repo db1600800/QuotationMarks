@@ -15,11 +15,11 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-/**springmvc spring  mybatis*/
-public class InterfaceServiceController_serveletMybatis  {
+/**servlet  mybatis*/
+public class InterfaceServiceController_servletMybatis  {
 
 
-	public InterfaceServiceController_serveletMybatis() throws RemoteException {
+	public InterfaceServiceController_servletMybatis() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,6 +46,7 @@ public class InterfaceServiceController_serveletMybatis  {
 		entity(tables);
 		serviceInterface(tables);
 		controller(tables);
+		mybatisUtil();
 
 		TestInterface_ssm testInterface = new TestInterface_ssm();
 		testInterface.testJsp(interfaceName, interfaceCnName, tables);
@@ -932,16 +933,19 @@ m+="</trim>\n";
 			m += "import com.framework.dao.common.DaoTools;\n";
 			m += "import com.framework.exception.CommonException;\n";
 			m += "//"+interfaceCnName+"\n";
-			m += "@Service(\"" + interfaceName + "Service\")\n";
+		
 			m += "public class " + interfaceName + "ServiceImpl implements "
 					+ interfaceName + "Service {\n";
 			m += "	private final static Logger logger = LoggerFactory.getLogger("
 					+ interfaceName + "ServiceImpl.class);\n";
 			m += "	\n";
 
-			m += "	@Resource\n";
+		
 			m += "	private " + mappername + "Mapper mapper;\n";
 			m += "	\n";
+			m += " private SqlSessionFactory sessionFactory = MybatisUtil.getInstance();\n";
+			    //创建能执行映射文件中sql的sqlSession
+			m += "   SqlSession session = sessionFactory.openSession();\n";
 
 			for (TableBean table : tables) {
 
@@ -954,10 +958,19 @@ m+="</trim>\n";
 					m += "	/*	Map<String,Object> m = new HashMap();\n";
 					
 					m += queryCondition2;
+					
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
 					m+="*/\n";
 
-					m += "return mapper." + mainTableName + "Select("
+					m+="try{\n";
+					m += "  List list=mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
+					
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return list;\n";
+					m += "	}\n";
+					
 					m += "	}\n";
 
 				} else if (tables.size() == 1) {
@@ -967,11 +980,23 @@ m+="</trim>\n";
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 					m += "	/*	Map<String,Object> m = new HashMap();\n";
+					
 					m += queryCondition2;
+					
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
 					m+="*/\n";
-					m += "return mapper." + mainTableName + "Select("
+
+					m+="try{\n";
+					m += "  List list=mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
-					m += "	}\n\n";
+					
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return list;\n";
+					m += "	}\n";
+					m += "	}\n";
+					
+					
 
 					m += "	@Override\n";
 					m += "public void " + " insert(" + table.tableEnName
@@ -1001,6 +1026,85 @@ m+="</trim>\n";
 			FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
 					interfaceName + "ServiceImpl", "java", m);
 		}
+
+	}
+	
+	
+	public void mybatisUtil()
+	{
+		String m="";
+		m+="import org.apache.ibatis.io.Resources;\n";
+		m+="import org.apache.ibatis.session.SqlSessionFactory;\n";
+		m+="import org.apache.ibatis.session.SqlSessionFactoryBuilder;\n";
+
+		m+="import java.io.IOException;\n";
+		m+="import java.io.Reader;\n";
+
+
+		m+="public class MybatisUtil {\n";
+		m+="    private static SqlSessionFactory sessionFactory;\n";
+		m+="    private static Reader reader;\n";
+
+		m+="    static {\n";
+		m+="        try {\n";
+		m+="            //mybatis的配置文件\n";
+		m+="            String resource = \"mybatisConfig.xml\";\n";
+		m+="            //使用MyBatis提供的Resources类加载mybatis的配置文件（它也加载关联的映射文件）\n";
+		m+="            //InputStream is = MybatisUtil.class.getClassLoader().getResourceAsStream(resource);\n";
+		m+="            reader = Resources.getResourceAsReader(resource);\n";
+
+		m+="            //构建sqlSession的工厂\n";
+		m+="            sessionFactory = new SqlSessionFactoryBuilder().build(reader);\n";
+
+		m+="        } catch (IOException e) {\n";
+		m+="            e.printStackTrace();\n";
+		m+="        }\n";
+		m+="    }\n";
+
+		m+="    public static SqlSessionFactory getInstance() {\n";
+		m+="        return sessionFactory;\n";
+		m+="    }\n";
+		m+="}\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				  "MybatisUtil", "java", m);
+		
+		m="";
+		m+="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		m+="<!DOCTYPE configuration PUBLIC \"-//mybatis.org//DTD Config 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-config.dtd\">\n";
+		m+="<configuration>\n";
+		m+="    <!-- 引用db.properties配置文件 -->\n";
+		m+="    <properties resource=\"jdbc.properties\"/>\n";
+
+
+		m+="    <environments default=\"development\">\n";
+		m+="        <environment id=\"development\">\n";
+		m+="            <transactionManager type=\"JDBC\"/>\n";
+		m+="            <!-- 配置数据库连接信息 -->\n";
+		m+="            <dataSource type=\"POOLED\">\n";
+		m+="                <property name=\"driver\" value=\"${driver}\"/>\n";
+		m+="                <property name=\"url\" value=\"${url}\"/>\n";
+		m+="                <property name=\"username\" value=\"${name}\"/>\n";
+		m+="                <property name=\"password\" value=\"${password}\"/>\n";
+		m+="            </dataSource>\n";
+		m+="        </environment>\n";
+		m+="    </environments>\n";
+		m+="    <mappers>\n";
+		m+="        <mapper resource=\"com/yyr/mapping/userMapper.xml\"/>\n";
+		m+="    </mappers>\n";
+		m+="</configuration>\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				  "mybatisConfig", "xml", m);
+		
+		m="";
+		m+="driver = com.mysql.jdbc.Driver\n";
+		m+="url = jdbc:mysql://localhost:3306/yyr_test\n";
+		m+="name = root\n";
+		m+="password = jialin89086\n";
+		
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+				  "jdbc", "properties", m);
 
 	}
 
@@ -1042,47 +1146,56 @@ m+="</trim>\n";
 
 		String m = "";
 		m += "package com.company.controller;\n";
-		m += "import java.util.Locale;\n";
-		m += "import java.util.Map;\n";
-		m += "import java.util.Set;\n";
-		m += "import java.util.List;\n";
+		
+		m += "import java.io.IOException;\n";
+		m += "import java.io.PrintWriter;\n";
 
-		m += "import javax.validation.ConstraintViolation;\n";
-		m += "import javax.validation.Validator;\n";
-		m += "import org.springframework.beans.factory.annotation.Autowired;\n";
-		m += "import org.springframework.context.annotation.Scope;\n";
-		m += "import org.springframework.context.i18n.LocaleContextHolder;\n";
-		m += "import org.springframework.stereotype.Controller;\n";
-		m += "import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;\n";
-		m += "import org.springframework.web.bind.annotation.RequestBody;\n";
-		m += "import org.springframework.web.bind.annotation.RequestMapping;\n";
-		m += "import org.springframework.web.bind.annotation.RequestParam;\n";
-		m += "import org.springframework.web.bind.annotation.ResponseBody;\n";
+		m += "import javax.servlet.RequestDispatcher;\n";
+		m += "import javax.servlet.ServletException;\n";
+		m += "import javax.servlet.http.HttpServlet;\n";
+		m += "import javax.servlet.http.HttpServletRequest;\n";
+		m += "import javax.servlet.http.HttpServletResponse;\n";
 
-		m += "import org.springframework.web.servlet.support.RequestContext;\n";
+		m += "import org.apache.commons.fileupload.FileItem;\n";
+		m += "import org.apache.commons.fileupload.FileItemFactory;\n";
+		m += "import org.apache.commons.fileupload.disk.DiskFileItemFactory;\n";
+		m += "import org.apache.commons.fileupload.servlet.ServletFileUpload;\n";
 
-		m += "import com.framework.controller.BaseController;\n";
-		m += "import com.framework.utils.SpringBeanManger;\n";
-		m += "import com.framework.utils.Constant;\n";
-		m += "import com.framework.utils.CommonUtil;\n";
+		m +="import net.sf.json.JSONArray;\n";
+		m +="import org.slf4j.Logger;\n";
+		m +="import org.slf4j.LoggerFactory;\n";
+		
 
 		m += "\n/**" + interfaceCnName + "*/\n";
-		m += "@Controller\n";
-		m += "@Scope(\"prototype\")\n";
-		m += "@RequestMapping(\"/" + interfaceName.toLowerCase() + "\")\n";
-		m += "public class " + interfaceName
-				+ "Controller extends BaseController {\n";
+		m += "public class "+interfaceName+"Servlet extends HttpServlet {\n";
+		
+		m += "    public void doGet(HttpServletRequest request, HttpServletResponse response)\n";
+		m += "            throws ServletException, IOException {\n";
+		m += "        doPost(request, response);\n";
+		m += "    }\n";
 
-		m += "@Autowired\n";
+		m += "    public void doPost(HttpServletRequest request, HttpServletResponse response)\n";
+		m += "            throws ServletException, IOException {\n";
+		m += "        //获取对应的请求参数\n";
+		m += "        String method = request.getParameter(\"method\");\n";
+		m += "        //根据请求参数去调用对应的方法。\n";
+		m += "        if (\"init\".equals(method)) {\n";
+		m += "        	init(request, response);\n";
+		m += "        } \n";
+		m += "        if (\"query\".equals(method)) {\n";
+		m += "        	query(request, response);\n";
+		m += "        } \n";
+		m += "    }\n";
+
+		
 		m += "private " + interfaceName + "Service "
-				+ StringUtil.firstCharToLower(interfaceName) + "Service;\n";
+				+ StringUtil.firstCharToLower(interfaceName) + "Service=new "+interfaceName+"Service();\n";
 
-		m += "	@RequestMapping(\"/query.do\")\n";
-		m += "	public @ResponseBody Map<String, Object> query(@RequestParam Map reqMap) {\n";
+		
+	
+		m += "	public void query(HttpServletRequest request, HttpServletResponse response) {\n";
 
-		m += "		//if (null == reqMap || reqMap.isEmpty())\n";
-		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
-
+	
 		m+="Map paraMap=new HashMap();\n";
 		
 		int i = 0;
@@ -1091,15 +1204,15 @@ m+="</trim>\n";
 
 			if (column.type.toLowerCase().contains("int")) {
 				m += "		int " + column.columnEnName
-						+ " = reqMap.get(\"" + column.columnEnName
-						+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
 						+ column.columnEnName + "\").toString());\n";
 				
 			}else
 			{
 				m += "		String " + column.columnEnName
-						+ " = reqMap.get(\"" + column.columnEnName
-						+ "\") == null ? null : reqMap.get(\""
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? null : request.getParameter(\""
 						+ column.columnEnName + "\").toString();\n";
 			}
 			
@@ -1124,9 +1237,19 @@ m+="</trim>\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n";
 
-		m+="Map r=new HashMap();\n";
-		m+="r.put(\"returnData\","+ mainTableName.toLowerCase()+"Beans);\n";
-		m += "	  return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE,\"\",r);\n";
+
+	
+		m += "      response.setCharacterEncoding(\"utf-8\");\n";
+		m += "		response.setContentType(\"application/json\");\n";
+		m += "		PrintWriter out = response.getWriter();\n";
+		m += "		\n";
+		m += "		JSONArray jsonArray = JSONArray.fromObject("+mainTableName.toLowerCase()+"Beans);\n";
+		m += "		\n";
+		m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\":\" + jsonArray.toString()+ \"}\");\n";
+		m += "        out.flush();\n";
+		m += "        out.close();\n";
+		
+		
 		m += "	}\n";
 
 		for (TableBean table : tables) {
@@ -1135,11 +1258,10 @@ m+="</trim>\n";
 
 			} else if (tables.size() == 1) {
 
-				m += "	@RequestMapping(\"/insert.do\")\n";
-				m += "	public @ResponseBody Map<String, Object> insert(@RequestParam Map reqMap) {\n";
+			
+				m += "	public void insert(HttpServletRequest request, HttpServletResponse response) {\n";
 
-				m += "		if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+			
 
 				 n="";
 				for (TableColumnBean column : table.columns) {
@@ -1147,15 +1269,15 @@ m+="</trim>\n";
 
 					if (column.type.toLowerCase().contains("int")) {
 						m += "		int " + column.columnEnName
-								+ " = reqMap.get(\"" + column.columnEnName
-								+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+								+ " = request.getParameter(\"" + column.columnEnName
+								+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
 								+ column.columnEnName + "\").toString());\n";
 						
 					}else
 					{
 						m += "		String " + column.columnEnName
-								+ " = reqMap.get(\"" + column.columnEnName
-								+ "\") == null ? null : reqMap.get(\""
+								+ " = request.getParameter(\"" + column.columnEnName
+								+ "\") == null ? null : request.getParameter(\""
 								+ column.columnEnName + "\").toString();\n";
 					}
 						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
@@ -1166,37 +1288,44 @@ m+="</trim>\n";
 						+ "Bean=new "+mainTableName+"Bean();\n";
 				m+=n;
 				
+				m+="boolean isOk=true;\n";
 				m += "try {\n";
 				m += StringUtil.firstCharToLower(interfaceName)
 						+ "Service.insert(" + mainTableName.toLowerCase()
 						+ "Bean);\n";
 				m += "} catch (Exception e) {\n";
+				m+="isOk=false;\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "      response.setCharacterEncoding(\"utf-8\");\n";
+				m += "		response.setContentType(\"application/json\");\n";
+				m += "		PrintWriter out = response.getWriter();\n";
+				m += "		\n";
+				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"新增成功。\",\"returnData\":\"\"}\");\n";
+				m += "        out.flush();\n";
+				m += "        out.close();\n";
 				m += "	}\n";
 
-				m += "	@RequestMapping(\"/update.do\")\n";
-				m += "	public @ResponseBody Map<String, Object> update(@RequestParam Map reqMap) {\n";
+			
+				m += "	public void update(HttpServletRequest request, HttpServletResponse response) {\n";
 
-				m += "		if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
+		
 
 				 n="";
 				for (TableColumnBean column : table.columns) {
 				
 					if (column.type.toLowerCase().contains("int")) {
 						m += "		int " + column.columnEnName
-								+ " = reqMap.get(\"" + column.columnEnName
-								+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+								+ " = request.getParameter(\"" + column.columnEnName
+								+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
 								+ column.columnEnName + "\").toString());\n";
 						
 					}else
 					{
 						m += "		String " + column.columnEnName
-								+ " = reqMap.get(\"" + column.columnEnName
-								+ "\") == null ? null : reqMap.get(\""
+								+ " = request.getParameter(\"" + column.columnEnName
+								+ "\") == null ? null : request.getParameter(\""
 								+ column.columnEnName + "\").toString();\n";
 					}
 						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
@@ -1215,19 +1344,23 @@ m+="</trim>\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "      response.setCharacterEncoding(\"utf-8\");\n";
+				m += "		response.setContentType(\"application/json\");\n";
+				m += "		PrintWriter out = response.getWriter();\n";
+				m += "		\n";
+				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"更新成功。\",\"returnData\":\"\"}\");\n";
+				m += "        out.flush();\n";
+				m += "        out.close();\n";
 				m += "	}\n";
 
 				
 				
 				
 				
-				m += "	@RequestMapping(\"/delete.do\")\n";
-				m += "	public @ResponseBody Map<String, Object> delete(@RequestParam Map reqMap) {\n";
+			
+				m += "	public void delete(HttpServletRequest request, HttpServletResponse response) {\n";
 
-				m += "		if (null == reqMap || reqMap.isEmpty())\n";
-				m += "			return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
-
+			
 				
 				 n="";
 				for (TableColumnBean column : table.columns) {
@@ -1236,15 +1369,15 @@ m+="</trim>\n";
 
 						if (column.type.toLowerCase().contains("int")) {
 							m += "		int " + column.columnEnName
-									+ " = reqMap.get(\"" + column.columnEnName
-									+ "\") == null ? 0 :Integer.valueOf( reqMap.get(\""
+									+ " = request.getParameter(\"" + column.columnEnName
+									+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
 									+ column.columnEnName + "\").toString());\n";
 							
 						}else
 						{
 							m += "		String " + column.columnEnName
-									+ " = reqMap.get(\"" + column.columnEnName
-									+ "\") == null ? null : reqMap.get(\""
+									+ " = request.getParameter(\"" + column.columnEnName
+									+ "\") == null ? null : request.getParameter(\""
 									+ column.columnEnName + "\").toString();\n";
 						}
 						n+=mainTableName.toLowerCase()+ "Bean."+column.columnEnName+"="+column.columnEnName+";\n";
@@ -1262,7 +1395,13 @@ m+="</trim>\n";
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "		return CommonUtil.ReturnWarp(Constant.TRAN_SUCCESS, Constant.ERRORTYPE);\n";
+				m += "      response.setCharacterEncoding(\"utf-8\");\n";
+				m += "		response.setContentType(\"application/json\");\n";
+				m += "		PrintWriter out = response.getWriter();\n";
+				m += "		\n";
+				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"删除成功。\",\"returnData\":\"\"}\");\n";
+				m += "        out.flush();\n";
+				m += "        out.close();\n";
 				m += "	}\n";
 
 			}

@@ -30,9 +30,9 @@ public class WebServlet {
 		m += "import org.apache.commons.fileupload.disk.DiskFileItemFactory;\n";
 		m += "import org.apache.commons.fileupload.servlet.ServletFileUpload;\n";
 
-		m += "import net.sf.json.JSONArray;\n";
-		m+="import org.slf4j.Logger;\n";
-		m+="import org.slf4j.LoggerFactory;\n";
+		m +="import net.sf.json.JSONArray;\n";
+		m +="import org.slf4j.Logger;\n";
+		m +="import org.slf4j.LoggerFactory;\n";
 
 		m += "public class "+className+"Servlet extends HttpServlet {\n";
 		m+="	private static final Logger log = LoggerFactory.getLogger("+className+"Action.class);\n";
@@ -68,7 +68,7 @@ public class WebServlet {
 		
 		m += "     \n //第一步 取值  \n";
 		m += "        //取值  ajax提交的数据  \n";
-		m+="request.setCharacterEncoding(\"UTF-8\");\n";
+		m+="          request.setCharacterEncoding(\"UTF-8\");\n";
 		m += "        String method = request.getParameter(\"method\"); //参数用html里name=\"\"的值\n";
 		m += "        \n";
 		m += "        \n";
@@ -140,7 +140,7 @@ public class WebServlet {
 		m += "		\n";
 		m += "		JSONArray jsonArray = JSONArray.fromObject(rows);\n";
 		m += "		\n";
-		m += "		out.write(\"{\"status\":\"true\",\"info\":\"导入成功。\",\"rows\":\" + jsonArray.toString()+ \"}\");\n";
+		m += "		out.write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\":\" + jsonArray.toString()+ \"}\");\n";
 		m += "        out.flush();\n";
 		m += "        out.close();\n";
 		m += "        \n";
