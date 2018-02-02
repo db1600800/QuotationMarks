@@ -31,37 +31,75 @@ import com.compoment.util.KeyValue;
 
 public class WebJsp {
 
-	// <!--
-	// http://blog.csdn.net/topviewers/article/details/21644305
-	// relative相对自己进行top，right，bottom，left移动 ，占位，文档流不变。
-	//
-	// absolute
-	// 有父辈(父亲或爷爷)为absolute,relative，就相对父辈。没父辈,就相对浏览器。不占位，文档流改变。忽略padding
-	// fixed 特殊absolute
-	//
-	// static 文档流
-	// -->
-
-	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
-	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
-	// background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
-	// text-align: center;文本居中
-
-	// float:left;right center
-
-	// width: 100%;
-
-	// position: relative; 正常占位
-
-	// position: absolute; 相对父亲浮起来，不占位，父亲不指定position: relative则相对<body>浮起来
-	// z-index:1; 多个浮起来，数值大的在上面
-
-	// position: fixed; 相对浏览器浮起来，不占位
-	// 后跟 top:0; left:0; bottom:0; right:0;
-
-	// overflow: scroll;滚动 auto自动处理 hidden隐藏
-
-	// margin-top:3px;
+	        //选择器 1.选择器keyvalue(key中文value数字)数据写死  选择一个保存值到数据库
+			//      2.选择器keyvalue数据动态   选择一个保存值到数据库
+			//		3.选择器keyvalue数据动态    选择一个另外个选择器跟着变
+			//		4.选择器keyvalue数据写死    选择一个另外一个或多个控件隐藏
+			//      5.选择器keyvalue数据写死     选择一个另外一个图片控件图片切换 ，文字控件值变化，列表控件值变化，超链接控件变
+			
+			
+			
+			//必填项左边标红星
+			
+			
+			
+			//按钮      1.保存
+			//       2.返回
+			//       3.清空  图片，文件选择器
+			//       4.加入购物车
+			//		 5.确认订单
+			//		 6.支付(跳转保存接口或数据库)
+			//       7.查询(不跳转查询列表)
+			//		 8.新增(跳转保存接口或数据库)
+			//		 9.修改(跳转查询填值)
+			//       10.奖状 (跳转查询列表)
+			//       11.订单(跳转查询列表)
+			//       12.地址(跳转查询列表)
+			
+			
+			
+			
+			
+			//图片      1.url写死
+			//       2.url来源选择器 ，  文件上传器     
+		    //       3.点击图片放大
+			
+			
+			
+			
+			
+			
+			
+			//文字控件
+			//          1.动态
+			//			2.写死
+			
+			
+			
+			//文字编辑器
+			//           1.输入时检查是否为数字
+			//           2.输入时检查是否为手机号
+			//			 3.输入时检查是否为中文
+			//		     4.输入时检查是否为身份证号
+			//		     5.保存时检查是否为空
+			//           6.默认值
+			//           7.输入长度限制
+			//			 8.提示语
+			//			 9.初始值
+			
+			
+			
+			
+			//日期选择器
+			          //1.开始时间小于结束时间
+			
+			
+			
+			
+			//文件上传器
+		    //1.预览图片
+	
+	
 
 	String bodym = "\n\n\n";
 	String style = "";

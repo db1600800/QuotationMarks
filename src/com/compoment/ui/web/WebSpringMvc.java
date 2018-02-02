@@ -33,24 +33,15 @@ public class WebSpringMvc {
 		m += "import java.util.List;\n";
 		m += "import java.util.Map;\n";
 		m += "import java.util.Set;\n";
-
 		m += "import javax.annotation.Resource;\n";
 		m += "import javax.servlet.http.HttpServletRequest;\n";
 		m += "import javax.servlet.http.HttpSession;\n";
-
 		m += "import org.apache.commons.lang.StringUtils;\n";
-	
 		m += "import com.google.gson.Gson;\n";
-	
-
-	
+		
 		
 		m+="@Controller\n";
 		m += "public class " + className + "Controller  {\n";
-
-	
-		
-		
 		
 		m+="@RequestMapping(\"/addUser2\")\n";
 		m+=" public void demo(@RequestParam MultipartFile myfile,HttpServletRequest request,HttpServletResponse response) {\n";
@@ -96,17 +87,15 @@ public class WebSpringMvc {
 		m += "	}\n\n\n";
 		
 		
-		springmvc.xml
 		
-		<!-- 配置多媒体文件解析器 -->
-		<!-- 文件上传 -->
-		<bean id="multipartResolver"
-		    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		    <!-- 设置上传文件的最大尺寸为5MB -->
-		    <property name="maxUploadSize">
-		        <value>5242880</value>
-		    </property>
-		</bean>
+		m += "	springmvc.xml\n";
+		m += "	<!-- 文件上传 -->\n";
+		m += "	<bean id=\"multipartResolver\" class=\"org.springframework.web.multipart.commons.CommonsMultipartResolver\">\n";
+		m += "	<!-- 设置上传文件的最大尺寸为5MB -->\n";
+		m += "	<property name=\"maxUploadSize\">\n";
+		m += "	 <value>5242880</value>\n";
+		m += "	</property>\n";
+		m += "	</bean>\n";
 		
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web", className + "Action", "java", m);
 	}

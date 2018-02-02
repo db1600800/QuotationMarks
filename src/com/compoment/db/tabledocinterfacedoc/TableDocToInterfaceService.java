@@ -11,9 +11,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import com.compoment.addfunction.web.InterfaceServiceController;
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
+import com.compoment.addfunction.web.ssm.InterfaceServiceController;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;

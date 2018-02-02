@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web;
+package com.compoment.addfunction.web.ssm;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

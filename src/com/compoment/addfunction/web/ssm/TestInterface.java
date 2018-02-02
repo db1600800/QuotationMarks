@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web;
+package com.compoment.addfunction.web.ssm;
 
 import java.util.ArrayList;
 import java.util.List;
