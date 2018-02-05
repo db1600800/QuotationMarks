@@ -1080,7 +1080,17 @@ public class CodeFunctionAdd extends JFrame {
 		}
 
 		if (function.id.equals("2")) {// ssm接口请求响应
-			TableDocToInterfaceService frame = new TableDocToInterfaceService();
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("springmvc_spring_mybatis");
+			frame.setVisible(true);
+		}
+		
+		if (function.id.equals("3")) {// servlet mybatis接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("servlet_mybatis");
+			frame.setVisible(true);
+		}
+		
+		if (function.id.equals("4")) {// struct2 mybatis接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("struct2_mybatis");
 			frame.setVisible(true);
 		}
 	}
@@ -1226,7 +1236,9 @@ public class CodeFunctionAdd extends JFrame {
 	public void WebData() {
 		functionParents.clear();
 		functionParents.add(new Function("1", "网络请求,响应"));
-		functionParents.add(new Function("2", "ssm接口请求响应"));
+		functionParents.add(new Function("2", "springmvc_spring_mybatis接口请求响应"));
+		functionParents.add(new Function("3", "servlet_mybatis接口请求响应"));
+		functionParents.add(new Function("4", "struct2_mybatis接口请求响应"));
 	}
 
 	public void searchCodeFiles(String root) {
