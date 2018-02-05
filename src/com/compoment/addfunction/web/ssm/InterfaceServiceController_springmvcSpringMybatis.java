@@ -16,10 +16,10 @@ import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
 /**springmvc spring  mybatis*/
-public class InterfaceServiceController_ssm  {
+public class InterfaceServiceController_springmvcSpringMybatis  {
 
 
-	public InterfaceServiceController_ssm() throws RemoteException {
+	public InterfaceServiceController_springmvcSpringMybatis() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,7 +47,7 @@ public class InterfaceServiceController_ssm  {
 		serviceInterface(tables);
 		controller(tables);
 
-		TestInterface_ssm testInterface = new TestInterface_ssm();
+		TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
 		testInterface.testJsp(interfaceName, interfaceCnName, tables);
 
 	}

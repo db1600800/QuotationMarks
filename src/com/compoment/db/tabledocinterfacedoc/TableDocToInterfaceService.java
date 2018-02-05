@@ -14,7 +14,7 @@ import javax.swing.GroupLayout.Alignment;
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.web.ssm.InterfaceServiceController_servletMybatis;
-import com.compoment.addfunction.web.ssm.InterfaceServiceController_ssm;
+import com.compoment.addfunction.web.ssm.InterfaceServiceController_springmvcSpringMybatis;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;
@@ -374,7 +374,7 @@ public class TableDocToInterfaceService extends JFrame {
 			    try {
 			    	if(type.equals("springmvc_spring_mybatis"))
 			    	{
-				InterfaceServiceController_ssm interfaceServiceController=new InterfaceServiceController_ssm();
+				InterfaceServiceController_springmvcSpringMybatis interfaceServiceController=new InterfaceServiceController_springmvcSpringMybatis();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 			    	}else if(type.equals("servlet_mybatis"))
 			    	{
@@ -419,7 +419,7 @@ public class TableDocToInterfaceService extends JFrame {
 				    			
 				    		   	if(type.equals("springmvc_spring_mybatis"))
 						    	{
-				    		   		InterfaceServiceController_ssm interfaceServiceController=new InterfaceServiceController_ssm();
+				    		   		InterfaceServiceController_springmvcSpringMybatis interfaceServiceController=new InterfaceServiceController_springmvcSpringMybatis();
 									interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
 						    	}else if(type.equals("servlet_mybatis"))
 						    	{

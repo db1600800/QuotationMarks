@@ -48,7 +48,7 @@ public class InterfaceServiceController_servletMybatis  {
 		controller(tables);
 		mybatisUtil();
 
-		TestInterface_ssm testInterface = new TestInterface_ssm();
+		TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
 		testInterface.testJsp(interfaceName, interfaceCnName, tables);
 
 	}

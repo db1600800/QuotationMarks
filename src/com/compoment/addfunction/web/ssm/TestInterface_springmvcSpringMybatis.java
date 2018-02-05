@@ -9,7 +9,7 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class TestInterface_ssm {
+public class TestInterface_springmvcSpringMybatis {
 
 	public void testJsp(String interfaceName, String interfaceCnName,
 			List<TableBean> tables) {
