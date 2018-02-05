@@ -1001,21 +1001,37 @@ m+="</trim>\n";
 					m += "	@Override\n";
 					m += "public void " + " insert(" + table.tableEnName
 							+ "Bean bean){\n";
-
-					m += " mapper." + mainTableName + "Insert(bean);\n";
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="try{\n";
+					m += " List list=mapper." + mainTableName + "Insert(bean);\n";
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return list;\n";
+					m += "	}\n";
 					m += "	}\n";
 
 					m += "	@Override\n";
 					m += "public void update(" + table.tableEnName
 							+ "Bean bean){\n";
-					m += " mapper." + mainTableName + "Update(bean);\n";
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="try{\n";
+					m += "List list= mapper." + mainTableName + "Update(bean);\n";
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return list;\n";
+					m += "	}\n";
 					m += "	}\n\n";
 
 					m += "	@Override\n";
 					m += "public void   delete(" + table.tableEnName
 							+ "Bean bean){\n";
-
-					m += " mapper." + mainTableName + "Delete(bean);\n";
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="try{\n";
+					m += "List list=mapper." + mainTableName + "Delete(bean);\n";
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return list;\n";
+					m += "	}\n";
 					m += "	}\n";
 
 				}
@@ -1179,11 +1195,18 @@ m+="</trim>\n";
 		m += "        //获取对应的请求参数\n";
 		m += "        String method = request.getParameter(\"method\");\n";
 		m += "        //根据请求参数去调用对应的方法。\n";
-		m += "        if (\"init\".equals(method)) {\n";
-		m += "        	init(request, response);\n";
-		m += "        } \n";
+	
 		m += "        if (\"query\".equals(method)) {\n";
 		m += "        	query(request, response);\n";
+		m += "        } \n";
+		m += "        if (\"insert\".equals(method)) {\n";
+		m += "        	insert(request, response);\n";
+		m += "        } \n";
+		m += "        if (\"update\".equals(method)) {\n";
+		m += "        	update(request, response);\n";
+		m += "        } \n";
+		m += "        if (\"delete\".equals(method)) {\n";
+		m += "        	delete(request, response);\n";
 		m += "        } \n";
 		m += "    }\n";
 
@@ -1410,7 +1433,7 @@ m+="</trim>\n";
 		m += "}\n";
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
-				interfaceName + "Controller", "java", m);
+				interfaceName + "Servelet", "java", m);
 	}
 
 	public String typeCheck(String type) {
