@@ -632,6 +632,8 @@ m+="</trim>\n";
 				interfaceName + "Mapper", "xml", m);
 
 	}
+	
+	
 
 	public void mapperJava(List<TableBean> tables) {
 
@@ -712,6 +714,18 @@ m+="</trim>\n";
 
 	}
 
+	
+	public void mysql(List<TableBean>tables)
+	{
+		
+	}
+	
+	public void oracle(List<TableBean>tables)
+	{
+		
+	}
+	
+	
 	public void entity(List<TableBean> tables) {
 		String m = "";
 		String m1 = "";
