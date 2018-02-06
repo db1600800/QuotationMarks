@@ -719,11 +719,14 @@ m+="</trim>\n";
 	
 	public void mysql(List<TableBean>tables)
 	{
-		String m="";
+	
 		
 		for (TableBean table : tables) {
-			m+="\n\n drop table "+table.tableEnName+";\n";
-			m+="CREATE TABLE "+table.tableEnName+"(\n";
+			String m="";
+			m+="\n\n drop table "+StringUtil
+					.tableName(table.tableEnName)+";\n";
+			m+="CREATE TABLE "+StringUtil
+					.tableName(table.tableEnName)+"(\n";
 			
 			String primarykeyString="";
 			for (TableColumnBean column : table.columns) {
@@ -762,23 +765,31 @@ m+="</trim>\n";
 				}
 		}
 	m+=");\n";
+	
+	
+	FileUtil.makeFile(
+			KeyValue.readCache("projectPath"),
+			"src/web",
+			StringUtil
+			.tableName(table.tableEnName)+"_Mysql"
+					+ "", "sql", m );
+	
 		}
 		
-		FileUtil.makeFile(
-				KeyValue.readCache("projectPath"),
-				"src/web",
-				"createTableMysql"
-						+ "", "sql", m );
+	
 	}
 	
 	
 	public void oracle(List<TableBean>tables)
 	{
-		String m="";
+		
 		
 		for (TableBean table : tables) {
-			m+="\n\n drop table "+table.tableEnName+";\n";
-			m+="CREATE TABLE "+table.tableEnName+"(\n";
+			String m="";
+			m+="\n\n drop table "+StringUtil
+					.tableName(table.tableEnName)+";\n";
+			m+="CREATE TABLE "+StringUtil
+					.tableName(table.tableEnName)+"(\n";
 			
 			String primarykeyString="";
 			for (TableColumnBean column : table.columns) {
@@ -818,14 +829,17 @@ m+="</trim>\n";
 		}
 	m+=")TABLESPACE TBS_QS_AGENT;\n";
 	primarykeyString=primarykeyString.substring(0, primarykeyString.lastIndexOf(","));
-	m+="alter table "+table.tableEnName+" add primary key ("+primarykeyString+") using index TABLESPACE IDX_TBS_QS_AGENT;\n";
+	m+="alter table "+StringUtil
+			.tableName(table.tableEnName)+" add primary key ("+primarykeyString+") using index TABLESPACE IDX_TBS_QS_AGENT;\n";
+	
+	FileUtil.makeFile(
+			KeyValue.readCache("projectPath"),
+			"src/web",
+			StringUtil
+			.tableName(table.tableEnName)+ "_Oracle", "sql", m );
 		}
 		
-		FileUtil.makeFile(
-				KeyValue.readCache("projectPath"),
-				"src/web",
-				"createTableOracle"
-						+ "", "sql", m );
+		
 	}
 
 	
