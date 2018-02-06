@@ -44,6 +44,8 @@ public class InterfaceServiceController_servletMybatis  {
 		mapperXml(tables);
 		mapperJava(tables);
 		entity(tables);
+		mysql(tables);
+		oracle(tables);
 		serviceInterface(tables);
 		controller(tables);
 		mybatisUtil();
@@ -717,14 +719,115 @@ m+="</trim>\n";
 	
 	public void mysql(List<TableBean>tables)
 	{
+		String m="";
 		
+		for (TableBean table : tables) {
+			m+="\n\n drop table "+table.tableEnName+";\n";
+			m+="CREATE TABLE "+table.tableEnName+"(\n";
+			
+			String primarykeyString="";
+			for (TableColumnBean column : table.columns) {
+				if (column.type.toLowerCase().contains("int")) {
+				  if(column.key.toLowerCase().contains("key"))
+				  {
+					  primarykeyString+=column.columnEnName+",";
+				  
+					  m+=column.columnEnName+"     INT   NOT NULL,\n";
+				  }else
+				  {
+					  m+=column.columnEnName+"     INT,\n";
+				  }
+				} else {
+					int start=column.columnEnName.indexOf("(");
+					int end=column.columnEnName.indexOf(")");
+					String size="100";
+					if(start==-1||end==-1)
+					{
+						
+					}else
+					{
+					 size=column.columnEnName.substring(start+1, end);
+					}
+					
+					
+					 if(column.key.toLowerCase().contains("key"))
+					  {
+						 primarykeyString+=column.columnEnName+",";
+					  
+						  m+=column.columnEnName+"     VARCHAR("+size+")   NOT NULL,\n";
+					  }else
+					  {
+						  m+=column.columnEnName+"     VARCHAR("+size+"),\n";
+					  }
+				}
+		}
+	m+=");\n";
+		}
+		
+		FileUtil.makeFile(
+				KeyValue.readCache("projectPath"),
+				"src/web",
+				"createTableMysql"
+						+ "", "sql", m );
 	}
+	
 	
 	public void oracle(List<TableBean>tables)
 	{
+		String m="";
 		
+		for (TableBean table : tables) {
+			m+="\n\n drop table "+table.tableEnName+";\n";
+			m+="CREATE TABLE "+table.tableEnName+"(\n";
+			
+			String primarykeyString="";
+			for (TableColumnBean column : table.columns) {
+				if (column.type.toLowerCase().contains("int")) {
+				  if(column.key.toLowerCase().contains("key"))
+				  {
+					  primarykeyString+=column.columnEnName+",";
+				  
+					  m+=column.columnEnName+"     NUMBER   NOT NULL,\n";
+				  }else
+				  {
+					  m+=column.columnEnName+"     NUMBER,\n";
+				  }
+				} else {
+					int start=column.columnEnName.indexOf("(");
+					int end=column.columnEnName.indexOf(")");
+					String size="100";
+					if(start==-1||end==-1)
+					{
+						
+					}else
+					{
+					 size=column.columnEnName.substring(start+1, end);
+					}
+					
+					
+					 if(column.key.toLowerCase().contains("key"))
+					  {
+						 primarykeyString+=column.columnEnName+",";
+					  
+						  m+=column.columnEnName+"     VARCHAR2("+size+" BYTE)   NOT NULL,\n";
+					  }else
+					  {
+						  m+=column.columnEnName+"     VARCHAR2("+size+" BYTE),\n";
+					  }
+				}
+		}
+	m+=")TABLESPACE TBS_QS_AGENT;\n";
+	primarykeyString=primarykeyString.substring(0, primarykeyString.lastIndexOf(","));
+	m+="alter table "+table.tableEnName+" add primary key ("+primarykeyString+") using index TABLESPACE IDX_TBS_QS_AGENT;\n";
+		}
+		
+		FileUtil.makeFile(
+				KeyValue.readCache("projectPath"),
+				"src/web",
+				"createTableOracle"
+						+ "", "sql", m );
 	}
-	
+
 	
 	public void entity(List<TableBean> tables) {
 		String m = "";
