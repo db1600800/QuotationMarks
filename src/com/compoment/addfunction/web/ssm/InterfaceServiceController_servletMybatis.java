@@ -249,7 +249,7 @@ public class InterfaceServiceController_servletMybatis  {
 
 			}
 		}
-		m += sql;
+		m += sql+"limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 
 		// 插入
@@ -625,7 +625,7 @@ m+="</trim>\n";
 
 			}
 		}
-		m += sql;
+		m += sql+"limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 
 		m += "</mapper>\n";
@@ -1350,7 +1350,22 @@ m+="</trim>\n";
 		m += "	public void query(HttpServletRequest request, HttpServletResponse response) {\n";
 
 	
+		m+="		String pageNo = request.getParameter(\"pageNo\");\n";
+		
+		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
+		m+="			pageNo = \"1\";\n";
+		m+="			request.setAttribute(\"pageNo\", pageNo);\n";
+		m+="		}\n";
+		
+		m+="		String pageSize = request.getParameter(\"pageSize\");\n";
+		m+="		if (StringUtils.isBlank(pageSize)) {\n";
+		m+="			pageSize = \"10\";\n";
+		m+="			request.setAttribute(\"pageSize\", pageSize);\n";
+		m+="		}\n";
+		
 		m+="Map paraMap=new HashMap();\n";
+		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
+		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
 		int i = 0;
 		String n="";
@@ -1564,7 +1579,7 @@ m+="</trim>\n";
 		m += "}\n";
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
-				interfaceName + "Servelet", "java", m);
+				interfaceName + "Servlet", "java", m);
 	}
 
 	public String typeCheck(String type) {

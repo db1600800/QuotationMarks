@@ -246,7 +246,7 @@ public class InterfaceServiceController_springmvcSpringMybatis  {
 
 			}
 		}
-		m += sql;
+		m += sql+"limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 
 		// 插入
@@ -622,7 +622,7 @@ m+="</trim>\n";
 
 			}
 		}
-		m += sql;
+		m += sql+"limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 
 		m += "</mapper>\n";
@@ -1084,6 +1084,22 @@ m+="</trim>\n";
 		m += "			//return CommonUtil.ReturnWarp(Constant.TRAN_PARAERCODE, Constant.ERRORTYPE);\n";
 
 		m+="Map paraMap=new HashMap();\n";
+		m+="		String pageNo = reqMap.get(\"pageNo\");\n";
+		
+		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
+		m+="			pageNo = \"1\";\n";
+		m+="			request.setAttribute(\"pageNo\", pageNo);\n";
+		m+="		}\n";
+		
+		m+="		String pageSize = reqMap.get(\"pageSize\");\n";
+		m+="		if (StringUtils.isBlank(pageSize)) {\n";
+		m+="			pageSize = \"10\";\n";
+		m+="			request.setAttribute(\"pageSize\", pageSize);\n";
+		m+="		}\n";
+		
+		m+="Map paraMap=new HashMap();\n";
+		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
+		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
 		int i = 0;
 		String n="";
