@@ -1,15 +1,21 @@
 package com.compoment.addfunction.web.ssm;
 
+import java.awt.Dimension;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.db.tabledocinterfacedoc.TableBean;
+import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
@@ -228,6 +234,43 @@ public class ActionStruct2 {
 		doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.substring(0, doAddMainKeyAutoCreateWhere.lastIndexOf("And"));
 		
 		
+		String servicename = "";
+		String resultType = "";
+		String queryCondition = "";
+		String queryCondition2 = "";
+		String queryCondition3 = "";
+		String mainTableName = "";
+		String mappername = "";
+
+		for (TableBean table : tables) {
+			servicename += table.tableEnName + "_";
+			if (table.isMainTable && tables.size() > 1) {
+				resultType = interfaceName + "Bean";
+				mainTableName = interfaceName;
+				mappername = interfaceName;
+				queryCondition+="Map para";
+				queryCondition3+="para";
+			} else if (tables.size() == 1) {
+				resultType = table.tableEnName + "Bean";
+				mainTableName = table.tableEnName;
+				mappername = table.tableEnName;
+				queryCondition+="Map para";
+				queryCondition3+="para";
+			}
+		}
+
+		if (servicename.lastIndexOf("_") != -1) {
+			servicename = servicename
+					.substring(0, servicename.lastIndexOf("_"));
+		}
+
+		for (TableColumnBean column : queryConditionColumns) {
+			//queryCondition += typeCheck(column.type) + " "+ column.columnEnName + ",";
+		//	queryCondition3 += " " + column.columnEnName + ",";
+			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
+					+ column.columnEnName + ");\n";
+		}
+		
 		
 		
 		String m="";
@@ -273,9 +316,9 @@ public class ActionStruct2 {
 		m+="	})\n";
 		m+="public class "+interfaceBean.enName+"Action {\n";
 		m+="	\n";
-		m+="	@Resource\n";
-		m+="	private ObjectDao objectDao;\n";
-		m+="	\n";
+	
+		
+		
 		m+="    private "+interfaceBean.enName+"Entity entity;\n";
 	
 	
@@ -283,13 +326,9 @@ public class ActionStruct2 {
 		m+=filebean;
 	
 		
-		m+="	public ObjectDao getObjectDao() {\n";
-		m+="		return objectDao;\n";
-		m+="	}\n";
-		m+="	public void setObjectDao(ObjectDao objectDao) {\n";
-		m+="		this.objectDao = objectDao;\n";
-		m+="	}\n";
-		m+="	\n";
+		m += " private SqlSessionFactory sessionFactory = MybatisUtil.getInstance();\n";
+	    //创建能执行映射文件中sql的sqlSession
+	    m += "   SqlSession session = sessionFactory.openSession();\n";
 		
 
 	
@@ -362,6 +401,20 @@ public class ActionStruct2 {
 		m+="				sb.toString(),argsMap,\n";
 		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
 		m+="				Integer.parseInt(pageSize));\n";
+		
+		
+		
+		m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+		m+="try{\n";
+		m += "  List list=mapper." + mainTableName + "Select("
+				+ queryCondition3 + ");\n";
+		
+		m+="} finally {\n" ; 
+		m+="session.close();\n";
+		m+="return list;\n";
+		m += "	}\n";
+		
+		
 		
 //		m+="for(int i=0;i<list.size();i++){\n";
 //		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
@@ -528,6 +581,98 @@ public class ActionStruct2 {
 			}
 
 		}
+		
+		
+		
+		
+		public List changeToTableBeans(List<InterfaceBean> interfaceBeans) {
+			List tables = new ArrayList();
+			for (InterfaceBean interfaceBean : interfaceBeans) {
+				// 数据表
+				TableBean tableBean = new TableBean();
+
+				tableBean.tableCnName = interfaceBean.title;// 表中文名
+				tableBean.tableEnName = interfaceBean.enName;// 表英文名
+				tableBean.id = interfaceBean.id;// 表编号
+				tableBean.columns = new ArrayList();// 列数组
+
+				List<Group> groups = interfaceBean.respondGroups;
+				for (Group group : groups) {
+					String groupname = group.name;
+					if (groupname.equals("CommonGroup")) {
+						int rowCount = 0;
+
+						Collections.sort(group.rows, rowDate);
+						for (Row row : group.rows) {
+							
+							TableColumnBean tableColumnBean = new TableColumnBean();
+
+							tableColumnBean.setColumnCnName(row.cnName);
+						
+							tableColumnBean.setColumnEnName(row.enName);
+
+							tableColumnBean.setKey(row.remarks);
+		
+							tableColumnBean.setType(row.type);
+						
+
+							List<Integer> widths = new ArrayList();
+
+							tableBean.columns.add(tableColumnBean);
+							Collections
+									.sort(tableBean.columns, tableColumnBeanDate);
+
+							rowCount++;
+						}
+					}
+				}
+
+				if (tableBean.columns != null && tableBean.columns.size() > 0) {// （最后一列）
+					TableColumnBean lastColumnBean = tableBean.columns
+							.get(tableBean.columns.size() - 1);
+					tableBean.x1 = lastColumnBean.x1;
+					tableBean.y1 = lastColumnBean.y1;
+				} else {
+					tableBean.x1 = 0;
+					tableBean.y1 = 0;
+				}
+
+				tables.add(tableBean);
+				Collections.sort(tables, tableBeanDate);
+			}
+			return tables;
+		}
+		
+		
+		Comparator<Row> rowDate = new Comparator<Row>() {
+			public int compare(Row s1, Row s2) {
+				// 按日期排
+				if (s1.time != s2.time) {
+					return (int) (s1.time - s2.time);
+				}
+				return 0;
+			}
+		};
+
+		Comparator<TableBean> tableBeanDate = new Comparator<TableBean>() {
+			public int compare(TableBean s1, TableBean s2) {
+				// 按日期排
+				if (s1.time != s2.time) {
+					return (int) (s1.time - s2.time);
+				}
+				return 0;
+			}
+		};
+
+		Comparator<TableColumnBean> tableColumnBeanDate = new Comparator<TableColumnBean>() {
+			public int compare(TableColumnBean s1, TableColumnBean s2) {
+				// 按日期排
+				if (s1.time != s2.time) {
+					return (int) (s1.time - s2.time);
+				}
+				return 0;
+			}
+		};
 }
 
 
