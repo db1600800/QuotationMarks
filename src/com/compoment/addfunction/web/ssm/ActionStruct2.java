@@ -76,10 +76,6 @@ public class ActionStruct2 {
 				for (Row row : group.rows) {
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-				
-				
-						
-						
 						
 						//list()
 						listInKeyString+="	String "+row.enName.toLowerCase()+" = StrutsParamUtils.getPraramValue(\""+row.enName.toLowerCase()+"\", \"\");\n";
@@ -402,20 +398,6 @@ public class ActionStruct2 {
 		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
 		m+="				Integer.parseInt(pageSize));\n";
 		
-		
-		
-		m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-		m+="try{\n";
-		m += "  List list=mapper." + mainTableName + "Select("
-				+ queryCondition3 + ");\n";
-		
-		m+="} finally {\n" ; 
-		m+="session.close();\n";
-		m+="return list;\n";
-		m += "	}\n";
-		
-		
-		
 //		m+="for(int i=0;i<list.size();i++){\n";
 //		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
 //		m+=appendString;
@@ -587,6 +569,8 @@ public class ActionStruct2 {
 		
 		public List changeToTableBeans(List<InterfaceBean> interfaceBeans) {
 			List tables = new ArrayList();
+
+	
 			for (InterfaceBean interfaceBean : interfaceBeans) {
 				// 数据表
 				TableBean tableBean = new TableBean();
@@ -640,6 +624,9 @@ public class ActionStruct2 {
 				tables.add(tableBean);
 				Collections.sort(tables, tableBeanDate);
 			}
+
+		
+
 			return tables;
 		}
 		
