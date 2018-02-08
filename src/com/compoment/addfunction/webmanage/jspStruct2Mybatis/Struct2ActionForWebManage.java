@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.springmvcSpringMybatis;
+package com.compoment.addfunction.webmanage.jspStruct2Mybatis;
 
 import java.awt.Dimension;
 import java.io.BufferedWriter;
@@ -22,10 +22,10 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class ActionStruct2 {
+public class Struct2ActionForWebManage {
 
 	List<TableBean> tables;
-	public ActionStruct2(List<InterfaceBean> interfaceBeans) {
+	public Struct2ActionForWebManage(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
@@ -352,34 +352,8 @@ public class ActionStruct2 {
 		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
 		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
-		int i = 0;
-		String n="";
-		List<TableColumnBean> queryConditionColumns=getQueryConditionColumns(tables);
-		for (TableColumnBean column : queryConditionColumns) {
-
-			if (column.type.toLowerCase().contains("int")) {
-				m += "		int " + column.columnEnName
-						+ " = request.getParameter(\"" + column.columnEnName
-						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
-						+ column.columnEnName + "\").toString());\n";
-				
-			}else
-			{
-				m += "		String " + column.columnEnName
-						+ " = request.getParameter(\"" + column.columnEnName
-						+ "\") == null ? null : request.getParameter(\""
-						+ column.columnEnName + "\").toString();\n";
-			}
-			
-			
-			
-		
-				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
-			
-
-			i++;
-		}
-		
+	
+		m+=listInKeyString;
 		
 		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
 				+ "Beans=null;\n";
@@ -443,13 +417,22 @@ m += "}\n";
 		m+="//页面数据\n";
 		m+=toUpdateInKeyString;
 		
-		m+="		StringBuffer sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where "+urlKeyString2+" \");\n";
-		m+="\nMap<String, Object> argsMap=new HashMap<String, Object>();\n";
-		m+=keyValue2;
-		m+="		List<"+interfaceBean.enName+"Entity> list = (List<"+interfaceBean.enName+"Entity>) objectDao.findByHqlPage(\n";
-		m+="				sb.toString(),argsMap,\n";
-		m+="				0,\n";
-		m+="				10);\n";
+		
+
+	
+		
+		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
+				+ "Beans=null;\n";
+		
+		
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.get("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
+		
 		
 		m+="		if (list!=null && list.size()==1) {\n";
 		
@@ -466,10 +449,39 @@ m += "}\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+=fileUpdate;
 		
-		m+="	  //批量删除    //  List  objectList = objectDao.findByProperty(\"MerchMsg\", \"belong_activity\", activityInfo.getActivity_code() );\n";
-		m+="	       // objectDao.deleteAll(objectList);\n";
+		List<TableColumnBean> queryConditionColumns=getQueryConditionColumns(tables);
+		for (TableColumnBean column : queryConditionColumns) {
+
+			if (column.type.toLowerCase().contains("int")) {
+				m += "		int " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
+						+ column.columnEnName + "\").toString());\n";
+				
+			}else
+			{
+				m += "		String " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? null : request.getParameter(\""
+						+ column.columnEnName + "\").toString();\n";
+			}
+			
+			
+			
 		
-		m+="			objectDao.saveOrUpdate(entity);//form表单提交过来的对象\n";
+				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
+		
+		}
+	
+		
+		
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.update("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
 	
 		//m+=doUpdateKeyStirng;
 		
@@ -501,26 +513,48 @@ m += "}\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+=fileUpdate;
 		
-		m+="//id 当前最大值加一\n";
-		m+="/*{\n";
-		m+="StringBuffer sb = new StringBuffer(\n";
-		m+="\" select max(a."+mainkey+") from "+interfaceBean.enName+"Entity a  where "+doAddMainKeyAutoCreateWhere+"  \");\n";
 
 
+		
+		for (TableColumnBean column : queryConditionColumns) {
+
+			if (column.type.toLowerCase().contains("int")) {
+				m += "		int " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
+						+ column.columnEnName + "\").toString());\n";
+				
+			}else
+			{
+				m += "		String " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? null : request.getParameter(\""
+						+ column.columnEnName + "\").toString();\n";
+			}
+			
+			
+			
+		
+				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
+		
+		}
+	
+		
+		
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.insert("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
+		
 		m+="List argslist = new ArrayList();\n";
 		m+=doAddMainKeyAutoCreateValue;
 
 
-		m+="List list = (List) objectDao\n";
-		m+="		.findByHql(sb.toString(), argslist.toArray());\n";
-		m+="int max=0;\n";
-		m+="if(list!=null && list.size()>0){\n";
-		m+=" max=Integer.valueOf((String)list.get(0));\n";
-		m+="}\n";
-		m+="entity.set"+this.firstCharUpperCase(mainkey)+"(StrutsParamUtils.beforeAppend0(max+1+\"\")+\"\");\n";
-		m+="		}*/\n";
+
 		
-		m+="		objectDao.save(entity);//form表单提交过来的对象\n";
 		//m+=doUpdateKeyStirng;
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
@@ -531,10 +565,40 @@ m += "}\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m+=toUpdateInKeyString;
 		
-		m+=""+interfaceBean.enName+"Entity entity = new "+interfaceBean.enName+"Entity();\n";
+		for (TableColumnBean column : queryConditionColumns) {
+
+			if (column.type.toLowerCase().contains("int")) {
+				m += "		int " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
+						+ column.columnEnName + "\").toString());\n";
+				
+			}else
+			{
+				m += "		String " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? null : request.getParameter(\""
+						+ column.columnEnName + "\").toString();\n";
+			}
+			
+			
+			
+		
+				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
+		
+		}
 	
-		m+=appendString;
-		m+="		objectDao.delete(entity);\n";
+		
+		
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.delete("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
+		
+		
 		
 		m+="		StrutsParamUtils.getResponse().getWriter().write(\"success\");\n";
 		m+="		return ;\n";

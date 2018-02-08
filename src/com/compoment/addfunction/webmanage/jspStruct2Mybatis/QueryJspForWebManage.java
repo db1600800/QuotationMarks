@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.springmvcSpringMybatis;
+package com.compoment.addfunction.webmanage.jspStruct2Mybatis;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,10 +15,10 @@ import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class QueryJsp {
+public class QueryJspForWebManage {
 
 	
-	public  QueryJsp(List<InterfaceBean> interfaceBeans) {
+	public  QueryJspForWebManage(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
