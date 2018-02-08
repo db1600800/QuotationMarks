@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.ssm;
+package com.compoment.addfunction.web.springmvcSpringMybatis;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,9 +13,9 @@ import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 
-public class UpdateJsp {
+public class AddJsp {
 
-	public UpdateJsp(List<InterfaceBean> interfaceBeans) {
+	public AddJsp(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
@@ -36,18 +36,18 @@ public class UpdateJsp {
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
 		m+="<%@ taglib prefix=\"s\" uri=\"/struts-tags\" %>\n"; 
-		m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
-		m+="	<%@ include file=\"../include.jsp\"%>\n";
+				m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
+				m+="	<%@ include file=\"../include.jsp\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
 		m+="<script src=\"${ctx}/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
 		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
-
+	
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
+	
 		m+="<script type=\"text/javascript\">\n";
-
 		
 		
 		for (Group group : groups) {
@@ -100,8 +100,8 @@ public class UpdateJsp {
 							m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }else
 					    {
-						m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
-						m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+						//m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
+						//m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }
 					
 					
@@ -184,28 +184,12 @@ public class UpdateJsp {
 		m+="		 myForm.submit();\n";
 		m+="	}\n";
 		m+="	 \n";
-		
-		
-		//预览图片
-		m+=" function showDataByURL(file_id,show_id) {\n";
-		m+="var resultFile = document.getElementById(file_id).files[0];\n";
-		m+=" if(resultFile){\n";
-		m+="   var reader = new FileReader();\n";
-		m+=" reader.readAsDataURL(resultFile);\n";
-		m+=" reader.onload = function (e) {\n";
-		m+=" var urlData = this.result;\n";
-		m+=" $(\"#\"+show_id).attr(\"src\",urlData);\n";
-		m+=" };\n";
-		m+="  return ;\n";
-		m+=" }\n";
-		m+="}\n";
-	    
 		m+="</script>\n";
 		m+="</head>\n";
 		m+="<body>\n";
 		
 
-		m+=" <form action=\""+interfaceBean.enName+"Action!doUpdate\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
+		m+=" <form action=\""+interfaceBean.enName+"Action!doAdd\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";
 		m+="	<div class=\"table_form lr10\">\n";
 		m+="		<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";
@@ -236,8 +220,7 @@ public class UpdateJsp {
 
 		}
 		
-	
-		int fileCount=0;
+	int filecount=0;
 		for (Group group : groups) {
 			String groupname = group.name;
 			if (groupname.equals("CommonGroup")) {
@@ -258,7 +241,7 @@ public class UpdateJsp {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
+						}else if(row.cnName.contains("时间")||row.type.toLowerCase().contains("time")||row.type.toLowerCase().contains("date"))
 						{
 							
 							m+="				<tr>\n";
@@ -269,20 +252,17 @@ public class UpdateJsp {
 						}
 						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
-							fileCount++;
+							filecount++;
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img id=\"img"+fileCount+"\" src=\".${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
-							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
-							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"   onchange=\"showDataByURL('file"+fileCount+"','img"+fileCount+"')\"/>\n";
+							m+="							<input type=\"file\" id=\"file"+filecount+"\" name=\"file"+filecount+"\"  />\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";
 							m+="					</tr>\n";
-						}
-						else if(row.type.toLowerCase().equals("select"))
+						}else if(row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
@@ -292,14 +272,11 @@ public class UpdateJsp {
 							m+="<select id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:28px;margin-bottom:10px;\">\n";
 							m+="				<option value=\"\">请选择</option>\n";
 							m+="					<c:forEach var=\"item\" items=\"${"+row.enName.toLowerCase()+"SelectList}\">	\n";
-							m+="						<c:choose>\n";
-							m+="							<c:when test=\"${item==entity."+row.enName.toLowerCase()+"}\">								\n";
-							m+="								<option value='${fn:substringBefore(item,\"-\")}' selected=\"selected\">${fn:substringAfter(item,\"-\")} </option>\n";
-							m+="							</c:when>\n";
-							m+="							<c:otherwise>\n";
+						
+						
 							m+="							<option value='${fn:substringBefore(item,\"-\")}'>${fn:substringAfter(item,\"-\")}</option>\n";
-							m+="							</c:otherwise>\n";
-							m+="						</c:choose>		  				\n";
+						
+							
 							m+="					</c:forEach>\n";
 							m+="					\n";
 							m+="</select>\n";
@@ -356,8 +333,9 @@ public class UpdateJsp {
 		m+="	</form>\n";
 		m+="</body>\n";
 		m+="</html>\n";
+
 		
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName.toLowerCase()+"Setting", "jsp", m);
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager",interfaceBean.enName.toLowerCase()+"Add", "jsp", m);
 		System.out.println(m);
 		
 	}

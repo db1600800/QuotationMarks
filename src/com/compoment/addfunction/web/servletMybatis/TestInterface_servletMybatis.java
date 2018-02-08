@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.ssm;
+package com.compoment.addfunction.web.servletMybatis;
 
 import java.util.ArrayList;
 import java.util.List;

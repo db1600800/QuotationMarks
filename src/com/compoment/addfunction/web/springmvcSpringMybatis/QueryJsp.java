@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.ssm;
+package com.compoment.addfunction.web.springmvcSpringMybatis;
 
 import java.io.BufferedWriter;
 import java.io.File;

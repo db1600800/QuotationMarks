@@ -13,8 +13,8 @@ import javax.swing.GroupLayout.Alignment;
 
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
-import com.compoment.addfunction.web.ssm.InterfaceServiceController_servletMybatis;
-import com.compoment.addfunction.web.ssm.InterfaceServiceController_springmvcSpringMybatis;
+import com.compoment.addfunction.web.servletMybatis.InterfaceServiceController_servletMybatis;
+import com.compoment.addfunction.web.springmvcSpringMybatis.InterfaceServiceController_springmvcSpringMybatis;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;

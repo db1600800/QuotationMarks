@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.ssm;
+package com.compoment.addfunction.web.springmvcSpringMybatis;
 
 import java.awt.Dimension;
 import java.io.BufferedWriter;
@@ -20,6 +20,7 @@ import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.StringUtil;
 
 public class ActionStruct2 {
 
@@ -230,42 +231,7 @@ public class ActionStruct2 {
 		doAddMainKeyAutoCreateWhere=doAddMainKeyAutoCreateWhere.substring(0, doAddMainKeyAutoCreateWhere.lastIndexOf("And"));
 		
 		
-		String servicename = "";
-		String resultType = "";
-		String queryCondition = "";
-		String queryCondition2 = "";
-		String queryCondition3 = "";
-		String mainTableName = "";
-		String mappername = "";
-
-		for (TableBean table : tables) {
-			servicename += table.tableEnName + "_";
-			if (table.isMainTable && tables.size() > 1) {
-				resultType = interfaceName + "Bean";
-				mainTableName = interfaceName;
-				mappername = interfaceName;
-				queryCondition+="Map para";
-				queryCondition3+="para";
-			} else if (tables.size() == 1) {
-				resultType = table.tableEnName + "Bean";
-				mainTableName = table.tableEnName;
-				mappername = table.tableEnName;
-				queryCondition+="Map para";
-				queryCondition3+="para";
-			}
-		}
-
-		if (servicename.lastIndexOf("_") != -1) {
-			servicename = servicename
-					.substring(0, servicename.lastIndexOf("_"));
-		}
-
-		for (TableColumnBean column : queryConditionColumns) {
-			//queryCondition += typeCheck(column.type) + " "+ column.columnEnName + ",";
-		//	queryCondition3 += " " + column.columnEnName + ",";
-			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
-					+ column.columnEnName + ");\n";
-		}
+		
 		
 		
 		
@@ -320,15 +286,6 @@ public class ActionStruct2 {
 	
 		
 		m+=filebean;
-	
-		
-		m += " private SqlSessionFactory sessionFactory = MybatisUtil.getInstance();\n";
-	    //创建能执行映射文件中sql的sqlSession
-	    m += "   SqlSession session = sessionFactory.openSession();\n";
-		
-
-	
-		
 		
 		m+="	public "+interfaceBean.enName+"Entity getEntity() {\n";
 		m+="		return entity;\n";
@@ -350,7 +307,8 @@ public class ActionStruct2 {
 		m+="	public void list(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		
-		m+="		String pageNo = request.getParameter(\"pageNo\");\n";
+		
+	m+="		String pageNo = request.getParameter(\"pageNo\");\n";
 		
 		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
 		m+="			pageNo = \"1\";\n";
@@ -363,46 +321,57 @@ public class ActionStruct2 {
 		m+="			request.setAttribute(\"pageSize\", pageSize);\n";
 		m+="		}\n";
 		
+		m+="Map paraMap=new HashMap();\n";
+		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
+		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
-		m+="String where=\"\";\n";
-		m+="String where2=\"\";\n";
-		m+="List argslist=new ArrayList();\n";
-		m+="Map<String, Object> argsMap = new HashMap<String, Object>();\n";
+		int i = 0;
+		String n="";
+		for (TableColumnBean column : queryConditionColumns) {
+
+			if (column.type.toLowerCase().contains("int")) {
+				m += "		int " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? 0 :Integer.valueOf( request.getParameter(\""
+						+ column.columnEnName + "\").toString());\n";
+				
+			}else
+			{
+				m += "		String " + column.columnEnName
+						+ " = request.getParameter(\"" + column.columnEnName
+						+ "\") == null ? null : request.getParameter(\""
+						+ column.columnEnName + "\").toString();\n";
+			}
+			
+			
+			
 		
-		m+=listInKeyString;
+				m +="paraMap.put(\""+ column.columnEnName + "\","+column.columnEnName+");\n";
+			
+
+			i++;
+		}
+		
+		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
+				+ "Beans=null;\n";
 		
 		
-		m+="StringBuffer sql=null;\n";
-		m+="StringBuffer sb=null;\n";
-		m+="if(where.length()==0)\n";
-		m+="{\n";
+		m += "try {\n";
+		m += mainTableName.toLowerCase() + "Beans="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.get("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
 		
-		m+="		 sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity  \");\n";
-		m+="		 sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a   \");\n";
-	    m+="	}else{\n";
-			m+="		 sql = new StringBuffer(\"select count(*) from "+interfaceBean.enName+"Entity where \"+where.substring(0,where.lastIndexOf(\"And\")));\n";
-			m+="		 sb = new StringBuffer(\" select a from "+interfaceBean.enName+"Entity a  where \"+where2.substring(0,where2.lastIndexOf(\"And\")));\n";
-		m+="	}\n";
 		
 
-	   m+=" Object[] args = (Object[])argslist.toArray();\n"; 
+		
+		
 
-	       
-		
-		m+="	//	sb.append(\" order by activity_code desc\");\n";
-		
 		
 		m+="		int count = objectDao.countObjectByHql(sql.toString(),args);\n";
-		m+="		List<"+interfaceBean.enName+"Entity> list = (List<"+interfaceBean.enName+"Entity>) objectDao.findByHqlPage(\n";
-		m+="				sb.toString(),argsMap,\n";
-		m+="				(Integer.parseInt(pageNo) - 1) * Integer.parseInt(pageSize),\n";
-		m+="				Integer.parseInt(pageSize));\n";
-		
-//		m+="for(int i=0;i<list.size();i++){\n";
-//		m+=interfaceBean.enName+"Entity entity=list.get(i);\n";
-//		m+=appendString;
-//		m+="}\n";
-		
+
 		
 	
 		
