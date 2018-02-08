@@ -62,6 +62,8 @@ public class MapperJava {
 
 				m += "List<" + table.tableEnName + "Bean> " + table.tableEnName
 						+ "Select(" + selectPara + ");\n";
+				m += "int " + table.tableEnName
+						+ "SelectCount(" + selectPara + ");\n";
 				m += "void " + table.tableEnName + "Insert("
 						+ table.tableEnName + "Bean bean);\n";
 				m += "void " + table.tableEnName + "Update("

@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import com.compoment.addfunction.web.servletMybatis.MapperJava;
+import com.compoment.addfunction.web.servletMybatis.MapperXml;
+import com.compoment.addfunction.web.servletMybatis.MapperXmlForSingleTable;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.remote.CheckProblemInterface;
@@ -90,7 +94,7 @@ public class InterfaceServiceController_springmvcSpringMybatis  {
 		mapperXmlForSingleTable.mapperXmlForSingleTable(tables);
 		
 		MapperXml mapperXml=new MapperXml();
-		mapperXml.mapperXml(tables,interfaceName,interfaceCnName);
+		mapperXml.mapperXml(tables,interfaceName);
 		
 		MapperJava mapperJava=new MapperJava();
 		mapperJava.mapperJava(tables,interfaceName,interfaceCnName);

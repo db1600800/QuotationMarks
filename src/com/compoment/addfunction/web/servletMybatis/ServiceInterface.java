@@ -79,6 +79,9 @@ public class ServiceInterface {
 
 				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
+				
+				m += "	int getCount(" + queryCondition
+						+ ") throws Exception;\n";
 
 				m += "void " + "insert(" + table.tableEnName + "Bean bean);\n";
 				m += "void " + "update(" + table.tableEnName + "Bean bean);\n";
@@ -139,13 +142,38 @@ public class ServiceInterface {
 					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
 					m+="*/\n";
 
+					 m+="List list;\n";
 					m+="try{\n";
-					m += "  List list=mapper." + mainTableName + "Select("
+					m += "  list=mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
 					
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
 					m+="return list;\n";
+					m += "	}\n";
+					
+					m += "	}\n";
+					
+					
+					
+					m += "	@Override\n";
+					m += "	public int getCount("
+							+ queryCondition + ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					m += "	/*	Map<String,Object> m = new HashMap();\n";
+					
+					m += queryCondition2;
+					
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="*/\n";
+                    m+="int count=0;\n";
+					m+="try{\n";
+					m += "  count=mapper." + mainTableName + "SelectCount("
+							+ queryCondition3 + ");\n";
+					
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return count;\n";
 					m += "	}\n";
 					
 					m += "	}\n";
@@ -183,7 +211,7 @@ public class ServiceInterface {
 					m += " List list=mapper." + mainTableName + "Insert(bean);\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
-					m+="return list;\n";
+					
 					m += "	}\n";
 					m += "	}\n";
 
@@ -195,7 +223,7 @@ public class ServiceInterface {
 					m += "List list= mapper." + mainTableName + "Update(bean);\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
-					m+="return list;\n";
+				
 					m += "	}\n";
 					m += "	}\n\n";
 
@@ -207,7 +235,7 @@ public class ServiceInterface {
 					m += "List list=mapper." + mainTableName + "Delete(bean);\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
-					m+="return list;\n";
+					
 					m += "	}\n";
 					m += "	}\n";
 

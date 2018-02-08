@@ -125,19 +125,27 @@ public class MapperXmlForSingleTable {
 
 		// 查询
 		String sql = "";
-
+		String sqlcount = "";
 		if ("".equals(show) && "".equals(condition)) {
 			sql = "select * from " + relate;
+			sqlcount = "select count(*) from " + relate;
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
 			sql = "select * from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
+			sqlcount = "select count(*) from " + relate;
+			
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+		
+			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+
 		}
 
 		String m = "";
@@ -208,6 +216,18 @@ public class MapperXmlForSingleTable {
 			}
 		}
 		m += sql+"limit #{currIndex} , #{pageSize}";
+		m += "	</select>\n";
+		
+		//count
+		for (TableBean table : tables) {
+
+			if (table.isMainTable) {
+				m += "	<select id=\"" + table.tableEnName
+						+ "SelectCount\" resultMap=\"java.lang.Integer\" >\n";
+
+			}
+		}
+		m += sqlcount+"";
 		m += "	</select>\n";
 
 		// 插入

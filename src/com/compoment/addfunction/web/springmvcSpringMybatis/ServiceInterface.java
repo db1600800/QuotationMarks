@@ -80,6 +80,8 @@ public class ServiceInterface {
 
 				m += "	List<" + resultType + "> get(" + queryCondition
 						+ ") throws Exception;\n";
+				m += "	int getCount(" + queryCondition
+						+ ") throws Exception;\n";
 
 				m += "void " + "insert(" + table.tableEnName + "Bean bean);\n";
 				m += "void " + "update(" + table.tableEnName + "Bean bean);\n";
@@ -138,6 +140,21 @@ public class ServiceInterface {
 					m += "return mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
 					m += "	}\n";
+					
+					
+					
+					m += "	@Override\n";
+					m += "	public int getCount("
+							+ queryCondition + ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					m += "	/*	Map<String,Object> m = new HashMap();\n";
+					
+					m += queryCondition2;
+					m+="*/\n";
+
+					m += "return mapper." + mainTableName + "SelectCount("
+							+ queryCondition3 + ");\n";
+					m += "	}\n";
 
 				} else if (tables.size() == 1) {
 
@@ -151,7 +168,22 @@ public class ServiceInterface {
 					m += "return mapper." + mainTableName + "Select("
 							+ queryCondition3 + ");\n";
 					m += "	}\n\n";
+					
+					
+					
+					m += "	@Override\n";
+					m += "	public int getCount("
+							+ queryCondition + ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					m += "	/*	Map<String,Object> m = new HashMap();\n";
+					m += queryCondition2;
+					m+="*/\n";
+					m += "return mapper." + mainTableName + "SelectCount("
+							+ queryCondition3 + ");\n";
+					m += "	}\n\n";
 
+					
+					
 					m += "	@Override\n";
 					m += "public void " + " insert(" + table.tableEnName
 							+ "Bean bean){\n";

@@ -24,17 +24,21 @@ import com.compoment.util.StringUtil;
 
 public class ActionStruct2 {
 
+	List<TableBean> tables;
 	public ActionStruct2(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
+		tables=changeToTableBeans(interfaceBeans);
+		
 		for (InterfaceBean interfaceBean : interfaceBeans) {
 			
-			action(interfaceBean, "Respond");
+			action(interfaceBean, "Respond","");
 		}
 	}
-	public void action(InterfaceBean interfaceBean ,String type)
+	public void action(InterfaceBean interfaceBean ,String type,String interfaceName)
 	{
+		
 		
 		
 		
@@ -303,13 +307,36 @@ public class ActionStruct2 {
 		m+="		return \""+interfaceBean.enName.toLowerCase()+"\";\n";
 		m+="	}\n";
 
+		
+		String servicename = "";
+		String serviceCnName = "";
+		String resultType = "";
+		String mainTableName = "";
+		String queryCondition2="";
+		for (TableBean table : tables) {
+			servicename += table.tableEnName + "_";
+			serviceCnName += table.tableCnName + "_";
+			if ( tables.size() > 1) {
+			
+				resultType = interfaceName + "Bean";
+				mainTableName = interfaceName;
+				queryCondition2="paraMap";
+			}else
+			{
+				
+				resultType = table.tableEnName + "Bean";
+				mainTableName = table.tableEnName;
+				queryCondition2="paraMap";
+			
+			}
+		}
+		
+		
 		m+="	//"+interfaceBean.title+"列表\n";
 		m+="	public void list(){\n";
 		m+="		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		
-		
-	m+="		String pageNo = request.getParameter(\"pageNo\");\n";
-		
+	    m+="		String pageNo = request.getParameter(\"pageNo\");\n";
 		m+="		if (StringUtils.isBlank(pageNo)) {//判断某字符串是否为空或长度为0或由空白符(whitespace) 构成\n";
 		m+="			pageNo = \"1\";\n";
 		m+="			request.setAttribute(\"pageNo\", pageNo);\n";
@@ -327,6 +354,7 @@ public class ActionStruct2 {
 		
 		int i = 0;
 		String n="";
+		List<TableColumnBean> queryConditionColumns=getQueryConditionColumns(tables);
 		for (TableColumnBean column : queryConditionColumns) {
 
 			if (column.type.toLowerCase().contains("int")) {
@@ -352,6 +380,7 @@ public class ActionStruct2 {
 			i++;
 		}
 		
+		
 		m += "List<"+mainTableName + "Bean> " + mainTableName.toLowerCase()
 				+ "Beans=null;\n";
 		
@@ -366,11 +395,16 @@ public class ActionStruct2 {
 		
 		
 
+		m += "int count=0;\n";
+m += "try {\n";
+m += "count="
+		+ StringUtil.firstCharToLower(interfaceName) + "Service.getCount("
+		+ queryCondition2 + ");\n";
+m += "} catch (Exception e) {\n";
+m += "	e.printStackTrace();\n";
+m += "}\n";
 		
 		
-
-		
-		m+="		int count = objectDao.countObjectByHql(sql.toString(),args);\n";
 
 		
 	
@@ -629,6 +663,53 @@ public class ActionStruct2 {
 				return 0;
 			}
 		};
+		
+		
+		public List<TableColumnBean> getQueryConditionColumns(List<TableBean> tables)
+		{
+		
+			List<TableColumnBean> queryConditionColumns=new ArrayList();
+		
+			for (TableBean table : tables) {
+
+				for (TableColumnBean column : table.columns) {
+
+					if ("right".equals(column.rightClickSelected)) {
+						String tablename=StringUtil
+								.tableName(column.belongWhichTable.tableEnName);
+						String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
+
+						queryConditionColumns.add(column);
+					}
+
+				}
+			}
+			return queryConditionColumns;
+		}
+		
+		public List<TableColumnBean> getResultColumns(List<TableBean> tables)
+		{
+		
+			
+			List<TableColumnBean> resultColumns=new ArrayList();
+			for (TableBean table : tables) {
+
+				for (TableColumnBean column : table.columns) {
+
+					if ("left".equals(column.leftClickSelected)) {
+						String tablename=StringUtil
+								.tableName(column.belongWhichTable.tableEnName);
+						String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
+						
+						resultColumns.add(column);
+
+					}
+
+					
+				}
+			}
+			return resultColumns;
+		}
 }
 
 
