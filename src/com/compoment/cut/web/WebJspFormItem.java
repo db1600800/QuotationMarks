@@ -29,7 +29,7 @@ import com.compoment.util.KeyValue;
 //http://www.ruanyifeng.com/blog/2015/07/flex-examples.html
 //http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
 
-public class WebJspListViewItem {
+public class WebJspFormItem {
 
 	// <!--
 	// http://blog.csdn.net/topviewers/article/details/21644305
@@ -64,6 +64,7 @@ public class WebJspListViewItem {
 	// margin-top:3px;
 
 	String bodym = "\n\n\n";
+	String bodym1 = "\n\n\n";
 	String style = "";
 	String js = "";
 	String connection = "";
@@ -102,7 +103,7 @@ public class WebJspListViewItem {
 
 	
 
-		return bodym;
+		return bodym1;
 	}
 
 
@@ -544,10 +545,15 @@ public class WebJspListViewItem {
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			bodym += "itemHtml+='<label class=\"ui-checkbox\" style=\"margin:10px\">'\n";
-			bodym += "itemHtml+='<input type=\"checkbox\" name=\"checkbox\" value=\"\">'\n";
-			bodym += "itemHtml+='</label>'\n";
-			bodym += "itemHtml+='<p>" + chirld.cnname + "</p>'\n";
+			
+			
+			bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
+			bodym1+="if("+chirld.enname+"Value==\"\")\n";
+			bodym1+="{\n";
+			bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
+			bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
+			bodym1+="return false;\n";
+		    bodym1+="}\n";
 
 		}
 
@@ -558,15 +564,30 @@ public class WebJspListViewItem {
 		}
 
 		if (chirld.type.equals("Radio")) {
-			bodym += "itemHtml+='<div class=\"ui-form-item ui-form-item-radio ui-border-b\">'\n";
-			bodym += "itemHtml+=' <label class=\"ui-radio\" for=\"radio\">'\n";
-			bodym += "itemHtml+='<input type=\"radio\" name=\"radio\" value=\"\">'\n";
-			bodym += "itemHtml+='</label>'\n";
-			bodym += " itemHtml+='<p>"+chirld.cnname+"</p>'\n";
-			bodym += "itemHtml+='</div>'\n";
+		
+			
+			bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
+			bodym1+="if("+chirld.enname+"Value==\"\")\n";
+			bodym1+="{\n";
+			bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
+			bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
+			bodym1+="return false;\n";
+		    bodym1+="}\n";
 		
 
 		}
+		
+		if (chirld.type.equals("File")) {
+					
+					bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
+					bodym1+="if("+chirld.enname+"Value==\"\")\n";
+					bodym1+="{\n";
+					bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
+					bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
+					bodym1+="return false;\n";
+				    bodym1+="}\n";
+
+	}
 
 		if (chirld.type.equals("EditText")) {
 
@@ -575,6 +596,15 @@ public class WebJspListViewItem {
 						+ "px;  font-size: " + chirld.textSize + "px;"+expand+"\"  type=\"text\"  id=\"" + chirld.enname
 						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">'";
 		
+				
+						
+						bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
+						bodym1+="if("+chirld.enname+"Value==\"\")\n";
+						bodym1+="{\n";
+						bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
+						bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
+						bodym1+="return false;\n";
+					    bodym1+="}\n";
 
 		}
 

@@ -9,7 +9,7 @@ import java.rmi.registry.LocateRegistry;
 
 import javax.swing.JFrame;
 
-import com.compoment.addfunction.web.InterfaceServiceController;
+import com.compoment.addfunction.web.springmvcSpringMybatis.InterfaceServiceController_springmvcSpringMybatis;
 import com.compoment.cut.CheckProblem;
 import com.compoment.cut.android.AndroidLayoutXml;
 import com.compoment.cut.iphone.IphoneViewControllerXib;

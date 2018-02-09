@@ -1,4 +1,5 @@
 #Update 'docPath' value
+<<<<<<< HEAD
 #Sun Jan 21 21:59:06 CST 2018
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
@@ -11,3 +12,17 @@ picPath=C\:\\GitHub\\QuotationMarks2/res/pic
 \u4E2D\u6587\u540D=0
 projectPath=C\:\\GitHub\\QuotationMarks2/res
 docPath=C\:\\GitHub\\QuotationMarks2/res/InterfaceDoc/wordTableToJaveObject.doc
+=======
+#Tue Jan 23 14:23:10 CST 2018
+\u53D8\u91CF\u540D=1
+SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
+\u7C7B\u578B=2
+codeFilePath=/Users/admin/Documents/GitHub/QuotationMarks/res/src/web
+\u5907\u6CE8=4
+compomentProjectAddress=/Users/admin/Documents/GitHub/QuotationMarks/res/other/mobile-android
+recentUseColor=\#FB6F2C,\#9D2634,\#2C2C2C,\#FFFFFF,\#2A2A2A,\#A4A4A4,
+picPath=/Users/admin/Documents/GitHub/QuotationMarks/res/pic
+\u4E2D\u6587\u540D=0
+projectPath=/Users/admin/Documents/GitHub/QuotationMarks/res
+docPath=/Users/admin/Documents/GitHub/QuotationMarks/res/InterfaceDoc/wordTableToJaveObject.doc
+>>>>>>> 141a12c7031b19f7ad7fb0af62925724bfc2a729

@@ -45,7 +45,9 @@ import com.compoment.ui.ios.creater.TableViewCellH;
 import com.compoment.ui.ios.creater.TableViewCellM;
 import com.compoment.ui.ios.creater.ViewControllerH;
 import com.compoment.ui.ios.creater.ViewControllerM;
-import com.compoment.ui.web.WebAction;
+import com.compoment.ui.web.WebServlet;
+import com.compoment.ui.web.WebSpringMvc;
+import com.compoment.ui.web.WebStruct2;
 import com.compoment.util.DeepCopy;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
@@ -666,8 +668,9 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		   //Web
 			WebJsp  webJsp = new WebJsp(pageName,beans);
 			
-			WebAction webaction=new WebAction(pageName);
-			
+			WebSpringMvc webaction=new WebSpringMvc(pageName,beans);
+			WebServlet webServlet=new WebServlet(pageName,beans);
+			WebStruct2 webStruct2=new WebStruct2(pageName,beans);
 			
 			//android
 			CreateActivityView createView = new CreateActivityView(
@@ -703,7 +706,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 
 			
 						//web
-			WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(pageName,beans); 
+			//WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(pageName,beans); 
 		}
 		
 

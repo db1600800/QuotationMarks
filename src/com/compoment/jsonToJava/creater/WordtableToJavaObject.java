@@ -216,6 +216,8 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 			{
 				System.out.println("错误 没有Table id"+p.text());
 			}
+			
+			String pstring=p.text().trim();
 
 			if (p.text().contains("传入参数") || p.text().contains("输入参数")||p.text().contains("发送报文")||p.text().contains("表字段")) {
 
@@ -256,7 +258,7 @@ public class WordtableToJavaObject extends UnicastRemoteObject implements Wordta
 					notCommonGroup(interfaceBean, table, "respond");
 					
 				}
-			} else if (p.text().contains("表(") ) {
+			} else if (p.text().trim().contains("表(") ||p.text().trim().contains("表 (")||p.text().trim().contains("表（")||p.text().trim().contains("表 （")) {
 
 				
 				Paragraph nextP;

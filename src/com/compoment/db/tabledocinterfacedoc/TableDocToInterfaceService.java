@@ -11,9 +11,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import com.compoment.addfunction.web.InterfaceServiceController;
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
+import com.compoment.addfunction.web.servletMybatis.InterfaceServiceController_servletMybatis;
+import com.compoment.addfunction.web.springmvcSpringMybatis.InterfaceServiceController_springmvcSpringMybatis;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;
@@ -63,6 +64,7 @@ public class TableDocToInterfaceService extends JFrame {
 	JButton addRelateButton;
 	private JTextField interfaceName;
 	private JTextField interfaceCnName;
+	String type="";
 
 	/**
 	 * Launch the application.
@@ -71,7 +73,7 @@ public class TableDocToInterfaceService extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TableDocToInterfaceService frame = new TableDocToInterfaceService();
+					TableDocToInterfaceService frame = new TableDocToInterfaceService("ssm");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,7 +85,8 @@ public class TableDocToInterfaceService extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TableDocToInterfaceService() {
+	public TableDocToInterfaceService(String type) {
+		this.type=type;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 800);
 		contentPane = new JPanel();
@@ -369,8 +372,20 @@ public class TableDocToInterfaceService extends JFrame {
 			    
 			
 			    try {
-				InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
+			    	if(type.equals("springmvc_spring_mybatis"))
+			    	{
+				InterfaceServiceController_springmvcSpringMybatis interfaceServiceController=new InterfaceServiceController_springmvcSpringMybatis();
 				interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
+			    	}else if(type.equals("servlet_mybatis"))
+			    	{
+			    		InterfaceServiceController_servletMybatis interfaceServiceController=new InterfaceServiceController_servletMybatis();
+					interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
+			    		
+			    	}else if(type.equals("struct2_mybatis"))
+			    	{
+			    		
+			    	}
+			    	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -401,8 +416,19 @@ public class TableDocToInterfaceService extends JFrame {
 				    		tables.add(bean);
 				    		
 				    		try {
-				    		InterfaceServiceController interfaceServiceController=new InterfaceServiceController();
-								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+				    			
+				    		   	if(type.equals("springmvc_spring_mybatis"))
+						    	{
+				    		   		InterfaceServiceController_springmvcSpringMybatis interfaceServiceController=new InterfaceServiceController_springmvcSpringMybatis();
+									interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+						    	}else if(type.equals("servlet_mybatis"))
+						    	{
+						    		InterfaceServiceController_servletMybatis interfaceServiceController=new InterfaceServiceController_servletMybatis();
+									interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+						    		
+						    	}
+				    		   	
+				    		
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web;
+package com.compoment.addfunction.web.servletMybatis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class TestInterface {
+public class TestInterface_servletMybatis {
 
 	public void testJsp(String interfaceName, String interfaceCnName,
 			List<TableBean> tables) {
@@ -130,13 +130,13 @@ public class TestInterface {
 		m+="var host=window.document.location.host;\n";
 		m+="var pathName=window.document.location.pathname;\n";
 		m+="var projectName=pathName.substring(1,pathName.substr(1).indexOf('/')+1);\n";
-		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/query.do'+searchInp;\n";
+		m+="var requesturl='http://'+host+'/'+projectName+'/"+interfaceName.toLowerCase()+"/'+searchInp;\n";
 		m += "			\n";
 		m += "				$.ajax({\n";
 		m += "					type:'POST',\n";
 		m += "					url:requesturl,\n";
 		m += "					data:{\n";
-
+        m+="method:query\n";
 		m += "					},\n";
 		m += "					success:function(result){\n";
 		m += "							var returndata = result.returnData;\n";
@@ -164,7 +164,7 @@ public class TestInterface {
 		m += "					type:'POST',\n";
 		m += "					url:requesturl,\n";
 		m += "					data:{\n";
-
+	     m+="method:insert\n";
 		m += "					},\n";
 		m += "					success:function(result){\n";
 		m += "							var returndata = result.returnData;\n";
@@ -191,7 +191,7 @@ public class TestInterface {
 		m += "					type:'POST',\n";
 		m += "					url:requesturl,\n";
 		m += "					data:{\n";
-
+	     m+="method:update\n";
 		m += "					},\n";
 		m += "					success:function(result){\n";
 		m += "							var returndata = result.returnData;\n";
@@ -216,7 +216,7 @@ public class TestInterface {
 		m += "					type:'POST',\n";
 		m += "					url:requesturl,\n";
 		m += "					data:{\n";
-
+	     m+="method:delete\n";
 		m += "					},\n";
 		m += "					success:function(result){\n";
 		m += "							var returndata = result.returnData;\n";

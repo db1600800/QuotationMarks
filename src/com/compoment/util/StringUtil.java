@@ -10,8 +10,10 @@ public class StringUtil {
 		String[] ss = string.split("_");
 		String temp = "";
 		for (String s : ss) {
-			if (!s.equals("item"))
+			if (s!=null && !s.equals("item")&&s.length()>1)
+			{
 				temp += s.substring(0, 1).toUpperCase() + s.substring(1);
+			}
 		}
 		return temp;
 	}

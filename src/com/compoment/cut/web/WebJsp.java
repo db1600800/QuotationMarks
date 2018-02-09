@@ -31,37 +31,75 @@ import com.compoment.util.KeyValue;
 
 public class WebJsp {
 
-	// <!--
-	// http://blog.csdn.net/topviewers/article/details/21644305
-	// relative相对自己进行top，right，bottom，left移动 ，占位，文档流不变。
-	//
-	// absolute
-	// 有父辈(父亲或爷爷)为absolute,relative，就相对父辈。没父辈,就相对浏览器。不占位，文档流改变。忽略padding
-	// fixed 特殊absolute
-	//
-	// static 文档流
-	// -->
-
-	// visibility:hidden;隐藏占位 display:none; 隐藏不占位
-	// height: 42px; line-height: 42px; 多行时行高,单行时垂直居中
-	// background-color: #fd5f28;背景色 font-size: 18px;字体大小 color: #fff;字体颜色
-	// text-align: center;文本居中
-
-	// float:left;right center
-
-	// width: 100%;
-
-	// position: relative; 正常占位
-
-	// position: absolute; 相对父亲浮起来，不占位，父亲不指定position: relative则相对<body>浮起来
-	// z-index:1; 多个浮起来，数值大的在上面
-
-	// position: fixed; 相对浏览器浮起来，不占位
-	// 后跟 top:0; left:0; bottom:0; right:0;
-
-	// overflow: scroll;滚动 auto自动处理 hidden隐藏
-
-	// margin-top:3px;
+	        //选择器 1.选择器keyvalue(key中文value数字)数据写死  选择一个保存值到数据库
+			//      2.选择器keyvalue数据动态   选择一个保存值到数据库
+			//		3.选择器keyvalue数据动态    选择一个另外个选择器跟着变
+			//		4.选择器keyvalue数据写死    选择一个另外一个或多个控件隐藏
+			//      5.选择器keyvalue数据写死     选择一个另外一个图片控件图片切换 ，文字控件值变化，列表控件值变化，超链接控件变
+			
+			
+			
+			//必填项左边标红星
+			
+			
+			
+			//按钮      1.保存
+			//       2.返回
+			//       3.清空  图片，文件选择器
+			//       4.加入购物车
+			//		 5.确认订单
+			//		 6.支付(跳转保存接口或数据库)
+			//       7.查询(不跳转查询列表)
+			//		 8.新增(跳转保存接口或数据库)
+			//		 9.修改(跳转查询填值)
+			//       10.奖状 (跳转查询列表)
+			//       11.订单(跳转查询列表)
+			//       12.地址(跳转查询列表)
+			
+			
+			
+			
+			
+			//图片      1.url写死
+			//       2.url来源选择器 ，  文件上传器     
+		    //       3.点击图片放大
+			
+			
+			
+			
+			
+			
+			
+			//文字控件
+			//          1.动态
+			//			2.写死
+			
+			
+			
+			//文字编辑器
+			//           1.输入时检查是否为数字
+			//           2.输入时检查是否为手机号
+			//			 3.输入时检查是否为中文
+			//		     4.输入时检查是否为身份证号
+			//		     5.保存时检查是否为空
+			//           6.默认值
+			//           7.输入长度限制
+			//			 8.提示语
+			//			 9.初始值
+			
+			
+			
+			
+			//日期选择器
+			          //1.开始时间小于结束时间
+			
+			
+			
+			
+			//文件上传器
+		    //1.预览图片
+	
+	
 
 	String bodym = "\n\n\n";
 	String style = "";
@@ -80,6 +118,7 @@ public class WebJsp {
 
 	String parentChirld = "";
 	CompomentBean listItemBean = null;
+	boolean haveListView=false;
 
 	public WebJsp(int cellWidth, int cellHeight) {
 		rootViewWidth = cellWidth;
@@ -188,14 +227,24 @@ public class WebJsp {
 		bodym += styleString;
 
 		bodym += "<script type=\"text/javascript\">\n";
-		bodym += "//body宽高等于窗体";
+		bodym += "$(document).ready(function(){\n";
+		bodym += "     init();\n";
+		bodym += "});\n";
+		bodym += "</script> \n\n";
+		
+		bodym += "<script type=\"text/javascript\">\n";
+		bodym += "//body宽高等于窗体\n";
 		bodym += " var screenHeight=document.documentElement.clientHeight;\n";
 		bodym += " var screenWidth=document.documentElement.clientWidth; \n";
 		bodym += "var body = $(\".h-body\");\n";
 		bodym += "body.width(screenWidth + \"px\");\n";
 		bodym += "body.height(screenHeight + \"px\");\n";
 		bodym += " </script> \n";
-
+         
+		if(!haveListView)
+		{
+		this.commonViewNeedValue(maxBean);
+		}
 		bodym += jsString;
 
 		bodym += "</html>\n";
@@ -367,12 +416,48 @@ public class WebJsp {
 					}
 
 					else if (chirld.type.equals("FormLayout")) {
+						
+						start += "\n\n<div   style=\"margin:5px 5px;display:none;\" id=\"tip-info\">\n";
+						start += "<button  onclick=\"$('#tip-info').css('display','none')\">\n";
+						start += "<span aria-hidden=\"true\">&times;</span>\n";
+						start += "</button>\n";
+						start += "<span></span>\n";
+						start += "</div>\n";
+						start += "<form id=\"" + chirld.enname + "\"  enctype=\"multipart/form-data\" method=\"post\" action=\"${pageContext.request.contextPath}/___\" class=\"" + ""
+								+ "\" style=\"background-color:" + chirld.bgRgb16
+								+ ";display:flex;flex-direction:column;" + relate + border + expand + "\" >\n";
 
-						start += "<div id=\"" + chirld.enname + "\" class=\"ui-form ui-border-t\">\n";
-						start += "<form action=\"#\">\n";
+						
+						end += "<input type=\"submit\" value=\"确定\"/>\n"; 
+						end += "  </form>\n";
 
-						end += " </form>\n";
-						end += "  </div>\n";
+						
+						
+						jsString += "\n<script type=\"text/javascript\">\n";
+						jsString += "//表单提交\n";
+						jsString+="var form = $(\""+chirld.enname+"\");\n";
+						jsString+="form.ajaxForm({\n";
+						jsString+="beforeSubmit : function() {\n";
+						
+						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+							WebJspFormItem webJspFormItem = new WebJspFormItem();
+							String itemString=webJspFormItem.analyse(chirld);
+							jsString+=itemString;
+						}
+							
+								
+						jsString+="	},\n";
+						jsString+="dataType : \"json\",\n";
+						jsString+="	success : function(data) {\n";
+						jsString+="	if (data.status == \"true\") {\n";
+						jsString+="	$(\"#tip-info\").removeClass(\"alert-danger\").addClass(\"alert-danger\").css(\"display\", \"block\");\n";
+					    jsString+="	$(\"#tip-info > span\").text(data.info);\n";	
+						jsString+="	}\n";
+						jsString+=" }\n";
+						jsString+="	});\n";
+						jsString += "</script>\n";
+				
+						
 					} else if (chirld.type.equals("Form_ItemLayout")) {
 
 						start += " <div id=\"" + chirld.enname + "\"  class=\"ui-form-item ui-border-b\">\n";
@@ -381,24 +466,24 @@ public class WebJsp {
 					}
 
 					else if (chirld.type.equals("ListLayout")) {
-
+						haveListView=true;
 						start += "<ul id=\"" + chirld.enname
 								+ "\" class=\"h-list ui-border-tb\" style=\"flex:1;padding:10px;overflow-y:scroll\">\n";
 
 						end += "  </ul>\n";
 
 						if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
-							WebListItemJsp webListItemJsp = new WebListItemJsp();
-							webListItemJsp.analyse(chirld.chirlds.get(0));
+							WebJspListViewItem webListItemJsp = new WebJspListViewItem();
+							String itemString=webListItemJsp.analyse(chirld);
 
-							jsString += "<script type=\"text/javascript\">\n";
-							// 分页
+							jsString += "\n<script type=\"text/javascript\">\n";
+							jsString += "// 分页\n";
 
 							jsString += "window.resultTotal=0;\n";
 							jsString += "window.pageSize=10;\n";
 							jsString += "window.currentPage=0;\n";
 							jsString += "window.requestIng=false;\n";
-							jsString+="window.where=\"\"\n";
+							jsString+="window.where=new Map();\n";
 							jsString += " $(\".h-list\").scroll(function(){\n";
 							jsString += " var list = $(\".h-list\");\n";
 							jsString += "var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少\n";
@@ -410,7 +495,7 @@ public class WebJsp {
 							jsString += "if(requestIng==false)\n";
 							jsString += "{\n";
 							jsString += " alert(\"\");\n";
-							jsString += "getData();\n";
+							jsString += "getListData(false);\n";
 							jsString += "}\n";
 							jsString += "}\n";
 							jsString += "});\n";
@@ -422,14 +507,18 @@ public class WebJsp {
 							 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
 							 * } ] }
 							 */
-							jsString += " function getData() {\n";
+							jsString += " function getListData(isInitQuery) {\n";
 							jsString += "requestIng=true;\n";
+							jsString += "if(isInitQuery)\n";
+							jsString += "{\n";
+							jsString += "	window.currentPage=0;\n";
+							jsString += " }\n";
 							jsString += "$.ajax({\n";
 							jsString += "url:url,\n";
 							jsString += "type:'post',\n";
 							jsString += "dataType:'json',\n";
 							jsString += "async:true,\n";
-							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:where},\n";
+							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:window.where},\n";
 							jsString += "timeout:1000,\n";
 							jsString += "error:function(){\n";
 							jsString += "requestIng=false;\n";
@@ -443,7 +532,10 @@ public class WebJsp {
 							jsString += "var resultData=rsObj.resultData;\n";
 							jsString += "if(resultSize>0){\n";
 							jsString += "for(var i=0;i<resultData.size();i++){ \n";
-							jsString += " $(\".h-list\").append(); \n";
+							
+							jsString +="var itemHtml='';\n";
+							jsString +=itemString;
+							jsString += " $(\".h-list\").append(itemHtml); \n";
 							jsString += " }\n";
 							jsString += " }\n";
 							jsString += " currentPage++;\n";
@@ -458,14 +550,14 @@ public class WebJsp {
 
 						start += " <li id=\"" + chirld.enname
 								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:row;width: 100%; "
-								+ relate + border + "\">\n";
+								+ relate + border + "\" onclick=\"\">\n";
 
 						end += "  </li>\n";
 					} else if (chirld.type.equals("List_ItemLayout_Vertical")) {
 
 						start += " <li id=\"" + chirld.enname
 								+ "\" class=\"ui-border-t\" style=\"display:flex;flex-direction:column;width: 100%; "
-								+ relate + border + "\">\n";
+								+ relate + border + "\" onclick=\"\">\n";
 
 						end += "  </li>\n";
 					}
@@ -492,9 +584,9 @@ public class WebJsp {
 
 						end += "</div>\n";
 						end += "</div>\n";
-						end += "<script class=\"demo-script\">\n";
-						end += "$(\".ui-dialog\").dialog(\"show\");\n";
-						end += "</script>\n";
+						jsString += "\n<script class=\"demo-script\">\n";
+						jsString += "$(\".ui-dialog\").dialog(\"show\");\n";
+						jsString += "</script>\n";
 
 					} else if (chirld.type.equals("TabLayout")) {
 
@@ -504,7 +596,7 @@ public class WebJsp {
 
 						end += "  </div>\n";
 
-						jsString += "<script type=\"text/javascript\">\n";
+						jsString += "\n<script type=\"text/javascript\">\n";
 						jsString += "//tabbar\n";
 						jsString += " $(function () {\n";
 						jsString += "     var collection = $(\".h-tabbar\").children();\n";
@@ -620,43 +712,12 @@ public class WebJsp {
 		if (chirld.type.equals("TextView")) {
 			// h4 label
 
-			if ((chirld.parent.parent != null && chirld.parent.parent.type != null)) {
-
-				if (chirld.parent.parent.type.toLowerCase().contains("list")) {
-
-					bodym += "<div class=\"ui-list-info\">\n";
-					bodym += "<div class=\"ui-txt-info\">" + chirld.cnname + "</div>\n";
-					bodym += "</div>\n";
-
-				} else if (chirld.parent.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
-							+ "\">" + chirld.cnname + "</label>\n";
-				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
+		
+			bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
 							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
 							+ "</span>\n";
-				}
+				
 
-			}
-
-			if ((chirld.parent != null && chirld.parent.type != null)) {
-
-				if (chirld.parent.type.toLowerCase().contains("list")) {
-
-					bodym += "<div class=\"ui-list-info\">\n";
-					bodym += "<div class=\"ui-txt-info\" >" + chirld.cnname + "</div>\n";
-					bodym += "</div>\n";
-
-				} else if (chirld.parent.type.toLowerCase().contains("form")) {
-					bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"" + expand
-							+ "\" >" + chirld.cnname + "</label>\n";
-				} else {
-					bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
-							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
-							+ "</span>\n";
-				}
-
-			}
 		}
 
 		if (chirld.type.equals("Label")) {
@@ -715,11 +776,11 @@ public class WebJsp {
 			bodym += "</div>\n";
 			bodym += "</div>\n";
 			
-			jsString += "<script type=\"text/javascript\">\n";
-			jsString+="//选择\n";
+			jsString += "\n<script type=\"text/javascript\">\n";
+			jsString+="//select选择\n";
 			jsString += "$(\"#"+chirld.enname+"\").change(function () {  \n";
 			jsString += "var s = $(this).children('option:selected').val();  \n";
-			jsString+="window.where+="+chirld.enname+":s,\n";
+			jsString+="window.where.set(\""+chirld.enname+"\",s);\n";
 			jsString += " }); \n"; 
 			jsString+="</script>\n";
 
@@ -775,9 +836,44 @@ public class WebJsp {
 
 		if (chirld.type.equals("CheckBox")) {
 			bodym += " <label class=\"ui-checkbox\" style=\"margin:10px\">\n";
-			bodym += "<input type=\"checkbox\">\n";
+			bodym += "<input type=\"checkbox\" name=\"checkbox\" value=\"\">\n";
 			bodym += "</label>\n";
 			bodym += "<p>" + chirld.cnname + "</p>\n";
+			
+			jsString+="\n<script>\n";
+			jsString+="//check\n";
+			jsString+="function checkWhich()\n";
+			jsString+="{\n";
+			jsString+="var checkboxs=document.getElementsByName(\"checkbox\");\n";
+			jsString+="var count=checkboxs.length;\n";
+			jsString+="var chestr=\"\";\n";
+			jsString+="for (i=0;i<count;i++)\n";
+			jsString+="{\n";
+			jsString+="if(checkboxs[i].checked == true)\n";
+			jsString+="{\n";
+			jsString+="chestr+=checkboxs[i].value+\",\";\n";
+			jsString+="}\n";
+			jsString+="}\n";
+			jsString+="if(chestr == \"\")\n";
+			jsString+="{\n";
+			jsString+="alert(\"请先选择复选框～！\");\n";
+			jsString+="}\n";
+			jsString+="}\n\n";
+			
+			jsString+="function checkAll(){\n";
+			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
+		    jsString+="  this.checked = true;\n";
+			jsString+="})\n";
+			jsString+="}\n\n";
+			
+			jsString+="function unCheckAll(){\n";
+			jsString+="$(document.getElementsByName(\"checkbox\")).each(function(i){\n";
+		    jsString+="  this.checked = false;\n";
+			jsString+="})\n";
+			jsString+="}\n";
+			
+			
+			jsString+="</script>\n";
 
 		}
 
@@ -790,19 +886,37 @@ public class WebJsp {
 		if (chirld.type.equals("Radio")) {
 			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
 			bodym += " <label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" name=\"radio\">\n";
+			bodym += "<input type=\"radio\" name=\"radio\" value=\"\">\n";
 			bodym += "</label>\n";
-			bodym += " <p>表单中用于单选操作</p>\n";
+			bodym += " <p>"+chirld.cnname+"</p>\n";
 			bodym += "</div>\n";
-			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
 
-			bodym += "<label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" checked name=\"radio\">\n";
-			bodym += "</label>\n";
-			bodym += "<p>表单中用于单选操作</p>\n";
-			bodym += "</div>\n";
+			
+			jsString+="\n<script>\n";
+			jsString+="var bFlag = false;\n";
+		    jsString+="var valueString=\"\";\n";
+			jsString+="var gender = document.getElementsByName('radio');\n";
+			jsString+="for (var i = 0; i < gender.length; i++) {\n";
+			jsString+="if (gender[i].checked) {\n";
+			jsString+="bFlag = true;\n";
+			jsString+="valueString=gender[i].value;\n";
+			jsString+="break;\n";
+			jsString+="}\n";
+			jsString+="}\n";
+			jsString+="if (bFlag == false) {\n";
+			jsString+="alert('不能为空，请选择！')\n";
+			jsString+="return false;\n";
+			jsString+="}\n";
+			jsString+="</script>\n";
 
 		}
+		
+		
+		if (chirld.type.equals("File")) {
+			bodym += "<input type=\"file\" id=\""+chirld.enname+"\" name=\""+chirld.enname+"\"/>\n";
+		}
+		
+		
 
 		if (chirld.type.equals("EditText")) {
 
@@ -877,6 +991,61 @@ public class WebJsp {
 		}
 	}
 
+	
+	
+	public void commonViewNeedValue(CompomentBean chirld)
+	{
+		
+		
+		if (chirld.chirlds != null && chirld.chirlds.size() > 0) {
+			WebJspListViewItem webListItemJsp = new WebJspListViewItem();
+			String itemString=webListItemJsp.analyse(chirld);
+
+			jsString += "\n<script type=\"text/javascript\">\n";
+			jsString += "//进入页面向后台取数据,初始化页面\n";
+
+	
+
+			/*
+			 * { "resultCode": "1001", "resultSize": 1, "resultTotal":10, "resultData": [ {
+			 * "name": "bootstrap-table", "stargazers_count": "526", "forks_count": "122",
+			 * "description":
+			 * "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+			 * } ] }
+			 */
+			jsString += " function init() {\n";
+			jsString += "$.ajax({\n";
+			jsString += "url:${pageContext.request.contextPath}/__,\n";
+			jsString += "type:'post',\n";
+			jsString += "dataType:'json',\n";
+			jsString += "async:true,\n";
+			jsString += "data:{where:window.where},\n";
+			jsString += "timeout:1000,\n";
+			jsString += "error:function(){\n";
+			jsString += "requestIng=false;\n";
+			jsString += "alert(\"ajax error\");\n";
+			jsString += "}, \n";
+			jsString += "success:function(rsObj)\n";
+			jsString += "{\n";
+			jsString += "requestIng=false;\n";
+			jsString += "var resultSize=rsObj.resultSize;\n";
+			jsString += "window.resultTotal=rsObj.resultTotal;\n";
+			jsString += "var resultData=rsObj.resultData;\n";
+			jsString += "if(resultSize>0){\n";
+			jsString += "for(var i=0;i<resultData.size();i++){ \n";
+			
+			jsString +="var itemHtml='';\n";
+			jsString +=itemString;
+			jsString += " $(\".body\").append(itemHtml); \n";
+			jsString += " }\n";
+			jsString += " }\n";
+			jsString += "});\n";
+			jsString += "}\n";
+			jsString += "</script>\n";
+		}
+	
+	}
+	
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {
 		public int compare(CompomentBean s1, CompomentBean s2) {
 			// 按日期排
