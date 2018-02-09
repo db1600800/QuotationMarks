@@ -7,24 +7,54 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyCanAddPackageViewController">
             <connections>
-                        <outlet property="aTextView" destination="S3i-47-HaB" id="Bmm-10-w3a"/>
-                <outlet property="view" destination="LzJ-Dq-gsR" id="EMR-e2-PHl"/>
+                        <outlet property="mypackageButton" destination="YkH-nm-IP9" id="ycg-8u-kx6"/>
+                        <outlet property="titleTextView" destination="c7x-wi-fN6" id="4Ft-sw-6NJ"/>
+                <outlet property="view" destination="Bk2-Mq-hRQ" id="czY-Uh-mzY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
 
 
 
-                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" contentMode="scaleToFill" id="LzJ-Dq-gsR">
-<rect key="frame" x="0.0" y="0.0" width="320" height="466"/>
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" contentMode="scaleToFill" id="Bk2-Mq-hRQ">
+<rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3i-47-HaB">
-                                        <rect key="frame" x="97" y="47" width="9" height="15"/>
+ <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rea-Bk-pVt">
+<rect key="frame" x="6" y="53" width="298" height="412"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+ <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YvH-9X-7tA">
+<rect key="frame" x="6" y="4" width="289" height="33"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                </subviews>
+                                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                                </subviews>
+                                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+ <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tdr-g7-PMI">
+<rect key="frame" x="10" y="7" width="298" height="42"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YkH-nm-IP9">
+                                <rect key="frame" x="163" y="24" width="68" height="15"/>
+                                <color key="backgroundColor" red="0.9843137" green="0.43529412" blue="0.17254902" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="我的套餐">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可加倍套餐" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7x-wi-fN6">
+                                        <rect key="frame" x="131" y="22" width="85" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.078431375" green="0.078431375" blue="0.078431375" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.7529412" green="0.49411765" blue="0.3254902" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9843137" green="0.43529412" blue="0.17254902" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>

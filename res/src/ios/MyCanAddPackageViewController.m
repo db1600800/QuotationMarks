@@ -10,17 +10,28 @@
 
 @implementation MyCanAddPackageViewController
 
-//a
-@synthesize aTextView;
+//可加倍套餐
+@synthesize titleTextView;
+//我的套餐
+@synthesize mypackageButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//a
-[self.aTextView setText:null];
+//可加倍套餐
+[self.titleTextView setText:null];
+
+//我的套餐
+[self.mypackageButton addTarget:self action:@selector(mypackageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+}
+
+-(void)mypackageButtonClicked:(UIButton *)btn{
+//id mId = objc_getAssociatedObject(btn, "mId");
+//取绑定数据int mId2 = btn.tag;
+//取绑定数据
 }
 
 -(bool)checkInput{

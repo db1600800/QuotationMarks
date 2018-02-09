@@ -1,10 +1,11 @@
-#Update '60-33-4B-2B-72-39' value
-#Wed Dec 13 20:43:28 CST 2017
+#Update '68-A3-C4-04-8C-C0,00-50-56-C0-00-01,00-50-56-C0-00-08' value
+#Thu Jan 18 21:59:40 CST 2018
 60-33-4B-2B-72-39=60-33-4B-2B-72-39
 \u53D8\u91CF\u540D=1
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 \u7C7B\u578B=2
 codeFilePath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic/src/ios
+68-A3-C4-04-8C-C0,00-50-56-C0-00-01,00-50-56-C0-00-08=68-A3-C4-04-8C-C0,00-50-56-C0-00-01,00-50-56-C0-00-08
 \u5907\u6CE8=3
 recentUseColor=\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,\#1D1D1D,
 picPath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic

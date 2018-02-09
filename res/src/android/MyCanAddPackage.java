@@ -25,8 +25,10 @@ public class MyCanAddPackage extends Activity implements OnScrollListener {
 Context context;
 public View containView;
 String searchText;
-/**a*/
-TextView aTextView;
+/**我的套餐*/
+Button mypackageButton;
+/**可加倍套餐*/
+TextView titleTextView;
 public MyCanAddPackage()
 {
 }
@@ -49,8 +51,15 @@ this.setContentView(view);
 public View init() {
 		if (containView == null) {
 			containView = inflateView(R.layout.myCanAddPackage);
-//a
-aTextView= (TextView) containView.findViewById(R.id.aTextView);
+//我的套餐
+mypackageButton = (Button) containView
+					.findViewById(R.id.mypackageButton);
+mypackageButton.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+}
+					});
+//可加倍套餐
+titleTextView= (TextView) containView.findViewById(R.id.titleTextView);
 		}
 request...();
 return containView;
@@ -103,8 +112,9 @@ return true;
 	}
 }.execute("");}
 public void setView(){
-//a
-aTextView.setText("");
+//我的套餐
+//可加倍套餐
+titleTextView.setText("");
 }
 /**返回本页刷新数据*/
 int n0000=0;
@@ -129,7 +139,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (body!=null) {
 			//有数据 且头没错
 				try {
-//a
+//我的套餐
+//可加倍套餐
 //注入RequestRespond
 //End注入RequestRespond
 } catch (Exception e) {
