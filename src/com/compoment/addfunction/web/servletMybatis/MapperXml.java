@@ -14,7 +14,8 @@ import com.compoment.util.StringUtil;
 public class MapperXml {
 
 	public void mapperXml(List<TableBean> tables,String interfaceName) {
-
+//批量生成时tables里只有一个tablebean
+		
 		if (tables != null && tables.size() <= 1) {
 			return;
 		}
@@ -255,7 +256,7 @@ public class MapperXml {
 
 			}
 		}
-		m += sql+"limit #{currIndex} , #{pageSize}";
+		m += sql+" limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 		
 		

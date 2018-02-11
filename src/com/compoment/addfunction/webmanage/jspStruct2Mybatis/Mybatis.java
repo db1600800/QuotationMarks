@@ -1,5 +1,6 @@
 package com.compoment.addfunction.webmanage.jspStruct2Mybatis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.compoment.addfunction.web.servletMybatis.Entity;
@@ -15,13 +16,15 @@ import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 public class Mybatis {
 	
 	public Mybatis(String interfaceName,
-			String interfaceCnName, List<TableBean> tables)
+			String interfaceCnName, List<TableBean> temptables)
 	{
-		for (TableBean table : tables) {
+		for (TableBean table : temptables) {
 		for (TableColumnBean column : table.columns) {
 			column.belongWhichTable=table;
 		}
-		}
+		
+		List<TableBean>  tables =new ArrayList();
+		tables.add(table);
 		
 		MapperXmlForSingleTable  mapperXmlForSingleTable=new MapperXmlForSingleTable();
 		mapperXmlForSingleTable.mapperXmlForSingleTable(tables);
@@ -42,6 +45,11 @@ public class Mybatis {
 		
 		ServiceInterface serviceInterface=new ServiceInterface();
 		serviceInterface.serviceInterface(tables,interfaceName,interfaceCnName);
+		
+		
+		
+		}
+		
 		
 		
 		MybatisUtil mybatisUtil=new MybatisUtil();

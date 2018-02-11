@@ -215,7 +215,7 @@ public class MapperXmlForSingleTable {
 
 			}
 		}
-		m += sql+"limit #{currIndex} , #{pageSize}";
+		m += sql+" limit #{currIndex} , #{pageSize}";
 		m += "	</select>\n";
 		
 		//count
