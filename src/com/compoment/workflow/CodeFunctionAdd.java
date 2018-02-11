@@ -30,6 +30,10 @@ import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.addfunction.webmanage.UpdateJspStruct2;
+import com.compoment.addfunction.webmanage.jspStruct2Mybatis.AddJspForWebManage;
+import com.compoment.addfunction.webmanage.jspStruct2Mybatis.QueryJspForWebManage;
+import com.compoment.addfunction.webmanage.jspStruct2Mybatis.Struct2ActionForWebManage;
+import com.compoment.addfunction.webmanage.jspStruct2Mybatis.UpdateJspForWebManage;
 import com.compoment.addfunction.webmanage.ActionStruct2;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.AddJspStruct2;
@@ -1002,8 +1006,7 @@ public class CodeFunctionAdd extends JFrame {
 
 	public void WebManageFunction(Function function) {
 
-		if (function.id.equals("1")) {// 表
-
+		if (function.id.equals("1")) {//jsp struct2 spring hibernate 管理端
 			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
 					true,"数据库文档");
 			projectDocPanel.setModal(true);
@@ -1022,17 +1025,27 @@ public class CodeFunctionAdd extends JFrame {
 
 				new AddJspStruct2(projectDocPanel.interfaceBeans);
 				// new MenuJsp(projectDocPanel.interfaceBeans);
-
-				// Struct2
-				// new QueryJsp(projectDocPanel.interfaceBeans);
-
-				// new AddJsp(projectDocPanel.interfaceBeans);
-
-				// new StructActionForm(projectDocPanel.interfaceBeans);
-
-				// new StructAction(projectDocPanel.interfaceBeans);
 			}
+		}
+		
+		if (function.id.equals("2")) {//jsp struct2 mybatis 管理端
+			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+					true,"数据库文档");
+			projectDocPanel.setModal(true);
+			projectDocPanel.setVisible(true);
 
+			if (projectDocPanel.interfaceBeans != null) {
+
+				// 接口列表
+				new Struct2ActionForWebManage(projectDocPanel.interfaceBeans);
+
+				new UpdateJspForWebManage(projectDocPanel.interfaceBeans);
+
+				new QueryJspForWebManage(projectDocPanel.interfaceBeans);
+				
+				new AddJspForWebManage(projectDocPanel.interfaceBeans);
+				// new MenuJsp(projectDocPanel.interfaceBeans);
+			}
 		}
 	}
 
@@ -1231,6 +1244,7 @@ public class CodeFunctionAdd extends JFrame {
 	public void WebManageData() {
 		functionParents.clear();
 		functionParents.add(new Function("1", "ssh查询新增修改"));
+		functionParents.add(new Function("2", "jspStruct2Mybatis查询新增修改"));
 	}
 
 	public void WebData() {

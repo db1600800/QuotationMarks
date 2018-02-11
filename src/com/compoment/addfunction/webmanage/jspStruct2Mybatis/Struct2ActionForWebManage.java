@@ -31,6 +31,8 @@ public class Struct2ActionForWebManage {
 
 		tables=changeToTableBeans(interfaceBeans);
 		
+		Mybatis mybatis=new Mybatis("","", tables);
+		
 		for (InterfaceBean interfaceBean : interfaceBeans) {
 			
 			action(interfaceBean, "Respond","");

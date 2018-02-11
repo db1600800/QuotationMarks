@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import com.compoment.addfunction.web.servletMybatis.MapperJava;
 import com.compoment.addfunction.web.servletMybatis.MapperXml;
 import com.compoment.addfunction.web.servletMybatis.MapperXmlForSingleTable;
+import com.compoment.addfunction.web.servletMybatis.SqlScript;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.remote.CheckProblemInterface;
@@ -101,6 +102,10 @@ public class InterfaceServiceController_springmvcSpringMybatis  {
 		
 		Entity entity=new Entity();
 		entity.entity(tables,interfaceName,interfaceCnName);
+		
+		SqlScript  sqlScript=new SqlScript();
+		sqlScript.mysql(tables);
+		sqlScript.oracle(tables);
 		
 		ServiceInterface serviceInterface=new ServiceInterface();
 		serviceInterface.serviceInterface(tables,interfaceName,interfaceCnName);

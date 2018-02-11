@@ -21,7 +21,13 @@ public class StringUtil {
 	
 	public static String firstCharToLower(String string) {
 		// buy_typelist
+		if(string!=null&&string.length()>1)
+		{
 		string = string.substring(0, 1).toLowerCase() + string.substring(1);
+		}else if(string!=null&&string.length()>0)
+		{
+			string = string.substring(0, 1).toLowerCase();
+		}
 		
 		return string;
 	}
