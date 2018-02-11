@@ -1,10 +1,12 @@
-#Update '3A-D3-E4-6B-76-E0,54-26-96-DA-C4-FD' value
-#Tue Jan 23 09:36:16 CST 2018
+#Update '12-DC-75-9A-03-3A,54-26-96-DA-C4-FD' value
+#Sun Feb 11 14:37:12 CST 2018
 8A-49-94-68-EB-A4,54-26-96-DA-C4-FD=8A-49-94-68-EB-A4,54-26-96-DA-C4-FD
 \u4E2D\u6587\u540D=0
 9A-90-21-7C-4F-80,54-26-96-DA-C4-FD=9A-90-21-7C-4F-80,54-26-96-DA-C4-FD
 16-4E-D6-3F-07-FB,54-26-96-DA-C4-FD=16-4E-D6-3F-07-FB,54-26-96-DA-C4-FD
 36-85-35-CE-C7-43,54-26-96-DA-C4-FD=36-85-35-CE-C7-43,54-26-96-DA-C4-FD
+82-B8-BC-E8-14-36,54-26-96-DA-C4-FD=82-B8-BC-E8-14-36,54-26-96-DA-C4-FD
+9A-20-C5-4F-C4-2F,54-26-96-DA-C4-FD=9A-20-C5-4F-C4-2F,54-26-96-DA-C4-FD
 SimpleRespondJson={"returnCode"\: "0","returnData"\: {"head"\: { "ret_msg"\: "\u6210\u529F", "ret_errcode"\: "000000"}, "body"\:{} }}
 codeFilePath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic/src/ios
 7A-BE-8A-DB-1D-E9,54-26-96-DA-C4-FD=7A-BE-8A-DB-1D-E9,54-26-96-DA-C4-FD
@@ -14,8 +16,11 @@ codeFilePath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic/src/ios
 picPath=C\:\\Users\\bbq\\git\\QuotationMarks/res/pic
 docPath=C\:\\Users\\bbq\\git\\QuotationMarks/res/InterfaceDocAndCode/wordTableToJaveObject.doc
 3A-D3-E4-6B-76-E0,54-26-96-DA-C4-FD=3A-D3-E4-6B-76-E0,54-26-96-DA-C4-FD
+5A-51-59-98-30-EA,54-26-96-DA-C4-FD=5A-51-59-98-30-EA,54-26-96-DA-C4-FD
 32-AA-7A-61-BF-63,54-26-96-DA-C4-FD=32-AA-7A-61-BF-63,54-26-96-DA-C4-FD
+12-DC-75-9A-03-3A,54-26-96-DA-C4-FD=12-DC-75-9A-03-3A,54-26-96-DA-C4-FD
 recentUseColor=\#FB6F2C,\#0A0A0A,\#222222,\#212121,\#242424,\#1D1D1D,
 projectPath=C\:\\Users\\bbq\\git\\QuotationMarks/res
-\u53D8\u91CF\u540D=1
 32-6C-1D-8B-22-CF,54-26-96-DA-C4-FD=32-6C-1D-8B-22-CF,54-26-96-DA-C4-FD
+\u53D8\u91CF\u540D=1
+4E-39-80-02-73-34,54-26-96-DA-C4-FD=4E-39-80-02-73-34,54-26-96-DA-C4-FD
