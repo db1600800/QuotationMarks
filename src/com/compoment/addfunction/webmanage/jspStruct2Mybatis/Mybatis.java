@@ -26,6 +26,9 @@ public class Mybatis {
 		List<TableBean>  tables =new ArrayList();
 		tables.add(table);
 		
+		interfaceName=table.tableEnName;
+		interfaceCnName=table.tableCnName;
+		
 		MapperXmlForSingleTable  mapperXmlForSingleTable=new MapperXmlForSingleTable();
 		mapperXmlForSingleTable.mapperXmlForSingleTable(tables);
 		
