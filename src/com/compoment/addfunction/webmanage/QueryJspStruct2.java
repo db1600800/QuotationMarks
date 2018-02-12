@@ -126,13 +126,17 @@ public class QueryJspStruct2 {
 		
 		String m="";
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
+		m += "<%\n";
+		m += "String path = request.getContextPath();\n";
+		m += "String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
+		m += "%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
-		m+="	<%@ include file=\"../include.jsp\"%>\n";
+	
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
-	
+		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
 		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";

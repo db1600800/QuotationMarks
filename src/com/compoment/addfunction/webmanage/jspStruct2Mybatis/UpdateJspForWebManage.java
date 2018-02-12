@@ -34,17 +34,19 @@ public class UpdateJspForWebManage {
 		
 		String m="";
 		m+="<%@ page language=\"java\" import=\"java.util.*\" pageEncoding=\"utf-8\"%>\n";
+		m += "<%\n";
+		m += "String path = request.getContextPath();\n";
+		m += "String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
+		m += "%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
-		m+="<%@ taglib prefix=\"s\" uri=\"/struts-tags\" %>\n"; 
 		m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
-		m+="	<%@ include file=\"../include.jsp\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
 		m+="<script src=\"${ctx}/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
 		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
-
+		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
 		m+="<script type=\"text/javascript\">\n";
 

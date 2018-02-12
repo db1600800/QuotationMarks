@@ -287,16 +287,16 @@ public class Struct2ActionForWebManage {
 	
 		
 		
-		m+="    private "+interfaceBean.enName+"Entity entity;\n";
+		m+="    private "+interfaceBean.enName+"Bean entity;\n";
 	
 	
 		
 		m+=filebean;
 		
-		m+="	public "+interfaceBean.enName+"Entity getEntity() {\n";
+		m+="	public "+interfaceBean.enName+"Bean getEntity() {\n";
 		m+="		return entity;\n";
 		m+="	}\n";
-		m+="	public void setEntity("+interfaceBean.enName+"Entity  "+interfaceBean.enName.toLowerCase()+") {\n";
+		m+="	public void setEntity("+interfaceBean.enName+"Bean  "+interfaceBean.enName.toLowerCase()+") {\n";
 		m+="		this.entity = "+interfaceBean.enName.toLowerCase()+";\n";
 		m+="	}\n";
 		
