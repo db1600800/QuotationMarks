@@ -30,6 +30,7 @@ import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.addfunction.webmanage.UpdateJspStruct2;
+import com.compoment.addfunction.webmanage.jspServletMybatis.ServeletActionForWebManage;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.AddJspForWebManage;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.QueryJspForWebManage;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.Struct2ActionForWebManage;
@@ -1047,6 +1048,26 @@ public class CodeFunctionAdd extends JFrame {
 				// new MenuJsp(projectDocPanel.interfaceBeans);
 			}
 		}
+		
+		if (function.id.equals("3")) {//jsp servelet mybatis 管理端
+			InterfaceDocDialog projectDocPanel = new InterfaceDocDialog(
+					true,"数据库文档");
+			projectDocPanel.setModal(true);
+			projectDocPanel.setVisible(true);
+
+			if (projectDocPanel.interfaceBeans != null) {
+
+				// 接口列表
+				new ServeletActionForWebManage(projectDocPanel.interfaceBeans);
+
+				new UpdateJspForWebManage(projectDocPanel.interfaceBeans);
+
+				new QueryJspForWebManage(projectDocPanel.interfaceBeans);
+				
+				new AddJspForWebManage(projectDocPanel.interfaceBeans);
+				// new MenuJsp(projectDocPanel.interfaceBeans);
+			}
+		}
 	}
 
 	public void WebFunction(Function function) {
@@ -1245,6 +1266,7 @@ public class CodeFunctionAdd extends JFrame {
 		functionParents.clear();
 		functionParents.add(new Function("1", "ssh查询新增修改"));
 		functionParents.add(new Function("2", "jspStruct2Mybatis查询新增修改"));
+		functionParents.add(new Function("2", "jspServeletMybatis查询新增修改"));
 	}
 
 	public void WebData() {
