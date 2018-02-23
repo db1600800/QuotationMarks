@@ -223,7 +223,7 @@ public class ServletActionForWebManage {
 		m += "        	doAdd(request, response);\n";
 		m += "        } \n";
 		m += "        if (\"doDelete\".equals(method)) {\n";
-		m += "        	delete(request, response);\n";
+		m += "        	doDelete(request, response);\n";
 		m += "        } \n";
 		m += "    }\n";
 		
