@@ -853,7 +853,7 @@ public class ServletActionForWebManage {
 		m += "	\n";
 		m += "}\n";
 
-		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", interfaceBean.enName + "Action", "java",
+		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", interfaceBean.enName + "Servlet", "java",
 				m);
 
 		System.out.println(m);

@@ -1266,7 +1266,7 @@ public class CodeFunctionAdd extends JFrame {
 		functionParents.clear();
 		functionParents.add(new Function("1", "ssh查询新增修改"));
 		functionParents.add(new Function("2", "jspStruct2Mybatis查询新增修改"));
-		functionParents.add(new Function("3", "jspServeletMybatis查询新增修改"));
+		functionParents.add(new Function("3", "jspServletMybatis查询新增修改"));
 	}
 
 	public void WebData() {
