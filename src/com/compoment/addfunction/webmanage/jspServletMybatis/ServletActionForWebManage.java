@@ -333,12 +333,12 @@ public class ServletActionForWebManage {
 
 							toUpdateInKeyString += "int " + row.enName.toLowerCase()
 									+ " =Integer.valueOf( request.getParameter(\"" + row.enName.toLowerCase()
-									+ "\", \"0\"));\n";
+									+ "\"));\n";
 
 						} else {
 							toUpdateInKeyString += "String " + row.enName.toLowerCase()
 									+ " = request.getParameter(\"" + row.enName.toLowerCase()
-									+ "\", \"\");\n";
+									+ "\");\n";
 						}
 						toUpdateInKeyString += "request.setAttribute(\"" + row.enName.toLowerCase() + "\", "
 								+ row.enName.toLowerCase() + ");\n";
@@ -406,7 +406,7 @@ public class ServletActionForWebManage {
 
 					// list()
 					listInKeyString += "	String " + row.enName.toLowerCase()
-							+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+							+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 					listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase() + ")){\n";
 					listInKeyString += "			//return;\n";
@@ -501,7 +501,7 @@ public class ServletActionForWebManage {
 
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
@@ -593,7 +593,7 @@ public class ServletActionForWebManage {
 				
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
@@ -670,7 +670,7 @@ public class ServletActionForWebManage {
 
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
@@ -734,7 +734,7 @@ public class ServletActionForWebManage {
 				
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
@@ -807,7 +807,7 @@ public class ServletActionForWebManage {
 
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\", \"\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
