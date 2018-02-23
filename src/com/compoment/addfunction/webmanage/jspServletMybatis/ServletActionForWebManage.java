@@ -23,11 +23,11 @@ import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
-public class ServeletActionForWebManage {
+public class ServletActionForWebManage {
 
 	List<TableBean> tables;
 
-	public ServeletActionForWebManage(List<InterfaceBean> interfaceBeans) {
+	public ServletActionForWebManage(List<InterfaceBean> interfaceBeans) {
 		if (interfaceBeans == null)
 			return;
 
