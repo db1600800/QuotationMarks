@@ -138,7 +138,7 @@ public class QueryJspForServlet {
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";
+		m+="			window.location.href=\""+interfaceBean.enName+"Servlet?method=toAdd&"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -146,12 +146,12 @@ public class QueryJspForServlet {
 		m+="		$(document).on('ready', function() {\n";
 		m+=requestKeyString;
 
-		m+="			getAll('"+interfaceBean.enName+"Action!list');\n";
+		m+="			getAll('"+interfaceBean.enName+"Servlet?method=list');\n";
 		m+="		});\n";
 		m+="		\n";
 		m+="		\n";
 		m+="		function search(){\n";
-		m+="			getAll('"+interfaceBean.enName+"Action!list');\n";
+		m+="			getAll('"+interfaceBean.enName+"Servlet?method=list');\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -164,7 +164,7 @@ public class QueryJspForServlet {
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
-		m+="					url:'"+interfaceBean.enName+"Action!doDelete',\n";
+		m+="					url:'"+interfaceBean.enName+"Servlet?method=doDelete',\n";
 		m+="					data:{\n";
 		
 		
@@ -174,7 +174,7 @@ public class QueryJspForServlet {
 		m+="					\n},\n";
 		m+="					success:function(k){\n";
 		m+="							alert(\"删除成功！\")\n";
-		m+="							window.location.href = \""+interfaceBean.enName+"Action!index?"+urlKeyString+"\";\n";
+		m+="							window.location.href = \""+interfaceBean.enName+"Servlet?method=index&"+urlKeyString+"\";\n";
 		m+="					},\n";
 		m+="					error : function() {\n";
 		m+="						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -253,7 +253,7 @@ public class QueryJspForServlet {
 		
 
 
-		m+="								divtext += '<td ><a href=\""+interfaceBean.enName+"Action!toUpdate?"+updateKeyString+"\"> [修改] </a>'\n";
+		m+="								divtext += '<td ><a href=\""+interfaceBean.enName+"Servlet?method=toUpdate&"+updateKeyString+"\"> [修改] </a>'\n";
 		m+="								divtext +='|<a href=\"javascript:void(0);\" onclick=\"dodel("+deleteKeyString+")\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";
