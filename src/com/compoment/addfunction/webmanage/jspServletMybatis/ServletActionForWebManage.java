@@ -327,17 +327,19 @@ public class ServletActionForWebManage {
 				int i = 0;
 				for (Row row : group.rows) {
 					if (row.remarks.toLowerCase().contains("key")) {
+						
+					
 
 						// toUpdate()
 						if (row.type.toLowerCase().contains("int")) {
 
 							toUpdateInKeyString += "int " + row.enName.toLowerCase()
-									+ " =Integer.valueOf( request.getParameter(\"" + row.enName.toLowerCase()
+									+ " =request.getParameter(\"" + row.enName.toLowerCase()+ "\")==null ? 0 :Integer.valueOf( request.getParameter(\"" + row.enName.toLowerCase()
 									+ "\"));\n";
 
 						} else {
 							toUpdateInKeyString += "String " + row.enName.toLowerCase()
-									+ " = request.getParameter(\"" + row.enName.toLowerCase()
+									+ " = request.getParameter(\"" + row.enName.toLowerCase()+ "\")==null?null:request.getParameter(\"" + row.enName.toLowerCase()
 									+ "\");\n";
 						}
 						toUpdateInKeyString += "request.setAttribute(\"" + row.enName.toLowerCase() + "\", "
