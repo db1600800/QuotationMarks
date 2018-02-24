@@ -73,10 +73,15 @@ public class MybatisUtil {
 				  "mybatisConfig", "xml", m);
 		
 		m="";
-		m+="driver = com.mysql.jdbc.Driver\n";
-		m+="url = jdbc:mysql://localhost:3306/yyr_test\n";
-		m+="name = root\n";
-		m+="password = jialin89086\n";
+		m+="driver=com.mysql.jdbc.Driver\n";
+		m+="url=jdbc:mysql://localhost:3306/yyr_test\n";
+		m+="name=root\n";
+		m+="password=jialin89086\n";
+		
+		m+="driver=oracle.jdbc.OracleDriver\n";
+		m+="url=jdbc:oracle:thin:@192.168.248.62:1521:orcl\n";
+		m+="name=root\n";
+		m+="password=jialin89086\n";
 		
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
 				  "jdbc", "properties", m);
