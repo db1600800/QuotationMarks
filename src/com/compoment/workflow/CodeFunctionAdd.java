@@ -30,7 +30,10 @@ import com.compoment.addfunction.web.WebRequestRespond;
 import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.addfunction.webmanage.UpdateJspStruct2;
+import com.compoment.addfunction.webmanage.jspServletMybatis.AddJspForServlet;
+import com.compoment.addfunction.webmanage.jspServletMybatis.QueryJspForServlet;
 import com.compoment.addfunction.webmanage.jspServletMybatis.ServletActionForWebManage;
+import com.compoment.addfunction.webmanage.jspServletMybatis.UpdateJspForServlet;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.AddJspForWebManage;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.QueryJspForWebManage;
 import com.compoment.addfunction.webmanage.jspStruct2Mybatis.Struct2ActionForWebManage;
@@ -1060,11 +1063,11 @@ public class CodeFunctionAdd extends JFrame {
 				// 接口列表
 				new ServletActionForWebManage(projectDocPanel.interfaceBeans);
 
-				new UpdateJspForWebManage(projectDocPanel.interfaceBeans);
+				new UpdateJspForServlet(projectDocPanel.interfaceBeans);
 
-				new QueryJspForWebManage(projectDocPanel.interfaceBeans);
+				new QueryJspForServlet(projectDocPanel.interfaceBeans);
 				
-				new AddJspForWebManage(projectDocPanel.interfaceBeans);
+				new AddJspForServlet(projectDocPanel.interfaceBeans);
 				// new MenuJsp(projectDocPanel.interfaceBeans);
 			}
 		}
