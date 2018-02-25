@@ -219,6 +219,7 @@ public class ServiceInterface {
 					
 					m+="try{\n";
 					m += "  mapper." + mainTableName + "Insert(bean);\n";
+					m+="session.commit();\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
 					
@@ -232,6 +233,7 @@ public class ServiceInterface {
 					
 					m+="try{\n";
 					m += "  mapper." + mainTableName + "Update(bean);\n";
+					m+="session.commit();\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
 				
@@ -245,6 +247,7 @@ public class ServiceInterface {
 					
 					m+="try{\n";
 					m += " mapper." + mainTableName + "Delete(bean);\n";
+					m+="session.commit();\n";
 					m+="} finally {\n" ; 
 					m+="session.close();\n";
 					
