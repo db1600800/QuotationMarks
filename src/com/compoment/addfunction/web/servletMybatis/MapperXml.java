@@ -265,7 +265,7 @@ public class MapperXml {
 
 			if (table.isMainTable) {
 				m += "	<select id=\"" + interfaceName
-						+ "SelectCount\" resultMap=\"java.lang.Integer\" >\n";
+						+ "SelectCount\" resultType=\"java.lang.Integer\" >\n";
 
 			}
 		}

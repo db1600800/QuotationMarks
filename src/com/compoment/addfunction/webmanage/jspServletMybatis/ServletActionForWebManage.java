@@ -394,7 +394,7 @@ public class ServletActionForWebManage {
 
 		m += "Map paraMap=new HashMap();\n";
 		m += "paraMap.put(\"currIndex\", (Integer.valueOf(pageNo) - 1) * Integer.valueOf(pageSize));\n";
-		m += "paraMap.put(\"pageSize\", pageSize);\n";
+		m += "paraMap.put(\"pageSize\", Integer.valueOf(pageSize));\n";
 
 		String listInKeyString = "";
 		String nextPageKeyString = "";
@@ -854,6 +854,20 @@ public class ServletActionForWebManage {
 		m += "	}\n";
 		m += "	\n";
 		m += "}\n";
+		
+		m+="\n\n//web.xml添加";
+		m+="<servlet>\n";
+		m+="		<servlet-name>"+interfaceBean.enName + "Servlet</servlet-name>\n";
+		m+="		<servlet-class>\n";
+		m+="			com.."+interfaceBean.enName + "Servlet\n";
+		m+="		</servlet-class>\n";
+		m+="	</servlet>\n";
+		m+="	\n";
+		m+="	<servlet-mapping>\n";
+		m+="		<servlet-name>"+interfaceBean.enName + "Servlet</servlet-name>\n";
+		m+="		<url-pattern>/"+interfaceBean.enName + "Servlet</url-pattern>\n";
+		m+="	</servlet-mapping>\n";
+
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", interfaceBean.enName + "Servlet", "java",
 				m);

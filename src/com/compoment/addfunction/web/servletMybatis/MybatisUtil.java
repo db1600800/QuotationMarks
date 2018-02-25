@@ -51,7 +51,9 @@ public class MybatisUtil {
 		m+="    <!-- 引用db.properties配置文件 -->\n";
 		m+="    <properties resource=\"jdbc.properties\"/>\n";
 
-
+		 m+=" <settings>\n";
+	       m+=" <setting name=\"logImpl\" value=\"LOG4J\"/>\n";
+		m+="</settings>\n";
 		m+="    <environments default=\"development\">\n";
 		m+="        <environment id=\"development\">\n";
 		m+="            <transactionManager type=\"JDBC\"/>\n";
@@ -85,6 +87,45 @@ public class MybatisUtil {
 		
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
 				  "jdbc", "properties", m);
+		
+		
+		
+		
+		
+m="";
+m+="log4j.rootLogger=DEBUG,console,file\n";
+m+="\n\n";
+m+="#-----------------------------------#\n";
+m+="#1 \u5B9A\u4E49\u65E5\u5FD7\u8F93\u51FA\u76EE\u7684\u5730\u4E3A\u63A7\u5236\u53F0\n";
+m+="log4j.appender.console = org.apache.log4j.ConsoleAppender\n";
+m+="log4j.appender.console.Target = System.out\n";
+m+="log4j.appender.console.Threshold=DEBUG\n";
+
+m+="log4j.appender.console.layout = org.apache.log4j.PatternLayout\n";
+m+="log4j.appender.console.layout.ConversionPattern=[%c]-%m%n\n";
+m+="\n\n";
+m+="#-----------------------------------#\n";
+m+="#2 \u6587\u4EF6\u5927\u5C0F\u5230\u8FBE\u6307\u5B9A\u5C3A\u5BF8\u7684\u65F6\u5019\u4EA7\u751F\u4E00\u4E2A\u65B0\u7684\u6587\u4EF6 \n";
+m+="log4j.appender.file = org.apache.log4j.RollingFileAppender\n";
+m+="log4j.appender.file.File=log/tibet.log\n";
+m+="log4j.appender.file.MaxFileSize=10mb\n";
+m+="log4j.appender.file.Threshold=ERROR\n";
+m+="log4j.appender.file.layout=org.apache.log4j.PatternLayout\n";
+m+="log4j.appender.file.layout.ConversionPattern=[%p][%d{yy-MM-dd}][%c]%m%n\n";
+
+m+="\n\n";
+m+="log4j.logger.org.mybatis=DEBUG\n";
+m+="log4j.logger.org.mybatis.common.jdbc.SimpleDataSource=DEBUG\n";
+m+="log4j.logger.org.mybatis.common.jdbc.ScriptRunner=DEBUG\n";
+m+="log4j.logger.org.mybatis.sqlmap.engine.impl.SqlMapClientDelegate=DEBUG\n";
+m+="log4j.logger.java.sql.Connection=DEBUG\n";
+m+="log4j.logger.java.sql=DEBUG\n";
+m+="log4j.logger.java.sql.Statement=DEBUG\n";
+m+="log4j.logger.java.sql.ResultSet=DEBUG\n";
+m+="log4j.logger.java.sql.PreparedStatement=DEBUG\n";
+FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
+		  "log4j", "properties", m);
+
 
 	}
 }

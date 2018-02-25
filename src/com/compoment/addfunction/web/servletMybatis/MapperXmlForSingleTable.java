@@ -223,7 +223,7 @@ public class MapperXmlForSingleTable {
 
 			if (table.isMainTable|| tables.size() == 1) {
 				m += "	<select id=\"" + table.tableEnName
-						+ "SelectCount\" resultMap=\"java.lang.Integer\" >\n";
+						+ "SelectCount\" resultType=\"java.lang.Integer\" >\n";
 
 			}
 		}

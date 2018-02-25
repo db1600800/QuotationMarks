@@ -31,6 +31,7 @@ import com.compoment.addfunction.webmanage.StructActionForm;
 import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.addfunction.webmanage.UpdateJspStruct2;
 import com.compoment.addfunction.webmanage.jspServletMybatis.AddJspForServlet;
+import com.compoment.addfunction.webmanage.jspServletMybatis.LocalApplicationTest;
 import com.compoment.addfunction.webmanage.jspServletMybatis.QueryJspForServlet;
 import com.compoment.addfunction.webmanage.jspServletMybatis.ServletActionForWebManage;
 import com.compoment.addfunction.webmanage.jspServletMybatis.UpdateJspForServlet;
@@ -1062,6 +1063,7 @@ public class CodeFunctionAdd extends JFrame {
 
 				// 接口列表
 				new ServletActionForWebManage(projectDocPanel.interfaceBeans);
+				new LocalApplicationTest(projectDocPanel.interfaceBeans);
 
 				new UpdateJspForServlet(projectDocPanel.interfaceBeans);
 

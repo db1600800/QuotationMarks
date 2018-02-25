@@ -132,12 +132,9 @@ public class ServiceInterface {
 					m += "	public List<" + resultType + "> get("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "	/*	Map<String,Object> m = new HashMap();\n";
-					
-					m += queryCondition2;
-					
+				
 					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="*/\n";
+					m+="\n";
 
 					 m+="List list=null;\n";
 					m+="try{\n";
@@ -157,12 +154,9 @@ public class ServiceInterface {
 					m += "	public int getCount("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "	/*	Map<String,Object> m = new HashMap();\n";
-					
-					m += queryCondition2;
-					
+				
 					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="*/\n";
+					m+="\n";
                     m+="int count=0;\n";
 					m+="try{\n";
 					m += "  count=mapper." + mainTableName + "SelectCount("
@@ -181,12 +175,9 @@ public class ServiceInterface {
 					m += "	public List<" + resultType + "> get("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "	/*	Map<String,Object> m = new HashMap();\n";
-					
-					m += queryCondition2;
 					
 					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="*/\n";
+					m+="\n";
 					 m+="List list=null;\n";
 					m+="try{\n";
 					m += "   list=mapper." + mainTableName + "Select("
@@ -204,12 +195,9 @@ public class ServiceInterface {
 					m += "	public int getCount("
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
-					m += "	/*	Map<String,Object> m = new HashMap();\n";
-					
-					m += queryCondition2;
 					
 					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="*/\n";
+					m+="\n";
                     m+="int count=0;\n";
 					m+="try{\n";
 					m += "  count=mapper." + mainTableName + "SelectCount("
