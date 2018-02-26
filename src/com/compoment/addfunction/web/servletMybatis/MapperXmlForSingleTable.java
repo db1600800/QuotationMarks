@@ -159,6 +159,29 @@ public class MapperXmlForSingleTable {
 				mainTableName = table.tableEnName;
 				m += "<mapper namespace=\"com.company.dao.impl."
 						+ table.tableEnName + "Mapper\">\n";
+				m+="	<!-- oracle 分页 -->\n";
+				m+="	<sql id=\"Oracle_Pagination_Head\">\n";
+				m+="		<if test=\"currIndex!=null and pageSize!=null\">\n";
+				m+="            <![CDATA[select y.* from(select z.*,rownum as oracleStart from (]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+
+				m+="	<sql id=\"Oracle_Pagination_Tail\">\n";
+				m+="		<if test=\"currIndex != null and pageSize != null\">\n";
+				m+="            <![CDATA[ ) z where rownum <= #{pageSize} ) y where y.oracleStart > #{currIndex} ]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+				m+="	<!-- end oracle 分页 -->\n";
+
+				m+="	<!-- mysql 分页 -->\n";
+				m+="	<sql id=\"MySql_Pagination_Head\">\n";
+				m+="	</sql>\n";
+				m+="	<sql id=\"MySql_Pagination_Tail\">\n";
+				m+="		<if test=\"pageSize != 0\">\n";
+				m+="            <![CDATA[ limit #{currIndex},#{pageSize} ]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+				m+="	<!-- end mysql 分页 -->\n";
 				m += "	<resultMap id=\"" + table.tableEnName
 						+ "ResultMap\" type=\"com.company.pojo."
 						+ table.tableEnName + "Bean\">\n";
@@ -209,13 +232,15 @@ public class MapperXmlForSingleTable {
 		for (TableBean table : tables) {
 
 			if (table.isMainTable || tables.size() == 1) {
+				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
 				m += "	<select id=\"" + table.tableEnName
 						+ "Select\" resultMap=\"" + table.tableEnName
 						+ "ResultMap\" >\n";
 
 			}
 		}
-		m += sql+" limit #{currIndex} , #{pageSize}";
+		m += sql;
+		m+=" <include refid=\"Oracle_Pagination_Tail\" />\n";
 		m += "	</select>\n";
 		
 		//count
@@ -233,7 +258,7 @@ public class MapperXmlForSingleTable {
 		// 插入
 		for (TableBean table : tables) {
 			m += "\n\n	<insert id=\"" + table.tableEnName
-					+ "Insert\" parameterType=\"" + table.tableEnName
+					+ "Insert\" parameterType=\"com.company.pojo." + table.tableEnName
 					+ "Bean\">\n";
 			m += "		insert into " + StringUtil.tableName(table.tableEnName)
 					+ " \n";
@@ -276,7 +301,7 @@ public class MapperXmlForSingleTable {
 		// 删除
 		for (TableBean table : tables) {
 			m += "	<delete id=\"" + table.tableEnName
-					+ "Delete\" parameterType=\"" + table.tableEnName
+					+ "Delete\" parameterType=\"com.company.pojo." + table.tableEnName
 					+ "Bean\">\n";
 			m += "		delete from " + StringUtil.tableName(table.tableEnName)
 					+ "";
@@ -309,7 +334,7 @@ m+="</trim>\n";
 
 		for (TableBean table : tables) {
 			m += "	<update id=\"" + table.tableEnName
-					+ "Update\" parameterType=\"" + table.tableEnName
+					+ "Update\" parameterType=\"com.company.pojo." + table.tableEnName
 					+ "Bean\">\n";
 			m += "		update " + StringUtil.tableName(table.tableEnName) + "\n";
 			m += "		<set>\n";

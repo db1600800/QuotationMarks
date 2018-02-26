@@ -65,26 +65,14 @@ public class LocalApplicationTest {
 		m += "import java.util.Map;\n";
 		m += "import java.util.ArrayList;\n";
 		m += "import javax.annotation.Resource;\n";
-		m += "import javax.servlet.ServletContext;\n";
-		m += "import javax.servlet.http.HttpServletRequest;\n";
-
+	
 		m += "import net.sf.json.JSONObject;\n";
 
 		m += "import org.apache.commons.io.FileUtils;\n";
 		m += "import org.apache.commons.lang.StringUtils;\n";
-		m += "import java.io.PrintWriter;\n";
+	
 
-		m += "import javax.servlet.RequestDispatcher;\n";
-		m += "import javax.servlet.ServletException;\n";
-		m += "import javax.servlet.http.HttpServlet;\n";
-		m += "import javax.servlet.http.HttpServletRequest;\n";
-		m += "import javax.servlet.http.HttpServletResponse;\n";
-		
-		m += "import org.apache.commons.fileupload.FileItem;\n";
-		m += "import org.apache.commons.fileupload.FileItemFactory;\n";
-		m += "import org.apache.commons.fileupload.disk.DiskFileItemFactory;\n";
-		m += "import org.apache.commons.fileupload.servlet.ServletFileUpload;\n";
-
+	
 		m += "import com.tools.CommonFunction;\n";
 
 		m += "import com.tools.PaginationUtil;\n";
@@ -98,43 +86,43 @@ public class LocalApplicationTest {
 
 		m+="public static void main(String[] args) {\n";
 		m+=interfaceBean.enName + "LocalApplicationTest test=new "+interfaceBean.enName + "LocalApplicationTest();\n";
-		m+="test.doPost(null,null);\n";
+		m+="test.doPost();\n";
 		m+="}\n";
 		
 		
 
 	
 
-		m += "    public void doPost(HttpServletRequest request, HttpServletResponse response)\n";
+		m += "    public void doPost()\n";
 		m += "            throws  IOException {\n";
 	
 		
 
-		m += "        	doAdd(request, response);\n";
-		m += "        	list(request, response);\n";
+		m += "        	doAdd();\n";
+		m += "        	list();\n";
 		
 		
 		
-		m += "        	doUpdate(request, response);\n";
-		m += "        	list(request, response);\n";
+		m += "        	doUpdate();\n";
+		m += "        	list();\n";
 		
 		
 		
 
-		m += "        	doDelete(request, response);\n";
-		m += "        	list(request, response);\n";
+		m += "        	doDelete();\n";
+		m += "        	list();\n";
 		
 		m += "    }\n";
 		
 
 		
 		m += "	//" + interfaceBean.title + "列表\n";
-		m += "	public void list(HttpServletRequest request, HttpServletResponse response){\n";
+		m += "	public void list(){\n";
 	
 
 
 		m += "Map paraMap=new HashMap();\n";
-		m += "paraMap.put(\"currIndex\", Integer.valueOf(\"1\") );\n";
+		m += "paraMap.put(\"currIndex\", Integer.valueOf(\"0\") );\n";
 		m += "paraMap.put(\"pageSize\", Integer.valueOf(\"10\"));\n";
 
 		String listInKeyString = "";
@@ -152,12 +140,11 @@ public class LocalApplicationTest {
 
 					if (row.type.toLowerCase().contains("int")) {
 
-						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\",Integer.valueOf( "
-								+ row.enName.toLowerCase() + "));\n";
+						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\",Integer.valueOf(1));\n";
 					} else {
 
-						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\", "
-								+ row.enName.toLowerCase() + ");\n";
+						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\",\" "
+								+ row.enName.toLowerCase() + "\");\n";
 					}
 				
 
@@ -200,7 +187,7 @@ public class LocalApplicationTest {
 
 	
 		
-		m += "	public void doUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {\n";
+		m += "	public void doUpdate() throws IOException {\n";
 
 		m += fileUpdate;
 
@@ -219,12 +206,11 @@ public class LocalApplicationTest {
 						if (row.type.toLowerCase().contains("int")) {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf( "
-									+ row.enName.toLowerCase() + "));\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf(2));\n";
 						} else {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"("+ row.enName.toLowerCase() + ");\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(\""+ row.enName.toLowerCase() + "\");\n";
 						}
 						
 					
@@ -257,7 +243,7 @@ public class LocalApplicationTest {
 		
 		
 		m += "	\n";
-		m += "	public void doAdd(HttpServletRequest request, HttpServletResponse response)  throws IOException{\n";
+		m += "	public void doAdd()  throws IOException{\n";
 	
 		m += fileUpdate;
 
@@ -275,12 +261,11 @@ public class LocalApplicationTest {
 						if (row.type.toLowerCase().contains("int")) {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf( "
-									+ row.enName.toLowerCase() + "));\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf(1));\n";
 						} else {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"("+ row.enName.toLowerCase() + ");\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(\""+ row.enName.toLowerCase() + "\");\n";
 						}
 						
 					
@@ -312,7 +297,7 @@ public class LocalApplicationTest {
 		
 		
 		m += "	\n";
-		m += "	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException{\n";
+		m += "	public void doDelete() throws IOException{\n";
 		
 
 		m += interfaceName + "Bean " + StringUtil.firstCharToLower(interfaceName) + "Bean=new " + interfaceName
@@ -330,12 +315,11 @@ public class LocalApplicationTest {
 						if (row.type.toLowerCase().contains("int")) {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf( "
-									+ row.enName.toLowerCase() + "));\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(Integer.valueOf( 1));\n";
 						} else {
 
 							listInKeyString += StringUtil.firstCharToLower(interfaceName) + "Bean.set"+ StringUtil
-									.firstCharToUpperAndJavaName(row.enName)+"("+ row.enName.toLowerCase() + ");\n";
+									.firstCharToUpperAndJavaName(row.enName)+"(\""+ row.enName.toLowerCase() + "\");\n";
 						}
 						
 					}

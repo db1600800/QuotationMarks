@@ -199,6 +199,31 @@ public class MapperXml {
 				mainTableName = table.tableEnName;
 				m += "<mapper namespace=\"com.company.dao.impl."
 						+ interfaceName + "Mapper\">\n";
+				
+				m+="	<!-- oracle 分页 -->\n";
+				m+="	<sql id=\"Oracle_Pagination_Head\">\n";
+				m+="		<if test=\"currIndex!=null and pageSize!=null\">\n";
+				m+="            <![CDATA[select y.* from(select z.*,rownum as oracleStart from (]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+
+				m+="	<sql id=\"Oracle_Pagination_Tail\">\n";
+				m+="		<if test=\"currIndex != null and pageSize != null\">\n";
+				m+="            <![CDATA[ ) z where rownum <= #{pageSize} ) y where y.oracleStart > #{currIndex} ]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+				m+="	<!-- end oracle 分页 -->\n";
+
+				m+="	<!-- mysql 分页 -->\n";
+				m+="	<sql id=\"MySql_Pagination_Head\">\n";
+				m+="	</sql>\n";
+				m+="	<sql id=\"MySql_Pagination_Tail\">\n";
+				m+="		<if test=\"pageSize != 0\">\n";
+				m+="            <![CDATA[ limit #{currIndex},#{pageSize} ]]>\n";
+				m+="		</if>\n";
+				m+="	</sql>\n";
+				m+="	<!-- end mysql 分页 -->\n";
+				
 				m += "	<resultMap id=\"" + interfaceName
 						+ "ResultMap\" type=\"com.company.pojo."
 						+ interfaceName + "Bean\">\n";
@@ -250,13 +275,15 @@ public class MapperXml {
 		for (TableBean table : tables) {
 
 			if (table.isMainTable) {
+				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
 				m += "	<select id=\"" + interfaceName
 						+ "Select\" resultMap=\"" + interfaceName
 						+ "ResultMap\" >\n";
 
 			}
 		}
-		m += sql+" limit #{currIndex} , #{pageSize}";
+		m += sql;
+		m+=" <include refid=\"Oracle_Pagination_Tail\" />\n";
 		m += "	</select>\n";
 		
 		
