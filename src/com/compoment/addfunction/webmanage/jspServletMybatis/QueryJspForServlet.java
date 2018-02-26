@@ -14,6 +14,7 @@ import com.compoment.jsonToJava.creater.InterfaceBean;
 import com.compoment.jsonToJava.creater.InterfaceBean.Row;
 import com.compoment.util.FileUtil;
 import com.compoment.util.KeyValue;
+import com.compoment.util.StringUtil;
 
 public class QueryJspForServlet {
 
@@ -75,8 +76,8 @@ public class QueryJspForServlet {
 						
 						if(row.remarks.toLowerCase().contains("main")||maincount==0)
 						{
-							deleteKeyString+="'+data[i]."+row.enName.toLowerCase()+"+',";
-							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+row.enName.toLowerCase()+"+'%26";
+							deleteKeyString+="'+data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"+',";
+							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"+'%26";
 							ajaxdataKeyString+=row.enName.toLowerCase()+":searchInput,\n";
 						}else
 						{
@@ -230,9 +231,9 @@ public class QueryJspForServlet {
 						
 						if(row.type.toLowerCase().equals("bool")||row.type.toLowerCase().equals("boolean"))
 						{
-							m+="								if(data[i]."+row.enName.toLowerCase()+"=='01'){\n";
+							m+="								if(data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"=='01'){\n";
 							m+="									divtext +=  '"+row.cnName.replaceAll("", "")+"' ;\n";
-							m+="								}else if(data[i]."+row.enName.toLowerCase()+"=='02'){\n";
+							m+="								}else if(data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"=='02'){\n";
 							m+="									divtext +=  '"+row.cnName.replaceAll("", "")+"' ;\n";
 							m+="								}\n";
 							m+="								divtext += '</td>';\n";
@@ -240,7 +241,7 @@ public class QueryJspForServlet {
 						}else
 						{
 					
-						m+="	 divtext += '<td>' + data[i]."+row.enName.toLowerCase()+" + '</td>';\n";
+						m+="	 divtext += '<td>' + data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+" + '</td>';\n";
 						
 						}
 					}
