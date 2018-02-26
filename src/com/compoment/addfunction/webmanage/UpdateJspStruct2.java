@@ -46,6 +46,7 @@ public class UpdateJspStruct2 {
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
+		m+="<link rel=\"stylesheet\" href=\"<%=basePath%>css/admin_style.css\" type=\"text/css\" />\n";
 		m+="<script src=\"${ctx}/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
 		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
