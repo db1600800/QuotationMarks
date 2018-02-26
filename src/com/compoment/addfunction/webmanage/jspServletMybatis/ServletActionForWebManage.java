@@ -443,9 +443,12 @@ public class ServletActionForWebManage {
 		m += "	e.printStackTrace();\n";
 		m += "}\n\n";
 
+		
+		m += interfaceName + "Service " + StringUtil.firstCharToLower(interfaceName) + "Service1=new " + interfaceName
+				+ "ServiceImpl();\n";
 		m += "int count=0;\n";
 		m += "try {\n";
-		m += "count=" + StringUtil.firstCharToLower(interfaceName) + "Service.getCount(paraMap);\n";
+		m += "count=" + StringUtil.firstCharToLower(interfaceName) + "Service1.getCount(paraMap);\n";
 		m += "} catch (Exception e) {\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n\n";
