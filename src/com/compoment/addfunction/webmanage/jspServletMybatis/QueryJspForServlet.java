@@ -140,8 +140,27 @@ public class QueryJspForServlet {
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"<%=basePath%>js/My97DatePicker/WdatePicker.js\"></script>\n";
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
+		
+		
+		
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\""+interfaceBean.enName+"Servlet?method=toAdd&"+urlKeyString+"\";\n";
+		
+		String urlKeyStringForAdd="";
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						m+="			var "+row.enName.toLowerCase()+"=\"${"+row.enName.toLowerCase()+"}\";\n";
+						m+="			$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
+					}
+				}
+			}
+		 }
+		
+		m+="			window.location.href=\""+interfaceBean.enName+"Servlet?method=toAdd\";\n";
 		m+="		}\n";
 		m+="		\n";
 		

@@ -203,13 +203,13 @@ public class MapperXml {
 				m+="	<!-- oracle 分页 -->\n";
 				m+="	<sql id=\"Oracle_Pagination_Head\">\n";
 				m+="		<if test=\"currIndex!=null and pageSize!=null\">\n";
-				m+="            <![CDATA[select y.* from(select z.*,rownum as oracleStart from (]]>\n";
+				m+="            <![CDATA[select y.* from(select z.*,rownum as rn from (]]>\n";
 				m+="		</if>\n";
 				m+="	</sql>\n";
 
 				m+="	<sql id=\"Oracle_Pagination_Tail\">\n";
 				m+="		<if test=\"currIndex != null and pageSize != null\">\n";
-				m+="            <![CDATA[ ) z where rownum <= #{pageSize} ) y where y.oracleStart > #{currIndex} ]]>\n";
+				m+="            <![CDATA[ ) z where rownum <= #{pageSize}+#{currIndex} ) y where y.rn > #{currIndex} ]]>\n";
 				m+="		</if>\n";
 				m+="	</sql>\n";
 				m+="	<!-- end oracle 分页 -->\n";
