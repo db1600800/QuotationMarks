@@ -138,7 +138,7 @@ public class AddJspForServlet {
 						m+="			return false;\n";
 						m+="		}\n";
 						
-						if(row.cnName.contains("开始时间"))
+						if(row.cnName.contains("开始时间")||row.cnName.contains("开始日期"))
 						{
 							m+="		if($(\"#end\").val()!=\"\" && $(\"#"+row.enName.toLowerCase()+"\").val() > $(\"#end\").val()){\n";
 							m+="				alert(\"开始时间不能大于结束时间\");\n";
@@ -238,7 +238,7 @@ public class AddJspForServlet {
 					}else
 					{
 
-						if(row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
+						if(row.cnName.contains("是否")||row.cnName.contains("状态")||row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
 						{
 							m+="				 <tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
@@ -246,7 +246,7 @@ public class AddJspForServlet {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间")||row.type.toLowerCase().contains("time")||row.type.toLowerCase().contains("date"))
+						}else if(row.cnName.contains("日期")||row.cnName.contains("时间")||row.type.toLowerCase().contains("time")||row.type.toLowerCase().contains("date"))
 						{
 							
 							m+="				<tr>\n";
@@ -255,7 +255,7 @@ public class AddJspForServlet {
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
+						else if(row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
 							filecount++;
 							m+="					<tr >\n";
@@ -267,7 +267,7 @@ public class AddJspForServlet {
 							m+="						</td>\n";
 							m+="						\n";
 							m+="					</tr>\n";
-						}else if(row.type.toLowerCase().equals("select"))
+						}else if(row.cnName.contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";

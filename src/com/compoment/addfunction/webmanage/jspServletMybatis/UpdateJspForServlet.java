@@ -136,7 +136,7 @@ public class UpdateJspForServlet {
 						m+="			return false;\n";
 						m+="		}\n";
 						
-						if(row.cnName.contains("开始时间"))
+						if(row.cnName.contains("开始时间")||row.cnName.contains("开始日期"))
 						{
 							m+="		if($(\"#end\").val()!=\"\" && $(\"#"+row.enName.toLowerCase()+"\").val() > $(\"#end\").val()){\n";
 							m+="				alert(\"开始时间不能大于结束时间\");\n";
@@ -261,7 +261,7 @@ public class UpdateJspForServlet {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
+						}else if(row.cnName.contains("时间")||row.cnName.contains("日期")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
 						{
 							
 							m+="				<tr>\n";
@@ -270,7 +270,7 @@ public class UpdateJspForServlet {
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
+						else if(row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
 							fileCount++;
 							m+="					<tr >\n";
@@ -285,7 +285,7 @@ public class UpdateJspForServlet {
 							m+="						\n";
 							m+="					</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("select"))
+						else if(row.cnName.contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";

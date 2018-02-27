@@ -137,6 +137,7 @@ public class QueryJspForServlet {
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
 		m+="<link rel=\"stylesheet\" href=\"<%=basePath%>css/admin_style.css\" type=\"text/css\" />\n";
+		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"<%=basePath%>js/My97DatePicker/WdatePicker.js\"></script>\n";
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
@@ -196,15 +197,34 @@ public class QueryJspForServlet {
 		m+="		function getAll(tzurl){\n";
 		
 		m+="var searchInput = $(\"#searchInput\").val();\n";
+		m+="		if(searchInput!=\"\" ){  \n";
+		m+="		if( !/^\\d+$/.test(searchInput)){  \n";
+		m+="	        alert(\"必须是正整数!\"); \n";
+		m+="	        return ;\n";
+		m+="	    }  \n";
+		m+="	    }  \n";
+		m+="		\n";
+		
+		m+="var endTime=$(\"#endTime\").val();\n";
+		m+="var startTime=$(\"#endTime\").val();\n";
+		m+="		if($(\"#endTime\").val()!=\"\" &&$(\"#startTime\").val()!=\"\" && $(\"#startTime\").val() > $(\"#endTime\").val()){\n";
+		m+="				alert(\"开始时间不能大于结束时间\");\n";
+		m+="				return ;\n";
+		m+="		}\n";
+		
+		m+="var stateSelect=$(\"#stateSelect\").val();\n";
 		
 	
-		m+="				$.ajax({\n";
+		m+="	\n\n			$.ajax({\n";
 		m+="					type:'POST',\n";
 		m+="					dataType:'json',\n";
 		m+="					url:tzurl,\n";
 		m+="					data:{\n";
-		m+=ajaxdataKeyString;
-	
+		m+=ajaxdataKeyString+",";
+		m+="\n start:startTime,\n";
+		m+="end:endTime,\n";
+		m+="state:stateSelect\n";
+		
 		m+="					},\n";
 		m+="					success:function(result){\n";
 		m+="	\n";
@@ -278,6 +298,19 @@ public class QueryJspForServlet {
 		
 		
 		m+="	"+interfaceBean.title+"：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
+		m+="状态:\n";
+		m+="<select id=\"stateSelect\" name=\"stateSelect\" class=\"form-control\" >\n";
+		m+="<option value=\"\">请选择</option>\n";
+		m+="<option value=\"开启\">0</option>\n";
+		m+="<option value=\"关闭\">1</option>\n";
+	    m+="</select>\n";
+	    
+		m+="	开始时间:<input id=\"startTime\" name=\"startTime\" value=\"\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+		m+="	 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
+		
+		m+="	结束时间:<input id=\"endTime\" name=\"endTime\" value=\"\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+		m+="	 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
+	    
 		m+="	<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
 		m+="	<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
 	

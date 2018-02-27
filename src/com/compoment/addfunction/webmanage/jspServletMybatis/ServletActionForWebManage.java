@@ -392,6 +392,7 @@ public class ServletActionForWebManage {
 		m += "			request.setAttribute(\"pageSize\", pageSize);\n";
 		m += "		}\n";
 
+		m+="String nextPagePara=\"\";\n";
 		m += "Map paraMap=new HashMap();\n";
 		m += "paraMap.put(\"currIndex\", (Integer.valueOf(pageNo) - 1) * Integer.valueOf(pageSize));\n";
 		m += "paraMap.put(\"pageSize\", Integer.valueOf(pageSize));\n";
@@ -418,14 +419,16 @@ public class ServletActionForWebManage {
 
 						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\",Integer.valueOf( "
 								+ row.enName.toLowerCase() + "));\n";
+						listInKeyString += "nextPagePara+=\""+row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26\";\n";
 					} else {
 
 						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\", "
 								+ row.enName.toLowerCase() + ");\n";
+						listInKeyString += "nextPagePara+=\""+row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26\";\n";
 					}
 					listInKeyString += "}\n";
 
-					nextPageKeyString += row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26";
+					
 				}
 			}
 		}
@@ -457,8 +460,7 @@ public class ServletActionForWebManage {
 		m += "				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m += "				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m += "				Integer.valueOf(5),\n";
-		m += "				\"javascript:getAll('" + interfaceBean.enName + "Action!list?" + nextPageKeyString
-				+ "pageNo=\"+pageNo+\"\",true);\n";
+		m += "				\"javascript:getAll('" + interfaceBean.enName + "Servlet?method=list%26\"+nextPagePara+\"pageNo=\"+pageNo+\"\",true);\n";
 		m += "		pageString = pageString.replace(\".html\", \"\");\n";
 		m += "		JSONObject jsonObject = new JSONObject();\n";
 		m += "		jsonObject.put(\"list\", " + interfaceName.toLowerCase() + "Beans);\n";
@@ -858,8 +860,8 @@ public class ServletActionForWebManage {
 		m += "	\n";
 		m += "}\n";
 		
-		m+="\n\n//web.xml添加";
-		m+="<servlet>\n";
+		m+="\n\n//web.xml添加\n";
+		m+="/*<servlet>\n";
 		m+="		<servlet-name>"+interfaceBean.enName + "Servlet</servlet-name>\n";
 		m+="		<servlet-class>\n";
 		m+="			com.."+interfaceBean.enName + "Servlet\n";
@@ -869,7 +871,7 @@ public class ServletActionForWebManage {
 		m+="	<servlet-mapping>\n";
 		m+="		<servlet-name>"+interfaceBean.enName + "Servlet</servlet-name>\n";
 		m+="		<url-pattern>/"+interfaceBean.enName + "Servlet</url-pattern>\n";
-		m+="	</servlet-mapping>\n";
+		m+="	</servlet-mapping>*/\n";
 
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", interfaceBean.enName + "Servlet", "java",
