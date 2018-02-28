@@ -61,7 +61,7 @@ public class UpdateJspForServlet {
 					
 					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
 					{
-						if(row.remarks.toLowerCase().contains("long"))
+						if(row.cnName.contains("编辑")||row.remarks.toLowerCase().contains("编辑")||row.remarks.toLowerCase().contains("long"))
 						{
 							
 							m+="var "+row.enName.toLowerCase()+"Editor;\n";
@@ -103,7 +103,7 @@ public class UpdateJspForServlet {
 							m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }else
 					    {
-						m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
+						m+="	var "+row.enName.toLowerCase()+"='${"+row.enName.toLowerCase()+"}';\n";
 						m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }
 					
@@ -132,7 +132,7 @@ public class UpdateJspForServlet {
 						
 						
 						m+="		if ($(\"#"+row.enName.toLowerCase()+"\").val() == \"\") {\n";
-						m+="			alert(\"请输入"+row.cnName.replaceAll("", "")+"！\");\n";
+						m+="			alert(\"请输入"+row.cnName.replaceAll("", "").trim()+"！\");\n";
 						m+="			return false;\n";
 						m+="		}\n";
 						
@@ -228,7 +228,7 @@ public class UpdateJspForServlet {
 					
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${"+row.enName.toLowerCase()+"}\" />\n";
+						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${"+row.enName.toLowerCase()+"}\" />\n";
 						
 					}
 						
@@ -253,11 +253,11 @@ public class UpdateJspForServlet {
 					}else
 					{
 
-						if(row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
+						if(row.cnName.contains("是否")||row.cnName.contains("状态")||row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
 						{
 							m+="				 <tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
-							m+="					<td><select id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"><option value=\"1\">是</option>\n";
+							m+="					<td><select id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"><option value=\"1\">是</option>\n";
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
@@ -266,7 +266,7 @@ public class UpdateJspForServlet {
 							
 							m+="				<tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
-							m+="					<td><input id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+							m+="					<td><input id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
@@ -277,26 +277,26 @@ public class UpdateJspForServlet {
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img id=\"img"+fileCount+"\" src=\".${entity."+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
-							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
+							m+="						<img id=\"img"+fileCount+"\" src=\".${"+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
+							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  value=\"${"+row.enName.toLowerCase()+" }\"/>\n";
 							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"   onchange=\"showDataByURL('file"+fileCount+"','img"+fileCount+"')\"/>\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";
 							m+="					</tr>\n";
 						}
-						else if(row.cnName.contains("选择")||row.type.toLowerCase().equals("select"))
+						else if(row.cnName.contains("选择")||row.remarks.toLowerCase().contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
 							
-							m+="<select id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:28px;margin-bottom:10px;\">\n";
+							m+="<select id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:28px;margin-bottom:10px;\">\n";
 							m+="				<option value=\"\">请选择</option>\n";
 							m+="					<c:forEach var=\"item\" items=\"${"+row.enName.toLowerCase()+"SelectList}\">	\n";
 							m+="						<c:choose>\n";
-							m+="							<c:when test=\"${item==entity."+row.enName.toLowerCase()+"}\">								\n";
+							m+="							<c:when test=\"${item=="+row.enName.toLowerCase()+"}\">								\n";
 							m+="								<option value='${fn:substringBefore(item,\"-\")}' selected=\"selected\">${fn:substringAfter(item,\"-\")} </option>\n";
 							m+="							</c:when>\n";
 							m+="							<c:otherwise>\n";
@@ -314,12 +314,12 @@ public class UpdateJspForServlet {
 						else
 						{
 						
-							if(row.remarks.toLowerCase().contains("long"))
+							if(row.cnName.contains("编辑")||row.remarks.toLowerCase().contains("编辑")||row.remarks.toLowerCase().contains("long"))
 							{
 								m+="	<tr>\n";
 								m+="					<td align=\"right\" style=\"width: 120px\">"+row.cnName+"：</td>\n";
 								m+="						<td><textarea type=\"text\" style=\"width:400px;height:50px;\"\n";
-								m+="							id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" >${entity."+row.enName.toLowerCase()+"}</textarea></td>\n";
+								m+="							id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" >${"+row.enName.toLowerCase()+"}</textarea></td>\n";
 								m+="				</tr>\n";
 								
 							}else
@@ -328,7 +328,7 @@ public class UpdateJspForServlet {
 							m+="				<tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><input type=\"text\" class=\"input-text wid400 bg\"\n";
-							m+="						id=\""+row.enName.toLowerCase()+"\" name=\"entity."+row.enName.toLowerCase()+"\" value=\"${ entity."+row.enName.toLowerCase()+"}\"/></td>\n";
+							m+="						id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\"/></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
 							}

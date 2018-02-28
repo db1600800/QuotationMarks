@@ -64,6 +64,8 @@ public class MapperJava {
 						+ "Select(" + selectPara + ");\n";
 				m += "int " + table.tableEnName
 						+ "SelectCount(" + selectPara + ");\n";
+				m += "int " + table.tableEnName
+						+ "SelectMax(" + selectPara + ");\n";
 				m += "void " + table.tableEnName + "Insert("
 						+ table.tableEnName + "Bean bean);\n";
 				m += "void " + table.tableEnName + "Update("

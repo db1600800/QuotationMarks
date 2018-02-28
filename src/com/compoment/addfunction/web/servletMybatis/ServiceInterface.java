@@ -82,6 +82,8 @@ public class ServiceInterface {
 				
 				m += "	int getCount(" + queryCondition
 						+ ") throws Exception;\n";
+				m += "	int getMax(" + queryCondition
+						+ ") throws Exception;\n";
 
 				m += "void " + "insert(" + table.tableEnName + "Bean bean);\n";
 				m += "void " + "update(" + table.tableEnName + "Bean bean);\n";
@@ -145,7 +147,6 @@ public class ServiceInterface {
 					m+="session.close();\n";
 					m+="return list;\n";
 					m += "	}\n";
-					
 					m += "	}\n";
 					
 					
@@ -166,7 +167,25 @@ public class ServiceInterface {
 					m+="session.close();\n";
 					m+="return count;\n";
 					m += "	}\n";
+					m += "	}\n";
 					
+					
+					m += "	@Override\n";
+					m += "	public int getMax("
+							+ queryCondition + ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+				
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="\n";
+                    m+="int max=0;\n";
+					m+="try{\n";
+					m += "  max=mapper." + mainTableName + "SelectMax("
+							+ queryCondition3 + ");\n";
+					
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return max;\n";
+					m += "	}\n";
 					m += "	}\n";
 
 				} else if (tables.size() == 1) {
@@ -207,7 +226,25 @@ public class ServiceInterface {
 					m+="session.close();\n";
 					m+="return count;\n";
 					m += "	}\n";
+					m += "	}\n";
 					
+					
+					m += "	@Override\n";
+					m += "	public int getMax("
+							+ queryCondition + ") throws Exception {\n";
+					m += "		// TODO Auto-generated method stub\n";
+					
+					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="\n";
+                    m+="int max=0;\n";
+					m+="try{\n";
+					m += "  max=mapper." + mainTableName + "SelectMax("
+							+ queryCondition3 + ");\n";
+					
+					m+="} finally {\n" ; 
+					m+="session.close();\n";
+					m+="return max;\n";
+					m += "	}\n";
 					m += "	}\n";
 					
 					

@@ -728,6 +728,17 @@ public class ServletActionForWebManage {
 		m += "	public void doAdd(HttpServletRequest request, HttpServletResponse response)  throws IOException{\n";
 	
 		m += fileUpdate;
+		
+		m += "Map paraMap=new HashMap();\n";
+		m += "paraMap.put(\"columnName\", \"\");\n";
+		m += interfaceName + "Service " + StringUtil.firstCharToLower(interfaceName) + "ServiceForMax=new " + interfaceName
+				+ "ServiceImpl();\n";
+		m += "int max=0;\n";
+		m += "try {\n";
+		m += "max=" + StringUtil.firstCharToLower(interfaceName) + "ServiceForMax.getMax(paraMap);\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n\n";
 
 
 		m += interfaceName + "Bean " + StringUtil.firstCharToLower(interfaceName) + "Bean=new " + interfaceName

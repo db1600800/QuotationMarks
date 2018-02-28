@@ -168,24 +168,27 @@ public class MapperXml {
 		// 查询
 		String sql = "";
 		String sqlcount = "";
+		String sqlMax = "";
 		if ("".equals(show) && "".equals(condition)) {
 			sql = "select * from " + relate;
 			sqlcount = "select count(*) from " + relate;
-		
+			sqlMax = "select max(#{columnName}) from " + relate;
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
 			sql = "select * from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
-			
+			sqlMax = "select max(#{columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
 			sqlcount = "select count(*) from " + relate;
+			sqlMax = "select max(#{columnName}) from " + relate;
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sqlMax = "select  max(#{columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 
 		}
 
@@ -298,6 +301,18 @@ public class MapperXml {
 		}
 		m += sqlcount+"";
 		m += "	</select>\n";
+		
+		
+		//Max
+		for (TableBean table : tables) {
+
+					if (table.isMainTable) {
+						m += "	<select id=\"" + interfaceName
+								+ "SelectMax\" resultType=\"java.lang.Integer\" >\n";
+					}
+				}
+				m += sqlMax+"";
+				m += "	</select>\n";
 		
 
 		m += "</mapper>\n";
