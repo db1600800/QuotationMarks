@@ -278,10 +278,11 @@ public class MapperXml {
 		for (TableBean table : tables) {
 
 			if (table.isMainTable) {
-				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
+			
 				m += "	<select id=\"" + interfaceName
 						+ "Select\" resultMap=\"" + interfaceName
 						+ "ResultMap\" >\n";
+				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
 
 			}
 		}

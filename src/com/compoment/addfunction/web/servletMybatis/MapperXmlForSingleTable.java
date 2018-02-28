@@ -235,10 +235,11 @@ public class MapperXmlForSingleTable {
 		for (TableBean table : tables) {
 
 			if (table.isMainTable || tables.size() == 1) {
-				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
+				
 				m += "	<select id=\"" + table.tableEnName
 						+ "Select\" resultMap=\"" + table.tableEnName
 						+ "ResultMap\" >\n";
+				m+=" <include refid=\"Oracle_Pagination_Head\" />\n";
 
 			}
 		}
