@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +46,6 @@ public class ServletActionForWebManage {
 	public void action(InterfaceBean interfaceBean, String type, String interfaceName) {
 	
 		// file
-		String filebean = "";
 		int fileCount = 0;
 
 		String fileUpdate = "";
@@ -63,49 +64,51 @@ public class ServletActionForWebManage {
 
 					}
 
-					if (row.type.toLowerCase().contains("file")) {
+					if (row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().contains("file")) {
 						fileCount++;
-						filebean += "    private File file" + fileCount
-								+ ";//对应的就是表单中文件上传的那个输入域的名称，Struts2框架会封装成File类型的\n";
-						filebean += "    private String file" + fileCount + "FileName;//   上传输入域FileName  文件名\n";
-						filebean += "    private String file" + fileCount + "ContentType;// 上传文件的MIME类型\n";
+					
 
-						filebean += "	public File getFile" + fileCount + "() {\n";
-						filebean += "		return file" + fileCount + ";\n";
-						filebean += "	}\n";
-						filebean += "	public void setFile" + fileCount + "(File file" + fileCount + ") {\n";
-						filebean += "		this.file" + fileCount + " = file" + fileCount + ";\n";
-						filebean += "	}\n";
-						filebean += "	public String getFile" + fileCount + "FileName() {\n";
-						filebean += "		return file" + fileCount + "FileName;\n";
-						filebean += "	}\n";
-						filebean += "	public void setFile" + fileCount + "FileName(String file" + fileCount
-								+ "FileName) {\n";
-						filebean += "		this.file" + fileCount + "FileName = file" + fileCount + "FileName;\n";
-						filebean += "	}\n";
-						filebean += "	public String getFile" + fileCount + "ContentType() {\n";
-						filebean += "		return file" + fileCount + "ContentType;\n";
-						filebean += "	}\n";
-						filebean += "	public void setFile" + fileCount + "ContentType(String file" + fileCount
-								+ "ContentType) {\n";
-						filebean += "		this.file" + fileCount + "ContentType = file" + fileCount
-								+ "ContentType;\n";
-						filebean += "	}\n";
-
-						fileUpdate += "		  if(file" + fileCount + " != null){\n";
-						fileUpdate += "		 ServletContext sc = ServletActionContext.getServletContext();\n";
-						fileUpdate += "		       	 String activityBannerPath=CommonFunction.readDefVal(\"activityBannerPath\");\n";
-						fileUpdate += "		            String storePath = sc.getRealPath(activityBannerPath+entity.getActivity_code());\n";
-						fileUpdate += "		            FileUtils.copyFile(file" + fileCount + ", new File(storePath,\""
-								+ row.enName.toLowerCase().replaceAll("", "") + ".jpg\"));\n";
-						fileUpdate += "		            entity.set" + this.firstCharUpperCase(row.enName.toLowerCase())
-								+ "(activityBannerPath+entity.getActivity_code()+\"/"
-								+ row.enName.toLowerCase().replaceAll("", "") + ".jpg\");\n";
-						fileUpdate += "		       }\n";
+						fileUpdate += "      //文件上传取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
+						fileUpdate+= "        if(ServletFileUpload.isMultipartContent(request)) \n";
+						fileUpdate+= "        {\n";
+						fileUpdate+= " try {\n";
+						fileUpdate += "            FileItemFactory factory = new DiskFileItemFactory();\n";
+						fileUpdate += "            ServletFileUpload upload = new ServletFileUpload(factory);\n";
+						fileUpdate += "            List<FileItem> items = upload.parseRequest(request);\n";
+						fileUpdate += "            for(FileItem i: items)\n";
+						fileUpdate+= "            {\n";
+						fileUpdate+= "                /* //i.getFieldName();  　　//参数名\n";
+						fileUpdate+= "                //i.getString();   　　//参数值（返回字符串），如果是上传文件，则为文件内容\n";
+						fileUpdate+= "        　　　　 //i.get();         　　//参数值（返回字节数组），如果是上传文件，则为文件内容\n";
+						fileUpdate+="                 //i.getInputStream();//上传文件内容\n";
+						fileUpdate+= "        　　　　 //i.getSize();　　　　　//参数值的字节大小\n";
+						fileUpdate+= "        　　　　 //i.getName();   　 　 //上传文件的文件名\n";
+						fileUpdate+= "        　　　　 //i.getContentType();  //上传文件的内容类型\n */";
+						fileUpdate+= "if(!i.isFormField()&&i.getSize()>0)\n";
+						fileUpdate+= "  {//文件\n";
+						fileUpdate+="ServletContext servletContext = request.getSession().getServletContext();\n";
+						fileUpdate+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
+						fileUpdate+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
+						fileUpdate+="//3.如果这个真实的目录不存在，需要创建\n";
+						fileUpdate+="File file = new File(realPath );\n";
+						fileUpdate+="if(!file.exists()){\n";
+						fileUpdate+="file.mkdirs();\n";
+						fileUpdate+="}\n";
+						fileUpdate+=" i.write(new File(realPath + \"/\" + i.getName()));\n";
+						fileUpdate+="}else\n";
+						fileUpdate+="{\n";
+						fileUpdate+="formFields.put(i.getFieldName(), i.getString());\n";
+						fileUpdate+="}\n";
+						fileUpdate+="}\n";
+						fileUpdate+="}catch(Exception e)\n";
+						fileUpdate+="{\n";
+						fileUpdate+="e.printStackTrace();\n";
+						fileUpdate+="}\n";
+						fileUpdate+="}\n";
 
 					}
 
-					if (row.type.toLowerCase().contains("select")) {
+					if (row.cnName.contains("选择")||row.type.toLowerCase().contains("select")) {
 
 						selectList += "\n//" + row.cnName + "\n";
 						selectList += "List " + row.enName.toLowerCase() + "list=new ArrayList();\n";
@@ -180,7 +183,7 @@ public class ServletActionForWebManage {
 		
 		m += "    private " + interfaceBean.enName + "Bean entity;\n";
 
-		m += filebean;
+
 
 		m += "	public " + interfaceBean.enName + "Bean getEntity() {\n";
 		m += "		return entity;\n";
@@ -239,20 +242,21 @@ public class ServletActionForWebManage {
 		m += "      //取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
 		m += "        if(ServletFileUpload.isMultipartContent(request)) \n";
 		m += "        {\n";
+		 m+="try {\n";
 		m += "            FileItemFactory factory = new DiskFileItemFactory();\n";
 		m += "            ServletFileUpload upload = new ServletFileUpload(factory);\n";
 		m += "            List<FileItem> items = upload.parseRequest(request);\n";
 		m += "            for(FileItem i: items)\n";
 		m += "            {\n";
-		m += "                i.getFieldName();  　　//参数名\n";
+		m += "                //i.getFieldName();  　　//参数名\n";
 		m += "                //i.getString();   　　//参数值（返回字符串），如果是上传文件，则为文件内容\n";
 		m += "        　　　　 //i.get();         　　//参数值（返回字节数组），如果是上传文件，则为文件内容\n";
-		m+="//i.getInputStream();//上传文件内容\n";
+		m+="                  //i.getInputStream();//上传文件内容\n";
 		m += "        　　　　 //i.getSize();　　　　　//参数值的字节大小\n";
 		m += "        　　　　 //i.getName();   　 　 //上传文件的文件名\n";
-		m += "        　　　　 //i.getContentType();  //上传文件的内容类型\n";
-		m += "        　　　　 if(!i.isFormField()&&i.getSize()>0)　　 //简单参数返回true，文件返回false \n";
-		m += "  {\n";
+		m += "        　　　　 //i.getContentType();  //上传文件的内容类型\n ";
+		m += "if(!i.isFormField()&&i.getSize()>0)\n";
+		m += "  {//文件\n";
 		m+="ServletContext servletContext = request.getSession().getServletContext();\n";
 		m+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
 		m+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
@@ -261,11 +265,19 @@ public class ServletActionForWebManage {
 		m+="if(!file.exists()){\n";
 		m+="file.mkdirs();\n";
 		m+="}\n";
-		m+="myfile.renameTo(new File(file,myfileFileName));\n";
-		m += "        　　}\n";
+
+		m+=" i.write(new File(realPath + \"/\" + i.getName()));\n";
+		m+="}else\n";
+		m+="{\n";
+		m+="formFields.put(i.getFieldName(), i.getString());\n";
+		m+="}\n";
+		m+="}\n";
+		m+="}catch(Exception e)\n";
+	    m+="{\n";
+		m+="e.printStackTrace();\n";
+		m+="}\n";
+		m+="}\n";
 		
-		m += "        　　}\n";
-		m += "        }\n";
 		m += "        \n";
 		
 		
@@ -586,7 +598,7 @@ public class ServletActionForWebManage {
 		
 		
 		m += "	public void doUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {\n";
-
+        m+="Map formFields=new HashMap();\n";
 		m += fileUpdate;
 
 		m += interfaceName + "Bean " + StringUtil.firstCharToLower(interfaceName) + "Bean=new " + interfaceName
@@ -600,7 +612,7 @@ public class ServletActionForWebManage {
 				
 						// list()
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
+								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\")==null?(String)formFields.get(\""+row.enName.toLowerCase() +"\"):request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";
@@ -726,7 +738,7 @@ public class ServletActionForWebManage {
 		
 		m += "	\n";
 		m += "	public void doAdd(HttpServletRequest request, HttpServletResponse response)  throws IOException{\n";
-	
+	    m+="Map formFields=new HashMap();\n";
 		m += fileUpdate;
 		
 		m += "Map paraMap=new HashMap();\n";
@@ -751,8 +763,9 @@ public class ServletActionForWebManage {
 				for (Row row : group.rows) {
 				
 						// list()
+						
 						listInKeyString += "	String " + row.enName.toLowerCase()
-								+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
+						+ " = request.getParameter(\"" + row.enName.toLowerCase() + "\")==null?(String)formFields.get(\""+row.enName.toLowerCase() +"\"):request.getParameter(\"" + row.enName.toLowerCase() + "\");\n";
 
 						listInKeyString += "		if(StringUtils.isBlank(" + row.enName.toLowerCase()
 								+ ")){\n";

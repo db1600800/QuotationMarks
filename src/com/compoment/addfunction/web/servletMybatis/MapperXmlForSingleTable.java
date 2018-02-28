@@ -130,25 +130,25 @@ public class MapperXmlForSingleTable {
 		if ("".equals(show) && "".equals(condition)) {
 			sql = "select * from " + relate;
 			sqlcount = "select count(*) from " + relate;
-			sqlMax = "select max(#{columnName}) from " + relate;
+			sqlMax = "select max(${columnName}) from " + relate;
 		}
 
 		else if ("".equals(show) && !"".equals(condition)) {
 			sql = "select * from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
-			sqlMax = "select max(#{columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sqlMax = "select max(${columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 			
 		} else if (!"".equals(show) && "".equals(condition)) {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate;
 			sqlcount = "select count(*) from " + relate;
-			sqlMax = "select max(#{columnName}) from " + relate;
+			sqlMax = "select max(${columnName}) from " + relate;
 		} else {
 			sql = "select " + show.substring(0, show.lastIndexOf(","))
 					+ " from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		
 			sqlcount = "select count(*) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
-			sqlMax = "select max(#{columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
+			sqlMax = "select max(${columnName}) from " + relate + " \n<trim prefix=\"WHERE\" prefixOverrides=\"AND |OR \">\n " + condition+"\n</trim>\n";
 		}
 
 		String m = "";

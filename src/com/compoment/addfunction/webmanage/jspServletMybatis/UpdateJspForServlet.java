@@ -61,7 +61,7 @@ public class UpdateJspForServlet {
 					
 					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
 					{
-						if(row.cnName.contains("编辑")||row.remarks.toLowerCase().contains("编辑")||row.remarks.toLowerCase().contains("long"))
+						if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 						{
 							
 							m+="var "+row.enName.toLowerCase()+"Editor;\n";
@@ -148,7 +148,7 @@ public class UpdateJspForServlet {
 						{
 							m+="		var "+row.enName.toLowerCase()+"=$('#"+row.enName.toLowerCase()+"').val();\n";
 							m+="		if("+row.enName.toLowerCase()+"==\"\" || !/^\\d+$/.test("+row.enName.toLowerCase()+")){  \n";
-							m+="	        alert(\"必须是正整数!\"); \n";
+							m+="	        alert(\""+row.cnName+"必须是正整数!\"); \n";
 							m+="	        return false;\n";
 							m+="	    }  \n";
 							m+="		\n";
@@ -171,11 +171,11 @@ public class UpdateJspForServlet {
 					
 					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
 					{
-						if(row.remarks.toLowerCase().contains("long"))
+						if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 						{
 							
 							m+="		 if("+row.enName.toLowerCase()+"Editor.count('text')>2000){\n";
-							m+="            alert('字数超过限制');\n";
+							m+="            alert('"+row.cnName+"字数超过限制');\n";
 							m+="             return;\n";
 							m+="         }\n";
 						}
@@ -285,7 +285,7 @@ public class UpdateJspForServlet {
 							m+="						\n";
 							m+="					</tr>\n";
 						}
-						else if(row.cnName.contains("选择")||row.remarks.toLowerCase().contains("选择")||row.type.toLowerCase().equals("select"))
+						else if(row.cnName.contains("选择")||row.remarks.contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
@@ -314,7 +314,7 @@ public class UpdateJspForServlet {
 						else
 						{
 						
-							if(row.cnName.contains("编辑")||row.remarks.toLowerCase().contains("编辑")||row.remarks.toLowerCase().contains("long"))
+							if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 							{
 								m+="	<tr>\n";
 								m+="					<td align=\"right\" style=\"width: 120px\">"+row.cnName+"：</td>\n";
