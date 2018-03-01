@@ -111,23 +111,24 @@ public class Controller {
 		m += "        String method = request.getParameter(\"method\"); //参数用html里name=\"\"的值\n";
 		m += "        \n";
 		m += "        \n";
-		m += "      //取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
+		m += "      //文件上传及其它取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
 		m += "        if(ServletFileUpload.isMultipartContent(request)) \n";
 		m += "        {\n";
+		 m+="try {\n";
 		m += "            FileItemFactory factory = new DiskFileItemFactory();\n";
 		m += "            ServletFileUpload upload = new ServletFileUpload(factory);\n";
 		m += "            List<FileItem> items = upload.parseRequest(request);\n";
 		m += "            for(FileItem i: items)\n";
 		m += "            {\n";
-		m += "                i.getFieldName();  　　//参数名\n";
+		m += "                //i.getFieldName();  　　//参数名\n";
 		m += "                //i.getString();   　　//参数值（返回字符串），如果是上传文件，则为文件内容\n";
 		m += "        　　　　 //i.get();         　　//参数值（返回字节数组），如果是上传文件，则为文件内容\n";
-		m+="//i.getInputStream();//上传文件内容\n";
+		m+="                  //i.getInputStream();//上传文件内容\n";
 		m += "        　　　　 //i.getSize();　　　　　//参数值的字节大小\n";
 		m += "        　　　　 //i.getName();   　 　 //上传文件的文件名\n";
-		m += "        　　　　 //i.getContentType();  //上传文件的内容类型\n";
-		m += "        　　　　 if(!i.isFormField()&&i.getSize()>0)　　 //简单参数返回true，文件返回false \n";
-		m += "  {\n";
+		m += "        　　　　 //i.getContentType();  //上传文件的内容类型\n ";
+		m += "if(!i.isFormField()&&i.getSize()>0)\n";
+		m += "  {//文件\n";
 		m+="ServletContext servletContext = request.getSession().getServletContext();\n";
 		m+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
 		m+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
@@ -136,11 +137,19 @@ public class Controller {
 		m+="if(!file.exists()){\n";
 		m+="file.mkdirs();\n";
 		m+="}\n";
-		m+="myfile.renameTo(new File(file,myfileFileName));\n";
-		m += "        　　}\n";
+
+		m+=" i.write(new File(realPath + \"/\" + i.getName()));\n";
+		m+="}else\n";
+		m+="{\n";
+		m+="formFields.put(i.getFieldName(), i.getString());\n";
+		m+="}\n";
+		m+="}\n";
+		m+="}catch(Exception e)\n";
+	    m+="{\n";
+		m+="e.printStackTrace();\n";
+		m+="}\n";
+		m+="}\n";
 		
-		m += "        　　}\n";
-		m += "        }\n";
 		m += "        \n";
 		
 		
