@@ -239,7 +239,7 @@ public class ServletActionForWebManage {
 		m += "        String method = request.getParameter(\"method\"); //参数用html里name=\"\"的值\n";
 		m += "        \n";
 		m += "        \n";
-		m += "      //取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
+		m += "      //文件上传及其它取值  form表单提交的数据  method=\"post\" enctype=\"multipart/form-data\"\n";
 		m += "        if(ServletFileUpload.isMultipartContent(request)) \n";
 		m += "        {\n";
 		 m+="try {\n";
@@ -279,7 +279,6 @@ public class ServletActionForWebManage {
 		m+="}\n";
 		
 		m += "        \n";
-		
 		
 		m += "      \n //第二步  发网络请求或发数据库请求 \n";
 		m += "        \n";
