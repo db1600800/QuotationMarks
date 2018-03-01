@@ -99,11 +99,11 @@ public class UpdateJspForServlet {
 					
 					    if(row.remarks.toLowerCase().contains("key"))
 					    {
-					    	m+="	var "+row.enName.toLowerCase()+"='${"+row.enName.toLowerCase()+"}';\n";
+					    	m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
 							m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }else
 					    {
-						m+="	var "+row.enName.toLowerCase()+"='${"+row.enName.toLowerCase()+"}';\n";
+						m+="	var "+row.enName.toLowerCase()+"='${entity."+row.enName.toLowerCase()+"}';\n";
 						m+="	$(\"#"+row.enName.toLowerCase()+"\").val("+row.enName.toLowerCase()+");\n";
 					    }
 					
@@ -228,7 +228,7 @@ public class UpdateJspForServlet {
 					
 					if(row.remarks.toLowerCase().contains("key"))
 					{
-						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${"+row.enName.toLowerCase()+"}\" />\n";
+						m+="<input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${entity."+row.enName.toLowerCase()+"}\" />\n";
 						
 					}
 						
@@ -266,7 +266,7 @@ public class UpdateJspForServlet {
 							
 							m+="				<tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
-							m+="					<td><input id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+							m+="					<td><input id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${entity."+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
@@ -277,9 +277,9 @@ public class UpdateJspForServlet {
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<img id=\"img"+fileCount+"\" src=\".${"+row.enName.toLowerCase()+" }\" style=\"display: block;width:40px;height:30px\"/>\n";
-							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  value=\"${"+row.enName.toLowerCase()+" }\"/>\n";
-							m+="							<input type=\"file\" id=\"file"+fileCount+"\" name=\"file"+fileCount+"\"   onchange=\"showDataByURL('file"+fileCount+"','img"+fileCount+"')\"/>\n";
+							m+="						<img id=\"img"+row.enName.toLowerCase()+"\" src=\"${pageContext.request.contextPath }${entity."+row.enName.toLowerCase()+"}\" style=\"display: block;width:40px;height:30px\"/>\n";
+							m+="						    <input type=\"hidden\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  value=\"${entity."+row.enName.toLowerCase()+" }\"/>\n";
+							m+="							<input type=\"file\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"   onchange=\"showDataByURL('"+row.enName.toLowerCase()+"','img"+row.enName.toLowerCase()+"')\"/>\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";
@@ -319,7 +319,7 @@ public class UpdateJspForServlet {
 								m+="	<tr>\n";
 								m+="					<td align=\"right\" style=\"width: 120px\">"+row.cnName+"：</td>\n";
 								m+="						<td><textarea type=\"text\" style=\"width:400px;height:50px;\"\n";
-								m+="							id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" >${"+row.enName.toLowerCase()+"}</textarea></td>\n";
+								m+="							id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" >${entity."+row.enName.toLowerCase()+"}</textarea></td>\n";
 								m+="				</tr>\n";
 								
 							}else
@@ -328,7 +328,7 @@ public class UpdateJspForServlet {
 							m+="				<tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
 							m+="					<td><input type=\"text\" class=\"input-text wid400 bg\"\n";
-							m+="						id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\"/></td>\n";
+							m+="						id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${entity."+row.enName.toLowerCase()+"}\"/></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
 							}

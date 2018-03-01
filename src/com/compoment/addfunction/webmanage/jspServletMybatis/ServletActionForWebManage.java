@@ -88,13 +88,14 @@ public class ServletActionForWebManage {
 						fileUpdate+= "  {//文件\n";
 						fileUpdate+="ServletContext servletContext = request.getSession().getServletContext();\n";
 						fileUpdate+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
-						fileUpdate+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
+						fileUpdate+="String realPath = servletContext.getRealPath(\"/uploadfile\");\n";
 						fileUpdate+="//3.如果这个真实的目录不存在，需要创建\n";
 						fileUpdate+="File file = new File(realPath );\n";
 						fileUpdate+="if(!file.exists()){\n";
 						fileUpdate+="file.mkdirs();\n";
 						fileUpdate+="}\n";
 						fileUpdate+=" i.write(new File(realPath + \"/\" + i.getName()));\n";
+						fileUpdate+="formFields.put(i.getFieldName(), \"/uploadfile/\"+i.getName());\n";
 						fileUpdate+="}else\n";
 						fileUpdate+="{\n";
 						fileUpdate+="formFields.put(i.getFieldName(), i.getString());\n";
@@ -135,6 +136,7 @@ public class ServletActionForWebManage {
 						}
 
 						selectList += "//}\n";
+						selectList += "//"+ row.enName.toLowerCase() + "list.add(\"value-cn\");\n";
 						selectList += "request.setAttribute(\"" + row.enName.toLowerCase() + "SelectList\","
 								+ row.enName.toLowerCase() + "list);\n";
 					}
@@ -259,7 +261,7 @@ public class ServletActionForWebManage {
 		m += "  {//文件\n";
 		m+="ServletContext servletContext = request.getSession().getServletContext();\n";
 		m+="//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	\n";
-		m+="String realPath = servletContext.getRealPath(\"/WEB-INF/file\");\n";
+		m+="String realPath = servletContext.getRealPath(\"/uploadfile\");\n";
 		m+="//3.如果这个真实的目录不存在，需要创建\n";
 		m+="File file = new File(realPath );\n";
 		m+="if(!file.exists()){\n";
@@ -648,16 +650,12 @@ public class ServletActionForWebManage {
 		
 		
 		
-		m += "        RequestDispatcher dispatcher = request.getRequestDispatcher(\"/jsp/"+interfaceBean.enName.toLowerCase()+".jsp\");//本域   跳转后浏览器地址栏不会变化。\n";
-		m += "        try {\n";
-		m += "			dispatcher .forward(request, response);\n";
-		m += "		} catch (ServletException e) {\n";
-		m += "			// TODO Auto-generated catch block\n";
-		m += "			e.printStackTrace();\n";
-		m += "		} catch (IOException e) {\n";
-		m += "			// TODO Auto-generated catch block\n";
-		m += "			e.printStackTrace();\n";
-		m += "		}\n";
+		   m += "        try {\n";
+			m+="response.sendRedirect(\""+interfaceName+"Servlet?method=index\");//通过get方法传递数据到下个页面(本域名下页面或跨域页面) 跳转后浏览器地址栏变化\n";
+			m += "		} catch (IOException e) {\n";
+			m += "			// TODO Auto-generated catch block\n";
+			m += "			e.printStackTrace();\n";
+			m += "		}\n";
 		
 	
 		m += "	}\n";
@@ -800,12 +798,8 @@ public class ServletActionForWebManage {
 
 		
 		
-		m += "        RequestDispatcher dispatcher = request.getRequestDispatcher(\"/jsp/"+interfaceBean.enName.toLowerCase()+".jsp\");//本域   跳转后浏览器地址栏不会变化。\n";
-		m += "        try {\n";
-		m += "			dispatcher .forward(request, response);\n";
-		m += "		} catch (ServletException e) {\n";
-		m += "			// TODO Auto-generated catch block\n";
-		m += "			e.printStackTrace();\n";
+	    m += "        try {\n";
+		m+="response.sendRedirect(\""+interfaceName+"Servlet?method=index\");//通过get方法传递数据到下个页面(本域名下页面或跨域页面) 跳转后浏览器地址栏变化\n";
 		m += "		} catch (IOException e) {\n";
 		m += "			// TODO Auto-generated catch block\n";
 		m += "			e.printStackTrace();\n";

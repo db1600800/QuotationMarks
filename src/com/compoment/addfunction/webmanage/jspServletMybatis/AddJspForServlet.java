@@ -262,7 +262,7 @@ public class AddJspForServlet {
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="							<input type=\"file\" id=\"file"+filecount+"\" name=\"file"+filecount+"\"  />\n";
+							m+="							<input type=\"file\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  />\n";
 							m+="								\n";
 							m+="						</td>\n";
 							m+="						\n";

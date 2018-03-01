@@ -92,6 +92,23 @@ public class Entity {
 					m1 += "		this." + column.columnEnName + " = "
 							+ column.columnEnName + ";\n";
 					m1 += "	}\n";
+					
+					m1 += "	public Integer get"
+							+ StringUtil
+									.firstCharToUpperRetainUnderLine(column.columnEnName)
+							+ "() {\n";
+					m1 += "		return " + column.columnEnName + ";\n";
+					m1 += "	}\n";
+
+					m1 += "	public void set"
+							+ StringUtil
+									.firstCharToUpperRetainUnderLine(column.columnEnName)
+							+ "(Integer " + column.columnEnName + ") {\n";
+					m1 += "		this." + column.columnEnName + " = "
+							+ column.columnEnName + ";\n";
+					m1 += "	}\n";
+					
+					
 				} else {
 					m += "	public String " + column.columnEnName + ";/**"
 							+ column.columnCnName + "*/\n";
@@ -105,6 +122,21 @@ public class Entity {
 					m1 += "	public void set"
 							+ StringUtil
 									.firstCharToUpperAndJavaName(column.columnEnName)
+							+ "(String " + column.columnEnName + ") {\n";
+					m1 += "		this." + column.columnEnName + " = "
+							+ column.columnEnName + ";\n";
+					m1 += "	}\n";
+					
+					m1 += "	public String get"
+							+ StringUtil
+									.firstCharToUpperRetainUnderLine(column.columnEnName)
+							+ "() {\n";
+					m1 += "		return " + column.columnEnName + ";\n";
+					m1 += "	}\n";
+
+					m1 += "	public void set"
+							+ StringUtil
+									.firstCharToUpperRetainUnderLine(column.columnEnName)
 							+ "(String " + column.columnEnName + ") {\n";
 					m1 += "		this." + column.columnEnName + " = "
 							+ column.columnEnName + ";\n";

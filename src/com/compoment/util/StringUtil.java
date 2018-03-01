@@ -18,6 +18,17 @@ public class StringUtil {
 		return temp;
 	}
 	
+	public static String firstCharToUpperRetainUnderLine(String string) {
+		// buy_typelist
+		
+			if (string!=null && !string.equals("item")&&string.length()>1)
+			{
+				string = string.substring(0, 1).toUpperCase() + string.substring(1);
+			}
+		
+		return string;
+	}
+	
 	
 	public static String firstCharToLower(String string) {
 		// buy_typelist
