@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
-import com.compoment.addfunction.webmanage.jspStruct2Mybatis.Mybatis;
+import com.compoment.addfunction.web.servletMybatis.DBUseMybatis;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.jsonToJava.creater.InterfaceBean;
@@ -34,7 +34,7 @@ public class LocalApplicationTest {
 
 		tables = changeToTableBeans(interfaceBeans);
 
-		Mybatis mybatis = new Mybatis("", "", tables);
+		DBUseMybatis mybatis = new DBUseMybatis("", "", tables);
 
 		for (InterfaceBean interfaceBean : interfaceBeans) {
 

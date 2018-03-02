@@ -45,10 +45,10 @@ public class UpdateJspForWebManage {
 		m+="<head>\n";
 		m+="<title>"+interfaceBean.title+"</title>\n";
 		m+="<link rel=\"stylesheet\" href=\"<%=basePath%>css/admin_style.css\" type=\"text/css\" />\n";
-		m+="<script src=\"${ctx}/kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
-		m+="<script src=\"${ctx}/kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
+		m+="<script src=\"<%=basePath%>kindeditor/kindeditor.js\" type=\"text/javascript\"></script>\n";
+		m+="<script src=\"<%=basePath%>kindeditor/lang/zh_CN.js\" type=\"text/javascript\"></script>\n";
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
-		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"${ctx}/js/My97DatePicker/WdatePicker.js\"></script>\n";
+		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"<%=basePath%>js/My97DatePicker/WdatePicker.js\"></script>\n";
 		m+="<script type=\"text/javascript\">\n";
 
 		
@@ -61,7 +61,7 @@ public class UpdateJspForWebManage {
 					
 					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
 					{
-						if(row.remarks.toLowerCase().contains("long"))
+						if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 						{
 							
 							m+="var "+row.enName.toLowerCase()+"Editor;\n";
@@ -132,11 +132,11 @@ public class UpdateJspForWebManage {
 						
 						
 						m+="		if ($(\"#"+row.enName.toLowerCase()+"\").val() == \"\") {\n";
-						m+="			alert(\"请输入"+row.cnName.replaceAll("", "")+"！\");\n";
+						m+="			alert(\"请输入"+row.cnName.replaceAll("", "").trim()+"！\");\n";
 						m+="			return false;\n";
 						m+="		}\n";
 						
-						if(row.cnName.contains("开始时间"))
+						if(row.cnName.contains("开始时间")||row.cnName.contains("开始日期"))
 						{
 							m+="		if($(\"#end\").val()!=\"\" && $(\"#"+row.enName.toLowerCase()+"\").val() > $(\"#end\").val()){\n";
 							m+="				alert(\"开始时间不能大于结束时间\");\n";
@@ -148,7 +148,7 @@ public class UpdateJspForWebManage {
 						{
 							m+="		var "+row.enName.toLowerCase()+"=$('#"+row.enName.toLowerCase()+"').val();\n";
 							m+="		if("+row.enName.toLowerCase()+"==\"\" || !/^\\d+$/.test("+row.enName.toLowerCase()+")){  \n";
-							m+="	        alert(\"必须是正整数!\"); \n";
+							m+="	        alert(\""+row.cnName+"必须是正整数!\"); \n";
 							m+="	        return false;\n";
 							m+="	    }  \n";
 							m+="		\n";
@@ -171,11 +171,11 @@ public class UpdateJspForWebManage {
 					
 					if(row.type.toLowerCase().equals("string")||row.type.equals("字符"))
 					{
-						if(row.remarks.toLowerCase().contains("long"))
+						if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 						{
 							
 							m+="		 if("+row.enName.toLowerCase()+"Editor.count('text')>2000){\n";
-							m+="            alert('字数超过限制');\n";
+							m+="            alert('"+row.cnName+"字数超过限制');\n";
 							m+="             return;\n";
 							m+="         }\n";
 						}
@@ -253,7 +253,7 @@ public class UpdateJspForWebManage {
 					}else
 					{
 
-						if(row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
+						if(row.cnName.contains("是否")||row.cnName.contains("状态")||row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
 						{
 							m+="				 <tr>\n";
 							m+="					<td align=\"right\" style=\"width: 120px\"><font color=\"red\">*</font>"+row.cnName.replaceAll("", "")+"：</td>\n";
@@ -261,7 +261,7 @@ public class UpdateJspForWebManage {
 							m+="					<option value=\"0\">否</option></select></td>\n";
 							m+="					\n";
 							m+="				</tr>\n";
-						}else if(row.cnName.contains("时间")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
+						}else if(row.cnName.contains("时间")||row.cnName.contains("日期")||row.type.toLowerCase().equals("time")||row.type.toLowerCase().equals("date"))
 						{
 							
 							m+="				<tr>\n";
@@ -270,7 +270,7 @@ public class UpdateJspForWebManage {
 							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/></td>\n";
 							m+="				</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
+						else if(row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
 						{
 							fileCount++;
 							m+="					<tr >\n";
@@ -285,7 +285,7 @@ public class UpdateJspForWebManage {
 							m+="						\n";
 							m+="					</tr>\n";
 						}
-						else if(row.type.toLowerCase().equals("select"))
+						else if(row.cnName.contains("选择")||row.remarks.contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							m+="					<tr >\n";
 							m+="						<td align=\"right\" style=\"width: 120px\">"+row.cnName.replaceAll("", "")+"：\n";
@@ -314,7 +314,7 @@ public class UpdateJspForWebManage {
 						else
 						{
 						
-							if(row.remarks.toLowerCase().contains("long"))
+							if(row.cnName.contains("编辑")||row.remarks.contains("编辑")||row.remarks.toLowerCase().contains("long"))
 							{
 								m+="	<tr>\n";
 								m+="					<td align=\"right\" style=\"width: 120px\">"+row.cnName+"：</td>\n";

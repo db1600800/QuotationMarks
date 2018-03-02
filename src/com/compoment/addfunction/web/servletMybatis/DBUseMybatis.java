@@ -1,21 +1,14 @@
-package com.compoment.addfunction.webmanage.jspStruct2Mybatis;
+package com.compoment.addfunction.web.servletMybatis;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.compoment.addfunction.web.servletMybatis.Entity;
-import com.compoment.addfunction.web.servletMybatis.MapperJava;
-import com.compoment.addfunction.web.servletMybatis.MapperXml;
-import com.compoment.addfunction.web.servletMybatis.MapperXmlForSingleTable;
-import com.compoment.addfunction.web.servletMybatis.MybatisUtil;
-import com.compoment.addfunction.web.servletMybatis.ServiceInterface;
-import com.compoment.addfunction.web.servletMybatis.SqlScript;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 
-public class Mybatis {
+public class DBUseMybatis {
 	
-	public Mybatis(String interfaceName,
+	public DBUseMybatis(String interfaceName,
 			String interfaceCnName, List<TableBean> temptables)
 	{
 		for (TableBean table : temptables) {

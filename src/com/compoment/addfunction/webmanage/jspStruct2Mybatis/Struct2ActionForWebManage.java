@@ -9,11 +9,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.compoment.jsonToJava.creater.InterfaceBean.Group;
+import com.compoment.addfunction.web.servletMybatis.DBUseMybatis;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.jsonToJava.creater.InterfaceBean;
@@ -32,7 +35,7 @@ public class Struct2ActionForWebManage {
 
 		tables = changeToTableBeans(interfaceBeans);
 
-		Mybatis mybatis = new Mybatis("", "", tables);
+		DBUseMybatis mybatis = new DBUseMybatis("", "", tables);
 
 		for (InterfaceBean interfaceBean : interfaceBeans) {
 
@@ -65,7 +68,7 @@ public class Struct2ActionForWebManage {
 
 					}
 
-					if (row.type.toLowerCase().contains("file")) {
+					if (row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().contains("file")) {
 						fileCount++;
 						filebean += "    private File file" + fileCount
 								+ ";//对应的就是表单中文件上传的那个输入域的名称，Struts2框架会封装成File类型的\n";
@@ -107,7 +110,7 @@ public class Struct2ActionForWebManage {
 
 					}
 
-					if (row.type.toLowerCase().contains("select")) {
+					if (row.cnName.contains("选择")||row.type.toLowerCase().contains("select")) {
 
 						selectList += "\n//" + row.cnName + "\n";
 						selectList += "List " + row.enName.toLowerCase() + "list=new ArrayList();\n";
@@ -134,6 +137,7 @@ public class Struct2ActionForWebManage {
 						}
 
 						selectList += "//}\n";
+						selectList += "//"+ row.enName.toLowerCase() + "list.add(\"value-cn\");\n";
 						selectList += "request.setAttribute(\"" + row.enName.toLowerCase() + "SelectList\","
 								+ row.enName.toLowerCase() + "list);\n";
 					}
@@ -167,7 +171,7 @@ public class Struct2ActionForWebManage {
 
 		m += "import com.tools.PaginationUtil;\n";
 		m += "import com.tools.StrutsParamUtils;\n";
-		m += "import com.tools.hibernate.ObjectDao;\n";
+	
 		m += "//" + interfaceBean.title + "\n";
 		m += "//@SuppressWarnings(\"unchecked\")\n";
 		m += "//@Namespace(value = \"/" + interfaceBean.projectName.toLowerCase() + "\")\n";
@@ -265,9 +269,10 @@ public class Struct2ActionForWebManage {
 		m += "			request.setAttribute(\"pageSize\", pageSize);\n";
 		m += "		}\n";
 
+		m+="String nextPagePara=\"\";\n";
 		m += "Map paraMap=new HashMap();\n";
 		m += "paraMap.put(\"currIndex\", (Integer.valueOf(pageNo) - 1) * Integer.valueOf(pageSize));\n";
-		m += "paraMap.put(\"pageSize\", pageSize);\n";
+		m += "paraMap.put(\"pageSize\", Integer.valueOf(pageSize));\n";
 
 		String listInKeyString = "";
 		String nextPageKeyString = "";
@@ -291,14 +296,16 @@ public class Struct2ActionForWebManage {
 
 						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\",Integer.valueOf( "
 								+ row.enName.toLowerCase() + "));\n";
+						listInKeyString += "nextPagePara+=\""+row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26\";\n";
 					} else {
 
 						listInKeyString += "paraMap.put(\"" + row.enName.toLowerCase() + "\", "
 								+ row.enName.toLowerCase() + ");\n";
+						listInKeyString += "nextPagePara+=\""+row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26\";\n";
 					}
 					listInKeyString += "}\n";
 
-					nextPageKeyString += row.enName.toLowerCase() + "=\"+" + row.enName.toLowerCase() + "+\"%26";
+	
 				}
 			}
 		}
@@ -316,9 +323,12 @@ public class Struct2ActionForWebManage {
 		m += "	e.printStackTrace();\n";
 		m += "}\n\n";
 
+		
+		m += interfaceName + "Service " + StringUtil.firstCharToLower(interfaceName) + "Service1=new " + interfaceName
+				+ "ServiceImpl();\n";
 		m += "int count=0;\n";
 		m += "try {\n";
-		m += "count=" + StringUtil.firstCharToLower(interfaceName) + "Service.getCount(paraMap);\n";
+		m += "count=" + StringUtil.firstCharToLower(interfaceName) + "Service1.getCount(paraMap);\n";
 		m += "} catch (Exception e) {\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n\n";
@@ -327,8 +337,7 @@ public class Struct2ActionForWebManage {
 		m += "				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m += "				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m += "				Integer.valueOf(5),\n";
-		m += "				\"javascript:getAll('" + interfaceBean.enName + "Action!list?" + nextPageKeyString
-				+ "pageNo=\"+pageNo+\"\",true);\n";
+		m += "				\"javascript:getAll('" + interfaceBean.enName + "Action!list?\" + nextPagePara+\"pageNo=\"+pageNo+\"\",true);\n";
 		m += "		pageString = pageString.replace(\".html\", \"\");\n";
 		m += "		JSONObject jsonObject = new JSONObject();\n";
 		m += "		jsonObject.put(\"list\", " + interfaceName.toLowerCase() + "Beans);\n";
@@ -543,6 +552,17 @@ public class Struct2ActionForWebManage {
 		m += "	public String doAdd()  throws IOException{\n";
 		m += "		HttpServletRequest request = StrutsParamUtils.getRequest();\n";
 		m += fileUpdate;
+		
+		m += "Map paraMap=new HashMap();\n";
+		m += "paraMap.put(\"columnName\", \"\");\n";
+		m += interfaceName + "Service " + StringUtil.firstCharToLower(interfaceName) + "ServiceForMax=new " + interfaceName
+				+ "ServiceImpl();\n";
+		m += "int max=0;\n";
+		m += "try {\n";
+		m += "max=" + StringUtil.firstCharToLower(interfaceName) + "ServiceForMax.getMax(paraMap);\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n\n";
 
 
 		m += interfaceName + "Bean " + StringUtil.firstCharToLower(interfaceName) + "Bean=new " + interfaceName
