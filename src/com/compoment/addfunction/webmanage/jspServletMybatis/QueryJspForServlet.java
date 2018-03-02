@@ -78,12 +78,12 @@ public class QueryJspForServlet {
 						{
 							deleteKeyString+="'+data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"+',";
 							updateKeyString+=row.enName.toLowerCase()+"='+data[i]."+StringUtil.underline2Camel(row.enName.toLowerCase(), true)+"+'%26";
-							ajaxdataKeyString+=row.enName.toLowerCase()+":searchInput,\n";
+						
 						}else
 						{
 							deleteKeyString+="\'+${"+row.enName.toLowerCase()+"}+\',";
 						updateKeyString+=row.enName.toLowerCase()+"=${"+row.enName.toLowerCase()+"}%26";
-						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+					
 						}
 								
 						indataKeyString+=row.enName.toLowerCase()+":m"+row.enName.toLowerCase()+",\n";
@@ -110,9 +110,6 @@ public class QueryJspForServlet {
 		if(indataKeyString.lastIndexOf(",")!=-1)
 		indataKeyString=indataKeyString.substring(0, indataKeyString.lastIndexOf(","));
 		
-		if(ajaxdataKeyString.lastIndexOf(",")!=-1)
-		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
-		
 		if(urlKeyString.lastIndexOf("%26")!=-1)
 		urlKeyString=urlKeyString.substring(0, urlKeyString.lastIndexOf("%26"));
 		
@@ -132,6 +129,7 @@ public class QueryJspForServlet {
 		m += "String basePath = request.getScheme()+\"://\"+request.getServerName()+\":\"+request.getServerPort()+path+\"/\";\n";
 		m += "%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
+		m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
@@ -215,23 +213,54 @@ public class QueryJspForServlet {
 		
 		m+="		function getAll(tzurl){\n";
 		
-		m+="var searchInput = $(\"#searchInput\").val();\n";
-		m+="		if(searchInput!=\"\" ){  \n";
-		m+="		if( !/^\\d+$/.test(searchInput)){  \n";
-		m+="	        alert(\"必须是正整数!\"); \n";
-		m+="	        return ;\n";
-		m+="	    }  \n";
-		m+="	    }  \n";
-		m+="		\n";
 		
-		m+="var endTime=$(\"#endTime\").val();\n";
-		m+="var startTime=$(\"#endTime\").val();\n";
-		m+="		if($(\"#endTime\").val()!=\"\" &&$(\"#startTime\").val()!=\"\" && $(\"#startTime\").val() > $(\"#endTime\").val()){\n";
-		m+="				alert(\"开始时间不能大于结束时间\");\n";
-		m+="				return ;\n";
-		m+="		}\n";
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						
+					}else
+					{
+						m+="		var "+row.enName.toLowerCase()+"=$('#"+row.enName.toLowerCase()+"').val();\n";
+						
+						if(row.cnName.contains("开始时间")||row.cnName.contains("开始日期"))
+						{
+						
+							m+="		if($(\"#"+row.enName.toLowerCase()+"End\").val()!=\"\" && $(\"#"+row.enName.toLowerCase()+"\").val() > $(\"#"+row.enName.toLowerCase()+"End\").val()){\n";
+							m+="				alert(\"开始时间不能大于结束时间\");\n";
+							m+="				return ;\n";
+							m+="		}\n";
+						}
+						
+						if(row.type.toLowerCase().contains("int")||row.type.contains("整形")||row.type.contains("整数"))
+						{
+					
+							m+="		if("+row.enName.toLowerCase()+"!=\"\"){  \n";
+							m+="		if( !/^\\d+$/.test("+row.enName.toLowerCase()+")){  \n";
+							m+="	        alert(\""+row.cnName+"必须是正整数!\"); \n";
+							m+="	        return ;\n";
+							m+="	    }  \n";
+							m+="	    }  \n";
+							m+="		\n";
+						}
+						
+						ajaxdataKeyString+=row.enName.toLowerCase()+":"+"$(\"#"+row.enName.toLowerCase()+"\").val(),\n";
+					}
+					i++;
+				}
+			}
+
+		}
 		
-		m+="var stateSelect=$(\"#stateSelect\").val();\n";
+	
+
+		if(ajaxdataKeyString.lastIndexOf(",")!=-1)
+		ajaxdataKeyString=ajaxdataKeyString.substring(0, ajaxdataKeyString.lastIndexOf(","));
+		
+	
 		
 	
 		m+="	\n\n			$.ajax({\n";
@@ -239,11 +268,7 @@ public class QueryJspForServlet {
 		m+="					dataType:'json',\n";
 		m+="					url:tzurl,\n";
 		m+="					data:{\n";
-		m+=ajaxdataKeyString+",";
-		m+="\n start:startTime,\n";
-		m+="end:endTime,\n";
-		m+="state:stateSelect\n";
-		
+		m+=ajaxdataKeyString;
 		m+="					},\n";
 		m+="					success:function(result){\n";
 		m+="	\n";
@@ -316,23 +341,86 @@ public class QueryJspForServlet {
 		m+=cacheValueHiddenString;
 		
 		
-		m+="	"+interfaceBean.title+"：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
-		m+="状态:\n";
-		m+="<select id=\"stateSelect\" name=\"stateSelect\" class=\"form-control\" >\n";
-		m+="<option value=\"\">请选择</option>\n";
-		m+="<option value=\"开启\">0</option>\n";
-		m+="<option value=\"关闭\">1</option>\n";
-	    m+="</select>\n";
-	    
-		m+="	开始时间:<input id=\"startTime\" name=\"startTime\" value=\"\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
-		m+="	 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
+		m+="	"+interfaceBean.title+"\n";
 		
-		m+="	结束时间:<input id=\"endTime\" name=\"endTime\" value=\"\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
-		m+="	 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
-	    
-		m+="	<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
-		m+="	<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
-	
+		//m+="	"+interfaceBean.title+"：<input type=\"text\" id=\"searchInput\" style=\"margin-left:10px;width:100px;height:20px; \"/>\n";
+		
+		m+="<div>\n";
+		for (Group group : groups) {
+			String groupname = group.name;
+			if (groupname.equals("CommonGroup")) {
+				int i = 0;
+				for (Row row : group.rows) {
+				
+					if(row.remarks.toLowerCase().contains("key"))
+					{
+						
+					}else
+					{
+
+						if(row.cnName.contains("是否")||row.cnName.contains("状态")||row.type.toLowerCase().equals("boolean")||row.type.toLowerCase().equals("bool"))
+						{
+							
+							m+="\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
+						    m+="<select id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"><option value=\"1\">是</option>\n";
+							m+="					<option value=\"0\">否</option></select>\n";
+							
+						}else if(row.cnName.contains("日期")||row.cnName.contains("时间")||row.type.toLowerCase().contains("time")||row.type.toLowerCase().contains("date"))
+						{
+							
+						
+							m+="	\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
+							m+="	<input id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
+						
+							m+="\n"+row.cnName.replaceAll("", "")+"结束:";
+							m+="	<input id=\""+row.enName.toLowerCase()+"End\" name=\""+row.enName.toLowerCase()+"End\" value=\"${ "+row.enName.toLowerCase()+"End}\" style=\"margin-right:10px;width: 150px\" class=\"Wdate\" \n";
+							m+="					 onclick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})\"/>\n";
+							
+						}
+						else if(row.cnName.contains("图片")||row.cnName.contains("文件")||row.type.toLowerCase().equals("image")||row.type.toLowerCase().equals("file"))
+						{
+							
+							
+							m+="	\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
+							m+="	<input type=\"file\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  />\n";
+						
+						}else if(row.cnName.contains("选择")||row.remarks.contains("选择")||row.type.toLowerCase().equals("select"))
+						{
+							
+							m+="	\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
+							m+="<select id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" class=\"form-control\" style=\"width: 187px;height:23px;margin-bottom:10px;\">\n";
+							m+="				<option value=\"\">请选择</option>\n";
+							m+="					<c:forEach var=\"item\" items=\"${"+row.enName.toLowerCase()+"SelectList}\">	\n";
+							m+="							<option value='${fn:substringBefore(item,\"-\")}'>${fn:substringAfter(item,\"-\")}</option>\n";
+							m+="					</c:forEach>\n";
+							m+="					\n";
+							m+="</select>\n";
+						
+						}
+						else
+						{
+						
+							m+="\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
+							m+="<input type=\"text\" class=\"input-text wid400 bg\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\" value=\"${ "+row.enName.toLowerCase()+"}\"/>\n";
+						
+						}
+						
+					}
+					i++;
+				}
+			}
+
+		}
+		
+
+		
+		m+="	\n<input type=\"button\" value=\"查询\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"search()\">\n";
+		
+		m+="	\n<input type=\"button\" value=\"新增\" name = \"btn_search\" onmouseover=\"this.style.cursor='hand'\" style=\"width:50px;height:20px;font-size:12px;\" class=\"subBtn\" onclick=\"toAdd()\">\n";
+		m+="</div>\n";
+		
+		
 		m+="	\n";
 		m+="	</div>\n";
 		m+="	<div id=\"signContent\">\n";
