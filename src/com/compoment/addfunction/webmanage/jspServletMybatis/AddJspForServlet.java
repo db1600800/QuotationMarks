@@ -194,7 +194,7 @@ public class AddJspForServlet {
 		m+="<body>\n";
 		
 
-		m+=" <form action=\""+interfaceBean.enName+"Servlet?method=doAdd\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
+		m+=" <form action=\"<%=basePath%>"+interfaceBean.enName+"Servlet?method=doAdd\" method=\"post\" enctype=\"multipart/form-data\" name=\"myForm\">\n";
 		m+="	<div style=\"margin-left: 20px;\">"+interfaceBean.title+"</div>\n";
 		m+="	<div class=\"table_form lr10\">\n";
 		m+="		<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n";
