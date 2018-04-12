@@ -140,7 +140,7 @@ public class QueryJspStruct2 {
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";
+		m+="			window.location.href=\"<%=basePath%>"+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -166,7 +166,7 @@ public class QueryJspStruct2 {
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
-		m+="					url:'"+interfaceBean.enName+"Action!doDelete',\n";
+		m+="					url:'<%=basePath%>'+'"+interfaceBean.enName+"Action!doDelete',\n";
 		m+="					data:{\n";
 		
 		
@@ -176,7 +176,7 @@ public class QueryJspStruct2 {
 		m+="					\n},\n";
 		m+="					success:function(k){\n";
 		m+="							alert(\"删除成功！\")\n";
-		m+="							window.location.href = \""+interfaceBean.enName+"Action!index?"+urlKeyString+"\";\n";
+		m+="							window.location.href = \"<%=basePath%>"+interfaceBean.enName+"Action!index?"+urlKeyString+"\";\n";
 		m+="					},\n";
 		m+="					error : function() {\n";
 		m+="						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -255,7 +255,7 @@ public class QueryJspStruct2 {
 		
 
 
-		m+="								divtext += '<td ><a href=\""+interfaceBean.enName+"Action!toUpdate?"+updateKeyString+"\"> [修改] </a>'\n";
+		m+="								divtext += '<td ><a href=\"<%=basePath%>"+interfaceBean.enName+"Action!toUpdate?"+updateKeyString+"\"> [修改] </a>'\n";
 		m+="								divtext +='|<a href=\"javascript:void(0);\" onclick=\"dodel("+deleteKeyString+")\"> [删除] </a></td>';\n";
 		m+="								divtext += '</tr>';\n";
 		m+="							}\n";

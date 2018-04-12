@@ -142,7 +142,7 @@ public class QueryJspForWebManage {
 		m += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		m+="	<script>\n";
 		m+="		function toAdd(){\n";
-		m+="			window.location.href=\""+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";
+		m+="			window.location.href=\"<%=basePath%>"+interfaceBean.enName+"Action!toAdd?"+urlKeyString+"\";\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -168,7 +168,7 @@ public class QueryJspForWebManage {
 		m+="			if(r){\n";
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
-		m+="					url:'"+interfaceBean.enName+"Action!doDelete',\n";
+		m+="					url:'<%=basePath%>'+'"+interfaceBean.enName+"Action!doDelete',\n";
 		m+="					data:{\n";
 		
 		
@@ -178,7 +178,7 @@ public class QueryJspForWebManage {
 		m+="					\n},\n";
 		m+="					success:function(k){\n";
 		m+="							alert(\"删除成功！\")\n";
-		m+="							window.location.href = \""+interfaceBean.enName+"Action!index?"+urlKeyString+"\";\n";
+		m+="							window.location.href = \"<%=basePath%>"+interfaceBean.enName+"Action!index?"+urlKeyString+"\";\n";
 		m+="					},\n";
 		m+="					error : function() {\n";
 		m+="						alert(\"对不起，系统错误，请稍候重试！\")\n";
@@ -243,7 +243,7 @@ public class QueryJspForWebManage {
 		m+="				$.ajax({\n";
 		m+="					type:'POST',\n";
 		m+="					dataType:'json',\n";
-		m+="					url:tzurl,\n";
+		m+="					url:'<%=basePath%>'+tzurl,\n";
 		m+="					data:{\n";
 		m+=ajaxdataKeyString;
 	

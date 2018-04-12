@@ -166,12 +166,12 @@ public class QueryJspForServlet {
 		m+="		$(document).on('ready', function() {\n";
 		m+=requestKeyString;
 
-		m+="			getAll('<%=basePath%>"+interfaceBean.enName+"Servlet?method=list');\n";
+		m+="			getAll('"+interfaceBean.enName+"Servlet?method=list');\n";
 		m+="		});\n";
 		m+="		\n";
 		m+="		\n";
 		m+="		function search(){\n";
-		m+="			getAll('<%=basePath%>"+interfaceBean.enName+"Servlet?method=list');\n";
+		m+="			getAll('"+interfaceBean.enName+"Servlet?method=list');\n";
 		m+="		}\n";
 		m+="		\n";
 		
@@ -266,7 +266,7 @@ public class QueryJspForServlet {
 		m+="	\n\n			$.ajax({\n";
 		m+="					type:'POST',\n";
 		m+="					dataType:'json',\n";
-		m+="					url:tzurl,\n";
+		m+="					url:'<%=basePath%>'+tzurl,\n";
 		m+="					data:{\n";
 		m+=ajaxdataKeyString;
 		m+="					},\n";

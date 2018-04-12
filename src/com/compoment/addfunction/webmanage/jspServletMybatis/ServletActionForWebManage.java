@@ -473,7 +473,7 @@ public class ServletActionForWebManage {
 		m += "				Integer.valueOf(count), Integer.valueOf(pageSize),\n";
 		m += "				Integer.valueOf(pageNo), Integer.valueOf(2),\n";
 		m += "				Integer.valueOf(5),\n";
-		m += "				\"javascript:getAll('<%=basePath%>" + interfaceBean.enName + "Servlet?method=list%26\"+nextPagePara+\"pageNo=\",true);\n";
+		m += "				\"javascript:getAll('" + interfaceBean.enName + "Servlet?method=list%26\"+nextPagePara+\"pageNo=\",true);\n";
 		m += "		pageString = pageString.replace(\".html\", \"\");\n";
 		m += "		JSONObject jsonObject = new JSONObject();\n";
 		m += "		jsonObject.put(\"list\", " + interfaceName.toLowerCase() + "Beans);\n";
