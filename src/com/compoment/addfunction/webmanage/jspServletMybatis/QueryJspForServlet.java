@@ -130,9 +130,11 @@ public class QueryJspForServlet {
 		m += "%>\n";
 		m+="<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\"%>\n";
 		m+="<%@ taglib prefix=\"fn\" uri=\"http://java.sun.com/jsp/jstl/functions\"%>\n";
+		m+="<%@ include file=\"mutiSelect.jsp\"%>\n";
 		m+="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
 		m+="<html>\n";
 		m+="<head>\n";
+		
 		m+="<title>"+interfaceBean.title+"</title>\n";
 		m+="<link rel=\"stylesheet\" href=\"<%=basePath%>css/admin_style.css\" type=\"text/css\" />\n";
 		m+="<script type=\"text/javascript\" language=\"javascript\" src=\"<%=basePath%>js/My97DatePicker/WdatePicker.js\"></script>\n";
@@ -332,6 +334,97 @@ public class QueryJspForServlet {
 		m+="		}\n";
 		m+="	</script>\n";
 
+		
+
+		
+	m+="	<script>\n";
+		m+="	//多选   获取树数据   \n";
+		m+="   function treeDataQuery(){\n";
+		m+="	$.ajax({\n";
+		m+="		type:'POST',\n";
+		m+="		dataType:'json',\n";
+		m+="		url:'<%=basePath%>TbCommTagServlet?method=orgs',\n";
+		m+="		data:param,\n";
+		m+="		success:function(json){\n";
+		m+="			var zNodes = json.list;\n";
+		m+="			if(zNodes==null)\n";
+		m+="			{\n";
+		m+="			return;\n";
+		m+="			}\n";
+		m+="			var jsonstr= JSON.stringify(zNodes);\n";
+		m+="			 jsonstr = jsonstr.replace(/ID/g, 'id'); \n";
+		m+="			 jsonstr = jsonstr.replace(/Pid/g, 'pId'); \n";
+		m+="			 jsonstr = jsonstr.replace(/NAME/g, 'name'); \n";
+		m+="			 zNodes = eval(\"(\" + jsonstr + \")\");\n";
+
+		m+="			$.fn.zTree.init($(\"#tree_all\"), setting, zNodes);\n";
+		m+="			zTree = $.fn.zTree.getZTreeObj(\"tree_all\");\n";
+		m+="			setCheck();\n";
+		m+="			$(\"#py\").bind(\"change\", setCheck);\n";
+		m+="			$(\"#sy\").bind(\"change\", setCheck);\n";
+		m+="			$(\"#pn\").bind(\"change\", setCheck);\n";
+		m+="			$(\"#sn\").bind(\"change\", setCheck);\n";
+
+		m+="			\n";
+		m+="			treeDataSelectQuery();\n";
+		m+="			\n";
+		m+="		}\n";
+		m+="	});\n";
+		m+="   }\n";
+		
+		m+="	function treeDataSelectQuery(){\n";
+		m+="	$.ajax({\n";
+		m+="		type:'POST',\n";
+		m+="		dataType:'json',\n";
+		m+="		url:'<%=basePath%>TbCommTagServlet?method=orgsSelect',\n";
+		m+="		data:{\"tag_id\":$(\"#tag_id\").val()},\n";
+		m+="		success:function(json){\n";
+		m+="			if(json==null)\n";
+		m+="				return;\n";
+		m+="			\n";
+		m+="			var zNodes = json.list;\n";
+		m+="			if(zNodes==null)\n";
+		m+="				{\n";
+		m+="				return;\n";
+		m+="				}\n";
+		m+="			var jsonstr= JSON.stringify(zNodes);\n";
+		m+="			 jsonstr = jsonstr.replace(/ID/g, 'id'); \n";
+		m+="			 jsonstr = jsonstr.replace(/Pid/g, 'pId'); \n";
+		m+="			 jsonstr = jsonstr.replace(/NAME/g, 'name'); \n";
+		m+="			 zNodes = eval(\"(\" + jsonstr + \")\");\n";
+
+		m+="			\n";
+
+		m+="			var len = zNodes.length;\n";
+		m+="			if (len == 0) {\n";
+		m+="				return;\n";
+		m+="			}\n";
+		m+="			$(\"#select_count\").val(len);\n";
+		m+="			var i = 0;\n";
+		m+="			var nid = 0;\n";
+		m+="			var checkedOrg = \"\";\n";
+		m+="			var checkedOrgs;\n";
+		m+="			var name=\"\";\n";
+		m+="			var code=\"\";\n";
+		m+="			for (i = 0; i < len; i++) {\n";
+		m+="				checkedOrgs = zNodes[i];\n";
+		m+="				checkedOrg = checkedHtml( checkedOrgs.id,checkedOrgs.name);\n";
+		m+="				$(\"#org_checked\").append(checkedOrg);\n";
+		m+="				name+=checkedOrgs.name+\",\"\n";
+		m+="				code+=checkedOrgs.id+\",\"\n";
+		m+="				\n";
+		m+="			}\n";
+		m+="			\n";
+		m+="			$(\"#show_ids\").val(code);\n";
+		m+="			$(\"#show_names_edit\").val(name);\n";
+		m+="		}\n";
+		m+="	});\n";
+		m+="	}\n";
+		m+="	\n";
+		m+="	\n";
+		m+="	\n";
+		m+="	</script>\n";
+		
 		m+="</head>\n";
 		m+="<body style=\"overflow:auto\">\n";
 		
@@ -385,7 +478,7 @@ public class QueryJspForServlet {
 							m+="	\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
 							m+="	<input type=\"file\" id=\""+row.enName.toLowerCase()+"\" name=\""+row.enName.toLowerCase()+"\"  />\n";
 						
-						}else if(row.cnName.contains("选择")||row.remarks.contains("选择")||row.type.toLowerCase().equals("select"))
+						}else if(row.cnName.contains("单选")||row.cnName.contains("选择")||row.remarks.contains("单选")||row.remarks.contains("选择")||row.type.toLowerCase().equals("select"))
 						{
 							
 							m+="	\n<font size=\"2\" color=\"\">"+row.cnName.replaceAll("", "")+":</font>";
@@ -396,6 +489,30 @@ public class QueryJspForServlet {
 							m+="					</c:forEach>\n";
 							m+="					\n";
 							m+="</select>\n";
+						
+						}
+						else if(row.cnName.contains("多选")||row.remarks.contains("多选")||row.type.toLowerCase().equals("mutiselect"))
+						{
+							
+		
+							
+							m+="<div height=\"60px\" style=\"display:inline-block\">\n";
+							m+="					<td align=\"right\">\n";
+							m+="						<input type=\"hidden\" id=\"show_ids\" name=\"show_ids\" value=\"\"/>\n";
+							m+="						机构：\n";
+							m+="						<INPUT name=\"allOrg\" id=\"allOrg\" type=\"checkbox\"\n";
+							m+="							style=\"padding: 0px; margin-top: 0px;\" value=\"1\"/>\n";
+							m+="						<label for=\"allOrg\">全省&nbsp;</label>\n";
+							m+="						</td>\n";
+							m+="						<td>\n";
+							m+="						<input type=\"text\" class=\"input_hkl02\" placeholder=\"选择调查对象机构\"\n";
+							m+="							readonly id=\"show_names_edit\" name=\"show_names_edit\" size=\"60\" />\n";
+							m+="						<INPUT id=\"show_names_btn\" type=\"button\" style=\"display: none;\"\n";
+							m+="							class=\"btn btn-default\" value=\"选择调查对象机构\">\n";
+							m+="						</td>\n";
+							m+="					</div>\n";
+							
+							new MutiSelect();
 						
 						}
 						else

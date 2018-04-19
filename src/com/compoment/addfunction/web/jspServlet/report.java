@@ -1,5 +1,8 @@
 package com.compoment.addfunction.web.jspServlet;
 
+/**
+ * 微信端报表
+ * */
 public class report {
 
 	public void report()
