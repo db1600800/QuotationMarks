@@ -20,23 +20,23 @@ public class MutiSelect {
 		m+="<html>\n";
 		m+="<head>\n";
 		m+="<title>编辑问卷</title>\n";
-		m+="<link href=\"${pageContext.request.contextPath}/multiselect/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
+		m+="<link href=\"${pageContext.request.contextPath}/css/multiselect/bootstrap/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
 	
-		m+="<link href=\"${pageContext.request.contextPath}/multiselect/css/style.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
+		m+="<link href=\"${pageContext.request.contextPath}/css/multiselect/style.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
 		
-		m+="<link href=\"${pageContext.request.contextPath}/multiselect/css/jyyx.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
+		m+="<link href=\"${pageContext.request.contextPath}/css/multiselect/jyyx.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
 
-		m+="<link href=\"${pageContext.request.contextPath}/multiselect/css/jquery-ui.min.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
+		m+="<link href=\"${pageContext.request.contextPath}/css/multiselect/jquery-ui.min.css\" rel=\"stylesheet\" type=\"text/css\"	/>\n";
 		
-		m+="<link href=\"${pageContext.request.contextPath}/multiselect/css/zTreeStyle.css\"	type=\"text/css\" rel=\"stylesheet\">\n";
+		m+="<link href=\"${pageContext.request.contextPath}/css/multiselect/zTree3/css/zTreeStyle/zTreeStyle.css\"	type=\"text/css\" rel=\"stylesheet\">\n";
 
-		m+="<script	src=\"${pageContext.request.contextPath}/jsp/js/jquery.js\"></script>\n";
-		m+="<script	src=\"${pageContext.request.contextPath}/multiselect/js/jquery-ui.min.js\"></script-->\n";
+		m+="<script	src=\"${pageContext.request.contextPath}/js/jquery.js\"></script>\n";
+		m+="<script	src=\"${pageContext.request.contextPath}/js/multiselect/jquery-ui.min.js\"></script-->\n";
 
 
-		m+="<script src=\"${pageContext.request.contextPath}/multiselect/js/se.js\"></script>\n";
-		m+="<script src=\"${pageContext.request.contextPath}/multiselect/js/common.js\"></script>\n";
-		m+="<script	src=\"${pageContext.request.contextPath}/multiselect/js/jquery.ztree.all.min.js\"></script>\n";
+		m+="<script src=\"${pageContext.request.contextPath}/js/multiselect/se.js\"></script>\n";
+		m+="<script src=\"${pageContext.request.contextPath}/js/multiselect/common.js\"></script>\n";
+		m+="<script	src=\"${pageContext.request.contextPath}/css/multiselect/zTree3/js/jquery.ztree.all.min.js\"></script>\n";
 
 		m+="<style type=\"text/css\">\n";
 		m+=".btn {\n";
@@ -264,7 +264,7 @@ public class MutiSelect {
 
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/webManager", "mutiSelect", "jsp", m);
-		System.out.println(m);
+	
 	
 
 	

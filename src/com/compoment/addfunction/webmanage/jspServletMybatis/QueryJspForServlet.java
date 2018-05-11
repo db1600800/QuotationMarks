@@ -505,10 +505,10 @@ public class QueryJspForServlet {
 							m+="						<label for=\"allOrg\">全省&nbsp;</label>\n";
 							m+="						</td>\n";
 							m+="						<td>\n";
-							m+="						<input type=\"text\" class=\"input_hkl02\" placeholder=\"选择调查对象机构\"\n";
+							m+="						<input type=\"text\" class=\"input_hkl02\" placeholder=\"选择机构\"\n";
 							m+="							readonly id=\"show_names_edit\" name=\"show_names_edit\" size=\"60\" />\n";
 							m+="						<INPUT id=\"show_names_btn\" type=\"button\" style=\"display: none;\"\n";
-							m+="							class=\"btn btn-default\" value=\"选择调查对象机构\">\n";
+							m+="							class=\"btn btn-default\" value=\"选择机构\">\n";
 							m+="						</td>\n";
 							m+="					</div>\n";
 							
