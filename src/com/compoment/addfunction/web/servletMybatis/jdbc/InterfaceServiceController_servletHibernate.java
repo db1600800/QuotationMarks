@@ -60,8 +60,8 @@ public class InterfaceServiceController_servletHibernate  {
 		controller.controller(tables,interfaceName,interfaceCnName);
 		
 	
-		TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
-		testInterface.testJsp(interfaceName, interfaceCnName, tables);
+		//TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
+		//testInterface.testJsp(interfaceName, interfaceCnName, tables);
 		
 	
 

@@ -1,7 +1,9 @@
 package com.compoment.addfunction.web.servletMybatis.hibernate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
@@ -10,13 +12,23 @@ import com.compoment.util.KeyValue;
 import com.compoment.util.StringUtil;
 
 public class ServiceInterface {
+	
+	
+	String sql = "";
+	String sqlcount = "";
+	String sqlMax = "";
+	
+	
 	public void serviceInterface(List<TableBean> tables,String interfaceName,String interfaceCnName) {
+		
+		sqlbody(tables,interfaceName);
+		
 		String m = "";
 
 		String servicename = "";
 		String resultType = "";
 		String queryCondition = "";
-		String queryCondition2 = "";
+		//String queryCondition2 = "";
 		String queryCondition3 = "";
 		String mainTableName = "";
 		String mappername = "";
@@ -27,14 +39,14 @@ public class ServiceInterface {
 				resultType = interfaceName + "Bean";
 				mainTableName = interfaceName;
 				mappername = interfaceName;
-				queryCondition+="Map para";
-				queryCondition3+="para";
+				queryCondition="Map para";
+				queryCondition3="para";
 			} else if (tables.size() == 1) {
 				resultType = table.tableEnName + "Bean";
 				mainTableName = table.tableEnName;
 				mappername = table.tableEnName;
-				queryCondition+="Map para";
-				queryCondition3+="para";
+				queryCondition="Map para";
+				queryCondition3="para";
 			}
 		}
 
@@ -43,23 +55,12 @@ public class ServiceInterface {
 					.substring(0, servicename.lastIndexOf("_"));
 		}
 
-		List<TableColumnBean> queryConditionColumns=getQueryConditionColumns(tables);
-		for (TableColumnBean column : queryConditionColumns) {
-			//queryCondition += typeCheck(column.type) + " "+ column.columnEnName + ",";
-		//	queryCondition3 += " " + column.columnEnName + ",";
-			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
-					+ column.columnEnName + ");\n";
-		}
-
-//		if (queryCondition.lastIndexOf(",") != -1) {
-//			queryCondition = queryCondition.substring(0,
-//					queryCondition.lastIndexOf(","));
+//		List<TableColumnBean> queryConditionColumns=getQueryConditionColumns(tables);
+//		for (TableColumnBean column : queryConditionColumns) {
+//			queryCondition2 += "m.put(\"" + column.columnEnName + "\", "
+//					+ column.columnEnName + ");\n";
 //		}
 
-//		if (queryCondition3.lastIndexOf(",") != -1) {
-//			queryCondition3 = queryCondition3.substring(0,
-//					queryCondition3.lastIndexOf(","));
-//		}
 
 		m += "package com.company.service.impl;\n";
 		m += "import java.util.List;\n";
@@ -120,33 +121,117 @@ public class ServiceInterface {
 			m += "	\n";
 
 		
-			m += "	private " + mappername + "Mapper mapper;\n";
-			m += "	\n";
-			m += " private SqlSessionFactory sessionFactory = MybatisUtil.getInstance();\n";
-			    //创建能执行映射文件中sql的sqlSession
-			m += "   SqlSession session = sessionFactory.openSession();\n";
+			
 
 			for (TableBean table : tables) {
 
-				if (table.isMainTable && tables.size() > 1) {
+				if (table.isMainTable && tables.size() > 1 || tables.size() == 1) {
 
 					m += "	@Override\n";
 					m += "	public List<" + resultType + "> get("
-							+ queryCondition + ") throws Exception {\n";
+							+ queryCondition + ",boolean isCount) throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-
-					 m+="List list=null;\n";
-					m+="try{\n";
-					m += "  list=mapper." + mainTableName + "Select("
-							+ queryCondition3 + ");\n";
+					m+="		ArrayList<"+resultType+"> beans = new ArrayList();\n";
 					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return list;\n";
-					m += "	}\n";
+					m+="ObjectDao don=new ObjectDaoImpl();\n";
+					
+
+					m+="		String where = \"\";\n";
+					m+="		int pageSize = 10;\n";
+					m+="		int currIndex = 0;\n";
+					m+="		\n";
+				
+					for (TableBean table2 : tables) {
+
+						for (TableColumnBean column : table2.columns) {
+
+							if ("right".equals(column.rightClickSelected)) {
+								String tablename=StringUtil
+										.tableName(column.belongWhichTable.tableEnName);
+								String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
+
+									m+="	String "+column.columnEnName+"=(String)para.get(\""+column.columnEnName+"\");\n";
+							}
+					}
+					}
+					
+					m+="		Iterator it = para.entrySet().iterator();\n";
+					m+="		while (it.hasNext()) {\n";
+					m+="			Map.Entry entry = (Map.Entry) it.next();\n";
+					m+="			Object key = entry.getKey();\n";
+					m+="			Object value = entry.getValue();\n";
+					m+="			log.info(\"key=\" + key + \" value=\" + value);\n";
+					m+="			if (\"pageSize\".equals(key)) {\n";
+					m+="				if (value != null) {\n";
+
+					m+="					pageSize = Integer.valueOf(value + \"\");\n";
+					m+="				}\n";
+
+					m+="			} else if (\"currIndex\".equals(key)) {\n";
+					m+="				if (value != null)\n";
+					m+="					currIndex = Integer.valueOf(value + \"\");\n";
+					m+="			}\n";
+					m+="			else {\n";
+					m+="				where += key + \" like '%\" + value + \"%' and \";\n";
+					m+="			}\n";
+
+					m+="		}\n";
+
+					m+="		if (where.lastIndexOf(\"and\") != -1)\n";
+					m+="			where = (String) where.subSequence(0, where.lastIndexOf(\"and\"));\n";
+					m+="		\n";
+					m+="		if(where.equals(\"\"))\n";
+					m+="		{\n";
+					m+="			\n";
+					m+="		}else\n";
+					m+="		{\n";
+					m+="			where=\" where \"+where;\n";
+					m+="		}\n";
+					
+					
+					m+="		//oracle 分页\n";
+					m+="		String pageHead = \"select y.* from(select z.*,rownum as rn from (\";\n";
+
+					m+="		String pageEnd = \") z where rownum <= \" + (pageSize + currIndex) + \" ) y where y.rn > \" + currIndex;\n";
+
+					m+="		//mysql 分页\n";
+					m+="		//String pageHead = \"\";";
+					m+="		//String pageEnd = \" limit #{currIndex},#{pageSize} \";";
+					
+					
+					
+					m+="		List tableBeans=new ArrayList();\n";
+					m+="		List tableBeanShortName=new ArrayList();\n";
+					m+=tableBeansString+"\n";
+					m+=tableBeanShortNameString+"\n";
+					
+					//query count
+					m+="		if(isCount==true){\n";
+					m+="		String sql=\""+sqlcount+"\";\n";
+					m+="		List result = don.findBySql(sql,new HashMap(),tableBeans,tableBeanShortName);\n";
+					m+="return result;\n";
+				    m+="}\n";
+					
+				    
+				    //query
+					m+="		String sql=pageHead+\""+sql+"\"+pageEnd;\n";
+					m+="		\n";
+				
+					m+="		List rows = don.findBySql(sql,new HashMap(),tableBeans,tableBeanShortName);\n";
+					m+="		\n";
+					m+="		for (int i = 0; i < rows.size(); i++) {\n";
+
+			        m+="Object[] objects = (Object[]) result.get(i);\n";
+			        m+="Person person = (Person) objects[0];  \n";
+			        m+="MyEvent event = (MyEvent) objects[1];  \n";
+			        
+					m+="			beans.add(bean);\n";
+					m+="		}\n";
+					m+="		\n";
+					m+="		\n";
+					m+="		return beans;\n";
+					
 					m += "	}\n";
 					
 					
@@ -156,17 +241,14 @@ public class ServiceInterface {
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-                    m+="int count=0;\n";
-					m+="try{\n";
-					m += "  count=mapper." + mainTableName + "SelectCount("
-							+ queryCondition3 + ");\n";
+					m+="List<" + resultType + "> result=get("+queryCondition+",true);\n";
+					m+=" if(result!=null && result.size()>0){\n";
+					m+="return Integer.valueOf(result.get(0));\n";
+					m+="}\n";
+					m+="		return 0;\n";
+
 					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return count;\n";
-					m += "	}\n";
+					
 					m += "	}\n";
 					
 					
@@ -175,120 +257,74 @@ public class ServiceInterface {
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-                    m+="int max=0;\n";
-					m+="try{\n";
-					m += "  max=mapper." + mainTableName + "SelectMax("
-							+ queryCondition3 + ");\n";
+					m+="ObjectDao don=new ObjectDaoImpl();\n";
+					m+="String sql=select max(columnname) from "+table.tableEnName;
+					m+="List max = don.findBySql(sql,new HashMap());\n";
+					m+="if(max!=null && max.size()>0){\n";
+					m+="return (int)max.get(0);\n";
+					m+="}\n";
+					m+="return 0;\n";
 					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return max;\n";
-					m += "	}\n";
 					m += "	}\n";
 
-				} else if (tables.size() == 1) {
-
-					m += "	@Override\n";
-					m += "	public List<" + resultType + "> get("
-							+ queryCondition + ") throws Exception {\n";
-					m += "		// TODO Auto-generated method stub\n";
+				} 
 					
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-					 m+="List list=null;\n";
-					m+="try{\n";
-					m += "   list=mapper." + mainTableName + "Select("
-							+ queryCondition3 + ");\n";
-					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return list;\n";
-					m += "	}\n";
-					m += "	}\n";
-					
-					
-					
-					m += "	@Override\n";
-					m += "	public int getCount("
-							+ queryCondition + ") throws Exception {\n";
-					m += "		// TODO Auto-generated method stub\n";
-					
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-                    m+="int count=0;\n";
-					m+="try{\n";
-					m += "  count=mapper." + mainTableName + "SelectCount("
-							+ queryCondition3 + ");\n";
-					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return count;\n";
-					m += "	}\n";
-					m += "	}\n";
-					
-					
-					m += "	@Override\n";
-					m += "	public int getMax("
-							+ queryCondition + ") throws Exception {\n";
-					m += "		// TODO Auto-generated method stub\n";
-					
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
-					m+="\n";
-                    m+="int max=0;\n";
-					m+="try{\n";
-					m += "  max=mapper." + mainTableName + "SelectMax("
-							+ queryCondition3 + ");\n";
-					
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-					m+="return max;\n";
-					m += "	}\n";
-					m += "	}\n";
-					
-					
+					if (tables.size() == 1) {
 
 					m += "	@Override\n";
 					m += "public void " + " insert(" + table.tableEnName
 							+ "Bean bean){\n";
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
 					
-					m+="try{\n";
-					m += "  mapper." + mainTableName + "Insert(bean);\n";
-					m+="session.commit();\n";
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
+					m+="	\n";
+					m+="		try {\n";
+					m+="			don.save(bean);\n";
+					m+="			\n";
+					m+="		\n";
+					m+="		} catch (Exception e) {\n";
+					m+="			// TODO Auto-generated catch block\n";
+					m+="			e.printStackTrace();\n";
+					m+="		}\n";
+					m+="		\n";
+				
+
+					m+="		return;\n";
+
 					
-					m += "	}\n";
+					
 					m += "	}\n";
 
 					m += "	@Override\n";
 					m += "public void update(" + table.tableEnName
 							+ "Bean bean){\n";
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
+			
+					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
+
+					m+="		try {\n";
+					m+="			don.saveOrUpdate(bean);\n";
+					m+="		} catch (Exception e) {\n";
+					m+="			// TODO Auto-generated catch block\n";
+					m+="			e.printStackTrace();\n";
+					m+="		}\n";
+
 					
-					m+="try{\n";
-					m += "  mapper." + mainTableName + "Update(bean);\n";
-					m+="session.commit();\n";
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
-				
-					m += "	}\n";
+
+					
+					
 					m += "	}\n\n";
 
 					m += "	@Override\n";
 					m += "public void   delete(" + table.tableEnName
 							+ "Bean bean){\n";
-					m +="mapper=session.getMapper("+mappername+"Mapper.class);\n";
 					
-					m+="try{\n";
-					m += " mapper." + mainTableName + "Delete(bean);\n";
-					m+="session.commit();\n";
-					m+="} finally {\n" ; 
-					m+="session.close();\n";
+					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
+					m+="try {\n";
+					m+="	don.delete(bean);\n";
+					m+="} catch (Exception e) {\n";
+					m+="	e.printStackTrace();\n";
+					m+="}\n";
 					
-					m += "	}\n";
+					
 					m += "	}\n";
 
 				}
@@ -349,5 +385,201 @@ public class ServiceInterface {
 		}
 		return resultColumns;
 	}
+	
+	
+	
+	
+
+
+	String tableBeansString="";
+	String tableBeanShortNameString="";
+	
+	public void sqlbody(List<TableBean> tables,String interfaceName) {
+		//批量生成时tables里只有一个tablebean
+				
+				if (tables != null && tables.size() <= 1) {
+					return;
+				}
+
+				String show = "";
+				String condition = "";
+				String relate = "";
+			
+
+				boolean haveRelate = false;
+				
+				List<Map> mainTableRelateChirldTableList=new ArrayList();
+
+				boolean conditionFirstColumn = true;
+
+				for (TableBean table : tables) {
+
+					for (TableColumnBean column : table.columns) {
+
+						if ("left".equals(column.leftClickSelected)) {
+							String tablename=StringUtil
+									.tableName(column.belongWhichTable.tableEnName);
+							String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
+							
+							show += " "
+									+ shortTableName
+									+ "." + column.columnEnName + ",";
+							
+
+						}
+
+						if ("right".equals(column.rightClickSelected)) {
+							String tablename=StringUtil
+									.tableName(column.belongWhichTable.tableEnName);
+							String shortTableName=tablename.substring(tablename.lastIndexOf("_")+1);
+
+							if (conditionFirstColumn) {
+								condition += "where ";
+								condition += " "
+										+ shortTableName
+										+ "." + column.columnEnName + " like '%\"+"
+										+ column.columnEnName + "+\"%' ";
+								condition += "";
+								conditionFirstColumn = false;
+							} else {
+								condition += "";
+								condition += " and "
+										+ shortTableName
+										+ "." + column.columnEnName + " like '%\"+"
+										+ column.columnEnName + "+\"%' ";
+								condition += " ";
+
+							}
+
+							
+						}
+
+						if (column.relateColumnBeans != null
+								&& column.relateColumnBeans.size() > 0) {
+							
+							
+							haveRelate = true;
+							// 关联的
+							for (TableColumnBean relateColumn : column.relateColumnBeans) {
+
+							if(column.belongWhichTable.isMainTable && !relateColumn.belongWhichTable.isMainTable)
+							{
+								Map mainTableRelateChirldTable=new HashMap();
+								mainTableRelateChirldTable.put(column, relateColumn);
+								mainTableRelateChirldTableList.add(mainTableRelateChirldTable);
+							}else if(!column.belongWhichTable.isMainTable && relateColumn.belongWhichTable.isMainTable)
+							{
+								Map mainTableRelateChirldTable=new HashMap();
+								mainTableRelateChirldTable.put(relateColumn, column);
+								mainTableRelateChirldTableList.add(mainTableRelateChirldTable);
+							}else if(!column.belongWhichTable.isMainTable && !relateColumn.belongWhichTable.isMainTable)
+							{
+								
+							}
+							}
+
+						}
+					}
+				}
+
+				
+				
+				
+				
+				
+				//多表
+
+					int i=0;
+					for(Map mainTableRelateChirldTable:mainTableRelateChirldTableList)
+					{
+					for(Object key : mainTableRelateChirldTable.keySet())
+					{
+						
+						TableColumnBean mainTableColumn=(TableColumnBean)key;
+						TableColumnBean chirldTableColumn=(TableColumnBean) mainTableRelateChirldTable.get(key);
+						
+						String mainName=StringUtil
+								.tableName(mainTableColumn.belongWhichTable.tableEnName);
+						String shortMainTableName=mainName.substring(mainName.lastIndexOf("_")+1);
+						
+						if(i==0)
+						{
+							
+							relate += mainName+" "+shortMainTableName;
+							tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+".class);\n";
+							tableBeanShortNameString+="tableBeanShortName.add(\""+shortMainTableName+"\");\n";
+							
+						}
+						
+						
+						String chirldName=StringUtil
+								.tableName(chirldTableColumn.belongWhichTable.tableEnName);
+						String shortChirldTableName=chirldName.substring(chirldName.lastIndexOf("_")+1);
+						
+						tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+".class);\n";
+						tableBeanShortNameString+="tableBeanShortName.add(\""+shortMainTableName+"\");\n";
+						
+							relate += " inner join "
+									+ chirldName+" "+shortChirldTableName
+									+ " on "
+									+ shortChirldTableName
+									+ "."
+									+ chirldTableColumn.columnEnName
+									+ "="
+									+shortMainTableName
+									+ "." + mainTableColumn.columnEnName;
+						
+							i++;
+					}
+					}
+
+				
+				
+				
+				
+				for (TableBean table : tables) {
+					for (TableColumnBean column : table.columns) {
+						if (!haveRelate) {// 单个表
+							relate = StringUtil
+									.tableName(column.belongWhichTable.tableEnName);
+						}
+
+					}
+				}
+
+				// 查询
+				
+				if ("".equals(show) && "".equals(condition)) {
+					sql = "select * from " + relate;
+					sqlcount = "select count(*) from " + relate;
+					sqlMax = "select max(${columnName}) from " + relate;
+				}
+
+				else if ("".equals(show) && !"".equals(condition)) {
+					sql = "select * from " + relate + " " + condition+"\n";
+					sqlcount = "select count(*) from " + relate + " " + condition+"\n";
+					sqlMax = "select max(${columnName}) from " + relate + "  " + condition+"\n";
+				} else if (!"".equals(show) && "".equals(condition)) {
+					sql = "select " + show.substring(0, show.lastIndexOf(","))
+							+ " from " + relate;
+					sqlcount = "select count(*) from " + relate;
+					sqlMax = "select max(${columnName}) from " + relate;
+				} else {
+					sql = "select " + show.substring(0, show.lastIndexOf(","))
+							+ " from " + relate + "  " + condition+"\n";
+					sqlcount = "select count(*) from " + relate + "  " + condition+"\n";
+					sqlMax = "select  max(${columnName}) from " + relate + "  " + condition+"\n";
+
+				}
+
+
+
+
+			}
+			
+			
+		
+			
+		
 	
 }

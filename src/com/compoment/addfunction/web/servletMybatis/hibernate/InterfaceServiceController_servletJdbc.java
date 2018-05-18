@@ -10,9 +10,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.compoment.addfunction.web.servletMybatis.Controller;
-import com.compoment.addfunction.web.servletMybatis.Entity;
+
 import com.compoment.addfunction.web.servletMybatis.SqlScript;
 import com.compoment.addfunction.web.springmvcSpringMybatis.TestInterface_springmvcSpringMybatis;
+import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.remote.CheckProblemInterface;
@@ -62,10 +63,10 @@ public class InterfaceServiceController_servletJdbc  {
 		
 	
 
-		TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
-		testInterface.testJsp(interfaceName, interfaceCnName, tables);
+		//TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
+		//testInterface.testJsp(interfaceName, interfaceCnName, tables);
 		
-	
+
 
 	}
 
