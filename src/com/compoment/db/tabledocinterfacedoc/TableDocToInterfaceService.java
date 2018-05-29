@@ -449,6 +449,24 @@ public class TableDocToInterfaceService extends JFrame {
 									interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
 						    		
 						    	}
+						      	else if(type.equals("servlet_jdbc"))
+						    	{
+						    		InterfaceServiceController_servletJdbc interfaceServiceController=new InterfaceServiceController_servletJdbc();
+								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+						    		
+						    	}
+						    	else if(type.equals("servlet_hibernate"))
+						    	{
+						    		InterfaceServiceController_servletHibernate interfaceServiceController=new InterfaceServiceController_servletHibernate();
+								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+						    		
+						    	}
+						    	else if(type.equals("struct2_hibernate"))
+						    	{
+						    		InterfaceServiceController_stucts2Hibernate interfaceServiceController=new InterfaceServiceController_stucts2Hibernate();
+								interfaceServiceController.createInterfaceService(bean.tableEnName,bean.tableCnName,tables);
+						    		
+						    	}
 				    		   	
 				    		
 							} catch (Exception e1) {

@@ -87,7 +87,7 @@ public class SqlScript {
 			String primarykeyString="";
 			for (TableColumnBean column : table.columns) {
 				if (column.type.toLowerCase().contains("int")) {
-				  if(column.key.toLowerCase().contains("key"))
+				  if(column.key.toLowerCase().contains("key")||column.key.toLowerCase().equals("y"))
 				  {
 					  primarykeyString+=column.columnEnName+",";
 				  
@@ -109,7 +109,7 @@ public class SqlScript {
 					}
 					
 					
-					 if(column.key.toLowerCase().contains("key"))
+					 if(column.key.toLowerCase().contains("key")||column.key.toLowerCase().equals("y"))
 					  {
 						 primarykeyString+=column.columnEnName+",";
 					  
