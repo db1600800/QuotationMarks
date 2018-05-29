@@ -13,8 +13,11 @@ import javax.swing.GroupLayout.Alignment;
 
 import com.compoment.addfunction.webmanage.StructAction;
 import com.compoment.addfunction.webmanage.StructActionForm;
+import com.compoment.addfunction.web.servlet.hibernate.InterfaceServiceController_servletHibernate;
+import com.compoment.addfunction.web.servlet.jdbc.InterfaceServiceController_servletJdbc;
 import com.compoment.addfunction.web.servletMybatis.InterfaceServiceController_servletMybatis;
 import com.compoment.addfunction.web.springmvcSpringMybatis.InterfaceServiceController_springmvcSpringMybatis;
+import com.compoment.addfunction.web.structs2.hibernate.InterfaceServiceController_stucts2Hibernate;
 import com.compoment.addfunction.webmanage.AddJsp;
 import com.compoment.addfunction.webmanage.QueryJsp;
 import com.compoment.remote.AndroidLayoutXmlInterface;
@@ -381,11 +384,30 @@ public class TableDocToInterfaceService extends JFrame {
 			    		InterfaceServiceController_servletMybatis interfaceServiceController=new InterfaceServiceController_servletMybatis();
 					interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 			    		
-			    	}else if(type.equals("struct2_mybatis"))
+			    	}
+//			    	else if(type.equals("struct2_mybatis"))
+//			    	{
+//			    		
+//			    	}
+			    	else if(type.equals("servlet_jdbc"))
 			    	{
+			    		InterfaceServiceController_servletJdbc interfaceServiceController=new InterfaceServiceController_servletJdbc();
+					interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
 			    		
 			    	}
-			    	
+			    	else if(type.equals("servlet_hibernate"))
+			    	{
+			    		InterfaceServiceController_servletHibernate interfaceServiceController=new InterfaceServiceController_servletHibernate();
+					interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
+			    		
+			    	}
+			    	else if(type.equals("struct2_hibernate"))
+			    	{
+			    		InterfaceServiceController_stucts2Hibernate interfaceServiceController=new InterfaceServiceController_stucts2Hibernate();
+					interfaceServiceController.createInterfaceService(interfaceName.getText(),interfaceCnName.getText(),dbTableRelativePanel.tables);
+			    		
+			    	}
+  	
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

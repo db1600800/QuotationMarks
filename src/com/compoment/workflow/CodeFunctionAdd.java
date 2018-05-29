@@ -1127,11 +1127,26 @@ public class CodeFunctionAdd extends JFrame {
 			TableDocToInterfaceService frame = new TableDocToInterfaceService("servlet_mybatis");
 			frame.setVisible(true);
 		}
+//		
+//		if (function.id.equals("4")) {// struct2 mybatis接口请求响应
+//			TableDocToInterfaceService frame = new TableDocToInterfaceService("struct2_mybatis");
+//			frame.setVisible(true);
+//		}
 		
-		if (function.id.equals("4")) {// struct2 mybatis接口请求响应
-			TableDocToInterfaceService frame = new TableDocToInterfaceService("struct2_mybatis");
+		if (function.id.equals("6")) {// servlet_jdbc接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("servlet_jdbc");
 			frame.setVisible(true);
 		}
+		if (function.id.equals("7")) {// servlet_hibernate接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("servlet_hibernate");
+			frame.setVisible(true);
+		}
+		if (function.id.equals("5")) {// struct2_hibernate接口请求响应
+			TableDocToInterfaceService frame = new TableDocToInterfaceService("struct2_hibernate");
+			frame.setVisible(true);
+		}
+	
+	
 	}
 
 	public void swingFunction(Function function) {
@@ -1279,7 +1294,11 @@ public class CodeFunctionAdd extends JFrame {
 		functionParents.add(new Function("1", "网络请求,响应"));
 		functionParents.add(new Function("2", "springmvc_spring_mybatis接口请求响应"));
 		functionParents.add(new Function("3", "servlet_mybatis接口请求响应"));
-		functionParents.add(new Function("4", "struct2_mybatis接口请求响应"));
+		functionParents.add(new Function("6", "servlet_jdbc接口请求响应"));
+		functionParents.add(new Function("7", "servlet_hibernate接口请求响应"));
+		//functionParents.add(new Function("4", "struct2_mybatis接口请求响应"));
+		functionParents.add(new Function("5", "struct2_hibernate接口请求响应"));
+		
 	}
 
 	public void searchCodeFiles(String root) {

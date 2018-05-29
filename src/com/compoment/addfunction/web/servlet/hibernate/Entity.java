@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.servletMybatis.hibernate;
+package com.compoment.addfunction.web.servlet.hibernate;
 
 import java.util.List;
 

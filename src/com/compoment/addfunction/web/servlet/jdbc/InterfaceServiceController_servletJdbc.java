@@ -1,4 +1,4 @@
-package com.compoment.addfunction.web.servletMybatis.hibernate;
+package com.compoment.addfunction.web.servlet.jdbc;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,10 +10,9 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.compoment.addfunction.web.servletMybatis.Controller;
-
+import com.compoment.addfunction.web.servletMybatis.Entity;
 import com.compoment.addfunction.web.servletMybatis.SqlScript;
 import com.compoment.addfunction.web.springmvcSpringMybatis.TestInterface_springmvcSpringMybatis;
-import com.compoment.addfunction.webmanage.TableToHibernateEntity;
 import com.compoment.db.tabledocinterfacedoc.TableBean;
 import com.compoment.db.tabledocinterfacedoc.TableColumnBean;
 import com.compoment.remote.CheckProblemInterface;
@@ -45,9 +44,8 @@ public class InterfaceServiceController_servletJdbc  {
 		this.interfaceName = interfaceName;
 		this.interfaceCnName = interfaceCnName;
 
-	
 		
-	
+		
 		Entity entity=new Entity();
 		entity.entity(tables,interfaceName,interfaceCnName);
 		
@@ -62,11 +60,10 @@ public class InterfaceServiceController_servletJdbc  {
 		controller.controller(tables,interfaceName,interfaceCnName);
 		
 	
-
 		//TestInterface_springmvcSpringMybatis testInterface = new TestInterface_springmvcSpringMybatis();
 		//testInterface.testJsp(interfaceName, interfaceCnName, tables);
 		
-
+	
 
 	}
 
@@ -117,6 +114,21 @@ public class InterfaceServiceController_servletJdbc  {
 		}
 		return resultColumns;
 	}
+	
+
+	
+	
+
+	
+
+	
+	
+
+	
+
+	
+	
+	
 	
 
 	
