@@ -508,7 +508,7 @@ public class Struct2Controller {
 		m += "}\n";
 
 		FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/web",
-				interfaceName + "Servlet", "java", m);
+				interfaceName + "Action", "java", m);
 	}
 	
 	public List<TableColumnBean> getQueryConditionColumns(List<TableBean> tables)
