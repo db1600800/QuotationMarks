@@ -398,9 +398,10 @@ public class ServiceInterface {
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m+="List<" + resultType + "> result=get("+queryCondition+",true);\n";
+					m+="List result=get("+queryCondition+",true);\n";
 					m+=" if(result!=null && result.size()>0){\n";
-					m+="return Integer.valueOf(result.get(0));\n";
+					m+="int count = ((Long) result.get(0)).intValue();\n";
+					m+="return count;\n";
 					m+="}\n";
 					m+="		return 0;\n";
 
@@ -575,6 +576,15 @@ public class ServiceInterface {
 		//批量生成时tables里只有一个tablebean
 				
 				if (tables != null && tables.size() <= 1) {
+					TableBean mainTable = tables.get(0);
+					String mainName=StringUtil
+							.tableName(mainTable.tableEnName);
+					String shortMainTableName=mainName.substring(mainName.lastIndexOf("_")+1);
+					
+					
+					sql = "select * from " +mainTable.tableEnName ;
+					sqlcount = "select count(*) from " + mainTable.tableEnName;
+					sqlMax = "select max(${columnName}) from " + mainTable.tableEnName;
 					return;
 				}
 

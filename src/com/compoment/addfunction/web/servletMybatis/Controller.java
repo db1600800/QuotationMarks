@@ -221,7 +221,7 @@ public class Controller {
 		m+="		}\n";
 		
 		m+="Map paraMap=new HashMap();\n";
-		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
+		m+="paraMap.put(\"currIndex\", (Integer.valueOf(pageNo)-1)*Integer.valueOf(pageSize));\n";
 		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
 		int i = 0;
