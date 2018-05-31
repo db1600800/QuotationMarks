@@ -98,7 +98,7 @@ public class Struct2Controller {
 		m+="	@Resource\n";
 		m+="	private ObjectDao objectDao;\n";
 		m+="	\n";
-		m+="    private "+interfaceName+"Entity entity;\n";
+		m+="    private "+interfaceName+"Bean entity;\n";
 	
 	
 		String fileCount="1";
@@ -142,10 +142,10 @@ public class Struct2Controller {
 	
 		
 		
-		m+="	public "+interfaceName+"Entity getEntity() {\n";
+		m+="	public "+interfaceName+"Bean getEntity() {\n";
 		m+="		return entity;\n";
 		m+="	}\n";
-		m+="	public void setEntity("+interfaceName+"Entity  "+interfaceName.toLowerCase()+") {\n";
+		m+="	public void setEntity("+interfaceName+"Bean  "+interfaceName.toLowerCase()+") {\n";
 		m+="		this.entity = "+interfaceName.toLowerCase()+";\n";
 		m+="	}\n";
 		
@@ -292,7 +292,7 @@ public class Struct2Controller {
 		m+="		}\n";
 		
 		m+="Map paraMap=new HashMap();\n";
-		m+="paraMap.put(\"currIndex\", (pageNo-1)*pageSize);\n";
+		m+="paraMap.put(\"currIndex\", (Integer.valueOf(pageNo)-1)*Integer.valueOf(pageSize));\n";
 		m+="paraMap.put(\"pageSize\", pageSize);\n";
 		
 		int i = 0;

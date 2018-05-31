@@ -17,6 +17,7 @@ public class ServiceInterface {
 	String sql = "";
 	String sqlcount = "";
 	String sqlMax = "";
+	String resultType="";
 	
 	
 	public void serviceInterface(List<TableBean> tables,String interfaceName,String interfaceCnName) {
@@ -26,7 +27,7 @@ public class ServiceInterface {
 		String m = "";
 
 		String servicename = "";
-		String resultType = "";
+	
 		String queryCondition = "";
 		//String queryCondition2 = "";
 		String queryCondition3 = "";
@@ -79,7 +80,7 @@ public class ServiceInterface {
 			} else if (tables.size() == 1) {
 
 				m += "	List<" + resultType + "> get(" + queryCondition
-						+ ") throws Exception;\n";
+						+ ",boolean isCount) throws Exception;\n";
 				
 				m += "	int getCount(" + queryCondition
 						+ ") throws Exception;\n";
@@ -116,7 +117,7 @@ public class ServiceInterface {
 		
 			m += "public class " + interfaceName + "ServiceImpl implements "
 					+ interfaceName + "Service {\n";
-			m += "	private final static Logger logger = LoggerFactory.getLogger("
+			m += "	private final static Logger log = LoggerFactory.getLogger("
 					+ interfaceName + "ServiceImpl.class);\n";
 			m += "	\n";
 
@@ -134,8 +135,10 @@ public class ServiceInterface {
 				
 					m+="		ArrayList<"+resultType+"> beans = new ArrayList();\n";
 					
-					m+="ObjectDao don=new ObjectDaoImpl();\n";
-					
+				
+					m+="WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();\n";
+				    m+="ObjectDao dao=(ObjectDao) wac.getBean(\"objectDao\");\n";
+				 
 
 					m+="		String where = \"\";\n";
 					m+="		int pageSize = 10;\n";
@@ -196,8 +199,8 @@ public class ServiceInterface {
 					m+="		String pageEnd = \") z where rownum <= \" + (pageSize + currIndex) + \" ) y where y.rn > \" + currIndex;\n";
 
 					m+="		//mysql 分页\n";
-					m+="		//String pageHead = \"\";";
-					m+="		//String pageEnd = \" limit #{currIndex},#{pageSize} \";";
+					m+="		//String pageHead = \"\";\n";
+					m+="		//String pageEnd = \" limit #{currIndex},#{pageSize} \";\n";
 					
 					
 					
@@ -209,7 +212,8 @@ public class ServiceInterface {
 					//query count
 					m+="		if(isCount==true){\n";
 					m+="		String sql=\""+sqlcount+"\";\n";
-					m+="		List result = don.findBySql(sql,new HashMap(),tableBeans,tableBeanShortName);\n";
+					m+="		List result = dao.findBySql(sql,new HashMap());\n";
+				
 					m+="return result;\n";
 				    m+="}\n";
 					
@@ -218,14 +222,16 @@ public class ServiceInterface {
 					m+="		String sql=pageHead+\""+sql+"\"+pageEnd;\n";
 					m+="		\n";
 				
-					m+="		List rows = don.findBySql(sql,new HashMap(),tableBeans,tableBeanShortName);\n";
+					m+="		List rows = dao.findBySql(sql,new HashMap(),tableBeans,tableBeanShortName);\n";
 					m+="		\n";
 					m+="		for (int i = 0; i < rows.size(); i++) {\n";
 
-			        m+="Object[] objects = (Object[]) result.get(i);\n";
-			        m+="Person person = (Person) objects[0];  \n";
-			        m+="MyEvent event = (MyEvent) objects[1];  \n";
+					m+="//多个表时\n";
+			        m+="//Object[] objects = (Object[]) rows.get(i);\n";
+			        m+="//ABean aBean = (ABean) objects[0];  \n";
+			        m+="//BBean bBean = (BBean) objects[1];  \n";
 			        
+			        m+=resultType+" bean=("+resultType+")rows.get(i);\n";
 					m+="			beans.add(bean);\n";
 					m+="		}\n";
 					m+="		\n";
@@ -241,9 +247,11 @@ public class ServiceInterface {
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m+="List<" + resultType + "> result=get("+queryCondition+",true);\n";
+					m+="List result=get("+queryCondition+",true);\n";
 					m+=" if(result!=null && result.size()>0){\n";
-					m+="return Integer.valueOf(result.get(0));\n";
+					m+="int count = ((Long) result.get(0)).intValue();\n";
+					m+="return count;\n";
+				
 					m+="}\n";
 					m+="		return 0;\n";
 
@@ -257,11 +265,13 @@ public class ServiceInterface {
 							+ queryCondition + ") throws Exception {\n";
 					m += "		// TODO Auto-generated method stub\n";
 				
-					m+="ObjectDao don=new ObjectDaoImpl();\n";
-					m+="String sql=select max(columnname) from "+table.tableEnName;
-					m+="List max = don.findBySql(sql,new HashMap());\n";
+
+					m+="WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();\n";
+				    m+="ObjectDao dao=(ObjectDao) wac.getBean(\"objectDao\");\n";
+					m+="String sql="+sqlMax+";\n";
+					m+="List max = dao.findBySql(sql,new HashMap());\n";
 					m+="if(max!=null && max.size()>0){\n";
-					m+="return (int)max.get(0);\n";
+					m+="return ((Long)max.get(0)).intValue();\n";
 					m+="}\n";
 					m+="return 0;\n";
 					
@@ -274,11 +284,13 @@ public class ServiceInterface {
 					m += "	@Override\n";
 					m += "public void " + " insert(" + table.tableEnName
 							+ "Bean bean){\n";
-					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
+
+					m+="WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();\n";
+				    m+="ObjectDao dao=(ObjectDao) wac.getBean(\"objectDao\");\n";
 					
 					m+="	\n";
 					m+="		try {\n";
-					m+="			don.save(bean);\n";
+					m+="			dao.save(bean);\n";
 					m+="			\n";
 					m+="		\n";
 					m+="		} catch (Exception e) {\n";
@@ -298,10 +310,12 @@ public class ServiceInterface {
 					m += "public void update(" + table.tableEnName
 							+ "Bean bean){\n";
 			
-					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
+
+					m+="WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();\n";
+				    m+="ObjectDao dao=(ObjectDao) wac.getBean(\"objectDao\");\n";
 
 					m+="		try {\n";
-					m+="			don.saveOrUpdate(bean);\n";
+					m+="			dao.saveOrUpdate(bean);\n";
 					m+="		} catch (Exception e) {\n";
 					m+="			// TODO Auto-generated catch block\n";
 					m+="			e.printStackTrace();\n";
@@ -317,9 +331,11 @@ public class ServiceInterface {
 					m += "public void   delete(" + table.tableEnName
 							+ "Bean bean){\n";
 					
-					m+="ObjectDao objectDao=new ObjectDaoImpl();\n";
+
+					m+="WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();\n";
+				    m+="ObjectDao dao=(ObjectDao) wac.getBean(\"objectDao\");\n";
 					m+="try {\n";
-					m+="	don.delete(bean);\n";
+					m+="	dao.delete(bean);\n";
 					m+="} catch (Exception e) {\n";
 					m+="	e.printStackTrace();\n";
 					m+="}\n";
@@ -395,9 +411,23 @@ public class ServiceInterface {
 	String tableBeanShortNameString="";
 	
 	public void sqlbody(List<TableBean> tables,String interfaceName) {
+		
 		//批量生成时tables里只有一个tablebean
-				
 				if (tables != null && tables.size() <= 1) {
+					TableBean mainTable = tables.get(0);
+					String mainName=StringUtil
+							.tableName(mainTable.tableEnName);
+					String shortMainTableName=mainName.substring(mainName.lastIndexOf("_")+1);
+					
+					tableBeansString+="tableBeans.add("+mainTable.tableEnName+"Bean.class);\n";
+					tableBeanShortNameString+="tableBeanShortName.add(\""+shortMainTableName+"\");\n";
+					
+					
+					sql = "select * from " +mainTable.tableEnName ;
+					sqlcount = "select count(*) from " + mainTable.tableEnName;
+					sqlMax = "select max(${columnName}) from " + mainTable.tableEnName;
+					
+					
 					return;
 				}
 
@@ -506,7 +536,7 @@ public class ServiceInterface {
 						{
 							
 							relate += mainName+" "+shortMainTableName;
-							tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+".class);\n";
+							tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+"Bean.class);\n";
 							tableBeanShortNameString+="tableBeanShortName.add(\""+shortMainTableName+"\");\n";
 							
 						}
@@ -516,7 +546,7 @@ public class ServiceInterface {
 								.tableName(chirldTableColumn.belongWhichTable.tableEnName);
 						String shortChirldTableName=chirldName.substring(chirldName.lastIndexOf("_")+1);
 						
-						tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+".class);\n";
+						tableBeansString+="tableBeans.add("+mainTableColumn.belongWhichTable.tableEnName+"Bean.class);\n";
 						tableBeanShortNameString+="tableBeanShortName.add(\""+shortMainTableName+"\");\n";
 						
 							relate += " inner join "
