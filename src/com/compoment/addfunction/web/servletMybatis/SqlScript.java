@@ -79,6 +79,7 @@ public class SqlScript {
 		
 		for (TableBean table : tables) {
 			String m="";
+			String zhushi="";
 			m+="\n\n drop table "+StringUtil
 					.tableName(table.tableEnName)+";\n";
 			m+="CREATE TABLE "+StringUtil
@@ -92,20 +93,26 @@ public class SqlScript {
 					  primarykeyString+=column.columnEnName+",";
 				  
 					  m+=column.columnEnName+"     NUMBER   NOT NULL,\n";
+					  zhushi+="comment  on  column  "+StringUtil
+								.tableName(table.tableEnName)+"."+column.columnEnName+"   is  '"+column.columnCnName+"';\n";
 				  }else
 				  {
 					  m+=column.columnEnName+"     NUMBER,\n";
+					  zhushi+="comment  on  column  "+StringUtil
+								.tableName(table.tableEnName)+"."+column.columnEnName+"   is  '"+column.columnCnName+"';\n";
 				  }
 				} else {
-					int start=column.columnEnName.indexOf("(");
-					int end=column.columnEnName.indexOf(")");
+					int start=column.type.indexOf("(");
+				
+					int end=column.type.indexOf(")");
+					
 					String size="100";
 					if(start==-1||end==-1)
 					{
 						
 					}else
 					{
-					 size=column.columnEnName.substring(start+1, end);
+					 size=column.type.substring(start+1, end);
 					}
 					
 					
@@ -114,9 +121,13 @@ public class SqlScript {
 						 primarykeyString+=column.columnEnName+",";
 					  
 						  m+=column.columnEnName+"     VARCHAR2("+size+" BYTE)   NOT NULL,\n";
+						  zhushi+="comment  on  column  "+StringUtil
+									.tableName(table.tableEnName)+"."+column.columnEnName+"   is  '"+column.columnCnName+"';\n";
 					  }else
 					  {
 						  m+=column.columnEnName+"     VARCHAR2("+size+" BYTE),\n";
+						  zhushi+="comment  on  column  "+StringUtil
+									.tableName(table.tableEnName)+"."+column.columnEnName+"   is  '"+column.columnCnName+"';\n";
 					  }
 				}
 		}
@@ -124,7 +135,7 @@ public class SqlScript {
 	primarykeyString=primarykeyString.substring(0, primarykeyString.lastIndexOf(","));
 	m+="alter table "+StringUtil
 			.tableName(table.tableEnName)+" add primary key ("+primarykeyString+") using index TABLESPACE IDX_TBS_QS_AGENT;\n";
-	
+	m+=zhushi;
 	FileUtil.makeFile(
 			KeyValue.readCache("projectPath"),
 			"src/web",
