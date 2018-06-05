@@ -275,7 +275,7 @@ public class Struct2Controller {
 
 		
 	
-		m += "	public void query(HttpServletRequest request, HttpServletResponse response) {\n";
+		m += "	public String query(HttpServletRequest request, HttpServletResponse response) {\n";
 
 	
 		m+="		String pageNo = request.getParameter(\"pageNo\");\n";
@@ -337,15 +337,17 @@ public class Struct2Controller {
 
 
 	
-		m += "      response.setCharacterEncoding(\"utf-8\");\n";
-		m += "		response.setContentType(\"application/json\");\n";
-		m += "		PrintWriter out = response.getWriter();\n";
-		m += "		\n";
-		m += "		JSONArray jsonArray = JSONArray.fromObject("+mainTableName.toLowerCase()+"Beans);\n";
-		m += "		\n";
-		m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\":\" + jsonArray.toString()+ \"}\");\n";
-		m += "        out.flush();\n";
-		m += "        out.close();\n";
+		m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+		m += "  try {\n";
+		m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\":\"+new Gson().toJson("+mainTableName.toLowerCase()+"Beans)+\"}\");\n";
+		m += "  } catch (IOException e) {\n";
+			
+		m += "  e.printStackTrace();\n";
+		m += "  }\n";
+		m += "   return ActionSupport.NONE;\n";
+		
+		
+	
 		
 		
 		m += "	}\n";
@@ -396,13 +398,17 @@ public class Struct2Controller {
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "      response.setCharacterEncoding(\"utf-8\");\n";
-				m += "		response.setContentType(\"application/json\");\n";
-				m += "		PrintWriter out = response.getWriter();\n";
-				m += "		\n";
-				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"新增成功。\",\"returnData\":\"\"}\");\n";
-				m += "        out.flush();\n";
-				m += "        out.close();\n";
+	
+				
+				
+				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+				m += "  try {\n";
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+				m += "  } catch (IOException e) {\n";
+					
+				m += "  e.printStackTrace();\n";
+				m += "  }\n";
+				m += "   return \"index\";\n";
 				m += "	}\n";
 
 			
@@ -442,13 +448,16 @@ public class Struct2Controller {
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "      response.setCharacterEncoding(\"utf-8\");\n";
-				m += "		response.setContentType(\"application/json\");\n";
-				m += "		PrintWriter out = response.getWriter();\n";
-				m += "		\n";
-				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"更新成功。\",\"returnData\":\"\"}\");\n";
-				m += "        out.flush();\n";
-				m += "        out.close();\n";
+				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+				m += "  try {\n";
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+				m += "  } catch (IOException e) {\n";
+					
+				m += "  e.printStackTrace();\n";
+				m += "  }\n";
+				m += "   return \"index\";\n";
+				
+				
 				m += "	}\n";
 
 				
@@ -493,13 +502,17 @@ public class Struct2Controller {
 				m += "	e.printStackTrace();\n";
 				m += "}\n";
 
-				m += "      response.setCharacterEncoding(\"utf-8\");\n";
-				m += "		response.setContentType(\"application/json\");\n";
-				m += "		PrintWriter out = response.getWriter();\n";
-				m += "		\n";
-				m += "		  out.write(\"{\"returnCode\":\"00\",\"info\":\"删除成功。\",\"returnData\":\"\"}\");\n";
-				m += "        out.flush();\n";
-				m += "        out.close();\n";
+				
+				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+				m += "  try {\n";
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+				m += "  } catch (IOException e) {\n";
+					
+				m += "  e.printStackTrace();\n";
+				m += "  }\n";
+				m += "   return \"index\";\n";
+				
+				
 				m += "	}\n";
 
 			}
