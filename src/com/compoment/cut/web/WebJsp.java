@@ -531,7 +531,7 @@ public class WebJsp {
 							jsString += "window.resultTotal=rsObj.resultTotal;\n";
 							jsString += "var resultData=rsObj.resultData;\n";
 							jsString += "if(resultSize>0){\n";
-							jsString += "for(var i=0;i<resultData.size();i++){ \n";
+							jsString += "for(var i=0;i<resultData.length;i++){ \n";
 							
 							jsString +="var itemHtml='';\n";
 							jsString +=itemString;
@@ -1032,7 +1032,7 @@ public class WebJsp {
 			jsString += "window.resultTotal=rsObj.resultTotal;\n";
 			jsString += "var resultData=rsObj.resultData;\n";
 			jsString += "if(resultSize>0){\n";
-			jsString += "for(var i=0;i<resultData.size();i++){ \n";
+			jsString += "for(var i=0;i<resultData.length;i++){ \n";
 			
 			jsString +="var itemHtml='';\n";
 			jsString +=itemString;
