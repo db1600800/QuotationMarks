@@ -483,7 +483,7 @@ public class WebJsp {
 							jsString += "window.pageSize=10;\n";
 							jsString += "window.currentPage=0;\n";
 							jsString += "window.requestIng=false;\n";
-							jsString+="window.where=new Map();\n";
+						
 							jsString += " $(\".h-list\").scroll(function(){\n";
 							jsString += " var list = $(\".h-list\");\n";
 							jsString += "var listScrollTop = list.scrollTop();//滚动条下滚多少==内容隐藏部分多少\n";
@@ -518,7 +518,7 @@ public class WebJsp {
 							jsString += "type:'post',\n";
 							jsString += "dataType:'json',\n";
 							jsString += "async:true,\n";
-							jsString += "data:{currentPage:currentPage,pageSize:pageSize,where:window.where},\n";
+							jsString += "data:{pageNo:currentPage,pageSize:pageSize},\n";
 							jsString += "timeout:1000,\n";
 							jsString += "error:function(){\n";
 							jsString += "requestIng=false;\n";

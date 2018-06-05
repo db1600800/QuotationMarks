@@ -330,20 +330,63 @@ public class Struct2Controller {
 		m += "try {\n";
 		m += mainTableName.toLowerCase() + "Beans="
 				+ StringUtil.firstCharToLower(interfaceName) + "Service.get("
-				+ queryCondition2 + ");\n";
+				+ queryCondition2 + ",false);\n";
 		m += "} catch (Exception e) {\n";
 		m += "	e.printStackTrace();\n";
 		m += "}\n";
 
-
+m+="int total=0;\n";
+		m += "try {\n";
+		m +="total="
+				+ StringUtil.firstCharToLower(interfaceName) + "Service.getCount("
+				+ queryCondition2 + ");\n";
+		m += "} catch (Exception e) {\n";
+		m += "	e.printStackTrace();\n";
+		m += "}\n";
+		
+		
+		
+		
+	m += "  try {\n";
+		m += "      response.setCharacterEncoding(\"utf-8\");\n";
+		m += "		response.setContentType(\"application/json\");\n";
+		m += "		PrintWriter out = response.getWriter();\n";
+		m += "		\n";
+		m += "		JSONArray jsonArray = JSONArray.fromObject("+mainTableName.toLowerCase()+"Beans);\n";
+		
+		m += "		JSONObject jsonObject = new JSONObject();   \n" ;
+		m+=		"   jsonObject.put(\"returnCode\",\"00\");   \n";
+		m+=		"   jsonObject.put(\"info\",\"成功\");   \n";
+		m+=		"   jsonObject.put(\"resultSize\","+mainTableName.toLowerCase()+"Beans.size());   \n";
+		m+=		"   jsonObject.put(\"resultTotal\",total);   \n";
+		m+=		"   jsonObject.put(\"resultData\",jsonArray);   \n";
+		
+		m += "		  out.write(jsonObject.toString());\n";
+		m += "        out.flush();\n";
+		m += "        out.close();\n";
+	m += "  } catch (IOException e) {\n";
+	m += "  e.printStackTrace();\n";
+	m += "  }\n";
 	
-		m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
-		m += "  try {\n";
-		m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\":\"+new Gson().toJson("+mainTableName.toLowerCase()+"Beans)+\"}\");\n";
-		m += "  } catch (IOException e) {\n";
-			
-		m += "  e.printStackTrace();\n";
-		m += "  }\n";
+		
+
+//		m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
+//		m += "  try {\n";
+//	m += "		JSONArray jsonArray = JSONArray.fromObject("+mainTableName.toLowerCase()+"Beans);\n";
+//		
+//		m += "		JSONObject jsonObject = new JSONObject();   \n" ;
+//		m+=		"   jsonObject.put(\"returnCode\",\"00\");   \n";
+//		m+=		"   jsonObject.put(\"info\",\"成功\");   \n";
+//		m+=		"   jsonObject.put(\"resultSize\","+mainTableName.toLowerCase()+"Beans.size());   \n";
+//		m+=		"   jsonObject.put(\"resultTotal\",total);   \n";
+//		m+=		"   jsonObject.put(\"resultData\",jsonArray);   \n";
+//		m += "  	StrutsParamUtils.getResponse().getWriter().write(jsonObject.toString());\n";
+//		m += "  } catch (IOException e) {\n";
+//			
+//		m += "  e.printStackTrace();\n";
+//		m += "  }\n";
+		
+		
 		m += "   return ActionSupport.NONE;\n";
 		
 		
@@ -403,7 +446,10 @@ public class Struct2Controller {
 				
 				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
 				m += "  try {\n";
-				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+				m += "		JSONObject jsonObject = new JSONObject();   \n" ;
+				m+=		"   jsonObject.put(\"returnCode\",\"00\");   \n";
+				m+=		"   jsonObject.put(\"info\",\"成功\");   \n";
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(jsonObject.toString());\n";
 				m += "  } catch (IOException e) {\n";
 					
 				m += "  e.printStackTrace();\n";
@@ -450,7 +496,12 @@ public class Struct2Controller {
 
 				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
 				m += "  try {\n";
-				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+				m += "		JSONObject jsonObject = new JSONObject();   \n" ;
+				m+=		"   jsonObject.put(\"returnCode\",\"00\");   \n";
+				m+=		"   jsonObject.put(\"info\",\"成功\");   \n";
+		
+				
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(jsonObject.toString());\n";
 				m += "  } catch (IOException e) {\n";
 					
 				m += "  e.printStackTrace();\n";
@@ -503,9 +554,17 @@ public class Struct2Controller {
 				m += "}\n";
 
 				
+				
 				m += "  StrutsParamUtils.getResponse().setCharacterEncoding(\"UTF-8\");\n";
 				m += "  try {\n";
-				m += "  	StrutsParamUtils.getResponse().getWriter().write(\"{\"returnCode\":\"00\",\"info\":\"成功。\",\"returnData\"\"}\");\n";
+			
+				m += "		JSONObject jsonObject = new JSONObject();   \n" ;
+				m+=		"   jsonObject.put(\"returnCode\",\"00\");   \n";
+				m+=		"   jsonObject.put(\"info\",\"成功\");   \n";
+		
+				
+	
+				m += "  	StrutsParamUtils.getResponse().getWriter().write(jsonObject.toString());\n";
 				m += "  } catch (IOException e) {\n";
 					
 				m += "  e.printStackTrace();\n";

@@ -249,8 +249,13 @@ public class ServiceInterface {
 				
 					m+="List result=get("+queryCondition+",true);\n";
 					m+=" if(result!=null && result.size()>0){\n";
-					m+="int count = ((Long) result.get(0)).intValue();\n";
-					m+="return count;\n";
+					m+="Object obj=result.get(0);\n";
+					m+="if(obj instanceof BigDecimal )\n";
+					m+="{\n";
+					m+="return ((BigDecimal) result.get(0)).intValue();\n";
+					m+="}else{\n";
+					m+="return ((Long) result.get(0)).intValue();\n";
+					m+="}\n";
 				
 					m+="}\n";
 					m+="		return 0;\n";
@@ -271,7 +276,16 @@ public class ServiceInterface {
 					m+="String sql="+sqlMax+";\n";
 					m+="List max = dao.findBySql(sql,new HashMap());\n";
 					m+="if(max!=null && max.size()>0){\n";
-					m+="return ((Long)max.get(0)).intValue();\n";
+					
+					m+="Object obj=max.get(0);\n";
+					m+="if(obj instanceof BigDecimal )\n";
+					m+="{\n";
+					m+="return ((BigDecimal) max.get(0)).intValue();\n";
+					m+="}else{\n";
+					m+="return ((Long) max.get(0)).intValue();\n";
+					m+="}\n";
+					
+				
 					m+="}\n";
 					m+="return 0;\n";
 					
