@@ -635,10 +635,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("DivLayout_Horizon");	
 			components.add("DivLayout_Vertical");
 			
-			components.add("HeaderLayout_Horizon");	
-			components.add("HeaderLayout_Vertical");
-			components.add("FooterLayout_Horizon");	
-			components.add("FooterLayout_Vertical");
+			
 			
 			components.add("FormLayout");
 			components.add("Form_ItemLayout");
@@ -662,6 +659,7 @@ public class CompomentDialog2 extends JFrame {
 			
 			components.add("Button");
 			components.add("Button_Close");
+			components.add("Button_Query");
 			components.add("leftArrow");
 			components.add("rightArrow");
 			components.add("CheckBox");
@@ -679,6 +677,8 @@ public class CompomentDialog2 extends JFrame {
 			components.add("ImageView");
 			
 			components.add("Selecter");
+			components.add("DateSelecter");
+			
 			components.add("ExpandableListView");
 			
 		}
