@@ -210,12 +210,7 @@ public class WebJsp {
 		bodym += "<link href=\"<%=basePath%>js/calendar_control/mobiscroll.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 		bodym += "<script src=\"<%=basePath%>js/calendar_control/mobiscroll.js\" type=\"text/javascript\"></script>\n";
 		
-		bodym+="<link\n";
-		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll.css\"\n";
-		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
-		bodym+="<script\n";
-		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll.js\"\n";
-		bodym+="	type=\"text/javascript\"></script>\n";
+	
 		bodym+="	\n";
 		bodym+="	<script\n";
 		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll_002.js\"\n";
@@ -236,6 +231,12 @@ public class WebJsp {
 		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll_003.css\"\n";
 		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
 		bodym+="<script src=\"<%=basePath%>js/calendar_control/date.js\"></script>\n";
+		bodym+="<link\n";
+		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll.css\"\n";
+		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
+		bodym+="<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
 
 		
 
