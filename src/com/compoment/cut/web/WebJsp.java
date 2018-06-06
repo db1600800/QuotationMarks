@@ -206,6 +206,38 @@ public class WebJsp {
 		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>lib/zepto.min.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>js/frozen.js\"></script>\n";
+		
+		bodym += "<link href=\"<%=basePath%>js/calendar_control/mobiscroll.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+		bodym += "<script src=\"<%=basePath%>js/calendar_control/mobiscroll.js\" type=\"text/javascript\"></script>\n";
+		
+		bodym+="<link\n";
+		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll.css\"\n";
+		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
+		bodym+="<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
+		bodym+="	\n";
+		bodym+="	<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll_002.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
+		bodym+="<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll_004.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
+		bodym+="<link\n";
+		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll_002.css\"\n";
+		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
+		bodym+="<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll_003.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
+		bodym+="<script\n";
+		bodym+="	src=\"<%=basePath%>js/calendar_control/mobiscroll_005.js\"\n";
+		bodym+="	type=\"text/javascript\"></script>\n";
+		bodym+="<link\n";
+		bodym+="	href=\"<%=basePath%>js/calendar_control/mobiscroll_003.css\"\n";
+		bodym+="	rel=\"stylesheet\" type=\"text/css\">\n";
+		bodym+="<script src=\"<%=basePath%>js/calendar_control/date.js\"></script>\n";
+
+		
 
 		bodym += "<script>\n";
 		bodym += "//js取request值  var contentWidth = <s:property value=\"#request.cut_img_content_info.contentWidth\"/>;\n";
@@ -785,6 +817,14 @@ public class WebJsp {
 			jsString+="</script>\n";
 
 		}
+		
+		
+		if(chirld.type.equals("DateSelecter"))
+		{
+			bodym += "<div class=\"daily_date\">\n";
+			bodym += "<input class=\"mobile_date\" value=\"\" readonly=\"\" name=\"appDate\" id=\"start_date\" type=\"text\">\n";
+			bodym += " </div>\n";
+		}
 
 		if (chirld.type.equals("Button")) {
 
@@ -806,7 +846,7 @@ public class WebJsp {
 						expand = "flex:1;";
 					}
 				}
-				bodym += "<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16 + ";"
+				bodym += "<button  style=\"border-radius: 0.1rem;padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16 + ";"
 						+ expand + "\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
 
 			} else {
@@ -822,6 +862,33 @@ public class WebJsp {
 			bodym += "<a href=\"#\" class=\"ui-icon-close\"></a>\n";
 
 		}
+		
+		if (chirld.type.equals("Button_Query")) {
+
+			bodym +="<div style=\" top: 0.2rem;right: 0.2rem;width: 0.4rem;height: 0.4rem;background: url(<%=basePath%>images/icon-search.png) no-repeat;background-position: center center;background-size: 100% 100%;\" onclick=\"query()\"></div>\n";
+		
+			jsString+="<style type=\"text/css\">\n";
+			jsString+="			.dis_no {\n";
+			jsString+="			    display: none;\n";
+			jsString+="			}\n";
+			jsString+="			</style>\n";
+			jsString+="			<script>\n";
+			jsString+="			function query() {\n";
+			jsString+="				$(\"#dialog\").toggleClass(\"dis_no\");\n";
+			jsString+="				\n";
+			jsString+="				var flag = $(\"#dialog\").hasClass(\"dis_no\");\n";
+			jsString+="				if (flag) {\n";
+			jsString+="					getListData(true);\n";
+			jsString+="				}else\n";
+			jsString+="				{\n";
+			jsString+="					//弹出\n";
+			jsString+="				}\n";
+			jsString+="			}\n";
+			jsString+="		</script>\n";
+		
+		}
+		
+		
 
 		if (chirld.type.equals("leftArrow")) {
 
@@ -920,7 +987,7 @@ public class WebJsp {
 
 		if (chirld.type.equals("EditText")) {
 
-			bodym += "<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
+			bodym += "<input style=\" border: 0.02rem solid #ddd;border-radius: 0.1rem; line-height: " + chirld.h + "px; height: " + chirld.h
 					+ "px;  font-size: " + chirld.textSize + "px;" + expand + "\"  type=\"text\"  id=\"" + chirld.enname
 					+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
 
