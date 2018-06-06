@@ -545,6 +545,7 @@ public class WebJsp {
 							jsString += "if(isInitQuery)\n";
 							jsString += "{\n";
 							jsString += "	window.currentPage=0;\n";
+							jsString += "$(\".h-list\").find(\"li\").remove(); \n";
 							jsString += " }\n";
 							jsString += "$.ajax({\n";
 							jsString += "url:url,\n";
@@ -555,7 +556,7 @@ public class WebJsp {
 							jsString += "timeout:1000,\n";
 							jsString += "error:function(){\n";
 							jsString += "requestIng=false;\n";
-							jsString += "alert(\"ajax error\");\n";
+							jsString += "alert(\"ajax error出错\");\n";
 							jsString += "}, \n";
 							jsString += "success:function(rsObj)\n";
 							jsString += "{\n";
