@@ -451,8 +451,6 @@ public class WebJspListViewItem {
 
 					bodym+=WebJsp.Selecter(chirld,true);
 
-					
-
 				}
 				
 				
