@@ -801,7 +801,7 @@ public class WebJsp {
 
 			bodym += "<div  style=\"display:flex;\">\n";
 			bodym += "<div>" + chirld.cnname + "</div>\n";
-			bodym += "<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">\n";
+			bodym += "<div class=\"ui-select\" style=\"border: 0.02rem solid #ddd;border-radius: 0.1rem; margin-left: 2px;margin-right:2px;\">\n";
 			bodym += "<select id=\""+chirld.enname+"\">\n";
 			bodym += "<option>2014</option>\n";
 			bodym += "<option selected>2015</option>\n";
