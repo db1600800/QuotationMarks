@@ -309,11 +309,8 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 		listDate.add("TableViewHeadCell-IOS");
 		listDate.add("CommonCell-IOS");
 		listDate.add("---Web---");
-		listDate.add("ChirldViewController-Web");
 		listDate.add("ViewController-Web");
-		listDate.add("TableViewCell-Web");
-		listDate.add("TableViewHeadCell-Web");
-		listDate.add("CommonCell-Web");
+		
 	
 		pageTypeListListView
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -597,40 +594,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(pageName,beans,fileName,false);
 			
 		}
-		else if (pageType.equals("ChirldViewController-Web")) {
-			// 页面分析生成
-			CreateAndroidLayoutXml("");
-			savePublicCompoment();
-
-						//ios
-						//rmi://120.76.232.114:1099/checkProblem
-						try {
-							IphoneViewControllerXibInterface  iphoneLayout = (IphoneViewControllerXibInterface) Naming.lookup(RemoteUtil.rmiurl+"IphoneViewControllerXib");
-							
-								String m=iphoneLayout.IphoneViewControllerXib(pageName,beans);
-								String className=StringUtil.firstCharToUpperAndJavaName(pageName);
-								FileUtil.makeFile(KeyValue.readCache("projectPath"), "src/ios", className + "ViewController", "xib", m);
-
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (MalformedURLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (NotBoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						
-						ViewControllerH viewControllerH=new ViewControllerH(pageName,beans,true);
-						ViewControllerM viewControllerM=new ViewControllerM(pageName,beans,true);
-						
-						
-						//android
-						com.compoment.ui.CreateActivityChirldView createrAdapter = new CreateActivityChirldView(
-								pageName);
-						createrAdapter.create();
-		}
+	
 		else if (pageType.equals("ViewController-Web")) {
 			// 页面分析生成
 			CreateAndroidLayoutXml("");
@@ -678,36 +642,7 @@ public class PageFrame2 extends JFrame implements CutImgCallBack,CompomentDialog
 			createView.create();
 			
 			}
-		else if (pageType.equals("TableViewCell-Web")) {
-			// 页面分析生成
-			CreateAndroidLayoutXml("_item");
-			
-						
-						savePublicCompoment();
-						
-						//Ios
-						
-						IphoneTableViewCellXib iphoneLayout = new IphoneTableViewCellXib(pageName,beans,"TableViewCell");
-						
-						
-						TableViewCellH tableViewCellH=new TableViewCellH(pageName,beans,"TableViewCell");
-						TableViewCellM tableViewCellM=new TableViewCellM(pageName,beans,"TableViewCell");
-						
-						
-						String 	fileName = KeyValue.readCache("projectPath") + "/" + "src/ios" + "/" + StringUtil.firstCharToUpperAndJavaName(pageName)+"ViewController"
-								+ "." + "m";
-						TableViewCellAddToViewController TableViewCellAddViewController=new TableViewCellAddToViewController(pageName,beans,fileName,false);
-						
-						//android
-						
-							com.compoment.ui.CreaterAdapter createrAdapter = new CreaterAdapter(
-									pageName + "_item", beans);
-							createrAdapter.create();
-
-			
-						//web
-			//WebJspListViewItem WebJspListViewItem=new WebJspListViewItem(pageName,beans); 
-		}
+	
 		
 
 		beans.clear();
