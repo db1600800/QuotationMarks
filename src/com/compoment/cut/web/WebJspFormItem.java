@@ -401,276 +401,122 @@ public class WebJspFormItem {
 
 	}
 
-	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
-
-		String expand="";
-		if ("1bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:1;";
-		}
-		if ("2bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:2;";
-		}
-		if ("3bei".equals(chirld.compmentExpandForWeb)) {
-			expand="flex:3;";
-		}
+	public void chirld(CompomentBean chirld, CompomentBean parent) {
 		
-		if (chirld.type.equals("Span")) {
-
-			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>\n";
-			// h4 label
-
-		}
-
-		if (chirld.type.equals("H1-9")) {
-
-			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h4>\n";
-
-		}
-
-		if (chirld.type.equals("TextView")) {
-			// h4 label
+		// 这个儿子是非容器
 
 		
-					bodym += "itemHtml+='<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"+chirld.textSize+";color:"+chirld.rgb16+";"+expand+"\">" + chirld.cnname
-							+ "</span>'\n";
-				
 
-		}
-
-		if (chirld.type.equals("Label")) {
-
-			bodym += "itemHtml+='<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
-					+ "</label>'\n";
-			// h4 label
-
-		}
-
-		if (chirld.type.equals("Progress")) {
-			bodym += " <div class=\"ui-progress\">\n";
-			bodym += "<span style=\"width:50%\"></span>\n";
-			bodym += "</div>\n";
-		}
-		if (chirld.type.equals("Loading")) {
-
-			bodym += "<div class=\"ui-loading-block show\">\n";
-			bodym += "<div class=\"ui-loading-cnt\">\n";
-			bodym += "<i class=\"ui-loading-bright\"></i>\n";
-			bodym += "<p>正在加载中...</p>\n";
-			bodym += "</div>\n";
-			bodym += "</div>\n";
-			bodym += "<script type=\"text/javascript\" class=\"demo-script\">\n";
-			bodym += " // var el = $.loading({content:'加载中...'});\n";
-			bodym += " // el.on(\"loading:hide\",function(){\n";
-			bodym += " //     console.log(\"loading hide\");\n";
-			bodym += " // });\n";
-			bodym += "</script>\n";
-
-		}
-
-		if (chirld.type.equals("PopTips")) {
-
-			bodym += "<div class=\"ui-poptips ui-poptips-info\">\n";
-			bodym += "<div class=\"ui-poptips-cnt\"><i></i>" + chirld.cnname + "</div>\n";
-			bodym += "</div>\n";
-		}
-
-		if (chirld.type.equals("Selecter")) {
-
-			// <span style="background:url(../images/next.png) no-repeat right
-			// center #fff; background-size:8px; line-height:20px;
-			// display:block; float:left; padding:3px 15px 3px 5px;
-			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
-			// id="count` `Name">请选择</span>
-
-			bodym += "itemHtml+='<div  style=\"display:flex;\">'\n";
-			bodym += "itemHtml+='<div>" + chirld.cnname + "</div>'\n";
-			bodym += "itemHtml+='<div class=\"ui-select\" style=\"margin-left: 2px;margin-right:2px;\">'\n";
-			bodym += "itemHtml+='<select id=\""+chirld.enname+"\">'\n";
-			bodym += "itemHtml+='<option>2014</option>'\n";
-			bodym += "itemHtml+='<option selected>2015</option>'\n";
-			bodym += "itemHtml+='<option>2016</option>'\n";
-			bodym += "itemHtml+='</select>'\n";
-			bodym += "itemHtml+='</div>'\n";
-			bodym += "itemHtml+='</div>'\n";
-
-		}
-
-		if (chirld.type.equals("Button")) {
-
-			if (chirld.picName.equals("图片名")) {
-
-				String bgcolor = "";
-				if (chirld.bgRgb16.contains("#")) {
-					bgcolor = chirld.bgRgb16;
-				}
-				String actionstring = "";
-				if (chirld.actionString != null) {
-					actionstring = chirld.actionString;
+				if (chirld.type.equals("Span")) {
+					bodym+=WebJsp.Span(chirld,true);
 				}
 
-				if ((chirld.parent != null && chirld.parent.type != null)) {
+				if (chirld.type.equals("H1-9")) {
 
-					if (chirld.parent.type.toLowerCase().contains("tab")) {
-						actionstring="tabBtnPress(this);";
-						expand="flex:1;";
-					}
+					bodym+=WebJsp.H19(chirld,true);
 				}
-				bodym += "itemHtml+='<button  style=\"padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16
-						+ ";"+expand+"\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>'\n";
 
-			} else {
-
-				bodym += "itemHtml+='<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
-						+ "\"  style=\""+expand+"\">" + chirld.cnname + "</button>'\n";
-			}
-
-		}
-
-		if (chirld.type.equals("Button_Close")) {
-
-			bodym += "<a href=\"#\" class=\"ui-icon-close\"></a>\n";
-
-		}
-
-		if (chirld.type.equals("leftArrow")) {
-		
-			bodym+="itemHtml+='<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>'\n";
-			
-		}
-		
-		if(chirld.type.equals("rightArrow"))
-		{
-			bodym+="itemHtml+='<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>'\n";
-			
-		}
-
-		if (chirld.type.equals("CheckBox")) {
-			
-			
-			bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
-			bodym1+="if("+chirld.enname+"Value==\"\")\n";
-			bodym1+="{\n";
-			bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
-			bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
-			bodym1+="return false;\n";
-		    bodym1+="}\n";
-
-		}
-
-		if (chirld.type.equals("CheckBox_Switch")) {
-			bodym += "<label class=\"ui-switch\">\n";
-			bodym += "<input type=\"checkbox\">\n";
-			bodym += "</label>\n";
-		}
-
-		if (chirld.type.equals("Radio")) {
-		
-			
-			bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
-			bodym1+="if("+chirld.enname+"Value==\"\")\n";
-			bodym1+="{\n";
-			bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
-			bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
-			bodym1+="return false;\n";
-		    bodym1+="}\n";
-		
-
-		}
-		
-		if (chirld.type.equals("File")) {
+				if (chirld.type.equals("TextView")) {
 					
-					bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
-					bodym1+="if("+chirld.enname+"Value==\"\")\n";
-					bodym1+="{\n";
-					bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
-					bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
-					bodym1+="return false;\n";
-				    bodym1+="}\n";
+					bodym+=WebJsp.TextView(chirld,true);
 
-	}
-
-		if (chirld.type.equals("EditText")) {
-
-		
-				bodym += "itemHtml+='<input style=\" border: 0; line-height: " + chirld.h + "px; height: " + chirld.h
-						+ "px;  font-size: " + chirld.textSize + "px;"+expand+"\"  type=\"text\"  id=\"" + chirld.enname
-						+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">'";
-		
-				
-						
-						bodym1+="var "+chirld.enname+"Value = $(\"#"+chirld.enname+"\").val();\n";
-						bodym1+="if("+chirld.enname+"Value==\"\")\n";
-						bodym1+="{\n";
-						bodym1+="$(\"#tip-info\").addClass(\"alert-danger\").css(\"display\",\"block\");\n";
-						bodym1+="$(\"#tip-info > span\").text(\""+chirld.cnname+"不能为空\");\n";
-						bodym1+="return false;\n";
-					    bodym1+="}\n";
-
-		}
-
-		if (chirld.type.equals("ImageView")) {
-
-			if (chirld.parent.type.toLowerCase().contains("grid")
-					|| chirld.parent.parent.type.toLowerCase().contains("grid")) {
-				String columncount = "trisect";
-				String picsize = "190x284";
-				if (chirld.parent.type.toLowerCase().contains("halve")
-						|| chirld.parent.parent.type.toLowerCase().contains("halve")) {
-					columncount = "halve";
-					picsize = "290x160";
 				}
-				bodym += "<div class=\"ui-grid-" + columncount + "-img\">\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/" + picsize
-						+ ")\"></span>\n";
-				bodym += "</div>\n";
-			}
+				
+				if (chirld.type.equals("TextView_MutiLine")) {
+					bodym+=WebJsp.TextView_MutiLine(chirld,true);
+				}
+				
+				if (chirld.type.equals("Label")) {
 
-			if (chirld.parent.type.toLowerCase().contains("list")
-					|| chirld.parent.parent.type.toLowerCase().contains("list")) {
+					// h4 label
+					bodym+=WebJsp.Label(chirld,true);
 
-				bodym += "<div class=\"ui-list-img\">\n";
-				bodym += "<!--class=\"ui-avatar\"  圆形框-->\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>\n";
-				bodym += "</div>\n";
-			}
+				}
 
-		}
+				if (chirld.type.equals("Progress")) {
+				
+					bodym+=WebJsp.Progress(chirld,true);
+				}
+				if (chirld.type.equals("Loading")) {
 
-		if (chirld.type.equals("ExpandableListView")) {
+					bodym+=WebJsp.Loading(chirld,true);
 
-			bodym += "<div class=\"ui-selector-content\" style=\"display:\">\n";
-			bodym += "<ul>\n";
-			bodym += "<li class=\"ui-selector-item active\">\n";
-			bodym += "<h3 class=\"ui-border-b\">\n";
-			bodym += "<p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
-			bodym += "</h3>\n";
-			bodym += "<ul class=\"ui-list ui-border-b\">\n";
-			bodym += "<li>\n";
-			bodym += "<div class=\"ui-avatar-s\">\n";
-			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
-			bodym += "</div>\n";
-			bodym += "<div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
-			bodym += "</li>\n";
-			bodym += "</ul>\n";
-			bodym += "</li>\n";
-			bodym += "  <li class=\" ui-selector-item\">\n";
-			bodym += " <h3 class=\"ui-border-b\">\n";
-			bodym += "  <p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
-			bodym += "</h3>\n";
-			bodym += "<ul class=\"ui-list ui-border-b\">\n";
-			bodym += "<li>\n";
-			bodym += "<div class=\"ui-avatar-s\">\n";
-			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
-			bodym += " </div>\n";
-			bodym += "  <div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
-			bodym += " </li>\n";
+				}
 
-			bodym += " </ul>\n";
-			bodym += " </li>\n";
+				if (chirld.type.equals("PopTips")) {
+					bodym+=WebJsp.PopTips(chirld,true);
+				
+				}
 
-			bodym += " </ul>\n";
-			bodym += " </div>\n";
-		}
+				if (chirld.type.equals("Selecter")) {
+
+					bodym+=WebJsp.Selecter(chirld,true);
+
+				}
+				
+				
+				if(chirld.type.equals("DateSelecter"))
+				{
+					bodym+=WebJsp.DateSelecter(chirld,true);
+				}
+
+				if (chirld.type.equals("Button")) {
+					bodym+=WebJsp.Button(chirld,true);
+				}
+
+				if (chirld.type.equals("Button_Close")) {
+					bodym+=WebJsp.Button_Close(chirld,true);
+				}
+				
+				if (chirld.type.equals("Button_Query")) {
+					bodym+=WebJsp.Button_Query(chirld,true);
+				
+				
+				}
+				
+				
+
+				if (chirld.type.equals("leftArrow")) {
+					bodym+=WebJsp.leftArrow(chirld,true);
+				}
+
+				if (chirld.type.equals("rightArrow")) {
+					bodym+=WebJsp.rightArrow(chirld,true);
+				}
+
+				if (chirld.type.equals("CheckBox")) {
+					bodym+=WebJsp.CheckBox(chirld,true);
+
+				}
+
+				if (chirld.type.equals("CheckBox_Switch")) {
+					bodym+=WebJsp.CheckBox_Switch(chirld,true);
+				}
+
+				if (chirld.type.equals("Radio")) {
+					bodym+=WebJsp.Radio(chirld,true);
+
+				}
+				
+				
+				if (chirld.type.equals("File")) {
+					bodym+=WebJsp.File(chirld,true);
+				}
+				
+
+				if (chirld.type.equals("EditText")) {
+					bodym+=WebJsp.EditText(chirld,true);
+				}
+
+				if (chirld.type.equals("ImageView")) {
+					bodym+=WebJsp.ImageView(chirld,true);
+				}
+
+				if (chirld.type.equals("ExpandableListView")) {
+					bodym+=WebJsp.ExpandableListView(chirld,true);
+				}
+			
+		
 	}
 
 	Comparator<CompomentBean> comparatorDate = new Comparator<CompomentBean>() {

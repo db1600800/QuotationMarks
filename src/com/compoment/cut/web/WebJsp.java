@@ -327,6 +327,7 @@ public class WebJsp {
 
 	}
 
+
 	public void parent(CompomentBean bean) {
 
 		Collections.sort(bean.chirlds, comparatorDate);
@@ -719,97 +720,59 @@ public class WebJsp {
 
 	public void chirld(CompomentBean chirld, CompomentBean parent) {// 这个儿子是非容器
 
-		String expand = "";
-		if ("1bei".equals(chirld.compmentExpandForWeb)) {
-			expand = "flex:1;";
-		}
-		if ("2bei".equals(chirld.compmentExpandForWeb)) {
-			expand = "flex:2;";
-		}
-		if ("3bei".equals(chirld.compmentExpandForWeb)) {
-			expand = "flex:3;";
-		}
+		
 
 		if (chirld.type.equals("Span")) {
-
-			bodym += "<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>\n";
-			// h4 label
-
+			bodym+=Span(chirld,false);
 		}
 
 		if (chirld.type.equals("H1-9")) {
 
-			bodym += "<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h4>\n";
-
+			bodym+=H19(chirld,false);
 		}
 
 		if (chirld.type.equals("TextView")) {
-			// h4 label
-
-		
-			bodym += "<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
-							+ chirld.textSize + ";color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
-							+ "</span>\n";
-				
+			
+			bodym+=TextView(chirld,false);
 
 		}
-
+		
+		if (chirld.type.equals("TextView_MutiLine")) {
+			bodym+=TextView_MutiLine(chirld,false);
+		}
+		
 		if (chirld.type.equals("Label")) {
 
-			bodym += "<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
-					+ "</label>\n";
 			// h4 label
+			bodym+=Label(chirld,false);
 
 		}
 
 		if (chirld.type.equals("Progress")) {
-			bodym += " <div class=\"ui-progress\">\n";
-			bodym += "<span style=\"width:50%\"></span>\n";
-			bodym += "</div>\n";
+		
+			bodym+=Progress(chirld,false);
 		}
 		if (chirld.type.equals("Loading")) {
 
-			bodym += "<div class=\"ui-loading-block show\">\n";
-			bodym += "<div class=\"ui-loading-cnt\">\n";
-			bodym += "<i class=\"ui-loading-bright\"></i>\n";
-			bodym += "<p>正在加载中...</p>\n";
-			bodym += "</div>\n";
-			bodym += "</div>\n";
-			bodym += "<script type=\"text/javascript\" class=\"demo-script\">\n";
-			bodym += " // var el = $.loading({content:'加载中...'});\n";
-			bodym += " // el.on(\"loading:hide\",function(){\n";
-			bodym += " //     console.log(\"loading hide\");\n";
-			bodym += " // });\n";
-			bodym += "</script>\n";
+			bodym+=Loading(chirld,false);
+			jsString += "<script type=\"text/javascript\" class=\"demo-script\">\n";
+			jsString += " // var el = $.loading({content:'加载中...'});\n";
+			jsString += " // el.on(\"loading:hide\",function(){\n";
+			jsString += " //     console.log(\"loading hide\");\n";
+			jsString += " // });\n";
+			jsString += "</script>\n";
 
 		}
 
 		if (chirld.type.equals("PopTips")) {
-
-			bodym += "<div class=\"ui-poptips ui-poptips-info\">\n";
-			bodym += "<div class=\"ui-poptips-cnt\"><i></i>" + chirld.cnname + "</div>\n";
-			bodym += "</div>\n";
+			bodym+=PopTips(chirld,false);
+		
 		}
 
 		if (chirld.type.equals("Selecter")) {
 
-			// <span style="background:url(../images/next.png) no-repeat right
-			// center #fff; background-size:8px; line-height:20px;
-			// display:block; float:left; padding:3px 15px 3px 5px;
-			// margin-right:2px; margin-bottom:5px" onClick="selectCount();"
-			// id="count` `Name">请选择</span>
+			bodym+=Selecter(chirld,false);
 
-			bodym += "<div  style=\"display:flex;\">\n";
-			bodym += "<div>" + chirld.cnname + "</div>\n";
-			bodym += "<div class=\"ui-select\" style=\"border: 0.02rem solid #ddd;border-radius: 0.1rem; margin-left: 2px;margin-right:2px;\">\n";
-			bodym += "<select id=\""+chirld.enname+"\">\n";
-			bodym += "<option>2014</option>\n";
-			bodym += "<option selected>2015</option>\n";
-			bodym += "<option>2016</option>\n";
-			bodym += "</select>\n";
-			bodym += "</div>\n";
-			bodym += "</div>\n";
-			
 			jsString += "\n<script type=\"text/javascript\">\n";
 			jsString+="//select选择\n";
 			jsString += "$(\"#"+chirld.enname+"\").change(function () {  \n";
@@ -823,51 +786,19 @@ public class WebJsp {
 		
 		if(chirld.type.equals("DateSelecter"))
 		{
-			bodym += "<div class=\"daily_date\">\n";
-			bodym += "<input class=\"mobile_date\" value=\"\" readonly=\"\" name=\"appDate\" id=\"start_date\" type=\"text\">\n";
-			bodym += " </div>\n";
+			bodym+=DateSelecter(chirld,false);
 		}
 
 		if (chirld.type.equals("Button")) {
-
-			if (chirld.picName.equals("图片名")) {
-
-				String bgcolor = "";
-				if (chirld.bgRgb16.contains("#")) {
-					bgcolor = chirld.bgRgb16;
-				}
-				String actionstring = "";
-				if (chirld.actionString != null) {
-					actionstring = chirld.actionString;
-				}
-
-				if ((chirld.parent != null && chirld.parent.type != null)) {
-
-					if (chirld.parent.type.toLowerCase().contains("tab")) {
-						actionstring = "tabBtnPress(this);";
-						expand = "flex:1;";
-					}
-				}
-				bodym += "<button  style=\"border-radius: 0.1rem;padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16 + ";"
-						+ expand + "\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>\n";
-
-			} else {
-
-				bodym += "<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
-						+ "\"  style=\"" + expand + "\">" + chirld.cnname + "</button>\n";
-			}
-
+			bodym+=Button(chirld,false);
 		}
 
 		if (chirld.type.equals("Button_Close")) {
-
-			bodym += "<a href=\"#\" class=\"ui-icon-close\"></a>\n";
-
+			bodym+=Button_Close(chirld,false);
 		}
 		
 		if (chirld.type.equals("Button_Query")) {
-
-			bodym +="<div style=\" top: 0.2rem;right: 0.2rem;width: 0.4rem;height: 0.4rem;background: url(<%=basePath%>images/icon-search.png) no-repeat;background-position: center center;background-size: 100% 100%;\" onclick=\"query()\"></div>\n";
+			bodym+=Button_Query(chirld,false);
 		
 			jsString+="<style type=\"text/css\">\n";
 			jsString+="			.dis_no {\n";
@@ -893,21 +824,15 @@ public class WebJsp {
 		
 
 		if (chirld.type.equals("leftArrow")) {
-
-			bodym += "<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>\n";
-
+			bodym+=leftArrow(chirld,false);
 		}
 
 		if (chirld.type.equals("rightArrow")) {
-			bodym += "<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>\n";
-
+			bodym+=rightArrow(chirld,false);
 		}
 
 		if (chirld.type.equals("CheckBox")) {
-			bodym += " <label class=\"ui-checkbox\" style=\"margin:10px\">\n";
-			bodym += "<input type=\"checkbox\" name=\"checkbox\" value=\"\">\n";
-			bodym += "</label>\n";
-			bodym += "<p>" + chirld.cnname + "</p>\n";
+			bodym+=CheckBox(chirld,false);
 			
 			jsString+="\n<script>\n";
 			jsString+="//check\n";
@@ -947,18 +872,11 @@ public class WebJsp {
 		}
 
 		if (chirld.type.equals("CheckBox_Switch")) {
-			bodym += "<label class=\"ui-switch\">\n";
-			bodym += "<input type=\"checkbox\">\n";
-			bodym += "</label>\n";
+			bodym+=CheckBox_Switch(chirld,false);
 		}
 
 		if (chirld.type.equals("Radio")) {
-			bodym += "<div class=\"ui-form-item ui-form-item-radio ui-border-b\">\n";
-			bodym += " <label class=\"ui-radio\" for=\"radio\">\n";
-			bodym += "<input type=\"radio\" name=\"radio\" value=\"\">\n";
-			bodym += "</label>\n";
-			bodym += " <p>"+chirld.cnname+"</p>\n";
-			bodym += "</div>\n";
+			bodym+=Radio(chirld,false);
 
 			
 			jsString+="\n<script>\n";
@@ -982,84 +900,514 @@ public class WebJsp {
 		
 		
 		if (chirld.type.equals("File")) {
-			bodym += "<input type=\"file\" id=\""+chirld.enname+"\" name=\""+chirld.enname+"\"/>\n";
+			bodym+=File(chirld,false);
 		}
-		
 		
 
 		if (chirld.type.equals("EditText")) {
-
-			bodym += "<input style=\" border: 0.02rem solid #ddd;border-radius: 0.1rem; line-height: " + chirld.h + "px; height: " + chirld.h
-					+ "px;  font-size: " + chirld.textSize + "px;" + expand + "\"  type=\"text\"  id=\"" + chirld.enname
-					+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">";
-
+			bodym+=EditText(chirld,false);
 		}
 
 		if (chirld.type.equals("ImageView")) {
-
-			if (chirld.parent.type.toLowerCase().contains("grid")
-					|| chirld.parent.parent.type.toLowerCase().contains("grid")) {
-				String columncount = "trisect";
-				String picsize = "190x284";
-				if (chirld.parent.type.toLowerCase().contains("halve")
-						|| chirld.parent.parent.type.toLowerCase().contains("halve")) {
-					columncount = "halve";
-					picsize = "290x160";
-				}
-				bodym += "<div class=\"ui-grid-" + columncount + "-img\">\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/" + picsize
-						+ ")\"></span>\n";
-				bodym += "</div>\n";
-			}
-
-			if (chirld.parent.type.toLowerCase().contains("list")
-					|| chirld.parent.parent.type.toLowerCase().contains("list")) {
-
-				bodym += "<div class=\"ui-list-img\">\n";
-				bodym += "<!--class=\"ui-avatar\"  圆形框-->\n";
-				bodym += "<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>\n";
-				bodym += "</div>\n";
-			}
-
+			bodym+=ImageView(chirld,false);
 		}
 
 		if (chirld.type.equals("ExpandableListView")) {
-
-			bodym += "<div class=\"ui-selector-content\" style=\"display:\">\n";
-			bodym += "<ul>\n";
-			bodym += "<li class=\"ui-selector-item active\">\n";
-			bodym += "<h3 class=\"ui-border-b\">\n";
-			bodym += "<p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
-			bodym += "</h3>\n";
-			bodym += "<ul class=\"ui-list ui-border-b\">\n";
-			bodym += "<li>\n";
-			bodym += "<div class=\"ui-avatar-s\">\n";
-			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
-			bodym += "</div>\n";
-			bodym += "<div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
-			bodym += "</li>\n";
-			bodym += "</ul>\n";
-			bodym += "</li>\n";
-			bodym += "  <li class=\" ui-selector-item\">\n";
-			bodym += " <h3 class=\"ui-border-b\">\n";
-			bodym += "  <p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>\n";
-			bodym += "</h3>\n";
-			bodym += "<ul class=\"ui-list ui-border-b\">\n";
-			bodym += "<li>\n";
-			bodym += "<div class=\"ui-avatar-s\">\n";
-			bodym += "<span style=\"background-image:url(../img/ava1.png)\"></span>\n";
-			bodym += " </div>\n";
-			bodym += "  <div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>\n";
-			bodym += " </li>\n";
-
-			bodym += " </ul>\n";
-			bodym += " </li>\n";
-
-			bodym += " </ul>\n";
-			bodym += " </div>\n";
+			bodym+=ExpandableListView(chirld,false);
 		}
 	}
+	
 
+
+
+		public static String Span(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<span id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</span>"+endAjax+"\n";
+		// h4 label
+		return bodym;
+
+	}
+
+
+		public static String H19(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<h4 id=\"" + chirld.enname + "\"  >" + chirld.cnname + "</h4>"+endAjax+"\n";
+		return bodym;
+
+	}
+
+
+		public static String TextView(CompomentBean chirld,boolean ajax)
+		{
+
+			String expand = "";
+			if ("1bei".equals(chirld.compmentExpandForWeb)) {
+				expand = "flex:1;";
+			}
+			if ("2bei".equals(chirld.compmentExpandForWeb)) {
+				expand = "flex:2;";
+			}
+			if ("3bei".equals(chirld.compmentExpandForWeb)) {
+				expand = "flex:3;";
+			}
+			
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<span id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size:"
+						+ chirld.textSize + "px;color:" + chirld.rgb16 + ";" + expand + "\">" + chirld.cnname
+						+ "</span>"+endAjax+"\n";
+			return bodym;
+
+	}
+	
+
+		public static String TextView_MutiLine(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym +=""+startAjax+"<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size: 12px; color: "+chirld.rgb16+"; background-color:\""+ chirld.bgRgb16 + "\";width: 90%; word-break: break-all; text-overflow: ellipsis; display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/ -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/ -webkit-line-clamp: 3; /** 显示的行数 **/ overflow: hidden;\">"+chirld.cnname+"</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		return bodym;
+	}
+	
+
+		public static String Label(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<label id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" >" + chirld.cnname
+				+ "</label>"+endAjax+"\n";
+		
+		// h4 label
+		return bodym;
+
+	}
+
+
+		public static String Progress(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<div class=\"ui-progress\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"width:50%\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		return bodym;
+		
+	}
+
+		public static String Loading(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<div class=\"ui-loading-block show\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-loading-cnt\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<i class=\"ui-loading-bright\"></i>"+endAjax+"\n";
+		bodym += ""+startAjax+"<p>正在加载中...</p>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+
+		return bodym;
+		}
+
+	
+
+	
+		public static String PopTips(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+		bodym += ""+startAjax+"<div class=\"ui-poptips ui-poptips-info\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-poptips-cnt\"><i></i>" + chirld.cnname + "</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		
+		return bodym;
+		}
+	
+
+	
+	public static String Selecter(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym += ""+startAjax+"<div  style=\"display:flex;\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<div>" + chirld.cnname + "</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-select\" style=\"border: 0.02rem solid #ddd;border-radius: 0.1rem; margin-left: 2px;margin-right:2px;\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<select id=\""+chirld.enname+"\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<option>2014</option>"+endAjax+"\n";
+		bodym += ""+startAjax+"<option selected>2015</option>"+endAjax+"\n";
+		bodym += ""+startAjax+"<option>2016</option>"+endAjax+"\n";
+		bodym += ""+startAjax+"</select>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		
+		return bodym;
+		
+	}
+	
+	
+
+		public static String DateSelecter(CompomentBean chirld,boolean ajax)
+		{
+			String bodym="";
+		    String startAjax="";
+		    String endAjax="";
+		    if(ajax)
+		    {
+		    	startAjax="itemHtml+='";
+		    	endAjax="'";
+		    }
+			bodym += ""+startAjax+"<div class=\"daily_date\">"+endAjax+"\n";
+			bodym += ""+startAjax+"<input class=\"mobile_date\" value=\"\" readonly=\"\" name=\"appDate\" id=\"start_date\" type=\"text\">"+endAjax+"\n";
+			bodym += ""+startAjax+"</div>"+endAjax+"\n";
+			return bodym;
+		}
+		
+	public static String Button(CompomentBean chirld,boolean ajax)
+	{
+
+		String expand = "";
+		if ("1bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:1;";
+		}
+		if ("2bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:2;";
+		}
+		if ("3bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:3;";
+		}
+		
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    if (chirld.picName.equals("图片名")) {
+
+			String bgcolor = "";
+			if (chirld.bgRgb16.contains("#")) {
+				bgcolor = chirld.bgRgb16;
+			}
+			String actionstring = "";
+			if (chirld.actionString != null) {
+				actionstring = chirld.actionString;
+			}
+
+			if ((chirld.parent != null && chirld.parent.type != null)) {
+
+				if (chirld.parent.type.toLowerCase().contains("tab")) {
+					actionstring = "tabBtnPress(this);";
+					expand = "flex:1;";
+				}
+			}
+			bodym += ""+startAjax+"<button  style=\"border-radius: 0.1rem;padding:6px;background-color:" + bgcolor + ";color:" + chirld.rgb16 + ";"
+					+ expand + "\"  onclick=\"" + actionstring + "\" >" + chirld.cnname + "</button>"+endAjax+"\n";
+
+		} else {
+
+			bodym += ""+startAjax+"<button  src= \"/images/" + chirld.picName + ".png\" onclick=\"" + chirld.actionString
+					+ "\"  style=\"" + expand + "\">" + chirld.cnname + "</button>"+endAjax+"\n";
+		}
+	    return bodym;
+	    
+	}
+	public static String Button_Close(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    bodym += ""+startAjax+"<a href=\"#\" class=\"ui-icon-close\"></a>"+endAjax+"\n";
+
+	    return bodym;
+	}
+	public static String Button_Query(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym +=""+startAjax+"<div style=\" top: 0.2rem;right: 0.2rem;width: 0.4rem;height: 0.4rem;background: url(<%=basePath%>images/icon-search.png) no-repeat;background-position: center center;background-size: 100% 100%;\" onclick=\"query()\"></div>"+endAjax+"\n";
+		return bodym;
+	}
+	public static String leftArrow(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym += ""+startAjax+"<div onclick=\"history.back()\" style=\"margin:10px; width: 10px; height: 10px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(225deg);\"></div>"+endAjax+"\n";
+
+		return bodym;
+	}
+	public static String rightArrow(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    bodym += ""+startAjax+"<div style=\"margin:10px; width: 7px; height: 7px; border-top: 2px solid #dfdfdf; border-right: 2px solid #dfdfdf; transform: rotate(45deg);\"></div>"+endAjax+"\n";
+        return bodym;
+	}
+	public static String CheckBox(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    bodym +=  ""+startAjax+"<label class=\"ui-checkbox\" style=\"margin:10px\">"+endAjax+"\n";
+		bodym +=  ""+startAjax+"<input type=\"checkbox\" name=\"checkbox\" value=\"\">"+endAjax+"\n";
+		bodym +=  ""+startAjax+"</label>"+endAjax+"\n";
+		bodym +=  ""+startAjax+"<p>" + chirld.cnname + "</p>"+endAjax+"\n";
+		return bodym;
+	    
+	}
+	
+	public static String CheckBox_Switch(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym += ""+startAjax+"<label class=\"ui-switch\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<input type=\"checkbox\">"+endAjax+"\n";
+		bodym += ""+startAjax+"</label>"+endAjax+"\n";
+		return bodym;
+	}
+	
+	public static String Radio(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym += ""+startAjax+"<div class=\"ui-form-item ui-form-item-radio ui-border-b\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<label class=\"ui-radio\" for=\"radio\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<input type=\"radio\" name=\"radio\" value=\"\">"+endAjax+"\n";
+		bodym += ""+startAjax+"</label>"+endAjax+"\n";
+		bodym += ""+startAjax+"<p>"+chirld.cnname+"</p>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		return bodym;
+	}
+	
+	
+	public static String File(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+		bodym += ""+startAjax+"<input type=\"file\" id=\""+chirld.enname+"\" name=\""+chirld.enname+"\"/>"+endAjax+"\n";
+		return bodym;
+	}
+	
+	
+	public static String EditText(CompomentBean chirld,boolean ajax)
+	{
+		String expand = "";
+		if ("1bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:1;";
+		}
+		if ("2bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:2;";
+		}
+		if ("3bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:3;";
+		}
+		
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    bodym += ""+startAjax+"<input style=\" border: 0.02rem solid #ddd;border-radius: 0.1rem; line-height: " + chirld.h + "px; height: " + chirld.h
+				+ "px;  font-size: " + chirld.textSize + "px;" + expand + "\"  type=\"text\"  id=\"" + chirld.enname
+				+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">"+endAjax+"\n";
+		
+		return bodym;
+		
+	}
+	
+	public static String ImageView(CompomentBean chirld,boolean ajax)
+	{String bodym="";
+    String startAjax="";
+    String endAjax="";
+    if(ajax)
+    {
+    	startAjax="itemHtml+='";
+    	endAjax="'";
+    }
+	if ((chirld.parent!=null && chirld.parent.type.toLowerCase().contains("grid"))
+			|| (chirld.parent.parent!=null && chirld.parent.parent.type.toLowerCase().contains("grid"))) {
+		String columncount = "trisect";
+		String picsize = "190x284";
+		if (chirld.parent.type.toLowerCase().contains("halve")
+				|| chirld.parent.parent.type.toLowerCase().contains("halve")) {
+			columncount = "halve";
+			picsize = "290x160";
+		}
+		bodym += ""+startAjax+"<div class=\"ui-grid-" + columncount + "-img\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"background-image:url(http://placeholder.qiniudn.com/" + picsize
+				+ ")\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+	}
+
+	if ((chirld.parent!=null && chirld.parent.type.toLowerCase().contains("list"))
+			|| (chirld.parent.parent!=null &&chirld.parent.parent.type.toLowerCase().contains("list"))) {
+
+		bodym += ""+startAjax+"<div class=\"ui-list-img\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<!--class=\"ui-avatar\"  圆形框-->"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>\n";
+	}
+	return bodym;
+	}
+	
+	public static String  ExpandableListView(CompomentBean chirld,boolean ajax)
+	{
+	    String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    
+	    bodym += ""+startAjax+"<div class=\"ui-selector-content\" style=\"display:\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<ul>"+endAjax+"\n";
+		bodym += ""+startAjax+"<li class=\"ui-selector-item active\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<h3 class=\"ui-border-b\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</h3>"+endAjax+"\n";
+		bodym += ""+startAjax+"<ul class=\"ui-list ui-border-b\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<li>"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-avatar-s\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"background-image:url(../img/ava1.png)\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</li>"+endAjax+"\n";
+		bodym += ""+startAjax+"</ul>"+endAjax+"\n";
+		bodym += ""+startAjax+"</li>"+endAjax+"\n";
+		bodym += ""+startAjax+"<li class=\" ui-selector-item\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<h3 class=\"ui-border-b\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<p>最近在玩的好友</p><span class=\"ui-txt-info\">11</span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</h3>"+endAjax+"\n";
+		bodym += ""+startAjax+"<ul class=\"ui-list ui-border-b\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<li>"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-avatar-s\">"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"background-image:url(../img/ava1.png)\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		bodym += ""+startAjax+"<div class=\"ui-list-info ui-border-t\"><h4>飞翔的企鹅</h4></div>"+endAjax+"\n";
+		bodym += ""+startAjax+"</li>"+endAjax+"\n";
+
+		bodym += ""+startAjax+"</ul>"+endAjax+"\n";
+		bodym += ""+startAjax+"</li>"+endAjax+"\n";
+
+		bodym += ""+startAjax+"</ul>"+endAjax+"\n";
+		bodym += ""+startAjax+"</div>"+endAjax+"\n";
+		return bodym;
+		}
+	
+	
+	
+	
+	
 	
 	
 	public void commonViewNeedValue(CompomentBean chirld)

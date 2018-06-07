@@ -651,6 +651,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("ActionSheetLayout");// 底部弹出菜单
 			
 			components.add("TextView");
+			components.add("TextView_MutiLine");
 			components.add("Span");
 			components.add("H1-9");
 			components.add("Label");
