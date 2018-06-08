@@ -993,7 +993,7 @@ public class WebJsp {
 		    	startAjax="itemHtml+='";
 		    	endAjax="'";
 		    }
-		bodym +=""+startAjax+"<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size: 12px; color: "+chirld.rgb16+"; background-color:\""+ chirld.bgRgb16 + "\";width: 90%; word-break: break-all; text-overflow: ellipsis; display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/ -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/ -webkit-line-clamp: 3; /** 显示的行数 **/ overflow: hidden;\">"+chirld.cnname+"</div>"+endAjax+"\n";
+		bodym +=""+startAjax+"<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size: 12px; color: "+chirld.rgb16+"; background-color:"+ chirld.bgRgb16 + ";width: 90%; word-break: break-all; text-overflow: ellipsis; display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/ -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/ -webkit-line-clamp: 3; /** 显示的行数 **/ overflow: hidden;\">"+chirld.cnname+"</div>"+endAjax+"\n";
 		bodym += ""+startAjax+"</div>"+endAjax+"\n";
 		return bodym;
 	}
