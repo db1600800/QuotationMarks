@@ -661,6 +661,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Button");
 			components.add("Button_Close");
 			components.add("Button_Query");
+			components.add("Button_A");
 			components.add("leftArrow");
 			components.add("rightArrow");
 			components.add("CheckBox");

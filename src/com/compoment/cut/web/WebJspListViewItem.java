@@ -469,11 +469,11 @@ public class WebJspListViewItem {
 				
 				if (chirld.type.equals("Button_Query")) {
 					bodym+=WebJsp.Button_Query(chirld,true);
-				
-				
 				}
 				
-				
+				if (chirld.type.equals("Button_A")) {
+					bodym+=WebJsp.Button_A(chirld,false);
+				}
 
 				if (chirld.type.equals("leftArrow")) {
 					bodym+=WebJsp.leftArrow(chirld,true);

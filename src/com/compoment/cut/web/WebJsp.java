@@ -821,6 +821,9 @@ public class WebJsp {
 		
 		}
 		
+		if (chirld.type.equals("Button_A")) {
+			bodym+=Button_A(chirld,false);
+		}
 		
 
 		if (chirld.type.equals("leftArrow")) {
@@ -993,7 +996,7 @@ public class WebJsp {
 		    	startAjax="itemHtml+='";
 		    	endAjax="'";
 		    }
-		bodym +=""+startAjax+"<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"font-size: 12px; color: "+chirld.rgb16+"; background-color:"+ chirld.bgRgb16 + ";width: 90%; word-break: break-all; text-overflow: ellipsis; display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/ -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/ -webkit-line-clamp: 3; /** 显示的行数 **/ overflow: hidden;\">"+chirld.cnname+"</div>"+endAjax+"\n";
+		bodym +=""+startAjax+"<div id=\"" + chirld.enname + "\" name =\"" + chirld.enname + "\" style=\"margin:10px;padding:10px;border-radius: 0.1rem;font-size: 12px; color: "+chirld.rgb16+"; background-color:"+ chirld.bgRgb16 + ";width: 90%; word-break: break-all; text-overflow: ellipsis; display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/ -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/ -webkit-line-clamp: 3; /** 显示的行数 **/ overflow: hidden;\">"+chirld.cnname+"</div>"+endAjax+"\n";
 		bodym += ""+startAjax+"</div>"+endAjax+"\n";
 		return bodym;
 	}
@@ -1198,6 +1201,23 @@ public class WebJsp {
 		bodym +=""+startAjax+"<div style=\" top: 0.2rem;right: 0.2rem;width: 0.4rem;height: 0.4rem;background: url(<%=basePath%>images/icon-search.png) no-repeat;background-position: center center;background-size: 100% 100%;\" onclick=\"query()\"></div>"+endAjax+"\n";
 		return bodym;
 	}
+	
+	public static String Button_A(CompomentBean chirld,boolean ajax)
+	{
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    
+		bodym +=""+startAjax+"<a href=\"#\" style=\"text-decoration:none;font-size:" + chirld.textSize + "px; color:"+chirld.rgb16+";\">"+chirld.cnname+"</a>"+endAjax+"\n";
+		return bodym;
+	}
+	
+	
 	public static String leftArrow(CompomentBean chirld,boolean ajax)
 	{
 		String bodym="";
@@ -1343,17 +1363,24 @@ public class WebJsp {
 		}
 		bodym += ""+startAjax+"<div class=\"ui-grid-" + columncount + "-img\">"+endAjax+"\n";
 		bodym += ""+startAjax+"<span style=\"background-image:url(http://placeholder.qiniudn.com/" + picsize
-				+ ")\"></span>"+endAjax+"\n";
+				+ "/"+chirld.picName+".png)\"></span>"+endAjax+"\n";
 		bodym += ""+startAjax+"</div>"+endAjax+"\n";
 	}
 
-	if ((chirld.parent!=null && chirld.parent.type.toLowerCase().contains("list"))
+	else if ((chirld.parent!=null && chirld.parent.type.toLowerCase().contains("list"))
 			|| (chirld.parent.parent!=null &&chirld.parent.parent.type.toLowerCase().contains("list"))) {
 
 		bodym += ""+startAjax+"<div class=\"ui-list-img\">"+endAjax+"\n";
 		bodym += ""+startAjax+"<!--class=\"ui-avatar\"  圆形框-->"+endAjax+"\n";
-		bodym += ""+startAjax+"<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136)\"></span>"+endAjax+"\n";
+		bodym += ""+startAjax+"<span style=\"background-image:url(http://placeholder.qiniudn.com/200x136/"+chirld.picName+".png)\"></span>"+endAjax+"\n";
 		bodym += ""+startAjax+"</div>\n";
+	}else
+	{
+
+		
+		bodym += ""+startAjax+"<img src=\"<%=basePath%>images/"+chirld.picName+".png\" style=\"width:20px;height:20px;\"></img>"+endAjax+"\n";
+
+		
 	}
 	return bodym;
 	}

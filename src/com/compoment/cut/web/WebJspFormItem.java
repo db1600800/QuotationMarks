@@ -473,7 +473,9 @@ public class WebJspFormItem {
 				
 				
 				}
-				
+				if (chirld.type.equals("Button_A")) {
+					bodym+=WebJsp.Button_A(chirld,false);
+				}
 				
 
 				if (chirld.type.equals("leftArrow")) {
