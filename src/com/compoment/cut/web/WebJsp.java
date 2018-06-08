@@ -259,10 +259,19 @@ public class WebJsp {
 
 		bodym += styleString;
 
+		
 		bodym += "<script type=\"text/javascript\">\n";
 		bodym += "$(document).ready(function(){\n";
 		bodym += "     init();\n";
-		bodym += "});\n";
+		bodym += "});\n\n";
+		
+		bodym += "function getUrlParam(name) {\n";
+		bodym += "var reg = new RegExp(\"(^|&)\" + name + \"=([^&]*)(&|$)\"); //构造一个含有目标参数的正则表达式对象\n";
+		bodym += "var r = window.location.search.substr(1).match(reg); //匹配目标参数\n";
+		bodym += "if (r != null)\n";
+		bodym += "return unescape(r[2]);\n";
+		bodym += "return null; //返回参数值\n";
+		bodym += "}\n";
 		bodym += "</script> \n\n";
 		
 		bodym += "<script type=\"text/javascript\">\n";
@@ -515,7 +524,7 @@ public class WebJsp {
 
 							jsString += "window.resultTotal=0;\n";
 							jsString += "window.pageSize=10;\n";
-							jsString += "window.currentPage=0;\n";
+							jsString += "window.currentPage=1;\n";
 							jsString += "window.requestIng=false;\n";
 						
 							jsString += " $(\".h-list\").scroll(function(){\n";
@@ -545,7 +554,7 @@ public class WebJsp {
 							jsString += "requestIng=true;\n";
 							jsString += "if(isInitQuery)\n";
 							jsString += "{\n";
-							jsString += "	window.currentPage=0;\n";
+							jsString += "	window.currentPage=1;\n";
 							jsString += "$(\".h-list\").find(\"li\").remove(); \n";
 							jsString += " }\n";
 							jsString += "$.ajax({\n";
