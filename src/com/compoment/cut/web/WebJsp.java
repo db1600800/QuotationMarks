@@ -1489,7 +1489,7 @@ public class WebJsp {
 			
 			jsString +="var itemHtml='';\n";
 			jsString +=itemString;
-			jsString += " $(\".body\").append(itemHtml); \n";
+			jsString += " $(\".h-body\").append(itemHtml); \n";
 			jsString += " }\n";
 			jsString += " }\n";
 			jsString += "});\n";
