@@ -919,6 +919,11 @@ public class WebJsp {
 		if (chirld.type.equals("EditText")) {
 			bodym+=EditText(chirld,false);
 		}
+		
+		if (chirld.type.equals("EditText_MutiLine")) {
+			bodym+=EditTextMutiLine(chirld,false);
+		}
+		
 
 		if (chirld.type.equals("ImageView")) {
 			bodym+=ImageView(chirld,false);
@@ -1347,6 +1352,44 @@ public class WebJsp {
 	    bodym += ""+startAjax+"<input style=\" border: 0.02rem solid #ddd;border-radius: 0.1rem; line-height: " + chirld.h + "px; height: " + chirld.h
 				+ "px;  font-size: " + chirld.textSize + "px;" + expand + "\"  type=\"text\"  id=\"" + chirld.enname
 				+ "\" name=\"" + chirld.enname + "\" placeholder=\"" + chirld.cnname + "\">"+endAjax+"\n";
+		
+		return bodym;
+		
+	}
+	
+	
+	
+	public static String EditTextMutiLine(CompomentBean chirld,boolean ajax)
+	{
+		String expand = "";
+		if ("1bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:1;";
+		}
+		if ("2bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:2;";
+		}
+		if ("3bei".equals(chirld.compmentExpandForWeb)) {
+			expand = "flex:3;";
+		}
+		
+		String bodym="";
+	    String startAjax="";
+	    String endAjax="";
+	    if(ajax)
+	    {
+	    	startAjax="itemHtml+='";
+	    	endAjax="'";
+	    }
+	    
+	    bodym += ""+startAjax+"		<textarea ";
+
+	    bodym += "	style=\"border: 0.02rem solid #ddd; border-radius: 0.1rem; height: 1rem; width: 100%; font-size: "+chirld.textSize+"px; margin-bottom: 1rem;"+expand+"\"";
+
+	    bodym += "	type=\"text\" id=\""+chirld.enname+"\" name=\""+chirld.enname+"\" ";
+
+	    bodym += "	placeholder=\""+chirld.cnname+"\"></textarea>"+endAjax+"\n";
+		
+
 		
 		return bodym;
 		

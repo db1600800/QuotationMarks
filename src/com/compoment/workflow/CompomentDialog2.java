@@ -657,6 +657,7 @@ public class CompomentDialog2 extends JFrame {
 			components.add("Label");
 			
 			components.add("EditText");
+			components.add("EditTextMutiLine");
 			
 			components.add("Button");
 			components.add("Button_Close");
