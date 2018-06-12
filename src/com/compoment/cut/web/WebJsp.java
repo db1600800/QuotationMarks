@@ -478,7 +478,7 @@ public class WebJsp {
 						
 						jsString += "\n<script type=\"text/javascript\">\n";
 						jsString += "//表单提交\n";
-						jsString+="var form = $(\""+chirld.enname+"\");\n";
+						jsString+="var form = $(\"#"+chirld.enname+"\");\n";
 						jsString+="form.ajaxForm({\n";
 						jsString+="beforeSubmit : function() {\n";
 						
