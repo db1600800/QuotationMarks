@@ -204,6 +204,7 @@ public class WebJsp {
 
 		bodym += "  <link rel=\"stylesheet\" href=\"<%=basePath%>css/frozen.css\">\n";
 		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.js\"></script>\n";
+		bodym += "	<script type=\"text/javascript\" src=\"<%=basePath%>js/jquery.form.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>lib/zepto.min.js\"></script>\n";
 		bodym += "	<script src=\"<%=basePath%>js/frozen.js\"></script>\n";
 		
