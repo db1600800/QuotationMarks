@@ -470,7 +470,7 @@ public class WebJsp {
 						start += "<form id=\"" + chirld.enname + "\"  enctype=\"multipart/form-data\" method=\"post\" action=\"${pageContext.request.contextPath}/___\" class=\"" + ""
 								+ "\" style=\"background-color:" + chirld.bgRgb16
 								+ ";display:flex;flex-direction:column;" + relate + border + expand + "\" >\n";
-
+						start += "<input type=\"hidden\" name=\"formBeanJson\" id=\"formBeanJson\" value=\"\"/>\n";
 						
 						end += "<input type=\"submit\" value=\"确定\"/>\n"; 
 						end += "  </form>\n";
