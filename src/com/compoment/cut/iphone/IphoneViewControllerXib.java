@@ -106,77 +106,7 @@ public class IphoneViewControllerXib extends UnicastRemoteObject implements Ipho
 
 	CompomentBean maxBean = null;
 
-	public String analyse(List<CompomentBean> oldBeans) throws RemoteException {
-
-		Collections.sort(oldBeans, comparatorDate);
-
-		try {
-			deepCopyCompomentBeans = DeepCopy.deepCopy(oldBeans);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		int maxW = 0;
-		int maxH = 0;
-		List<CompomentBean> layouts = new ArrayList<CompomentBean>();
-
-		//1. 找出容器及maxbean
-		for (CompomentBean bean : deepCopyCompomentBeans) {
-			if (bean.type.contains("Layout")) {
-				if (bean.w >= maxW) {
-					maxW = bean.w;
-					maxBean = bean;
-				}
-
-				if (bean.h >= maxH) {
-					maxH = bean.h;
-					maxBean = bean;
-				}
-
-				layouts.add(bean);
-			}
-		}
-		if (maxBean.h > 500 && maxBean.h < 569) {
-			rootViewHeight = 568;
-		}
-
-		else if (maxBean.h > 35 && maxBean.h < 41) {
-			rootViewHeight = 40;
-		} else {
-			rootViewHeight = maxBean.h;
-		}
-
-		//2.修正属于哪个父亲
-		 newParent=maxBean;
-		 parentModifyParent(maxBean); 
-		
-		
-		// 3.修正定位
-		modifyPoint();
-
-		bodym += "                    <view key=\"view\" translatesAutoresizingMaskIntoConstraints=\"NO\" contentMode=\"scaleToFill\" id=\""
-				+ maxBean.id + "\">\n";
-		bodym += "<rect key=\"frame\" x=\"0.0\" y=\"0.0\" width=\"" + rootViewWidth + "\" height=\"" + rootViewHeight
-				+ "\"/>\n";
-		bodym += "                        <autoresizingMask key=\"autoresizingMask\" flexibleMaxX=\"YES\" flexibleMaxY=\"YES\"/>\n";
-		bodym += "                        <subviews>\n";
-
-		parent(maxBean);
-
-		bodym += "                        </subviews>\n";
-		bodym += "                        <color key=\"backgroundColor\" red=\"" + maxBean.getR(maxBean.bgRgb16ios)
-				+ "\" green=\"" + maxBean.getG(maxBean.bgRgb16ios) + "\" blue=\"" + maxBean.getB(maxBean.bgRgb16ios)
-				+ "\" alpha=\"1\" colorSpace=\"calibratedRGB\"/>\n";
-
-		// bodym += constraint(maxBean);
-		bodym += "                    </view>\n";
-
-		return bodym;
-	}
+	public String analyse(List<CompomentBean> oldBeans) throws RemoteException {return "";}
 
 	public String getConnection() throws RemoteException {
 		return connection;
